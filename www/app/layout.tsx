@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "",
 };
 
-import { ThemeProvider } from "@/ui/utils/themes-provider";
+import { ThemeProvider } from "@/src/ui/utils/themes-provider";
 
 export default function RootLayout({
   children,
