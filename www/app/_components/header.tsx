@@ -29,6 +29,7 @@ export function Header() {
           <ThemeToggle />
         </NavbarContent>
         <NavbarMobile>
+          <NavbarItem type="link" href="/" label="Home" />
           <NavbarItem type="link" href="" label="Docs" />
           <NavbarItem type="link" href="" label="Blocks" />
           <NavbarItem type="link" href="" label="Templates" />
