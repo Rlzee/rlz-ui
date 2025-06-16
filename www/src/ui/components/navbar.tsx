@@ -1,144 +1,143 @@
-"use client";
+"use client"
 
 import React, {
   createContext,
   useContext,
   useState,
   useCallback,
-  ReactNode,
   useMemo,
-} from "react";
-import { Menu, X } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/src/ui/components/button";
-import { cn } from "@/src/lib/utils";
-import { useEffect, useRef } from "react";
+  useEffect,
+  useRef,
+  ReactNode,
+  ReactElement,
+} from "react"
+import { Menu, X } from "lucide-react"
+import Link from "next/link"
+import { Button } from "@/src/ui/components/button"
+import { cn } from "@/src/lib/utils"
 
 /* --------------------------- Context & Provider --------------------------- */
 
 type NavbarContextType = {
-  isOpen: boolean;
-  toggle: () => void;
-  close: () => void;
-};
-
-const NavbarContext = createContext<NavbarContextType | undefined>(undefined);
-
-function NavbarProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-  const close = useCallback(() => setIsOpen(false), []);
-
-  const value = useMemo(() => ({ isOpen, toggle, close }), [isOpen, toggle, close]);
-
-  return <NavbarContext.Provider value={value}>{children}</NavbarContext.Provider>;
+  isOpen: boolean
+  toggle: () => void
+  close: () => void
 }
 
-function useNavbar() {
-  const context = useContext(NavbarContext);
-  if (!context) {
-    throw new Error("useNavbar must be used within a NavbarProvider");
-  }
-  return context;
+const NavbarContext = createContext<NavbarContextType | undefined>(undefined)
+
+const NavbarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const toggle = useCallback(() => setIsOpen((prev) => !prev), [])
+  const close = useCallback(() => setIsOpen(false), [])
+
+  const value = useMemo(() => ({ isOpen, toggle, close }), [isOpen, toggle, close])
+
+  return <NavbarContext.Provider value={value}>{children}</NavbarContext.Provider>
+}
+
+const useNavbar = (): NavbarContextType => {
+  const context = useContext(NavbarContext)
+  if (!context) throw new Error("useNavbar must be used within a NavbarProvider")
+  return context
 }
 
 /* ------------------------------ Root Navbar ------------------------------ */
 
-function Navbar({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)}>
-      {children}
-    </nav>
-  );
-}
+const Navbar: React.FC<{ children: ReactNode; className?: string }> = ({ children, className }) => (
+  <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)}>
+    {children}
+  </nav>
+)
 
-function NavbarContent({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <div className="flex flex-col">
-      <div className={cn("flex items-center justify-between h-14 px-4", className)}>
-        {children}
-      </div>
-    </div>
-  );
-}
+const NavbarContent: React.FC<{ children: ReactNode; className?: string }> = ({
+  children,
+  className,
+}) => (
+  <div className="flex flex-col">
+    <div className={cn("flex items-center justify-between h-14 px-4", className)}>{children}</div>
+  </div>
+)
 
 /* ----------------------------- Navbar Items ------------------------------ */
 
-type NavbarItemProps =
-  | { type: "link"; href: string; label: string }
-  | { type: "button"; sectionId: string; label: string };
+type NavbarLinkItem = {
+  type: "link"
+  href: string
+  label: string
+}
 
-function NavbarItem(props: NavbarItemProps & { onClick?: () => void }) {
-  const { type, label } = props;
+type NavbarButtonItem = {
+  type: "button"
+  sectionId: string
+  label: string
+}
 
-  const Classes = "text-sm opacity-80 hover:opacity-100 transition-opacity cursor-pointer text-center";
+type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
+  onClick?: () => void
+}
 
-  const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) section.scrollIntoView({ behavior: "smooth" });
-  };
+const NavbarItem: React.FC<NavbarItemProps> = (props) => {
+  const Classes =
+    "text-sm opacity-80 hover:opacity-100 transition-opacity cursor-pointer text-center"
 
-  if (type === "link") {
+  const handleClick = () => {
+    if (props.type === "button") {
+      const section = document.getElementById(props.sectionId)
+      if (section) section.scrollIntoView({ behavior: "smooth" })
+    }
+    props.onClick?.()
+  }
+
+  if (props.type === "link") {
     return (
-      <Link
-        href={props.href}
-        className= {Classes}
-      >
-        {label}
+      <Link href={props.href} className={Classes}>
+        {props.label}
       </Link>
-    );
+    )
   }
 
   return (
-    <button
-      onClick={() => {
-        scrollToSection(props.sectionId);
-        props.onClick?.();
-      }}
-      className={Classes}
-    >
-      {label}
+    <button onClick={handleClick} className={Classes}>
+      {props.label}
     </button>
-  );
+  )
 }
 
 /* -------------------------- Responsive Sections -------------------------- */
 
-function NavbarToggle() {
-  const { isOpen, toggle } = useNavbar();
+const NavbarToggle: React.FC = () => {
+  const { isOpen, toggle } = useNavbar()
 
   return (
     <Button variant="ghost" size="icon" onClick={toggle} className="md:hidden">
       {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       <span className="sr-only">Toggle menu</span>
     </Button>
-  );
+  )
 }
 
-function NavbarDesktop({ children }: { children: ReactNode }) {
-  return <div className="hidden md:flex items-center space-x-6">{children}</div>;
-}
+const NavbarDesktop: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <div className="hidden md:flex items-center space-x-6">{children}</div>
+)
 
-function NavbarMobile({ children }: { children: React.ReactNode }) {
-  const { isOpen, close } = useNavbar();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [height, setHeight] = useState(0);
+const NavbarMobile: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const { isOpen, close } = useNavbar()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
 
   useEffect(() => {
     if (isOpen && containerRef.current) {
-      setHeight(containerRef.current.scrollHeight);
+      setHeight(containerRef.current.scrollHeight)
     } else {
-      setHeight(0);
+      setHeight(0)
     }
-  }, [isOpen]);
+  }, [isOpen])
 
   return (
     <div
-      style={{
-        maxHeight: isOpen ? `${height}px` : "0px",
-        overflow: "hidden",
-      }}
+      style={{ maxHeight: isOpen ? `${height}px` : "0px", overflow: "hidden" }}
       className={cn(
         "transition-all duration-300 ease-in-out md:hidden border-border",
         isOpen && "border-t border-border px-4 pt-4 pb-4"
@@ -146,21 +145,21 @@ function NavbarMobile({ children }: { children: React.ReactNode }) {
     >
       <div ref={containerRef} className="flex flex-col space-y-4">
         {React.Children.map(children, (child) => {
-          if (!React.isValidElement(child)) return child;
+          if (!React.isValidElement(child)) return child
 
-          const element = child as React.ReactElement<{ onClick?: () => void }>;
-          const originalOnClick = element.props.onClick;
+          const element = child as ReactElement<{ onClick?: () => void }>
+          const originalOnClick = element.props.onClick
 
           return React.cloneElement(element, {
             onClick: () => {
-              originalOnClick?.();
-              close();
+              originalOnClick?.()
+              close()
             },
-          });
+          })
         })}
       </div>
     </div>
-  );
+  )
 }
 
 /* ------------------------------ Exports ------------------------------ */
@@ -174,4 +173,4 @@ export {
   NavbarToggle,
   NavbarProvider,
   useNavbar,
-};
+}
