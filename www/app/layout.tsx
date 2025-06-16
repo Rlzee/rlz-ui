@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/src/ui/utils/themes-provider";
+import { Header } from "@/app/_components/header";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Header />
           {children}
         </ThemeProvider>
       </body>

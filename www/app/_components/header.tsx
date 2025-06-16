@@ -10,6 +10,7 @@ import {
   NavbarProvider,
 } from "@/src/ui/components/navbar";
 import { ThemeToggle } from "@/src/ui/components/toggle-theme";
+import Link from "next/link";
 
 export function Header() {
   return (
@@ -18,7 +19,8 @@ export function Header() {
         <NavbarContent>
           <NavbarToggle />
           <NavbarDesktop>
-            <NavbarItem type="link" href="" label="Docs" />
+            <Link href="/" className="font-raleway font-bold cursor-pointer">rlz/ui</Link>
+            <NavbarItem type="link" href="docs" label="Docs" />
             <NavbarItem type="link" href="" label="Blocks" />
             <NavbarItem type="link" href="" label="Templates" />
             <NavbarItem type="link" href="" label="Themes" />
