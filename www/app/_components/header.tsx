@@ -8,8 +8,8 @@ import {
   NavbarDesktop,
   NavbarMobile,
   NavbarProvider,
-} from "@/src/ui/components/advanced/navbar";
-import { ThemeToggle } from "@/src/ui/components/advanced/toggle-theme";
+} from "@/src/ui/components/navbar";
+import { ThemeToggle } from "@/src/ui/components/toggle-theme";
 
 export function Header() {
   return (
@@ -22,14 +22,16 @@ export function Header() {
             <NavbarItem type="link" href="" label="Blocks" />
             <NavbarItem type="link" href="" label="Templates" />
             <NavbarItem type="link" href="" label="Themes" />
-            <NavbarItem type="link" href=""  label="Community"/>
+            <NavbarItem type="link" href="" label="Community" />
           </NavbarDesktop>
           <ThemeToggle />
         </NavbarContent>
         <NavbarMobile>
-          <NavbarItem type="button" sectionId="home" label="Accueil" />
-          <NavbarItem type="button" sectionId="about" label="À propos" />
-          <NavbarItem type="link" href="/contact" label="Contact" />
+          <NavbarItem type="link" href="" label="Docs" />
+          <NavbarItem type="link" href="" label="Blocks" />
+          <NavbarItem type="link" href="" label="Templates" />
+          <NavbarItem type="link" href="" label="Themes" />
+          <NavbarItem type="link" href="" label="Community" />
         </NavbarMobile>
       </Navbar>
     </NavbarProvider>

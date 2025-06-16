@@ -10,8 +10,9 @@ import React, {
 } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/src/ui/components/basic/button";
+import { Button } from "@/src/ui/components/button";
 import { cn } from "@/src/lib/utils";
+import { useEffect, useRef } from "react";
 
 /* --------------------------- Context & Provider --------------------------- */
 
@@ -121,23 +122,43 @@ function NavbarDesktop({ children }: { children: ReactNode }) {
 
 function NavbarMobile({ children }: { children: React.ReactNode }) {
   const { isOpen, close } = useNavbar();
-  if (!isOpen) return null;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    if (isOpen && containerRef.current) {
+      setHeight(containerRef.current.scrollHeight);
+    } else {
+      setHeight(0);
+    }
+  }, [isOpen]);
 
   return (
-    <div className="md:hidden pt-4 pb-4 flex flex-col border-t border-border space-y-4 px-4">
-      {React.Children.map(children, (child) => {
-        if (!React.isValidElement(child)) return child;
+    <div
+      style={{
+        maxHeight: isOpen ? `${height}px` : "0px",
+        overflow: "hidden",
+      }}
+      className={cn(
+        "transition-all duration-300 ease-in-out md:hidden border-border",
+        isOpen && "border-t border-border px-4 pt-4 pb-4"
+      )}
+    >
+      <div ref={containerRef} className="flex flex-col space-y-4">
+        {React.Children.map(children, (child) => {
+          if (!React.isValidElement(child)) return child;
 
-        const element = child as React.ReactElement<{ onClick?: () => void }>;
-        const originalOnClick = element.props.onClick;
+          const element = child as React.ReactElement<{ onClick?: () => void }>;
+          const originalOnClick = element.props.onClick;
 
-        return React.cloneElement(element, {
-          onClick: () => {
-            originalOnClick?.();
-            close();
-          },
-        });
-      })}
+          return React.cloneElement(element, {
+            onClick: () => {
+              originalOnClick?.();
+              close();
+            },
+          });
+        })}
+      </div>
     </div>
   );
 }
