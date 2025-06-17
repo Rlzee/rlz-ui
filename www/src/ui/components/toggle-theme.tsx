@@ -16,7 +16,7 @@ export const ThemeToggle: React.FC = () => {
 
   if (!mounted) {
     return (
-      <Button variant="ghost" className="size-8 rounded-full" aria-label="Toggle theme">
+      <Button variant="ghost" className="rounded-md" aria-label="Toggle theme">
         <SunDim className="size-5" />
       </Button>
     )
@@ -28,7 +28,8 @@ export const ThemeToggle: React.FC = () => {
     <Button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       variant="ghost"
-      className="size-8 rounded-full"
+      size="icon"
+      className="rounded-md"
       aria-label="Toggle theme"
     >
       {isDark ? <SunDim className="size-5" /> : <MoonStar className="size-4" />}
