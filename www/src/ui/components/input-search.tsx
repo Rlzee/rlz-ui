@@ -10,7 +10,7 @@ interface InputSearchProps {
 }
 
 const InputSearch: React.FC<InputSearchProps> = ({
-  className = "",
+  className,
   placeholder = "Search",
 }) => {
   const [isMac, setIsMac] = useState(false);
@@ -33,20 +33,20 @@ const InputSearch: React.FC<InputSearchProps> = ({
   return (
     <Button
       variant="secondary"
+      size="sm"
       onClick={handleClick}
-      size={"sm"}
       className={cn(
-        "relative w-full rounded-md text-sm font-normal text-muted-foreground sm:pr-12 md:w-40 lg:w-56 xl:w-64 text-start",
+        "flex justify-between items-center gap-2 px-3 py-1.5 font-normal",
+        "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
+
         className
       )}
       aria-label="Open search"
     >
-      <span className="text-muted-foreground/50">{placeholder}</span>
-      <kbd className="pointer-events-none absolute right-[0.3rem] top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded-md bg-background px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex dark:shadow-none shadow-xs">
-        <span className="text-xs text-muted-foreground">
-          {isMac ? "⌘" : "Ctrl"}
-        </span>
-        K
+      <span className="truncate text-muted-foreground/50">{placeholder}</span>
+      <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[10px] font-mono rounded-md shadow-sm">
+        <span className="text-xs">{isMac ? "⌘" : "Ctrl"}</span>
+        <span>K</span>
       </kbd>
     </Button>
   );

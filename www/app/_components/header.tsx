@@ -28,7 +28,7 @@ export function Header() {
             <NavbarItem type="link" href="" label="Community" />
           </NavbarDesktop>
           <div className="flex items-center gap-2 ml-auto">
-            <InputSearch className="hidden md:inline-block" placeholder="Search" />
+            <InputSearch placeholder="Search documentation..." />
             <Separator orientation="vertical" className="h-6 hidden md:inline-block" />
             <ThemeToggle />
           </div>
