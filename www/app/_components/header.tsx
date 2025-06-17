@@ -10,8 +10,8 @@ import {
   NavbarProvider,
 } from "@/src/ui/components/navbar";
 import { ThemeToggle } from "@/src/ui/components/toggle-theme";
-import Link from "next/link";
 import { InputSearch } from "@/src/ui/components/input-search";
+import { Separator } from "@/src/ui/components/separator";
 
 export function Header() {
   return (
@@ -29,6 +29,7 @@ export function Header() {
           </NavbarDesktop>
           <div className="flex items-center gap-2 ml-auto">
             <InputSearch className="hidden md:inline-block" placeholder="Search" />
+            <Separator orientation="vertical" className="h-6 hidden md:inline-block" />
             <ThemeToggle />
           </div>
         </NavbarContent>

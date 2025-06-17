@@ -42,7 +42,7 @@ const InputSearch: React.FC<InputSearchProps> = ({
       aria-label="Open search"
     >
       <span className="text-muted-foreground/50">{placeholder}</span>
-      <kbd className="pointer-events-none absolute right-[0.3rem] top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded-md bg-background px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+      <kbd className="pointer-events-none absolute right-[0.3rem] top-1/2 -translate-y-1/2 hidden h-5 select-none items-center gap-1 rounded-md bg-background px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex dark:shadow-none shadow-xs">
         <span className="text-xs text-muted-foreground">
           {isMac ? "⌘" : "Ctrl"}
         </span>
