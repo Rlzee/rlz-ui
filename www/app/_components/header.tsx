@@ -35,7 +35,7 @@ export function Header() {
         </NavbarContent>
         <NavbarMobile>
           <NavbarItem type="link" href="/" label="Home" />
-          <NavbarItem type="link" href="" label="Docs" />
+          <NavbarItem type="link" href="docs" label="Docs" />
           <NavbarItem type="link" href="" label="Blocks" />
           <NavbarItem type="link" href="" label="Templates" />
           <NavbarItem type="link" href="" label="Themes" />
