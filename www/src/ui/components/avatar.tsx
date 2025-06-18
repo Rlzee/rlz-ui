@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import * as React from "react"
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
@@ -20,14 +20,14 @@ const sizeClasses: Record<AvatarSize, string> = {
   lg: "size-12",
 }
 
-const Avatar: React.FC<AvatarProps> = ({
+const Avatar = ({
   src,
   alt,
   initials,
   size = "md",
   className,
   ...props
-}) => {
+}: AvatarProps): JSX.Element => {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
@@ -49,7 +49,5 @@ const Avatar: React.FC<AvatarProps> = ({
     </AvatarPrimitive.Root>
   )
 }
-
-Avatar.displayName = "Avatar"
 
 export { Avatar }
