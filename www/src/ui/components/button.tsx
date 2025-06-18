@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default:
           "from-blue-500/85 to-blue-500 text-white inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-blue-500/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50",
         destructive:
-          "bg-destructive text-white shadow-xs hover:bg-destructive/70 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-destructive text-white shadow-xs focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 hover:opacity-80",
         outline:
           "border bg-secondary shadow-xs hover:text-accent-foreground border-border hover:bg-secondary/80",
         secondary:
