@@ -23,17 +23,17 @@ const badgeVariants = cva(
 )
 
 interface BadgeProps
-  extends React.HTMLAttributes<HTMLSpanElement>,
+  extends React.ComponentProps<"span">,
     VariantProps<typeof badgeVariants> {
   asChild?: boolean
 }
 
-const Badge: React.FC<BadgeProps> = ({
+const Badge = ({
   className,
   variant,
   asChild = false,
   ...props
-}) => {
+}: BadgeProps) => {
   const Comp = asChild ? Slot : "span"
 
   return (
@@ -44,7 +44,5 @@ const Badge: React.FC<BadgeProps> = ({
     />
   )
 }
-
-Badge.displayName = "Badge"
 
 export { Badge, badgeVariants }

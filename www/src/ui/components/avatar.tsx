@@ -27,7 +27,7 @@ const Avatar = ({
   size = "md",
   className,
   ...props
-}: AvatarProps): JSX.Element => {
+}: AvatarProps) => {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"

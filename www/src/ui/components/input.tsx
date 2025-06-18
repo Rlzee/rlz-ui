@@ -1,11 +1,11 @@
 import * as React from "react"
 import { cn } from "@/src/lib/utils"
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface InputProps extends React.ComponentProps<"input"> {
   className?: string
 }
 
-const Input: React.FC<InputProps> = ({ className, type = "text", ...props }) => {
+const Input = ({ className, type = "text", ...props }: InputProps) => {
   return (
     <input
       type={type}
@@ -19,7 +19,5 @@ const Input: React.FC<InputProps> = ({ className, type = "text", ...props }) => 
     />
   )
 }
-
-Input.displayName = "Input"
 
 export { Input }

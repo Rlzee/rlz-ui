@@ -10,11 +10,11 @@ interface SeparatorProps extends HTMLMotionProps<"div"> {
   className?: string
 }
 
-const SeparatorBorder: React.FC<SeparatorProps> = ({
+const SeparatorBorder = ({
   orientation = "horizontal",
   className,
   ...props
-}) => {
+}: SeparatorProps) => {
   const isHorizontal = orientation === "horizontal"
 
   return (

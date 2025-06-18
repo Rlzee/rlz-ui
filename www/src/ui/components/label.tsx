@@ -4,11 +4,11 @@ import * as React from "react"
 import * as LabelPrimitive from "@radix-ui/react-label"
 import { cn } from "@/src/lib/utils"
 
-interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {
+interface LabelProps extends React.ComponentProps<typeof LabelPrimitive.Root> {
   className?: string
 }
 
-const Label: React.FC<LabelProps> = ({ className, ...props }) => {
+const Label = ({ className, ...props }: LabelProps) => {
   return (
     <LabelPrimitive.Root
       data-slot="label"
@@ -20,7 +20,5 @@ const Label: React.FC<LabelProps> = ({ className, ...props }) => {
     />
   )
 }
-
-Label.displayName = "Label"
 
 export { Label }

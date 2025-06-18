@@ -6,11 +6,7 @@ import { useTheme } from 'next-themes'
 import { cn } from '@/src/lib/utils'
 import { Button } from '@/src/ui/components/button'
 
-interface ThemeToggleProps {
-  className?: string
-}
-
-const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
+const ThemeToggle = ({ className, ...props }: React.ComponentProps<"button"> ) => {
   const [mounted, setMounted] = React.useState(false)
   const { theme = 'light', setTheme } = useTheme()
 
@@ -35,12 +31,11 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ className }) => {
       size="icon"
       className={cn("rounded-md", className)}
       aria-label="Toggle theme"
+      {...props}
     >
       {isDark ? <SunDim className="size-5" /> : <MoonStar className="size-4" />}
     </Button>
   )
 }
-
-ThemeToggle.displayName = "ThemeToggle"
 
 export { ThemeToggle }

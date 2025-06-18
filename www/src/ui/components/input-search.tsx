@@ -9,10 +9,10 @@ interface InputSearchProps {
   placeholder?: string;
 }
 
-const InputSearch: React.FC<InputSearchProps> = ({
+const InputSearch = ({
   className,
   placeholder = "Search",
-}) => {
+}: InputSearchProps) => {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
@@ -51,7 +51,5 @@ const InputSearch: React.FC<InputSearchProps> = ({
     </Button>
   );
 };
-
-InputSearch.displayName = "InputSearch";
 
 export { InputSearch };

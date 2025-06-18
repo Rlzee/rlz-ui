@@ -8,8 +8,8 @@ import React, {
   useMemo,
   useEffect,
   useRef,
-  ReactNode,
   ReactElement,
+  ReactNode,
 } from "react"
 import { Menu, X } from "lucide-react"
 import Link from "next/link"
@@ -24,9 +24,9 @@ type NavbarContextType = {
   close: () => void
 }
 
-const NavbarContext = createContext<NavbarContextType | undefined>(undefined)
+const NavbarContext = createContext<NavbarContextType | null>(null)
 
-const NavbarProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+const NavbarProvider = ({ children }:  { children: ReactNode } ) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggle = useCallback(() => setIsOpen((prev) => !prev), [])
@@ -45,16 +45,16 @@ const useNavbar = (): NavbarContextType => {
 
 /* ------------------------------ Root Navbar ------------------------------ */
 
-const Navbar: React.FC<{ children: ReactNode; className?: string }> = ({ children, className }) => (
-  <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)}>
+const Navbar = ({ children, className, ...props }: React.ComponentProps<"nav"> ) => (
+  <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)} {...props}>
     {children}
   </nav>
 )
 
-const NavbarContent: React.FC<{ children: ReactNode; className?: string }> = ({
+const NavbarContent = ({
   children,
   className,
-}) => (
+}: React.ComponentProps<"div"> ) => (
   <div className="flex flex-col">
     <div className={cn("flex items-center justify-between h-14 px-4", className)}>{children}</div>
   </div>
@@ -78,7 +78,7 @@ type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
   onClick?: () => void
 }
 
-const NavbarItem: React.FC<NavbarItemProps> = (props) => {
+const NavbarItem = (props: NavbarItemProps) => {
   const Classes =
     "text-sm opacity-80 hover:opacity-100 transition-opacity cursor-pointer text-center"
 
@@ -107,7 +107,7 @@ const NavbarItem: React.FC<NavbarItemProps> = (props) => {
 
 /* -------------------------- Responsive Sections -------------------------- */
 
-const NavbarToggle: React.FC = () => {
+const NavbarToggle = () => {
   const { isOpen, toggle } = useNavbar()
 
   return (
@@ -118,11 +118,11 @@ const NavbarToggle: React.FC = () => {
   )
 }
 
-const NavbarDesktop: React.FC<{ children: ReactNode }> = ({ children }) => (
+const NavbarDesktop = ({ children }: React.ComponentProps<"div"> ) => (
   <div className="hidden md:flex items-center space-x-6">{children}</div>
 )
 
-const NavbarMobile: React.FC<{ children: ReactNode }> = ({ children }) => {
+const NavbarMobile = ({ children }: React.ComponentProps<"div"> ) => {
   const { isOpen, close } = useNavbar()
   const containerRef = useRef<HTMLDivElement>(null)
   const [height, setHeight] = useState(0)

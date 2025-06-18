@@ -3,15 +3,15 @@
 import * as React from "react"
 import { cn } from "@/src/lib/utils"
 
-interface SeparatorProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SeparatorProps extends React.ComponentProps<"div"> {
   orientation?: "horizontal" | "vertical"
 }
 
-const Separator: React.FC<SeparatorProps> = ({
+const Separator = ({
   className,
   orientation = "horizontal",
   ...props
-}) => {
+}: SeparatorProps) => {
   return (
     <div
       role="separator"
@@ -26,7 +26,5 @@ const Separator: React.FC<SeparatorProps> = ({
     />
   )
 }
-
-Separator.displayName = "Separator"
 
 export { Separator }

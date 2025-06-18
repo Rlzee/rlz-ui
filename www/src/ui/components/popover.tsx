@@ -6,36 +6,34 @@ import { cn } from "@/src/lib/utils"
 
 /* ------------------------------ Root Popover ------------------------------ */
 
-interface PopoverProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
-const Popover: React.FC<PopoverProps> = (props) => (
+interface PopoverProps extends React.ComponentProps<typeof PopoverPrimitive.Root> {}
+const Popover = (props: PopoverProps) => (
   <PopoverPrimitive.Root data-slot="popover" {...props} />
 )
-Popover.displayName = "Popover"
 
 /* ------------------------------ Trigger Popover ------------------------------ */
 
-interface PopoverTriggerProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Trigger> {}
-const PopoverTrigger: React.FC<PopoverTriggerProps> = (props) => (
+interface PopoverTriggerProps extends React.ComponentProps<typeof PopoverPrimitive.Trigger> {}
+const PopoverTrigger = (props: PopoverTriggerProps) => (
   <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
 )
-PopoverTrigger.displayName = "PopoverTrigger"
 
 /* ------------------------------ Content Popover ------------------------------ */
 
-interface PopoverContentProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Content> {
+interface PopoverContentProps extends React.ComponentProps<typeof PopoverPrimitive.Content> {
   className?: string
   align?: "start" | "center" | "end"
   side?: "top" | "right" | "bottom" | "left"
   sideOffset?: number
 }
 
-const PopoverContent: React.FC<PopoverContentProps> = ({
+const PopoverContent = ({
   className,
   align = "center",
   side = "bottom",
   sideOffset = 4,
   ...props
-}) => (
+}: PopoverContentProps) => (
   <PopoverPrimitive.Portal>
     <PopoverPrimitive.Content
       data-slot="popover-content"
@@ -56,15 +54,13 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
     />
   </PopoverPrimitive.Portal>
 )
-PopoverContent.displayName = "PopoverContent"
 
 /* ------------------------------ Anchor Popover ------------------------------ */
 
-interface PopoverAnchorProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Anchor> {}
-const PopoverAnchor: React.FC<PopoverAnchorProps> = (props) => (
+interface PopoverAnchorProps extends React.ComponentProps<typeof PopoverPrimitive.Anchor> {}
+const PopoverAnchor = (props: PopoverAnchorProps) => (
   <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
 )
-PopoverAnchor.displayName = "PopoverAnchor"
 
 /* ------------------------------ Exports ------------------------------ */
 
