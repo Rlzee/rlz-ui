@@ -66,7 +66,7 @@ export function Hero() {
               <Button asChild>
                 <Link href="/docs">Get Started</Link>
               </Button>
-              <Button variant="secondary" asChild>
+              <Button variant="outline" asChild>
                 <Link href="/docs/components">Explore Components</Link>
               </Button>
             </div>

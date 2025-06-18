@@ -68,7 +68,6 @@
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
 }
 
 .separator-diagonal-bg {
