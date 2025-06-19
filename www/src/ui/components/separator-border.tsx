@@ -19,15 +19,21 @@ const SeparatorBorder = ({
 
   return (
     <motion.div
-      role="separator"
-      data-slot="separator-border"
       className={cn(
         isHorizontal ? "w-full h-6 border-y" : "h-full w-6 border-x",
-        "separator-diagonal-bg border-[var(--border)]",
+        "relative z-[1] border-border",
         className
       )}
       {...props}
-    />
+    >
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-0 -z-10",
+          "before:content-[''] before:absolute before:inset-0",
+          "before:bg-[repeating-linear-gradient(-45deg,var(--border),var(--border)_1px,transparent_1px,transparent_6px)]"
+        )}
+      />
+    </motion.div>
   )
 }
 

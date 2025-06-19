@@ -4,17 +4,17 @@ import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { cn } from "@/src/lib/utils"
 
-type BorderType = "top" | "right" | "bottom" | "left" | "x" | "y"
-type BorderAnim = "bottom" | "top" | "left" | "right"
+type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y"
+type Animation = "bottom" | "top" | "left" | "right"
 
 interface BorderFlashProps {
-  border: BorderType
-  borderAnim: BorderAnim
+  border: Orientation
+  borderAnim: Animation
   dashed?: boolean
   className?: string
 }
 
-const getBorderAnim = (side: BorderAnim) => {
+const getBorderAnim = (side: Animation) => {
   const base = { duration: 1, ease: "easeOut" as const }
 
   switch (side) {
@@ -74,7 +74,7 @@ const BorderFlash = ({
     }
   }, [])
 
-  const borderClassMap: Record<BorderType, string> = {
+  const borderClassMap: Record<Orientation, string> = {
     top: "border-t",
     right: "border-r",
     bottom: "border-b",
@@ -85,14 +85,29 @@ const BorderFlash = ({
 
   return (
     <motion.div
-      data-slot="border-flash"
       aria-hidden="true"
       className={cn(
-        "border-border",
+        "transition-[border-color,opacity]",
+        "duration-100 ease-in-out",
         borderClassMap[border],
+        "border-border",
         className,
         dashed && "border-dashed",
-        flash && (removeFlash ? "border-flash-remove" : "border-flash")
+        flash &&
+          (removeFlash
+            ? [
+                "opacity-0",
+                "transition-[border-color,opacity]",
+                "duration-600 ease-in-out",
+                "border-[color:var(--border)]",
+              ]
+            : [
+                "opacity-100",
+                "transition-[border-color,opacity]",
+                "duration-100 ease-in-out",
+                "border-[oklch(0_0_0)]",
+                "dark:border-[oklch(1_0_0)]",
+              ])
       )}
       {...getBorderAnim(borderAnim)}
     />

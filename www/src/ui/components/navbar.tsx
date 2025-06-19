@@ -34,7 +34,7 @@ const NavbarProvider = ({ children }:  { children: ReactNode } ) => {
 
   const value = useMemo(() => ({ isOpen, toggle, close }), [isOpen, toggle, close])
 
-  return <NavbarContext.Provider value={value}>{children}</NavbarContext.Provider>
+  return <NavbarContext.Provider value={value} data-slot="navbar-provider">{children}</NavbarContext.Provider>
 }
 
 const useNavbar = (): NavbarContextType => {
@@ -50,6 +50,8 @@ const Navbar = ({ children, className, ...props }: React.ComponentProps<"nav"> )
     {children}
   </nav>
 )
+
+/* ----------------------------- Navbar Content ----------------------------- */
 
 const NavbarContent = ({
   children,
