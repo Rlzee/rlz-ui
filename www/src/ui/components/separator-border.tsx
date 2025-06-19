@@ -19,6 +19,8 @@ const SeparatorBorder = ({
 
   return (
     <motion.div
+      role="separator"
+      data-slot="separator-border"
       className={cn(
         isHorizontal ? "w-full h-6 border-y" : "h-full w-6 border-x",
         "separator-diagonal-bg border-[var(--border)]",

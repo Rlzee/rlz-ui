@@ -46,7 +46,7 @@ const useNavbar = (): NavbarContextType => {
 /* ------------------------------ Root Navbar ------------------------------ */
 
 const Navbar = ({ children, className, ...props }: React.ComponentProps<"nav"> ) => (
-  <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)} {...props}>
+  <nav className={cn("z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg", className)} {...props} data-slot="navbar">
     {children}
   </nav>
 )
@@ -55,7 +55,7 @@ const NavbarContent = ({
   children,
   className,
 }: React.ComponentProps<"div"> ) => (
-  <div className="flex flex-col">
+  <div className="flex flex-col" data-slot="navbar-content">
     <div className={cn("flex items-center justify-between h-14 px-4", className)}>{children}</div>
   </div>
 )
@@ -92,14 +92,14 @@ const NavbarItem = (props: NavbarItemProps) => {
 
   if (props.type === "link") {
     return (
-      <Link href={props.href} className={Classes}>
+      <Link href={props.href} className={Classes} data-slot="navbar-link-item">
         {props.label}
       </Link>
     )
   }
 
   return (
-    <button onClick={handleClick} className={Classes}>
+    <button onClick={handleClick} className={Classes} data-slot="navbar-button-item">
       {props.label}
     </button>
   )
@@ -111,7 +111,7 @@ const NavbarToggle = () => {
   const { isOpen, toggle } = useNavbar()
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggle} className="md:hidden">
+    <Button variant="ghost" size="icon" onClick={toggle} className="md:hidden" data-slot="navbar-toggle">
       {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       <span className="sr-only">Toggle menu</span>
     </Button>
@@ -119,7 +119,7 @@ const NavbarToggle = () => {
 }
 
 const NavbarDesktop = ({ children }: React.ComponentProps<"div"> ) => (
-  <div className="hidden md:flex items-center space-x-6">{children}</div>
+  <div className="hidden md:flex items-center space-x-6" data-slot="navbar-desktop">{children}</div>
 )
 
 const NavbarMobile = ({ children }: React.ComponentProps<"div"> ) => {
@@ -137,6 +137,7 @@ const NavbarMobile = ({ children }: React.ComponentProps<"div"> ) => {
 
   return (
     <div
+      data-slot="navbar-mobile"
       style={{ maxHeight: isOpen ? `${height}px` : "0px", overflow: "hidden" }}
       className={cn(
         "transition-all duration-300 ease-in-out md:hidden border-border",

@@ -26,6 +26,7 @@ const ThemeToggle = ({ className, ...props }: React.ComponentProps<"button"> ) =
 
   return (
     <Button
+      data-slot="theme-toggle"
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
       variant="ghost"
       size="icon"

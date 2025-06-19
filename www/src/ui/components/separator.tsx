@@ -15,6 +15,7 @@ const Separator = ({
   return (
     <div
       role="separator"
+      data-slot="separator"
       aria-orientation={orientation}
       className={cn(
         orientation === "vertical"

@@ -32,6 +32,7 @@ const InputSearch = ({
 
   return (
     <Button
+      data-slot="input-search"
       variant="secondary"
       size="sm"
       onClick={handleClick}

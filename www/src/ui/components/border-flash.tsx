@@ -85,6 +85,7 @@ const BorderFlash = ({
 
   return (
     <motion.div
+      data-slot="border-flash"
       aria-hidden="true"
       className={cn(
         "border-border",
