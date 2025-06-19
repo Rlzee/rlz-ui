@@ -42,7 +42,7 @@ const Avatar = ({
         />
       )}
       <AvatarPrimitive.Fallback
-        className="bg-muted flex size-full items-center justify-center rounded-full text-sm font-medium"
+        className="bg-secondary flex size-full items-center justify-center rounded-full text-sm font-medium"
       >
         {initials}
       </AvatarPrimitive.Fallback>

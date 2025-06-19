@@ -9,16 +9,16 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "from-blue-500/85 to-blue-500 text-white inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-blue-500/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50",
-        destructive:
-          "bg-destructive text-white shadow-xs focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 hover:opacity-80",
-        outline:
-          "border bg-secondary shadow-xs hover:text-accent-foreground border-border hover:bg-secondary/80",
+        primary:
+          "from-primary/85 to-primary text-primary-foreground inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+          "bg-secondary text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
+        outline:
+          "border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
         ghost:
-          "hover:text-accent-foreground hover:bg-secondary",
+          "hover:bg-secondary text-secondary-foreground",
+        destructive:
+          "bg-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 hover:opacity-80 text-destructive-foreground",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -28,7 +28,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "primary",
       size: "default",
     },
   }
