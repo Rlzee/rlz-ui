@@ -7,13 +7,13 @@ import { cn } from "@/src/lib/utils";
 interface InputSearchProps {
   className?: string;
   placeholder?: string;
-  key?: string;
+  shortcutKey?: string;
 }
 
 const InputSearch = ({
   className,
   placeholder = "Search",
-  key = "k",
+  shortcutKey = "k",
 }: InputSearchProps) => {
   const [isMac, setIsMac] = useState(false);
 
@@ -49,7 +49,7 @@ const InputSearch = ({
       <span className="truncate text-muted-foreground">{placeholder}</span>
       <kbd className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[10px] font-mono rounded-md shadow-sm">
         <span className="text-xs">{isMac ? "⌘" : "Ctrl"}</span>
-        <span>{key}</span>
+        <span>{shortcutKey}</span>
       </kbd>
     </Button>
   );

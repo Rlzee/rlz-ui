@@ -6,10 +6,10 @@ import { cn } from "@/src/lib/utils"
 
 type AvatarSize = "sm" | "md" | "lg"
 
-interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
+interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive.Root> {
   src?: string
   alt?: string
-  initials?: string
+  fallback?: string
   size?: AvatarSize
   className?: string
 }
@@ -20,10 +20,15 @@ const sizeClasses: Record<AvatarSize, string> = {
   lg: "size-12",
 }
 
+const isImageUrl = (value?: string) => {
+  if (!value) return false
+  return /^(https?:\/\/|\/).+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(value)
+}
+
 const Avatar = ({
   src,
   alt,
-  initials,
+  fallback,
   size = "md",
   className,
   ...props
@@ -38,13 +43,21 @@ const Avatar = ({
         <AvatarPrimitive.Image
           src={src}
           alt={alt}
-          className="aspect-square size-full"
+          className="aspect-square size-full object-cover"
         />
       )}
       <AvatarPrimitive.Fallback
         className="bg-secondary flex size-full items-center justify-center rounded-full text-sm font-medium"
       >
-        {initials}
+        {isImageUrl(fallback) ? (
+          <img
+            src={fallback}
+            alt="fallback"
+            className="aspect-square size-full object-cover rounded-full"
+          />
+        ) : (
+          fallback
+        )}
       </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
   )
