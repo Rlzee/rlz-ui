@@ -27,18 +27,18 @@ export function Hero() {
       <main className="mx-auto xl:mx-52 lg:mx-8 md:px-4 relative">
         <BorderFlash
           border="left"
-          borderAnim="top"
+          Animation="top"
           className="hidden lg:block absolute top-0 left-0 h-full"
         />
         <BorderFlash
           border="right"
-          borderAnim="bottom"
+          Animation="bottom"
           className="hidden lg:block absolute top-0 right-0 h-full"
         />
         <div className="h-auto lg:max-w-4xl mx-auto md:px-8">
           <BorderFlash
             border="x"
-            borderAnim="top"
+            Animation="top"
             className="lg:h-20 h-4 mb-4 lg:visible invisible"
             dashed
           />
@@ -48,7 +48,7 @@ export function Hero() {
             </h1>
             <BorderFlash
               border="top"
-              borderAnim="left"
+              Animation="left"
               className="mt-2"
               dashed
             />
@@ -58,7 +58,7 @@ export function Hero() {
             </p>
             <BorderFlash
               border="top"
-              borderAnim="right"
+              Animation="right"
               className="mt-2"
               dashed
             />
@@ -73,13 +73,13 @@ export function Hero() {
           </div>
           <BorderFlash
             border="x"
-            borderAnim="bottom"
+            Animation="bottom"
             className="lg:h-20 h-4 mt-4 lg:visible invisible"
             dashed
           />
         </div>
       </main>
-      <BorderFlash border="top" borderAnim="left" />
+      <BorderFlash border="top" Animation="left" />
     </section>
   );
 }

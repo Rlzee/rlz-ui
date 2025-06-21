@@ -9,7 +9,7 @@ type Animation = "bottom" | "top" | "left" | "right"
 
 interface BorderFlashProps {
   border: Orientation
-  borderAnim: Animation
+  Animation: Animation
   dashed?: boolean
   className?: string
 }
@@ -51,7 +51,7 @@ const getBorderAnim = (side: Animation) => {
 
 const BorderFlash = ({
   border,
-  borderAnim,
+  Animation,
   dashed = false,
   className,
 }: BorderFlashProps) => {
@@ -109,7 +109,7 @@ const BorderFlash = ({
                 "dark:border-[oklch(1_0_0)]",
               ])
       )}
-      {...getBorderAnim(borderAnim)}
+      {...getBorderAnim(Animation)}
     />
   )
 }
