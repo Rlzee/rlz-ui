@@ -12,6 +12,7 @@ import {
 import { ThemeToggle } from "@/src/ui/components/toggle-theme";
 import { InputSearch } from "@/src/ui/components/input-search";
 import { Separator } from "@/src/ui/components/separator";
+import { navLinks } from "./_data/data";
 
 export function Header() {
   return (
@@ -20,12 +21,9 @@ export function Header() {
         <NavbarContent>
           <NavbarToggle />
           <NavbarDesktop>
-            <NavbarItem type="link" href="/" label="Home" />
-            <NavbarItem type="link" href="docs" label="Docs" />
-            <NavbarItem type="link" href="" label="Blocks" />
-            <NavbarItem type="link" href="" label="Templates" />
-            <NavbarItem type="link" href="" label="Themes" />
-            <NavbarItem type="link" href="" label="Community" />
+            {navLinks.map((link, index) => (
+              <NavbarItem key={index} type="link" href={link.href} label={link.label} />
+            ))}
           </NavbarDesktop>
           <div className="flex items-center gap-2 ml-auto">
             <InputSearch placeholder="Search documentation..." />
@@ -34,12 +32,9 @@ export function Header() {
           </div>
         </NavbarContent>
         <NavbarMobile>
-          <NavbarItem type="link" href="/" label="Home" />
-          <NavbarItem type="link" href="docs" label="Docs" />
-          <NavbarItem type="link" href="" label="Blocks" />
-          <NavbarItem type="link" href="" label="Templates" />
-          <NavbarItem type="link" href="" label="Themes" />
-          <NavbarItem type="link" href="" label="Community" />
+          {navLinks.map((link, index) => (
+            <NavbarItem key={index} type="link" href={link.href} label={link.label} />
+          ))}
         </NavbarMobile>
       </Navbar>
     </NavbarProvider>
