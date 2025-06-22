@@ -1,11 +1,11 @@
 "use client"
 
-import { motion, type HTMLMotionProps } from "framer-motion"
 import { cn } from "@/src/lib/utils"
+import * as React from "react"
 
 type Orientation = "horizontal" | "vertical"
 
-interface SeparatorProps extends HTMLMotionProps<"div"> {
+interface SeparatorProps extends React.ComponentProps<"div"> {
   orientation?: Orientation
   className?: string
 }
@@ -18,7 +18,8 @@ const SeparatorBorder = ({
   const isHorizontal = orientation === "horizontal"
 
   return (
-    <motion.div
+    <div
+      data-slot="separator-border"
       className={cn(
         isHorizontal ? "w-full h-6 border-y" : "h-full w-6 border-x",
         "relative z-[1] border-border",
@@ -33,7 +34,7 @@ const SeparatorBorder = ({
           "before:bg-[repeating-linear-gradient(-45deg,var(--border),var(--border)_1px,transparent_1px,transparent_6px)]"
         )}
       />
-    </motion.div>
+    </div>
   )
 }
 

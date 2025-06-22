@@ -1,29 +1,12 @@
 "use client";
 
-import { SeparatorBorder } from "@/src/ui/components/separator-border";
 import { Button } from "@/src/ui/components/button";
 import Link from "next/link";
 import { BorderFlash } from "@/src/ui/components/border-flash";
 
-const separatorAnim = {
-  initial: { y: -1000 },
-  animate: { y: 0 },
-  transition: { duration: 0.8, ease: "easeOut" as const },
-};
-
 export function Hero() {
   return (
     <section className="bg-background relative overflow-hidden">
-      {/* <SeparatorBorder
-        orientation="vertical"
-        className="fixed left-0 top-0 h-screen md:w-12 w-0 invisible md:visible"
-        {...separatorAnim}
-      />
-      <SeparatorBorder
-        orientation="vertical"
-        className="fixed right-0 top-0 h-screen md:w-12 w-0 invisible md:visible"
-        {...separatorAnim}
-      /> */}
       <main className="mx-auto xl:mx-52 lg:mx-8 md:px-4 relative">
         <BorderFlash
           border="left"
