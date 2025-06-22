@@ -109,11 +109,11 @@ const NavbarItem = (props: NavbarItemProps) => {
 
 /* -------------------------- Responsive Sections -------------------------- */
 
-const NavbarToggle = () => {
+const NavbarToggle = ({ className }: React.ComponentProps<"button">) => {
   const { isOpen, toggle } = useNavbar()
 
   return (
-    <Button variant="ghost" size="icon" onClick={toggle} className="md:hidden" data-slot="navbar-toggle">
+    <Button variant="ghost" size="icon" onClick={toggle} className={cn("md:hidden", className)} data-slot="navbar-toggle">
       {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       <span className="sr-only">Toggle menu</span>
     </Button>
