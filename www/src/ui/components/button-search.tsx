@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 import { Button } from "@/src/ui/components/button";
 import { cn } from "@/src/lib/utils";
 
-interface InputSearchProps {
+interface ButtonSearchProps {
   className?: string;
   placeholder?: string;
   shortcutKey?: string;
 }
 
-const InputSearch = ({
+const ButtonSearch = ({
   className,
   placeholder = "Search",
   shortcutKey = "k",
-}: InputSearchProps) => {
+}: ButtonSearchProps) => {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const InputSearch = ({
 
   return (
     <Button
-      data-slot="input-search"
+      data-slot="button-search"
       variant="secondary"
       size="sm"
       onClick={handleClick}
@@ -55,4 +55,4 @@ const InputSearch = ({
   );
 };
 
-export { InputSearch };
+export { ButtonSearch };
