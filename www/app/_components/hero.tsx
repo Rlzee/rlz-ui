@@ -13,8 +13,8 @@ const separatorAnim = {
 
 export function Hero() {
   return (
-    <section className="bg-background md:px-12 relative overflow-hidden">
-      <SeparatorBorder
+    <section className="bg-background relative overflow-hidden">
+      {/* <SeparatorBorder
         orientation="vertical"
         className="fixed left-0 top-0 h-screen md:w-12 w-0 invisible md:visible"
         {...separatorAnim}
@@ -23,7 +23,7 @@ export function Hero() {
         orientation="vertical"
         className="fixed right-0 top-0 h-screen md:w-12 w-0 invisible md:visible"
         {...separatorAnim}
-      />
+      /> */}
       <main className="mx-auto xl:mx-52 lg:mx-8 md:px-4 relative">
         <BorderFlash
           border="left"

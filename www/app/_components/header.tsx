@@ -17,7 +17,7 @@ import { navLinks } from "./_data/data";
 export function Header() {
   return (
     <NavbarProvider>
-      <Navbar className="border-b-2 border-border">
+      <Navbar className="border-b border-border">
         <NavbarContent>
           <div className="flex items-center">
             <NavbarToggle className="hover:bg-background cursor-pointer"/>
