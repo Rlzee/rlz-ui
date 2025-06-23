@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/src/ui/components/popover";
-import { Button } from "@/src/ui/components/button";
+import { Button } from "./button";
 
 import { cn } from "@/src/lib/utils";
 
@@ -35,17 +35,31 @@ const Combobox = ({
 
 /* ------------------------------ Combobox Trigger ------------------------------ */
 
-interface ComboboxTriggerProps
-  extends React.ComponentProps<typeof PopoverTrigger> {
-  chevronIcon?: "up" | "down" | "both";
+const ComboboxTrigger = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<typeof PopoverTrigger>) => {
+  return (
+    <PopoverTrigger asChild {...props}>
+      {children}
+    </PopoverTrigger>
+  );
+};
+
+/* ------------------------------ Combobox Trigger Button ------------------------------ */
+
+interface ComboboxTriggerButtonProps
+  extends React.ComponentProps<typeof Button> {
   placeholder?: string;
+  chevronIcon?: "up" | "down" | "both";
 }
 
-const ComboboxTrigger = ({
-  chevronIcon = "both",
+const ComboboxTriggerButton = ({
   placeholder = "Select an option",
+  chevronIcon = "both",
   ...props
-}: ComboboxTriggerProps) => {
+}: ComboboxTriggerButtonProps) => {
   const icon =
     chevronIcon === "up" ? (
       <ChevronUp className="opacity-50" />
@@ -56,16 +70,16 @@ const ComboboxTrigger = ({
     );
 
   return (
-    <PopoverTrigger {...props} asChild data-slot="combobox-trigger">
-      <Button
-        variant="secondary"
-        role="combobox"
-        className="w-[200px] justify-between"
-      >
-        <span className="text-left">{placeholder}</span>
-        {icon}
-      </Button>
-    </PopoverTrigger>
+    <Button
+      role="combobox"
+      className="w-[200px] justify-between"
+      data-slot="combobox-trigger-button"
+      variant="secondary"
+      {...props}
+    >
+      <span className="text-left">{placeholder}</span>
+      {icon}
+    </Button>
   );
 };
 
@@ -77,7 +91,7 @@ const ComboboxContent = ({
   ...props
 }: React.ComponentProps<typeof PopoverContent>) => {
   return (
-    <PopoverContent className={cn("w-[200px] p-0", className)} {...props} data-slot="combobox-content">
+    <PopoverContent className={cn("w-[200px] p-0", className)} {...props}>
       <Command>{children}</Command>
     </PopoverContent>
   );
@@ -117,7 +131,7 @@ const ComboboxList = ({
   ...props
 }: ComboboxListProps) => {
   return (
-    <CommandList className={className} {...props} data-slot="combobox-list">
+    <CommandList className={className} {...props}>
       <CommandEmpty>{placeholder}</CommandEmpty>
       {children}
     </CommandList>
@@ -132,7 +146,7 @@ const ComboboxGroup = ({
   ...props
 }: React.ComponentProps<typeof CommandGroup>) => {
   return (
-    <CommandGroup className={className} {...props} data-slot="combobox-group">
+    <CommandGroup className={className} {...props}>
       {children}
     </CommandGroup>
   );
@@ -146,7 +160,7 @@ const ComboboxItem = ({
   ...props
 }: React.ComponentProps<typeof CommandItem>) => {
   return (
-    <CommandItem className={className} {...props} data-slot="combobox-item">
+    <CommandItem className={className} {...props}>
       {children}
     </CommandItem>
   );
@@ -162,4 +176,5 @@ export {
   ComboboxList,
   ComboboxGroup,
   ComboboxItem,
+  ComboboxTriggerButton,
 };

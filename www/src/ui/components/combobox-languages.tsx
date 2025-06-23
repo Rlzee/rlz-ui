@@ -9,6 +9,7 @@ import {
   ComboboxList,
   ComboboxItem,
   ComboboxGroup,
+  ComboboxTriggerButton,
 } from "./combobox";
 import { Check } from "lucide-react";
 import { cn } from "@/src/lib/utils";
@@ -224,13 +225,15 @@ export const ComboboxLanguages = ({
 
   return (
     <Combobox open={open} onOpenChange={setOpen}>
-      <ComboboxTrigger
-        placeholder={
-          selected
-            ? languageNames.of(selected) ?? selected
-            : "Sélectionner une langue"
-        }
-      />
+      <ComboboxTrigger>
+        <ComboboxTriggerButton
+          placeholder={
+            selected
+              ? languageNames.of(selected) || selected
+              : "Select a language"
+          }
+        />
+      </ComboboxTrigger>
       <ComboboxContent>
         <ComboboxInput placeholder="Search for a language..." />
         <ComboboxList>

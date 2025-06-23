@@ -9,6 +9,7 @@ import {
   ComboboxList,
   ComboboxItem,
   ComboboxGroup,
+  ComboboxTriggerButton,
 } from "./combobox";
 import { Check } from "lucide-react";
 import { cn } from "@/src/lib/utils";
@@ -19,7 +20,7 @@ interface ComboboxTimezonesProps {
   onChange?: (value: string) => void;
 }
 
-export const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
+export function ComboboxTimezones({ onChange }: ComboboxTimezonesProps) {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -30,7 +31,11 @@ export const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
 
   return (
     <Combobox open={open} onOpenChange={setOpen}>
-      <ComboboxTrigger placeholder={selected ?? "Select a timezone"} />
+      <ComboboxTrigger>
+        <ComboboxTriggerButton
+        placeholder={selected || "Select a timezone"}
+        />
+      </ComboboxTrigger>
       <ComboboxContent>
         <ComboboxInput placeholder="Search timezone..." />
         <ComboboxList>
@@ -57,4 +62,4 @@ export const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
       </ComboboxContent>
     </Combobox>
   );
-};
+}
