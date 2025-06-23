@@ -10,6 +10,8 @@ import {
   ComboboxItem,
   ComboboxGroup,
 } from "./combobox";
+import { Check } from "lucide-react";
+import { cn } from "@/src/lib/utils";
 
 const languageCodes = [
   "aa",
@@ -200,13 +202,14 @@ const languageCodes = [
 
 interface ComboboxLanguagesProps {
   onChange?: (value: string) => void;
-  locale?: string; 
+  locale?: string;
 }
 
 export const ComboboxLanguages = ({
   onChange,
   locale = "en",
 }: ComboboxLanguagesProps) => {
+  const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
   const languageNames = useMemo(
@@ -220,7 +223,7 @@ export const ComboboxLanguages = ({
   };
 
   return (
-    <Combobox>
+    <Combobox open={open} onOpenChange={setOpen}>
       <ComboboxTrigger
         placeholder={
           selected
@@ -236,8 +239,20 @@ export const ComboboxLanguages = ({
               const label = languageNames.of(code);
               if (!label) return null;
               return (
-                <ComboboxItem key={code} onSelect={() => handleSelect(code)}>
-                  {label}
+                <ComboboxItem
+                  key={code}
+                  onSelect={() => {
+                    handleSelect(code);
+                    setOpen(false);
+                  }}
+                >
+                  <span>{label}</span>
+                  <Check
+                    className={cn(
+                      "ml-auto",
+                      selected === code ? "opacity-100" : "opacity-0"
+                    )}
+                  />
                 </ComboboxItem>
               );
             })}
@@ -246,4 +261,4 @@ export const ComboboxLanguages = ({
       </ComboboxContent>
     </Combobox>
   );
-}
+};
