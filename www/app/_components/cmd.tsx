@@ -4,6 +4,7 @@ import { StickyNote } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
+  CommandPortalName,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -23,7 +24,7 @@ export function Cmd() {
   const HandleClick = (href: string) => {
     if (href) {
       router.push(href);
-      closePortal("command-dialog");
+      closePortal(CommandPortalName);
     }
   }
 

@@ -14,7 +14,7 @@ import {
 } from "@/src/ui/components/dialog";
 import { usePortal } from "@/src/ui/stores/portal.store";
 
-const PORTAL_NAME = "command-dialog";
+const CommandPortalName = "command-dialog";
 
 /* ------------------------------ Root Command ------------------------------ */
 
@@ -54,7 +54,7 @@ const CommandDialog = ({
   ...props
 }: CommandDialogProps) => {
   const { getPortalState, openPortal, closePortal } = usePortal();
-  const isOpen = getPortalState(PORTAL_NAME);
+  const isOpen = getPortalState(CommandPortalName);
 
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -64,9 +64,9 @@ const CommandDialog = ({
       ) {
         e.preventDefault();
         if (isOpen) {
-          closePortal(PORTAL_NAME);
+          closePortal(CommandPortalName);
         } else {
-          openPortal(PORTAL_NAME);
+          openPortal(CommandPortalName);
         }
       }
     };
@@ -77,7 +77,7 @@ const CommandDialog = ({
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={() => closePortal(PORTAL_NAME)}
+      onOpenChange={() => closePortal(CommandPortalName)}
       {...props}
     >
       <DialogHeader className="sr-only">
@@ -101,7 +101,7 @@ const CommandDialog = ({
 interface CommandInputProps
   extends React.ComponentProps<typeof CommandPrimitive.Input> {
   className?: string;
-  kbd: boolean; // Whether to show the Esc shortcut
+  kbd?: boolean; // Whether to show the Esc shortcut
 }
 
 const CommandInput = ({
@@ -128,7 +128,7 @@ const CommandInput = ({
       {kbd && (
         <kbd
           data-slot="command-input-shortcut"
-          onClick={() => closePortal(PORTAL_NAME)}
+          onClick={() => closePortal(CommandPortalName)}
           className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
         >
           Esc
@@ -246,6 +246,7 @@ const CommandShortcut = ({
 /* ----------------------------- Exports ----------------------------- */
 
 export {
+  CommandPortalName,
   Command,
   CommandDialog,
   CommandInput,
