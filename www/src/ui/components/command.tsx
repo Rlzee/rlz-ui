@@ -18,10 +18,10 @@ const PORTAL_NAME = "command-dialog";
 
 /* ------------------------------ Root Command ------------------------------ */
 
-function Command({
+const Command = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive>) {
+}: React.ComponentProps<typeof CommandPrimitive>) => {
   return (
     <CommandPrimitive
       data-slot="command"
@@ -43,7 +43,7 @@ interface CommandDialogProps extends React.ComponentProps<typeof Dialog> {
   shortcutKey?: string; // ex: 'k'
 }
 
-function CommandDialog({
+const CommandDialog = ({
   title = "Command Palette",
   description = "Search for a command to run...",
   children,
@@ -52,7 +52,7 @@ function CommandDialog({
   open: controlledOpen,
   onOpenChange,
   ...props
-}: CommandDialogProps) {
+}: CommandDialogProps) => {
   const { getPortalState, openPortal, closePortal } = usePortal();
   const isOpen = getPortalState(PORTAL_NAME);
 
@@ -104,11 +104,11 @@ interface CommandInputProps
   kbd: boolean; // Whether to show the Esc shortcut
 }
 
-function CommandInput({
+const CommandInput = ({
   className,
   kbd = true, // Default to true to show Esc shortcut
   ...props
-}: CommandInputProps) {
+}: CommandInputProps) => {
   const { closePortal } = usePortal();
 
   return (
@@ -140,10 +140,10 @@ function CommandInput({
 
 /* ----------------------------- Command List ----------------------------- */
 
-function CommandList({
+const CommandList = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.List>) {
+}: React.ComponentProps<typeof CommandPrimitive.List>) => {
   return (
     <CommandPrimitive.List
       data-slot="command-list"
@@ -162,9 +162,9 @@ function CommandList({
 
 /* ----------------------------- Command Empty ----------------------------- */
 
-function CommandEmpty({
+const CommandEmpty = ({
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) {
+}: React.ComponentProps<typeof CommandPrimitive.Empty>) => {
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
@@ -176,10 +176,10 @@ function CommandEmpty({
 
 /* ----------------------------- Command Group ----------------------------- */
 
-function CommandGroup({
+const CommandGroup = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Group>) {
+}: React.ComponentProps<typeof CommandPrimitive.Group>) => {
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
@@ -194,10 +194,10 @@ function CommandGroup({
 
 /* ----------------------------- Command Separator ----------------------------- */
 
-function CommandSeparator({
+const CommandSeparator = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) {
+}: React.ComponentProps<typeof CommandPrimitive.Separator>) => {
   return (
     <CommandPrimitive.Separator
       data-slot="command-separator"
@@ -209,10 +209,10 @@ function CommandSeparator({
 
 /* ----------------------------- Command Item ----------------------------- */
 
-function CommandItem({
+const CommandItem = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) {
+}: React.ComponentProps<typeof CommandPrimitive.Item>) => {
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
@@ -227,10 +227,10 @@ function CommandItem({
 
 /* ----------------------------- Command Shortcut ----------------------------- */
 
-function CommandShortcut({
+const CommandShortcut = ({
   className,
   ...props
-}: React.ComponentProps<"span">) {
+}: React.ComponentProps<"span">) => {
   return (
     <span
       data-slot="command-shortcut"

@@ -17,7 +17,7 @@ interface ComboboxTimezonesProps {
   onChange?: (value: string) => void;
 }
 
-export function ComboboxTimezones({ onChange }: ComboboxTimezonesProps) {
+export const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
   const [selected, setSelected] = useState<string | null>(null);
 
   const handleSelect = (value: string) => {

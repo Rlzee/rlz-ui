@@ -203,10 +203,10 @@ interface ComboboxLanguagesProps {
   locale?: string; 
 }
 
-export function ComboboxLanguages({
+export const ComboboxLanguages = ({
   onChange,
   locale = "en",
-}: ComboboxLanguagesProps) {
+}: ComboboxLanguagesProps) => {
   const [selected, setSelected] = useState<string | null>(null);
 
   const languageNames = useMemo(
