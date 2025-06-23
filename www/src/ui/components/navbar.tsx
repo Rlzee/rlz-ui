@@ -82,7 +82,7 @@ type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
 
 const NavbarItem = (props: NavbarItemProps) => {
   const Classes =
-    "text-sm opacity-80 hover:opacity-100 transition-opacity cursor-pointer text-center"
+    "md:text-sm text-2xl opacity-80 hover:opacity-100 transition-opacity cursor-pointer md:text-center text-left"
 
   const handleClick = () => {
     if (props.type === "button") {
@@ -126,27 +126,16 @@ const NavbarDesktop = ({ children }: React.ComponentProps<"div"> ) => (
 
 const NavbarMobile = ({ children }: React.ComponentProps<"div"> ) => {
   const { isOpen, close } = useNavbar()
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
-
-  useEffect(() => {
-    if (isOpen && containerRef.current) {
-      setHeight(containerRef.current.scrollHeight)
-    } else {
-      setHeight(0)
-    }
-  }, [isOpen])
 
   return (
     <div
       data-slot="navbar-mobile"
-      style={{ maxHeight: isOpen ? `${height}px` : "0px", overflow: "hidden" }}
       className={cn(
-        "transition-all duration-300 ease-in-out md:hidden border-border",
-        isOpen && "border-t border-border px-4 pt-4 pb-4"
+        "md:hidden border-border h-0 overflow-hidden",
+        isOpen && "border-t border-border px-4 pt-4 pb-4 h-auto"
       )}
     >
-      <div ref={containerRef} className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4">
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child
 
