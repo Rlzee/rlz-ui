@@ -2,48 +2,49 @@
 
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { XIcon } from "lucide-react"
 
 import { cn } from "@/src/lib/utils"
 
 /* ------------------------------ Root Dialog ------------------------------ */
 
-const Dialog = ({
+function Dialog({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
 }
 
 /* ---------------------------- Dialog Trigger --------------------------- */
 
-const DialogTrigger = ({
+function DialogTrigger({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Trigger>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Trigger>) {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />
 }
 
 /* ---------------------------- Dialog Portal --------------------------- */
 
-const DialogPortal = ({
+function DialogPortal({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Portal>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Portal>) {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />
 }
 
 /* ---------------------------- Dialog Close --------------------------- */
 
-const DialogClose = ({
+function DialogClose({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Close>) {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />
 }
 
 /* ---------------------------- Dialog Overlay --------------------------- */
 
-const DialogOverlay = ({
+function DialogOverlay({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Overlay>) {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
@@ -58,25 +59,28 @@ const DialogOverlay = ({
 
 /* ---------------------------- Dialog Content --------------------------- */
 
-const DialogContent = ({
+function DialogContent({
   className,
   children,
   showCloseButton = true,
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean
-}) => {
+}) {
   return (
     <DialogPortal data-slot="dialog-portal">
       <DialogOverlay />
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-border p-6 shadow-lg duration-200 sm:max-w-lg",
+          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
           className
         )}
         {...props}
       >
+        <VisuallyHidden>
+          <DialogPrimitive.Title>Dialog</DialogPrimitive.Title>
+        </VisuallyHidden>
         {children}
         {showCloseButton && (
           <DialogPrimitive.Close
@@ -94,7 +98,7 @@ const DialogContent = ({
 
 /* ------------------------------ Dialog Header ------------------------------ */
 
-const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
+function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-header"
@@ -106,7 +110,7 @@ const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
 
 /* ------------------------------ Dialog Footer ------------------------------ */
 
-const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
+function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
@@ -121,10 +125,10 @@ const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
 
 /* ------------------------------ Dialog Title ------------------------------ */
 
-const DialogTitle = ({
+function DialogTitle({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Title>) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -136,10 +140,10 @@ const DialogTitle = ({
 
 /* ------------------------------ Dialog Description ------------------------------ */
 
-const DialogDescription = ({
+function DialogDescription({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Description>) => {
+}: React.ComponentProps<typeof DialogPrimitive.Description>) {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
