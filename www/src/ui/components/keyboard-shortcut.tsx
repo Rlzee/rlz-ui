@@ -6,6 +6,7 @@ import { cn } from "@/src/lib/utils";
 interface KeyboardShortcutProps extends React.ComponentProps<"kbd"> {
   className?: string;
   shortcutKey: string;
+  onShortcutPressed?: () => void;
 }
 
 const MAC_TO_WIN: Record<string, string> = {
@@ -17,6 +18,7 @@ const MAC_TO_WIN: Record<string, string> = {
 };
 
 const WIN_TO_MAC: Record<string, string> = {
+  Control: "⌘",
   Ctrl: "⌘",
   Alt: "⌥",
   Shift: "⇧",
@@ -69,6 +71,7 @@ const convertShortcut = (shortcut: string, isMac: boolean) => {
 const KeyboardShortcut = ({
   shortcutKey,
   className,
+  onShortcutPressed,
   ...props
 }: KeyboardShortcutProps) => {
   const [isMac, setIsMac] = useState(false);
@@ -76,6 +79,30 @@ const KeyboardShortcut = ({
   useEffect(() => {
     setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
   }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const parts = convertShortcut(shortcutKey, isMac)
+        .toLowerCase()
+        .split("+");
+
+      const isMatch = parts.every((part) => {
+        if (part === "ctrl" || part === "control") return event.ctrlKey;
+        if (part === "alt") return event.altKey;
+        if (part === "shift") return event.shiftKey;
+        if (part === "meta" || part === "⌘") return event.metaKey;
+        return event.key.toLowerCase() === part;
+      });
+
+      if (isMatch && onShortcutPressed) {
+        event.preventDefault();
+        onShortcutPressed();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [shortcutKey, isMac, onShortcutPressed]);
 
   const displayShortcut = convertShortcut(shortcutKey, isMac);
 

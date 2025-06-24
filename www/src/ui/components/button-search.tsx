@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Button } from "@/src/ui/components/button";
 import { KeyboardShortcut } from "./keyboard-shortcut";
 import { cn } from "@/src/lib/utils";
+import { CommandPortalName } from "./command";
+import { usePortal } from "@/src/ui/stores/portal.store";
 
 interface ButtonSearchProps {
   className?: string;
@@ -16,29 +17,14 @@ const ButtonSearch = ({
   placeholder = "Search",
   shortcutKey = "⌘k",
 }: ButtonSearchProps) => {
-  const [isMac, setIsMac] = useState(false);
-
-  useEffect(() => {
-    setIsMac(/Mac|iPod|iPhone|iPad/.test(navigator.platform));
-  }, []);
-
-  const handleClick = () => {
-    const event = new KeyboardEvent("keydown", {
-      key: "k",
-      code: "KeyK",
-      metaKey: isMac,
-      ctrlKey: !isMac,
-      bubbles: true,
-    });
-    document.dispatchEvent(event);
-  };
+  const { openPortal } = usePortal();
 
   return (
     <Button
       data-slot="button-search"
       variant="secondary"
       size="sm"
-      onClick={handleClick}
+      onClick={() => openPortal(CommandPortalName)}
       className={cn(
         "flex justify-between items-center gap-2 px-3 py-1.5 font-normal",
         "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
@@ -48,10 +34,7 @@ const ButtonSearch = ({
       aria-label="Open search"
     >
       <span className="truncate text-muted-foreground">{placeholder}</span>
-      <KeyboardShortcut
-        shortcutKey={shortcutKey}
-        onClick={handleClick}
-      />
+      <KeyboardShortcut shortcutKey={shortcutKey} />
     </Button>
   );
 };
