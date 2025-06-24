@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
@@ -17,8 +17,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
         outline:
           "border border-border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
-        ghost:
-          "hover:bg-secondary text-secondary-foreground",
+        ghost: "hover:bg-secondary text-secondary-foreground",
         destructive:
           "bg-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 hover:opacity-80 text-destructive-foreground",
       },
@@ -58,6 +57,6 @@ const Button = ({
       {...props}
     />
   );
-}
+};
 
 export { Button, buttonVariants };

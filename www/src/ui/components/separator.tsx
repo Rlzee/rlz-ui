@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cn } from "@/src/lib/utils"
+import * as React from "react";
+import { cn } from "@/src/lib/utils";
 
 interface SeparatorProps extends React.ComponentProps<"div"> {
-  orientation?: "horizontal" | "vertical"
+  orientation?: "horizontal" | "vertical";
 }
 
 const Separator = ({
@@ -25,7 +25,7 @@ const Separator = ({
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Separator }
+export { Separator };

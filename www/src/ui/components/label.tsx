@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as LabelPrimitive from "@radix-ui/react-label"
-import { cn } from "@/src/lib/utils"
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cn } from "@/src/lib/utils";
 
 interface LabelProps extends React.ComponentProps<typeof LabelPrimitive.Root> {
-  className?: string
+  className?: string;
 }
 
 const Label = ({ className, ...props }: LabelProps) => {
@@ -18,7 +18,7 @@ const Label = ({ className, ...props }: LabelProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Label }
+export { Label };

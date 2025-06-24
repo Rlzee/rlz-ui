@@ -32,9 +32,7 @@ export function ComboboxTimezones({ onChange }: ComboboxTimezonesProps) {
   return (
     <Combobox open={open} onOpenChange={setOpen}>
       <ComboboxTrigger>
-        <ComboboxTriggerButton
-        placeholder={selected || "Select a timezone"}
-        />
+        <ComboboxTriggerButton placeholder={selected || "Select a timezone"} />
       </ComboboxTrigger>
       <ComboboxContent>
         <ComboboxInput placeholder="Search timezone..." />

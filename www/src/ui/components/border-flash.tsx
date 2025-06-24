@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
-import { cn } from "@/src/lib/utils"
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { cn } from "@/src/lib/utils";
 
-type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y"
-type Animation = "bottom" | "top" | "left" | "right"
+type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y";
+type Animation = "bottom" | "top" | "left" | "right";
 
 interface BorderFlashProps {
-  border: Orientation
-  Animation: Animation
-  dashed?: boolean
-  className?: string
+  border: Orientation;
+  Animation: Animation;
+  dashed?: boolean;
+  className?: string;
 }
 
 const getBorderAnim = (side: Animation) => {
-  const base = { duration: 1, ease: "easeOut" as const }
+  const base = { duration: 1, ease: "easeOut" as const };
 
   switch (side) {
     case "bottom":
@@ -24,30 +24,30 @@ const getBorderAnim = (side: Animation) => {
         animate: { scaleY: 1 },
         transition: { ...base },
         style: { transformOrigin: "bottom" as const },
-      }
+      };
     case "top":
       return {
         initial: { scaleY: 0 },
         animate: { scaleY: 1 },
         transition: { ...base, delay: 0.1 },
         style: { transformOrigin: "top" as const },
-      }
+      };
     case "left":
       return {
         initial: { scaleX: 0 },
         animate: { scaleX: 1 },
         transition: { ...base, delay: 0.2 },
         style: { transformOrigin: "left" as const },
-      }
+      };
     case "right":
       return {
         initial: { scaleX: 0 },
         animate: { scaleX: 1 },
         transition: { ...base, delay: 0.3 },
         style: { transformOrigin: "right" as const },
-      }
+      };
   }
-}
+};
 
 const BorderFlash = ({
   border,
@@ -55,24 +55,24 @@ const BorderFlash = ({
   dashed = false,
   className,
 }: BorderFlashProps) => {
-  const [flash, setFlash] = useState(false)
-  const [removeFlash, setRemoveFlash] = useState(false)
+  const [flash, setFlash] = useState(false);
+  const [removeFlash, setRemoveFlash] = useState(false);
 
   useEffect(() => {
-    setFlash(true)
-    setRemoveFlash(false)
+    setFlash(true);
+    setRemoveFlash(false);
 
-    const timeout1 = setTimeout(() => setRemoveFlash(true), 250)
+    const timeout1 = setTimeout(() => setRemoveFlash(true), 250);
     const timeout2 = setTimeout(() => {
-      setFlash(false)
-      setRemoveFlash(false)
-    }, 600)
+      setFlash(false);
+      setRemoveFlash(false);
+    }, 600);
 
     return () => {
-      clearTimeout(timeout1)
-      clearTimeout(timeout2)
-    }
-  }, [])
+      clearTimeout(timeout1);
+      clearTimeout(timeout2);
+    };
+  }, []);
 
   const borderClassMap: Record<Orientation, string> = {
     top: "border-t",
@@ -81,7 +81,7 @@ const BorderFlash = ({
     left: "border-l",
     x: "border-x",
     y: "border-y",
-  }
+  };
 
   return (
     <motion.div
@@ -111,7 +111,7 @@ const BorderFlash = ({
       )}
       {...getBorderAnim(Animation)}
     />
-  )
-}
+  );
+};
 
-export { BorderFlash }
+export { BorderFlash };

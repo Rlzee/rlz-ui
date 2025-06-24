@@ -1,30 +1,33 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import * as PopoverPrimitive from "@radix-ui/react-popover"
-import { cn } from "@/src/lib/utils"
+import * as React from "react";
+import * as PopoverPrimitive from "@radix-ui/react-popover";
+import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Popover ------------------------------ */
 
-interface PopoverProps extends React.ComponentProps<typeof PopoverPrimitive.Root> {}
+interface PopoverProps
+  extends React.ComponentProps<typeof PopoverPrimitive.Root> {}
 const Popover = (props: PopoverProps) => (
   <PopoverPrimitive.Root data-slot="popover" {...props} />
-)
+);
 
 /* ------------------------------ Trigger Popover ------------------------------ */
 
-interface PopoverTriggerProps extends React.ComponentProps<typeof PopoverPrimitive.Trigger> {}
+interface PopoverTriggerProps
+  extends React.ComponentProps<typeof PopoverPrimitive.Trigger> {}
 const PopoverTrigger = (props: PopoverTriggerProps) => (
   <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
-)
+);
 
 /* ------------------------------ Content Popover ------------------------------ */
 
-interface PopoverContentProps extends React.ComponentProps<typeof PopoverPrimitive.Content> {
-  className?: string
-  align?: "start" | "center" | "end"
-  side?: "top" | "right" | "bottom" | "left"
-  sideOffset?: number
+interface PopoverContentProps
+  extends React.ComponentProps<typeof PopoverPrimitive.Content> {
+  className?: string;
+  align?: "start" | "center" | "end";
+  side?: "top" | "right" | "bottom" | "left";
+  sideOffset?: number;
 }
 
 const PopoverContent = ({
@@ -53,15 +56,16 @@ const PopoverContent = ({
       {...props}
     />
   </PopoverPrimitive.Portal>
-)
+);
 
 /* ------------------------------ Anchor Popover ------------------------------ */
 
-interface PopoverAnchorProps extends React.ComponentProps<typeof PopoverPrimitive.Anchor> {}
+interface PopoverAnchorProps
+  extends React.ComponentProps<typeof PopoverPrimitive.Anchor> {}
 const PopoverAnchor = (props: PopoverAnchorProps) => (
   <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
-)
+);
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor }
+export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };

@@ -1,29 +1,30 @@
-'use client'
+"use client";
 
-import * as React from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
-import { cn } from "@/src/lib/utils"
+import * as React from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { cn } from "@/src/lib/utils";
 
-type AvatarSize = "sm" | "md" | "lg"
+type AvatarSize = "sm" | "md" | "lg";
 
-interface AvatarProps extends React.ComponentProps<typeof AvatarPrimitive.Root> {
-  src?: string
-  alt?: string
-  fallback?: string
-  size?: AvatarSize
-  className?: string
+interface AvatarProps
+  extends React.ComponentProps<typeof AvatarPrimitive.Root> {
+  src?: string;
+  alt?: string;
+  fallback?: string;
+  size?: AvatarSize;
+  className?: string;
 }
 
 const sizeClasses: Record<AvatarSize, string> = {
   sm: "size-6",
   md: "size-9",
   lg: "size-12",
-}
+};
 
 const isImageUrl = (value?: string) => {
-  if (!value) return false
-  return /^(https?:\/\/|\/).+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(value)
-}
+  if (!value) return false;
+  return /^(https?:\/\/|\/).+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(value);
+};
 
 const Avatar = ({
   src,
@@ -36,7 +37,11 @@ const Avatar = ({
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      className={cn("relative flex shrink-0 overflow-hidden rounded-full", sizeClasses[size], className)}
+      className={cn(
+        "relative flex shrink-0 overflow-hidden rounded-full",
+        sizeClasses[size],
+        className
+      )}
       {...props}
     >
       {src && (
@@ -46,9 +51,7 @@ const Avatar = ({
           className="aspect-square size-full object-cover"
         />
       )}
-      <AvatarPrimitive.Fallback
-        className="bg-secondary flex size-full items-center justify-center rounded-full text-sm font-medium"
-      >
+      <AvatarPrimitive.Fallback className="bg-secondary flex size-full items-center justify-center rounded-full text-sm font-medium">
         {isImageUrl(fallback) ? (
           <img
             src={fallback}
@@ -60,7 +63,7 @@ const Avatar = ({
         )}
       </AvatarPrimitive.Fallback>
     </AvatarPrimitive.Root>
-  )
-}
+  );
+};
 
-export { Avatar }
+export { Avatar };

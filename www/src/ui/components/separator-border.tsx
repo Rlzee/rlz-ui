@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import { cn } from "@/src/lib/utils"
-import * as React from "react"
+import { cn } from "@/src/lib/utils";
+import * as React from "react";
 
-type Orientation = "horizontal" | "vertical"
+type Orientation = "horizontal" | "vertical";
 
 interface SeparatorProps extends React.ComponentProps<"div"> {
-  orientation?: Orientation
-  className?: string
+  orientation?: Orientation;
+  className?: string;
 }
 
 const SeparatorBorder = ({
@@ -15,7 +15,7 @@ const SeparatorBorder = ({
   className,
   ...props
 }: SeparatorProps) => {
-  const isHorizontal = orientation === "horizontal"
+  const isHorizontal = orientation === "horizontal";
 
   return (
     <div
@@ -35,7 +35,7 @@ const SeparatorBorder = ({
         )}
       />
     </div>
-  )
-}
+  );
+};
 
-export { SeparatorBorder }
+export { SeparatorBorder };
