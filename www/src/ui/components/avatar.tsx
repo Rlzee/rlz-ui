@@ -51,7 +51,9 @@ const Avatar = ({
           className="aspect-square size-full object-cover"
         />
       )}
-      <AvatarPrimitive.Fallback className="bg-secondary flex size-full items-center justify-center rounded-full text-sm font-medium">
+      <AvatarPrimitive.Fallback
+        className={`bg-secondary flex size-full items-center justify-center rounded-full font-medium text-${size}`}
+      >
         {isImageUrl(fallback) ? (
           <img
             src={fallback}
