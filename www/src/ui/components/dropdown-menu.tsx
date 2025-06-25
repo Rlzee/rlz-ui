@@ -210,7 +210,7 @@ const DropdownMenuShortcut = ({
     <Kbd
       data-slot="dropdown-menu-shortcut"
       className={cn(
-        "text-muted-foreground ml-auto tracking-widest bg-transparent",
+        "ml-auto tracking-widest",
         className
       )}
       shortcutKey={shortcutKey}
