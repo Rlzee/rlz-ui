@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { cn } from "@/src/lib/utils";
 
-interface KeyboardShortcutProps extends React.ComponentProps<"kbd"> {
+interface KbdProps extends React.ComponentProps<"kbd"> {
   className?: string;
   shortcutKey: string;
   onShortcutPressed?: () => void;
@@ -68,12 +68,12 @@ const convertShortcut = (shortcut: string, isMac: boolean) => {
   }
 };
 
-const KeyboardShortcut = ({
+const Kbd = ({
   shortcutKey,
   className,
   onShortcutPressed,
   ...props
-}: KeyboardShortcutProps) => {
+}: KbdProps) => {
   const [isMac, setIsMac] = useState(false);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const KeyboardShortcut = ({
     <kbd
       data-slot="keyboard-shortcut"
       className={cn(
-        "hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[10px] font-mono rounded-md shadow-sm",
+        "hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-popover text-foreground text-[10px] font-mono rounded-md shadow-sm border border-border border-b-3",
         className
       )}
       {...props}
@@ -120,4 +120,4 @@ const KeyboardShortcut = ({
   );
 };
 
-export { KeyboardShortcut };
+export { Kbd };

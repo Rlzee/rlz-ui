@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { SearchIcon } from "lucide-react";
-import { KeyboardShortcut } from "./keyboard-shortcut";
+import { Kbd } from "./Kbd";
 
 import { cn } from "@/src/lib/utils";
 import {
@@ -127,7 +127,7 @@ const CommandInput = ({
         {...props}
       />
       {kbd && (
-        <KeyboardShortcut
+        <Kbd
           className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
           shortcutKey="Esc"
           onClick={() => closePortal(CommandPortalName)}

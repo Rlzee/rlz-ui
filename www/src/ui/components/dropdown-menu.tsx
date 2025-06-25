@@ -3,7 +3,7 @@
 import * as React from "react"
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu"
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react"
-import { KeyboardShortcut } from "./keyboard-shortcut"
+import { Kbd } from "./Kbd"
 
 import { cn } from "@/src/lib/utils"
 
@@ -205,9 +205,9 @@ const DropdownMenuShortcut = ({
   shortcutKey,
   className,
   ...props
-}: React.ComponentProps<typeof KeyboardShortcut>) =>{
+}: React.ComponentProps<typeof Kbd>) =>{
   return (
-    <KeyboardShortcut
+    <Kbd
       data-slot="dropdown-menu-shortcut"
       className={cn(
         "text-muted-foreground ml-auto tracking-widest bg-transparent",

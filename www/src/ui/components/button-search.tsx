@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/src/ui/components/button";
-import { KeyboardShortcut } from "./keyboard-shortcut";
+import { Kbd } from "./Kbd";
 import { cn } from "@/src/lib/utils";
 import { CommandPortalName } from "./command";
 import { usePortal } from "@/src/ui/stores/portal.store";
@@ -34,7 +34,7 @@ const ButtonSearch = ({
       aria-label="Open search"
     >
       <span className="truncate text-muted-foreground">{placeholder}</span>
-      <KeyboardShortcut shortcutKey={shortcutKey} />
+      <Kbd shortcutKey={shortcutKey} />
     </Button>
   );
 };
