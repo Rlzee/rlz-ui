@@ -41,7 +41,6 @@ interface CommandDialogProps extends React.ComponentProps<typeof Dialog> {
   title?: string;
   description?: string;
   className?: string;
-  shortcutKey?: string; // ex: 'k'
 }
 
 const CommandDialog = ({
@@ -49,9 +48,6 @@ const CommandDialog = ({
   description = "Search for a command to run...",
   children,
   className,
-  shortcutKey = "k",
-  open: controlledOpen,
-  onOpenChange,
   ...props
 }: CommandDialogProps) => {
   const { getPortalState, closePortal } = usePortal();

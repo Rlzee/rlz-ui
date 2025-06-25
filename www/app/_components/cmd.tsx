@@ -49,7 +49,7 @@ export function Cmd() {
   };
 
   return (
-    <CommandDialog shortcutKey={shortcutKey}>
+    <CommandDialog>
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
