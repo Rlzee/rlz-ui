@@ -128,7 +128,7 @@ const CommandInput = ({
       />
       {kbd && (
         <Kbd
-          className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-background text-muted-foreground text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
+          className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
           shortcutKey="Esc"
           onClick={() => closePortal(CommandPortalName)}
         />
@@ -229,14 +229,11 @@ const CommandItem = ({
 const CommandShortcut = ({
   className,
   ...props
-}: React.ComponentProps<"span">) => {
+}: React.ComponentProps<typeof Kbd>) => {
   return (
-    <span
+    <Kbd
       data-slot="command-shortcut"
-      className={cn(
-        "text-muted-foreground ml-auto text-xs tracking-widest",
-        className
-      )}
+      className={cn("tracking-widest ml-auto", className)}
       {...props}
     />
   );
