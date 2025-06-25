@@ -37,28 +37,24 @@ const Command = ({
 
 /* ---------------------------- Command Dialog ----------------------------- */
 
-interface CommandDialogProps extends React.ComponentProps<typeof Dialog> {
+type CommandDialogProps = {
   title?: string;
   description?: string;
   className?: string;
-}
+  children: React.ReactNode;
+};
 
 const CommandDialog = ({
   title = "Command Palette",
   description = "Search for a command to run...",
   children,
   className,
-  ...props
 }: CommandDialogProps) => {
   const { getPortalState, closePortal } = usePortal();
   const isOpen = getPortalState(CommandPortalName);
 
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={() => closePortal(CommandPortalName)}
-      {...props}
-    >
+    <Dialog open={isOpen} onOpenChange={() => closePortal(CommandPortalName)}>
       <DialogHeader className="sr-only">
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>{description}</DialogDescription>
