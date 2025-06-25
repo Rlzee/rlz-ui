@@ -54,26 +54,8 @@ const CommandDialog = ({
   onOpenChange,
   ...props
 }: CommandDialogProps) => {
-  const { getPortalState, openPortal, closePortal } = usePortal();
+  const { getPortalState, closePortal } = usePortal();
   const isOpen = getPortalState(CommandPortalName);
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.key.toLowerCase() === shortcutKey.toLowerCase() &&
-        (e.ctrlKey || e.metaKey)
-      ) {
-        e.preventDefault();
-        if (isOpen) {
-          closePortal(CommandPortalName);
-        } else {
-          openPortal(CommandPortalName);
-        }
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [shortcutKey, isOpen]);
 
   return (
     <Dialog

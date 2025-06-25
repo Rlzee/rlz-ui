@@ -18,7 +18,7 @@ export function Header() {
   return (
     <NavbarProvider>
       <Navbar className="border-b border-border">
-        <NavbarContent className="lg:px-8 px-2">
+        <NavbarContent className="lg:px-4 px-2">
           <div className="flex items-center">
             <NavbarToggle className="hover:bg-background cursor-pointer"/>
             <span className="md:hidden flex font-raleway">Menu</span>
