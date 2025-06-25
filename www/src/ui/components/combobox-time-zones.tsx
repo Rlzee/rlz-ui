@@ -20,7 +20,7 @@ interface ComboboxTimezonesProps {
   onChange?: (value: string) => void;
 }
 
-export function ComboboxTimezones({ onChange }: ComboboxTimezonesProps) {
+const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
@@ -61,3 +61,5 @@ export function ComboboxTimezones({ onChange }: ComboboxTimezonesProps) {
     </Combobox>
   );
 }
+
+export { ComboboxTimezones };

@@ -206,7 +206,7 @@ interface ComboboxLanguagesProps {
   locale?: string;
 }
 
-export const ComboboxLanguages = ({
+const ComboboxLanguages = ({
   onChange,
   locale = "en",
 }: ComboboxLanguagesProps) => {
@@ -265,3 +265,5 @@ export const ComboboxLanguages = ({
     </Combobox>
   );
 };
+
+export { ComboboxLanguages };
