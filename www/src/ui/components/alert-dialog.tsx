@@ -8,18 +8,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/src/ui/components/dialog";
-import { Button } from "@/src/ui/components/button";
+import { Button, ButtonVariant } from "@/src/ui/components/button";
 import { usePortal } from "@/src/ui/stores/portal.store";
 import { useId } from "react";
 
 const AlertDialogPortalName = "alert-dialog";
-
-type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "destructive"
-  | "ghost"
-  | "outline";
 
 export type AlertDialogParams = {
   ConfirmText?: string;
