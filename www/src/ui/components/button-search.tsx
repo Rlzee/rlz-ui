@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/src/ui/components/button";
-import { Kbd } from "./Kbd";
+import { Kbd } from "./kbd";
 import { cn } from "@/src/lib/utils";
 import { CommandPortalName } from "./command";
 import { usePortal } from "@/src/ui/stores/portal.store";
