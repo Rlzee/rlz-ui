@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps, ReactNode } from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { SearchIcon } from "lucide-react";
 import { Kbd } from "./kbd";
@@ -22,7 +22,7 @@ const CommandPortalName = "command-dialog";
 const Command = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive>) => {
+}: ComponentProps<typeof CommandPrimitive>) => {
   return (
     <CommandPrimitive
       data-slot="command"
@@ -41,7 +41,7 @@ type CommandDialogProps = {
   title?: string;
   description?: string;
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const CommandDialog = ({
@@ -74,7 +74,7 @@ const CommandDialog = ({
 /* ----------------------------- Command Input ----------------------------- */
 
 interface CommandInputProps
-  extends React.ComponentProps<typeof CommandPrimitive.Input> {
+  extends ComponentProps<typeof CommandPrimitive.Input> {
   className?: string;
   kbd?: boolean; // Whether to show the Esc shortcut
 }
@@ -116,7 +116,7 @@ const CommandInput = ({
 const CommandList = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.List>) => {
+}: ComponentProps<typeof CommandPrimitive.List>) => {
   return (
     <CommandPrimitive.List
       data-slot="command-list"
@@ -137,7 +137,7 @@ const CommandList = ({
 
 const CommandEmpty = ({
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Empty>) => {
+}: ComponentProps<typeof CommandPrimitive.Empty>) => {
   return (
     <CommandPrimitive.Empty
       data-slot="command-empty"
@@ -152,7 +152,7 @@ const CommandEmpty = ({
 const CommandGroup = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Group>) => {
+}: ComponentProps<typeof CommandPrimitive.Group>) => {
   return (
     <CommandPrimitive.Group
       data-slot="command-group"
@@ -170,7 +170,7 @@ const CommandGroup = ({
 const CommandSeparator = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Separator>) => {
+}: ComponentProps<typeof CommandPrimitive.Separator>) => {
   return (
     <CommandPrimitive.Separator
       data-slot="command-separator"
@@ -185,7 +185,7 @@ const CommandSeparator = ({
 const CommandItem = ({
   className,
   ...props
-}: React.ComponentProps<typeof CommandPrimitive.Item>) => {
+}: ComponentProps<typeof CommandPrimitive.Item>) => {
   return (
     <CommandPrimitive.Item
       data-slot="command-item"
@@ -203,7 +203,7 @@ const CommandItem = ({
 const CommandShortcut = ({
   className,
   ...props
-}: React.ComponentProps<typeof Kbd>) => {
+}: ComponentProps<typeof Kbd>) => {
   return (
     <Kbd
       data-slot="command-shortcut"

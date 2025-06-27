@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -26,7 +26,7 @@ const badgeVariants = cva(
 );
 
 interface BadgeProps
-  extends React.ComponentProps<"span">,
+  extends ComponentProps<"span">,
     VariantProps<typeof badgeVariants> {
   asChild?: boolean;
 }

@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, ComponentProps } from "react";
 import { cn } from "@/src/lib/utils";
 
-interface KbdProps extends React.ComponentProps<"kbd"> {
+interface KbdProps extends ComponentProps<"kbd"> {
   className?: string;
   shortcutKey: string;
   onShortcutPressed?: () => void;
@@ -14,7 +14,7 @@ const MAC_TO_WIN: Record<string, string> = {
   "⌥": "Alt",
   "⇧": "Shift",
   "^": "Ctrl",
-  "fn": "Fn",
+  fn: "Fn",
 };
 
 const WIN_TO_MAC: Record<string, string> = {
@@ -50,14 +50,9 @@ const splitShortcut = (shortcut: string) => {
   }
 };
 
-const replaceModifiers = (
-  shortcut: string,
-  map: Record<string, string>
-) => {
+const replaceModifiers = (shortcut: string, map: Record<string, string>) => {
   const parts = splitShortcut(shortcut);
-  return parts
-    .map((key) => map[key] ?? key)
-    .join("+");
+  return parts.map((key) => map[key] ?? key).join("+");
 };
 
 const convertShortcut = (shortcut: string, isMac: boolean) => {

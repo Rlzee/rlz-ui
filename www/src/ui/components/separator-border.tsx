@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@/src/lib/utils";
-import * as React from "react";
+import { ComponentProps } from "react";
 
 type Orientation = "horizontal" | "vertical";
 
-interface SeparatorProps extends React.ComponentProps<"div"> {
+interface SeparatorProps extends ComponentProps<"div"> {
   orientation?: Orientation;
   className?: string;
 }

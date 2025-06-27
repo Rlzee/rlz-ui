@@ -1,19 +1,16 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps, useEffect, useState } from "react";
 import { MoonStar, SunDim } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/src/lib/utils";
 import { Button } from "@/src/ui/components/button";
 
-const ThemeToggle = ({
-  className,
-  ...props
-}: React.ComponentProps<"button">) => {
-  const [mounted, setMounted] = React.useState(false);
+const ThemeToggle = ({ className }: ComponentProps<typeof Button>) => {
+  const [mounted, setMounted] = useState(false);
   const { theme = "light", setTheme } = useTheme();
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
   }, []);
 
@@ -40,7 +37,6 @@ const ThemeToggle = ({
       size="icon"
       className={cn("rounded-md", className)}
       aria-label="Toggle theme"
-      {...props}
     >
       {isDark ? <SunDim className="size-5" /> : <MoonStar className="size-4" />}
     </Button>

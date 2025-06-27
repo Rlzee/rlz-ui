@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps } from "react";
 import { ChevronsUpDown, ChevronDown, ChevronUp } from "lucide-react";
 
 import {
@@ -22,10 +22,7 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Combobox ------------------------------ */
 
-const Combobox = ({
-  children,
-  ...props
-}: React.ComponentProps<typeof Popover>) => {
+const Combobox = ({ children, ...props }: ComponentProps<typeof Popover>) => {
   return (
     <Popover {...props} data-slot="combobox">
       {children}
@@ -39,7 +36,7 @@ const ComboboxTrigger = ({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof PopoverTrigger>) => {
+}: ComponentProps<typeof PopoverTrigger>) => {
   return (
     <PopoverTrigger asChild {...props}>
       {children}
@@ -49,8 +46,7 @@ const ComboboxTrigger = ({
 
 /* ------------------------------ Combobox Trigger Button ------------------------------ */
 
-interface ComboboxTriggerButtonProps
-  extends React.ComponentProps<typeof Button> {
+interface ComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
   placeholder?: string;
   chevronIcon?: "up" | "down" | "both";
 }
@@ -89,7 +85,7 @@ const ComboboxContent = ({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof PopoverContent>) => {
+}: ComponentProps<typeof PopoverContent>) => {
   return (
     <PopoverContent className={cn("w-[200px] p-0", className)} {...props}>
       <Command>{children}</Command>
@@ -120,7 +116,7 @@ const ComboboxInput = ({
 
 /* ------------------------------ Combobox List ------------------------------ */
 
-interface ComboboxListProps extends React.ComponentProps<typeof CommandList> {
+interface ComboboxListProps extends ComponentProps<typeof CommandList> {
   placeholder?: string;
 }
 
@@ -144,7 +140,7 @@ const ComboboxGroup = ({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof CommandGroup>) => {
+}: ComponentProps<typeof CommandGroup>) => {
   return (
     <CommandGroup className={className} {...props}>
       {children}
@@ -158,7 +154,7 @@ const ComboboxItem = ({
   children,
   className,
   ...props
-}: React.ComponentProps<typeof CommandItem>) => {
+}: ComponentProps<typeof CommandItem>) => {
   return (
     <CommandItem className={className} {...props}>
       {children}

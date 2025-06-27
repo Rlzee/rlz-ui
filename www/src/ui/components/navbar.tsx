@@ -6,10 +6,9 @@ import React, {
   useState,
   useCallback,
   useMemo,
-  useEffect,
-  useRef,
   ReactElement,
   ReactNode,
+  ComponentProps,
 } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
@@ -53,11 +52,7 @@ const useNavbar = (): NavbarContextType => {
 
 /* ------------------------------ Root Navbar ------------------------------ */
 
-const Navbar = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"nav">) => (
+const Navbar = ({ children, className, ...props }: ComponentProps<"nav">) => (
   <nav
     className={cn(
       "z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg",
@@ -72,10 +67,7 @@ const Navbar = ({
 
 /* ----------------------------- Navbar Content ----------------------------- */
 
-const NavbarContent = ({
-  children,
-  className,
-}: React.ComponentProps<"div">) => (
+const NavbarContent = ({ children, className }: ComponentProps<"div">) => (
   <div className="flex flex-col" data-slot="navbar-content">
     <div
       className={cn("flex items-center justify-between h-14 px-4", className)}
@@ -136,7 +128,7 @@ const NavbarItem = (props: NavbarItemProps) => {
 
 /* -------------------------- Responsive Sections -------------------------- */
 
-const NavbarToggle = ({ className }: React.ComponentProps<"button">) => {
+const NavbarToggle = ({ className }: ComponentProps<typeof Button>) => {
   const { isOpen, toggle } = useNavbar();
 
   return (
@@ -153,7 +145,7 @@ const NavbarToggle = ({ className }: React.ComponentProps<"button">) => {
   );
 };
 
-const NavbarDesktop = ({ children }: React.ComponentProps<"div">) => (
+const NavbarDesktop = ({ children }: ComponentProps<"div">) => (
   <div
     className="hidden md:flex items-center space-x-6"
     data-slot="navbar-desktop"
@@ -162,7 +154,7 @@ const NavbarDesktop = ({ children }: React.ComponentProps<"div">) => (
   </div>
 );
 
-const NavbarMobile = ({ children }: React.ComponentProps<"div">) => {
+const NavbarMobile = ({ children }: ComponentProps<"div">) => {
   const { isOpen, close } = useNavbar();
 
   return (

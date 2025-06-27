@@ -1,13 +1,12 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps } from "react";
 import * as AvatarPrimitive from "@radix-ui/react-avatar";
 import { cn } from "@/src/lib/utils";
 
 type AvatarSize = "sm" | "md" | "lg";
 
-interface AvatarProps
-  extends React.ComponentProps<typeof AvatarPrimitive.Root> {
+interface AvatarProps extends ComponentProps<typeof AvatarPrimitive.Root> {
   src?: string;
   alt?: string;
   fallback?: string;

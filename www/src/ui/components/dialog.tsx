@@ -1,50 +1,47 @@
 "use client";
 
-import * as React from "react";
+import { ComponentProps } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { XIcon } from "lucide-react";
-
 import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Dialog ------------------------------ */
 
-const Dialog = ({
-  ...props
-}: React.ComponentProps<typeof DialogPrimitive.Root>) => {
+const Dialog = ({ ...props }: ComponentProps<typeof DialogPrimitive.Root>) => {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
-}
+};
 
 /* ---------------------------- Dialog Trigger --------------------------- */
 
 const DialogTrigger = ({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Trigger>) => {
+}: ComponentProps<typeof DialogPrimitive.Trigger>) => {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
-}
+};
 
 /* ---------------------------- Dialog Portal --------------------------- */
 
 const DialogPortal = ({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Portal>) => {
+}: ComponentProps<typeof DialogPrimitive.Portal>) => {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
-}
+};
 
 /* ---------------------------- Dialog Close --------------------------- */
 
 const DialogClose = ({
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Close>) => {
+}: ComponentProps<typeof DialogPrimitive.Close>) => {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
-}
+};
 
 /* ---------------------------- Dialog Overlay --------------------------- */
 
 const DialogOverlay = ({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Overlay>) => {
+}: ComponentProps<typeof DialogPrimitive.Overlay>) => {
   return (
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
@@ -55,7 +52,7 @@ const DialogOverlay = ({
       {...props}
     />
   );
-}
+};
 
 /* ---------------------------- Dialog Content --------------------------- */
 
@@ -64,7 +61,7 @@ const DialogContent = ({
   children,
   showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Content> & {
+}: ComponentProps<typeof DialogPrimitive.Content> & {
   showCloseButton?: boolean;
 }) => {
   return (
@@ -94,11 +91,11 @@ const DialogContent = ({
       </DialogPrimitive.Content>
     </DialogPortal>
   );
-}
+};
 
 /* ------------------------------ Dialog Header ------------------------------ */
 
-const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
+const DialogHeader = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       data-slot="dialog-header"
@@ -106,11 +103,11 @@ const DialogHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
       {...props}
     />
   );
-}
+};
 
 /* ------------------------------ Dialog Footer ------------------------------ */
 
-const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
+const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       data-slot="dialog-footer"
@@ -121,14 +118,14 @@ const DialogFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
       {...props}
     />
   );
-}
+};
 
 /* ------------------------------ Dialog Title ------------------------------ */
 
 const DialogTitle = ({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Title>) => {
+}: ComponentProps<typeof DialogPrimitive.Title>) => {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
@@ -136,14 +133,14 @@ const DialogTitle = ({
       {...props}
     />
   );
-}
+};
 
 /* ------------------------------ Dialog Description ------------------------------ */
 
 const DialogDescription = ({
   className,
   ...props
-}: React.ComponentProps<typeof DialogPrimitive.Description>) => {
+}: ComponentProps<typeof DialogPrimitive.Description>) => {
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
@@ -151,7 +148,7 @@ const DialogDescription = ({
       {...props}
     />
   );
-}
+};
 
 /* ------------------------------ Exports ------------------------------ */
 

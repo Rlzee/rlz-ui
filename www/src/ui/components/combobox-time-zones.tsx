@@ -26,7 +26,7 @@ const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
 
   const handleSelect = (value: string) => {
     setSelected(value);
-    onChange?.(value); // trigger callback if provided
+    onChange?.(value);
   };
 
   return (
@@ -60,6 +60,6 @@ const ComboboxTimezones = ({ onChange }: ComboboxTimezonesProps) => {
       </ComboboxContent>
     </Combobox>
   );
-}
+};
 
 export { ComboboxTimezones };
