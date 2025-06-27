@@ -1,4 +1,4 @@
-import { AlertDialogParams, AlertDialogDialogName } from "@/src/ui/components/alert-dialog";
+import { AlertDialogParams, AlertDialogName } from "@/src/ui/components/alert-dialog";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 
 export function alert(params: AlertDialogParams) {
@@ -9,6 +9,6 @@ export function alert(params: AlertDialogParams) {
     return;
   }
 
-  state.openDialog(AlertDialogDialogName, params);
+  state.openDialog(AlertDialogName, params);
 }
 

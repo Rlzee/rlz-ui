@@ -12,7 +12,7 @@ import { Button, ButtonVariant } from "@/src/ui/components/button";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 import { useId } from "react";
 
-const AlertDialogDialogName = "alert-dialog";
+const AlertDialogName = "alert-dialog";
 
 export type AlertDialogParams = {
   ConfirmText?: string;
@@ -26,9 +26,9 @@ export type AlertDialogParams = {
 
 const AlertDialog = () => {
   const { getDialogState, closeDialog, getDialogParams } = useDialog();
-  const isOpen = getDialogState(AlertDialogDialogName);
+  const isOpen = getDialogState(AlertDialogName);
 
-  const params = getDialogParams(AlertDialogDialogName) as AlertDialogParams;
+  const params = getDialogParams(AlertDialogName) as AlertDialogParams;
   const title = params?.title || "Are you absolutely sure?";
   const description = params?.description || "This action cannot be undone.";
   const onConfirm = (params?.onConfirm as () => void) || (() => {});
@@ -41,7 +41,7 @@ const AlertDialog = () => {
     try {
       await Promise.resolve(onConfirm());
     } finally {
-      closeDialog(AlertDialogDialogName);
+      closeDialog(AlertDialogName);
     }
   };
 
@@ -50,7 +50,7 @@ const AlertDialog = () => {
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={() => closeDialog(AlertDialogDialogName)}
+      onOpenChange={() => closeDialog(AlertDialogName)}
       data-slot="alert-dialog"
     >
       <DialogContent
@@ -78,7 +78,7 @@ const AlertDialog = () => {
           <Button
             variant={params?.CloseVariant || "secondary"}
             data-slot="alert-dialog-close-button"
-            onClick={() => closeDialog(AlertDialogDialogName)}
+            onClick={() => closeDialog(AlertDialogName)}
           >
             {params?.CloseText || "Close"}
           </Button>
@@ -95,4 +95,4 @@ const AlertDialog = () => {
   );
 };
 
-export { AlertDialog, AlertDialogDialogName };
+export { AlertDialog, AlertDialogName };
