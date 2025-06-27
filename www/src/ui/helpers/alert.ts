@@ -1,5 +1,5 @@
 import { AlertDialogParams, AlertDialogPortalName } from "@/src/ui/components/alert-dialog";
-import { usePortal } from "@/src/ui/stores/portal.store";
+import { usePortal } from "@/src/ui/stores/dialog.store";
 
 export function alert(params: AlertDialogParams) {
   const state = usePortal.getState();

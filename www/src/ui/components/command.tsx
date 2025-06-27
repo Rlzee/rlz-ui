@@ -13,9 +13,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/src/ui/components/dialog";
-import { usePortal } from "@/src/ui/stores/portal.store";
+import { useDialog } from "@/src/ui/stores/dialog.store";
 
-const CommandPortalName = "command-dialog";
+const CommandDialogName = "command-dialog";
 
 /* ------------------------------ Root Command ------------------------------ */
 
@@ -50,11 +50,11 @@ const CommandDialog = ({
   children,
   className,
 }: CommandDialogProps) => {
-  const { getPortalState, closePortal } = usePortal();
-  const isOpen = getPortalState(CommandPortalName);
+  const { getDialogState, closeDialog } = useDialog();
+  const isOpen = getDialogState(CommandDialogName);
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => closePortal(CommandPortalName)}>
+    <Dialog open={isOpen} onOpenChange={() => closeDialog(CommandDialogName)}>
       <DialogHeader className="sr-only">
         <DialogTitle>{title}</DialogTitle>
         <DialogDescription>{description}</DialogDescription>
@@ -84,7 +84,7 @@ const CommandInput = ({
   kbd = true, // Default to true to show Esc shortcut
   ...props
 }: CommandInputProps) => {
-  const { closePortal } = usePortal();
+  const { closeDialog } = useDialog();
 
   return (
     <div
@@ -104,7 +104,7 @@ const CommandInput = ({
         <Kbd
           className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
           shortcutKey="Esc"
-          onClick={() => closePortal(CommandPortalName)}
+          onClick={() => closeDialog(CommandDialogName)}
         />
       )}
     </div>
@@ -216,7 +216,7 @@ const CommandShortcut = ({
 /* ----------------------------- Exports ----------------------------- */
 
 export {
-  CommandPortalName,
+  CommandDialogName,
   Command,
   CommandDialog,
   CommandInput,

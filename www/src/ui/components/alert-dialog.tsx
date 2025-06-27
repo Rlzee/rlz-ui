@@ -9,10 +9,10 @@ import {
   DialogTitle,
 } from "@/src/ui/components/dialog";
 import { Button, ButtonVariant } from "@/src/ui/components/button";
-import { usePortal } from "@/src/ui/stores/portal.store";
+import { useDialog } from "@/src/ui/stores/dialog.store";
 import { useId } from "react";
 
-const AlertDialogPortalName = "alert-dialog";
+const AlertDialogDialogName = "alert-dialog";
 
 export type AlertDialogParams = {
   ConfirmText?: string;
@@ -25,10 +25,10 @@ export type AlertDialogParams = {
 };
 
 const AlertDialog = () => {
-  const { getPortalState, closePortal, getPortalParams } = usePortal();
-  const isOpen = getPortalState(AlertDialogPortalName);
+  const { getDialogState, closeDialog, getDialogParams } = useDialog();
+  const isOpen = getDialogState(AlertDialogDialogName);
 
-  const params = getPortalParams(AlertDialogPortalName) as AlertDialogParams;
+  const params = getDialogParams(AlertDialogDialogName) as AlertDialogParams;
   const title = params?.title || "Are you absolutely sure?";
   const description = params?.description || "This action cannot be undone.";
   const onConfirm = (params?.onConfirm as () => void) || (() => {});
@@ -41,7 +41,7 @@ const AlertDialog = () => {
     try {
       await Promise.resolve(onConfirm());
     } finally {
-      closePortal(AlertDialogPortalName);
+      closeDialog(AlertDialogDialogName);
     }
   };
 
@@ -50,7 +50,7 @@ const AlertDialog = () => {
   return (
     <Dialog
       open={isOpen}
-      onOpenChange={() => closePortal(AlertDialogPortalName)}
+      onOpenChange={() => closeDialog(AlertDialogDialogName)}
       data-slot="alert-dialog"
     >
       <DialogContent
@@ -78,7 +78,7 @@ const AlertDialog = () => {
           <Button
             variant={params?.CloseVariant || "secondary"}
             data-slot="alert-dialog-close-button"
-            onClick={() => closePortal(AlertDialogPortalName)}
+            onClick={() => closeDialog(AlertDialogDialogName)}
           >
             {params?.CloseText || "Close"}
           </Button>
@@ -95,4 +95,4 @@ const AlertDialog = () => {
   );
 };
 
-export { AlertDialog, AlertDialogPortalName };
+export { AlertDialog, AlertDialogDialogName };

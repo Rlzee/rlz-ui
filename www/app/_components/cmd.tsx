@@ -4,7 +4,7 @@ import { StickyNote } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
-  CommandPortalName,
+  CommandDialogName,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -13,14 +13,14 @@ import {
   CommandList,
 } from "@/src/ui/components/command";
 import { pages } from "./_data/data";
-import { usePortal } from "@/src/ui/stores/portal.store";
+import { useDialog } from "@/src/ui/stores/dialog.store";
 
 import * as React from "react";
 
 export function Cmd() {
   const router = useRouter();
-  const { closePortal, openPortal, getPortalState } = usePortal();
-  const isOpen = getPortalState(CommandPortalName);
+  const { closeDialog, openDialog, getDialogState } = useDialog();
+  const isOpen = getDialogState(CommandDialogName);
   const shortcutKey = "k";
 
   React.useEffect(() => {
@@ -31,9 +31,9 @@ export function Cmd() {
       ) {
         e.preventDefault();
         if (isOpen) {
-          closePortal(CommandPortalName);
+          closeDialog(CommandDialogName);
         } else {
-          openPortal(CommandPortalName);
+          openDialog(CommandDialogName);
         }
       }
     };
@@ -44,7 +44,7 @@ export function Cmd() {
   const HandleClick = (href: string) => {
     if (href) {
       router.push(href);
-      closePortal(CommandPortalName);
+      closeDialog(CommandDialogName);
     }
   };
 
