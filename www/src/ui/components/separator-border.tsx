@@ -20,6 +20,7 @@ const SeparatorBorder = ({
   return (
     <div
       data-slot="separator-border"
+      role="separator"
       className={cn(
         isHorizontal ? "w-full h-6 border-y" : "h-full w-6 border-x",
         "relative z-[1] border-border",

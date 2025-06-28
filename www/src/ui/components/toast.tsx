@@ -38,6 +38,7 @@ const Toast = () => {
           return (
             <motion.div
               key={toast.id}
+              role="alert"
               data-slot="toast"
               initial={{ opacity: 0, ...anim.initial }}
               animate={{ opacity: 1, ...anim.animate }}

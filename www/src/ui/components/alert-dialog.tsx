@@ -55,7 +55,7 @@ const AlertDialog = () => {
     >
       <DialogContent
         data-slot="alert-dialog-content"
-        role="alertdialog"
+        role="alert-dialog"
         aria-modal="true"
         aria-labelledby={titleId}
         aria-describedby={descriptionId}
