@@ -38,6 +38,7 @@ const Toast = () => {
           return (
             <motion.div
               key={toast.id}
+              data-slot="toast"
               initial={{ opacity: 0, ...anim.initial }}
               animate={{ opacity: 1, ...anim.animate }}
               exit={{ opacity: 0, ...anim.exit }}
@@ -50,14 +51,15 @@ const Toast = () => {
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex-1">
-                  <h3 className="text-sm font-bold">{toast.title}</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <h3 className="text-sm font-bold" data-slot="toast-title">{toast.title}</h3>
+                  <p className="text-sm text-muted-foreground" data-slot="toast-message">
                     {toast.message}
                   </p>
                 </div>
                 {toast.action?.slice(0, 2).map((action, idx) => (
                   <Button
                     key={idx}
+                    data-slot="toast-action"
                     variant={action.variant || "primary"}
                     size="sm"
                     onClick={() => {
