@@ -4,6 +4,26 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useToastStore } from "@/src/ui/stores/toast.store";
 import { Button } from "@/src/ui/components/button";
 import { cn } from "@/src/lib/utils";
+import { CheckCircle, AlertCircle, Info, AlertTriangle } from "lucide-react";
+
+const variantDetails = {
+  success: {
+    title: "Success",
+    icon: <CheckCircle className="text-green-500 w-5 h-5" />,
+  },
+  error: {
+    title: "Error",
+    icon: <AlertCircle className="text-destructive w-5 h-5" />,
+  },
+  info: {
+    title: "Info",
+    icon: <Info className="text-primary w-5 h-5" />,
+  },
+  warning: {
+    title: "Warning",
+    icon: <AlertTriangle className="text-yellow-500 w-5 h-5" />,
+  },
+};
 
 const getToastAnimation = (orientation: string) => {
   if (orientation.includes("left"))
@@ -38,8 +58,6 @@ const Toast = () => {
           return (
             <motion.div
               key={toast.id}
-              role="alert"
-              data-slot="toast"
               initial={{ opacity: 0, ...anim.initial }}
               animate={{ opacity: 1, ...anim.animate }}
               exit={{ opacity: 0, ...anim.exit }}
@@ -52,25 +70,33 @@ const Toast = () => {
             >
               <div className="flex items-center justify-between gap-4">
                 <div className="flex-1">
-                  <h3 className="text-sm font-bold" data-slot="toast-title">{toast.title}</h3>
-                  <p className="text-sm text-muted-foreground" data-slot="toast-message">
+                  {!toast.type ? (
+                    <h3 className="text-sm font-bold">{toast.title}</h3>
+                  ) : (
+                    <h3 className="text-sm font-bold flex items-center gap-2 mb-1">
+                      {variantDetails[toast.type]?.icon}
+                      {toast.title || variantDetails[toast.type]?.title}
+                    </h3>
+                  )}
+                  <p className="text-sm text-muted-foreground">
                     {toast.message}
                   </p>
                 </div>
-                {toast.action?.slice(0, 2).map((action, idx) => (
-                  <Button
-                    key={idx}
-                    data-slot="toast-action"
-                    variant={action.variant || "primary"}
-                    size="sm"
-                    onClick={() => {
-                      action.onClick();
-                      removeToast(toast.id);
-                    }}
-                  >
-                    {action.label}
-                  </Button>
-                ))}
+                <div className="flex justify-center items-center gap-2">
+                  {toast.action?.slice(0, 2).map((action, idx) => (
+                    <Button
+                      key={idx}
+                      variant={action.variant || "primary"}
+                      size="sm"
+                      onClick={() => {
+                        action.onClick();
+                        removeToast(toast.id);
+                      }}
+                    >
+                      {action.label}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </motion.div>
           );

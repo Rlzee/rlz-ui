@@ -1,5 +1,6 @@
+import { useToastStore } from "@/src/ui/stores/toast.store";
 import { nanoid } from "nanoid";
-import { Toast, useToastStore } from "@/src/ui/stores/toast.store";
+import { Toast } from "@/src/ui/stores/toast.store";
 
 export function toast(params: Omit<Toast, "id">) {
   const id = nanoid();
@@ -7,7 +8,9 @@ export function toast(params: Omit<Toast, "id">) {
 
   addToast({ id, ...params });
 
-  // Remove automatically after duration
-  const duration = params.duration ?? 3000;
-  setTimeout(() => removeToast(id), duration);
+  const { duration = 3000, persistent } = params;
+
+  if (!persistent) {
+    setTimeout(() => removeToast(id), duration);
+  }
 }
