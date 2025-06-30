@@ -157,6 +157,11 @@ const NavbarMenu = ({
 
 /* ----------------------------- Navbar Menu Trigger ------------------------------ */
 
+interface NavbarMenuTriggerProps
+  extends React.ComponentProps<typeof NavigationMenuPrimitive.Trigger> {
+  chevron?: boolean;
+}
+
 const navbarMenuTriggerStyle = cva(
   "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-secondary focus:bg-secondary disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-secondary data-[state=open]:focus:bg-secondary data-[state=open]:bg-secondary/80 outline-none transition-[color,box-shadow] focus-visible:outline-1"
 );
@@ -164,8 +169,9 @@ const navbarMenuTriggerStyle = cva(
 const NavbarMenuTrigger = ({
   className,
   children,
+  chevron = true,
   ...props
-}: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) => {
+}: NavbarMenuTriggerProps) => {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navbar-menu-trigger"
@@ -173,10 +179,12 @@ const NavbarMenuTrigger = ({
       {...props}
     >
       {children}{" "}
-      <ChevronDownIcon
-        className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
-        aria-hidden="true"
-      />
+      {chevron && (
+        <ChevronDownIcon
+          className="relative top-[1px] ml-1 size-3 transition duration-300 group-data-[state=open]:rotate-180"
+          aria-hidden="true"
+        />
+      )}
     </NavigationMenuPrimitive.Trigger>
   );
 };
@@ -209,12 +217,20 @@ interface NavbarMenuItemProps {
   className?: string;
 }
 
-const NavbarMenuItem = ({ href, label, descrition, className }: NavbarMenuItemProps) => {
+const NavbarMenuItem = ({
+  href,
+  label,
+  descrition,
+  className,
+}: NavbarMenuItemProps) => {
   return (
-    <div className={cn("hover:bg-secondary rounded-md p-2", className)} data-slot="navbar-menu-item">
+    <div
+      className={cn("hover:bg-secondary rounded-md p-2", className)}
+      data-slot="navbar-menu-item"
+    >
       <Link href={href}>
-          <div className="font-medium text-foreground">{label}</div>
-          <div className="text-muted-foreground">{descrition}</div>
+        <div className="font-medium text-foreground">{label}</div>
+        <div className="text-muted-foreground">{descrition}</div>
       </Link>
     </div>
   );
