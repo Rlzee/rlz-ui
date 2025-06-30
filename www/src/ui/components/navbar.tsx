@@ -129,9 +129,9 @@ const NavbarItem = (props: NavbarItemProps) => {
   );
 };
 
-/* ----------------------------- Navbar Menu Item ------------------------------ */
+/* ----------------------------- Navbar Menu ------------------------------ */
 
-const NavbarMenuItem = ({
+const NavbarMenu = ({
   className,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Item>) => {
@@ -269,7 +269,7 @@ export {
   NavbarToggle,
   NavbarProvider,
   useNavbar,
-  NavbarMenuItem,
+  NavbarMenu,
   NavbarMenuTrigger,
   NavbarMenuContent,
 };
