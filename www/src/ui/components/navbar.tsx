@@ -14,6 +14,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/src/ui/components/button";
 import { cn } from "@/src/lib/utils";
+import { scrollToSection } from "@/src/ui/utils/utils";
 
 /* --------------------------- Context & Provider --------------------------- */
 
@@ -101,8 +102,7 @@ const NavbarItem = (props: NavbarItemProps) => {
 
   const handleClick = () => {
     if (props.type === "button") {
-      const section = document.getElementById(props.sectionId);
-      if (section) section.scrollIntoView({ behavior: "smooth" });
+      scrollToSection(props.sectionId);
     }
     props.onClick?.();
   };
