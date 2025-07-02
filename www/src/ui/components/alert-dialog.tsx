@@ -86,6 +86,7 @@ const AlertDialog = () => {
             variant={params?.ConfirmVariant || "primary"}
             data-slot="alert-dialog-confirm-button"
             onClick={handleConfirm}
+            autoFocus
           >
             {params?.ConfirmText || "Confirm"}
           </Button>
