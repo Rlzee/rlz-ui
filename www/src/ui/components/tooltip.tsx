@@ -8,6 +8,7 @@ import {
   cloneElement,
   isValidElement,
   useId,
+  ReactElement,
 } from "react";
 
 /* ----------------------------- Root Tooltip ----------------------------- */
@@ -67,7 +68,7 @@ const TooltipContent = ({
 
 interface SimpleTooltipProps {
   content: ReactNode;
-  children: React.ReactElement;
+  children: ReactElement;
   className?: string;
   side?: ComponentProps<typeof TooltipContent>["side"];
 }
@@ -82,7 +83,7 @@ const Tooltip = ({
 
   const trigger = isValidElement(children)
     ? cloneElement(
-        children as React.ReactElement<{ "aria-describedby"?: string }>,
+        children as ReactElement<{ "aria-describedby"?: string }>,
         {
           "aria-describedby": id,
         }
