@@ -66,28 +66,20 @@ const TooltipContent = ({
 
 /* ----------------------------- Tooltip ----------------------------- */
 
-interface SimpleTooltipProps {
+interface TooltipProps {
   content: ReactNode;
   children: ReactElement;
   className?: string;
   side?: ComponentProps<typeof TooltipContent>["side"];
 }
 
-const Tooltip = ({
-  content,
-  children,
-  className,
-  side,
-}: SimpleTooltipProps) => {
+const Tooltip = ({ content, children, className, side }: TooltipProps) => {
   const id = useId();
 
   const trigger = isValidElement(children)
-    ? cloneElement(
-        children as ReactElement<{ "aria-describedby"?: string }>,
-        {
-          "aria-describedby": id,
-        }
-      )
+    ? cloneElement(children as ReactElement<{ "aria-describedby"?: string }>, {
+        "aria-describedby": id,
+      })
     : children;
 
   return (
