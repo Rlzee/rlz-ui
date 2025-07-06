@@ -104,7 +104,7 @@ const Calendar = ({
   const isRTL = ["fa-IR", "ar-SA", "he"].includes(localeKey);
 
   return (
-     <div dir={isRTL ? "rtl" : "ltr"} className="bg-background-secondary">
+     <div dir={isRTL ? "rtl" : "ltr"}>
       <DayPicker
         showOutsideDays={showOutsideDays}
         locale={locales[localeKey]}
