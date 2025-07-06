@@ -68,7 +68,7 @@ const ComboboxTriggerButton = ({
   return (
     <Button
       role="combobox"
-      className="w-[200px] justify-between"
+      className={cn("w-[200px] justify-between", props.className)}
       data-slot="combobox-trigger-button"
       variant="secondary"
       {...props}
