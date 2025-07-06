@@ -1,10 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { Input } from "./input";
 import { Eye, EyeOff } from "lucide-react";
 import { cn } from "@/src/lib/utils";
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 
 const InputPassword = ({
   className,
