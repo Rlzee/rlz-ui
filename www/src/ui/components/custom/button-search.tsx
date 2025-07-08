@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@/src/ui/components/button";
-import { Kbd } from "./kbd";
+import { Kbd } from "../kbd";
 import { cn } from "@/src/lib/utils";
-import { CommandDialogName } from "./command";
+import { CommandDialogName } from "../command";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 
 interface ButtonSearchProps {
