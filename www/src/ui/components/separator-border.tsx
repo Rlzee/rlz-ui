@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/src/lib/utils";
-import { ComponentProps } from "react";
+import React, { ComponentProps } from "react";
 
 type Orientation = "horizontal" | "vertical";
 

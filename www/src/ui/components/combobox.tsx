@@ -2,7 +2,6 @@
 
 import { ComponentProps } from "react";
 import { ChevronsUpDown, ChevronDown, ChevronUp } from "lucide-react";
-
 import {
   Command,
   CommandEmpty,
@@ -17,7 +16,6 @@ import {
   PopoverTrigger,
 } from "@/src/ui/components/popover";
 import { Button } from "./button";
-
 import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Combobox ------------------------------ */
