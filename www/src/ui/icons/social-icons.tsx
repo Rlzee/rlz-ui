@@ -398,18 +398,18 @@ export const SocialIcons = {
   ),
 };
 
-export const linkedin = SocialIcons.linkedin;
-export const x = SocialIcons.x;
-export const youtube = SocialIcons.youtube;
-export const github = SocialIcons.github;
-export const whatsapp = SocialIcons.whatsapp;
-export const facebook = SocialIcons.facebook;
-export const instagram = SocialIcons.instagram;
-export const tiktok = SocialIcons.tiktok;
-export const snapchat = SocialIcons.snapchat;
-export const discord = SocialIcons.discord;
-export const threads = SocialIcons.threads;
-export const pinterest = SocialIcons.pinterest;
-export const reddit = SocialIcons.reddit;
-export const twitch = SocialIcons.twitch;
-export const telegram = SocialIcons.telegram;
+export const Linkedin = SocialIcons.linkedin;
+export const X = SocialIcons.x;
+export const Youtube = SocialIcons.youtube;
+export const Github = SocialIcons.github;
+export const Whatsapp = SocialIcons.whatsapp;
+export const Facebook = SocialIcons.facebook;
+export const Instagram = SocialIcons.instagram;
+export const Tiktok = SocialIcons.tiktok;
+export const Snapchat = SocialIcons.snapchat;
+export const Discord = SocialIcons.discord;
+export const Threads = SocialIcons.threads;
+export const Pinterest = SocialIcons.pinterest;
+export const Reddit = SocialIcons.reddit;
+export const Twitch = SocialIcons.twitch;
+export const Telegram = SocialIcons.telegram;

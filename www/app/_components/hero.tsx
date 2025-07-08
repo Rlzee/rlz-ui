@@ -7,7 +7,7 @@ import { BorderFlash } from "@/src/ui/components/border-flash";
 export function Hero() {
   return (
     <section className="bg-background relative overflow-hidden">
-      <main className="mx-auto xl:mx-52 lg:mx-8 md:px-4 relative">
+      <main className="mx-auto xl:mx-52 lg:mx-8 px-4 relative">
         <BorderFlash
           border="left"
           Animation="top"

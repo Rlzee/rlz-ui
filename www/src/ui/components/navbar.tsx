@@ -84,12 +84,14 @@ type NavbarLinkItem = {
   type: "link";
   href: string;
   label: string;
+  className?: string;
 };
 
 type NavbarButtonItem = {
   type: "button";
   sectionId: string;
   label: string;
+  className?: string;
 };
 
 type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
@@ -98,7 +100,7 @@ type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
 
 const NavbarItem = (props: NavbarItemProps) => {
   const Classes =
-    "md:text-sm text-2xl opacity-80 hover:opacity-100 transition-opacity cursor-pointer md:text-center text-left";
+    "md:text-sm text-2xl opacity-80 hover:opacity-100 transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
 
   const handleClick = () => {
     if (props.type === "button") {
@@ -109,7 +111,7 @@ const NavbarItem = (props: NavbarItemProps) => {
 
   if (props.type === "link") {
     return (
-      <Link href={props.href} className={Classes} data-slot="navbar-link-item">
+      <Link href={props.href} className={cn(Classes, props.className)} data-slot="navbar-link-item">
         {props.label}
       </Link>
     );
@@ -118,7 +120,8 @@ const NavbarItem = (props: NavbarItemProps) => {
   return (
     <button
       onClick={handleClick}
-      className={Classes}
+      className={cn(Classes, props.className)}
+      data-type="button"
       data-slot="navbar-button-item"
     >
       {props.label}
