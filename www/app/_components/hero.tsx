@@ -18,13 +18,7 @@ export function Hero() {
           Animation="bottom"
           className="hidden lg:block absolute top-0 right-0 h-full"
         />
-        <div className="h-auto lg:max-w-4xl mx-auto md:px-8">
-          <BorderFlash
-            border="x"
-            Animation="top"
-            className="lg:h-20 h-4 mb-4 lg:visible invisible"
-            dashed
-          />
+        <div className="h-auto lg:max-w-4xl mx-auto md:px-8 pt-8">
           <div className="text-center md:px-12 md:py-12 px-4 py-4">
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl lg:text-7xl font-sans text-nowrap">
               The all-in-one UI kit
