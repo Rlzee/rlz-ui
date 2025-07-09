@@ -105,7 +105,7 @@ const Kbd = ({
     <kbd
       data-slot="keyboard-shortcut"
       className={cn(
-        "hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-popover text-muted-foreground text-[10px] font-mono rounded-md shadow-sm border border-border border-b-3",
+        "hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-popover text-muted-foreground text-[9px] font-mono rounded-sm shadow-sm border border-border border-b-3",
         className
       )}
       {...props}
