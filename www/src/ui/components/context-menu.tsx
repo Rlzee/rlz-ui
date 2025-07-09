@@ -37,6 +37,7 @@ const ContextMenu = ({ children }: { children: React.ReactNode }) => {
   return (
     <ContextMenuContext.Provider
       value={{ open, setOpen, position, setPosition }}
+      data-slot="context-menu"
     >
       <DropdownMenu open={open} onOpenChange={setOpen}>
         {children}
@@ -67,7 +68,11 @@ const ContextMenuTrigger = ({
   };
 
   return (
-    <div onContextMenu={handleContextMenu} className={cn(className)}>
+    <div
+      onContextMenu={handleContextMenu}
+      className={cn(className)}
+      data-slot="context-menu-trigger"
+    >
       {children}
     </div>
   );
@@ -87,6 +92,7 @@ const ContextMenuContent = ({
 
   return (
     <DropdownMenuContent
+      data-slot="context-menu-content"
       {...props}
       style={{
         position: "fixed",
