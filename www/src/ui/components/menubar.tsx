@@ -289,8 +289,26 @@ const MenubarSubContent = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
+const MenubarComposant = Object.assign(Menubar, {
+  Portal: MenubarPortal,
+  Menu: MenubarMenu,
+  Trigger: MenubarTrigger,
+  Content: MenubarContent,
+  Group: MenubarGroup,
+  Separator: MenubarSeparator,
+  Label: MenubarLabel,
+  Item: MenubarItem,
+  Shortcut: MenubarShortcut,
+  CheckboxItem: MenubarCheckboxItem,
+  RadioGroup: MenubarRadioGroup,
+  RadioItem: MenubarRadioItem,
+  Sub: MenubarSub,
+  SubTrigger: MenubarSubTrigger,
+  SubContent: MenubarSubContent,
+});
+
 export {
-  Menubar,
+  MenubarComposant as Menubar,
   MenubarPortal,
   MenubarMenu,
   MenubarTrigger,

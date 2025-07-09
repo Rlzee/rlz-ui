@@ -269,8 +269,25 @@ const DropdownMenuSubContent = ({
 
 /* ---------------------------- Exports --------------------------- */
 
+const DropdownMenuComposant = Object.assign(DropdownMenu, {
+  Portal: DropdownMenuPortal,
+  Trigger: DropdownMenuTrigger,
+  Content: DropdownMenuContent,
+  Group: DropdownMenuGroup,
+  Label: DropdownMenuLabel,
+  Item: DropdownMenuItem,
+  CheckboxItem: DropdownMenuCheckboxItem,
+  RadioGroup: DropdownMenuRadioGroup,
+  RadioItem: DropdownMenuRadioItem,
+  Separator: DropdownMenuSeparator,
+  Shortcut: DropdownMenuShortcut,
+  Sub: DropdownMenuSub,
+  SubTrigger: DropdownMenuSubTrigger,
+  SubContent: DropdownMenuSubContent,
+});
+
 export {
-  DropdownMenu,
+  DropdownMenuComposant as DropdownMenu,
   DropdownMenuPortal,
   DropdownMenuTrigger,
   DropdownMenuContent,
@@ -286,3 +303,4 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 };
+

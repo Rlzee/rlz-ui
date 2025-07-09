@@ -94,4 +94,11 @@ const Tooltip = ({ content, children, className, side }: TooltipProps) => {
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { Tooltip, TooltipContent, TooltipRoot, TooltipTrigger };
+const TooltipComposant = Object.assign(Tooltip, {
+  Root: TooltipRoot,
+  Trigger: TooltipTrigger,
+  Content: TooltipContent,
+});
+
+export { TooltipComposant as Tooltip, TooltipRoot, TooltipTrigger, TooltipContent };
+

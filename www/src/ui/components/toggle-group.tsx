@@ -75,4 +75,9 @@ const ToggleGroupItem = ({
 
 /* --------------------------- Exports --------------------------- */
 
-export { ToggleGroup, ToggleGroupItem };
+const ToggleGroupComposant = Object.assign(ToggleGroup, {
+  Item: ToggleGroupItem,
+});
+
+export { ToggleGroupComposant as ToggleGroup, ToggleGroupItem };
+

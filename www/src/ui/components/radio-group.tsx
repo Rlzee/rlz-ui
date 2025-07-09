@@ -47,4 +47,9 @@ const RadioGroupItem = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { RadioGroup, RadioGroupItem };
+const RadioGroupComposant = Object.assign(RadioGroup, {
+  Item: RadioGroupItem,
+});
+
+export { RadioGroupComposant as RadioGroup, RadioGroupItem };
+

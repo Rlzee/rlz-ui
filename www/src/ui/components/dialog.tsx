@@ -152,15 +152,27 @@ const DialogDescription = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
+const DialogComposant = Object.assign(Dialog, {
+  Trigger: DialogTrigger,
+  Portal: DialogPortal,
+  Close: DialogClose,
+  Overlay: DialogOverlay,
+  Content: DialogContent,
+  Header: DialogHeader,
+  Footer: DialogFooter,
+  Title: DialogTitle,
+  Description: DialogDescription,
+});
+
 export {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogPortal,
-  DialogTitle,
+  DialogComposant as Dialog,
   DialogTrigger,
+  DialogPortal,
+  DialogClose,
+  DialogOverlay,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+  DialogTitle,
+  DialogDescription,
 };

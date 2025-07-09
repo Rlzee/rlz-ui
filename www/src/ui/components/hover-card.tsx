@@ -48,4 +48,14 @@ const HoverCardContent = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { HoverCard, HoverCardContent, HoverCardTrigger };
+const HoverCardComposant = Object.assign(HoverCard, {
+  Trigger: HoverCardTrigger,
+  Content: HoverCardContent,
+});
+
+export {
+  HoverCardComposant as HoverCard,
+  HoverCardTrigger,
+  HoverCardContent,
+};
+

@@ -1,22 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuCheckboxItem,
-  DropdownMenuRadioItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuRadioGroup,
-} from "./dropdown-menu";
+import { DropdownMenu } from "./dropdown-menu";
 import { cn } from "@/src/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 
@@ -91,7 +76,7 @@ const ContextMenuTrigger = ({
 const ContextMenuContent = ({
   className,
   ...props
-}: React.ComponentProps<typeof DropdownMenuContent>) => {
+}: React.ComponentProps<typeof DropdownMenu.Content>) => {
   const context = React.useContext(ContextMenuContext);
   if (!context)
     throw new Error("ContextMenuContent must be used within ContextMenu");
@@ -99,7 +84,7 @@ const ContextMenuContent = ({
   const { position } = context;
 
   return (
-    <DropdownMenuContent
+    <DropdownMenu.Content
       data-slot="context-menu-content"
       {...props}
       style={{
@@ -121,17 +106,17 @@ const ContextMenuContent = ({
 
 const ContextMenuItem = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuItem>) => {
-  return <DropdownMenuItem {...props} data-slot="context-menu-item" />;
+}: React.ComponentProps<typeof DropdownMenu.Item>) => {
+  return <DropdownMenu.Item {...props} data-slot="context-menu-item" />;
 };
 
 /* ------------------------------ Context Menu Checkbox Item ------------------------------ */
 
 const ContextMenuCheckboxItem = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuCheckboxItem>) => {
+}: React.ComponentProps<typeof DropdownMenu.CheckboxItem>) => {
   return (
-    <DropdownMenuCheckboxItem
+    <DropdownMenu.CheckboxItem
       {...props}
       data-slot="context-menu-checkbox-item"
     />
@@ -142,9 +127,9 @@ const ContextMenuCheckboxItem = ({
 
 const ContextMenuRadioItem = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuRadioItem>) => {
+}: React.ComponentProps<typeof DropdownMenu.RadioItem>) => {
   return (
-    <DropdownMenuRadioItem {...props} data-slot="context-menu-radio-item" />
+    <DropdownMenu.RadioItem {...props} data-slot="context-menu-radio-item" />
   );
 };
 
@@ -152,17 +137,17 @@ const ContextMenuRadioItem = ({
 
 const ContextMenuLabel = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuLabel>) => {
-  return <DropdownMenuLabel {...props} data-slot="context-menu-label" />;
+}: React.ComponentProps<typeof DropdownMenu.Label>) => {
+  return <DropdownMenu.Label {...props} data-slot="context-menu-label" />;
 };
 
 /* ------------------------------ Context Menu Separator ------------------------------ */
 
 const ContextMenuSeparator = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuSeparator>) => {
+}: React.ComponentProps<typeof DropdownMenu.Separator>) => {
   return (
-    <DropdownMenuSeparator {...props} data-slot="context-menu-separator" />
+    <DropdownMenu.Separator {...props} data-slot="context-menu-separator" />
   );
 };
 
@@ -170,41 +155,41 @@ const ContextMenuSeparator = ({
 
 const ContextMenuShortcut = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuShortcut>) => {
-  return <DropdownMenuShortcut {...props} data-slot="context-menu-shortcut" />;
+}: React.ComponentProps<typeof DropdownMenu.Shortcut>) => {
+  return <DropdownMenu.Shortcut {...props} data-slot="context-menu-shortcut" />;
 };
 
 /* ------------------------------ Context Menu Group ------------------------------ */
 
 const ContextMenuGroup = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuGroup>) => {
-  return <DropdownMenuGroup {...props} data-slot="context-menu-group" />;
+}: React.ComponentProps<typeof DropdownMenu.Group>) => {
+  return <DropdownMenu.Group {...props} data-slot="context-menu-group" />;
 };
 
 /* ------------------------------ Context Menu Portal ------------------------------ */
 
 const ContextMenuPortal = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuPortal>) => {
-  return <DropdownMenuPortal {...props} data-slot="context-menu-portal" />;
+}: React.ComponentProps<typeof DropdownMenu.Portal>) => {
+  return <DropdownMenu.Portal {...props} data-slot="context-menu-portal" />;
 };
 
 /* ------------------------------ Context Menu Submenu ------------------------------ */
 
 const ContextMenuSub = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuSub>) => {
-  return <DropdownMenuSub {...props} data-slot="context-menu-sub" />;
+}: React.ComponentProps<typeof DropdownMenu.Sub>) => {
+  return <DropdownMenu.Sub {...props} data-slot="context-menu-sub" />;
 };
 
 /* ------------------------------ Context Menu Sub Content ------------------------------ */
 
 const ContextMenuSubContent = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuSubContent>) => {
+}: React.ComponentProps<typeof DropdownMenu.SubContent>) => {
   return (
-    <DropdownMenuSubContent {...props} data-slot="context-menu-sub-content" />
+    <DropdownMenu.SubContent {...props} data-slot="context-menu-sub-content" />
   );
 };
 
@@ -212,9 +197,9 @@ const ContextMenuSubContent = ({
 
 const ContextMenuSubTrigger = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuSubTrigger>) => {
+}: React.ComponentProps<typeof DropdownMenu.SubTrigger>) => {
   return (
-    <DropdownMenuSubTrigger {...props} data-slot="context-menu-sub-trigger" />
+    <DropdownMenu.SubTrigger {...props} data-slot="context-menu-sub-trigger" />
   );
 };
 
@@ -222,16 +207,35 @@ const ContextMenuSubTrigger = ({
 
 const ContextMenuRadioGroup = ({
   ...props
-}: React.ComponentProps<typeof DropdownMenuRadioGroup>) => {
+}: React.ComponentProps<typeof DropdownMenu.RadioGroup>) => {
   return (
-    <DropdownMenuRadioGroup {...props} data-slot="context-menu-radio-group" />
+    <DropdownMenu.RadioGroup {...props} data-slot="context-menu-radio-group" />
   );
 };
 
 /* ------------------------------ Exports ------------------------------ */
 
+const ContextMenuRoot = ContextMenu;
+
+const ContextMenuComposed = Object.assign(ContextMenuRoot, {
+  Trigger: ContextMenuTrigger,
+  Content: ContextMenuContent,
+  Item: ContextMenuItem,
+  CheckboxItem: ContextMenuCheckboxItem,
+  RadioItem: ContextMenuRadioItem,
+  Label: ContextMenuLabel,
+  Separator: ContextMenuSeparator,
+  Shortcut: ContextMenuShortcut,
+  Group: ContextMenuGroup,
+  Portal: ContextMenuPortal,
+  Sub: ContextMenuSub,
+  SubContent: ContextMenuSubContent,
+  SubTrigger: ContextMenuSubTrigger,
+  RadioGroup: ContextMenuRadioGroup,
+});
+
 export {
-  ContextMenu,
+  ContextMenuComposed as ContextMenu,
   ContextMenuTrigger,
   ContextMenuContent,
   ContextMenuItem,

@@ -1,13 +1,6 @@
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/src/ui/components/dialog";
+import { Dialog } from "@/src/ui/components/dialog";
 import { Button, ButtonVariant } from "@/src/ui/components/button";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 import { useId } from "react";
@@ -53,7 +46,7 @@ const AlertDialog = () => {
       onOpenChange={() => closeDialog(AlertDialogName)}
       data-slot="alert-dialog"
     >
-      <DialogContent
+      <Dialog.Content
         data-slot="alert-dialog-content"
         role="alert-dialog"
         aria-modal="true"
@@ -63,18 +56,18 @@ const AlertDialog = () => {
         onInteractOutside={(e) => e.preventDefault()}
         onEscapeKeyDown={(e) => e.preventDefault()}
       >
-        <DialogHeader data-slot="alert-dialog-header">
-          <DialogTitle id={titleId} data-slot="alert-dialog-title">
+        <Dialog.Header data-slot="alert-dialog-header">
+          <Dialog.Title id={titleId} data-slot="alert-dialog-title">
             {title}
-          </DialogTitle>
-          <DialogDescription
+          </Dialog.Title>
+          <Dialog.Description
             id={descriptionId}
             data-slot="alert-dialog-description"
           >
             {description}
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter data-slot="alert-dialog-footer">
+          </Dialog.Description>
+        </Dialog.Header>
+        <Dialog.Footer data-slot="alert-dialog-footer">
           <Button
             variant={params?.CloseVariant || "secondary"}
             data-slot="alert-dialog-close-button"
@@ -90,8 +83,8 @@ const AlertDialog = () => {
           >
             {params?.ConfirmText || "Confirm"}
           </Button>
-        </DialogFooter>
-      </DialogContent>
+        </Dialog.Footer>
+      </Dialog.Content>
     </Dialog>
   );
 };

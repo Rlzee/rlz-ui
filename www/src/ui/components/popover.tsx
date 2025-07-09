@@ -67,4 +67,16 @@ const PopoverAnchor = (props: PopoverAnchorProps) => (
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { Popover, PopoverTrigger, PopoverContent, PopoverAnchor };
+const PopoverComposant = Object.assign(Popover, {
+  Trigger: PopoverTrigger,
+  Content: PopoverContent,
+  Anchor: PopoverAnchor,
+});
+
+export {
+  PopoverComposant as Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverAnchor,
+};
+

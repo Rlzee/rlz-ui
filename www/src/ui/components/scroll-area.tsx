@@ -84,4 +84,16 @@ const ScrollArea = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { ScrollArea, ScrollAreaRoot, ScrollAreaViewport, ScrollBar };
+const ScrollAreaComposant = Object.assign(ScrollArea, {
+  Root: ScrollAreaRoot,
+  Viewport: ScrollAreaViewport,
+  ScrollBar: ScrollBar,
+});
+
+export {
+  ScrollAreaComposant as ScrollArea,
+  ScrollAreaRoot,
+  ScrollAreaViewport,
+  ScrollBar,
+};
+

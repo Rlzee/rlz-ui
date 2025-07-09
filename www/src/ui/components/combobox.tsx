@@ -2,19 +2,8 @@
 
 import { ComponentProps } from "react";
 import { ChevronsUpDown, ChevronDown, ChevronUp } from "lucide-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/src/ui/components/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/src/ui/components/popover";
+import { Command } from "@/src/ui/components/command";
+import { Popover } from "@/src/ui/components/popover";
 import { Button } from "./button";
 import { cn } from "@/src/lib/utils";
 
@@ -34,11 +23,11 @@ const ComboboxTrigger = ({
   children,
   className,
   ...props
-}: ComponentProps<typeof PopoverTrigger>) => {
+}: ComponentProps<typeof Popover.Trigger>) => {
   return (
-    <PopoverTrigger asChild {...props}>
+    <Popover.Trigger asChild {...props}>
       {children}
-    </PopoverTrigger>
+    </Popover.Trigger>
   );
 };
 
@@ -83,11 +72,11 @@ const ComboboxContent = ({
   children,
   className,
   ...props
-}: ComponentProps<typeof PopoverContent>) => {
+}: ComponentProps<typeof Popover.Content>) => {
   return (
-    <PopoverContent className={cn("w-[200px] p-0", className)} {...props}>
+    <Popover.Content className={cn("w-[200px] p-0", className)} {...props}>
       <Command>{children}</Command>
-    </PopoverContent>
+    </Popover.Content>
   );
 };
 
@@ -103,7 +92,7 @@ const ComboboxInput = ({
   placeholder = "Search...",
 }: ComboboxInputProps) => {
   return (
-    <CommandInput
+    <Command.Input
       className={cn("h-9", className)}
       data-slot="combobox-input"
       placeholder={placeholder}
@@ -114,7 +103,7 @@ const ComboboxInput = ({
 
 /* ------------------------------ Combobox List ------------------------------ */
 
-interface ComboboxListProps extends ComponentProps<typeof CommandList> {
+interface ComboboxListProps extends ComponentProps<typeof Command.List> {
   placeholder?: string;
 }
 
@@ -125,10 +114,10 @@ const ComboboxList = ({
   ...props
 }: ComboboxListProps) => {
   return (
-    <CommandList className={className} {...props}>
-      <CommandEmpty>{placeholder}</CommandEmpty>
+    <Command.List className={className} {...props}>
+      <Command.Empty>{placeholder}</Command.Empty>
       {children}
-    </CommandList>
+    </Command.List>
   );
 };
 
@@ -138,11 +127,11 @@ const ComboboxGroup = ({
   children,
   className,
   ...props
-}: ComponentProps<typeof CommandGroup>) => {
+}: ComponentProps<typeof Command.Group>) => {
   return (
-    <CommandGroup className={className} {...props}>
+    <Command.Group className={className} {...props}>
       {children}
-    </CommandGroup>
+    </Command.Group>
   );
 };
 
@@ -152,23 +141,35 @@ const ComboboxItem = ({
   children,
   className,
   ...props
-}: ComponentProps<typeof CommandItem>) => {
+}: ComponentProps<typeof Command.Item>) => {
   return (
-    <CommandItem className={className} {...props}>
+    <Command.Item className={className} {...props}>
       {children}
-    </CommandItem>
+    </Command.Item>
   );
 };
 
 /* ------------------------------ Exports ------------------------------ */
 
+const ComboboxRoot = Combobox;
+
+const ComboboxComposed = Object.assign(ComboboxRoot, {
+  Trigger: ComboboxTrigger,
+  TriggerButton: ComboboxTriggerButton,
+  Content: ComboboxContent,
+  Input: ComboboxInput,
+  List: ComboboxList,
+  Group: ComboboxGroup,
+  Item: ComboboxItem,
+});
+
 export {
-  Combobox,
+  ComboboxComposed as Combobox,
   ComboboxTrigger,
+  ComboboxTriggerButton,
   ComboboxContent,
   ComboboxInput,
   ComboboxList,
   ComboboxGroup,
   ComboboxItem,
-  ComboboxTriggerButton,
 };

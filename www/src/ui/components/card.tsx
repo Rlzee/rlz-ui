@@ -59,4 +59,18 @@ const CardFooter = ({ className, ...props }: ComponentProps<"div">) => {
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { Card, CardHeader, CardFooter, CardContent };
+const CardRoot = Card;
+
+const CardComposed = Object.assign(CardRoot, {
+  Header: CardHeader,
+  Content: CardContent,
+  Footer: CardFooter,
+});
+
+export {
+  CardComposed as Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+};
+

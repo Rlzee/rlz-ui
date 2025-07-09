@@ -101,4 +101,15 @@ const Avatar = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-export { Avatar, AvatarRoot, AvatarImage, AvatarFallback }
+const AvatarComposed = Object.assign(Avatar, {
+  Root: AvatarRoot,
+  Image: AvatarImage,
+  Fallback: AvatarFallback,
+});
+
+export {
+  AvatarComposed as Avatar,
+  AvatarRoot,
+  AvatarImage,
+  AvatarFallback,
+};

@@ -145,12 +145,21 @@ const Banner = ({ className, title, description }: BannerProps) => {
 
 /* ------------------------------ Exports ------------------------------ */
 
+const BannerComposed = Object.assign(Banner, {
+  Root: BannerRoot,
+  Content: BannerContent,
+  Title: BannerTitle,
+  Description: BannerDescription,
+  Actions: BannerActions,
+  CloseButton: BannerCloseButton,
+});
+
 export {
-  Banner,
+  BannerComposed as Banner,
+  BannerRoot,
+  BannerContent,
+  BannerTitle,
+  BannerDescription,
   BannerActions,
   BannerCloseButton,
-  BannerContent,
-  BannerDescription,
-  BannerRoot,
-  BannerTitle,
 };
