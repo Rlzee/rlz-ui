@@ -33,6 +33,30 @@ const CardHeader = ({ className, ...props }: ComponentProps<"div">) => {
   );
 };
 
+/* ------------------------------ Card Title ------------------------------ */
+
+const CardTitle = ({ className, ...props }: ComponentProps<"h3">) => {
+  return (
+    <h3
+      data-slot="card-title"
+      className={cn("text-lg font-semibold", className)}
+      {...props}
+    />
+  );
+};
+
+/* ------------------------------ Card Description ------------------------------ */
+
+const CardDescription = ({ className, ...props }: ComponentProps<"p">) => {
+  return (
+    <p
+      data-slot="card-description"
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    />
+  );
+};
+
 /* ------------------------------ Card Content ------------------------------ */
 
 const CardContent = ({ className, ...props }: ComponentProps<"div">) => {
@@ -63,6 +87,8 @@ const CardRoot = Card;
 
 const CardComposed = Object.assign(CardRoot, {
   Header: CardHeader,
+  Title: CardTitle,
+  Description: CardDescription,
   Content: CardContent,
   Footer: CardFooter,
 });
@@ -70,7 +96,8 @@ const CardComposed = Object.assign(CardRoot, {
 export {
   CardComposed as Card,
   CardHeader,
+  CardTitle,
+  CardDescription,
   CardContent,
   CardFooter,
 };
-
