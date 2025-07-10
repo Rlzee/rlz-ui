@@ -52,7 +52,7 @@ const splitShortcut = (shortcut: string) => {
 
 const replaceModifiers = (shortcut: string, map: Record<string, string>) => {
   const parts = splitShortcut(shortcut);
-  return parts.map((key) => map[key] ?? key).join("+");
+  return parts.map((key) => map[key] ?? key).join(" ");
 };
 
 const convertShortcut = (shortcut: string, isMac: boolean) => {
