@@ -175,9 +175,7 @@ const ComboboxLabel = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-const ComboboxRoot = Combobox;
-
-const ComboboxComposed = Object.assign(ComboboxRoot, {
+const ComboboxComposed = Object.assign(Combobox, {
   Trigger: ComboboxTrigger,
   TriggerButton: ComboboxTriggerButton,
   Content: ComboboxContent,

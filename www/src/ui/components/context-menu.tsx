@@ -215,9 +215,7 @@ const ContextMenuRadioGroup = ({
 
 /* ------------------------------ Exports ------------------------------ */
 
-const ContextMenuRoot = ContextMenu;
-
-const ContextMenuComposed = Object.assign(ContextMenuRoot, {
+const ContextMenuComposed = Object.assign(ContextMenu, {
   Trigger: ContextMenuTrigger,
   Content: ContextMenuContent,
   Item: ContextMenuItem,

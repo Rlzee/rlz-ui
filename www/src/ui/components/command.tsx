@@ -208,9 +208,7 @@ const CommandShortcut = ({
 
 /* ----------------------------- Exports ----------------------------- */
 
-const CommandRoot = Command;
-
-const CommandComposed = Object.assign(CommandRoot, {
+const CommandComposed = Object.assign(Command, {
   Dialog: CommandDialog,
   Input: CommandInput,
   List: CommandList,
