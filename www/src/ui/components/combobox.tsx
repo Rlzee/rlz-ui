@@ -155,6 +155,23 @@ const ComboboxSeparator = () => {
   return <div className="border-t border-border my-1" />;
 };
 
+/* ------------------------------ Combobox Label ------------------------------ */
+
+const ComboboxLabel = ({
+  children,
+  className,
+  ...props
+}: React.ComponentProps<"div">) => {
+  return (
+    <div
+      className={cn("px-2 py-1.5 text-xs font-medium text-muted-foreground", className)}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+
 /* ------------------------------ Exports ------------------------------ */
 
 const ComboboxRoot = Combobox;
@@ -168,6 +185,7 @@ const ComboboxComposed = Object.assign(ComboboxRoot, {
   Group: ComboboxGroup,
   Item: ComboboxItem,
   Separator: ComboboxSeparator,
+  Label: ComboboxLabel,
 });
 
 export {
@@ -180,4 +198,5 @@ export {
   ComboboxGroup,
   ComboboxItem,
   ComboboxSeparator,
+  ComboboxLabel,
 };
