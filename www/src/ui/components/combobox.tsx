@@ -149,6 +149,12 @@ const ComboboxItem = ({
   );
 };
 
+/* ------------------------------ Combobox Separator ------------------------------ */
+
+const ComboboxSeparator = () => {
+  return <div className="border-t border-border my-1" />;
+};
+
 /* ------------------------------ Exports ------------------------------ */
 
 const ComboboxRoot = Combobox;
@@ -161,6 +167,7 @@ const ComboboxComposed = Object.assign(ComboboxRoot, {
   List: ComboboxList,
   Group: ComboboxGroup,
   Item: ComboboxItem,
+  Separator: ComboboxSeparator,
 });
 
 export {
@@ -172,4 +179,5 @@ export {
   ComboboxList,
   ComboboxGroup,
   ComboboxItem,
+  ComboboxSeparator,
 };
