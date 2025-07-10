@@ -103,7 +103,7 @@ const Kbd = ({
 
   return (
     <kbd
-      data-slot="keyboard-shortcut"
+      data-slot="kbd"
       className={cn(
         "hidden sm:flex items-center gap-1 px-1.5 py-0.5 bg-popover text-muted-foreground text-[9px] font-mono rounded-sm shadow-sm border border-border border-b-3",
         className
