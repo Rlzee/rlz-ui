@@ -25,7 +25,7 @@ const ComboboxTrigger = ({
   ...props
 }: ComponentProps<typeof Popover.Trigger>) => {
   return (
-    <Popover.Trigger asChild {...props}>
+    <Popover.Trigger asChild {...props} data-slot="combobox-trigger">
       {children}
     </Popover.Trigger>
   );
@@ -74,7 +74,7 @@ const ComboboxContent = ({
   ...props
 }: ComponentProps<typeof Popover.Content>) => {
   return (
-    <Popover.Content className={cn("w-[200px] p-0", className)} {...props}>
+    <Popover.Content className={cn("w-[200px] p-0", className)} {...props} data-slot="combobox-content">
       <Command>{children}</Command>
     </Popover.Content>
   );
@@ -114,7 +114,7 @@ const ComboboxList = ({
   ...props
 }: ComboboxListProps) => {
   return (
-    <Command.List className={className} {...props}>
+    <Command.List className={className} {...props} data-slot="combobox-list">
       <Command.Empty>{placeholder}</Command.Empty>
       {children}
     </Command.List>
@@ -129,7 +129,7 @@ const ComboboxGroup = ({
   ...props
 }: ComponentProps<typeof Command.Group>) => {
   return (
-    <Command.Group className={className} {...props}>
+    <Command.Group className={className} {...props} data-slot="combobox-group">
       {children}
     </Command.Group>
   );
@@ -143,7 +143,7 @@ const ComboboxItem = ({
   ...props
 }: ComponentProps<typeof Command.Item>) => {
   return (
-    <Command.Item className={className} {...props}>
+    <Command.Item className={className} {...props} data-slot="combobox-item">
       {children}
     </Command.Item>
   );
@@ -152,7 +152,7 @@ const ComboboxItem = ({
 /* ------------------------------ Combobox Separator ------------------------------ */
 
 const ComboboxSeparator = () => {
-  return <div className="border-t border-border my-1" />;
+  return <div className="border-t border-border my-1" data-slot="combobox-separator"/>;
 };
 
 /* ------------------------------ Combobox Label ------------------------------ */
@@ -166,6 +166,7 @@ const ComboboxLabel = ({
     <div
       className={cn("px-2 py-1.5 text-xs font-medium text-muted-foreground", className)}
       {...props}
+      data-slot="combobox-label"
     >
       {children}
     </div>
