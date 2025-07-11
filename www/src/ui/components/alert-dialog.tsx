@@ -69,7 +69,7 @@ const AlertDialog = () => {
         </Dialog.Header>
         <Dialog.Footer data-slot="alert-dialog-footer">
           <Button
-            variant={params?.CloseVariant || "secondary"}
+            variant={params?.CloseVariant || "outline"}
             data-slot="alert-dialog-close-button"
             onClick={() => closeDialog(AlertDialogName)}
           >
