@@ -18,8 +18,8 @@ export function Hero() {
           Animation="bottom"
           className="hidden lg:block absolute top-0 right-0 h-full"
         />
-        <div className="h-auto lg:max-w-4xl mx-auto md:px-8 pt-8">
-          <div className="text-center md:px-12 md:py-12 px-4 py-4">
+        <div className="h-auto lg:max-w-4xl mx-auto md:px-8 pt-4">
+          <div className="text-center md:px-18 md:py-12 px-4 py-4">
             <h1 className="text-4xl font-bold tracking-tighter md:text-6xl lg:text-7xl font-sans text-nowrap">
               The all-in-one UI kit
             </h1>
@@ -43,20 +43,40 @@ export function Hero() {
               <Button asChild>
                 <Link href="/docs">Get Started</Link>
               </Button>
-              <Button variant="secondary" asChild>
-                <Link href="/docs/components">Explore Components</Link>
+              <Button variant="outline" asChild>
+                <Link href="/docs/components">Explore</Link>
               </Button>
             </div>
           </div>
-          <BorderFlash
-            border="x"
-            Animation="bottom"
-            className="lg:h-20 h-4 mt-4 lg:visible invisible"
-            dashed
-          />
+          <div className="relative">
+            <BorderFlash
+              border="x"
+              Animation="bottom"
+              className="lg:h-12 h-4 lg:visible invisible absolute bottom-0 left-0 w-full"
+              dashed
+            />
+          </div>
         </div>
       </main>
       <BorderFlash border="top" Animation="left" />
+      <main className="mx-auto xl:mx-52 lg:mx-8 px-4 relative">
+        <BorderFlash
+          border="x"
+          Animation="top"
+          className="lg:h-24 h-8 lg:visible invisible absolute top-0 left-0 w-full"
+        />
+        <div className="h-auto lg:max-w-4xl mx-auto md:px-8">
+          <BorderFlash
+            border="x"
+            Animation="top"
+            className="lg:h-12 h-4 lg:visible invisible"
+            dashed
+          />
+          <div>
+            
+          </div>
+        </div>
+      </main>
     </section>
   );
 }
