@@ -9,7 +9,7 @@ import React, {
   useEffect,
 } from "react";
 import { ComponentProps } from "react";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import { Command } from "./command";
 import { Popover } from "./popover";
 import { Button } from "./button";
@@ -135,16 +135,25 @@ const MultiComboboxTrigger = ({
 
 interface MultiComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
   placeholder?: string;
+  chevron: "up" | "down" | "both";
 }
 
 const MultiComboboxTriggerButton = ({
   placeholder = "Combobox options",
+  chevron = "both",
   className,
   ...props
 }: MultiComboboxTriggerButtonProps) => {
   const { selected } = useMultiComboboxContext<any>();
 
-  const icon = <ChevronsUpDown className="opacity-50" />;
+  const icon =
+    chevron === "up" ? (
+      <ChevronUp className="opacity-50" />
+    ) : chevron === "down" ? (
+      <ChevronDown className="opacity-50" />
+    ) : (
+      <ChevronsUpDown className="opacity-50" />
+    );
 
   const label =
     selected.length === 0 ? placeholder : selected.join(", ");

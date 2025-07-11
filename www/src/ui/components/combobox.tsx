@@ -35,18 +35,18 @@ const ComboboxTrigger = ({
 
 interface ComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
   placeholder?: string;
-  chevronIcon?: "up" | "down" | "both";
+  chevron?: "up" | "down" | "both";
 }
 
 const ComboboxTriggerButton = ({
   placeholder = "Select an option",
-  chevronIcon = "both",
+  chevron = "both",
   ...props
 }: ComboboxTriggerButtonProps) => {
   const icon =
-    chevronIcon === "up" ? (
+    chevron === "up" ? (
       <ChevronUp className="opacity-50" />
-    ) : chevronIcon === "down" ? (
+    ) : chevron === "down" ? (
       <ChevronDown className="opacity-50" />
     ) : (
       <ChevronsUpDown className="opacity-50" />
