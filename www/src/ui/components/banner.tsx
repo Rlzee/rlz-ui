@@ -75,7 +75,7 @@ const BannerDescription = ({
   return (
     <p
       data-slot="banner-description"
-      className={cn("text-sm text-foreground/80 font-sans", className)}
+      className={cn("text-sm text-primary-foreground/80 font-sans", className)}
       {...props}
     >
       {children}

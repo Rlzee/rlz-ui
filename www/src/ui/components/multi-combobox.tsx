@@ -135,7 +135,7 @@ const MultiComboboxTrigger = ({
 
 interface MultiComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
   placeholder?: string;
-  chevron: "up" | "down" | "both";
+  chevron?: "up" | "down" | "both";
 }
 
 const MultiComboboxTriggerButton = ({
