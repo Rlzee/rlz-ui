@@ -152,7 +152,7 @@ const MultiComboboxTriggerButton = ({
   return (
     <Button
       role="combobox"
-      aria-multiComboboxable="true"
+      aria-multiselectable="true"
       className={cn("w-[200px] justify-between", className)}
       data-slot="multiCombobox-trigger-button"
       variant="outline"
