@@ -15,6 +15,8 @@ import Link from "next/link";
 import { Button } from "@/src/ui/components/button";
 import { cn } from "@/src/lib/utils";
 import { scrollToSection } from "@/src/ui/utils/utils";
+import { NavigationMenu } from "@/src/ui/components/navigation-menu";
+import { cva } from "class-variance-authority";
 
 /* --------------------------- Context & Provider --------------------------- */
 
@@ -100,7 +102,7 @@ type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
 
 const NavbarItem = (props: NavbarItemProps) => {
   const Classes =
-    "md:text-sm text-2xl opacity-80 hover:opacity-100 transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
+    "md:text-sm text-2xl font-medium text-muted-foreground hover:text-primary-foreground transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
 
   const handleClick = () => {
     if (props.type === "button") {
@@ -111,7 +113,11 @@ const NavbarItem = (props: NavbarItemProps) => {
 
   if (props.type === "link") {
     return (
-      <Link href={props.href} className={cn(Classes, props.className)} data-slot="navbar-link-item">
+      <Link
+        href={props.href}
+        className={cn(Classes, props.className)}
+        data-slot="navbar-link-item"
+      >
         {props.label}
       </Link>
     );
@@ -127,6 +133,73 @@ const NavbarItem = (props: NavbarItemProps) => {
       {props.label}
     </button>
   );
+};
+
+/* ------------------------------ Navbar Sub Menu ------------------------------ */
+
+const NavbarSubMenu = ({ ...props }: ComponentProps<typeof NavigationMenu>) => {
+  return <NavigationMenu {...props} data-slot="navbar-submenu" />;
+};
+
+/* ------------------------------ Navbar Sub Menu List ------------------------------ */
+
+const NavbarSubMenuList = ({
+  ...props
+}: ComponentProps<typeof NavigationMenu.List>) => {
+  return <NavigationMenu.List {...props} data-slot="navbar-submenu-list" />;
+};
+
+/* ------------------------------ Navbar Sub Menu Item ------------------------------ */
+
+const NavbarSubMenuItem = ({
+  ...props
+}: ComponentProps<typeof NavigationMenu.Item>) => {
+  return <NavigationMenu.Item {...props} data-slot="navbar-submenu-item" />;
+};
+
+/* ------------------------------ Navbar Sub Menu Trigger ------------------------------ */
+
+const navbarSubMenuTriggerStyle = cva(
+  "p-0 hover:bg-background hover:text-primary-foreground data-[state=open]:hover:bg-background data-[state=open]:hover:text-primary-foreground text-muted-foreground data-[state=open]:focus:bg-background focus:bg-background focus:text-primary-foreground data-[state=open]:bg-background data-[state=open]:text-primary-foreground"
+);
+
+const NavbarSubMenuTrigger = ({
+  className,
+  ...props
+}: ComponentProps<typeof NavigationMenu.Trigger>) => {
+  return (
+    <NavigationMenu.Trigger
+      {...props}
+      className={cn(navbarSubMenuTriggerStyle(), className)}
+      data-slot="navbar-submenu-trigger"
+    />
+  );
+};
+
+/* ------------------------------ Navbar Sub Menu Content ------------------------------ */
+
+const NavbarSubMenuContent = ({
+  ...props
+}: ComponentProps<typeof NavigationMenu.Content>) => {
+  return (
+    <NavigationMenu.Content {...props} data-slot="navbar-submenu-content" />
+  );
+};
+
+/* ------------------------------ Navbar Sub Menu Link------------------------------ */
+
+const NavbarSubMenuLink = ({
+  ...props
+}: ComponentProps<typeof NavigationMenu.Link>) => {
+  return <NavigationMenu.Link {...props} data-slot="navbar-submenu-link" />;
+};
+
+/* ------------------------------ Navbar Sub Menu List Item ------------------------------ */
+
+const NavbarSubMenuListItem = ({
+  ...props
+}: ComponentProps<typeof NavigationMenu.ListItem>) => {
+  return <NavigationMenu.ListItem {...props} data-slot="navbar-list-item" />;
 };
 
 /* -------------------------- Responsive Sections -------------------------- */
@@ -189,8 +262,24 @@ const NavbarMobile = ({ children }: ComponentProps<"div">) => {
 
 /* ------------------------------ Exports ------------------------------ */
 
+const NavbarMenuComposed = Object.assign(Navbar, {
+  Content: NavbarContent,
+  Item: NavbarItem,
+  Desktop: NavbarDesktop,
+  Mobile: NavbarMobile,
+  Toggle: NavbarToggle,
+  Provider: NavbarProvider,
+  SubMenu: NavbarSubMenu,
+  SubMenuList: NavbarSubMenuList,
+  SubMenuItem: NavbarSubMenuItem,
+  SubMenuTrigger: NavbarSubMenuTrigger,
+  SubMenuContent: NavbarSubMenuContent,
+  SubMenuLink: NavbarSubMenuLink,
+  SubMenuListItem: NavbarSubMenuListItem,
+});
+
 export {
-  Navbar,
+  NavbarMenuComposed as Navbar,
   NavbarContent,
   NavbarItem,
   NavbarDesktop,
@@ -198,4 +287,11 @@ export {
   NavbarToggle,
   NavbarProvider,
   useNavbar,
+  NavbarSubMenu,
+  NavbarSubMenuList,
+  NavbarSubMenuItem,
+  NavbarSubMenuTrigger,
+  NavbarSubMenuContent,
+  NavbarSubMenuLink,
+  NavbarSubMenuListItem,
 };

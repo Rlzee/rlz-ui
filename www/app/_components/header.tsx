@@ -22,7 +22,7 @@ export function Header() {
       <Navbar className="border-b border-border">
         <NavbarContent className="lg:px-8 px-4 h-16">
           <div className="flex items-center">
-            <NavbarToggle className="hover:bg-background cursor-pointer" size="sm" />
+            <NavbarToggle className="hover:bg-transparent cursor-pointer" size="sm" />
             <span className="md:hidden flex font-raleway">Menu</span>
           </div>
           <NavbarDesktop>
