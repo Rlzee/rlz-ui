@@ -76,17 +76,28 @@ const InputCopy = ({ value, readOnly = true, className }: InputCopyProps) => {
   );
 };
 
+type InputCopyCLIProps = {
+  commands: {
+    npm: string;
+    pnpm: string;
+    yarn: string;
+    bun: string;
+  };
+  readOnly?: boolean;
+  className?: string;
+};
+
 const InputCopyCLI = ({
-  value,
+  commands,
   readOnly = true,
   className,
-}: InputCopyProps) => {
+}: InputCopyCLIProps) => {
   const id = useId();
   const [copied, setCopied] = useState<boolean>(false);
-  const [selectedPackageManager, setSelectedPackageManager] = useState<string>("npm");
+  const [selectedPackageManager, setSelectedPackageManager] = useState<keyof typeof commands>("npm");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const packageManagers = ["npm", "pnpm", "yarn", "bun"];
+  const packageManagers = Object.keys(commands) as Array<keyof typeof commands>;
 
   const handleCopy = () => {
     if (inputRef.current) {
@@ -96,11 +107,11 @@ const InputCopyCLI = ({
     }
   };
 
-  const handlePackageManagerChange = (packageManager: string) => {
+  const handlePackageManagerChange = (packageManager: keyof typeof commands) => {
     setSelectedPackageManager(packageManager);
-    const newValue = value.replace(/^(npm|pnpm|yarn|bun)/, packageManager);
+    // Update the input value based on the selected package manager
     if (inputRef.current) {
-      inputRef.current.value = newValue;
+      inputRef.current.value = commands[packageManager];
     }
   };
 
@@ -125,7 +136,7 @@ const InputCopyCLI = ({
         id={id}
         className={cn("pe-9", className)}
         type="text"
-        defaultValue={value}
+        defaultValue={commands[selectedPackageManager]}
         readOnly={readOnly}
       >
         <InputAddon.Right>
