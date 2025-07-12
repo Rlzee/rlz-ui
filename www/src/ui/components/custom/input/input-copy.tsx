@@ -116,7 +116,7 @@ const InputCopyCLI = ({
   };
 
   return (
-    <div className="relative">
+    <div className="relative" data-slot="input-copy-cli">
       <div className="bg-secondary rounded-t-md h-10 absolute left-0 bottom-8 w-full flex items-center justify-start px-3 text-muted-foreground text-sm pb-1">
         <Terminal size={16} className="text-foreground mr-2" />
         {packageManagers.map((pm) => (

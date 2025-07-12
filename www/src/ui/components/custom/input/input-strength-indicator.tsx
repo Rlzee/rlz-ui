@@ -53,10 +53,11 @@ const InputStrengthIndicator = ({
   };
 
   return (
-    <div>
+    <div data-slot="input-strength-indicator-content">
       <div className="grid gap-2">
         <Label htmlFor={id}>{labelText}</Label>
         <InputPassword
+          data-slot="input-strength-indicator"
           id={id}
           placeholder={placeholder || "password"}
           value={password}
