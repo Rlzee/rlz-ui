@@ -57,7 +57,7 @@ const InputAddonRight = ({
 
 type Props = ComponentProps<typeof Input> & { children?: ReactNode; classNameContent?: string };
 
-const InputAddon = ({ children, classNameContent, ...props }: Props) => {
+const InputAddon = ({ children, className, classNameContent, ...props }: Props) => {
   let hasLeft = false;
   let hasRight = false;
 
@@ -71,7 +71,7 @@ const InputAddon = ({ children, classNameContent, ...props }: Props) => {
     <div className={cn("relative", classNameContent)} data-slot="input-addon">
       <Input
         {...props}
-        className={cn(hasLeft && "pl-10", hasRight && "pr-10")}
+        className={cn(hasLeft && "pl-10", hasRight && "pr-10", className)}
       />
       {parsed}
     </div>
