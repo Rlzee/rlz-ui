@@ -44,7 +44,7 @@ const Slider = ({
         <SliderPrimitive.Range
           data-slot="slider-range"
           className={cn(
-            "from-primary/85 to-primary inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50 absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
+            "from-primary/85 to-primary inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] active:brightness-95 dark:border-0 dark:border-zinc-950/50 absolute data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full"
           )}
         />
       </SliderPrimitive.Track>
