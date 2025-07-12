@@ -6,7 +6,7 @@ import {
   isValidElement,
   Children,
 } from "react";
-import { Input } from "./input";
+import { Input } from "@/src/ui/components/input";
 import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Addon Left ------------------------------ */
@@ -21,7 +21,7 @@ const InputAddonLeft = ({
   return (
     <div
       className={cn(
-        "text-muted-foreground/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50",
+        "text-muted-foreground/80 absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50",
         className
       )}
       data-slot="input-addon-left"
@@ -43,7 +43,7 @@ const InputAddonRight = ({
   return (
     <div
       className={cn(
-        "text-muted-foreground pointer-events-none absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50",
+        "text-muted-foreground/80 absolute inset-y-0 end-0 flex items-center justify-center pe-3 text-sm peer-disabled:opacity-50",
         className
       )}
       data-slot="input-addon-right"
@@ -57,7 +57,7 @@ const InputAddonRight = ({
 
 type Props = ComponentProps<typeof Input> & { children?: ReactNode; classNameContent?: string };
 
-const InputAddon = ({ children, className, classNameContent, ...props }: Props) => {
+const InputAddon = ({ children, classNameContent, ...props }: Props) => {
   let hasLeft = false;
   let hasRight = false;
 
@@ -71,7 +71,7 @@ const InputAddon = ({ children, className, classNameContent, ...props }: Props) 
     <div className={cn("relative", classNameContent)} data-slot="input-addon">
       <Input
         {...props}
-        className={cn(hasLeft && "pl-10", hasRight && "pr-10", className)}
+        className={cn(hasLeft && "pl-10", hasRight && "pr-10")}
       />
       {parsed}
     </div>
