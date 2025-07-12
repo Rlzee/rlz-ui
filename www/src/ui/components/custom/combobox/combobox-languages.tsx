@@ -10,7 +10,7 @@ import {
   ComboboxItem,
   ComboboxGroup,
   ComboboxTriggerButton,
-} from "../combobox";
+} from "@/src/ui/components/combobox";
 import { Check } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 
