@@ -67,7 +67,7 @@ const InputStrengthIndicator = ({
       </div>
 
       <div
-        className="bg-border mt-3 mb-4 h-1 w-full overflow-hidden rounded-full"
+        className="bg-secondary mt-3 mb-4 h-1 w-full overflow-hidden rounded-full"
         role="progressbar"
         aria-valuenow={strengthScore}
         aria-valuemin={0}
