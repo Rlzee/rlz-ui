@@ -238,10 +238,10 @@ const NavbarMobile = ({ children }: ComponentProps<"div">) => {
       data-slot="navbar-mobile"
       className={cn(
         "md:hidden border-border h-0 overflow-hidden absolute top-14 left-0 right-0 bg-background/95 transition-all duration-300",
-        isOpen && "border-t border-border px-4 pt-4 pb-4 h-[calc(100vh-3.5rem)]"
+        isOpen && "border-t border-border h-[calc(100vh-3.5rem)]"
       )}
     >
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-4 px-4 pt-4 pb-4">
         {React.Children.map(children, (child) => {
           if (!React.isValidElement(child)) return child;
 
