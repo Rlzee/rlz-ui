@@ -53,10 +53,9 @@ export function Cmd() {
   return (
     <CommandDialog>
       <CommandInput
-        placeholder="Type a command or search..."
+        placeholder="What are you looking for?"
         value={query}
         onValueChange={setQuery}
-        className="h-14 text-base py-4"
       />
       {query.trim() !== "" && (
         <CommandList>
