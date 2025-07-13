@@ -23,6 +23,8 @@ export function Cmd() {
   const isOpen = getDialogState(CommandDialogName);
   const shortcutKey = "k";
 
+  const [query, setQuery] = React.useState("");
+
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -50,21 +52,28 @@ export function Cmd() {
 
   return (
     <CommandDialog>
-      <CommandInput placeholder="Type a command or search..." />
-      <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup>
-          {pages.map((page) => (
-            <CommandItem
-              key={page.label}
-              onSelect={() => HandleClick(page.href)}
-            >
-              <StickyNote />
-              {page.label}
-            </CommandItem>
-          ))}
-        </CommandGroup>
-      </CommandList>
+      <CommandInput
+        placeholder="Type a command or search..."
+        value={query}
+        onValueChange={setQuery}
+        className="h-14 text-base py-4"
+      />
+      {query.trim() !== "" && (
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup>
+            {pages.map((page) => (
+              <CommandItem
+                key={page.label}
+                onSelect={() => HandleClick(page.href)}
+              >
+                <StickyNote />
+                {page.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+        </CommandList>
+      )}
     </CommandDialog>
   );
 }
