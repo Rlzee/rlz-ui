@@ -9,7 +9,7 @@ import { CheckCircle, AlertCircle, Info, AlertTriangle } from "lucide-react";
 const variantDetails = {
   success: {
     title: "Success",
-    icon: <CheckCircle className="text-green-500 w-5 h-5" />,
+    icon: <CheckCircle className="text-emerald-500 w-5 h-5" />,
   },
   error: {
     title: "Error",
