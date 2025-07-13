@@ -9,7 +9,7 @@ interface SeparatorProps extends ComponentProps<"div"> {
 
 const Separator = ({
   className,
-  orientation = "horizontal",
+  orientation = "vertical",
   ...props
 }: SeparatorProps) => {
   return (

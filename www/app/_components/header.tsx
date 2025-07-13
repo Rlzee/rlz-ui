@@ -22,7 +22,7 @@ export function Header() {
       <Navbar className="border-b border-border">
         <NavbarContent className="lg:px-8 px-4 h-16">
           <div className="flex items-center">
-            <NavbarToggle className="hover:bg-transparent cursor-pointer" size="sm" />
+            <NavbarToggle className="hover:bg-transparent" size="sm" />
             <span className="md:hidden flex font-raleway">Menu</span>
           </div>
           <NavbarDesktop>
@@ -32,7 +32,7 @@ export function Header() {
           </NavbarDesktop>
           <div className="flex items-center gap-2 ml-auto">
             <ButtonSearch placeholder="Search documentation..." className="invisible md:visible" />
-            <Separator orientation="vertical" className="h-6 hidden md:inline-block" />
+            <Separator className="h-6 hidden md:inline-block" />
             <Button
               variant="ghost"
               size="sm"
