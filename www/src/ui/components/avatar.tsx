@@ -36,7 +36,7 @@ const AvatarImage = ({ src, alt, className, ...props }: ComponentProps<typeof Av
 const AvatarFallback = ({ className, children, ...props }: ComponentProps<typeof AvatarPrimitive.Fallback>) => {
   return (
     <AvatarPrimitive.Fallback
-      className={cn("bg-secondary flex size-full items-center justify-center rounded-full font-medium", className)}
+      className={cn("bg-secondary border flex size-full items-center justify-center rounded-full font-medium", className)}
       {...props}
     >
       {children}
