@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { cn } from "@/src/lib/utils"
+import { ComponentProps } from "react";
+import { cn } from "@/src/lib/utils";
 
-interface InputProps extends React.ComponentProps<"input"> {
-  className?: string
-}
-
-const Input = ({ className, type = "text", ...props }: InputProps) => {
+const Input = ({
+  className,
+  type = "text",
+  ...props
+}: ComponentProps<"input">) => {
   return (
     <input
       type={type}
@@ -20,7 +20,7 @@ const Input = ({ className, type = "text", ...props }: InputProps) => {
       )}
       {...props}
     />
-  )
-}
+  );
+};
 
-export { Input }
+export { Input };

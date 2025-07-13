@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
 import { CircleIcon } from "lucide-react";
 import { cn } from "@/src/lib/utils";
@@ -22,10 +22,13 @@ const RadioGroup = ({
 
 /* ------------------------------ Radio Group Item ------------------------------ */
 
-const RadioGroupItem = ({
+const RadioGroupItemBase = ({
+  children,
   className,
   ...props
-}: ComponentProps<typeof RadioGroupPrimitive.Item>) => {
+}: ComponentProps<typeof RadioGroupPrimitive.Item> & {
+  children?: ReactNode;
+}) => {
   return (
     <RadioGroupPrimitive.Item
       data-slot="radio-group-item"
@@ -35,21 +38,72 @@ const RadioGroupItem = ({
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator
-        data-slot="radio-group-indicator"
-        className="relative flex items-center justify-center"
-      >
-        <CircleIcon className="fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2" />
-      </RadioGroupPrimitive.Indicator>
+      {children}
     </RadioGroupPrimitive.Item>
+  );
+};
+
+/* ------------------------------ Radio Group Indicator ------------------------------ */
+
+const RadioGroupIndicator = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<typeof RadioGroupPrimitive.Indicator> & {
+  children?: ReactNode;
+}) => {
+  return (
+    <RadioGroupPrimitive.Indicator
+      data-slot="radio-group-indicator"
+      className={cn("relative flex items-center justify-center", className)}
+      {...props}
+    >
+      {children}
+    </RadioGroupPrimitive.Indicator>
+  );
+};
+
+/* ------------------------------ Radio Group Icon ------------------------------ */
+
+const RadioGroupIcon = ({ className }: { className?: string }) => {
+  return (
+    <CircleIcon
+      className={cn(
+        "fill-primary absolute top-1/2 left-1/2 size-2 -translate-x-1/2 -translate-y-1/2",
+        className
+      )}
+    />
+  );
+};
+
+/* ------------------------------ Radio Group Item ------------------------------ */
+
+const RadioGroupItem = (
+  props: ComponentProps<typeof RadioGroupPrimitive.Item>
+) => {
+  return (
+    <RadioGroupItemBase {...props}>
+      <RadioGroupIndicator>
+        <RadioGroupIcon />
+      </RadioGroupIndicator>
+    </RadioGroupItemBase>
   );
 };
 
 /* ------------------------------ Exports ------------------------------ */
 
-const RadioGroupComposant = Object.assign(RadioGroup, {
+const RadioGroupComposed = Object.assign(RadioGroup, {
+  Root: RadioGroup,
+  ItemBase: RadioGroupItemBase,
   Item: RadioGroupItem,
+  Indicator: RadioGroupIndicator,
+  Icon: RadioGroupIcon,
 });
 
-export { RadioGroupComposant as RadioGroup, RadioGroupItem };
-
+export {
+  RadioGroupComposed as RadioGroup,
+  RadioGroupItemBase,
+  RadioGroupItem,
+  RadioGroupIndicator,
+  RadioGroupIcon,
+};

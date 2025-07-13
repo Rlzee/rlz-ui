@@ -83,9 +83,7 @@ const CardFooter = ({ className, ...props }: ComponentProps<"div">) => {
 
 /* ------------------------------ Exports ------------------------------ */
 
-const CardRoot = Card;
-
-const CardComposed = Object.assign(CardRoot, {
+const CardComposed = Object.assign(Card, {
   Header: CardHeader,
   Title: CardTitle,
   Description: CardDescription,

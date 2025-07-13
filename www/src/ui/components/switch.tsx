@@ -2,10 +2,12 @@
 
 import { ComponentProps } from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-
 import { cn } from "@/src/lib/utils";
 
-const Switch = ({
+/* ------------------------------ Root Switch ------------------------------ */
+
+const SwitchRoot = ({
+  children,
   className,
   ...props
 }: ComponentProps<typeof SwitchPrimitive.Root>) => {
@@ -19,14 +21,45 @@ const Switch = ({
       )}
       {...props}
     >
-      <SwitchPrimitive.Thumb
-        data-slot="switch-thumb"
-        className={cn(
-          "data-[state=unchecked]:bg-background dark:data-[state=unchecked]:bg-foreground data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0"
-        )}
-      />
+      {children}
     </SwitchPrimitive.Root>
   );
 };
 
-export { Switch };
+/* ------------------------------ Switch Thumb ------------------------------ */
+
+const SwitchThumb = ({
+  className,
+}: ComponentProps<typeof SwitchPrimitive.Thumb>) => {
+  return (
+    <SwitchPrimitive.Thumb
+      data-slot="switch-thumb"
+      className={cn(
+        "data-[state=unchecked]:bg-background dark:data-[state=unchecked]:bg-foreground data-[state=checked]:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
+        className
+      )}
+    />
+  );
+};
+
+/* ------------------------------ Switch ------------------------------ */
+
+const Switch = ({
+  className,
+  ...props
+}: ComponentProps<typeof SwitchPrimitive.Root>) => {
+  return (
+    <SwitchRoot className={className} {...props}>
+      <SwitchThumb />
+    </SwitchRoot>
+  );
+};
+
+/* ------------------------------ Exports ------------------------------ */
+
+const SwitchComposed = Object.assign(Switch, {
+  Root: SwitchRoot,
+  Thumb: SwitchThumb,
+});
+
+export { SwitchComposed as Switch, SwitchRoot, SwitchThumb };
