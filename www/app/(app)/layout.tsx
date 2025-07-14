@@ -1,4 +1,4 @@
-import { Header } from "./_components/header";
+import { Header } from "@/src/components/header";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
