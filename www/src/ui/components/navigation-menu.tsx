@@ -72,7 +72,7 @@ const NavigationMenuItem = ({
 /* ------------------------------ Navigation Menu Indicator ------------------------------ */
 
 const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-secondary hover:text-muted-foreground focus:bg-muted focus:text-primary-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-secondary data-[state=open]:text-muted-foreground data-[state=open]:focus:bg-muted data-[state=open]:bg-secondary outline-none transition-[color,box-shadow]"
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-secondary hover:text-muted-foreground focus:bg-muted focus:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-secondary data-[state=open]:text-muted-foreground data-[state=open]:focus:bg-muted data-[state=open]:bg-secondary outline-none transition-[color,box-shadow]"
 );
 
 const NavigationMenuTrigger = ({
@@ -129,7 +129,7 @@ const NavigationMenuViewport = ({
       <NavigationMenuPrimitive.Viewport
         data-slot="navigation-menu-viewport"
         className={cn(
-          "origin-top-center bg-popover text-primary-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
+          "origin-top-center bg-popover text-foreground data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border shadow md:w-[var(--radix-navigation-menu-viewport-width)]",
           className
         )}
         {...props}

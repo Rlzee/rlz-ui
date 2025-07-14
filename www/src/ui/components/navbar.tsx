@@ -102,7 +102,7 @@ type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
 
 const NavbarItem = (props: NavbarItemProps) => {
   const Classes =
-    "md:text-sm text-2xl text-muted-foreground hover:text-primary-foreground transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
+    "md:text-sm text-2xl text-muted-foreground hover:text-foreground transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
 
   const handleClick = () => {
     if (props.type === "button") {
@@ -160,7 +160,7 @@ const NavbarSubMenuItem = ({
 /* ------------------------------ Navbar Sub Menu Trigger ------------------------------ */
 
 const navbarSubMenuTriggerStyle = cva(
-  "font-normal p-0 hover:bg-background hover:text-primary-foreground data-[state=open]:hover:bg-background data-[state=open]:hover:text-primary-foreground text-muted-foreground data-[state=open]:focus:bg-background focus:bg-background focus:text-primary-foreground data-[state=open]:bg-background data-[state=open]:text-primary-foreground"
+  "font-normal p-0 hover:bg-background hover:text-foreground data-[state=open]:hover:bg-background data-[state=open]:hover:text-foreground text-muted-foreground data-[state=open]:focus:bg-background focus:bg-background focus:text-foreground data-[state=open]:bg-background data-[state=open]:text-foreground"
 );
 
 const NavbarSubMenuTrigger = ({
