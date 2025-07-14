@@ -2,7 +2,7 @@
 
 import { ComponentProps } from "react";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
-import { ChevronDownIcon } from "lucide-react";
+import { ChevronDownIcon, type LucideIcon } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Accordion ------------------------------ */
@@ -28,6 +28,21 @@ const AccordionItem = ({
   );
 };
 
+/* ------------------------------ Accordion Header ------------------------------ */
+
+const AccordionHeader = ({
+  className,
+  ...props
+}: ComponentProps<typeof AccordionPrimitive.Header>) => {
+  return (
+    <AccordionPrimitive.Header
+      data-slot="accordion-header"
+      className={cn("flex", className)}
+      {...props}
+    />
+  );
+};
+
 /* ------------------------------ Accordion Trigger ------------------------------ */
 
 const AccordionTrigger = ({
@@ -36,19 +51,35 @@ const AccordionTrigger = ({
   ...props
 }: ComponentProps<typeof AccordionPrimitive.Trigger>) => {
   return (
-    <AccordionPrimitive.Header className="flex">
-      <AccordionPrimitive.Trigger
-        data-slot="accordion-trigger"
-        className={cn(
-          "flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
-          className
-        )}
-        {...props}
-      >
-        {children}
-        <ChevronDownIcon className="text-muted-foreground pointer-events-none size-4 shrink-0 translate-y-0.5 transition-transform duration-200" />
-      </AccordionPrimitive.Trigger>
-    </AccordionPrimitive.Header>
+    <AccordionPrimitive.Trigger
+      data-slot="accordion-trigger"
+      className={cn(
+        "flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </AccordionPrimitive.Trigger>
+  );
+};
+
+/* ------------------------------ Accordion Icon ------------------------------ */
+
+const AccordionIcon = ({
+  Icon = ChevronDownIcon,
+  className,
+}: {
+  Icon?: LucideIcon;
+  className?: string;
+}) => {
+  return (
+    <Icon
+      className={cn(
+        "h-4 w-4 shrink-0 transition-transform duration-200",
+        className
+      )}
+    />
   );
 };
 
@@ -74,13 +105,17 @@ const AccordionContent = ({
 
 const AccordionComposed = Object.assign(Accordion, {
   Item: AccordionItem,
+  Header: AccordionHeader,
   Trigger: AccordionTrigger,
+  Icon: AccordionIcon,
   Content: AccordionContent,
 });
 
 export {
   AccordionComposed as Accordion,
   AccordionItem,
+  AccordionHeader,
   AccordionTrigger,
+  AccordionIcon,
   AccordionContent,
 };
