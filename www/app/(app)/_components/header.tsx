@@ -12,7 +12,7 @@ import {
 import { ThemeToggle } from "@/src/ui/components/toggle-theme";
 import { ButtonSearch } from "@/src/ui/components/custom/button-search";
 import { Separator } from "@/src/ui/components/separator";
-import { navLinks } from "./_data/data";
+import { navLinks } from "@/src/data/data";
 import { Github } from "@/src/ui/icons/social-icons";
 import { Button } from "@/src/ui/components/button";
 

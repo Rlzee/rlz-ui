@@ -6,5 +6,3 @@ export const navLinks = [
   { href: "", label: "Themes" },
   { href: "", label: "Community" },
 ];
-
-export const pages = navLinks

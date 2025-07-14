@@ -12,7 +12,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/src/ui/components/command";
-import { pages } from "./_data/data";
+import { navLinks as pages } from "@/src/data/data";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 
 import * as React from "react";
