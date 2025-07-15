@@ -7,13 +7,6 @@ import { cn } from "@/src/lib/utils";
 type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y";
 type Animation = "bottom" | "top" | "left" | "right";
 
-interface BorderFlashProps {
-  border: Orientation;
-  Animation: Animation;
-  dashed?: boolean;
-  className?: string;
-}
-
 const getBorderAnim = (side: Animation) => {
   const base = { duration: 1, ease: "easeOut" as const };
 
@@ -48,6 +41,15 @@ const getBorderAnim = (side: Animation) => {
       };
   }
 };
+
+/* ------------------------------ Border Flash ------------------------------ */
+
+interface BorderFlashProps {
+  border: Orientation;
+  Animation: Animation;
+  dashed?: boolean;
+  className?: string;
+}
 
 const BorderFlash = ({
   border,
@@ -115,4 +117,67 @@ const BorderFlash = ({
   );
 };
 
-export { BorderFlash };
+/* ------------------------------ Border Flash Box ------------------------------ */
+
+interface BorderFlashBoxProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const BorderFlashBox: React.FC<BorderFlashBoxProps> = ({
+  children,
+  className,
+}) => {
+  return (
+    <div className={cn("relative w-full p-6", className)}>
+      {/* Top border */}
+      <div className="absolute inset-x-0 top-0">
+        <BorderFlash border="top" Animation="left" />
+      </div>
+
+      {/* Bottom border */}
+      <div className="absolute inset-x-0 bottom-0">
+        <BorderFlash border="bottom" Animation="right" />
+      </div>
+
+      {/* Left border */}
+      <div className="absolute inset-y-0 left-0 h-full">
+        <BorderFlash border="left" Animation="top" className="h-full" />
+      </div>
+
+      {/* Right border */}
+      <div className="absolute inset-y-0 right-0 h-full">
+        <BorderFlash border="right" Animation="bottom" className="h-full" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 bg-background text-left">{children}</div>
+    </div>
+  );
+};
+
+/* ------------------------------ Border Flash Box Content ------------------------------ */
+
+const BorderFlashBoxContent = ({
+  children,
+  className,
+}: BorderFlashBoxProps) => {
+  return (
+    <div className={cn("flex items-center justify-center p-2", className)}>
+      {children}
+    </div>
+  );
+};
+
+/* ------------------------------ Exports ------------------------------ */
+
+const BorderFlashComposed = Object.assign(BorderFlash, {
+  Box: BorderFlashBox,
+  BoxContent: BorderFlashBoxContent,
+});
+
+export {
+  BorderFlashComposed as BorderFlash,
+  BorderFlashBox,
+  BorderFlashBoxContent,
+};
