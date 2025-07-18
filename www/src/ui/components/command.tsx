@@ -8,7 +8,7 @@ import { cn } from "@/src/lib/utils";
 import { Dialog } from "@/src/ui/components/dialog";
 import { useDialog } from "@/src/ui/stores/dialog.store";
 
-const CommandDialogName = "command-dialog";
+const COMMAND_DIALOG_NAME = "command-dialog";
 
 /* ------------------------------ Root Command ------------------------------ */
 
@@ -44,10 +44,10 @@ const CommandDialog = ({
   className,
 }: CommandDialogProps) => {
   const { getDialogState, closeDialog } = useDialog();
-  const isOpen = getDialogState(CommandDialogName);
+  const isOpen = getDialogState(COMMAND_DIALOG_NAME);
 
   return (
-    <Dialog open={isOpen} onOpenChange={() => closeDialog(CommandDialogName)}>
+    <Dialog open={isOpen} onOpenChange={() => closeDialog(COMMAND_DIALOG_NAME)}>
       <Dialog.Header className="sr-only">
         <Dialog.Title>{title}</Dialog.Title>
         <Dialog.Description>{description}</Dialog.Description>
@@ -97,7 +97,7 @@ const CommandInput = ({
         <Kbd
           className="hidden sm:flex items-center gap-1 px-1.5 py-0.5 text-[12px] font-mono rounded-md shadow-sm transition cursor-pointer"
           shortcutKey="Esc"
-          onClick={() => closeDialog(CommandDialogName)}
+          onClick={() => closeDialog(COMMAND_DIALOG_NAME)}
         />
       )}
     </div>
@@ -220,7 +220,7 @@ const CommandComposed = Object.assign(Command, {
 });
 
 export {
-  CommandDialogName,
+  COMMAND_DIALOG_NAME,
   CommandComposed as Command,
   CommandDialog,
   CommandInput,
