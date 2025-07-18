@@ -112,7 +112,7 @@ const TreeItem = ({ children }: { children: ReactNode }) => {
 const TreeItemFile = ({
   text,
   icon = <FileIcon className="h-4 w-4" />,
-  extension = "txt",
+  extension,
 }: {
   key?: string;
   text: string;
@@ -124,7 +124,7 @@ const TreeItemFile = ({
       {icon && <span className="text-muted-foreground">{icon}</span>}
       <div className="text-sm">
         {text}
-        <span>.{extension}</span>
+        {extension && <span>.{extension}</span>}
       </div>
     </div>
   );
