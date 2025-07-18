@@ -29,6 +29,8 @@ const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
+/* ------------------------------ Context Sidebar ------------------------------ */
+
 type SidebarContextProps = {
   state: "expanded" | "collapsed";
   open: boolean;
@@ -49,6 +51,8 @@ const useSidebar = () => {
 
   return context;
 };
+
+/* ------------------------------ Sidebar Provider ------------------------------ */
 
 const SidebarProvider = ({
   defaultOpen = true,
@@ -146,6 +150,8 @@ const SidebarProvider = ({
   );
 };
 
+/* ------------------------------ Root Sidebar ------------------------------ */
+
 const Sidebar = ({
   side = "left",
   variant = "sidebar",
@@ -188,7 +194,7 @@ const Sidebar = ({
           data-mobile="true"
           className={cn(
             "w-(--sidebar-width) p-0 [&>button]:hidden",
-            backgroundColor ? "" : "bg-secondary text-foreground",
+            backgroundColor ? "" : "bg-secondary text-foreground"
           )}
           style={
             {
@@ -260,6 +266,8 @@ const Sidebar = ({
   );
 };
 
+/* ------------------------------ Sidebar Trigger ------------------------------ */
+
 const SidebarTrigger = ({
   className,
   onClick,
@@ -285,6 +293,8 @@ const SidebarTrigger = ({
     </Button>
   );
 };
+
+/* ------------------------------ Sidebar Rail ------------------------------ */
 
 const SidebarRail = ({
   className,
@@ -314,6 +324,8 @@ const SidebarRail = ({
   );
 };
 
+/* ------------------------------ Sidebar Inset ------------------------------ */
+
 const SidebarInset = ({
   className,
   ...props
@@ -331,6 +343,8 @@ const SidebarInset = ({
   );
 };
 
+/* ------------------------------ Sidebar Input ------------------------------ */
+
 const SidebarInput = ({
   className,
   ...props
@@ -344,6 +358,8 @@ const SidebarInput = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Header ------------------------------ */
 
 const SidebarHeader = ({
   className,
@@ -359,6 +375,8 @@ const SidebarHeader = ({
   );
 };
 
+/* ------------------------------ Sidebar Footer ------------------------------ */
+
 const SidebarFooter = ({
   className,
   ...props
@@ -373,6 +391,8 @@ const SidebarFooter = ({
   );
 };
 
+/* ------------------------------ Sidebar Separator ------------------------------ */
+
 const SidebarSeparator = ({
   className,
   ...props
@@ -386,6 +406,8 @@ const SidebarSeparator = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Content ------------------------------ */
 
 const SidebarContent = ({
   className,
@@ -404,6 +426,8 @@ const SidebarContent = ({
   );
 };
 
+/* ------------------------------ Sidebar Group ------------------------------ */
+
 const SidebarGroup = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
@@ -414,6 +438,8 @@ const SidebarGroup = ({ className, ...props }: React.ComponentProps<"div">) => {
     />
   );
 };
+
+/* ------------------------------ Sidebar Group Label ------------------------------ */
 
 const SidebarGroupLabel = ({
   className,
@@ -435,6 +461,8 @@ const SidebarGroupLabel = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Group Action ------------------------------ */
 
 const SidebarGroupAction = ({
   className,
@@ -458,6 +486,8 @@ const SidebarGroupAction = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Group Content ------------------------------ */
 
 const SidebarGroupContent = ({
   className,
@@ -483,6 +513,8 @@ const SidebarMenu = ({ className, ...props }: React.ComponentProps<"ul">) => {
     />
   );
 };
+
+/* ------------------------------ Sidebar Menu Item ------------------------------ */
 
 const SidebarMenuItem = ({
   className,
@@ -519,6 +551,8 @@ const sidebarMenuButtonVariants = cva(
     },
   }
 );
+
+/* ------------------------------ Sidebar Menu Button ------------------------------ */
 
 const SidebarMenuButton = ({
   asChild = false,
@@ -579,6 +613,8 @@ const SidebarMenuButton = ({
   );
 };
 
+/* ------------------------------ Sidebar Menu Action ------------------------------ */
+
 const SidebarMenuAction = ({
   className,
   asChild = false,
@@ -611,6 +647,8 @@ const SidebarMenuAction = ({
   );
 };
 
+/* ------------------------------ Sidebar Menu Badge ------------------------------ */
+
 const SidebarMenuBadge = ({
   className,
   ...props
@@ -632,6 +670,8 @@ const SidebarMenuBadge = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Menu Skeleton ------------------------------ */
 
 const SidebarMenuSkeleton = ({
   className,
@@ -677,6 +717,8 @@ const SidebarMenuSkeleton = ({
   );
 };
 
+/* ------------------------------ Sidebar Menu Sub ------------------------------ */
+
 const SidebarMenuSub = ({
   className,
   ...props
@@ -695,6 +737,8 @@ const SidebarMenuSub = ({
   );
 };
 
+/* ------------------------------ Sidebar Menu Sub Item ------------------------------ */
+
 const SidebarMenuSubItem = ({
   className,
   ...props
@@ -708,6 +752,8 @@ const SidebarMenuSubItem = ({
     />
   );
 };
+
+/* ------------------------------ Sidebar Menu Sub Button ------------------------------ */
 
 const SidebarMenuSubButton = ({
   asChild = false,
@@ -741,8 +787,36 @@ const SidebarMenuSubButton = ({
   );
 };
 
+/* ------------------------------ Exports ------------------------------ */
+
+const SidebarComposed = Object.assign(Sidebar, {
+  Content: SidebarContent,
+  Footer: SidebarFooter,
+  Group: SidebarGroup,
+  GroupAction: SidebarGroupAction,
+  GroupContent: SidebarGroupContent,
+  GroupLabel: SidebarGroupLabel,
+  Header: SidebarHeader,
+  Input: SidebarInput,
+  Inset: SidebarInset,
+  Menu: SidebarMenu,
+  MenuAction: SidebarMenuAction,
+  MenuBadge: SidebarMenuBadge,
+  MenuButton: SidebarMenuButton,
+  MenuItem: SidebarMenuItem,
+  MenuSkeleton: SidebarMenuSkeleton,
+  MenuSub: SidebarMenuSub,
+  MenuSubButton: SidebarMenuSubButton,
+  MenuSubItem: SidebarMenuSubItem,
+  Provider: SidebarProvider,
+  Rail: SidebarRail,
+  Separator: SidebarSeparator,
+  Trigger: SidebarTrigger,
+  useSidebar,
+});
+
 export {
-  Sidebar,
+  SidebarComposed as Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
