@@ -4,7 +4,7 @@ import { StickyNote } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
-  CommandDialogName,
+  COMMAND_DIALOG_NAME,
   CommandDialog,
   CommandEmpty,
   CommandGroup,
@@ -20,7 +20,7 @@ import * as React from "react";
 export function Cmd() {
   const router = useRouter();
   const { closeDialog, openDialog, getDialogState } = useDialog();
-  const isOpen = getDialogState(CommandDialogName);
+  const isOpen = getDialogState(COMMAND_DIALOG_NAME);
   const shortcutKey = "k";
 
   const [query, setQuery] = React.useState("");
@@ -33,9 +33,9 @@ export function Cmd() {
       ) {
         e.preventDefault();
         if (isOpen) {
-          closeDialog(CommandDialogName);
+          closeDialog(COMMAND_DIALOG_NAME);
         } else {
-          openDialog(CommandDialogName);
+          openDialog(COMMAND_DIALOG_NAME);
         }
       }
     };
@@ -46,7 +46,7 @@ export function Cmd() {
   const HandleClick = (href: string) => {
     if (href) {
       router.push(href);
-      closeDialog(CommandDialogName);
+      closeDialog(COMMAND_DIALOG_NAME);
     }
   };
 
