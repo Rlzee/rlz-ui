@@ -140,7 +140,7 @@ const InputCopyCLI = ({
         readOnly={readOnly}
       >
         <InputAddon.Right>
-          <Tooltip.Root>
+          <Tooltip.Root openDelay={0} closeDelay={500}>
             <Tooltip.Trigger asChild>
               <button
                 onClick={handleCopy}

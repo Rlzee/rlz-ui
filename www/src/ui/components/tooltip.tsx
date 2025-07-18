@@ -2,6 +2,7 @@
 
 import { cn } from "@/src/lib/utils";
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card";
+import { de } from "date-fns/locale";
 import {
   ComponentProps,
   ReactNode,
@@ -71,9 +72,10 @@ interface TooltipProps {
   children: ReactElement;
   className?: string;
   side?: ComponentProps<typeof TooltipContent>["side"];
+  delayDuration?: number;
 }
 
-const Tooltip = ({ content, children, className, side }: TooltipProps) => {
+const Tooltip = ({ content, children, className, side, delayDuration }: TooltipProps) => {
   const id = useId();
 
   const trigger = isValidElement(children)
@@ -83,7 +85,7 @@ const Tooltip = ({ content, children, className, side }: TooltipProps) => {
     : children;
 
   return (
-    <TooltipRoot>
+    <TooltipRoot openDelay={0} closeDelay={delayDuration || 500}>
       <TooltipTrigger>{trigger}</TooltipTrigger>
       <TooltipContent id={id} className={className} side={side}>
         {content}
