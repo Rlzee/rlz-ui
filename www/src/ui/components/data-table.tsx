@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { Table as TableComponent } from "./table";
 import {
   ColumnDef,
@@ -35,7 +36,6 @@ import { Button } from "@/src/ui/components/button";
 import { Table } from "@tanstack/react-table";
 import { DropdownMenu } from "@/src/ui/components/dropdown-menu";
 import { cn } from "@/src/lib/utils";
-import { ReactNode } from "react";
 
 declare module "@tanstack/react-table" {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -330,10 +330,10 @@ function DataTableColumnHeader<TData, TValue>({
 
 interface RowAction<TData> {
   label: string;
-  icon?: ReactNode;
+  icon?: React.ReactNode;
   onClick: (data: TData) => void;
   className?: string;
-  shortcut?: ReactNode | string;
+  shortcut?: React.ReactNode | string;
   separator?: boolean;
 }
 
