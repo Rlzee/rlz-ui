@@ -203,21 +203,21 @@ const DropdownMenuSeparator = ({
 interface DropdownMenuShortcutProps {
   shortcutKey?: string;
   className?: string;
-  icon?: ReactNode;
+  children?: ReactNode;
 }
 
 const DropdownMenuShortcut = ({
   shortcutKey = "",
   className,
-  icon,
+  children,
 }: DropdownMenuShortcutProps) => {
-  if (icon) {
+  if (children) {
     return (
       <span
         data-slot="dropdown-menu-shortcut"
         className={cn("ml-auto flex items-center", className)}
       >
-        {icon}
+        {children}
       </span>
     );
   }
