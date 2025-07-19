@@ -17,11 +17,25 @@ const Tree = ({
   className?: string;
 }) => {
   return (
-    <Sidebar.Provider className={cn("w-[250px]", className)}>
-      <Sidebar.Group>
-        <Sidebar.Menu>{children}</Sidebar.Menu>
-      </Sidebar.Group>
-    </Sidebar.Provider>
+    <div 
+      className={cn("tree-container", className)}
+      style={{
+        height: 'auto',
+        minHeight: 'auto'
+      }}
+    >
+      <Sidebar.Provider 
+        className="w-[250px]"
+        style={{
+          height: 'auto',
+          minHeight: 'auto'
+        }}
+      >
+        <Sidebar.Group>
+          <Sidebar.Menu>{children}</Sidebar.Menu>
+        </Sidebar.Group>
+      </Sidebar.Provider>
+    </div>
   );
 };
 
@@ -112,7 +126,7 @@ const TreeItem = ({ children }: { children: ReactNode }) => {
 const TreeItemFile = ({
   text,
   icon = <FileIcon className="h-4 w-4" />,
-  extension,
+  extension
 }: {
   key?: string;
   text: string;
@@ -120,7 +134,7 @@ const TreeItemFile = ({
   extension?: string;
 }) => {
   return (
-    <div className="flex items-center gap-2 py-1 cursor-pointer hover:bg-accent hover:text-accent-foreground rounded-sm px-2">
+    <div className="flex items-center gap-2 py-1 cursor-pointer hover:bg-secondary rounded-sm px-2">
       {icon && <span className="text-muted-foreground">{icon}</span>}
       <div className="text-sm">
         {text}
