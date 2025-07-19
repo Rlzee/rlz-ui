@@ -160,7 +160,7 @@ const NavbarSubMenuItem = ({
 /* ------------------------------ Navbar Sub Menu Trigger ------------------------------ */
 
 const navbarSubMenuTriggerStyle = cva(
-  "font-normal p-0 hover:bg-background hover:text-foreground data-[state=open]:hover:bg-background data-[state=open]:hover:text-foreground text-muted-foreground data-[state=open]:focus:bg-background focus:bg-background focus:text-foreground data-[state=open]:bg-background data-[state=open]:text-foreground"
+  "font-normal p-0 hover:bg-transparent hover:text-foreground data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-foreground text-muted-foreground data-[state=open]:focus:bg-transparent focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground"
 );
 
 const NavbarSubMenuTrigger = ({

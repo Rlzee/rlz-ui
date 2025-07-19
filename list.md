@@ -1,5 +1,4 @@
 color-picker
-Breadcrumb
 download-trigger
 drawer
 Editable
