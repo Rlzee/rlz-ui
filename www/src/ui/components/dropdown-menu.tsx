@@ -1,6 +1,6 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 import { Kbd } from "./kbd";
@@ -203,8 +203,22 @@ const DropdownMenuSeparator = ({
 const DropdownMenuShortcut = ({
   shortcutKey,
   className,
+  icon,
   ...props
-}: ComponentProps<typeof Kbd>) => {
+}: ComponentProps<typeof Kbd> & {
+  icon?: ReactNode;
+}) => {
+  if (icon) {
+    return (
+      <span
+        data-slot="dropdown-menu-shortcut"
+        className={cn("ml-auto flex items-center", className)}
+      >
+        {icon}
+      </span>
+    );
+  }
+
   return (
     <Kbd
       data-slot="dropdown-menu-shortcut"
@@ -303,4 +317,3 @@ export {
   DropdownMenuSubTrigger,
   DropdownMenuSubContent,
 };
-
