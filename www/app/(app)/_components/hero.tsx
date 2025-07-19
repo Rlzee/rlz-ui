@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/ui/components/button";
 import Link from "next/link";
-import { BorderFlash } from "@/src/ui/components/border-flash";
+import { BorderFlash } from "@/src/ui/components/animated/border-flash";
 
 export function Hero() {
   return (
