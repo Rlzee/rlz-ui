@@ -193,14 +193,17 @@ const CommandItem = ({
 
 /* ----------------------------- Command Shortcut ----------------------------- */
 
+interface CommandShortcutProps {
+  className?: string;
+  shortcutKey?: string;
+  icon?: ReactNode;
+}
+
 const CommandShortcut = ({
   className,
-  shortcutKey,
+  shortcutKey = "",
   icon,
-  ...props
-}: ComponentProps<typeof Kbd> & {
-  icon?: ReactNode;
-}) => {
+}: CommandShortcutProps) => {
   if (icon) {
     return (
       <span
@@ -217,7 +220,6 @@ const CommandShortcut = ({
       data-slot="command-shortcut"
       className={cn("tracking-widest ml-auto", className)}
       shortcutKey={shortcutKey}
-      {...props}
     />
   );
 };

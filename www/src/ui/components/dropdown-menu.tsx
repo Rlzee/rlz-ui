@@ -200,14 +200,17 @@ const DropdownMenuSeparator = ({
 
 /* ---------------------------- Dropdown Menu Shortcut --------------------------- */
 
+interface DropdownMenuShortcutProps {
+  shortcutKey?: string;
+  className?: string;
+  icon?: ReactNode;
+}
+
 const DropdownMenuShortcut = ({
-  shortcutKey,
+  shortcutKey = "",
   className,
   icon,
-  ...props
-}: ComponentProps<typeof Kbd> & {
-  icon?: ReactNode;
-}) => {
+}: DropdownMenuShortcutProps) => {
   if (icon) {
     return (
       <span
@@ -224,7 +227,6 @@ const DropdownMenuShortcut = ({
       data-slot="dropdown-menu-shortcut"
       className={cn("ml-auto tracking-widest", className)}
       shortcutKey={shortcutKey}
-      {...props}
     />
   );
 };
