@@ -49,18 +49,21 @@ declare module "@tanstack/react-table" {
 interface DataTableProps<TData extends RowData> {
   columns: ColumnDef<TData>[];
   data: TData[];
+  className?: string;
+  classNameContainer?: string;
+  pagination?: Omit<
+    React.ComponentProps<typeof DataTablePagination<TData>>,
+    "table"
+  >;
 }
 
 function DataTable<TData extends RowData>({
   columns,
   data,
+  className,
+  classNameContainer,
   pagination,
-}: DataTableProps<TData> & {
-  pagination?: Omit<
-    React.ComponentProps<typeof DataTablePagination<TData>>,
-    "table"
-  >;
-}) {
+}: DataTableProps<TData>) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -90,8 +93,10 @@ function DataTable<TData extends RowData>({
 
   return (
     <div className="space-y-4">
-      <div className="rounded-md border">
-        <TableComponent className="bg-background-secondary rounded-md">
+      <div className={cn("rounded-md border", classNameContainer)}>
+        <TableComponent
+          className={cn("bg-background-secondary rounded-md", className)}
+        >
           <TableComponent.Header>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableComponent.Row key={headerGroup.id} className="group/row">
