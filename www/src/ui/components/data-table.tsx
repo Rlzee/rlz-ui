@@ -385,7 +385,7 @@ function DataTableRowActions<TData>({
   );
 }
 
-/* ------------------------------ Data Table Row Actions ------------------------------ */
+/* ------------------------------ Exports ------------------------------ */
 
 export {
   DataTable,

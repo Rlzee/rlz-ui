@@ -5,10 +5,18 @@ import { CheckIcon, CopyIcon } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { Tooltip } from "./tooltip";
 
+type ClipboardSize = "sm" | "md" | "lg";
+
+const sizeClasses: Record<ClipboardSize, string> = {
+  sm: "h-4 w-4",
+  md: "h-6 w-6",
+  lg: "h-8 w-8",
+};
+
 interface ClipboardProps {
   text: string;
   className?: string;
-  size?: number;
+  size?: ClipboardSize;
   position?: "absolute" | "relative";
   showTooltip?: boolean;
   successDuration?: number;
@@ -19,7 +27,7 @@ interface ClipboardProps {
 const Clipboard = ({
   text,
   className,
-  size = 16,
+  size = "sm",
   position = "relative",
   showTooltip = true,
   successDuration = 1500,
@@ -70,7 +78,7 @@ const Clipboard = ({
               copied ? "scale-0 opacity-0" : "scale-100 opacity-100"
             )}
           >
-            <CopyIcon size={size} aria-hidden="true" />
+            <CopyIcon className={sizeClasses[size]} aria-hidden="true" />
           </div>
         </>
       )}
@@ -92,3 +100,4 @@ const Clipboard = ({
 };
 
 export { Clipboard };
+export type { ClipboardProps };
