@@ -5,7 +5,6 @@ import { Sidebar } from "./sidebar";
 import { Collapsible } from "./collapsible";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/src/lib/utils";
-import { File as FileIcon } from "lucide-react";
 
 /* --------------------------- Root Tree --------------------------- */
 
@@ -17,18 +16,18 @@ const Tree = ({
   className?: string;
 }) => {
   return (
-    <div 
+    <div
       className={cn("tree-container", className)}
       style={{
-        height: 'auto',
-        minHeight: 'auto'
+        height: "auto",
+        minHeight: "auto",
       }}
     >
-      <Sidebar.Provider 
+      <Sidebar.Provider
         className="w-[250px]"
         style={{
-          height: 'auto',
-          minHeight: 'auto'
+          height: "auto",
+          minHeight: "auto",
         }}
       >
         <Sidebar.Group>
@@ -49,15 +48,12 @@ const TreeGroup = ({
 }: ComponentProps<typeof Collapsible> & { nested?: boolean }) => {
   if (nested) {
     return (
-      <Collapsible
-        className={cn("group/collapsible", className)}
-        {...props}
-      >
+      <Collapsible className={cn("group/collapsible", className)} {...props}>
         {children}
       </Collapsible>
     );
   }
-  
+
   return (
     <Collapsible
       className={cn("group/collapsible", className)}
@@ -71,7 +67,8 @@ const TreeGroup = ({
 
 /* --------------------------- Tree Trigger --------------------------- */
 
-interface TreeTriggerItemProps extends ComponentProps<typeof Collapsible.Trigger> {
+interface TreeTriggerItemProps
+  extends ComponentProps<typeof Collapsible.Trigger> {
   children: ReactNode;
   icon?: ReactNode;
   chevron?: "left" | "right" | "none";
@@ -104,29 +101,17 @@ const TreeTrigger = ({
 const TreeContent = ({ children }: { children: ReactNode }) => {
   return (
     <Collapsible.Content>
-      <div className="ml-4 border-l border-border pl-2">
-        {children}
-      </div>
+      <div className="ml-4 border-l border-border pl-2">{children}</div>
     </Collapsible.Content>
   );
 };
 
 /* --------------------------- Tree Item --------------------------- */
 
-const TreeItem = ({ children }: { children: ReactNode }) => {
-  return (
-    <div className="py-1">
-      <span className="text-sm text-foreground">{children}</span>
-    </div>
-  );
-};
-
-/* --------------------------- Tree Item File --------------------------- */
-
-const TreeItemFile = ({
+const TreeItem = ({
   text,
-  icon = <FileIcon className="h-4 w-4" />,
-  extension
+  icon,
+  extension,
 }: {
   key?: string;
   text: string;
@@ -151,14 +136,6 @@ const TreeComposed = Object.assign(Tree, {
   Trigger: TreeTrigger,
   Content: TreeContent,
   Item: TreeItem,
-  ItemFile: TreeItemFile,
 });
 
-export {
-  TreeComposed as Tree,
-  TreeGroup,
-  TreeTrigger,
-  TreeContent,
-  TreeItem,
-  TreeItemFile,
-};
+export { TreeComposed as Tree, TreeGroup, TreeTrigger, TreeContent, TreeItem };
