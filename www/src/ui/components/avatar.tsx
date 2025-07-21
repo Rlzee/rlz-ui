@@ -1,26 +1,38 @@
-'use client'
+"use client";
 
-import { ComponentProps } from "react"
-import * as AvatarPrimitive from "@radix-ui/react-avatar"
-import { cn } from "@/src/lib/utils"
+import { ComponentProps } from "react";
+import * as AvatarPrimitive from "@radix-ui/react-avatar";
+import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Avatar ------------------------------ */
 
-const AvatarRoot = ({ children, className, ...props }: ComponentProps<typeof AvatarPrimitive.Root> ) => {
+const AvatarRoot = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<typeof AvatarPrimitive.Root>) => {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      className={cn("relative flex shrink-0 overflow-hidden rounded-full", className)}
+      className={cn(
+        "relative flex shrink-0 overflow-hidden rounded-full",
+        className
+      )}
       {...props}
     >
       {children}
     </AvatarPrimitive.Root>
-  )
-}
+  );
+};
 
 /* ------------------------------ Avatar Image ------------------------------ */
 
-const AvatarImage = ({ src, alt, className, ...props }: ComponentProps<typeof AvatarPrimitive.Image>) => {
+const AvatarImage = ({
+  src,
+  alt,
+  className,
+  ...props
+}: ComponentProps<typeof AvatarPrimitive.Image>) => {
   return (
     <AvatarPrimitive.Image
       src={src}
@@ -28,46 +40,53 @@ const AvatarImage = ({ src, alt, className, ...props }: ComponentProps<typeof Av
       className={cn("aspect-square size-full object-cover", className)}
       {...props}
     />
-  )
-}
+  );
+};
 
 /* ------------------------------ Avatar Fallback ------------------------------ */
 
-const AvatarFallback = ({ className, children, ...props }: ComponentProps<typeof AvatarPrimitive.Fallback>) => {
+const AvatarFallback = ({
+  className,
+  children,
+  ...props
+}: ComponentProps<typeof AvatarPrimitive.Fallback>) => {
   return (
     <AvatarPrimitive.Fallback
-      className={cn("bg-secondary border flex size-full items-center justify-center rounded-full font-medium", className)}
+      className={cn(
+        "bg-background-secondary border flex size-full items-center justify-center rounded-full font-medium",
+        className
+      )}
       {...props}
     >
       {children}
     </AvatarPrimitive.Fallback>
-  )
-}
+  );
+};
 
 /* ------------------------------ Avatar Component ------------------------------ */
 
-type AvatarSize = "sm" | "md" | "lg"
+type AvatarSize = "sm" | "md" | "lg";
 
-interface AvatarProps extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
-  src?: string
-  alt?: string
-  fallback?: string
-  size?: AvatarSize
-  className?: string
-  loading?: "eager" | "lazy"
+interface AvatarProps
+  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> {
+  src?: string;
+  alt?: string;
+  fallback?: string;
+  size?: AvatarSize;
+  className?: string;
+  loading?: "eager" | "lazy";
 }
 
 const sizeClasses: Record<AvatarSize, string> = {
   sm: "size-6",
   md: "size-9",
   lg: "size-12",
-}
+};
 
 const isImageUrl = (value?: string) => {
-  if (!value) return false
-  return /^(https?:\/\/|\/).+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(value)
-}
-
+  if (!value) return false;
+  return /^(https?:\/\/|\/).+\.(jpg|jpeg|png|gif|webp|svg)$/i.test(value);
+};
 
 const Avatar = ({
   src,
@@ -80,9 +99,7 @@ const Avatar = ({
 }: AvatarProps) => {
   return (
     <AvatarRoot className={cn(sizeClasses[size], className)} {...props}>
-      {src && (
-        <AvatarImage src={src} alt={alt} />
-      )}
+      {src && <AvatarImage src={src} alt={alt} />}
       <AvatarFallback>
         {isImageUrl(fallback) ? (
           <img
@@ -96,8 +113,8 @@ const Avatar = ({
         )}
       </AvatarFallback>
     </AvatarRoot>
-  )
-}
+  );
+};
 
 /* ------------------------------ Exports ------------------------------ */
 
@@ -107,9 +124,4 @@ const AvatarComposed = Object.assign(Avatar, {
   Fallback: AvatarFallback,
 });
 
-export {
-  AvatarComposed as Avatar,
-  AvatarRoot,
-  AvatarImage,
-  AvatarFallback,
-};
+export { AvatarComposed as Avatar, AvatarRoot, AvatarImage, AvatarFallback };

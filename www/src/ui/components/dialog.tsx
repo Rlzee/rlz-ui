@@ -56,7 +56,6 @@ const DialogOverlay = ({
 
 /* ---------------------------- Dialog Content --------------------------- */
 
-
 interface DialogContentProps
   extends ComponentProps<typeof DialogPrimitive.Content> {
   overlay?: boolean;
