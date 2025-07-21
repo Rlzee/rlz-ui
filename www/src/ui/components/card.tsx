@@ -10,7 +10,7 @@ const Card = ({ className, ...props }: ComponentProps<"div">) => {
     <div
       data-slot="card"
       className={cn(
-        "bg-background-secondary text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm",
+        "bg-background-secondary flex flex-col gap-6 rounded-lg border border-border py-6",
         className
       )}
       {...props}
@@ -20,12 +20,12 @@ const Card = ({ className, ...props }: ComponentProps<"div">) => {
 
 /* ------------------------------ Card Header ------------------------------ */
 
-const CardHeader = ({ className, ...props }: ComponentProps<"div">) => {
+const CardHeader = ({ className, ...props }: ComponentProps<"header">) => {
   return (
-    <div
+    <header
       data-slot="card-header"
       className={cn(
-        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        "px-6 flex flex-col gap-0.5",
         className
       )}
       {...props}
@@ -39,7 +39,7 @@ const CardTitle = ({ className, ...props }: ComponentProps<"h3">) => {
   return (
     <h3
       data-slot="card-title"
-      className={cn("text-lg font-semibold", className)}
+      className={cn("text-foreground text-lg font-semibold", className)}
       {...props}
     />
   );
@@ -59,10 +59,10 @@ const CardDescription = ({ className, ...props }: ComponentProps<"p">) => {
 
 /* ------------------------------ Card Content ------------------------------ */
 
-const CardContent = ({ className, ...props }: ComponentProps<"div">) => {
+const CardBody = ({ className, ...props }: ComponentProps<"div">) => {
   return (
-    <div
-      data-slot="card-content"
+    <main
+      data-slot="card-body"
       className={cn("px-6", className)}
       {...props}
     />
@@ -71,11 +71,11 @@ const CardContent = ({ className, ...props }: ComponentProps<"div">) => {
 
 /* ------------------------------ Card Footer ------------------------------ */
 
-const CardFooter = ({ className, ...props }: ComponentProps<"div">) => {
+const CardFooter = ({ className, ...props }: ComponentProps<"footer">) => {
   return (
-    <div
+    <footer
       data-slot="card-footer"
-      className={cn("flex items-center px-6 [.border-t]:pt-6", className)}
+      className={cn("flex items-center px-6", className)}
       {...props}
     />
   );
@@ -87,7 +87,7 @@ const CardComposed = Object.assign(Card, {
   Header: CardHeader,
   Title: CardTitle,
   Description: CardDescription,
-  Content: CardContent,
+  Body: CardBody,
   Footer: CardFooter,
 });
 
@@ -96,6 +96,6 @@ export {
   CardHeader,
   CardTitle,
   CardDescription,
-  CardContent,
+  CardBody,
   CardFooter,
 };
