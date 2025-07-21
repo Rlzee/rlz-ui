@@ -105,6 +105,7 @@ const Calendar = ({
   return (
     <div dir={isRTL ? "rtl" : "ltr"}>
       <DayPicker
+        data-slot="calendar"
         showOutsideDays={showOutsideDays}
         locale={locales[localeKey]}
         className={cn("w-fit", className)}

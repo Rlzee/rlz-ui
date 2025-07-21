@@ -92,7 +92,7 @@ function DataTable<TData extends RowData>({
   });
 
   return (
-    <div className="space-y-4">
+    <div data-slot="data-table" className="space-y-4">
       <div className={cn("rounded-md border", classNameContainer)}>
         <TableComponent
           className={cn("bg-background-secondary rounded-md", className)}
@@ -173,6 +173,7 @@ function DataTablePagination<TData>({
 }: DataTablePaginationProps<TData>) {
   return (
     <div
+      data-slot="data-table-pagination"
       className="flex items-center justify-between overflow-clip px-2"
       style={{ overflowClipMargin: 1 }}
     >
@@ -284,7 +285,10 @@ function DataTableColumnHeader<TData, TValue>({
   }
 
   return (
-    <div className={cn("flex items-center space-x-2", className)}>
+    <div
+      data-slot="data-table-column-header"
+      className={cn("flex items-center space-x-2", className)}
+    >
       <DropdownMenu>
         <DropdownMenu.Trigger asChild>
           <Button
@@ -347,7 +351,7 @@ function DataTableRowActions<TData>({
   actions,
 }: DataTableRowActionsProps<TData>) {
   return (
-    <DropdownMenu modal={false}>
+    <DropdownMenu modal={false} data-slot="data-table-row-actions">
       <DropdownMenu.Trigger asChild>
         <Button
           variant="ghost"

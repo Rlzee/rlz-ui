@@ -38,6 +38,7 @@ const CodeWrapper = ({
 
   return (
     <div
+      data-slot="code-wrapper"
       className={cn("relative overflow-auto", className)}
       style={{
         maxHeight,

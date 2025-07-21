@@ -129,7 +129,10 @@ const BorderFlashBox: React.FC<BorderFlashBoxProps> = ({
   className,
 }) => {
   return (
-    <div className={cn("relative w-full p-6", className)}>
+    <div
+      data-slot="border-flash-box"
+      className={cn("relative w-full p-6", className)}
+    >
       {/* Top border */}
       <div className="absolute inset-x-0 top-0">
         <BorderFlash border="top" Animation="left" />
@@ -163,7 +166,10 @@ const BorderFlashBoxContent = ({
   className,
 }: BorderFlashBoxProps) => {
   return (
-    <div className={cn("flex items-center justify-center p-2", className)}>
+    <div
+      data-slot="border-flash-box-content"
+      className={cn("flex items-center justify-center p-2", className)}
+    >
       {children}
     </div>
   );

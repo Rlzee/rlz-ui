@@ -61,6 +61,7 @@ const TagInputWrapper = ({
 
   return (
     <TagInput
+      data-slot="input-tag"
       id={id}
       tags={tags}
       setTags={setTags}

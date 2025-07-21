@@ -16,7 +16,7 @@ import {
 
 const TooltipRoot = (props: ComponentProps<typeof HoverCardPrimitive.Root>) => {
   return (
-    <HoverCardPrimitive.Root openDelay={500} closeDelay={100} {...props} />
+    <HoverCardPrimitive.Root data-slot="tooltip" openDelay={500} closeDelay={100} {...props} />
   );
 };
 
@@ -27,7 +27,7 @@ const TooltipTrigger = ({
   ...props
 }: ComponentProps<typeof HoverCardPrimitive.Trigger>) => {
   return (
-    <HoverCardPrimitive.Trigger asChild {...props}>
+    <HoverCardPrimitive.Trigger data-slot="tooltip-trigger" asChild {...props}>
       {children}
     </HoverCardPrimitive.Trigger>
   );
@@ -52,6 +52,7 @@ const TooltipContent = ({
   return (
     <HoverCardPrimitive.Portal>
       <HoverCardPrimitive.Content
+        data-slot="tooltip-content"
         id={tooltipId}
         role="tooltip"
         sideOffset={sideOffset}

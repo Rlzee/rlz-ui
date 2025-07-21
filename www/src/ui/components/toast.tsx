@@ -48,7 +48,7 @@ const Toast = () => {
   const { toasts, removeToast } = useToastStore();
 
   return (
-    <div className="fixed z-50 inset-0 pointer-events-none">
+    <div data-slot="toast" className="fixed z-50 inset-0 pointer-events-none">
       <AnimatePresence>
         {toasts.map((toast) => {
           const orientation = toast.orientation || "bottom-right";

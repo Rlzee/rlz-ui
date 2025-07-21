@@ -49,6 +49,8 @@ const Clipboard = ({
 
   const button = (
     <button
+      type="button"
+      data-slot="clipboard-button"
       onClick={handleCopy}
       className={cn(
         "flex h-8 w-8 items-center justify-center rounded-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50",

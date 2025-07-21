@@ -17,6 +17,7 @@ const Tree = ({
 }) => {
   return (
     <div
+      data-slot="tree"
       className={cn("tree-container", className)}
       style={{
         height: "auto",
@@ -48,7 +49,11 @@ const TreeGroup = ({
 }: ComponentProps<typeof Collapsible> & { nested?: boolean }) => {
   if (nested) {
     return (
-      <Collapsible className={cn("group/collapsible", className)} {...props}>
+      <Collapsible
+        data-slot="tree-group"
+        className={cn("group/collapsible", className)}
+        {...props}
+      >
         {children}
       </Collapsible>
     );
@@ -56,6 +61,7 @@ const TreeGroup = ({
 
   return (
     <Collapsible
+      data-slot="tree-group"
       className={cn("group/collapsible", className)}
       asChild
       {...props}
@@ -81,7 +87,7 @@ const TreeTrigger = ({
   ...props
 }: TreeTriggerItemProps) => {
   return (
-    <Collapsible.Trigger asChild {...props}>
+    <Collapsible.Trigger asChild {...props} data-slot="tree-trigger">
       <Sidebar.MenuButton>
         {chevron !== "none" && chevron !== "right" && (
           <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -100,7 +106,7 @@ const TreeTrigger = ({
 
 const TreeContent = ({ children }: { children: ReactNode }) => {
   return (
-    <Collapsible.Content>
+    <Collapsible.Content data-slot="tree-content">
       <div className="ml-4 border-l border-border pl-2">{children}</div>
     </Collapsible.Content>
   );
@@ -119,7 +125,10 @@ const TreeItem = ({
   extension?: string;
 }) => {
   return (
-    <div className="flex items-center gap-2 py-1 cursor-pointer hover:bg-secondary rounded-sm px-2">
+    <div
+      className="flex items-center gap-2 py-1 cursor-pointer hover:bg-secondary rounded-sm px-2"
+      data-slot="tree-item"
+    >
       {icon && <span className="text-muted-foreground">{icon}</span>}
       <div className="text-sm">
         {text}

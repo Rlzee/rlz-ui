@@ -18,6 +18,8 @@ const Breadcrumb = ({ ...props }: ComponentProps<"nav">) => {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 };
 
+/* ------------------------------ Breadcrumb List ------------------------------ */
+
 const BreadcrumbList = ({ className, ...props }: ComponentProps<"ol">) => {
   return (
     <ol
