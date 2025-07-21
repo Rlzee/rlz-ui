@@ -56,21 +56,27 @@ const DialogOverlay = ({
 
 /* ---------------------------- Dialog Content --------------------------- */
 
+
+interface DialogContentProps
+  extends ComponentProps<typeof DialogPrimitive.Content> {
+  overlay?: boolean;
+  showCloseButton?: boolean;
+}
+
 const DialogContent = ({
   className,
   children,
+  overlay = true,
   showCloseButton = true,
   ...props
-}: ComponentProps<typeof DialogPrimitive.Content> & {
-  showCloseButton?: boolean;
-}) => {
+}: DialogContentProps) => {
   return (
     <DialogPortal data-slot="dialog-portal">
-      <DialogOverlay />
+      {overlay && <DialogOverlay />}
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border p-6 shadow-lg duration-200 sm:max-w-lg",
+          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-4 rounded-lg border border-border p-6 duration-200 sm:max-w-lg",
           className
         )}
         {...props}
@@ -82,7 +88,7 @@ const DialogContent = ({
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            className="ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+            className="ring-offset-background focus:ring-ring data-[state=open]:bg-muted data-[state=open]:text-muted-foreground absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           >
             <XIcon />
             <span className="sr-only">Close</span>
@@ -95,9 +101,9 @@ const DialogContent = ({
 
 /* ------------------------------ Dialog Header ------------------------------ */
 
-const DialogHeader = ({ className, ...props }: ComponentProps<"div">) => {
+const DialogHeader = ({ className, ...props }: ComponentProps<"header">) => {
   return (
-    <div
+    <header
       data-slot="dialog-header"
       className={cn("flex flex-col gap-2 text-center sm:text-left", className)}
       {...props}
@@ -105,11 +111,23 @@ const DialogHeader = ({ className, ...props }: ComponentProps<"div">) => {
   );
 };
 
+/* ------------------------------ Dialog Body ------------------------------ */
+
+const DialogBody = ({ className, ...props }: ComponentProps<"main">) => {
+  return (
+    <main
+      data-slot="dialog-body"
+      className={cn("grid gap-4", className)}
+      {...props}
+    />
+  );
+};
+
 /* ------------------------------ Dialog Footer ------------------------------ */
 
-const DialogFooter = ({ className, ...props }: ComponentProps<"div">) => {
+const DialogFooter = ({ className, ...props }: ComponentProps<"footer">) => {
   return (
-    <div
+    <footer
       data-slot="dialog-footer"
       className={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end",
@@ -159,6 +177,7 @@ const DialogComposant = Object.assign(Dialog, {
   Overlay: DialogOverlay,
   Content: DialogContent,
   Header: DialogHeader,
+  Body: DialogBody,
   Footer: DialogFooter,
   Title: DialogTitle,
   Description: DialogDescription,
@@ -171,6 +190,7 @@ export {
   DialogClose,
   DialogOverlay,
   DialogContent,
+  DialogBody,
   DialogHeader,
   DialogFooter,
   DialogTitle,

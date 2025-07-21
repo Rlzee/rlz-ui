@@ -64,7 +64,7 @@ const DrawerContent = ({
       <DrawerPrimitive.Content
         data-slot="drawer-content"
         className={cn(
-          "bg-background-secondary z-50 flex h-auto flex-col outline-none fixed group/drawer-content",
+          "bg-popover z-50 flex h-auto flex-col outline-none fixed group/drawer-content",
           "data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:left-0 data-[vaul-drawer-direction=bottom]:right-0 data-[vaul-drawer-direction=bottom]:max-h-[80vh] data-[vaul-drawer-direction=bottom]:rounded-t-lg data-[vaul-drawer-direction=bottom]:border-t",
           "data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:left-0 data-[vaul-drawer-direction=top]:right-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:max-h-[80vh] data-[vaul-drawer-direction=top]:rounded-b-lg data-[vaul-drawer-direction=top]:border-b",
           "data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:top-0 data-[vaul-drawer-direction=left]:bottom-0 data-[vaul-drawer-direction=left]:w-64 data-[vaul-drawer-direction=left]:border-r data-[vaul-drawer-direction=left]:rounded-r-lg",
