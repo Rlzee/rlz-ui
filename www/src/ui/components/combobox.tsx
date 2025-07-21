@@ -9,26 +9,14 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Combobox ------------------------------ */
 
-const Combobox = ({ children, ...props }: ComponentProps<typeof Popover>) => {
-  return (
-    <Popover {...props} data-slot="combobox">
-      {children}
-    </Popover>
-  );
+const Combobox = (props: ComponentProps<typeof Popover>) => {
+  return <Popover data-slot="combobox" {...props} />;
 };
 
 /* ------------------------------ Combobox Trigger ------------------------------ */
 
-const ComboboxTrigger = ({
-  children,
-  className,
-  ...props
-}: ComponentProps<typeof Popover.Trigger>) => {
-  return (
-    <Popover.Trigger asChild {...props} data-slot="combobox-trigger">
-      {children}
-    </Popover.Trigger>
-  );
+const ComboboxTrigger = (props: ComponentProps<typeof Popover.Trigger>) => {
+  return <Popover.Trigger asChild {...props} data-slot="combobox-trigger" />;
 };
 
 /* ------------------------------ Combobox Trigger Button ------------------------------ */
@@ -74,7 +62,11 @@ const ComboboxContent = ({
   ...props
 }: ComponentProps<typeof Popover.Content>) => {
   return (
-    <Popover.Content className={cn("w-[200px] p-0", className)} {...props} data-slot="combobox-content">
+    <Popover.Content
+      className={cn("w-[200px] p-0", className)}
+      {...props}
+      data-slot="combobox-content"
+    >
       <Command>{children}</Command>
     </Popover.Content>
   );
@@ -123,36 +115,26 @@ const ComboboxList = ({
 
 /* ------------------------------ Combobox Group ------------------------------ */
 
-const ComboboxGroup = ({
-  children,
-  className,
-  ...props
-}: ComponentProps<typeof Command.Group>) => {
-  return (
-    <Command.Group className={className} {...props} data-slot="combobox-group">
-      {children}
-    </Command.Group>
-  );
+const ComboboxGroup = (props: ComponentProps<typeof Command.Group>) => {
+  return <Command.Group {...props} data-slot="combobox-group" />;
 };
 
 /* ------------------------------ Combobox Item ------------------------------ */
 
-const ComboboxItem = ({
-  children,
-  className,
-  ...props
-}: ComponentProps<typeof Command.Item>) => {
-  return (
-    <Command.Item className={className} {...props} data-slot="combobox-item">
-      {children}
-    </Command.Item>
-  );
+const ComboboxItem = (props: ComponentProps<typeof Command.Item>) => {
+  return <Command.Item {...props} data-slot="combobox-item" />;
 };
 
 /* ------------------------------ Combobox Separator ------------------------------ */
 
-const ComboboxSeparator = () => {
-  return <div className="border-t border-border my-1" data-slot="combobox-separator"/>;
+const ComboboxSeparator = (props: ComponentProps<"div">) => {
+  return (
+    <div
+      className="border-t border-border my-1"
+      data-slot="combobox-separator"
+      {...props}
+    />
+  );
 };
 
 /* ------------------------------ Combobox Label ------------------------------ */
@@ -164,7 +146,10 @@ const ComboboxLabel = ({
 }: React.ComponentProps<"div">) => {
   return (
     <div
-      className={cn("px-2 py-1.5 text-xs font-medium text-muted-foreground", className)}
+      className={cn(
+        "px-2 py-1.5 text-xs font-medium text-muted-foreground",
+        className
+      )}
       {...props}
       data-slot="combobox-label"
     >

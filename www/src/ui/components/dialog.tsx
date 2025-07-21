@@ -8,31 +8,27 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Dialog ------------------------------ */
 
-const Dialog = ({ ...props }: ComponentProps<typeof DialogPrimitive.Root>) => {
+const Dialog = (props: ComponentProps<typeof DialogPrimitive.Root>) => {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
 };
 
 /* ---------------------------- Dialog Trigger --------------------------- */
 
-const DialogTrigger = ({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Trigger>) => {
+const DialogTrigger = (
+  props: ComponentProps<typeof DialogPrimitive.Trigger>
+) => {
   return <DialogPrimitive.Trigger data-slot="dialog-trigger" {...props} />;
 };
 
 /* ---------------------------- Dialog Portal --------------------------- */
 
-const DialogPortal = ({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Portal>) => {
+const DialogPortal = (props: ComponentProps<typeof DialogPrimitive.Portal>) => {
   return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
 };
 
 /* ---------------------------- Dialog Close --------------------------- */
 
-const DialogClose = ({
-  ...props
-}: ComponentProps<typeof DialogPrimitive.Close>) => {
+const DialogClose = (props: ComponentProps<typeof DialogPrimitive.Close>) => {
   return <DialogPrimitive.Close data-slot="dialog-close" {...props} />;
 };
 

@@ -7,9 +7,7 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Accordion ------------------------------ */
 
-const Accordion = ({
-  ...props
-}: ComponentProps<typeof AccordionPrimitive.Root>) => {
+const Accordion = (props: ComponentProps<typeof AccordionPrimitive.Root>) => {
   return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
 };
 

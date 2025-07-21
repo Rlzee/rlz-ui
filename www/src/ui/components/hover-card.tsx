@@ -6,17 +6,15 @@ import { ComponentProps } from "react";
 
 /* ------------------------------ Root Hover Card ------------------------------ */
 
-const HoverCard = ({
-  ...props
-}: ComponentProps<typeof HoverCardPrimitive.Root>) => {
+const HoverCard = (props: ComponentProps<typeof HoverCardPrimitive.Root>) => {
   return <HoverCardPrimitive.Root data-slot="hover-card" {...props} />;
 };
 
 /* ---------------------------- Hover Card Trigger --------------------------- */
 
-const HoverCardTrigger = ({
-  ...props
-}: ComponentProps<typeof HoverCardPrimitive.Trigger>) => {
+const HoverCardTrigger = (
+  props: ComponentProps<typeof HoverCardPrimitive.Trigger>
+) => {
   return (
     <HoverCardPrimitive.Trigger data-slot="hover-card-trigger" {...props} />
   );
@@ -53,9 +51,4 @@ const HoverCardComposant = Object.assign(HoverCard, {
   Content: HoverCardContent,
 });
 
-export {
-  HoverCardComposant as HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-};
-
+export { HoverCardComposant as HoverCard, HoverCardTrigger, HoverCardContent };

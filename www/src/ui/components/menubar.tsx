@@ -26,33 +26,29 @@ const Menubar = ({
 
 /* ---------------------------- Menubar Menu --------------------------- */
 
-const MenubarMenu = ({
-  ...props
-}: ComponentProps<typeof MenubarPrimitive.Menu>) => {
+const MenubarMenu = (props: ComponentProps<typeof MenubarPrimitive.Menu>) => {
   return <MenubarPrimitive.Menu data-slot="menubar-menu" {...props} />;
 };
 
 /* ---------------------------- Menubar Group --------------------------- */
 
-const MenubarGroup = ({
-  ...props
-}: ComponentProps<typeof MenubarPrimitive.Group>) => {
+const MenubarGroup = (props: ComponentProps<typeof MenubarPrimitive.Group>) => {
   return <MenubarPrimitive.Group data-slot="menubar-group" {...props} />;
 };
 
 /* ---------------------------- Menubar Portal --------------------------- */
 
-const MenubarPortal = ({
-  ...props
-}: ComponentProps<typeof MenubarPrimitive.Portal>) => {
+const MenubarPortal = (
+  props: ComponentProps<typeof MenubarPrimitive.Portal>
+) => {
   return <MenubarPrimitive.Portal data-slot="menubar-portal" {...props} />;
 };
 
 /* ---------------------------- Menubar Radio Group --------------------------- */
 
-const MenubarRadioGroup = ({
-  ...props
-}: ComponentProps<typeof MenubarPrimitive.RadioGroup>) => {
+const MenubarRadioGroup = (
+  props: ComponentProps<typeof MenubarPrimitive.RadioGroup>
+) => {
   return (
     <MenubarPrimitive.RadioGroup data-slot="menubar-radio-group" {...props} />
   );
@@ -237,9 +233,7 @@ const MenubarShortcut = ({
 
 /* ------------------------------ Menubar Sub ------------------------------ */
 
-const MenubarSub = ({
-  ...props
-}: ComponentProps<typeof MenubarPrimitive.Sub>) => {
+const MenubarSub = (props: ComponentProps<typeof MenubarPrimitive.Sub>) => {
   return <MenubarPrimitive.Sub data-slot="menubar-sub" {...props} />;
 };
 

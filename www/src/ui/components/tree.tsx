@@ -104,10 +104,18 @@ const TreeTrigger = ({
 
 /* --------------------------- Tree Content --------------------------- */
 
-const TreeContent = ({ children }: { children: ReactNode }) => {
+const TreeContent = ({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) => {
   return (
     <Collapsible.Content data-slot="tree-content">
-      <div className="ml-4 border-l border-border pl-2">{children}</div>
+      <div className={cn("ml-4 border-l border-border pl-2", className)}>
+        {children}
+      </div>
     </Collapsible.Content>
   );
 };

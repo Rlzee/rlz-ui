@@ -5,17 +5,17 @@ import { ComponentProps } from "react";
 
 /* ------------------------------ Root Collapsible ------------------------------ */
 
-const Collapsible = ({
-  ...props
-}: ComponentProps<typeof CollapsiblePrimitive.Root>) => {
+const Collapsible = (
+  props: ComponentProps<typeof CollapsiblePrimitive.Root>
+) => {
   return <CollapsiblePrimitive.Root data-slot="collapsible" {...props} />;
 };
 
 /* ------------------------------ Collapsible Trigger ------------------------------ */
 
-const CollapsibleTrigger = ({
-  ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>) => {
+const CollapsibleTrigger = (
+  props: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleTrigger>
+) => {
   return (
     <CollapsiblePrimitive.CollapsibleTrigger
       data-slot="collapsible-trigger"
@@ -26,9 +26,9 @@ const CollapsibleTrigger = ({
 
 /* ------------------------------ Collapsible Content ------------------------------ */
 
-const CollapsibleContent = ({
-  ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>) => {
+const CollapsibleContent = (
+  props: React.ComponentProps<typeof CollapsiblePrimitive.CollapsibleContent>
+) => {
   return (
     <CollapsiblePrimitive.CollapsibleContent
       data-slot="collapsible-content"

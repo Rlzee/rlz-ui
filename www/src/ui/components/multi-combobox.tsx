@@ -31,12 +31,18 @@ interface MultiComboboxContextValue<T> {
   isselected: (item: T) => boolean;
 }
 
-const MultiComboboxContext = createContext<MultiComboboxContextValue<any> | undefined>(undefined);
+const MultiComboboxContext = createContext<
+  MultiComboboxContextValue<any> | undefined
+>(undefined);
 
 function useMultiComboboxContext<T>() {
-  const context = useContext(MultiComboboxContext) as MultiComboboxContextValue<T> | undefined;
+  const context = useContext(MultiComboboxContext) as
+    | MultiComboboxContextValue<T>
+    | undefined;
   if (!context) {
-    throw new Error("MultiCombobox components must be used within a MultiComboboxProvider");
+    throw new Error(
+      "MultiCombobox components must be used within a MultiComboboxProvider"
+    );
   }
   return context;
 }
@@ -100,7 +106,12 @@ function MultiCombobox<T>({
         isselected,
       }}
     >
-      <Popover {...props} open={isOpen} onOpenChange={setIsOpen} data-slot="multiCombobox">
+      <Popover
+        {...props}
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        data-slot="multiCombobox"
+      >
         {children}
       </Popover>
     </MultiComboboxContext.Provider>
@@ -133,7 +144,8 @@ const MultiComboboxTrigger = ({
 
 /* ------------------------------ Multi Combobox Trigger Button ------------------------------ */
 
-interface MultiComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
+interface MultiComboboxTriggerButtonProps
+  extends ComponentProps<typeof Button> {
   placeholder?: string;
   chevron?: "up" | "down" | "both";
 }
@@ -155,8 +167,7 @@ const MultiComboboxTriggerButton = ({
       <ChevronsUpDown className="opacity-50" />
     );
 
-  const label =
-    selected.length === 0 ? placeholder : selected.join(", ");
+  const label = selected.length === 0 ? placeholder : selected.join(", ");
 
   return (
     <Button
@@ -198,7 +209,10 @@ interface MultiComboboxInputProps {
   placeholder?: string;
 }
 
-const MultiComboboxInput = ({ className, placeholder = "Search..." }: MultiComboboxInputProps) => {
+const MultiComboboxInput = ({
+  className,
+  placeholder = "Search...",
+}: MultiComboboxInputProps) => {
   const { filter, setFilter } = useMultiComboboxContext<any>();
 
   return (
@@ -215,15 +229,15 @@ const MultiComboboxInput = ({ className, placeholder = "Search..." }: MultiCombo
 
 /* ------------------------------ Multi Combobox List ------------------------------ */
 
-const MultiComboboxList = ({ ...props }: ComponentProps<typeof Combobox.List>) => {
+const MultiComboboxList = (props: ComponentProps<typeof Combobox.List>) => {
   return <Combobox.List {...props} data-slot="multiCombobox-list" />;
-}
+};
 
 /* ------------------------------ Multi Combobox Group ------------------------------ */
 
-const MultiComboboxGroup = ({ ...props }: ComponentProps<typeof Combobox.Group>) => {
+const MultiComboboxGroup = (props: ComponentProps<typeof Combobox.Group>) => {
   return <Combobox.Group {...props} data-slot="multiCombobox-group" />;
-}
+};
 
 /* ------------------------------ Multi Combobox Item ------------------------------ */
 
@@ -232,7 +246,12 @@ interface MultiComboboxItemProps extends ComponentProps<typeof Command.Item> {
   children: ReactNode;
 }
 
-const MultiComboboxItem = ({ children, className, value, ...props }: MultiComboboxItemProps) => {
+const MultiComboboxItem = ({
+  children,
+  className,
+  value,
+  ...props
+}: MultiComboboxItemProps) => {
   const { toggleItem, isselected } = useMultiComboboxContext<any>();
 
   const selected = isselected(value);
@@ -261,15 +280,17 @@ const MultiComboboxItem = ({ children, className, value, ...props }: MultiCombob
 
 /* ------------------------------ Multi Combobox Separator ------------------------------ */
 
-const MultiComboboxSeparator = () => {
-  return <Combobox.Separator data-slot="multiCombobox-separator" />;
+const MultiComboboxSeparator = (
+  props: ComponentProps<typeof Combobox.Separator>
+) => {
+  return <Combobox.Separator data-slot="multiCombobox-separator" {...props} />;
 };
 
 /* ------------------------------ Multi Combobox Label ------------------------------ */
 
-const MultiComboboxLabel = ({ ...props}: ComponentProps<typeof Combobox.Label>) => {
+const MultiComboboxLabel = (props: ComponentProps<typeof Combobox.Label>) => {
   return <Combobox.Label {...props} data-slot="multiCombobox-label" />;
-}
+};
 
 /* ------------------------------ Exports ------------------------------ */
 

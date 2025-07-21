@@ -1,39 +1,55 @@
 "use client";
 
-import { ComponentProps } from "react";
+import { ComponentProps, createContext, useContext } from "react";
 import * as SheetPrimitive from "@radix-ui/react-dialog";
 import { XIcon } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 
+/* ------------------------------ Context Sheet ------------------------------ */
+
+export type SheetDirection = "top" | "right" | "bottom" | "left";
+
+const SheetDirectionContext = createContext<SheetDirection>("right");
+
+export const useSheetDirection = () => useContext(SheetDirectionContext);
+
 /* ------------------------------ Root Sheet ------------------------------ */
 
 const Sheet = ({
+  direction = "right",
+  children,
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Root>) => {
-  return <SheetPrimitive.Root data-slot="sheet" {...props} />;
+}: React.ComponentProps<typeof SheetPrimitive.Root> & {
+  direction?: SheetDirection;
+}) => {
+  return (
+    <SheetDirectionContext.Provider value={direction}>
+      <SheetPrimitive.Root
+        data-slot="sheet"
+        data-direction={direction}
+        {...props}
+      >
+        {children}
+      </SheetPrimitive.Root>
+    </SheetDirectionContext.Provider>
+  );
 };
 
 /* ------------------------------ Sheet Tirgger ------------------------------ */
 
-const SheetTrigger = ({
-  ...props
-}: ComponentProps<typeof SheetPrimitive.Trigger>) => {
+const SheetTrigger = (props: ComponentProps<typeof SheetPrimitive.Trigger>) => {
   return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
 };
 
 /* ------------------------------ Sheet Close ------------------------------ */
 
-const SheetClose = ({
-  ...props
-}: ComponentProps<typeof SheetPrimitive.Close>) => {
+const SheetClose = (props:ComponentProps<typeof SheetPrimitive.Close>) => {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
 };
 
 /* ------------------------------ Sheet Portal ------------------------------ */
 
-const SheetPortal = ({
-  ...props
-}: ComponentProps<typeof SheetPrimitive.Portal>) => {
+const SheetPortal = (props: ComponentProps<typeof SheetPrimitive.Portal>) => {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />;
 };
 
@@ -57,29 +73,31 @@ const SheetOverlay = ({
 
 /* ------------------------------ Sheet Content ------------------------------ */
 
+interface SheetContentProps
+  extends React.ComponentProps<typeof SheetPrimitive.Content> {
+  overlay?: boolean;
+}
+
 const SheetContent = ({
   className,
   children,
-  side = "right",
+  overlay = true,
   ...props
-}: ComponentProps<typeof SheetPrimitive.Content> & {
-  side?: "top" | "right" | "bottom" | "left";
-}) => {
+}: SheetContentProps) => {
+  const direction = useSheetDirection();
+
   return (
     <SheetPortal>
       <SheetOverlay />
       <SheetPrimitive.Content
         data-slot="sheet-content"
+        data-direction={direction}
         className={cn(
-          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
-          side === "right" &&
-            "data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm",
-          side === "left" &&
-            "data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm",
-          side === "top" &&
-            "data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top inset-x-0 top-0 h-auto border-b",
-          side === "bottom" &&
-            "data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom inset-x-0 bottom-0 h-auto border-t",
+          "bg-background-secondary data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+          "data-[direction=left]:data-[state=closed]:slide-out-to-left data-[direction=left]:data-[state=open]:slide-in-from-left data-[direction=left]:inset-y-0 data-[direction=left]:left-0 data-[direction=left]:h-full data-[direction=left]:w-3/4 data-[direction=left]:border-r data-[direction=left]:sm:max-w-sm",
+          "data-[direction=right]:data-[state=closed]:slide-out-to-right data-[direction=right]:data-[state=open]:slide-in-from-right data-[direction=right]:inset-y-0 data-[direction=right]:right-0 data-[direction=right]:h-full data-[direction=right]:w-3/4 data-[direction=right]:border-l data-[direction=right]:sm:max-w-sm",
+          "data-[direction=top]:data-[state=closed]:slide-out-to-top data-[direction=top]:data-[state=open]:slide-in-from-top data-[direction=top]:inset-x-0 data-[direction=top]:top-0 data-[direction=top]:h-auto data-[direction=top]:border-b",
+          "data-[direction=bottom]:data-[state=closed]:slide-out-to-bottom data-[direction=bottom]:data-[state=open]:slide-in-from-bottom data-[direction=bottom]:inset-x-0 data-[direction=bottom]:bottom-0 data-[direction=bottom]:h-auto data-[direction=bottom]:border-t",
           className
         )}
         {...props}
@@ -96,9 +114,9 @@ const SheetContent = ({
 
 /* ------------------------------ Sheet Header ------------------------------ */
 
-const SheetHeader = ({ className, ...props }: ComponentProps<"div">) => {
+const SheetHeader = ({ className, ...props }: ComponentProps<"header">) => {
   return (
-    <div
+    <header
       data-slot="sheet-header"
       className={cn("flex flex-col gap-1.5 p-4", className)}
       {...props}
@@ -106,11 +124,23 @@ const SheetHeader = ({ className, ...props }: ComponentProps<"div">) => {
   );
 };
 
+/* ------------------------------ Sheet Body ------------------------------ */
+
+const SheetBody = ({ className, ...props }: ComponentProps<"main">) => {
+  return (
+    <main
+      data-slot="sheet-body"
+      className={cn("px-4 grid gap-6", className)}
+      {...props}
+    />
+  );
+};
+
 /* ------------------------------ Sheet Footer ------------------------------ */
 
-const SheetFooter = ({ className, ...props }: ComponentProps<"div">) => {
+const SheetFooter = ({ className, ...props }: ComponentProps<"footer">) => {
   return (
-    <div
+    <footer
       data-slot="sheet-footer"
       className={cn("mt-auto flex flex-col gap-2 p-4", className)}
       {...props}
@@ -155,6 +185,7 @@ const SheetComposed = Object.assign(Sheet, {
   Close: SheetClose,
   Content: SheetContent,
   Header: SheetHeader,
+  Body: SheetBody,
   Footer: SheetFooter,
   Title: SheetTitle,
   Description: SheetDescription,
@@ -166,6 +197,7 @@ export {
   SheetClose,
   SheetContent,
   SheetHeader,
+  SheetBody,
   SheetFooter,
   SheetTitle,
   SheetDescription,

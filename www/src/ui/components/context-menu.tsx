@@ -104,17 +104,17 @@ const ContextMenuContent = ({
 
 /* ------------------------------ Context Menu Item ------------------------------ */
 
-const ContextMenuItem = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Item>) => {
+const ContextMenuItem = (
+  props: React.ComponentProps<typeof DropdownMenu.Item>
+) => {
   return <DropdownMenu.Item {...props} data-slot="context-menu-item" />;
 };
 
 /* ------------------------------ Context Menu Checkbox Item ------------------------------ */
 
-const ContextMenuCheckboxItem = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.CheckboxItem>) => {
+const ContextMenuCheckboxItem = (
+  props: React.ComponentProps<typeof DropdownMenu.CheckboxItem>
+) => {
   return (
     <DropdownMenu.CheckboxItem
       {...props}
@@ -125,9 +125,9 @@ const ContextMenuCheckboxItem = ({
 
 /* ------------------------------ Context Menu Radio Item ------------------------------ */
 
-const ContextMenuRadioItem = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.RadioItem>) => {
+const ContextMenuRadioItem = (
+  props: React.ComponentProps<typeof DropdownMenu.RadioItem>
+) => {
   return (
     <DropdownMenu.RadioItem {...props} data-slot="context-menu-radio-item" />
   );
@@ -135,17 +135,17 @@ const ContextMenuRadioItem = ({
 
 /* ------------------------------ Context Menu Label ------------------------------ */
 
-const ContextMenuLabel = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Label>) => {
+const ContextMenuLabel = (
+  props: React.ComponentProps<typeof DropdownMenu.Label>
+) => {
   return <DropdownMenu.Label {...props} data-slot="context-menu-label" />;
 };
 
 /* ------------------------------ Context Menu Separator ------------------------------ */
 
-const ContextMenuSeparator = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Separator>) => {
+const ContextMenuSeparator = (
+  props: React.ComponentProps<typeof DropdownMenu.Separator>
+) => {
   return (
     <DropdownMenu.Separator {...props} data-slot="context-menu-separator" />
   );
@@ -153,41 +153,41 @@ const ContextMenuSeparator = ({
 
 /* ------------------------------ Context Menu Shortcut ------------------------------ */
 
-const ContextMenuShortcut = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Shortcut>) => {
+const ContextMenuShortcut = (
+  props: React.ComponentProps<typeof DropdownMenu.Shortcut>
+) => {
   return <DropdownMenu.Shortcut {...props} data-slot="context-menu-shortcut" />;
 };
 
 /* ------------------------------ Context Menu Group ------------------------------ */
 
-const ContextMenuGroup = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Group>) => {
+const ContextMenuGroup = (
+  props: React.ComponentProps<typeof DropdownMenu.Group>
+) => {
   return <DropdownMenu.Group {...props} data-slot="context-menu-group" />;
 };
 
 /* ------------------------------ Context Menu Portal ------------------------------ */
 
-const ContextMenuPortal = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Portal>) => {
+const ContextMenuPortal = (
+  props: React.ComponentProps<typeof DropdownMenu.Portal>
+) => {
   return <DropdownMenu.Portal {...props} data-slot="context-menu-portal" />;
 };
 
 /* ------------------------------ Context Menu Submenu ------------------------------ */
 
-const ContextMenuSub = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.Sub>) => {
+const ContextMenuSub = (
+  props: React.ComponentProps<typeof DropdownMenu.Sub>
+) => {
   return <DropdownMenu.Sub {...props} data-slot="context-menu-sub" />;
 };
 
 /* ------------------------------ Context Menu Sub Content ------------------------------ */
 
-const ContextMenuSubContent = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.SubContent>) => {
+const ContextMenuSubContent = (
+  props: React.ComponentProps<typeof DropdownMenu.SubContent>
+) => {
   return (
     <DropdownMenu.SubContent {...props} data-slot="context-menu-sub-content" />
   );
@@ -195,9 +195,9 @@ const ContextMenuSubContent = ({
 
 /* ------------------------------ Context Menu Sub Trigger ------------------------------ */
 
-const ContextMenuSubTrigger = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.SubTrigger>) => {
+const ContextMenuSubTrigger = (
+  props: React.ComponentProps<typeof DropdownMenu.SubTrigger>
+) => {
   return (
     <DropdownMenu.SubTrigger {...props} data-slot="context-menu-sub-trigger" />
   );
@@ -205,9 +205,9 @@ const ContextMenuSubTrigger = ({
 
 /* ------------------------------ Context Menu Radio Group ------------------------------ */
 
-const ContextMenuRadioGroup = ({
-  ...props
-}: React.ComponentProps<typeof DropdownMenu.RadioGroup>) => {
+const ContextMenuRadioGroup = (
+  props: React.ComponentProps<typeof DropdownMenu.RadioGroup>
+) => {
   return (
     <DropdownMenu.RadioGroup {...props} data-slot="context-menu-radio-group" />
   );

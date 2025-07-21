@@ -6,18 +6,17 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Popover ------------------------------ */
 
-interface PopoverProps extends ComponentProps<typeof PopoverPrimitive.Root> {}
-const Popover = (props: PopoverProps) => (
-  <PopoverPrimitive.Root data-slot="popover" {...props} />
-);
+const Popover = (props: ComponentProps<typeof PopoverPrimitive.Root>) => {
+  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
+};
 
 /* ------------------------------ Trigger Popover ------------------------------ */
 
-interface PopoverTriggerProps
-  extends ComponentProps<typeof PopoverPrimitive.Trigger> {}
-const PopoverTrigger = (props: PopoverTriggerProps) => (
-  <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
-);
+const PopoverTrigger = (
+  props: ComponentProps<typeof PopoverPrimitive.Trigger>
+) => {
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
+};
 
 /* ------------------------------ Content Popover ------------------------------ */
 
@@ -59,11 +58,11 @@ const PopoverContent = ({
 
 /* ------------------------------ Anchor Popover ------------------------------ */
 
-interface PopoverAnchorProps
-  extends ComponentProps<typeof PopoverPrimitive.Anchor> {}
-const PopoverAnchor = (props: PopoverAnchorProps) => (
-  <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />
-);
+const PopoverAnchor = (
+  props: ComponentProps<typeof PopoverPrimitive.Anchor>
+) => {
+  return <PopoverPrimitive.Anchor data-slot="popover-anchor" {...props} />;
+};
 
 /* ------------------------------ Exports ------------------------------ */
 
@@ -79,4 +78,3 @@ export {
   PopoverContent,
   PopoverAnchor,
 };
-

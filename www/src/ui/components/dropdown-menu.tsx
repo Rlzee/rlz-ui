@@ -8,17 +8,17 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Dropdown Menu ------------------------------ */
 
-const DropdownMenu = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Root>) => {
+const DropdownMenu = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.Root>
+) => {
   return <DropdownMenuPrimitive.Root data-slot="dropdown-menu" {...props} />;
 };
 
 /* ---------------------------- Dropdown Menu Portal --------------------------- */
 
-const DropdownMenuPortal = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Portal>) => {
+const DropdownMenuPortal = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.Portal>
+) => {
   return (
     <DropdownMenuPrimitive.Portal data-slot="dropdown-menu-portal" {...props} />
   );
@@ -26,9 +26,9 @@ const DropdownMenuPortal = ({
 
 /* ---------------------------- Dropdown Menu Trigger --------------------------- */
 
-const DropdownMenuTrigger = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Trigger>) => {
+const DropdownMenuTrigger = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.Trigger>
+) => {
   return (
     <DropdownMenuPrimitive.Trigger
       data-slot="dropdown-menu-trigger"
@@ -61,9 +61,9 @@ const DropdownMenuContent = ({
 
 /* ---------------------------- Dropdown Menu Group --------------------------- */
 
-const DropdownMenuGroup = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Group>) => {
+const DropdownMenuGroup = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.Group>
+) => {
   return (
     <DropdownMenuPrimitive.Group data-slot="dropdown-menu-group" {...props} />
   );
@@ -124,9 +124,9 @@ const DropdownMenuCheckboxItem = ({
 
 /* ---------------------------- Dropdown Menu Radio Group --------------------------- */
 
-const DropdownMenuRadioGroup = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>) => {
+const DropdownMenuRadioGroup = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>
+) => {
   return (
     <DropdownMenuPrimitive.RadioGroup
       data-slot="dropdown-menu-radio-group"
@@ -233,9 +233,9 @@ const DropdownMenuShortcut = ({
 
 /* ---------------------------- Dropdown Menu Sub --------------------------- */
 
-const DropdownMenuSub = ({
-  ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Sub>) => {
+const DropdownMenuSub = (
+  props: ComponentProps<typeof DropdownMenuPrimitive.Sub>
+) => {
   return <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />;
 };
 

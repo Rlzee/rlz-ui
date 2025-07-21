@@ -16,7 +16,12 @@ import {
 
 const TooltipRoot = (props: ComponentProps<typeof HoverCardPrimitive.Root>) => {
   return (
-    <HoverCardPrimitive.Root data-slot="tooltip" openDelay={500} closeDelay={100} {...props} />
+    <HoverCardPrimitive.Root
+      data-slot="tooltip"
+      openDelay={500}
+      closeDelay={100}
+      {...props}
+    />
   );
 };
 
@@ -31,6 +36,14 @@ const TooltipTrigger = ({
       {children}
     </HoverCardPrimitive.Trigger>
   );
+};
+
+/* ----------------------------- Tooltip Portal ----------------------------- */
+
+const TooltipPortal = (
+  props: ComponentProps<typeof HoverCardPrimitive.Portal>
+) => {
+  return <HoverCardPrimitive.Portal data-slot="tooltip-portal" {...props} />;
 };
 
 /* --------------------------- Tooltip Content --------------------------- */
@@ -50,7 +63,7 @@ const TooltipContent = ({
   const tooltipId = id || fallbackId;
 
   return (
-    <HoverCardPrimitive.Portal>
+    <TooltipPortal>
       <HoverCardPrimitive.Content
         data-slot="tooltip-content"
         id={tooltipId}
@@ -62,7 +75,7 @@ const TooltipContent = ({
         )}
         {...props}
       />
-    </HoverCardPrimitive.Portal>
+    </TooltipPortal>
   );
 };
 
@@ -76,7 +89,13 @@ interface TooltipProps {
   delayDuration?: number;
 }
 
-const Tooltip = ({ content, children, className, side, delayDuration }: TooltipProps) => {
+const Tooltip = ({
+  content,
+  children,
+  className,
+  side,
+  delayDuration,
+}: TooltipProps) => {
   const id = useId();
 
   const trigger = isValidElement(children)
@@ -100,8 +119,14 @@ const Tooltip = ({ content, children, className, side, delayDuration }: TooltipP
 const TooltipComposant = Object.assign(Tooltip, {
   Root: TooltipRoot,
   Trigger: TooltipTrigger,
+  Portal: TooltipPortal,
   Content: TooltipContent,
 });
 
-export { TooltipComposant as Tooltip, TooltipRoot, TooltipTrigger, TooltipContent };
-
+export {
+  TooltipComposant as Tooltip,
+  TooltipRoot,
+  TooltipTrigger,
+  TooltipPortal,
+  TooltipContent,
+};
