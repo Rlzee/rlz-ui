@@ -93,7 +93,7 @@ const SheetContent = ({
         data-slot="sheet-content"
         data-direction={direction}
         className={cn(
-          "bg-background-secondary data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+          "bg-popover data-[state=open]:animate-in data-[state=closed]:animate-out fixed z-50 flex flex-col gap-4 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
           "data-[direction=left]:data-[state=closed]:slide-out-to-left data-[direction=left]:data-[state=open]:slide-in-from-left data-[direction=left]:inset-y-0 data-[direction=left]:left-0 data-[direction=left]:h-full data-[direction=left]:w-3/4 data-[direction=left]:border-r data-[direction=left]:sm:max-w-sm",
           "data-[direction=right]:data-[state=closed]:slide-out-to-right data-[direction=right]:data-[state=open]:slide-in-from-right data-[direction=right]:inset-y-0 data-[direction=right]:right-0 data-[direction=right]:h-full data-[direction=right]:w-3/4 data-[direction=right]:border-l data-[direction=right]:sm:max-w-sm",
           "data-[direction=top]:data-[state=closed]:slide-out-to-top data-[direction=top]:data-[state=open]:slide-in-from-top data-[direction=top]:inset-x-0 data-[direction=top]:top-0 data-[direction=top]:h-auto data-[direction=top]:border-b",
