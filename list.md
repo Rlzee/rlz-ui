@@ -1,4 +1,5 @@
 color-picker
+emoji-picker
 download-trigger
 drawer
 Editable
