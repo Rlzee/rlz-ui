@@ -57,14 +57,19 @@ const ToggleGroup = ({
 
 /* --------------------------- Toggle Group Item --------------------------- */
 
+interface ToggleGroupItemProps
+  extends ComponentProps<typeof ToggleGroupPrimitive.Item>,
+    VariantProps<typeof toggleVariants> {
+  asChild?: boolean;
+}
+
 const ToggleGroupItem = ({
   className,
   children,
   variant,
   size,
   ...props
-}: ComponentProps<typeof ToggleGroupPrimitive.Item> &
-  VariantProps<typeof toggleVariants>) => {
+}: ToggleGroupItemProps) => {
   const context = useContext(ToggleGroupContext);
 
   return (
