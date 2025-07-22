@@ -2,7 +2,7 @@
 
 import { useId, useMemo, useState } from "react";
 import { CheckIcon, XIcon } from "lucide-react";
-import { InputPassword } from "../../input-password";
+import { InputPassword } from "./input-password";
 import { Label } from "@/src/ui/components/label";
 
 interface InputStrengthIndicatorProps {
