@@ -23,7 +23,7 @@ const TableHeader = ({ className, ...props }: ComponentProps<"thead">) => {
   return (
     <thead
       data-slot="table-header"
-      className={cn("border-b-2", className)}
+      className={cn("border-b border-border", className)}
       {...props}
     />
   );
@@ -48,7 +48,7 @@ const TableFooter = ({ className, ...props }: ComponentProps<"tfoot">) => {
     <tfoot
       data-slot="table-footer"
       className={cn(
-        "border-t-2 border-border font-medium [&>tr]:last:border-b-0",
+        "border-t border-border font-medium [&>tr]:last:border-b-0",
         className
       )}
       {...props}

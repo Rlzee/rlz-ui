@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Table as TableComponent } from "./table";
+import { Table as TableComponent } from "../../ui/components/table";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -50,7 +50,6 @@ interface DataTableProps<TData extends RowData> {
   columns: ColumnDef<TData>[];
   data: TData[];
   className?: string;
-  classNameContainer?: string;
   pagination?: Omit<
     React.ComponentProps<typeof DataTablePagination<TData>>,
     "table"
@@ -61,7 +60,6 @@ function DataTable<TData extends RowData>({
   columns,
   data,
   className,
-  classNameContainer,
   pagination,
 }: DataTableProps<TData>) {
   const [rowSelection, setRowSelection] = useState({});
@@ -92,11 +90,11 @@ function DataTable<TData extends RowData>({
   });
 
   return (
-    <div data-slot="data-table" className="space-y-4">
-      <div className={cn("rounded-md border", classNameContainer)}>
-        <TableComponent
-          className={cn("bg-background-secondary rounded-md", className)}
-        >
+    <div className="space-y-4">
+      <div
+        className={cn("rounded-md border bg-background-secondary", className)}
+      >
+        <TableComponent data-slot="data-table">
           <TableComponent.Header>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableComponent.Row key={headerGroup.id} className="group/row">
@@ -294,7 +292,7 @@ function DataTableColumnHeader<TData, TValue>({
           <Button
             variant="ghost"
             size="sm"
-            className="-ml-3 h-8 data-[state=open]:bg-accent"
+            className="-ml-3 h-8 data-[state=open]:bg-muted"
           >
             <span>{title}</span>
             {column.getIsSorted() === "desc" ? (
@@ -308,18 +306,18 @@ function DataTableColumnHeader<TData, TValue>({
         </DropdownMenu.Trigger>
         <DropdownMenu.Content align="start">
           <DropdownMenu.Item onClick={() => column.toggleSorting(false)}>
-            <ArrowUp className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            <ArrowUp className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
             Asc
           </DropdownMenu.Item>
           <DropdownMenu.Item onClick={() => column.toggleSorting(true)}>
-            <ArrowDown className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+            <ArrowDown className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
             Desc
           </DropdownMenu.Item>
           {column.getCanHide() && (
             <>
               <DropdownMenu.Separator />
               <DropdownMenu.Item onClick={() => column.toggleVisibility(false)}>
-                <EyeOff className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
+                <EyeOff className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                 Hide
               </DropdownMenu.Item>
             </>
