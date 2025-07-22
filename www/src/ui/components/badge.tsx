@@ -12,10 +12,7 @@ const badgeVariants = cva(
       variant: {
         primary:
           "from-primary/85 to-primary text-primary-foreground inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 dark:border-0 dark:border-zinc-950/50",
-        secondary: "border-transparent bg-secondary text-secondary-foreground",
         outline: "border bg-secondary text-secondary-foreground",
-        destructive:
-          "bg-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 text-destructive-foreground",
       },
     },
     defaultVariants: {

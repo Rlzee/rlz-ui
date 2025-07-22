@@ -1,7 +1,6 @@
 color-picker
 emoji-picker
 download-trigger
-drawer
 Editable
 Float
 input-otp

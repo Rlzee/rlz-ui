@@ -29,6 +29,7 @@ interface ComboboxTriggerButtonProps extends ComponentProps<typeof Button> {
 const ComboboxTriggerButton = ({
   placeholder = "Select an option",
   chevron = "both",
+  className,
   ...props
 }: ComboboxTriggerButtonProps) => {
   const icon =
@@ -43,7 +44,7 @@ const ComboboxTriggerButton = ({
   return (
     <Button
       role="combobox"
-      className={cn("w-[200px] justify-between", props.className)}
+      className={cn("w-[200px] justify-between", className)}
       data-slot="combobox-trigger-button"
       variant="outline"
       {...props}
