@@ -8,7 +8,6 @@ import {
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { cn } from "@/src/lib/utils";
-import { Clipboard } from "./clipboard";
 
 interface CodeWrapperProps {
   code: string;
@@ -51,9 +50,6 @@ const CodeWrapper = ({
           display: none; /* Chrome, Safari, Opera */
         }
       `}</style>
-      <div className="sticky top-2 right-2 z-10 float-right">
-        <Clipboard text={code} position="relative" />
-      </div>
       <SyntaxHighlighter
         language={language}
         style={theme}

@@ -5,7 +5,7 @@ import { Terminal } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { InputAddon } from "@/src/ui/components/input-addon";
 import { Toggle } from "@/src/ui/components/toggle";
-import { Clipboard } from "@/src/ui/components/clipboard";
+import { Clipboard } from "@/src/ui/components/custom/button/clipboard";
 
 type InputCopyProps = {
   value: string;
