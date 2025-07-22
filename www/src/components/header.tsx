@@ -10,7 +10,7 @@ import {
   NavbarProvider,
 } from "@/src/ui/components/navbar";
 import { ThemeToggle } from "@/src/ui/components/toggle-theme";
-import { ButtonSearch } from "@/src/ui/components/custom/button-search";
+import { ButtonSearch } from "@/src/ui/components/custom/button/button-search";
 import { Separator } from "@/src/ui/components/separator";
 import { navLinks } from "@/src/data/data";
 import { Github } from "@/src/ui/icons/social-icons";
