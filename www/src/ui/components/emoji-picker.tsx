@@ -30,10 +30,10 @@ const EmojiPicker = ({
 
 /* ---------------------------- Emoji Picker Search ---------------------------- */
 
-function EmojiPickerSearch({
+const EmojiPickerSearch = ({
   className,
   ...props
-}: React.ComponentProps<typeof EmojiPickerPrimitive.Search>) {
+}: React.ComponentProps<typeof EmojiPickerPrimitive.Search>) => {
   return (
     <div
       className={cn("flex h-9 items-center gap-2 border-b px-2", className)}
@@ -47,7 +47,7 @@ function EmojiPickerSearch({
       />
     </div>
   );
-}
+};
 
 /* ---------------------------- Emoji Picker Viewport ---------------------------- */
 
