@@ -1,5 +1,3 @@
-"use client";
-
 import { ComponentProps } from "react";
 import { cn } from "@/src/lib/utils";
 
