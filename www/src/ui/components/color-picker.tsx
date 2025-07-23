@@ -8,9 +8,8 @@ import {
   ReactNode,
 } from "react";
 import { cn } from "@/src/lib/utils";
-import Hue from "@uiw/react-color-hue";
 import Saturation from "@uiw/react-color-saturation";
-import Alpha from "@uiw/react-color-alpha";
+import { Slider } from "./slider";
 import {
   hexToHsva,
   hsvaToHex,
@@ -58,7 +57,6 @@ const ColorPickerProvider = ({
 }: ColorContextType & { children: ReactNode }) => {
   return (
     <ColorContext.Provider
-      data-slot="color-picker-provider"
       value={{ color, setColor, resetColor, format, setFormat }}
     >
       {children}
@@ -87,11 +85,7 @@ const ColorPicker = ({
       format={format}
       setFormat={setFormat}
     >
-      <div
-        data-slot="color-picker"
-        className={cn("w-[360px] p-4 space-y-4", className)}
-        {...props}
-      >
+      <div className={cn("w-[360px] p-4 space-y-4", className)} {...props}>
         {children}
       </div>
     </ColorPickerProvider>
@@ -106,7 +100,6 @@ const ColorPickerSaturation = ({ className }: { className?: string }) => {
   return (
     <div className={cn("border border-border rounded-[0.3rem]", className)}>
       <Saturation
-        data-slot="color-picker-saturation"
         hsva={color}
         onChange={setColor}
         style={{
@@ -126,13 +119,30 @@ const ColorPickerHue = ({ className }: { className?: string }) => {
   const { color, setColor } = useColor();
 
   return (
-    <Hue
-      data-slot="color-picker-hue"
-      hue={color.h}
-      onChange={(newHue) => setColor({ ...color, h: newHue.h })}
-      style={{ height: 14 }}
-      className={cn("w-full", className)}
-    />
+    <div className={cn("relative w-full", className)}>
+      <div
+        className="absolute inset-0 rounded-full"
+        style={{
+          background:
+            "linear-gradient(to right, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%)",
+          height: "14px",
+        }}
+      />
+      <Slider.Root
+        value={[color.h]}
+        onValueChange={(values) => setColor({ ...color, h: values[0] })}
+        min={0}
+        max={360}
+        step={1}
+        className="relative z-10"
+        style={{ height: 14 }}
+      >
+        <Slider.Track className="!bg-transparent">
+          <Slider.Range className="!bg-transparent !bg-none !from-transparent !to-transparent !shadow-none !border-none !inset-shadow-none" />
+        </Slider.Track>
+        <Slider.Thumb />
+      </Slider.Root>
+    </div>
   );
 };
 
@@ -142,13 +152,35 @@ const ColorPickerAlpha = ({ className }: { className?: string }) => {
   const { color, setColor } = useColor();
 
   return (
-    <Alpha
-      data-slot="color-picker-alpha"
-      hsva={color}
-      onChange={(newAlpha) => setColor({ ...color, a: newAlpha.a })}
-      style={{ height: 14 }}
-      className={cn("w-full", className)}
-    />
+    <div className={cn("relative w-full", className)}>
+      <div
+        className="absolute inset-0 rounded-full bg-tra"
+        style={{
+          background: `linear-gradient(to right, 
+            rgba(${hsvaToRgba(color).r}, ${hsvaToRgba(color).g}, ${
+            hsvaToRgba(color).b
+          }, 0) 0%, 
+            rgba(${hsvaToRgba(color).r}, ${hsvaToRgba(color).g}, ${
+            hsvaToRgba(color).b
+          }, 1) 100%)`,
+          height: "14px",
+        }}
+      />
+      <Slider.Root
+        value={[color.a * 100]}
+        onValueChange={(values) => setColor({ ...color, a: values[0] / 100 })}
+        min={0}
+        max={100}
+        step={1}
+        className="relative z-10 border border-border rounded-md"
+        style={{ height: 14 }}
+      >
+        <Slider.Track className="!bg-transparent">
+          <Slider.Range className="!bg-transparent !bg-none !from-transparent !to-transparent !shadow-none !border-none !inset-shadow-none" />
+        </Slider.Track>
+        <Slider.Thumb />
+      </Slider.Root>
+    </div>
   );
 };
 
@@ -159,7 +191,6 @@ const ColorPickerPreview = ({ className }: { className?: string }) => {
 
   return (
     <div
-      data-slot="color-picker-preview"
       className={cn("w-full h-12 rounded-md border border-border", className)}
       style={{
         backgroundColor: `rgba(${hsvaToRgba(color).r}, ${
@@ -182,7 +213,7 @@ const ColorPickerFormatSelector = ({
   const { format, setFormat } = useColor();
 
   return (
-    <Combobox data-slot="color-picker-format-selector">
+    <Combobox>
       <Combobox.Trigger>
         <Combobox.TriggerButton
           placeholder={format.toUpperCase() || "Select format"}
@@ -241,9 +272,7 @@ const ColorPickerInput = () => {
     )}%)`;
   };
 
-  return (
-    <InputCopy value={getFormattedColor()} data-slot="color-picker-input" />
-  );
+  return <InputCopy value={getFormattedColor()} />;
 };
 
 /* ------------------------------- Export ------------------------------- */

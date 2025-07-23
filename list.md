@@ -1,4 +1,3 @@
-emoji-picker
 download-trigger
 Editable
 Float
