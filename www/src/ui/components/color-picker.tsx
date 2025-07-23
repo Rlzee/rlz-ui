@@ -21,6 +21,8 @@ import {
 import { Combobox } from "./combobox";
 import { Check } from "lucide-react";
 import { InputCopy } from "@/src/ui/components/custom/input/input-copy";
+import { PipetteIcon } from "lucide-react";
+import { Button } from "@/src/ui/components/button";
 
 /* ---------------------------------- Types ---------------------------------- */
 
@@ -275,6 +277,43 @@ const ColorPickerInput = () => {
   return <InputCopy value={getFormattedColor()} />;
 };
 
+/* ---------------------------- Color Picker Eye Dropper ---------------------------- */
+
+const ColorPickerEyeDropper = ({
+  className,
+  ...props
+}: ComponentProps<typeof Button>) => {
+  const { setColor } = useColor();
+
+  const handleEyeDropper = async () => {
+    try {
+      if ("EyeDropper" in window) {
+        const eyeDropper = new (window as any).EyeDropper();
+        const result = await eyeDropper.open();
+
+        const hsvaColor = hexToHsva(result.sRGBHex);
+        setColor(hsvaColor);
+      } else {
+        console.warn("EyeDropper API is not supported in this browser.");
+      }
+    } catch (error) {
+      console.log("Color selection canceled or error:", error);
+    }
+  };
+
+  return (
+    <Button
+      variant="outline"
+      size="icon"
+      className={cn("shrink-0 text-muted-foreground", className)}
+      onClick={handleEyeDropper}
+      {...props}
+    >
+      <PipetteIcon size={16} />
+    </Button>
+  );
+};
+
 /* ------------------------------- Export ------------------------------- */
 
 const ColorPickerComposed = Object.assign(ColorPicker, {
@@ -284,6 +323,7 @@ const ColorPickerComposed = Object.assign(ColorPicker, {
   Preview: ColorPickerPreview,
   FormatSelector: ColorPickerFormatSelector,
   Input: ColorPickerInput,
+  EyeDropper: ColorPickerEyeDropper,
 });
 
 export {
@@ -296,4 +336,5 @@ export {
   ColorPickerPreview,
   ColorPickerFormatSelector,
   ColorPickerInput,
+  ColorPickerEyeDropper,
 };
