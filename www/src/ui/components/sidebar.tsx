@@ -29,6 +29,28 @@ const SIDEBAR_WIDTH_MOBILE = "18rem";
 const SIDEBAR_WIDTH_ICON = "3rem";
 const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
+// Helper function to get initial sidebar state from cookie
+const getInitialSidebarState = (defaultOpen: boolean): boolean => {
+  if (typeof window === "undefined") return defaultOpen;
+  
+  try {
+    const cookies = document.cookie.split(';');
+    const sidebarCookie = cookies.find(cookie => 
+      cookie.trim().startsWith(`${SIDEBAR_COOKIE_NAME}=`)
+    );
+    
+    if (sidebarCookie) {
+      const value = sidebarCookie.split('=')[1];
+      return value === 'true';
+    }
+  } catch (error) {
+    // If there's an error reading the cookie, fall back to default
+    console.warn('Error reading sidebar cookie:', error);
+  }
+  
+  return defaultOpen;
+};
+
 /* ------------------------------ Context Sidebar ------------------------------ */
 
 type SidebarContextProps = {
@@ -69,10 +91,26 @@ const SidebarProvider = ({
 }) => {
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
+  const [mounted, setMounted] = React.useState(false);
 
   // This is the internal state of the sidebar.
   // We use openProp and setOpenProp for control from outside the component.
   const [_open, _setOpen] = React.useState(defaultOpen);
+
+    // Handle client-side mounting and cookie reading
+  React.useEffect(() => {
+    setMounted(true);
+    
+    // Only read cookie if no external control is provided
+    if (!openProp) {
+      const cookieState = getInitialSidebarState(defaultOpen);
+      if (cookieState !== defaultOpen) {
+        _setOpen(cookieState);
+      }
+    }
+  }, [defaultOpen, openProp]);
+
+
   const open = openProp ?? _open;
   const setOpen = React.useCallback(
     (value: boolean | ((value: boolean) => boolean)) => {
@@ -84,7 +122,9 @@ const SidebarProvider = ({
       }
 
       // This sets the cookie to keep the sidebar state.
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      if (typeof window !== "undefined") {
+        document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
+      }
     },
     [setOpenProp, open]
   );
