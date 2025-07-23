@@ -58,6 +58,7 @@ const ColorPickerProvider = ({
 }: ColorContextType & { children: ReactNode }) => {
   return (
     <ColorContext.Provider
+      data-slot="color-picker-provider"
       value={{ color, setColor, resetColor, format, setFormat }}
     >
       {children}
@@ -86,7 +87,11 @@ const ColorPicker = ({
       format={format}
       setFormat={setFormat}
     >
-      <div className={cn("w-[360px] p-4 space-y-4", className)} {...props}>
+      <div
+        data-slot="color-picker"
+        className={cn("w-[360px] p-4 space-y-4", className)}
+        {...props}
+      >
         {children}
       </div>
     </ColorPickerProvider>
@@ -101,6 +106,7 @@ const ColorPickerSaturation = ({ className }: { className?: string }) => {
   return (
     <div className={cn("border border-border rounded-[0.3rem]", className)}>
       <Saturation
+        data-slot="color-picker-saturation"
         hsva={color}
         onChange={setColor}
         style={{
@@ -121,6 +127,7 @@ const ColorPickerHue = ({ className }: { className?: string }) => {
 
   return (
     <Hue
+      data-slot="color-picker-hue"
       hue={color.h}
       onChange={(newHue) => setColor({ ...color, h: newHue.h })}
       style={{ height: 14 }}
@@ -136,6 +143,7 @@ const ColorPickerAlpha = ({ className }: { className?: string }) => {
 
   return (
     <Alpha
+      data-slot="color-picker-alpha"
       hsva={color}
       onChange={(newAlpha) => setColor({ ...color, a: newAlpha.a })}
       style={{ height: 14 }}
@@ -151,6 +159,7 @@ const ColorPickerPreview = ({ className }: { className?: string }) => {
 
   return (
     <div
+      data-slot="color-picker-preview"
       className={cn("w-full h-12 rounded-md border border-border", className)}
       style={{
         backgroundColor: `rgba(${hsvaToRgba(color).r}, ${
@@ -173,7 +182,7 @@ const ColorPickerFormatSelector = ({
   const { format, setFormat } = useColor();
 
   return (
-    <Combobox>
+    <Combobox data-slot="color-picker-format-selector">
       <Combobox.Trigger>
         <Combobox.TriggerButton
           placeholder={format.toUpperCase() || "Select format"}
@@ -232,7 +241,9 @@ const ColorPickerInput = () => {
     )}%)`;
   };
 
-  return <InputCopy value={getFormattedColor()} />;
+  return (
+    <InputCopy value={getFormattedColor()} data-slot="color-picker-input" />
+  );
 };
 
 /* ------------------------------- Export ------------------------------- */
