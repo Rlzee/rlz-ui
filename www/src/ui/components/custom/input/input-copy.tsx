@@ -1,19 +1,26 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
+import { useId, useRef, useState, ComponentProps } from "react";
 import { Terminal } from "lucide-react";
 import { cn } from "@/src/lib/utils";
 import { InputAddon } from "@/src/ui/components/input-addon";
 import { Toggle } from "@/src/ui/components/toggle";
 import { Clipboard } from "@/src/ui/components/custom/button/clipboard";
 
-type InputCopyProps = {
+interface InputCopyProps extends ComponentProps<typeof InputAddon> {
   value: string;
   readOnly?: boolean;
   className?: string;
-};
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-const InputCopy = ({ value, readOnly = true, className }: InputCopyProps) => {
+const InputCopy = ({
+  value,
+  readOnly = true,
+  className,
+  onChange,
+  ...props
+}: InputCopyProps) => {
   const id = useId();
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -24,8 +31,10 @@ const InputCopy = ({ value, readOnly = true, className }: InputCopyProps) => {
       id={id}
       className={cn("pe-9", className)}
       type="text"
-      defaultValue={value}
+      value={value}
       readOnly={readOnly}
+      onChange={onChange}
+      {...props}
     >
       <InputAddon.Right className="pe-0">
         <Clipboard text={value} />
