@@ -1,4 +1,3 @@
-color-picker
 emoji-picker
 download-trigger
 Editable
