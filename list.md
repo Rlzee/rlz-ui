@@ -1,6 +1,4 @@
-download-trigger
 Editable
-Float
 input-otp
 QR Code
 stepper

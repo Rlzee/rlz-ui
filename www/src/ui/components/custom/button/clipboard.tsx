@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { cn } from "@/src/lib/utils";
-import { Tooltip } from "./tooltip";
+import { Tooltip } from "@/src/ui/components/tooltip";
 
 type ClipboardSize = "sm" | "md" | "lg";
 
