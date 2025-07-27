@@ -1,3 +1,11 @@
-import { Raleway, Roboto_Mono } from "next/font/google";
-export const raleway = Raleway({ variable: "--font-raleway", subsets: ["latin"]});
-export const robotoMono = Roboto_Mono({variable: "--font-roboto-mono", subsets: ["latin"],});
+import { Space_Grotesk, Inter } from "next/font/google";
+
+export const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
+
+export const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});

@@ -4,8 +4,8 @@
 
 @theme inline {
   /* Fonts */
-  --font-raleway: var(--font-raleway);
-  --font-robotoMono: var(--font-robotoMono);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-inter: var(--font-inter);
 
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
@@ -103,6 +103,16 @@
   --error: oklch(0.627 0.233 29.2);
   --info: oklch(0.627 0.2 264.4);
   --warning: oklch(0.7924 0.2066 101.27);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
 }
 
 input[type="password"]::-ms-reveal,

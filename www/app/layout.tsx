@@ -1,7 +1,7 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { raleway, robotoMono } from "@/app/fonts/fonts";
+import { spaceGrotesk, inter } from "@/app/fonts/fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
-        className={`${raleway.variable} ${robotoMono.variable} antialiased bg-background`}
+        className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-background`}
       >
         <ThemeProvider
           attribute="class"
