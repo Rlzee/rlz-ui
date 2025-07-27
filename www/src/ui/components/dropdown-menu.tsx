@@ -45,7 +45,7 @@ const DropdownMenuContent = ({
   ...props
 }: ComponentProps<typeof DropdownMenuPrimitive.Content>) => {
   return (
-    <DropdownMenuPrimitive.Portal>
+    <DropdownMenuPortal>
       <DropdownMenuPrimitive.Content
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
@@ -55,7 +55,7 @@ const DropdownMenuContent = ({
         )}
         {...props}
       />
-    </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPortal>
   );
 };
 

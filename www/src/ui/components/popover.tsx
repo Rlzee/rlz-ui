@@ -18,6 +18,14 @@ const PopoverTrigger = (
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 };
 
+/* ------------------------------ Portal Popover ------------------------------ */
+
+const PopoverPortal = (
+  props: ComponentProps<typeof PopoverPrimitive.Portal>
+) => {
+  return <PopoverPrimitive.Portal data-slot="popover-portal" {...props} />;
+};
+
 /* ------------------------------ Content Popover ------------------------------ */
 
 interface PopoverContentProps
@@ -35,7 +43,7 @@ const PopoverContent = ({
   sideOffset = 4,
   ...props
 }: PopoverContentProps) => (
-  <PopoverPrimitive.Portal>
+  <PopoverPortal>
     <PopoverPrimitive.Content
       data-slot="popover-content"
       align={align}
@@ -53,7 +61,7 @@ const PopoverContent = ({
       )}
       {...props}
     />
-  </PopoverPrimitive.Portal>
+  </PopoverPortal>
 );
 
 /* ------------------------------ Anchor Popover ------------------------------ */
@@ -68,6 +76,7 @@ const PopoverAnchor = (
 
 const PopoverComposant = Object.assign(Popover, {
   Trigger: PopoverTrigger,
+  Portal: PopoverPortal,
   Content: PopoverContent,
   Anchor: PopoverAnchor,
 });
@@ -75,6 +84,7 @@ const PopoverComposant = Object.assign(Popover, {
 export {
   PopoverComposant as Popover,
   PopoverTrigger,
+  PopoverPortal,
   PopoverContent,
   PopoverAnchor,
 };

@@ -20,6 +20,14 @@ const HoverCardTrigger = (
   );
 };
 
+/* ---------------------------- Hover Card Portal --------------------------- */
+
+const HoverCardPortal = (
+  props: ComponentProps<typeof HoverCardPrimitive.Portal>
+) => {
+  return <HoverCardPrimitive.Portal data-slot="hover-card-portal" {...props} />;
+};
+
 /* ---------------------------- Hover Card Content --------------------------- */
 
 const HoverCardContent = ({
@@ -29,7 +37,7 @@ const HoverCardContent = ({
   ...props
 }: ComponentProps<typeof HoverCardPrimitive.Content>) => {
   return (
-    <HoverCardPrimitive.Portal data-slot="hover-card-portal">
+    <HoverCardPortal>
       <HoverCardPrimitive.Content
         data-slot="hover-card-content"
         align={align}
@@ -40,7 +48,7 @@ const HoverCardContent = ({
         )}
         {...props}
       />
-    </HoverCardPrimitive.Portal>
+    </HoverCardPortal>
   );
 };
 
@@ -48,7 +56,13 @@ const HoverCardContent = ({
 
 const HoverCardComposant = Object.assign(HoverCard, {
   Trigger: HoverCardTrigger,
+  Portal: HoverCardPortal,
   Content: HoverCardContent,
 });
 
-export { HoverCardComposant as HoverCard, HoverCardTrigger, HoverCardContent };
+export {
+  HoverCardComposant as HoverCard,
+  HoverCardTrigger,
+  HoverCardPortal,
+  HoverCardContent,
+};
