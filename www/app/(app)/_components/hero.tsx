@@ -20,7 +20,7 @@ export function Hero() {
         />
         <div className="h-auto lg:max-w-4xl mx-auto md:px-8 pt-4">
           <div className="text-center md:px-18 md:py-12 px-4 py-4">
-            <h1 className="text-4xl font-bold tracking-tighter md:text-6xl lg:text-7xl font-sans text-nowrap">
+            <h1 className="text-4xl font-bold tracking-tighter md:text-6xl lg:text-7xl text-nowrap">
               The all-in-one UI kit
             </h1>
             <BorderFlash
@@ -29,7 +29,7 @@ export function Hero() {
               className="mt-2"
               dashed
             />
-            <p className="mt-3 md:text-lg text-sm text-muted-foreground font-mono">
+            <p className="mt-3 md:text-lg text-sm text-muted-foreground">
               Build beautiful, modern websites with a comprehensive set of
               components and utilities designed for Next.js and Tailwind CSS
             </p>
