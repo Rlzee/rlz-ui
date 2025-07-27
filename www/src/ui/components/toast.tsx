@@ -9,19 +9,19 @@ import { CheckCircle, AlertCircle, Info, AlertTriangle } from "lucide-react";
 const variantDetails = {
   success: {
     title: "Success",
-    icon: <CheckCircle className="text-emerald-500 w-5 h-5" />,
+    icon: <CheckCircle className="text-success w-5 h-5" />,
   },
   error: {
     title: "Error",
-    icon: <AlertCircle className="text-destructive w-5 h-5" />,
+    icon: <AlertCircle className="text-error w-5 h-5" />,
   },
   info: {
     title: "Info",
-    icon: <Info className="text-primary w-5 h-5" />,
+    icon: <Info className="text-info w-5 h-5" />,
   },
   warning: {
     title: "Warning",
-    icon: <AlertTriangle className="text-yellow-500 w-5 h-5" />,
+    icon: <AlertTriangle className="text-warning w-5 h-5" />,
   },
 };
 

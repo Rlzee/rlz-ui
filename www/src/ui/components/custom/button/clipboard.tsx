@@ -69,7 +69,7 @@ const Clipboard = ({
             )}
           >
             <CheckIcon
-              className={cn(sizeClasses[size], "stroke-emerald-500")}
+              className={cn(sizeClasses[size], "stroke-success")}
               aria-hidden="true"
             />
           </div>
