@@ -2,10 +2,13 @@
 
 import {
   ComponentProps,
+  ReactElement,
   ReactNode,
-  useContext,
+  cloneElement,
   createContext,
   isValidElement,
+  useContext,
+  useRef,
   Children,
 } from "react";
 import { Input } from "./input";
@@ -15,12 +18,13 @@ import { cn } from "@/src/lib/utils";
 
 type inputType = "number" | "alphanumeric";
 
-type InputOtpContext = {
-  type?: inputType;
-  group?: boolean;
+type InputOtpContextType = {
+  type: inputType;
+  group: boolean;
+  onComplete?: (value: string) => void;
 };
 
-const InputOtpContext = createContext<InputOtpContext>({
+const InputOtpContext = createContext<InputOtpContextType>({
   type: "number",
   group: false,
 });
@@ -31,17 +35,17 @@ const InputOtpProvider = ({
   children,
   type,
   group,
+  onComplete,
 }: {
   children: ReactNode;
-  type?: inputType;
-  group?: boolean;
-}) => {
-  return (
-    <InputOtpContext.Provider value={{ type, group }}>
-      {children}
-    </InputOtpContext.Provider>
-  );
-};
+  type: inputType;
+  group: boolean;
+  onComplete?: (value: string) => void;
+}) => (
+  <InputOtpContext.Provider value={{ type, group, onComplete }}>
+    {children}
+  </InputOtpContext.Provider>
+);
 
 /* ---------------------------- Input Otp ---------------------------- */
 
@@ -49,25 +53,54 @@ const InputOtp = ({
   className,
   children,
   type = "number",
+  onComplete,
 }: {
   className?: string;
   children: ReactNode;
   type?: inputType;
+  onComplete?: (value: string) => void;
 }) => {
-  let Group = false;
+  let hasGroup = false;
 
-  const parsed = Children.map(children, (c) => {
-    if (isValidElement(c) && c.type === InputOtpGroup) Group = true;
-    return c;
+  const parsed = Children.map(children, (child) => {
+    if (!isValidElement(child)) return child;
+
+    const typedChild = child as ReactElement<any>;
+
+    if (typedChild.type === InputOtpGroup) {
+      hasGroup = true;
+
+      const groupChildren = Children.map(
+        typedChild.props.children as ReactNode,
+        (slot, index) => {
+          if (!isValidElement(slot)) return slot;
+
+          const typedSlot = slot as ReactElement<any>;
+          if (typedSlot.type === InputOtpSlot) {
+            return cloneElement(typedSlot, { index });
+          }
+          return typedSlot;
+        }
+      );
+
+      return cloneElement(typedChild, { children: groupChildren });
+    }
+
+    if (typedChild.type === InputOtpSlot) {
+      return cloneElement(typedChild, { index: 0 });
+    }
+
+    return typedChild;
   });
-  
+
   return (
-    <div className={cn("flex gap-2", className)} data-otp-container>
-      <InputOtpProvider
-        data-slot="input-otp-provider"
-        type={type}
-        group={Group}
-      >
+    <div
+      className={cn("flex gap-2", className)}
+      data-otp-container
+      role="group"
+      aria-label="OTP input"
+    >
+      <InputOtpProvider type={type} group={hasGroup} onComplete={onComplete}>
         {parsed}
       </InputOtpProvider>
     </div>
@@ -76,110 +109,120 @@ const InputOtp = ({
 
 /* ---------------------------- Input Otp Slot ---------------------------- */
 
-const InputOtpSlot = ({
-  className,
-  children,
-  ...props
-}: ComponentProps<typeof Input>) => {
-  const { type, group } = useContext(InputOtpContext);
+type InputOtpSlotProps = ComponentProps<typeof Input> & {
+  index?: number;
+};
+
+const InputOtpSlot = ({ className, index, ...props }: InputOtpSlotProps) => {
+  const { type, group, onComplete } = useContext(InputOtpContext);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
-    let cleanValue = "";
+    const clean =
+      type === "number"
+        ? val.replace(/[^0-9]/g, "")
+        : val.replace(/[^a-zA-Z0-9]/g, "");
 
-    if (type === "number") {
-      cleanValue = val.replace(/[^0-9]/g, "").slice(0, 1);
-    } else {
-      cleanValue = val.replace(/[^a-zA-Z0-9]/g, "").slice(0, 1);
-    }
+    e.target.value = clean.slice(0, 1);
 
-    e.target.value = cleanValue;
+    if (clean) {
+      const container = e.target.closest("[data-otp-container]");
+      if (!container) return;
 
-    if (cleanValue) {
-      const currentInput = e.target;
-      const container = currentInput.closest("[data-otp-container]");
+      const inputs = Array.from(
+        container.querySelectorAll("input")
+      ) as HTMLInputElement[];
 
-      if (container) {
-        const allInputs = container.querySelectorAll("input");
-        const currentIndex = Array.from(allInputs).indexOf(currentInput);
-        const nextInput = allInputs[currentIndex + 1] as HTMLInputElement;
+      const index = inputs.indexOf(e.target);
+      const next = inputs[index + 1];
+      if (next) next.focus();
 
-        if (nextInput) {
-          nextInput.focus();
-        }
+      const allFilled = inputs.every((i) => i.value.length === 1);
+      if (allFilled && onComplete) {
+        const code = inputs.map((i) => i.value).join("");
+        onComplete(code);
       }
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Backspace" && !e.currentTarget.value) {
-      const currentInput = e.currentTarget;
-      const container = currentInput.closest("[data-otp-container]");
+    const target = e.currentTarget;
+    const container = target.closest("[data-otp-container]");
 
-      if (container) {
-        const allInputs = container.querySelectorAll("input");
-        const currentIndex = Array.from(allInputs).indexOf(currentInput);
-        const prevInput = allInputs[currentIndex - 1] as HTMLInputElement;
+    if (!container) return;
+    const inputs = Array.from(
+      container.querySelectorAll("input")
+    ) as HTMLInputElement[];
+    const index = inputs.indexOf(target);
 
-        if (prevInput) {
-          prevInput.focus();
-        }
-      }
+    if (e.key === "Backspace" && !target.value && inputs[index - 1]) {
+      inputs[index - 1].focus();
     }
 
-    if (props.onKeyDown) {
-      props.onKeyDown(e);
+    if (e.key === "ArrowLeft" && inputs[index - 1]) {
+      inputs[index - 1].focus();
     }
+
+    if (e.key === "ArrowRight" && inputs[index + 1]) {
+      inputs[index + 1].focus();
+    }
+
+    props.onKeyDown?.(e);
   };
 
   const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
     e.preventDefault();
     const paste = e.clipboardData.getData("text");
 
-    const currentInput = e.currentTarget;
-    const container = currentInput.closest("[data-otp-container]");
+    const container = e.currentTarget.closest("[data-otp-container]");
+    if (!container) return;
 
-    if (container) {
-      const allInputs = Array.from(container.querySelectorAll("input"));
-      const currentIndex = allInputs.indexOf(currentInput);
+    const inputs = Array.from(
+      container.querySelectorAll("input")
+    ) as HTMLInputElement[];
+    const index = inputs.indexOf(e.currentTarget);
 
-      let cleanText = paste;
-      if (type === "number") {
-        cleanText = paste.replace(/[^0-9]/g, "");
-      } else {
-        cleanText = paste.replace(/[^a-zA-Z0-9]/g, "");
+    let clean =
+      type === "number"
+        ? paste.replace(/[^0-9]/g, "")
+        : paste.replace(/[^a-zA-Z0-9]/g, "");
+
+    clean = clean.slice(0, inputs.length - index);
+
+    clean.split("").forEach((char, i) => {
+      const input = inputs[index + i];
+      if (input) {
+        input.value = char;
+        const event = new Event("input", { bubbles: true });
+        input.dispatchEvent(event);
       }
+    });
 
-      for (let i = 0; i < cleanText.length; i++) {
-        const input = allInputs[currentIndex + i] as
-          | HTMLInputElement
-          | undefined;
-        if (input) {
-          input.value = cleanText[i];
-          const event = new Event("input", { bubbles: true });
-          input.dispatchEvent(event);
-        }
-      }
+    const last = inputs[index + clean.length - 1];
+    if (last) last.focus();
+  };
 
-      const lastInput = allInputs[
-        currentIndex + cleanText.length - 1
-      ] as HTMLInputElement;
-      if (lastInput) {
-        lastInput.focus();
-      }
-    }
+  const handleFocus = () => {
+    inputRef.current?.select();
   };
 
   return (
     <Input
+      ref={inputRef}
       data-slot="input-otp-slot"
-      {...props}
+      data-index={index}
+      type="text"
+      inputMode={type === "number" ? "numeric" : "text"}
+      maxLength={1}
+      aria-label="OTP character"
+      autoComplete="one-time-code"
       onInput={handleInput}
       onKeyDown={handleKeyDown}
       onPaste={handlePaste}
-      inputMode={type === "number" ? "numeric" : "text"}
+      onFocus={handleFocus}
       className={cn(
-        "w-9 h-9 text-center text-2xl font-bold",
+        "w-10 h-10 text-center text-2xl font-bold",
         group
           ? [
               "first:rounded-l-md first:rounded-r-none",
@@ -191,7 +234,7 @@ const InputOtpSlot = ({
           : "",
         className
       )}
-      type="text"
+      {...props}
     />
   );
 };
@@ -204,17 +247,15 @@ const InputOtpGroup = ({
 }: {
   children: ReactNode;
   className?: string;
-}) => {
-  return (
-    <div
-      data-slot="input-otp-group"
-      className={cn("flex", className)}
-      data-otp-group
-    >
-      {children}
-    </div>
-  );
-};
+}) => (
+  <div
+    data-slot="input-otp-group"
+    data-otp-group
+    className={cn("flex", className)}
+  >
+    {children}
+  </div>
+);
 
 /* ---------------------------- Input Otp Separator ---------------------------- */
 
@@ -223,16 +264,14 @@ const InputOtpSeparator = ({
 }: {
   className?: string;
   children?: ReactNode;
-}) => {
-  return (
-    <div
-      data-slot="input-otp-separator"
-      className={cn("flex items-center justify-center", className)}
-    >
-      <span className="w-4 h-0.5 bg-muted-foreground" />
-    </div>
-  );
-};
+}) => (
+  <div
+    data-slot="input-otp-separator"
+    className={cn("flex items-center justify-center", className)}
+  >
+    <span className="w-4 h-0.5 bg-muted-foreground" />
+  </div>
+);
 
 /* ---------------------------- Exports ---------------------------- */
 
