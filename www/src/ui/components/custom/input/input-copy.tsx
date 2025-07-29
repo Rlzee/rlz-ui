@@ -80,7 +80,7 @@ const InputCopyCLI = ({
 
   return (
     <div className={cn("relative", classNameContainer)}>
-      <div className="bg-popover rounded-t-md h-10 absolute left-0 bottom-8 w-full flex items-center justify-start px-3 text-muted-foreground text-sm pb-1">
+      <div className="bg-background-secondary border border-border rounded-t-md h-12 absolute left-0 bottom-7 w-full flex items-center justify-start px-3 text-muted-foreground text-sm pb-1">
         <Terminal size={16} className="text-foreground mr-2" />
         {packageManagers.map((pm) => (
           <Toggle
