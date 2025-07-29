@@ -37,6 +37,9 @@ type CarouselContextProps = {
   scrollNext: () => void;
   canScrollPrev: boolean;
   canScrollNext: boolean;
+  currentSlide: number;
+  totalSlides: number;
+  scrollTo: (index: number) => void;
 } & CarouselProps;
 
 const CarouselContext = createContext<CarouselContextProps | null>(null);
@@ -69,11 +72,15 @@ const CarouselProvider = ({
   );
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [totalSlides, setTotalSlides] = useState(0);
 
   const onSelect = useCallback((api: CarouselApi) => {
     if (!api) return;
     setCanScrollPrev(api.canScrollPrev());
     setCanScrollNext(api.canScrollNext());
+    setCurrentSlide(api.selectedScrollSnap());
+    setTotalSlides(api.scrollSnapList().length);
   }, []);
 
   const scrollPrev = useCallback(() => {
@@ -83,6 +90,13 @@ const CarouselProvider = ({
   const scrollNext = useCallback(() => {
     api?.scrollNext();
   }, [api]);
+
+  const scrollTo = useCallback(
+    (index: number) => {
+      api?.scrollTo(index);
+    },
+    [api]
+  );
 
   useEffect(() => {
     if (!api || !setApi) return;
@@ -111,6 +125,9 @@ const CarouselProvider = ({
         scrollNext,
         canScrollPrev,
         canScrollNext,
+        currentSlide,
+        totalSlides,
+        scrollTo,
       }}
     >
       {children}
@@ -271,6 +288,57 @@ const CarouselNext = ({
   );
 };
 
+/* --------------------------- Carousel Indicators --------------------------- */
+
+const CarouselIndicators = ({
+  className,
+  ...props
+}: React.ComponentProps<"div">) => {
+  const { currentSlide, totalSlides, scrollTo } = useCarousel();
+
+  return (
+    <div
+      data-slot="carousel-indicators"
+      className={cn("flex items-center justify-center gap-2", className)}
+      {...props}
+    >
+      {Array.from({ length: totalSlides }, (_, index) => (
+        <button
+          key={index}
+          className={cn(
+            "h-2 w-2 rounded-full transition-all duration-200",
+            index === currentSlide
+              ? "bg-primary scale-110"
+              : "bg-secondary hover:bg-secondary/80 border border-border"
+          )}
+          onClick={() => scrollTo(index)}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))}
+    </div>
+  );
+};
+
+/* --------------------------- Carousel Counter --------------------------- */
+
+const CarouselCounter = ({
+  className,
+  separator = "/",
+  ...props
+}: React.ComponentProps<"div"> & { separator?: string }) => {
+  const { currentSlide, totalSlides } = useCarousel();
+
+  return (
+    <div
+      data-slot="carousel-counter"
+      className={cn("text-sm text-muted-foreground", className)}
+      {...props}
+    >
+      {currentSlide + 1} {separator} {totalSlides}
+    </div>
+  );
+};
+
 /* --------------------------- Exports --------------------------- */
 
 const CarouselComposed = Object.assign(Carousel, {
@@ -280,6 +348,8 @@ const CarouselComposed = Object.assign(Carousel, {
   Previous: CarouselPrevious,
   Next: CarouselNext,
   Provider: CarouselProvider,
+  Indicators: CarouselIndicators,
+  Counter: CarouselCounter,
 });
 
 export {
@@ -290,5 +360,7 @@ export {
   CarouselPrevious,
   CarouselNext,
   CarouselProvider,
+  CarouselIndicators,
+  CarouselCounter,
   useCarousel,
 };
