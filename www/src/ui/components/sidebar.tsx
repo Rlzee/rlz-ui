@@ -32,22 +32,22 @@ const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 // Helper function to get initial sidebar state from cookie
 const getInitialSidebarState = (defaultOpen: boolean): boolean => {
   if (typeof window === "undefined") return defaultOpen;
-  
+
   try {
-    const cookies = document.cookie.split(';');
-    const sidebarCookie = cookies.find(cookie => 
+    const cookies = document.cookie.split(";");
+    const sidebarCookie = cookies.find((cookie) =>
       cookie.trim().startsWith(`${SIDEBAR_COOKIE_NAME}=`)
     );
-    
+
     if (sidebarCookie) {
-      const value = sidebarCookie.split('=')[1];
-      return value === 'true';
+      const value = sidebarCookie.split("=")[1];
+      return value === "true";
     }
   } catch (error) {
     // If there's an error reading the cookie, fall back to default
-    console.warn('Error reading sidebar cookie:', error);
+    console.warn("Error reading sidebar cookie:", error);
   }
-  
+
   return defaultOpen;
 };
 
@@ -97,10 +97,10 @@ const SidebarProvider = ({
   // We use openProp and setOpenProp for control from outside the component.
   const [_open, _setOpen] = React.useState(defaultOpen);
 
-    // Handle client-side mounting and cookie reading
+  // Handle client-side mounting and cookie reading
   React.useEffect(() => {
     setMounted(true);
-    
+
     // Only read cookie if no external control is provided
     if (!openProp) {
       const cookieState = getInitialSidebarState(defaultOpen);
@@ -109,7 +109,6 @@ const SidebarProvider = ({
       }
     }
   }, [defaultOpen, openProp]);
-
 
   const open = openProp ?? _open;
   const setOpen = React.useCallback(
@@ -227,7 +226,12 @@ const Sidebar = ({
 
   if (isMobile) {
     return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} direction={side} {...props}>
+      <Sheet
+        open={openMobile}
+        onOpenChange={setOpenMobile}
+        direction={side}
+        {...props}
+      >
         <Sheet.Content
           data-sidebar="sidebar"
           data-slot="sidebar"
@@ -569,12 +573,16 @@ const SidebarMenuItem = ({
   );
 };
 
+/* ------------------------------ Sidebar Menu Button ------------------------------ */
+
 const sidebarMenuButtonVariants = cva(
   "text-muted-foreground data-[state=open]:text-foreground peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-secondary focus-visible:ring-2 active:bg-muted disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-muted data-[active=true]:font-medium data-[state=open]:hover:bg-secondary group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0",
   {
     variants: {
       variant: {
         default: "hover:bg-secondary hover:text-foreground",
+        primary:
+          "hover:bg-transparent hover:text-foreground data-[state=open]:text-primary data-[state=open]:bg-transparent active:bg-transparent data-[active=true]:bg-transparent data-[active=true]:text-primary",
         outline:
           "bg-background shadow-[0_0_0_1px_hsl(var(--border))] hover:bg-secondary",
       },
@@ -590,8 +598,6 @@ const sidebarMenuButtonVariants = cva(
     },
   }
 );
-
-/* ------------------------------ Sidebar Menu Button ------------------------------ */
 
 const SidebarMenuButton = ({
   asChild = false,
@@ -630,13 +636,11 @@ const SidebarMenuButton = ({
     return button;
   }
 
-  // Si le tooltip est une string, on la transforme en objet
   const tooltipProps =
     typeof tooltip === "string"
       ? { content: tooltip, side: "right" as const }
       : { side: "right" as const, ...tooltip };
 
-  // On n'affiche le tooltip que si la sidebar est collapsed et pas sur mobile
   if (state !== "collapsed" || isMobile) {
     return button;
   }
