@@ -4,7 +4,7 @@ import { cn } from "@/src/lib/utils";
 
 /* ------------------------------ Root Breadcrumb ------------------------------ */
 
-const Breadcrumb = ({ ...props }: ComponentProps<"nav">) => {
+const BreadcrumbRoot = ({ ...props }: ComponentProps<"nav">) => {
   return <nav aria-label="breadcrumb" data-slot="breadcrumb" {...props} />;
 };
 
@@ -72,9 +72,22 @@ const BreadcrumbSeparator = ({
   );
 };
 
+/* --------------------------- Breadcrumb --------------------------- */
+
+const Breadcrumb = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <BreadcrumbRoot>
+      <BreadcrumbGroup>
+        <BreadcrumbList>{children}</BreadcrumbList>
+      </BreadcrumbGroup>
+    </BreadcrumbRoot>
+  );
+};
+
 /* ------------------------------ Exports ------------------------------ */
 
 const BreadcrumbComposed = Object.assign(Breadcrumb, {
+  Root: BreadcrumbRoot,
   Group: BreadcrumbGroup,
   List: BreadcrumbList,
   Item: BreadcrumbItem,
@@ -83,6 +96,7 @@ const BreadcrumbComposed = Object.assign(Breadcrumb, {
 
 export {
   BreadcrumbComposed as Breadcrumb,
+  BreadcrumbRoot,
   BreadcrumbGroup,
   BreadcrumbList,
   BreadcrumbItem,
