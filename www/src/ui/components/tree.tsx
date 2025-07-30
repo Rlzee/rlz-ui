@@ -17,7 +17,6 @@ const Tree = ({
 }) => {
   return (
     <div
-      data-slot="tree"
       className={cn("tree-container", className)}
       style={{
         height: "auto",
@@ -49,11 +48,7 @@ const TreeGroup = ({
 }: ComponentProps<typeof Collapsible> & { nested?: boolean }) => {
   if (nested) {
     return (
-      <Collapsible
-        data-slot="tree-group"
-        className={cn("group/collapsible", className)}
-        {...props}
-      >
+      <Collapsible className={cn("group/collapsible", className)} {...props}>
         {children}
       </Collapsible>
     );
@@ -61,7 +56,6 @@ const TreeGroup = ({
 
   return (
     <Collapsible
-      data-slot="tree-group"
       className={cn("group/collapsible", className)}
       asChild
       {...props}
@@ -87,7 +81,7 @@ const TreeTrigger = ({
   ...props
 }: TreeTriggerItemProps) => {
   return (
-    <Collapsible.Trigger asChild {...props} data-slot="tree-trigger">
+    <Collapsible.Trigger asChild {...props}>
       <Sidebar.MenuButton>
         {chevron !== "none" && chevron !== "right" && (
           <ChevronRight className="transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -104,38 +98,37 @@ const TreeTrigger = ({
 
 /* --------------------------- Tree Content --------------------------- */
 
-const TreeContent = ({
-  children,
-  className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) => {
+const TreeContent = ({ children }: { children: ReactNode }) => {
   return (
-    <Collapsible.Content data-slot="tree-content">
-      <div className={cn("ml-4 border-l border-border pl-2", className)}>
-        {children}
-      </div>
+    <Collapsible.Content>
+      <div className="ml-4 border-l border-border pl-2">{children}</div>
     </Collapsible.Content>
   );
 };
 
-/* --------------------------- Tree Item --------------------------- */
+/* --------------------------- Tree Item File --------------------------- */
 
 const TreeItem = ({
   text,
   icon,
   extension,
+  selected = false,
+  onClick,
 }: {
   key?: string;
   text: string;
   icon?: ReactNode;
   extension?: string;
+  selected?: boolean;
+  onClick?: () => void;
 }) => {
   return (
     <div
-      className="flex items-center gap-2 py-1 cursor-pointer hover:bg-secondary rounded-sm px-2"
-      data-slot="tree-item"
+      className={cn(
+        "flex items-center gap-2 py-1 cursor-pointer rounded-sm px-2 not-last:mb-0.5",
+        selected ? "bg-muted" : "hover:bg-secondary"
+      )}
+      onClick={onClick}
     >
       {icon && <span className="text-muted-foreground">{icon}</span>}
       <div className="text-sm">

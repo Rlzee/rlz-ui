@@ -7,6 +7,7 @@ import {
   oneDark,
   oneLight,
 } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Clipboard } from "@/src/ui/components/custom/button/clipboard";
 import { cn } from "@/src/lib/utils";
 
 interface CodeWrapperProps {
@@ -15,6 +16,7 @@ interface CodeWrapperProps {
   showLineNumbers?: boolean;
   maxHeight?: string;
   className?: string;
+  showClipboard?: boolean;
 }
 
 const CodeWrapper = ({
@@ -23,6 +25,7 @@ const CodeWrapper = ({
   showLineNumbers = false,
   maxHeight = "500px",
   className,
+  showClipboard = false,
 }: CodeWrapperProps) => {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -50,6 +53,11 @@ const CodeWrapper = ({
           display: none; /* Chrome, Safari, Opera */
         }
       `}</style>
+      {showClipboard && (
+        <div className="sticky top-2 right-2 z-50 float-right">
+          <Clipboard text={code} position="relative" size="sm" />
+        </div>
+      )}
       <SyntaxHighlighter
         language={language}
         style={theme}
