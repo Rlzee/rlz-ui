@@ -125,7 +125,7 @@ const TreeItem = ({
   return (
     <div
       className={cn(
-        "flex items-center gap-2 py-1 cursor-pointer rounded-sm px-2 not-last:mb-0.5",
+        "flex items-center gap-2 py-1 cursor-pointer rounded-sm px-2 not-last:mb-0.5 first:mt-0.5",
         selected ? "bg-muted" : "hover:bg-secondary"
       )}
       onClick={onClick}
