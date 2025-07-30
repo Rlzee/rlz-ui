@@ -46,7 +46,9 @@ const BreadcrumbItem = ({
       data-slot="breadcrumb-item"
       className={cn(
         "hover:text-foreground transition-colors",
-        isActive ? "text-foreground" : "text-muted-foreground",
+        isActive
+          ? "text-primary hover:text-primary cursor-default"
+          : "text-muted-foreground",
         className
       )}
       {...props}
