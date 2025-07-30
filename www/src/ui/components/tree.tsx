@@ -112,21 +112,21 @@ const TreeItem = ({
   text,
   icon,
   extension,
-  selected = false,
+  isActive = false,
   onClick,
 }: {
   key?: string;
   text: string;
   icon?: ReactNode;
   extension?: string;
-  selected?: boolean;
+  isActive?: boolean;
   onClick?: () => void;
 }) => {
   return (
     <div
       className={cn(
         "flex items-center gap-2 py-1 cursor-pointer rounded-sm px-2 not-last:mb-0.5 first:mt-0.5",
-        selected ? "bg-muted" : "hover:bg-secondary"
+        isActive ? "bg-muted" : "hover:bg-secondary"
       )}
       onClick={onClick}
     >

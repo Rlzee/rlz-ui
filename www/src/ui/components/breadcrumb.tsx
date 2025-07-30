@@ -36,9 +36,9 @@ const BreadcrumbList = ({ className, ...props }: ComponentProps<"li">) => {
 
 const BreadcrumbItem = ({
   className,
-  selected = false,
+  isActive = false,
   ...props
-}: ComponentProps<"a"> & { asChild?: boolean; selected?: boolean }) => {
+}: ComponentProps<"a"> & { asChild?: boolean; isActive?: boolean }) => {
   const Comp = props.asChild ? Slot : "a";
 
   return (
@@ -46,7 +46,7 @@ const BreadcrumbItem = ({
       data-slot="breadcrumb-item"
       className={cn(
         "hover:text-foreground transition-colors",
-        selected ? "text-foreground" : "text-muted-foreground",
+        isActive ? "text-foreground" : "text-muted-foreground",
         className
       )}
       {...props}
