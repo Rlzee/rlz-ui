@@ -1,297 +1,304 @@
 "use client";
 
-import React, {
+import {
   createContext,
   useContext,
   useState,
-  useCallback,
-  useMemo,
-  ReactElement,
-  ReactNode,
   ComponentProps,
+  ReactNode,
 } from "react";
-import { Menu, X } from "lucide-react";
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "../../lib/utils";
+import { useIsMobile } from "@/src/ui/hooks/use-mobile";
+import { Slot } from "@radix-ui/react-slot";
 import Link from "next/link";
-import { Button } from "@/src/ui/components/button";
-import { cn } from "@/src/lib/utils";
-import { scrollToSection } from "@/src/ui/utils/utils";
-import { NavigationMenu } from "@/src/ui/components/navigation-menu";
-import { cva } from "class-variance-authority";
+import { Menu, X } from "lucide-react";
 
-/* --------------------------- Context & Provider --------------------------- */
+/* --------------------------- Context Navbar --------------------------- */
 
-type NavbarContextType = {
-  isOpen: boolean;
-  toggle: () => void;
-  close: () => void;
+type NavbarContextProps = {
+  openMobile: boolean;
+  setOpenMobile: (open: boolean) => void;
 };
 
-const NavbarContext = createContext<NavbarContextType | null>(null);
+const NavbarContext = createContext<NavbarContextProps | undefined>(undefined);
+
+const useNavbar = () => {
+  const context = useContext(NavbarContext);
+  if (!context) {
+    throw new Error("useNavbar must be used within a NavbarProvider");
+  }
+  return context;
+};
+
+/* --------------------------- Navbar Provider --------------------------- */
 
 const NavbarProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
-  const close = useCallback(() => setIsOpen(false), []);
-
-  const value = useMemo(
-    () => ({ isOpen, toggle, close }),
-    [isOpen, toggle, close]
-  );
+  const [openMobile, setOpenMobile] = useState(false);
 
   return (
-    <NavbarContext.Provider value={value} data-slot="navbar-provider">
+    <NavbarContext.Provider value={{ openMobile, setOpenMobile }}>
       {children}
     </NavbarContext.Provider>
   );
 };
 
-const useNavbar = (): NavbarContextType => {
-  const context = useContext(NavbarContext);
-  if (!context)
-    throw new Error("useNavbar must be used within a NavbarProvider");
-  return context;
+/* --------------------------- Root Navbar --------------------------- */
+
+const Navbar = ({ className, children, ...props }: ComponentProps<"nav">) => {
+  return (
+    <NavbarProvider>
+      <nav
+        data-slot="navbar"
+        className={cn(
+          "z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg h-14",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </nav>
+    </NavbarProvider>
+  );
 };
 
-/* ------------------------------ Root Navbar ------------------------------ */
+/* --------------------------- Navbar Group --------------------------- */
 
-const Navbar = ({ children, className, ...props }: ComponentProps<"nav">) => (
-  <nav
-    className={cn(
-      "z-50 sticky top-0 w-full bg-background/60 backdrop-blur-lg",
-      className
-    )}
-    {...props}
-    data-slot="navbar"
-  >
-    {children}
-  </nav>
-);
-
-/* ----------------------------- Navbar Content ----------------------------- */
-
-const NavbarContent = ({ children, className }: ComponentProps<"div">) => (
-  <div className="flex flex-col" data-slot="navbar-content">
-    <div
-      className={cn("flex items-center justify-between h-14 px-4", className)}
+const NavbarGroup = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"ul">) => {
+  return (
+    <ul
+      data-slot="navbar-group"
+      className={cn(
+        "flex items-center justify-between h-full w-full px-4",
+        className
+      )}
+      {...props}
     >
       {children}
-    </div>
-  </div>
-);
-
-/* ----------------------------- Navbar Items ------------------------------ */
-
-type NavbarLinkItem = {
-  type: "link";
-  href: string;
-  label: string;
-  className?: string;
+    </ul>
+  );
 };
 
-type NavbarButtonItem = {
-  type: "button";
-  sectionId: string;
-  label: string;
-  className?: string;
+/* --------------------------- Navbar List --------------------------- */
+
+const NavbarList = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"li">) => {
+  return (
+    <li
+      data-slot="navbar-list"
+      className={cn("items-center gap-1 hidden md:flex", className)}
+      {...props}
+    >
+      {children}
+    </li>
+  );
 };
 
-type NavbarItemProps = (NavbarLinkItem | NavbarButtonItem) & {
-  onClick?: () => void;
+/* --------------------------- Navbar Item --------------------------- */
+
+const navbarItemStyle = cva("text-muted-foreground px-2", {
+  variants: {
+    variant: {
+      default:
+        "hover:bg-secondary hover:text-foreground py-1 rounded-md data-[active=true]:bg-muted data-[active=true]:text-foreground",
+      primary: "hover:text-foreground data-[active=true]:text-primary",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
+
+interface NavbarItemProps
+  extends ComponentProps<"button">,
+    VariantProps<typeof navbarItemStyle> {
+  asChild?: boolean;
+  isActive?: boolean;
+}
+
+const NavbarItemButton = ({
+  children,
+  className,
+  asChild = false,
+  variant,
+  isActive = false,
+  ...props
+}: NavbarItemProps) => {
+  const Comp = asChild ? Slot : "button";
+
+  return (
+    <Comp
+      data-slot="navbar-item"
+      data-active={isActive}
+      className={cn(
+        "flex items-center",
+        navbarItemStyle({ variant }),
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Comp>
+  );
 };
 
-const NavbarItem = (props: NavbarItemProps) => {
-  const Classes =
-    "md:text-sm text-2xl text-muted-foreground hover:text-foreground transition-opacity cursor-pointer md:text-center text-left px-4 md:px-0";
+/* --------------------------- Navbar Item Link --------------------------- */
 
-  const handleClick = () => {
-    if (props.type === "button") {
-      scrollToSection(props.sectionId);
-    }
-    props.onClick?.();
-  };
+interface NavbarItemLinkProps
+  extends ComponentProps<typeof Link>,
+    VariantProps<typeof navbarItemStyle> {
+  isActive?: boolean;
+}
 
-  if (props.type === "link") {
-    return (
-      <Link
-        href={props.href}
-        className={cn(Classes, props.className)}
-        data-slot="navbar-link-item"
-      >
-        {props.label}
-      </Link>
-    );
-  }
+const NavbarItemLink = ({
+  children,
+  className,
+  variant,
+  isActive = false,
+  ...props
+}: NavbarItemLinkProps) => {
+  return (
+    <Link
+      data-slot="navbar-item"
+      data-active={isActive}
+      className={cn(
+        "flex items-center",
+        navbarItemStyle({ variant }),
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Link>
+  );
+};
+
+/* --------------------------- Navbar Toggle --------------------------- */
+
+const NavbarToggle = () => {
+  const { openMobile, setOpenMobile } = useNavbar();
+  const isMobile = useIsMobile();
+
+  if (!isMobile) return null;
 
   return (
     <button
-      onClick={handleClick}
-      className={cn(Classes, props.className)}
-      data-type="button"
-      data-slot="navbar-button-item"
+      className="md:hidden p-2"
+      onClick={() => setOpenMobile(!openMobile)}
+      aria-label="Toggle navigation"
     >
-      {props.label}
+      {openMobile ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+      <span className="sr-only">Toggle menu</span>
     </button>
   );
 };
 
-/* ------------------------------ Navbar Sub Menu ------------------------------ */
+/* --------------------------- Navbar Mobile --------------------------- */
 
-const NavbarSubMenu = ({ ...props }: ComponentProps<typeof NavigationMenu>) => {
-  return <NavigationMenu {...props} data-slot="navbar-submenu" />;
-};
-
-/* ------------------------------ Navbar Sub Menu List ------------------------------ */
-
-const NavbarSubMenuList = ({
-  ...props
-}: ComponentProps<typeof NavigationMenu.List>) => {
-  return <NavigationMenu.List {...props} data-slot="navbar-submenu-list" />;
-};
-
-/* ------------------------------ Navbar Sub Menu Item ------------------------------ */
-
-const NavbarSubMenuItem = ({
-  ...props
-}: ComponentProps<typeof NavigationMenu.Item>) => {
-  return <NavigationMenu.Item {...props} data-slot="navbar-submenu-item" />;
-};
-
-/* ------------------------------ Navbar Sub Menu Trigger ------------------------------ */
-
-const navbarSubMenuTriggerStyle = cva(
-  "font-normal p-0 hover:bg-transparent hover:text-foreground data-[state=open]:hover:bg-transparent data-[state=open]:hover:text-foreground text-muted-foreground data-[state=open]:focus:bg-transparent focus:bg-transparent focus:text-foreground data-[state=open]:bg-transparent data-[state=open]:text-foreground"
-);
-
-const NavbarSubMenuTrigger = ({
-  className,
-  ...props
-}: ComponentProps<typeof NavigationMenu.Trigger>) => {
-  return (
-    <NavigationMenu.Trigger
-      {...props}
-      className={cn(navbarSubMenuTriggerStyle(), className)}
-      data-slot="navbar-submenu-trigger"
-    />
-  );
-};
-
-/* ------------------------------ Navbar Sub Menu Content ------------------------------ */
-
-const NavbarSubMenuContent = ({
-  ...props
-}: ComponentProps<typeof NavigationMenu.Content>) => {
-  return (
-    <NavigationMenu.Content {...props} data-slot="navbar-submenu-content" />
-  );
-};
-
-/* ------------------------------ Navbar Sub Menu Link------------------------------ */
-
-const NavbarSubMenuLink = ({
-  ...props
-}: ComponentProps<typeof NavigationMenu.Link>) => {
-  return <NavigationMenu.Link {...props} data-slot="navbar-submenu-link" />;
-};
-
-/* ------------------------------ Navbar Sub Menu List Item ------------------------------ */
-
-const NavbarSubMenuListItem = ({
-  ...props
-}: ComponentProps<typeof NavigationMenu.ListItem>) => {
-  return <NavigationMenu.ListItem {...props} data-slot="navbar-list-item" />;
-};
-
-/* -------------------------- Responsive Sections -------------------------- */
-
-const NavbarToggle = ({ className }: ComponentProps<typeof Button>) => {
-  const { isOpen, toggle } = useNavbar();
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={toggle}
-      className={cn("md:hidden", className)}
-      data-slot="navbar-toggle"
-    >
-      {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-      <span className="sr-only">Toggle menu</span>
-    </Button>
-  );
-};
-
-const NavbarDesktop = ({ children }: ComponentProps<"div">) => (
-  <div
-    className="hidden md:flex items-center space-x-6"
-    data-slot="navbar-desktop"
-  >
-    {children}
-  </div>
-);
-
-const NavbarMobile = ({ children }: ComponentProps<"div">) => {
-  const { isOpen, close } = useNavbar();
+const NavbarMobile = ({ children, className }: ComponentProps<"div">) => {
+  const { openMobile, setOpenMobile } = useNavbar();
 
   return (
     <div
       data-slot="navbar-mobile"
       className={cn(
-        "md:hidden border-border h-0 overflow-hidden absolute top-14 left-0 right-0 bg-background/95 transition-all duration-300",
-        isOpen && "border-t border-border h-[calc(100vh-3.5rem)]"
+        "md:hiddenr h-0 overflow-hidden absolute top-14 left-0 right-0 bg-background/95 transition-all duration-300",
+        openMobile && "h-[calc(100vh-3.5rem)]",
+        className
       )}
     >
-      <div className="flex flex-col space-y-4 px-4 pt-4 pb-4">
-        {React.Children.map(children, (child) => {
-          if (!React.isValidElement(child)) return child;
-
-          const element = child as ReactElement<{ onClick?: () => void }>;
-          const originalOnClick = element.props.onClick;
-
-          return React.cloneElement(element, {
-            onClick: () => {
-              originalOnClick?.();
-              close();
-            },
-          });
-        })}
-      </div>
+      <div className="p-4">{children}</div>
     </div>
   );
 };
 
-/* ------------------------------ Exports ------------------------------ */
+/* --------------------------- Navbar Mobile Group --------------------------- */
 
-const NavbarMenuComposed = Object.assign(Navbar, {
-  Content: NavbarContent,
-  Item: NavbarItem,
-  Desktop: NavbarDesktop,
-  Mobile: NavbarMobile,
-  Toggle: NavbarToggle,
+const NavbarMobileGroup = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"ul">) => {
+  return (
+    <ul
+      data-slot="navbar-mobile-group"
+      className={cn("flex flex-col items-start p-4 h-full w-full", className)}
+      {...props}
+    >
+      {children}
+    </ul>
+  );
+};
+
+/* --------------------------- Navbar Mobile List --------------------------- */
+
+const NavbarMobileList = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"li">) => {
+  return (
+    <li
+      data-slot="navbar-mobile-list"
+      className={cn("flex flex-col text-2xl gap-2 text-left", className)}
+      {...props}
+    >
+      {children}
+    </li>
+  );
+};
+
+/* --------------------------- Navbar Menu Label --------------------------- */
+
+const NavbarMobileLabel = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"span">) => {
+  return (
+    <span
+      data-slot="navbar-menu-label"
+      className={cn("text-sm font-medium", className)}
+      {...props}
+    >
+      {children}
+    </span>
+  );
+};
+
+/* --------------------------- Exports --------------------------- */
+
+const NavbarComposed = Object.assign(Navbar, {
+  Group: NavbarGroup,
+  List: NavbarList,
+  ItemButton: NavbarItemButton,
+  ItemLink: NavbarItemLink,
   Provider: NavbarProvider,
-  SubMenu: NavbarSubMenu,
-  SubMenuList: NavbarSubMenuList,
-  SubMenuItem: NavbarSubMenuItem,
-  SubMenuTrigger: NavbarSubMenuTrigger,
-  SubMenuContent: NavbarSubMenuContent,
-  SubMenuLink: NavbarSubMenuLink,
-  SubMenuListItem: NavbarSubMenuListItem,
+  Toggle: NavbarToggle,
+  Mobile: NavbarMobile,
+  MobileGroup: NavbarMobileGroup,
+  MobileList: NavbarMobileList,
+  MobileLabel: NavbarMobileLabel,
 });
 
 export {
-  NavbarMenuComposed as Navbar,
-  NavbarContent,
-  NavbarItem,
-  NavbarDesktop,
-  NavbarMobile,
-  NavbarToggle,
-  NavbarProvider,
+  NavbarComposed as Navbar,
+  NavbarGroup,
+  NavbarList,
+  NavbarItemButton,
+  NavbarItemLink,
   useNavbar,
-  NavbarSubMenu,
-  NavbarSubMenuList,
-  NavbarSubMenuItem,
-  NavbarSubMenuTrigger,
-  NavbarSubMenuContent,
-  NavbarSubMenuLink,
-  NavbarSubMenuListItem,
+  NavbarProvider,
+  NavbarToggle,
+  NavbarMobile,
+  NavbarMobileGroup,
+  NavbarMobileList,
+  NavbarMobileLabel,
 };

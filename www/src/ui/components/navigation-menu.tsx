@@ -2,7 +2,7 @@
 
 import { ComponentProps, ComponentPropsWithoutRef } from "react";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
-import { cva } from "class-variance-authority";
+import { cva, VariantProps } from "class-variance-authority";
 import { ChevronDownIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/src/lib/utils";
@@ -71,19 +71,29 @@ const NavigationMenuItem = ({
 
 /* ------------------------------ Navigation Menu Indicator ------------------------------ */
 
-const navigationMenuTriggerStyle = cva(
-  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium hover:bg-secondary hover:text-muted-foreground focus:bg-muted focus:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:hover:bg-secondary data-[state=open]:text-muted-foreground data-[state=open]:focus:bg-muted data-[state=open]:bg-secondary outline-none transition-[color,box-shadow]"
-);
+const navigationMenuTriggerStyle = cva("group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-2 py-1 text-sm font-medium text-muted-foreground disabled:pointer-events-none disabled:opacity-50 outline-none transition-[color,box-shadow]", {
+  variants: {
+    variant: {
+      default:
+        "hover:bg-secondary data-[state=open]:hover:bg-secondary hover:text-foreground py-1 rounded-md focus:bg-muted focus:text-foreground data-[state=open]:text-foreground data-[state=open]:bg-secondary",
+      primary: "hover:text-foreground data-[state=open]:text-foreground",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 const NavigationMenuTrigger = ({
   className,
   children,
+  variant = "default",
   ...props
-}: ComponentProps<typeof NavigationMenuPrimitive.Trigger>) => {
+}: ComponentProps<typeof NavigationMenuPrimitive.Trigger> & VariantProps<typeof navigationMenuTriggerStyle>) => {
   return (
     <NavigationMenuPrimitive.Trigger
       data-slot="navigation-menu-trigger"
-      className={cn(navigationMenuTriggerStyle(), "group", className)}
+      className={cn(navigationMenuTriggerStyle({ variant }), "group", className)}
       {...props}
     >
       {children}{" "}
