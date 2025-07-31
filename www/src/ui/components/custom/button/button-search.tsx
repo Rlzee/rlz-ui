@@ -10,12 +10,14 @@ interface ButtonSearchProps {
   className?: string;
   placeholder?: string;
   shortcutKey?: string;
+  fullWidth?: boolean;
 }
 
 const ButtonSearch = ({
   className,
   placeholder = "Search",
   shortcutKey = "⌘k",
+  fullWidth = false,
 }: ButtonSearchProps) => {
   const { openDialog } = useDialog();
 
@@ -27,8 +29,9 @@ const ButtonSearch = ({
       onClick={() => openDialog(COMMAND_DIALOG_NAME)}
       className={cn(
         "flex justify-between items-center gap-2 px-3 py-1.5 font-normal",
-        "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
-
+        fullWidth
+          ? "w-full"
+          : "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
         className
       )}
       aria-label="Open search"

@@ -60,7 +60,8 @@ export function Header() {
         <Navbar.MobileGroup>
           <ButtonSearch
             placeholder="Search documentation..."
-            className="w-full mb-2"
+            className="mb-2"
+            fullWidth
           />
           <Navbar.MobileList>
             {navLinks.map((link) => {
