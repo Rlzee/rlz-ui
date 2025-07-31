@@ -29,7 +29,7 @@ export function Header() {
                 href={link.href}
                 key={link.href}
                 className="text-sm"
-                variant="default"
+                variant="primary"
                 isActive={isActive}
               >
                 {link.label}
