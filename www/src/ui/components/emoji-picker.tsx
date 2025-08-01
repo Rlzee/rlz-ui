@@ -30,10 +30,10 @@ const EmojiPicker = ({
 
 /* ---------------------------- Emoji Picker Search ---------------------------- */
 
-const EmojiPickerSearch = ({
+function EmojiPickerSearch({
   className,
   ...props
-}: React.ComponentProps<typeof EmojiPickerPrimitive.Search>) => {
+}: React.ComponentProps<typeof EmojiPickerPrimitive.Search>) {
   return (
     <div
       className={cn("flex h-9 items-center gap-2 border-b px-2", className)}
@@ -47,7 +47,7 @@ const EmojiPickerSearch = ({
       />
     </div>
   );
-};
+}
 
 /* ---------------------------- Emoji Picker Viewport ---------------------------- */
 
@@ -108,18 +108,25 @@ const EmojiPickerEmpty = ({
 const EmojiPickerList = ({
   components,
   className,
+  onEmojiClick,
   ...props
-}: ComponentProps<typeof EmojiPickerPrimitive.List>) => {
+}: ComponentProps<typeof EmojiPickerPrimitive.List> & {
+  onEmojiClick?: (emoji: any) => void;
+}) => {
+  const defaultComponents = {
+    Row: EmojiPickerRow,
+    Emoji: onEmojiClick
+      ? (emojiProps: any) => (
+          <EmojiPickerEmoji {...emojiProps} onClick={onEmojiClick} />
+        )
+      : EmojiPickerEmoji,
+    CategoryHeader: EmojiPickerCategoryHeader,
+  };
+
   return (
     <EmojiPickerPrimitive.List
       className="select-none pb-1"
-      components={
-        components || {
-          Row: EmojiPickerRow,
-          Emoji: EmojiPickerEmoji,
-          CategoryHeader: EmojiPickerCategoryHeader,
-        }
-      }
+      components={components || defaultComponents}
       data-slot="emoji-picker-list"
       {...props}
     />
@@ -135,7 +142,7 @@ const EmojiPickerCategoryHeader = ({
   return (
     <div
       {...props}
-      className="bg-background text-muted-foreground px-3 pb-2 pt-3.5 text-xs leading-none"
+      className="bg-popover text-muted-foreground px-3 pb-2 pt-3.5 text-xs leading-none"
       data-slot="emoji-picker-category-header"
     >
       {category.label}
@@ -148,16 +155,26 @@ const EmojiPickerCategoryHeader = ({
 const EmojiPickerEmoji = ({
   emoji,
   className,
+  onClick,
   ...props
-}: EmojiPickerListEmojiProps) => {
+}: EmojiPickerListEmojiProps & {
+  onClick?: (emoji: any) => void;
+}) => {
+  const handleClick = () => {
+    if (onClick) {
+      onClick(emoji);
+    }
+  };
+
   return (
     <button
       data-slot="emoji-picker-emoji"
       aria-label={emoji.label}
       className={cn(
-        "data-[active]:bg-secondary flex size-7 items-center justify-center rounded-sm text-base",
+        "data-[active]:bg-secondary flex size-7 items-center justify-center rounded-sm text-base hover:bg-secondary/50 transition-colors",
         className
       )}
+      onClick={handleClick}
       {...props}
     >
       {emoji.emoji}

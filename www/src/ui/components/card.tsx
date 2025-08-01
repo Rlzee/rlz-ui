@@ -61,7 +61,7 @@ const CardBody = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <main
       data-slot="card-body"
-      className={cn("px-6", className)}
+      className={cn("px-6 flex-1", className)}
       {...props}
     />
   );
