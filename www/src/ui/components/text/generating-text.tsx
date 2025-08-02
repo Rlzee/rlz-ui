@@ -14,11 +14,12 @@ type RenderWordsProps = {
 
 const renderWords = ({ scope, wordsArray, blur }: RenderWordsProps) => {
   return (
-    <motion.div ref={scope}>
+    <motion.div ref={scope} data-slot="generating-text">
       {wordsArray.map((word, idx) => {
         return (
           <motion.span
             key={word + idx}
+            data-slot="generating-text-word"
             className="opacity-0"
             style={{
               filter: blur ? "blur(10px)" : "none",
@@ -65,6 +66,7 @@ const GeneratingText = ({
 
   return (
     <div
+      data-slot="generating-text-container"
       className={cn(
         "text-foreground text-2xl leading-snug tracking-wide",
         className

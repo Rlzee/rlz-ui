@@ -101,6 +101,7 @@ const BlurText = ({
   return (
     <motion.div
       ref={ref}
+      data-slot="blur-text"
       className={cn("inline-block", className)}
       variants={containerVariants}
       initial="hidden"
@@ -110,6 +111,7 @@ const BlurText = ({
       {textElements.map((element, index) => (
         <motion.span
           key={index}
+          data-slot="blur-text-element"
           variants={elementVariants}
           className="inline-block"
           style={{

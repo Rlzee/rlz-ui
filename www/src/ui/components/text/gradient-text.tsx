@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import { cn } from "@/src/lib/utils";
 
 interface GradientTextProps {
   children: ReactNode;
@@ -33,7 +34,11 @@ const GradientText = ({
     <>
       <style>{keyframesStyle}</style>
       <div
-        className={`relative mx-auto flex max-w-fit flex-row items-center justify-center rounded-xl font-medium backdrop-blur-sm transition-shadow duration-500 ease-out overflow-hidden cursor-pointer ${className}`}
+        data-slot="gradient-text"
+        className={cn(
+          "relative mx-auto flex max-w-fit flex-row items-center justify-center rounded-xl font-medium backdrop-blur-sm transition-shadow duration-500 ease-out overflow-hidden cursor-pointer",
+          className
+        )}
       >
         {showBorder && (
           <div

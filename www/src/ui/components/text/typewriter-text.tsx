@@ -70,7 +70,7 @@ const Typewriter = ({
 
   if (cursor === "_") {
     return (
-      <span className={cn("relative", className)}>
+      <span data-slot="typewriter-text" className={cn("relative", className)}>
         <span>{displayText}</span>
         <span
           className="absolute animate-pulse"
@@ -86,7 +86,7 @@ const Typewriter = ({
   }
 
   return (
-    <span className={className}>
+    <span data-slot="typewriter-text" className={className}>
       {displayText}
       <span className="animate-pulse">{cursor}</span>
     </span>
