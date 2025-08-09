@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Fonts */
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-inter: var(--font-inter);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Background */
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+
+  /* Border */
+  --color-border: var(--border);
+
+  /* Text */
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* Button, Input */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  /* Popover, Dialog, Toast... */
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+}
+
+:root {
+  /* Radius */
+  --radius: 0.575rem;
+
+  /* Background */
+  --background: oklch(1 0 0);
+  --background-secondary: oklch(0.95 0 0);
+
+  /* Border */
+  --border: oklch(90% 0.007 270);
+  /* Text */
+  --foreground: oklch(0.145 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  /* Button, Input */
+  --primary: oklch(0.627 0.2 264.4);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.627 0.233 29.2);
+  --destructive-foreground: oklch(1 0 0);
+  /* Popover, Dialog, Toast... */
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0 0);
+
+  --success: oklch(0.7262 0.1805 148.55);
+  --error: oklch(0.627 0.233 29.2);
+  --info: oklch(0.627 0.2 264.4);
+  --warning: oklch(0.7924 0.2066 101.27);
+}
+
+.dark {
+  /* Background */
+  --background: oklch(0 0 0);
+  --background-secondary: oklch(0.18 0 0);
+
+  /* Border */
+  --border: oklch(100% 0.00011 271.152 / 0.123);
+
+  /* Text */
+  --foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+
+  /* Button, Input */
+  --primary: oklch(0.627 0.2 264.4);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(22.76% 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.627 0.233 29.2);
+  --destructive-foreground: oklch(1 0 0);
+
+  /* Popover, Dialog, Toast... */
+  --popover: oklch(0.18 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+
+  --success: oklch(0.7262 0.1805 148.55);
+  --error: oklch(0.627 0.233 29.2);
+  --info: oklch(0.627 0.2 264.4);
+  --warning: oklch(0.7924 0.2066 101.27);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-space-grotesk), sans-serif;
+}
+
+body {
+  font-family: var(--font-inter), sans-serif;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-textfield-decoration-container {
+  display: none !important;
+}

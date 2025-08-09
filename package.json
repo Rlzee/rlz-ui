@@ -1,6 +1,16 @@
 {
   "name": "rlz-ui",
+  "version": "0.0.1",
   "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Rlzee",
+    "url": "https://github.com/Rlzee"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -8,13 +18,25 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types"
   },
-  "devDependencies": {
-    "prettier": "^3.6.2",
-    "turbo": "^2.5.5",
-    "typescript": "5.8.3"
-  },
   "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
+  "dependencies": {
+    "prettier": "^2.8.8",
+    "tsx": "^4.1.4",
+    "turbo": "^1.9.9",
+    "tailwindcss": "^4",
+    "@tailwindcss/postcss": "^4",
+    "eslint": "^8.41.0",
+    "eslint-config-next": "13.3.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-turbo": "^1.9.9",
+    "eslint-plugin-react": "^7.32.2",
+    "@typescript-eslint/parser": "^5.59.7"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/node": "^20.11.27",
+    "@types/react": "^18.2.65",
+    "@types/react-dom": "^18.2.22",
+    "typescript": "^5.5.3"
   }
 }
