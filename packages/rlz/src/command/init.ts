@@ -55,9 +55,17 @@ export const init = new Command()
       });
 
       if (response.srcDir) {
+
         const srcDir = path.join(process.cwd(), "src");
         await fs.ensureDir(srcDir);
+        const uiDir = path.join(srcDir, "ui");
+        await fs.ensureDir(uiDir);
         console.log(`Created src directory at ${srcDir}`);
+        console.log(`Created ui directory at ${uiDir}`);
+      } else {
+        const uiDir = path.join(process.cwd(), "ui");
+        await fs.ensureDir(uiDir);
+        console.log(`Created ui directory at ${uiDir}`);
       }
 
       console.log("✅ rlz-ui initialized successfully!");
