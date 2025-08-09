@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import https from "https";
 
@@ -7,18 +7,25 @@ import https from "https";
  * @param url Full URL of the file to download.
  * @param destPath Local path where to write the file (must include the file name).
  */
-export function getUiFile(url: string, destPath: string): Promise<void> {
+export function getUiFile(
+  url: string,
+  destPath: string,
+  timeoutMs = 15000
+): Promise<void> {
   return new Promise((resolve, reject) => {
-  // Create parent directory if needed
     const dir = path.dirname(destPath);
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+      }
+    } catch (err) {
+      return reject(err);
     }
 
-    https.get(url, (res) => {
+    const request = https.get(url, (res) => {
       if (res.statusCode !== 200) {
         reject(new Error(`Download failed. Status code: ${res.statusCode}`));
-        res.resume(); // consume response to free up memory
+        res.resume();
         return;
       }
 
@@ -33,7 +40,14 @@ export function getUiFile(url: string, destPath: string): Promise<void> {
       fileStream.on("error", (err) => {
         fs.unlink(destPath, () => reject(err));
       });
-    }).on("error", (err) => {
+    });
+
+    request.setTimeout(timeoutMs, () => {
+      request.abort();
+      reject(new Error("Request timeout"));
+    });
+
+    request.on("error", (err) => {
       reject(err);
     });
   });
