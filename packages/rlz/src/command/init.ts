@@ -2,8 +2,8 @@ import { Command } from "commander";
 import prompts from "prompts";
 import { getPackageInfo } from "../utils/get-package-info";
 import { replaceGlobalsCss } from "../utils/css-variables";
-import fs from "fs-extra";
-import path from "path";
+import { installDefaultDependencies } from "../utils/install-default-dependencies";
+import { defaultOrganization } from "../utils/default-organization";
 
 export const init = new Command()
   .name("init")
@@ -46,6 +46,7 @@ export const init = new Command()
       }
 
       await replaceGlobalsCss();
+      await installDefaultDependencies();
 
       const response = await prompts({
         type: "confirm",
@@ -54,19 +55,7 @@ export const init = new Command()
         initial: true,
       });
 
-      if (response.srcDir) {
-
-        const srcDir = path.join(process.cwd(), "src");
-        await fs.ensureDir(srcDir);
-        const uiDir = path.join(srcDir, "ui");
-        await fs.ensureDir(uiDir);
-        console.log(`Created src directory at ${srcDir}`);
-        console.log(`Created ui directory at ${uiDir}`);
-      } else {
-        const uiDir = path.join(process.cwd(), "ui");
-        await fs.ensureDir(uiDir);
-        console.log(`Created ui directory at ${uiDir}`);
-      }
+      await defaultOrganization(response.srcDir);
 
       console.log("✅ rlz-ui initialized successfully!");
     } catch (error) {
