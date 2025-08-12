@@ -1,22 +1,22 @@
 import { getUiFile } from "./get-ui-file";
 import { uiUrl } from "../config";
 import path from "path";
-import fs from "fs-extra";
+import { createStructure } from "./create-structure";
 
 export async function defaultOrganization(srcDir: boolean) {
-  let uiDir: string;
-  if (srcDir) {
-    const srcDir = path.join(process.cwd(), "src");
-    await fs.ensureDir(srcDir);
-    uiDir = path.join(srcDir, "ui");
-    await fs.ensureDir(uiDir);
-  } else {
-    uiDir = path.join(process.cwd(), "ui");
-    await fs.ensureDir(uiDir);
-  }
-  const libDir = path.join(uiDir, "lib");
-  await fs.ensureDir(libDir);
+  const baseDir = srcDir ? path.join(process.cwd(), "src") : process.cwd();
+  const structure = {
+    ui: {
+      components: {},
+      lib: {
+        // The file content will be fetched after structure creation
+        "utils.ts": ""
+      }
+    }
+  };
+  createStructure(baseDir, structure);
+  // Fetch the actual utils.ts content from remote
+  const filePath = path.join(baseDir, "ui", "lib", "utils.ts");
   const url = `${uiUrl}/lib/utils.ts`;
-  const filePath = path.join(libDir, "utils.ts");
   await getUiFile(url, filePath);
 }
