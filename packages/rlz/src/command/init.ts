@@ -2,7 +2,8 @@ import { Command } from "commander";
 import prompts from "prompts";
 import { getPackageInfo } from "../utils/get-package-info";
 import { replaceGlobalsCss } from "../utils/css-variables";
-import { installDefaultDependencies } from "../utils/install-default-dependencies";
+import { installDependencies } from "../utils/install-dependencies";
+import { defaultDepencies } from "../config";
 import { defaultOrganization } from "../utils/default-organization";
 
 export const init = new Command()
@@ -46,7 +47,7 @@ export const init = new Command()
       }
 
       await replaceGlobalsCss();
-      await installDefaultDependencies();
+      await installDependencies(defaultDepencies, process.cwd());
 
       const response = await prompts({
         type: "confirm",

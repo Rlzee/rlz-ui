@@ -1,4 +1,5 @@
 import { getUiFile } from "./get-ui-file";
+import { uiUrl } from "../config";
 import path from "path";
 import fs from "fs-extra";
 
@@ -15,8 +16,7 @@ export async function defaultOrganization(srcDir: boolean) {
   }
   const libDir = path.join(uiDir, "lib");
   await fs.ensureDir(libDir);
-  const url =
-    "https://raw.githubusercontent.com/Rlzee/rlz-ui-source/main/lib/utils.ts";
+  const url = `${uiUrl}/lib/utils.ts`;
   const filePath = path.join(libDir, "utils.ts");
   await getUiFile(url, filePath);
 }
