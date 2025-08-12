@@ -5,6 +5,7 @@ import { replaceGlobalsCss } from "../utils/css-variables";
 import { installDependencies } from "../utils/install-dependencies";
 import { defaultDepencies } from "../config";
 import { defaultStructure } from "../utils/default-structure";
+import { saveConfig } from "../utils/config-manager";
 
 export const init = new Command()
   .name("init")
@@ -55,6 +56,8 @@ export const init = new Command()
         message: "Do you want to use the src directory?",
         initial: true,
       });
+      
+      await saveConfig({ srcDir: response.srcDir });
 
       await defaultStructure(response.srcDir);
 

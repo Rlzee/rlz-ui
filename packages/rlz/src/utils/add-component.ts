@@ -3,6 +3,7 @@ import { Project } from "ts-morph";
 import { getUiFile } from "./get-ui-file";
 import path from "path";
 import { installDependencies } from "./install-dependencies";
+import { getConfigOrDefault } from "./config-manager";
 
 export type componentType =
   | "text"
@@ -18,15 +19,19 @@ export const addComponent = async ({
   component: string;
   options: { type?: componentType };
 }) => {
+  const config = await getConfigOrDefault();
+  
   let componentUrl;
   let componentPath;
 
+  const baseUiPath = config.srcDir ? "/src/ui/components" : "/ui/components";
+
   if (!options.type) {
     componentUrl = `${uiUrl}/components/${component}.tsx`;
-    componentPath = `/src/ui/components/${component}.tsx`;
+    componentPath = `${baseUiPath}/${component}.tsx`;
   } else {
     componentUrl = `${uiUrl}/components/${options.type}s/${component}.tsx`;
-    componentPath = `/src/ui/components/${options.type}s/${component}.tsx`;
+    componentPath = `${baseUiPath}/${options.type}s/${component}.tsx`;
   }
 
   const componentDir = path.join(process.cwd(), componentPath);
