@@ -3,6 +3,7 @@ import path from "path";
 
 interface RlzConfig {
   srcDir: boolean;
+  cssPath: string;
 }
 
 const CONFIG_FILE = "rlz.config.json";
@@ -25,5 +26,5 @@ export const loadConfig = async (): Promise<RlzConfig | null> => {
 
 export const getConfigOrDefault = async (): Promise<RlzConfig> => {
   const config = await loadConfig();
-  return config || { srcDir: false };
+  return config || { srcDir: false, cssPath: "app/globals.css" };
 };

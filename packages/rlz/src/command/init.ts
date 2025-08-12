@@ -47,17 +47,24 @@ export const init = new Command()
         return;
       }
 
-      const response = await prompts({
+      const srcDirResponse = await prompts({
         type: "confirm",
         name: "srcDir",
         message: "Do you want to use the src directory?",
         initial: true,
       });
 
-      await saveConfig({ srcDir: response.srcDir });
-      await replaceGlobalsCss(response.srcDir);
+      const cssPathResponse = await prompts({
+        type: "text",
+        name: "cssPath",
+        message: "Enter the path to your css file:",
+        initial: "app/globals.css",
+      });
+
+      await saveConfig({ srcDir: srcDirResponse.srcDir, cssPath: cssPathResponse.cssPath });
+      await replaceGlobalsCss();
       await installDependencies(defaultDepencies, process.cwd());
-      await defaultStructure(response.srcDir);
+      await defaultStructure(srcDirResponse.srcDir);
 
       console.log("✅ rlz-ui initialized successfully!");
     } catch (error) {
