@@ -3,7 +3,7 @@ import { uiUrl } from "../config";
 import path from "path";
 import { createStructure } from "./create-structure";
 
-export async function defaultOrganization(srcDir: boolean) {
+export async function defaultStructure(srcDir: boolean) {
   const baseDir = srcDir ? path.join(process.cwd(), "src") : process.cwd();
   const structure = {
     ui: {

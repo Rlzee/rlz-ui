@@ -4,7 +4,7 @@ import { getPackageInfo } from "../utils/get-package-info";
 import { replaceGlobalsCss } from "../utils/css-variables";
 import { installDependencies } from "../utils/install-dependencies";
 import { defaultDepencies } from "../config";
-import { defaultOrganization } from "../utils/default-organization";
+import { defaultStructure } from "../utils/default-structure";
 
 export const init = new Command()
   .name("init")
@@ -56,7 +56,7 @@ export const init = new Command()
         initial: true,
       });
 
-      await defaultOrganization(response.srcDir);
+      await defaultStructure(response.srcDir);
 
       console.log("✅ rlz-ui initialized successfully!");
     } catch (error) {
