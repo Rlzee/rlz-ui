@@ -2,6 +2,7 @@ import { getUiFile } from "./get-ui-file";
 import { uiUrl } from "../config";
 import path from "path";
 import { createStructure } from "./create-structure";
+import { addComponent } from "./add-component";
 
 export async function defaultStructure(srcDir: boolean) {
   const baseDir = srcDir ? path.join(process.cwd(), "src") : process.cwd();
@@ -19,4 +20,5 @@ export async function defaultStructure(srcDir: boolean) {
   const filePath = path.join(baseDir, "ui", "lib", "utils.ts");
   const url = `${uiUrl}/lib/utils.ts`;
   await getUiFile(url, filePath);
+  await addComponent({ component: "button", options: {} });
 }
