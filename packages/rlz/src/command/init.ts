@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import prompts from "prompts";
 import { getPackageInfo } from "../utils/get-package-info";
-import { replaceGlobalsCss } from "../utils/css-variables";
+import { initializeCss } from "../utils/initialize-css";
 import { installDependencies } from "../utils/install-dependencies";
 import { defaultDepencies } from "../config";
 import { defaultStructure } from "../utils/default-structure";
@@ -62,7 +62,7 @@ export const init = new Command()
       });
 
       await saveConfig({ srcDir: srcDirResponse.srcDir, cssPath: cssPathResponse.cssPath });
-      await replaceGlobalsCss();
+      await initializeCss();
       await installDependencies(defaultDepencies, process.cwd());
       await defaultStructure(srcDirResponse.srcDir);
 
