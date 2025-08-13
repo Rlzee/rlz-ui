@@ -2,6 +2,7 @@ import { uiUrl } from "../config";
 import { Project } from "ts-morph";
 import { getUiFile } from "./get-ui-file";
 import path from "path";
+import fs from "fs/promises";
 import { installDependencies } from "./install-dependencies";
 import { getConfigOrDefault } from "./config-manager";
 
@@ -16,10 +17,21 @@ export const addComponent = async ({
 }) => {
   const config = await getConfigOrDefault();
 
+  const baseUiPath = config.uiPath;
+  
+  if (!baseUiPath) {
+    throw new Error("UI path is not configured");
+  }
+
+  const componentsDir = path.join(process.cwd(), baseUiPath, "components");
+  try {
+    await fs.access(componentsDir);
+  } catch {
+    await fs.mkdir(componentsDir, { recursive: true });
+  }
+
   let componentUrl;
   let componentPath;
-
-  const baseUiPath = config.uiPath;
 
   if (!options.type) {
     componentUrl = `${uiUrl}/components/${component}.tsx`;
