@@ -20,7 +20,7 @@ export const addComponent = async ({
   options: { type?: componentType };
 }) => {
   const config = await getConfigOrDefault();
-  
+
   let componentUrl;
   let componentPath;
 
@@ -40,6 +40,19 @@ export const addComponent = async ({
 
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(componentDir);
+
+  const removeSrc = !config.srcDir;
+
+  sourceFile.getImportDeclarations().forEach((imp) => {
+    let modulePath = imp.getModuleSpecifierValue();
+
+    if (removeSrc && modulePath.startsWith("@/src/")) {
+      const newPath = modulePath.replace(/^@\/src\//, "@/");
+      imp.setModuleSpecifier(newPath);
+    }
+  });
+
+  await sourceFile.save();
 
   const imports = sourceFile
     .getImportDeclarations()
