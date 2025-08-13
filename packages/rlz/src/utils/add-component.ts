@@ -45,7 +45,6 @@ export const addComponent = async ({
 
   sourceFile.getImportDeclarations().forEach((imp) => {
     let modulePath = imp.getModuleSpecifierValue();
-
     if (removeSrc && modulePath.startsWith("@/src/")) {
       const newPath = modulePath.replace(/^@\/src\//, "@/");
       imp.setModuleSpecifier(newPath);
@@ -54,14 +53,35 @@ export const addComponent = async ({
 
   await sourceFile.save();
 
-  const imports = sourceFile
+  const allImports = sourceFile
     .getImportDeclarations()
-    .map((imp) => imp.getModuleSpecifierValue())
-    .filter((pkg) => {
-      if (pkg.startsWith(".") || pkg.startsWith("/")) return false;
-      if (pkg.startsWith("@/") || pkg.startsWith("~/")) return false;
-      return true;
-    });
+    .map((imp) => imp.getModuleSpecifierValue());
 
-  await installDependencies(imports);
+  const internalComponents = allImports.filter(
+    (pkg) =>
+      pkg.startsWith("@/ui/components") ||
+      pkg.startsWith("@/src/ui/components") ||
+      pkg.startsWith("~/ui/components")
+  );
+
+  for (const ic of internalComponents) {
+    const compName = path.basename(ic); // ex: "@/src/ui/components/Button" -> "Button"
+    const compTypeMatch = ic.match(/components\/([^/]+)s\//);
+    const compType = compTypeMatch ? (compTypeMatch[1] as componentType) : null;
+
+    await addComponent({
+      component: compName.replace(/\.tsx?$/, ""),
+      options: { type: compType },
+    });
+  }
+
+  const npmDeps = allImports.filter((pkg) => {
+    if (pkg.startsWith(".") || pkg.startsWith("/")) return false;
+    if (pkg.startsWith("@/") || pkg.startsWith("~/")) return false;
+    return true;
+  });
+
+  if (npmDeps.length > 0) {
+    await installDependencies(npmDeps);
+  }
 };
