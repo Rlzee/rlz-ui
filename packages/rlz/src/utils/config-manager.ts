@@ -2,20 +2,43 @@ import fs from "fs";
 import path from "path";
 
 interface RlzConfig {
-  srcDir: boolean;
   cssPath: string;
+  uiPath?: string;
+  aliases?: Aliases;
 }
+
+interface Aliases {
+  [key: string]: string;
+}
+
+const defaultAliases: Aliases = {
+  components: "@ui/components",
+  utils: "@ui/utils",
+  lib: "@ui/lib",
+  stores: "@ui/stores",
+  helpers: "@ui/helpers",
+  types: "@ui/types",
+  hooks: "@ui/hooks",
+};
 
 const CONFIG_FILE = "rlz.config.json";
 
 export const saveConfig = async (config: RlzConfig) => {
   const configPath = path.join(process.cwd(), CONFIG_FILE);
-  await fs.promises.writeFile(configPath, JSON.stringify(config, null, 2));
+  const configWithDefaults = {
+    ...config,
+    uiPath: config.uiPath || "./src/ui",
+    aliases: config.aliases || defaultAliases,
+  };
+  await fs.promises.writeFile(
+    configPath,
+    JSON.stringify(configWithDefaults, null, 2)
+  );
 };
 
 export const loadConfig = async (): Promise<RlzConfig | null> => {
   const configPath = path.join(process.cwd(), CONFIG_FILE);
-  
+
   try {
     const configContent = await fs.promises.readFile(configPath, "utf-8");
     return JSON.parse(configContent);
@@ -26,5 +49,11 @@ export const loadConfig = async (): Promise<RlzConfig | null> => {
 
 export const getConfigOrDefault = async (): Promise<RlzConfig> => {
   const config = await loadConfig();
-  return config || { srcDir: false, cssPath: "app/globals.css" };
+  return (
+    config || {
+      cssPath: "app/globals.css",
+      uiPath: "src/ui",
+      aliases: defaultAliases,
+    }
+  );
 };

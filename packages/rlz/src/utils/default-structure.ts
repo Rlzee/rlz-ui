@@ -4,8 +4,8 @@ import path from "path";
 import { createStructure } from "./create-structure";
 import { addComponent } from "./add-component";
 
-export async function defaultStructure(srcDir: boolean) {
-  const baseDir = srcDir ? path.join(process.cwd(), "src") : process.cwd();
+export async function defaultStructure() {
+  const baseDir = path.join(process.cwd(), "src");
   const structure = {
     ui: {
       components: {},

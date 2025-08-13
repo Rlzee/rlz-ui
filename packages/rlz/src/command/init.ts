@@ -47,13 +47,6 @@ export const init = new Command()
         return;
       }
 
-      const srcDirResponse = await prompts({
-        type: "confirm",
-        name: "srcDir",
-        message: "Do you want to use the src directory?",
-        initial: true,
-      });
-
       const cssPathResponse = await prompts({
         type: "text",
         name: "cssPath",
@@ -61,12 +54,12 @@ export const init = new Command()
         initial: "app/globals.css",
       });
 
-      await saveConfig({ srcDir: srcDirResponse.srcDir, cssPath: cssPathResponse.cssPath });
+      await saveConfig({ cssPath: cssPathResponse.cssPath });
       await initializeCss();
       await installDependencies(defaultDepencies, process.cwd());
-      await defaultStructure(srcDirResponse.srcDir);
+      await defaultStructure();
 
-      console.log("✅ rlz-ui initialized successfully!");
+      console.log("Success! rlz-ui initialized");
     } catch (error) {
       console.error("An error occurred during initialization:", error);
     }

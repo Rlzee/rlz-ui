@@ -19,14 +19,14 @@ export const addComponent = async ({
   let componentUrl;
   let componentPath;
 
-  const baseUiPath = config.srcDir ? "/src/ui/components" : "/ui/components";
+  const baseUiPath = config.uiPath;
 
   if (!options.type) {
     componentUrl = `${uiUrl}/components/${component}.tsx`;
-    componentPath = `${baseUiPath}/${component}.tsx`;
+    componentPath = `${baseUiPath}/components/${component}.tsx`;
   } else {
     componentUrl = `${uiUrl}/components/${options.type}s/${component}.tsx`;
-    componentPath = `${baseUiPath}/${options.type}s/${component}.tsx`;
+    componentPath = `${baseUiPath}/components/${options.type}s/${component}.tsx`;
   }
 
   const componentDir = path.join(process.cwd(), componentPath);
@@ -36,31 +36,18 @@ export const addComponent = async ({
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(componentDir);
 
-  const removeSrc = !config.srcDir;
-
-  sourceFile.getImportDeclarations().forEach((imp) => {
-    let modulePath = imp.getModuleSpecifierValue();
-    if (removeSrc && modulePath.startsWith("@/src/")) {
-      const newPath = modulePath.replace(/^@\/src\//, "@/");
-      imp.setModuleSpecifier(newPath);
-    }
-  });
-
-  await sourceFile.save();
-
   const allImports = sourceFile
     .getImportDeclarations()
     .map((imp) => imp.getModuleSpecifierValue());
 
   const internalComponents = allImports.filter(
     (pkg) =>
-      pkg.startsWith("@/ui/components") ||
-      pkg.startsWith("@/src/ui/components") ||
-      pkg.startsWith("~/ui/components")
+      pkg.startsWith(config.aliases?.components || "@ui/components") ||
+      pkg.startsWith(`${config.uiPath}/components/`)
   );
 
   for (const ic of internalComponents) {
-    const compName = path.basename(ic); // ex: "@/src/ui/components/Button" -> "Button"
+    const compName = path.basename(ic); // ex: "@ui/components/Button" -> "Button"
     const compTypeMatch = ic.match(/components\/([^/]+)s\//);
     const compType = compTypeMatch ? (compTypeMatch[1] as componentType) : null;
 
@@ -73,6 +60,11 @@ export const addComponent = async ({
   const npmDeps = allImports.filter((pkg) => {
     if (pkg.startsWith(".") || pkg.startsWith("/")) return false;
     if (pkg.startsWith("@/") || pkg.startsWith("~/")) return false;
+    if (config.aliases) {
+      for (const aliasValue of Object.values(config.aliases)) {
+        if (pkg.startsWith(aliasValue)) return false;
+      }
+    }
     return true;
   });
 
