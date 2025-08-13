@@ -5,12 +5,7 @@ import path from "path";
 import { installDependencies } from "./install-dependencies";
 import { getConfigOrDefault } from "./config-manager";
 
-export type componentType =
-  | "text"
-  | "background"
-  | "custom"
-  | "animation"
-  | null;
+export type componentType = "text" | "background" | "animation" | null;
 
 export const addComponent = async ({
   component,
