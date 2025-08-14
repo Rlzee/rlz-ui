@@ -7,6 +7,8 @@ import { defaultDepencies } from "../config";
 import { defaultStructure } from "../utils/default-structure";
 import { saveConfig } from "../utils/config-manager";
 import { logger } from "../utils/logger";
+import { getFramework } from "../utils/get-framework";
+import { getTailwindVersion } from "../utils/get-tailwind-version";
 
 export const init = new Command()
   .name("init")
@@ -19,10 +21,14 @@ export const init = new Command()
         return;
       }
 
-      const tailwindDep =
-        packageInfo.dependencies?.["tailwindcss"] ||
-        packageInfo.devDependencies?.["tailwindcss"];
+      const framework = getFramework();
+      if (framework !== "next.js" && framework !== "react") {
+        return logger.error(
+          "Unsupported framework. Please use Next.js or React."
+        );
+      }
 
+      const tailwindDep = getTailwindVersion();
       if (!tailwindDep) {
         logger.error(
           "You must install tailwindcss v4 or higher before initializing rlz-ui.\nRun: pnpm add -D tailwindcss@^4"
