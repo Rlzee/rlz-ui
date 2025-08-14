@@ -18,7 +18,7 @@ export const addComponent = async ({
   const config = await getConfigOrDefault();
 
   const baseUiPath = config.uiPath;
-  
+
   if (!baseUiPath) {
     throw new Error("UI path is not configured");
   }

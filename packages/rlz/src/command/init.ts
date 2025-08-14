@@ -6,6 +6,7 @@ import { installDependencies } from "../utils/install-dependencies";
 import { defaultDepencies } from "../config";
 import { defaultStructure } from "../utils/default-structure";
 import { saveConfig } from "../utils/config-manager";
+import { logger } from "../utils/logger";
 
 export const init = new Command()
   .name("init")
@@ -14,7 +15,7 @@ export const init = new Command()
     try {
       const packageInfo = await getPackageInfo();
       if (!packageInfo) {
-        console.error("No package information found.");
+        logger.error("No package information found.");
         return;
       }
 
@@ -23,7 +24,7 @@ export const init = new Command()
         packageInfo.devDependencies?.["tailwindcss"];
 
       if (!tailwindDep) {
-        console.error(
+        logger.error(
           "You must install tailwindcss v4 or higher before initializing rlz-ui.\nRun: pnpm add -D tailwindcss@^4"
         );
         return;
@@ -33,7 +34,7 @@ export const init = new Command()
       const versionMatch = cleanedVersion.match(/^(\d+)/);
 
       if (!versionMatch) {
-        console.error(
+        logger.error(
           "Could not determine tailwindcss version. Please install tailwindcss v4 or higher."
         );
         return;
@@ -41,7 +42,7 @@ export const init = new Command()
 
       const major = Number(versionMatch[1]);
       if (isNaN(major) || major < 4) {
-        console.error(
+        logger.error(
           "You must install tailwindcss v4 or higher before initializing rlz-ui.\nRun: pnpm add -D tailwindcss@^4"
         );
         return;
@@ -59,8 +60,8 @@ export const init = new Command()
       await installDependencies(defaultDepencies, process.cwd());
       await defaultStructure();
 
-      console.log("Success! rlz-ui initialized");
+      logger.success("rlz-ui initialized successfully");
     } catch (error) {
-      console.error("An error occurred during initialization:", error);
+      logger.error("An error occurred during initialization:", error);
     }
   });

@@ -1,5 +1,6 @@
 import { Command } from "commander";
 import { addComponent, componentType } from "../utils/add-component";
+import { logger } from "../utils/logger";
 
 export const add = new Command()
   .name("add")
@@ -8,5 +9,5 @@ export const add = new Command()
   .argument("<component>", "The name of the component to add")
   .action(async (component: string, options: { type?: componentType }) => {
     await addComponent({ component, options });
-    console.log("✅ Component added successfully!");
+    logger.success("Component added successfully");
   });
