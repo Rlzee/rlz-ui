@@ -6,6 +6,7 @@ import fs from "fs/promises";
 import { installDependencies } from "./install-dependencies";
 import { getConfigOrDefault } from "./config-manager";
 import { addUseClientIfNeeded } from "./add-use-client";
+import { resolveAliases } from "./aliases-resolver";
 
 export type componentType = "text" | "background" | "animation" | null;
 
@@ -17,9 +18,7 @@ export const addComponent = async ({
   options: { type?: componentType };
 }) => {
   const config = await getConfigOrDefault();
-
   const baseUiPath = config.uiPath;
-
   const componentsDir = path.join(process.cwd(), baseUiPath, "components");
   try {
     await fs.access(componentsDir);
@@ -46,6 +45,7 @@ export const addComponent = async ({
   const sourceFile = project.addSourceFileAtPath(componentDir);
 
   addUseClientIfNeeded(sourceFile);
+  await resolveAliases(sourceFile);
 
   const allImports = sourceFile
     .getImportDeclarations()
@@ -53,7 +53,7 @@ export const addComponent = async ({
 
   const internalComponents = allImports.filter(
     (pkg) =>
-      pkg.startsWith(config.aliases?.components || "@ui/components") ||
+      pkg.startsWith(config.aliases.components) ||
       pkg.startsWith(`${config.uiPath}/components/`)
   );
 
