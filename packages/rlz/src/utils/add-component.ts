@@ -5,8 +5,9 @@ import path from "path";
 import fs from "fs/promises";
 import { installDependencies } from "./install-dependencies";
 import { getConfigOrDefault } from "./config-manager";
-import { addUseClientIfNeeded } from "./add-use-client";
+import { addUseClient } from "./add-use-client";
 import { resolveAliases } from "./aliases-resolver";
+import { getFramework } from "./get-framework";
 
 export type componentType = "text" | "background" | "animation" | null;
 
@@ -44,7 +45,11 @@ export const addComponent = async ({
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(componentDir);
 
-  addUseClientIfNeeded(sourceFile);
+  const framework = getFramework(process.cwd());
+  if (framework === "next.js" || framework === "remix") {
+    addUseClient(sourceFile);
+  }
+
   await resolveAliases(sourceFile);
   await sourceFile.save();
 

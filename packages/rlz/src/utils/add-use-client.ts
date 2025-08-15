@@ -1,5 +1,4 @@
 import { SourceFile } from "ts-morph";
-import { getFramework } from "./get-framework";
 
 /**
  * Checks if a component needs "use client" directive
@@ -87,17 +86,7 @@ function needsUseClient(sourceFile: SourceFile): boolean {
  * @param sourceFile The TypeScript/React source file
  * @param cwd The current working directory (optional)
  */
-export function addUseClientIfNeeded(
-  sourceFile: SourceFile,
-  cwd?: string
-): void {
-  const framework = getFramework(cwd);
-
-  // Only process frameworks that support "use client" directive
-  if (framework !== "next.js" && framework !== "remix") {
-    return;
-  }
-
+export function addUseClient(sourceFile: SourceFile): void {
   // Check if the component needs "use client"
   if (!needsUseClient(sourceFile)) {
     return;
