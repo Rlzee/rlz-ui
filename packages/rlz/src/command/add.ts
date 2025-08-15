@@ -8,6 +8,10 @@ export const add = new Command()
   .option("-t, --type <type>", "Type of component")
   .argument("<component>", "The name of the component to add")
   .action(async (component: string, options: { type?: componentType }) => {
-    await addComponent({ component, options });
-    logger.success("Component added successfully !");
+    try {
+      await addComponent({ component, options });
+      logger.success("Component added successfully !");
+    } catch (error) {
+      logger.error("Failed to add component:", error);
+    }
   });
