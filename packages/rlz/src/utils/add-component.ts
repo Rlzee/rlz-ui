@@ -5,6 +5,7 @@ import path from "path";
 import fs from "fs/promises";
 import { installDependencies } from "./install-dependencies";
 import { getConfigOrDefault } from "./config-manager";
+import { addUseClientIfNeeded } from "./add-use-client";
 
 export type componentType = "text" | "background" | "animation" | null;
 
@@ -48,6 +49,8 @@ export const addComponent = async ({
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(componentDir);
 
+  addUseClientIfNeeded(sourceFile);
+
   const allImports = sourceFile
     .getImportDeclarations()
     .map((imp) => imp.getModuleSpecifierValue());
@@ -83,4 +86,6 @@ export const addComponent = async ({
   if (npmDeps.length > 0) {
     await installDependencies(npmDeps);
   }
+
+  await sourceFile.save();
 };
