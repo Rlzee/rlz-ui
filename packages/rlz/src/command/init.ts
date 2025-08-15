@@ -4,7 +4,7 @@ import { getPackageInfo } from "../utils/get-package-info";
 import { initializeCss } from "../utils/initialize-css";
 import { installDependencies } from "../utils/install-dependencies";
 import { defaultDepencies } from "../config";
-import { defaultStructure } from "../utils/default-structure";
+import { initializeStructure } from "../utils/initialize-structure";
 import { saveConfig } from "../utils/config-manager";
 import { logger } from "../utils/logger";
 import { getFramework } from "../utils/get-framework";
@@ -64,9 +64,9 @@ export const init = new Command()
       await saveConfig({ cssPath: cssPathResponse.cssPath });
       await initializeCss();
       await installDependencies(defaultDepencies, process.cwd());
-      await defaultStructure();
+      await initializeStructure();
 
-      logger.success("rlz-ui initialized successfully");
+      logger.success("rlz-ui initialized successfully !");
     } catch (error) {
       logger.error("An error occurred during initialization:", error);
     }

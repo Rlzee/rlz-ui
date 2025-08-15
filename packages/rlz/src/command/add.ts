@@ -9,5 +9,5 @@ export const add = new Command()
   .argument("<component>", "The name of the component to add")
   .action(async (component: string, options: { type?: componentType }) => {
     await addComponent({ component, options });
-    logger.success("Component added successfully");
+    logger.success("Component added successfully !");
   });

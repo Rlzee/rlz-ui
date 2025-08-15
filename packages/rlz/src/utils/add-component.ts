@@ -20,10 +20,6 @@ export const addComponent = async ({
 
   const baseUiPath = config.uiPath;
 
-  if (!baseUiPath) {
-    throw new Error("UI path is not configured");
-  }
-
   const componentsDir = path.join(process.cwd(), baseUiPath, "components");
   try {
     await fs.access(componentsDir);

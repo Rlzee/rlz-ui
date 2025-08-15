@@ -7,6 +7,12 @@ interface RlzConfig {
   aliases?: Aliases;
 }
 
+interface RlzConfigWithDefaults {
+  cssPath: string;
+  uiPath: string;
+  aliases: Aliases;
+}
+
 interface Aliases {
   [key: string]: string;
 }
@@ -27,7 +33,7 @@ export const saveConfig = async (config: RlzConfig) => {
   const configPath = path.join(process.cwd(), CONFIG_FILE);
   const configWithDefaults = {
     ...config,
-    uiPath: config.uiPath || "./src/ui",
+    uiPath: config.uiPath || "src/ui",
     aliases: config.aliases || defaultAliases,
   };
   await fs.promises.writeFile(
@@ -47,13 +53,19 @@ export const loadConfig = async (): Promise<RlzConfig | null> => {
   }
 };
 
-export const getConfigOrDefault = async (): Promise<RlzConfig> => {
+export const getConfigOrDefault = async (): Promise<RlzConfigWithDefaults> => {
   const config = await loadConfig();
-  return (
-    config || {
-      cssPath: "app/globals.css",
-      uiPath: "src/ui",
-      aliases: defaultAliases,
-    }
-  );
+  if (config) {
+    return {
+      cssPath: config.cssPath,
+      uiPath: config.uiPath || "src/ui",
+      aliases: config.aliases || defaultAliases,
+    };
+  }
+
+  return {
+    cssPath: "app/globals.css",
+    uiPath: "src/ui",
+    aliases: defaultAliases,
+  };
 };
