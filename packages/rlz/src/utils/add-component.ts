@@ -46,6 +46,7 @@ export const addComponent = async ({
 
   addUseClientIfNeeded(sourceFile);
   await resolveAliases(sourceFile);
+  await sourceFile.save();
 
   const allImports = sourceFile
     .getImportDeclarations()
@@ -71,6 +72,7 @@ export const addComponent = async ({
   const npmDeps = allImports.filter((pkg) => {
     if (pkg.startsWith(".") || pkg.startsWith("/")) return false;
     if (pkg.startsWith("@/") || pkg.startsWith("~/")) return false;
+    if (pkg.startsWith("@ui/")) return false;
     if (config.aliases) {
       for (const aliasValue of Object.values(config.aliases)) {
         if (pkg.startsWith(aliasValue)) return false;
