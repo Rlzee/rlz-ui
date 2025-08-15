@@ -10,7 +10,7 @@ export const resolveAliases = async (sourceFile: SourceFile) => {
   const aliasMap = new Map<string, string>();
 
   allImports.forEach((importPath) => {
-    const exactAlias = config.aliases?.[importPath];
+    const exactAlias = config.aliases?.[importPath as keyof typeof config.aliases];
     if (exactAlias) {
       aliasMap.set(exactAlias, importPath);
       return;

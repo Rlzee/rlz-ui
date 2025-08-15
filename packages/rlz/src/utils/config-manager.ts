@@ -14,7 +14,13 @@ interface RlzConfigWithDefaults {
 }
 
 interface Aliases {
-  [key: string]: string;
+  components: string;
+  utils: string;
+  lib: string;
+  stores: string;
+  helpers: string;
+  types: string;
+  hooks: string;
 }
 
 const defaultAliases: Aliases = {
