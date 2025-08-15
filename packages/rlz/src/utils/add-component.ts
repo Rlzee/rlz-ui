@@ -80,7 +80,7 @@ export const addComponent = async ({
   });
 
   if (npmDeps.length > 0) {
-    await installDependencies(npmDeps);
+    await installDependencies(npmDeps, process.cwd(), true);
   }
 
   await sourceFile.save();

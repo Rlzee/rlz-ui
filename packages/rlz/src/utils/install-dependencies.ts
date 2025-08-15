@@ -9,7 +9,8 @@ import { getPackageManager } from "./get-package-manager";
  */
 export async function installDependencies(
   deps: string[],
-  cwd: string = process.cwd()
+  cwd: string = process.cwd(),
+  silent: boolean = false
 ) {
   if (!deps.length) return;
   const pkgInfo = await getPackageInfo(cwd);
@@ -19,7 +20,9 @@ export async function installDependencies(
   };
   const toInstall = deps.filter((dep) => !installed[dep]);
   if (toInstall.length === 0) {
-    console.log("All specified dependencies are already installed.");
+    if (!silent) {
+      console.log("All specified dependencies are already installed.");
+    }
     return;
   }
   const pkgManager = await getPackageManager(cwd);
