@@ -46,7 +46,7 @@ export const addComponent = async ({
   const sourceFile = project.addSourceFileAtPath(componentDir);
 
   const framework = getFramework(process.cwd());
-  if (framework === "next.js" || framework === "remix") {
+  if (framework === "next.js") {
     addUseClient(sourceFile);
   }
 
