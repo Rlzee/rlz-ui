@@ -8,10 +8,17 @@ import { installDependencies } from "./install-dependencies";
 export type utils = "helpers" | "hooks" | "lib" | "types" | "stores" | "utils";
 
 export const addUtils = async (name: string, type: utils) => {
-  const filePath = `${uiUrl}/${type}/${name}.ts`;
+  let fileName = name;
+  if (type === "helpers" && !name.endsWith(".helper")) {
+    fileName = `${name}.helper`;
+  } else if (type === "stores" && !name.endsWith(".store")) {
+    fileName = `${name}.store`;
+  }
+
+  const filePath = `${uiUrl}/${type}/${fileName}.ts`;
   const config = await getConfigOrDefault();
   const baseUiPath = config.uiPath;
-  const localPath = `${baseUiPath}/${type}/${name}.ts`;
+  const localPath = `${baseUiPath}/${type}/${fileName}.ts`;
 
   await getUiFile(filePath, localPath);
 
