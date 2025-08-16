@@ -9,6 +9,7 @@ import { saveConfig } from "../utils/config-manager";
 import { logger } from "../utils/logger";
 import { getFramework } from "../utils/get-framework";
 import { getTailwindVersion } from "../utils/get-tailwind-version";
+import { isTypeScriptProject } from "../utils/is-typescript-project";
 
 export const init = new Command()
   .name("init")
@@ -25,6 +26,14 @@ export const init = new Command()
       if (framework !== "next.js" && framework !== "react") {
         return logger.error(
           "Unsupported framework. Please use Next.js or React."
+        );
+      }
+
+      if (!isTypeScriptProject()) {
+        return logger.error(
+          "TypeScript is required for rlz-ui. Please create your project with TypeScript support.\n" +
+            "For Next.js: npx create-next-app@latest my-app --typescript\n" +
+            "For React: npx create-react-app my-app --template typescript"
         );
       }
 
