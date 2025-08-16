@@ -5,7 +5,7 @@ import { resolveAliases } from "./aliases-resolver";
 import { Project } from "ts-morph";
 import { installDependencies } from "./install-dependencies";
 
-type utils = "helpers" | "hooks" | "lib" | "types" | "stores" | "utils";
+export type utils = "helpers" | "hooks" | "lib" | "types" | "stores" | "utils";
 
 export const addUtils = async (name: string, type: utils) => {
   const filePath = `${uiUrl}/${type}/${name}.ts`;

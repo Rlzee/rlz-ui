@@ -8,6 +8,7 @@ import { getConfigOrDefault } from "./config-manager";
 import { addUseClient } from "./add-use-client";
 import { resolveAliases } from "./aliases-resolver";
 import { getFramework } from "./get-framework";
+import { addUtils, utils } from "./add-utils";
 
 export type componentType = "text" | "background" | "animation" | null;
 
@@ -88,6 +89,24 @@ export const addComponent = async ({
 
   if (npmDeps.length > 0) {
     await installDependencies(npmDeps, process.cwd(), true);
+  }
+
+  const utilsDeps = allImports.filter((pkg) => {
+    if (config.aliases) {
+      for (const aliasValue of Object.values(config.aliases)) {
+        if (pkg.startsWith(aliasValue)) return true;
+      }
+    }
+    return false;
+  });
+
+  for (const utilDep of utilsDeps) {
+    const pathMatch = utilDep.match(/\/(helpers|hooks|lib|types|stores|utils)\/([^\/]+)$/);
+    if (pathMatch) {
+      const type = pathMatch[1] as utils;
+      const name = pathMatch[2].replace(/\.tsx?$/, "");
+      await addUtils(name, type);
+    }
   }
 
   await sourceFile.save();
