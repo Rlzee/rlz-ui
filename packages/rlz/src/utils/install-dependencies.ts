@@ -1,6 +1,9 @@
 import { execSync } from "child_process";
 import { getPackageInfo } from "./get-package-info";
 import { getPackageManager } from "./get-package-manager";
+import { npmPackageNameSchema } from "../schemas";
+import { isZodError, formatZodError } from "./validation";
+import { logger } from "./logger";
 
 /**
  * Installs the given dependencies if they are not already installed.
@@ -13,6 +16,23 @@ export async function installDependencies(
   silent: boolean = false
 ) {
   if (!deps.length) return;
+
+  try {
+    deps.forEach((dep) => {
+      const packageName =
+        dep.includes("@") && !dep.startsWith("@")
+          ? dep.split("@")[0]
+          : dep.startsWith("@")
+          ? dep.split("@").slice(0, 2).join("@")
+          : dep;
+      npmPackageNameSchema.parse(packageName);
+    });
+  } catch (error) {
+    if (isZodError(error)) {
+      logger.error("Invalid package name:", formatZodError(error));
+      return;
+    }
+  }
   const pkgInfo = await getPackageInfo(cwd);
   const installed = {
     ...pkgInfo?.dependencies,

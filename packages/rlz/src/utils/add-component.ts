@@ -8,17 +8,18 @@ import { getConfigOrDefault } from "./config-manager";
 import { addUseClient } from "./add-use-client";
 import { resolveAliases } from "./aliases-resolver";
 import { getFramework } from "./get-framework";
-import { addUtils, utils } from "./add-utils";
+import { addUtils } from "./add-utils";
+import {
+  addComponentParamsSchema,
+  type ComponentType,
+  type AddComponentParams,
+  type UtilsType,
+} from "../schemas";
 
-export type componentType = "text" | "background" | "animation" | null;
+export type componentType = ComponentType;
 
-export const addComponent = async ({
-  component,
-  options,
-}: {
-  component: string;
-  options: { type?: componentType };
-}) => {
+export const addComponent = async (params: AddComponentParams) => {
+  const { component, options } = addComponentParamsSchema.parse(params);
   const config = await getConfigOrDefault();
   const baseUiPath = config.uiPath;
   const componentsDir = path.join(process.cwd(), baseUiPath, "components");
@@ -101,9 +102,11 @@ export const addComponent = async ({
   });
 
   for (const utilDep of utilsDeps) {
-    const pathMatch = utilDep.match(/\/(helpers|hooks|lib|types|stores|utils)\/([^\/]+)$/);
+    const pathMatch = utilDep.match(
+      /\/(helpers|hooks|lib|types|stores|utils)\/([^\/]+)$/
+    );
     if (pathMatch) {
-      const type = pathMatch[1] as utils;
+      const type = pathMatch[1] as UtilsType;
       const name = pathMatch[2].replace(/\.tsx?$/, "");
       await addUtils(name, type);
     }

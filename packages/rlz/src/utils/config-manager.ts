@@ -1,27 +1,13 @@
 import fs from "fs";
 import path from "path";
-
-interface RlzConfig {
-  cssPath: string;
-  uiPath?: string;
-  aliases?: Aliases;
-}
-
-interface RlzConfigWithDefaults {
-  cssPath: string;
-  uiPath: string;
-  aliases: Aliases;
-}
-
-interface Aliases {
-  components: string;
-  utils: string;
-  lib: string;
-  stores: string;
-  helpers: string;
-  types: string;
-  hooks: string;
-}
+import {
+  rlzConfigSchema,
+  rlzConfigWithDefaultsSchema,
+  aliasesSchema,
+  type RlzConfig,
+  type RlzConfigWithDefaults,
+  type Aliases,
+} from "../schemas";
 
 const defaultAliases: Aliases = {
   components: "@ui/components",
@@ -36,16 +22,18 @@ const defaultAliases: Aliases = {
 const CONFIG_FILE = "rlz.config.json";
 
 export const saveConfig = async (config: RlzConfig) => {
+  const validatedConfig = rlzConfigSchema.parse(config);
+
   const configPath = path.join(process.cwd(), CONFIG_FILE);
   const configWithDefaults = {
-    ...config,
-    uiPath: config.uiPath || "src/ui",
-    aliases: config.aliases || defaultAliases,
+    ...validatedConfig,
+    uiPath: validatedConfig.uiPath || "src/ui",
+    aliases: validatedConfig.aliases || defaultAliases,
   };
-  await fs.promises.writeFile(
-    configPath,
-    JSON.stringify(configWithDefaults, null, 2)
-  );
+
+  const finalConfig = rlzConfigWithDefaultsSchema.parse(configWithDefaults);
+
+  await fs.promises.writeFile(configPath, JSON.stringify(finalConfig, null, 2));
 };
 
 export const loadConfig = async (): Promise<RlzConfig | null> => {
@@ -53,25 +41,38 @@ export const loadConfig = async (): Promise<RlzConfig | null> => {
 
   try {
     const configContent = await fs.promises.readFile(configPath, "utf-8");
-    return JSON.parse(configContent);
+    const parsedConfig = JSON.parse(configContent);
+
+    return rlzConfigSchema.parse(parsedConfig);
   } catch (error) {
+    if (error instanceof Error && "issues" in error) {
+      throw new Error(`Configuration validation failed: ${error.message}`);
+    }
     return null;
   }
 };
 
 export const getConfigOrDefault = async (): Promise<RlzConfigWithDefaults> => {
-  const config = await loadConfig();
-  if (config) {
-    return {
-      cssPath: config.cssPath,
-      uiPath: config.uiPath || "src/ui",
-      aliases: config.aliases || defaultAliases,
-    };
+  try {
+    const config = await loadConfig();
+    if (config) {
+      const configWithDefaults = {
+        cssPath: config.cssPath,
+        uiPath: config.uiPath || "src/ui",
+        aliases: config.aliases || defaultAliases,
+      };
+
+      return rlzConfigWithDefaultsSchema.parse(configWithDefaults);
+    }
+  } catch (error) {
+    console.warn("Config validation failed, using default config:", error);
   }
 
-  return {
+  const defaultConfig = {
     cssPath: "app/globals.css",
     uiPath: "src/ui",
     aliases: defaultAliases,
   };
+
+  return rlzConfigWithDefaultsSchema.parse(defaultConfig);
 };

@@ -4,21 +4,30 @@ import { getConfigOrDefault } from "./config-manager";
 import { resolveAliases } from "./aliases-resolver";
 import { Project } from "ts-morph";
 import { installDependencies } from "./install-dependencies";
+import { addUtilsParamsSchema, type UtilsType } from "../schemas";
 
-export type utils = "helpers" | "hooks" | "lib" | "types" | "stores" | "utils";
+export type utils = UtilsType;
 
-export const addUtils = async (name: string, type: utils) => {
-  let fileName = name;
-  if (type === "helpers" && !name.endsWith(".helper")) {
-    fileName = `${name}.helper`;
-  } else if (type === "stores" && !name.endsWith(".store")) {
-    fileName = `${name}.store`;
+export const addUtils = async (name: string, type: UtilsType) => {
+  const validatedParams = addUtilsParamsSchema.parse({ name, type });
+
+  let fileName = validatedParams.name;
+  if (
+    validatedParams.type === "helpers" &&
+    !validatedParams.name.endsWith(".helper")
+  ) {
+    fileName = `${validatedParams.name}.helper`;
+  } else if (
+    validatedParams.type === "stores" &&
+    !validatedParams.name.endsWith(".store")
+  ) {
+    fileName = `${validatedParams.name}.store`;
   }
 
-  const filePath = `${uiUrl}/${type}/${fileName}.ts`;
+  const filePath = `${uiUrl}/${validatedParams.type}/${fileName}.ts`;
   const config = await getConfigOrDefault();
   const baseUiPath = config.uiPath;
-  const localPath = `${baseUiPath}/${type}/${fileName}.ts`;
+  const localPath = `${baseUiPath}/${validatedParams.type}/${fileName}.ts`;
 
   await getUiFile(filePath, localPath);
 

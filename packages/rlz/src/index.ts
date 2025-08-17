@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { init } from "./command/init";
-import { add } from "./command/add";
+import { init } from "./commands/init";
+import { add } from "./commands/add";
 import { Command } from "commander";
 
 async function main() {
