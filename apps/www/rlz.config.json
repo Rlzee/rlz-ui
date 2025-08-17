@@ -1,0 +1,13 @@
+{
+  "cssPath": "app/globals.css",
+  "uiPath": "src/ui",
+  "aliases": {
+    "components": "@ui/components",
+    "utils": "@ui/utils",
+    "lib": "@ui/lib",
+    "stores": "@ui/stores",
+    "helpers": "@ui/helpers",
+    "types": "@ui/types",
+    "hooks": "@ui/hooks"
+  }
+}
