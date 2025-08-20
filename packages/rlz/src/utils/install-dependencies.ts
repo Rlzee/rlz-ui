@@ -29,7 +29,7 @@ export async function installDependencies(
     });
   } catch (error) {
     if (isZodError(error)) {
-      // logger.error("Invalid package name:", formatZodError(error));
+      logger.error("Invalid package name:", formatZodError(error));
       return;
     }
   }
