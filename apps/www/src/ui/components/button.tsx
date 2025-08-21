@@ -3,12 +3,13 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@ui/lib/utils";
 
-export type ButtonVariant =
+export type buttonVariantTypes =
   | "primary"
   | "secondary"
   | "outline"
   | "ghost"
-  | "destructive";
+  | "destructive"
+  | "link";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-border focus-visible:ring-muted focus-visible:ring-[2px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -16,14 +17,16 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "from-primary/85 to-primary text-primary-foreground inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t border border-zinc-50/50 shadow-md shadow-zinc-950/20 ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50",
+          "bg-radial-[at_52%_-52%] **:[text-shadow:0_1px_0_var(--color-primary)] from-primary/70 to-primary/95 text-primary-foreground inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t dark:to-primary border border-primary shadow-md ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50 shadow-md shadow-zinc-950/30",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
         outline:
-          "border border-border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
-        ghost: "hover:bg-secondary text-secondary-foreground",
+          "border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
+        ghost:
+          "hover:bg-secondary text-secondary-foreground",
         destructive:
           "bg-destructive focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 hover:opacity-80 text-destructive-foreground",
+        link: "hover:text-foreground data-[active=true]:text-primary text-muted-foreground",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -41,7 +44,6 @@ const buttonVariants = cva(
 
 type ButtonProps = {
   asChild?: boolean;
-  className?: string;
 } & ComponentProps<"button"> &
   VariantProps<typeof buttonVariants>;
 
@@ -61,6 +63,6 @@ const Button = ({
       {...props}
     />
   );
-};
+}
 
 export { Button, buttonVariants };

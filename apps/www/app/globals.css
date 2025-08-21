@@ -49,7 +49,7 @@
 
   /* Background */
   --background: oklch(1 0 0);
-  --background-secondary: oklch(0.95 0 0);
+  --background-secondary: oklch(1 0 0);
 
   /* Border */
   --border: oklch(90% 0.007 270);
@@ -58,7 +58,7 @@
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   /* Button, Input */
-  --primary: oklch(0.627 0.2 264.4);
+  --primary: oklch(0% 0 0);
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
