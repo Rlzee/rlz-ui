@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "",
 };
 
+import { ThemeProvider } from "@ui/utils/themes-provider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -22,7 +24,16 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${spaceGrotesk.variable} ${inter.variable} antialiased bg-background`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="relative flex min-h-svh flex-col bg-background">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

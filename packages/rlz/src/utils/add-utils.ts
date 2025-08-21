@@ -24,15 +24,24 @@ export const addUtils = async (name: string, type: UtilsType) => {
     fileName = `${validatedParams.name}.store`;
   }
 
-  const filePath = `${uiUrl}/${validatedParams.type}/${fileName}.ts`;
+  const filePathTs = `${uiUrl}/${validatedParams.type}/${fileName}.ts`;
+  const filePathTsx = `${uiUrl}/${validatedParams.type}/${fileName}.tsx`;
   const config = await getConfigOrDefault();
   const baseUiPath = config.uiPath;
-  const localPath = `${baseUiPath}/${validatedParams.type}/${fileName}.ts`;
+  const localPathTs = `${baseUiPath}/${validatedParams.type}/${fileName}.ts`;
+  const localPathTsx = `${baseUiPath}/${validatedParams.type}/${fileName}.tsx`;
 
-  await getUiFile(filePath, localPath);
+  let sourceFilePath;
+  try {
+    await getUiFile(filePathTs, localPathTs);
+    sourceFilePath = localPathTs;
+  } catch (err) {
+    await getUiFile(filePathTsx, localPathTsx);
+    sourceFilePath = localPathTsx;
+  }
 
   const project = new Project();
-  const sourceFile = project.addSourceFileAtPath(localPath);
+  const sourceFile = project.addSourceFileAtPath(sourceFilePath);
   await resolveAliases(sourceFile);
   await sourceFile.save();
 
