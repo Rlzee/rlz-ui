@@ -21,7 +21,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
         outline:
-          "border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
+          "border border-border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
         ghost:
           "hover:bg-secondary text-secondary-foreground",
         destructive:
