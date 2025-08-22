@@ -19,8 +19,7 @@ export const docsConfig: DocsConfig = {
   sidebarNav: {
     itemsLeft: {
       GettingStarted: [
-        { title: "Introduction", href: "/docs" },
-        { title: "Installation", href: "/docs/installation" },
+        { title: "Installation", href: "/docs" },
       ],
       Background: [{ title: "Grid", href: "" }],
       Components: [

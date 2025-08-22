@@ -16,7 +16,7 @@ export default function DocsLayout({
   const pathname = usePathname();
 
   const title = useMemo(() => {
-    if (!pathname || pathname === "/docs") return "Start Here";
+    if (!pathname || pathname === "/docs") return "Installation";
     const parts = pathname.split("/").filter(Boolean);
     const lastPart = parts[parts.length - 1];
     return lastPart.charAt(0).toUpperCase() + lastPart.slice(1);
