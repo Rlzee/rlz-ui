@@ -38,4 +38,5 @@ export const Doc = defineDocumentType(() => ({
 export default makeSource({
   contentDirPath: "./content",
   documentTypes: [Doc],
+  disableImportAliasWarning: true,
 });
