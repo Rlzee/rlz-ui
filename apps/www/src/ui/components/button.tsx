@@ -19,7 +19,7 @@ const buttonVariants = cva(
         primary:
           "bg-radial-[at_52%_-52%] **:[text-shadow:0_1px_0_var(--color-primary)] from-primary/70 to-primary/95 text-primary-foreground inset-shadow-2xs inset-shadow-white/25 bg-linear-to-b dark:from-primary/75 dark:bg-linear-to-t dark:to-primary border border-primary shadow-md ring-0 transition-[filter] duration-200 hover:brightness-110 active:brightness-95 dark:border-0 dark:border-zinc-950/50 shadow-md shadow-zinc-950/30",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
+          "bg-secondary border-border text-secondary-foreground shadow-xs dark:hover:bg-secondary/80 hover:brightness-95",
         outline:
           "border border-border bg-secondary text-secondary-foreground dark:hover:bg-secondary/80 hover:brightness-95",
         ghost:

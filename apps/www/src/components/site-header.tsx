@@ -2,7 +2,6 @@
 
 import { Header } from "@ui/components/header";
 import { useState } from "react";
-import { mainNav } from "@/src/config/docs";
 import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@ui/components/toggle-theme";
 import { Separator } from "@ui/components/separator";
@@ -10,10 +9,13 @@ import { Button } from "@ui/components/button";
 import { Github } from "@ui/icons/social-icons";
 import { ButtonSearch } from "./ui/button-search";
 import { cn } from "@ui/lib/utils";
+import { DocsConfig } from "../config/docs";
 
-const SiteHeader = () => {
+const SiteHeader = ({ config }: { config: DocsConfig }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+
+  const { mainNav } = config;
 
   return (
     <Header blur={!open} classNameContainer="border-b border-border">
