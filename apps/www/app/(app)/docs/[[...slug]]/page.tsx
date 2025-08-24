@@ -1,5 +1,6 @@
 import { allDocs, type Doc } from ".contentlayer/generated";
 import { notFound } from "next/navigation";
+import { Mdx } from "@/src/components/mdx-components";
 
 import { ArrowUpRight } from "lucide-react";
 
@@ -28,8 +29,8 @@ export default async function DocPage({ params }: DocPageProps) {
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <div className="flex items-center justify-between mb-8">
+    <div className="flex flex-col flex-1 gap-8">
+      <div className="flex items-center justify-between">
         <p className="text-muted-foreground">{doc.title}</p>
         {doc.links && (
           <div className="flex items-center gap-4">
@@ -48,6 +49,7 @@ export default async function DocPage({ params }: DocPageProps) {
           </div>
         )}
       </div>
+      <Mdx code={doc.body.code} />
     </div>
   );
 }
