@@ -26,18 +26,25 @@ export const addUtils = async (name: string, type: UtilsType) => {
 
   const filePathTs = `${uiUrl}/${validatedParams.type}/${fileName}.ts`;
   const filePathTsx = `${uiUrl}/${validatedParams.type}/${fileName}.tsx`;
+  const filePathDts = `${uiUrl}/${validatedParams.type}/${fileName}.d.ts`;
   const config = await getConfigOrDefault();
   const baseUiPath = config.uiPath;
   const localPathTs = `${baseUiPath}/${validatedParams.type}/${fileName}.ts`;
   const localPathTsx = `${baseUiPath}/${validatedParams.type}/${fileName}.tsx`;
+  const localPathDts = `${baseUiPath}/${validatedParams.type}/${fileName}.d.ts`;
 
   let sourceFilePath;
   try {
     await getUiFile(filePathTs, localPathTs);
     sourceFilePath = localPathTs;
   } catch (err) {
-    await getUiFile(filePathTsx, localPathTsx);
-    sourceFilePath = localPathTsx;
+    try {
+      await getUiFile(filePathTsx, localPathTsx);
+      sourceFilePath = localPathTsx;
+    } catch (err2) {
+      await getUiFile(filePathDts, localPathDts);
+      sourceFilePath = localPathDts;
+    }
   }
 
   const project = new Project();

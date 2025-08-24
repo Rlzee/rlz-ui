@@ -89,7 +89,21 @@ export const addComponent = async (params: AddComponentParams) => {
   });
 
   if (npmDeps.length > 0) {
-    await installDependencies(npmDeps, process.cwd(), true);
+    // Extract the actual package names from imports
+    const packageNames = npmDeps.map((dep) => {
+      if (dep.startsWith("@")) {
+        // Scoped package: @scope/package/subpath -> @scope/package
+        const parts = dep.split("/");
+        return parts.length >= 2 ? `${parts[0]}/${parts[1]}` : dep;
+      } else {
+        // Regular package: package/subpath -> package
+        return dep.split("/")[0];
+      }
+    });
+    
+    // Remove duplicates
+    const uniquePackages = Array.from(new Set(packageNames));
+    await installDependencies(uniquePackages, process.cwd(), true);
   }
 
   const utilsDeps = allImports.filter((pkg) => {
