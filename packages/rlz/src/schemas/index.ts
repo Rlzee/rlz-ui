@@ -57,7 +57,7 @@ export const urlSchema = z.string().url("Invalid URL format");
 export const filePathSchema = z.string().min(1, "File path cannot be empty");
 
 // Schema for npm package names
-export const npmPackageNameSchema = z.string().regex(/^(@[a-z0-9-~][a-z0-9-._~]*\/)?[a-z0-9-~][a-z0-9-._~]*$/, "Invalid npm package name");
+export const npmPackageNameSchema = z.string().regex(/^(@[a-zA-Z0-9-~][a-zA-Z0-9-._~]*\/)?[a-zA-Z0-9-~][a-zA-Z0-9-._~]*$/, "Invalid npm package name");
 
 // TypeScript types derived from Zod schemas
 export type ComponentType = z.infer<typeof componentTypeSchema>;

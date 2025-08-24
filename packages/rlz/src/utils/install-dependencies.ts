@@ -19,12 +19,23 @@ export async function installDependencies(
 
   try {
     deps.forEach((dep) => {
-      const packageName =
-        dep.includes("@") && !dep.startsWith("@")
-          ? dep.split("@")[0]
-          : dep.startsWith("@")
-          ? dep.split("@").slice(0, 2).join("@")
-          : dep;
+      let packageName: string;
+      
+      if (dep.startsWith("@")) {
+        // Scoped package: @scope/package or @scope/package@version
+        const parts = dep.split("@");
+        if (parts.length === 2) {
+          // @scope/package (no version)
+          packageName = dep;
+        } else {
+          // @scope/package@version
+          packageName = `@${parts[1]}`;
+        }
+      } else {
+        // Regular package: package or package@version
+        packageName = dep.split("@")[0];
+      }
+      
       npmPackageNameSchema.parse(packageName);
     });
   } catch (error) {
