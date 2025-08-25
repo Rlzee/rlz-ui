@@ -25,7 +25,7 @@ export default function DocsLayout({
   return (
     <Sidebar.Provider className="min-h-[calc(100vh-56px)]">
       <AppSidebar config={docsConfig} />
-      <Sidebar.Inset className="overflow-auto max-h-[calc(100vh-56px)]">
+      <Sidebar.Inset className="overflow-auto max-h-[calc(100vh-56px)] scrollbar-hide">
         <header className="bg-background/60 backdrop-blur-lg sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-dashed border-border px-4 justify-between">
           <div className="flex items-center gap-2">
             <h1 className="text-lg font-semibold">{title}</h1>

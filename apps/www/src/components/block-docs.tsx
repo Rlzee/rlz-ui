@@ -6,10 +6,10 @@ const BlockDocs = ({
   className,
   children,
 }: {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }) => {
   return (
     <div className={className}>
