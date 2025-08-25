@@ -34,7 +34,7 @@ export default async function DocPage({ params }: DocPageProps) {
     <div className="flex flex-col flex-1 gap-8">
       <div className="flex items-center justify-between">
         <p className="text-muted-foreground">{doc.title}</p>
-        {doc.links && !doc.toggle && (
+        {doc.links && doc.component && (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1 cursor-default hover:underline">
               <a href={doc.links.doc} target="_blank" rel="noreferrer">
@@ -50,26 +50,31 @@ export default async function DocPage({ params }: DocPageProps) {
             </div>
           </div>
         )}
-        {doc.toggle && (
-          <ToggleGroup type="single" defaultValue={doc.toggle[0].name} className="border-border border">
-            {doc.toggle.map((toggle) => (
-              <ToggleGroupItem
-                key={toggle.name}
-                value={toggle.name}
-                className="px-4"
-                disabled={toggle.disabled}
-              >
-                {toggle.name}
-              </ToggleGroupItem>
-            ))}
+        {!doc.component && (
+          <ToggleGroup
+            type="single"
+            defaultValue="next"
+            className="border-border border"
+          >
+            <ToggleGroupItem value="next" className="px-4">
+              Next.js
+            </ToggleGroupItem>
+            <ToggleGroupItem value="vite" disabled>
+              Vite
+            </ToggleGroupItem>
           </ToggleGroup>
         )}
       </div>
       <Mdx code={doc.body.code} />
       {doc.installation && (
         <>
-          <h3 className="mt-4 text-xl text-foreground font-medium">{doc.installation.title}</h3>
-          <InputCopyCLI commands={doc.installation.commands} wrapperClassName="mt-4" />
+          <h3 className="mt-4 text-xl text-foreground font-medium">
+            {doc.installation.title}
+          </h3>
+          <InputCopyCLI
+            commands={doc.installation.commands}
+            wrapperClassName="mt-4"
+          />
         </>
       )}
     </div>

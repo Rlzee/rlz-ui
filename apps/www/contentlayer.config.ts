@@ -26,23 +26,15 @@ const LinksProperties = defineNestedType(() => ({
   },
 }));
 
-const ToggleProperties = defineNestedType(() => ({
-  name: "ToggleProperties",
-  fields: {
-    name: { type: "string", required: true },
-    disabled: { type: "boolean" },
-  },
-}));
-
 const Installation = defineNestedType(() => ({
   name: "Installation",
-  fields : {
+  fields: {
     title: { type: "string", required: true },
-    commands: { 
+    commands: {
       type: "json",
-      required: true
+      required: true,
     },
-  }
+  },
 }));
 
 export const Doc = defineDocumentType(() => ({
@@ -51,11 +43,8 @@ export const Doc = defineDocumentType(() => ({
   contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
+    component: { type: "boolean", default: false },
     links: { type: "nested", of: LinksProperties },
-    toggle: { 
-      type: "list", 
-      of: ToggleProperties,
-    },
     installation: { type: "nested", of: Installation },
   },
   computedFields,
