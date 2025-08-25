@@ -59,7 +59,7 @@ const ComponentPreview = ({
             code={code}
             language="tsx"
             showLineNumbers={true}
-            customStyle={{ borderRadius: "0.5rem", backgroundColor: "var(--background-secondary)" }}
+            customStyle={{ borderRadius: "0.5rem", backgroundColor: "var(--background-secondary)", maxHeight: "450px" }}
             />
         </div>
       )}
