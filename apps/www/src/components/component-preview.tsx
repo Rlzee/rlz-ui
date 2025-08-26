@@ -6,14 +6,15 @@ import { BorderFlash } from "@ui/components/animations/border-flash";
 import { CodeWrapper } from "@ui/components/code-wrapper";
 import { Clipboard } from "./clipboard";
 
-const ComponentPreview = ({
-  code,
-  children,
-}: {
-  code: string;
-  children: React.ReactNode;
-}) => {
+import { examples } from "./examples";
+
+const ComponentPreview = ({ name }: { name: keyof typeof examples }) => {
   const [view, setView] = useState<"preview" | "code">("preview");
+  const example = examples[name];
+
+  if (!example) {
+    return null;
+  }
 
   return (
     <div className="grid">
@@ -45,22 +46,24 @@ const ComponentPreview = ({
       {view === "preview" ? (
         <BorderFlash.Box className="w-full max-w-none">
           <BorderFlash.BoxContent className="h-[450px] items-center justify-center p-6">
-            <div className="w-full">
-              {children}
-            </div>
+            <div className="w-full">{example.component}</div>
           </BorderFlash.BoxContent>
         </BorderFlash.Box>
       ) : (
         <div className="relative">
           <div className="absolute right-4 top-4">
-            <Clipboard text={code} />
+            <Clipboard text={example.code} />
           </div>
           <CodeWrapper
-            code={code}
+            code={example.code}
             language="tsx"
             showLineNumbers={true}
-            customStyle={{ borderRadius: "0.5rem", backgroundColor: "var(--background-secondary)", maxHeight: "450px" }}
-            />
+            customStyle={{
+              borderRadius: "0.5rem",
+              backgroundColor: "var(--background-secondary)",
+              maxHeight: "450px",
+            }}
+          />
         </div>
       )}
     </div>
