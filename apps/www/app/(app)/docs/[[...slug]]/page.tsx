@@ -66,17 +66,6 @@ export default async function DocPage({ params }: DocPageProps) {
         )}
       </div>
       <Mdx code={doc.body.code} />
-      {doc.installation && (
-        <>
-          <h3 className="mt-4 text-xl text-foreground font-medium">
-            {doc.installation.title}
-          </h3>
-          <InputCopyCLI
-            commands={doc.installation.commands}
-            wrapperClassName="mt-4"
-          />
-        </>
-      )}
     </div>
   );
 }

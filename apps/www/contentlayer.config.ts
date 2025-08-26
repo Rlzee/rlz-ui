@@ -1,11 +1,9 @@
-import { Command } from "cmdk";
 import {
   defineDocumentType,
   defineNestedType,
   makeSource,
 } from "contentlayer2/source-files";
 import { type ComputedFields } from "contentlayer2/source-files";
-import { title } from "process";
 
 const computedFields: ComputedFields = {
   slug: {
@@ -26,17 +24,6 @@ const LinksProperties = defineNestedType(() => ({
   },
 }));
 
-const Installation = defineNestedType(() => ({
-  name: "Installation",
-  fields: {
-    title: { type: "string", required: true },
-    commands: {
-      type: "json",
-      required: true,
-    },
-  },
-}));
-
 export const Doc = defineDocumentType(() => ({
   name: "Doc",
   filePathPattern: `docs/**/*.mdx`,
@@ -45,7 +32,6 @@ export const Doc = defineDocumentType(() => ({
     title: { type: "string", required: true },
     component: { type: "boolean", default: false },
     links: { type: "nested", of: LinksProperties },
-    installation: { type: "nested", of: Installation },
   },
   computedFields,
 }));
