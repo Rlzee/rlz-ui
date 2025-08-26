@@ -4,16 +4,16 @@ import { Mdx } from "@/src/components/mdx-components";
 
 import { ArrowUpRight } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@ui/components/toggle-group";
-import { InputCopyCLI } from "@/src/components/input-copy";
 
 interface DocPageProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
 async function getDocFromParams({ params }: DocPageProps) {
-  const slug = params.slug?.join("/") || "";
+  const resolvedParams = await params;
+  const slug = resolvedParams.slug?.join("/") || "";
   const doc = allDocs.find((doc: Doc) => doc.slugAsParams === slug);
 
   if (!doc) {
