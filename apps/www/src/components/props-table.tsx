@@ -1,11 +1,5 @@
 import { Table } from "@ui/components/table";
-
-export interface PropRow {
-  prop: string;
-  type: string;
-  default: string;
-  description?: string;
-}
+import { type PropRow } from "../types/props";
 
 interface PropsTableProps {
   title?: string;
