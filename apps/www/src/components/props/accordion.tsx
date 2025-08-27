@@ -22,13 +22,13 @@ export const accordionHeaderProps: PropRow[] = [
 
 export const accordionTriggerProps: PropRow[] = [
   { prop: "children", type: "ReactNode", default: "-" },
-  { prop: "className", type: "string", default: "Styles prédéfinis" },
+  { prop: "className", type: "string", default: "Predefined styles" },
   { prop: "disabled", type: "boolean", default: "false" },
 ];
 
 export const accordionIconProps: PropRow[] = [
   { prop: "Icon", type: "LucideIcon", default: "ChevronDownIcon" },
-  { prop: "className", type: "string", default: "Styles prédéfinis" },
+  { prop: "className", type: "string", default: "Predefined styles" },
 ];
 
 export const accordionContentProps: PropRow[] = [
