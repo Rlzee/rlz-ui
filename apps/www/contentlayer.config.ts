@@ -40,4 +40,14 @@ export default makeSource({
   contentDirPath: "./content",
   documentTypes: [Doc],
   disableImportAliasWarning: true,
+  onExtraFieldData: "ignore", // Ignore extra fields instead of failing
+  onUnknownDocuments: "skip-ignore", // Skip unknown document types
+  markdown: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+  mdx: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
 });
