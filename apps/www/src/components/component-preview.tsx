@@ -6,11 +6,11 @@ import { BorderFlash } from "@ui/components/animations/border-flash";
 import { CodeWrapper } from "@ui/components/code-wrapper";
 import { Clipboard } from "./clipboard";
 
-import { examples } from "./examples";
+import { demos } from "./demo/demos";
 
-const ComponentPreview = ({ name }: { name: keyof typeof examples }) => {
+const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
   const [view, setView] = useState<"preview" | "code">("preview");
-  const example = examples[name];
+  const example = demos[name];
 
   if (!example) {
     return null;

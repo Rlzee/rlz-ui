@@ -6,13 +6,15 @@ import { BlockDocs } from "./block-docs";
 import { ComponentPreview } from "./component-preview";
 import { CodeBlock } from "./code-block";
 import { InputCopyCLI } from "./input-copy";
+import { ComponentProps } from "./component-props";
 
 const components = {
   BlockDocs,
   ComponentPreview,
+  ComponentProps,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className={cn("text-foreground text-lg font-heading", className)}
+      className={cn("mt-6 text-lg text-foreground font-medium", className)}
       {...props}
     />
   ),
