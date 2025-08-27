@@ -14,18 +14,17 @@ const components = {
   ComponentProps,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className={cn("mt-6 text-lg text-foreground font-medium", className)}
+      className={cn("mt-8 text-xl text-foreground font-semibold", className)}
       {...props}
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn("text-muted-foreground text-sm", className)} {...props} />
+    <p className={cn("text-muted-foreground text-base leading-relaxed", className)} {...props} />
   ),
   pre: ({ children }: any) => {
     const child = children.props;
     const code = child.children || "";
     const language = child.className?.replace("language-", "") || "";
-    const showLineNumbers = child.metastring?.includes("showLineNumbers");
 
     if (language === "tsx") {
       return <CodeBlock code={code} />;
@@ -51,7 +50,7 @@ const components = {
         }
       }
 
-      return <InputCopyCLI commands={commands} wrapperClassName="mt-4" />;
+      return <InputCopyCLI commands={commands} wrapperClassName="mt-6" />;
     }
 
     return <pre>{code}</pre>; // fallback
