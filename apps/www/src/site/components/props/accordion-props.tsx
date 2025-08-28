@@ -1,4 +1,4 @@
-import { type PropRow } from "@/src/types/props";
+import { type PropRow } from "@site/types/props";
 
 export const accordionRootProps: PropRow[] = [
   { prop: "type", type: `"single" | "multiple"`, default: "-" },

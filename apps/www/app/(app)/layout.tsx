@@ -1,5 +1,5 @@
-import SiteHeader from "@/src/components/site-header";
-import { docsConfig } from "@/src/config/docs";
+import SiteHeader from "@site/components/site-header";
+import { docsConfig } from "@site/config/docs";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (

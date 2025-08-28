@@ -9,7 +9,7 @@ import { Button } from "@ui/components/button";
 import { Github } from "@ui/icons/social-icons";
 import { ButtonSearch } from "./button-search";
 import { cn } from "@ui/lib/utils";
-import { DocsConfig } from "../config/docs";
+import { DocsConfig } from "@site/config/docs";
 
 const SiteHeader = ({ config }: { config: DocsConfig }) => {
   const [open, setOpen] = useState(false);

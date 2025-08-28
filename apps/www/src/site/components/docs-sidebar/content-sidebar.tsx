@@ -1,7 +1,7 @@
 import { Sidebar } from "@ui/components/sidebar";
 import { Collapsible } from "@ui/components/collapsible";
 import { ChevronRight } from "lucide-react";
-import { useHydration } from "@/src/hooks/use-hydration";
+import { useHydration } from "@site/hooks/use-hydration";
 
 const ContentSidebar = ({
   items,

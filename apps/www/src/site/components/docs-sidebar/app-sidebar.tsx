@@ -3,7 +3,7 @@
 import { Sidebar } from "@ui/components/sidebar";
 import { SeparatorBorder } from "@ui/components/separator-border";
 import { ContentSidebar } from "./content-sidebar";
-import { type DocsConfig } from "@/src/config/docs";
+import { type DocsConfig } from "@site/config/docs";
 
 const AppSidebar = ({
   config,

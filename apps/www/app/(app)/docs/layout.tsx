@@ -1,12 +1,12 @@
 "use client";
 
-import { AppSidebar } from "@/src/components/docs-sidebar/app-sidebar";
+import { AppSidebar } from "@site/components/docs-sidebar/app-sidebar";
 import { Sidebar } from "@ui/components/sidebar";
 import { Button } from "@ui/components/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useMemo } from "react";
-import { docsConfig } from "@/src/config/docs";
+import { docsConfig } from "@site/config/docs";
 
 export default function DocsLayout({
   children,

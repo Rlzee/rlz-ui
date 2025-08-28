@@ -1,5 +1,5 @@
 import { Table } from "@ui/components/table";
-import { type PropRow } from "../types/props";
+import { type PropRow } from "@site/types/props";
 
 interface PropsTableProps {
   title?: string;

@@ -1,6 +1,6 @@
 import { allDocs, type Doc } from ".contentlayer/generated";
 import { notFound } from "next/navigation";
-import { Mdx } from "@/src/components/mdx-components";
+import { Mdx } from "@site/components/mdx-components";
 
 import { ArrowUpRight } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@ui/components/toggle-group";
