@@ -19,8 +19,17 @@ const components = {
     />
   ),
   p: ({ className, ...props }: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className={cn("text-muted-foreground text-base leading-relaxed", className)} {...props} />
+    <p
+      className={cn(
+        "text-muted-foreground text-base leading-relaxed",
+        className
+      )}
+      {...props}
+    />
   ),
+  MarkdownFallback: ({ children }: { children: React.ReactNode }) => {
+    return null; // site ignore
+  },
   pre: ({ children }: any) => {
     const child = children.props;
     const code = child.children || "";
