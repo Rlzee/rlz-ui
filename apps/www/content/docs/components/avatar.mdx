@@ -1,0 +1,62 @@
+---
+title: This is an example of an avatar component.
+component: true
+---
+
+<ComponentPreview name="avatar" />
+
+# Installation
+```bash
+npm: npx rlz@latest add avatar
+pnpm: pnpm dlx rlz@latest add avatar
+yarn: yarn rlz@latest add avatar
+bun: bunx --bun rlz@latest add avatar
+```
+
+# Props
+<ComponentProps name="avatar" />
+
+<MarkdownFallback>
+
+## Avatar (Main)
+
+An image element with a fallback for representing the user.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | - | The image source URL |
+| `alt` | `string` | - | Alternative text for the image |
+| `fallback` | `string` | - | Fallback content when image fails to load (text or image URL) |
+| `size` | `"sm" \| "md" \| "lg"` | `"md"` | The size of the avatar |
+| `className` | `string` | - | Additional CSS classes to apply to the avatar |
+| `loading` | `"eager" \| "lazy"` | `"lazy"` | Loading strategy for the image |
+
+## Avatar Root
+
+The root container for the avatar component.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | The content to render inside the avatar root |
+| `className` | `string` | Predefined styles | Additional CSS classes to apply to the root element |
+
+## Avatar Image
+
+The image element of the avatar.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `src` | `string` | - | The image source URL |
+| `alt` | `string` | - | Alternative text for the image |
+| `className` | `string` | Predefined styles | Additional CSS classes to apply to the image element |
+
+## Avatar Fallback
+
+The fallback content when the image fails to load.
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | The fallback content to render (usually initials) |
+| `className` | `string` | Predefined styles | Additional CSS classes to apply to the fallback element |
+
+</MarkdownFallback>

@@ -8,12 +8,23 @@ const ComponentProps = ({ name }: { name: keyof typeof props }) => {
     return null;
   }
 
-  if (typeof componentProps === 'object' && !Array.isArray(componentProps)) {
+  if (typeof componentProps === "object" && !Array.isArray(componentProps)) {
+    const hasMain = "main" in componentProps;
+
     return (
       <div className="space-y-8">
         {Object.entries(componentProps).map(([subComponentName, propsData]) => (
           <div key={subComponentName}>
-            <PropsTable props={propsData} title={`${name}.${subComponentName === 'root' ? '(root)' : subComponentName}`} />
+            <PropsTable
+              props={propsData}
+              title={
+                subComponentName === "main"
+                  ? name
+                  : subComponentName === "root"
+                  ? hasMain ? `${name}.Root` : `${name} (root)`
+                  : `${name}.${subComponentName}`
+              }
+            />
           </div>
         ))}
       </div>
