@@ -1,4 +1,4 @@
-# Accordion Props
+﻿# Accordion Props
 
 ## Accordion Root
 

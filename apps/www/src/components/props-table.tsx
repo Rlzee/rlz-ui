@@ -11,7 +11,7 @@ const PropsTable = ({ title, props, className }: PropsTableProps) => {
   return (
     <div className={className}>
       {title && (
-        <h4 className="mt-6 text-lg text-foreground font-medium">{title}</h4>
+        <h4 className="text-md text-foreground font-medium capitalize">{title}</h4>
       )}
       <Table containerClassName="border-border border mt-2 rounded-lg bg-background-secondary">
         <Table.Header>

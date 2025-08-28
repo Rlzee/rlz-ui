@@ -13,10 +13,7 @@ const ComponentProps = ({ name }: { name: keyof typeof props }) => {
       <div className="space-y-8">
         {Object.entries(componentProps).map(([subComponentName, propsData]) => (
           <div key={subComponentName}>
-            <h3 className="text-lg font-semibold mb-4 capitalize">
-              {name}.{subComponentName === 'root' ? '(root)' : subComponentName}
-            </h3>
-            <PropsTable props={propsData} />
+            <PropsTable props={propsData} title={`${name}.${subComponentName === 'root' ? '(root)' : subComponentName}`} />
           </div>
         ))}
       </div>
