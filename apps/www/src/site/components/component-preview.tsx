@@ -22,21 +22,20 @@ const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
         <ToggleGroup
           type="single"
           defaultValue="preview"
-          className="w-fit gap-2"
+          className="w-fit bg-background-secondary p-1 rounded-lg"
           aria-label="View Mode"
+          size="custom"
         >
           <ToggleGroup.Item
             value="preview"
-            className="rounded-md p-4"
-            size="sm"
+            className="rounded-md px-4 hover:bg-transparent cursor-pointer"
             onClick={() => setView("preview")}
           >
             Preview
           </ToggleGroup.Item>
           <ToggleGroup.Item
             value="code"
-            className="rounded-md"
-            size="sm"
+            className="rounded-md px-4 hover:bg-transparent cursor-pointer"
             onClick={() => setView("code")}
           >
             Code

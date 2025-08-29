@@ -54,12 +54,20 @@ export default async function DocPage({ params }: DocPageProps) {
           <ToggleGroup
             type="single"
             defaultValue="next"
-            className="border-border border"
+            className="w-fit bg-background-secondary p-1 rounded-lg"
+            size="custom"
           >
-            <ToggleGroupItem value="next" className="px-4">
+            <ToggleGroupItem
+              value="next"
+              className="rounded-md px-4 hover:bg-transparent cursor-pointer"
+            >
               Next.js
             </ToggleGroupItem>
-            <ToggleGroupItem value="vite" disabled>
+            <ToggleGroupItem
+              value="vite"
+              disabled
+              className="rounded-md px-4 hover:bg-transparent cursor-pointer"
+            >
               Vite
             </ToggleGroupItem>
           </ToggleGroup>

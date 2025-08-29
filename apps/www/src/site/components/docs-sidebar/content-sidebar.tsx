@@ -22,7 +22,7 @@ const ContentSidebar = ({
   const isHydrated = useHydration();
 
   return (
-    <Sidebar.Group>
+    <Sidebar.Group className="px-6">
       <Sidebar.GroupContent>
         <Sidebar.Menu className="gap-0">
           {label && (

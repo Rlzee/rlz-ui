@@ -13,8 +13,8 @@ const PropsTable = ({ title, props, className }: PropsTableProps) => {
       {title && (
         <h4 className="text-md text-foreground font-medium capitalize">{title}</h4>
       )}
-      <Table containerClassName="border-border border mt-2 rounded-lg bg-background-secondary">
-        <Table.Header>
+      <Table containerClassName="border-border border mt-2 rounded-lg">
+        <Table.Header className="bg-background-secondary">
           <Table.Row>
             <Table.Cell className="w-[200px] font-medium">Prop</Table.Cell>
             <Table.Cell className="w-[300px] font-medium">Type</Table.Cell>

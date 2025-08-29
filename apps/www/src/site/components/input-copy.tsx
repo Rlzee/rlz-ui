@@ -95,7 +95,7 @@ export const InputCopyCLI = ({
           {packageManagers.map((manager) => (
             <Toggle
               key={manager}
-              className="h-6 w-auto mr-1"
+              className="h-6 w-auto mr-1 hover:bg-transparent cursor-pointer"
               pressed={pm === manager}
               onPressedChange={() => setPm(manager)}
               aria-pressed={pm === manager}
