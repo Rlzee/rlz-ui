@@ -18,7 +18,7 @@ const SiteHeader = ({ config }: { config: DocsConfig }) => {
   const { mainNav } = config;
 
   return (
-    <Header blur={!open} classNameContainer="border-b border-border">
+    <Header blur={!open} classNameContainer="border-b border-border md:px-6 px-4">
       <Header.Nav>
         {mainNav.map((item) => (
           <Header.NavLink
@@ -59,7 +59,7 @@ const SiteHeader = ({ config }: { config: DocsConfig }) => {
           </Button>
         </Header.MobileTrigger>
         <Header.MobileContent blur>
-          <Header.MobileNav>
+          <Header.MobileNav className="md:px-6 px-4">
             <Header.MobileLabel>Menu</Header.MobileLabel>
             <Header.MobileGroup>
               {mainNav.map((item) => (

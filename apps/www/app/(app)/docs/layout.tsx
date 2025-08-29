@@ -26,7 +26,7 @@ export default function DocsLayout({
     <Sidebar.Provider className="min-h-[calc(100vh-56px)]">
       <AppSidebar config={docsConfig} />
       <Sidebar.Inset className="overflow-auto max-h-[calc(100vh-56px)] scrollbar-hide">
-        <header className="bg-background/60 backdrop-blur-lg sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-dashed border-border px-4 justify-between">
+        <header className="bg-background/60 backdrop-blur-lg sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-dashed border-border md:px-6 px-4 justify-between">
           <div className="flex items-center gap-2">
             <h1 className="text-lg font-semibold">{title}</h1>
           </div>
@@ -39,7 +39,7 @@ export default function DocsLayout({
             </Button>
           </div>
         </header>
-        <div className="flex flex-col px-4 lg:px-12 py-6">{children}</div>
+        <div className="flex flex-col px-4 sm:px-8 lg:px-24 py-6">{children}</div>
       </Sidebar.Inset>
       <AppSidebar side="right" config={docsConfig} />
     </Sidebar.Provider>
