@@ -4,7 +4,7 @@ const code = `import { Accordion } from "@ui/components/accordion";
 
 export default function Example() {
   return (
-    <Accordion type="single" collapsible className="max-w-[600px] mx-auto">
+    <Accordion type="single" collapsible>
       <Accordion.Item value="item-1">
         <Accordion.Header>
           <Accordion.Trigger>

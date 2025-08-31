@@ -1,0 +1,53 @@
+---
+title: This is an example of an button group component.
+component: true
+---
+
+<ComponentPreview name="buttonGroup" />
+
+# Installation
+```bash
+npm: npx rlz@latest add button-group
+pnpm: pnpm dlx rlz@latest add button-group
+yarn: yarn rlz@latest add button-group
+bun: bunx --bun rlz@latest add button-group
+```
+
+# Usage
+```tsx
+import { ButtonGroup } from "@ui/components/button-group"
+```
+
+```tsx
+<ButtonGroup variant="outline" size="sm">
+  <ButtonGroup.Item>Button 1</ButtonGroup.Item>
+</ButtonGroup>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="buttonGroup" />
+
+<MarkdownFallback>
+
+## ButtonGroup
+
+| Prop      | Type                                                                 | Description                                                      | Default      |
+|-----------|---------------------------------------------------------------------|------------------------------------------------------------------|--------------|
+| variant   | "primary" \| "secondary" \| "outline" \| "ghost" \| "destructive" \| "link" | Définit le style du groupe de boutons.                          | "primary"    |
+| size      | "default" \| "sm" \| "lg" \| "icon"                                 | Définit la taille du groupe de boutons.                          | "default"    |
+| className | string                                                              | Classes CSS personnalisées.                                      | ""           |
+| children  | ReactNode                                                           | Les éléments enfants (généralement des boutons).                 | -            |
+| ...props  | All native `<div>` element props                                    | Props HTML standards pour `<div>`.                               | {}           |
+
+## ButtonGroup.Item
+
+| Prop      | Type                                                                 | Description                                                      | Default      |
+|-----------|---------------------------------------------------------------------|------------------------------------------------------------------|--------------|
+| variant   | "primary" \| "secondary" \| "outline" \| "ghost" \| "destructive" \| "link" | Définit le style du bouton dans le groupe.                      | "primary"    |
+| size      | "default" \| "sm" \| "lg" \| "icon"                                 | Définit la taille du bouton dans le groupe.                      | "default"    |
+| asChild   | boolean                                                             | Rend le bouton comme un autre composant via Slot.                | false        |
+| className | string                                                              | Classes CSS personnalisées.                                      | ""           |
+| ...props  | All native `<button>` element props                                 | Props HTML standards pour `<button>`.                            |              |
+
+</MarkdownFallback>

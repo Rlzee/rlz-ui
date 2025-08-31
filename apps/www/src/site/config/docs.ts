@@ -38,7 +38,9 @@ export const docsConfig: DocsConfig = {
     },
     itemsRight: {
       OneThisPage: [
+        { title: "Preview", href: "" },
         { title: "Installation", href: "" },
+        { title: "Usage", href: "" },
         { title: "Props", href: "" },
       ],
     },
