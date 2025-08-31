@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { ToggleGroup } from "@ui/components/toggle-group";
 import { BorderFlash } from "@ui/components/animations/border-flash";
-import { CodeWrapper } from "@ui/components/code-wrapper";
 import { Clipboard } from "./clipboard";
+import { CodeBlock } from "./code-block";
 
 import { demos } from "./demo/demos";
 
@@ -49,21 +49,7 @@ const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
           </BorderFlash.BoxContent>
         </BorderFlash.Box>
       ) : (
-        <div className="relative">
-          <div className="absolute right-4 top-4">
-            <Clipboard text={example.code} />
-          </div>
-          <CodeWrapper
-            code={example.code}
-            language="tsx"
-            showLineNumbers={true}
-            customStyle={{
-              borderRadius: "0.5rem",
-              backgroundColor: "var(--background-secondary)",
-              maxHeight: "450px",
-            }}
-          />
-        </div>
+        <CodeBlock code={example.code} />
       )}
     </div>
   );

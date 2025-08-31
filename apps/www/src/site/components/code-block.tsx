@@ -7,7 +7,20 @@ const CodeBlock = ({ code }: { code: string }) => {
       <div className="absolute top-2 right-2">
         <Clipboard text={code} />
       </div>
-      <CodeWrapper code={code} language="tsx" showLineNumbers={true} />
+      <CodeWrapper
+        code={code}
+        language="tsx"
+        showLineNumbers={true}
+        customStyle={{
+          background: "var(--background-secondary)",
+          borderRadius: "0.5rem",
+          maxHeight: "450px",
+          /* Hide scrollbar for Webkit browsers */
+          scrollbarWidth: "none", // Firefox
+          msOverflowStyle: "none", // IE 10+
+          overflow: "auto",
+        }}
+      />
     </div>
   );
 };

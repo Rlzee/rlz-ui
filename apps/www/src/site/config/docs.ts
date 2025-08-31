@@ -25,12 +25,12 @@ export const docsConfig: DocsConfig = {
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
         { title: "Avatar", href: "/docs/components/avatar" },
-        { title: "Badge", href: "/docs/components/badge" },
-        { title: "Breadcrumb", href: "/docs/components/breadcrumb" },
+        { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
-        { title: "Card", href: "/docs/components/card" },
-        { title: "Collapsible", href: "/docs/components/collapsible" },
-        { title: "Dialog", href: "/docs/components/dialog" },
+        { title: "Input", href: "/docs/components/input" },
+        { title: "Input Addon", href: "/docs/components/input-addon" },
+        { title: "Label", href: "/docs/components/label" },
+        { title: "Textarea", href: "/docs/components/textarea" },
       ],
       Text: [
         { title: "Gradient Text", href: "/docs/components/gradient-text" },
