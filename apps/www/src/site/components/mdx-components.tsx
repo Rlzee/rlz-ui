@@ -65,7 +65,7 @@ const components = {
         }
       }
 
-      return <InputCopyCLI commands={commands} wrapperClassName="mt-6" />;
+      return <InputCopyCLI commands={commands} wrapperClassName="mt-2" />;
     }
 
     return <pre>{code}</pre>; // fallback

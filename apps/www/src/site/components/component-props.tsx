@@ -12,7 +12,7 @@ const ComponentProps = ({ name }: { name: keyof typeof props }) => {
     const hasMain = "main" in componentProps;
 
     return (
-      <div className="space-y-8">
+      <div>
         {Object.entries(componentProps).map(([subComponentName, propsData]) => (
           <div key={subComponentName}>
             <PropsTable

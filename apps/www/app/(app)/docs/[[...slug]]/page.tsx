@@ -31,8 +31,8 @@ export default async function DocPage({ params }: DocPageProps) {
   }
 
   return (
-    <div className="flex flex-col flex-1 gap-8">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col flex-1">
+      <div className="flex items-center justify-between md:mb-12 mb-8 mt-2">
         <p className="text-muted-foreground">{doc.title}</p>
         {doc.links && doc.component && (
           <div className="flex items-center gap-4">

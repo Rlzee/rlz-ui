@@ -1,5 +1,6 @@
 import { Table } from "@ui/components/table";
 import { type PropRow } from "@site/types/props";
+import { cn } from "@ui/lib/utils";
 
 interface PropsTableProps {
   title?: string;
@@ -9,11 +10,11 @@ interface PropsTableProps {
 
 const PropsTable = ({ title, props, className }: PropsTableProps) => {
   return (
-    <div className={className}>
+    <div className={cn("py-3.5", className)}>
       {title && (
         <h4 className="text-md text-foreground font-medium capitalize">{title}</h4>
       )}
-      <Table containerClassName="border-border border mt-2 rounded-lg">
+      <Table containerClassName="mt-2 rounded-lg border-border border">
         <Table.Header className="bg-background-secondary">
           <Table.Row>
             <Table.Cell className="w-[200px] font-medium">Prop</Table.Cell>
