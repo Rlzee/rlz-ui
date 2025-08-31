@@ -31,10 +31,10 @@ export default function DocsLayout({
             <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="icon" className="h-8 w-8">
+            <Button variant="secondary" size="icon" className="h-8 w-8">
               <ArrowLeft className="h-4 w-4" />
             </Button>
-            <Button variant="outline" size="icon" className="h-8 w-8">
+            <Button variant="secondary" size="icon" className="h-8 w-8">
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
