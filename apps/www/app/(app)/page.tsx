@@ -39,8 +39,8 @@ export default function IndexPage() {
               <Button asChild>
                 <Link href="/docs">Get Started</Link>
               </Button>
-              <Button variant="outline" asChild>
-                <Link href="/docs/components">Explore</Link>
+              <Button variant="secondary" asChild>
+                <Link href="/docs/components">View Components</Link>
               </Button>
             </div>
           </div>
