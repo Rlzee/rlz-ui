@@ -32,10 +32,16 @@ const components = {
   },
   pre: ({ children }: any) => {
     const child = children.props;
-    const code = child.children || "";
+    let code = child.children || "";
     const language = child.className?.replace("language-", "") || "";
 
     if (language === "tsx") {
+      // Remove leading/trailing empty lines and trim
+      code = code.split("\n").filter((line: string, idx: number, arr: string[]) => {
+        // Remove first/last line if empty
+        if ((idx === 0 || idx === arr.length - 1) && line.trim() === "") return false;
+        return true;
+      }).join("\n").trim();
       return <CodeBlock code={code} />;
     }
 

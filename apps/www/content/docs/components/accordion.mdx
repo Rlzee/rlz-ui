@@ -13,6 +13,25 @@ yarn: yarn rlz@latest add accordion
 bun: bunx --bun rlz@latest add accordion
 ```
 
+# Usage
+```tsx
+import { Accordion } from "@ui/components/accordion"
+```
+
+```tsx
+<Accordion type="single" collapsible>
+    <Accordion.Item value="item-1">
+        <Accordion.Header>
+          <Accordion.Trigger>
+            Item 1
+            <Accordion.Icon />
+          </Accordion.Trigger>
+        </Accordion.Header>
+        <Accordion.Content>Content for item 1.</Accordion.Content>
+    </Accordion.Item>
+</Accordion>
+```
+
 # Props
 <ComponentProps name="accordion" />
 

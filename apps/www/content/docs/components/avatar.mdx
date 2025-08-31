@@ -13,6 +13,27 @@ yarn: yarn rlz@latest add avatar
 bun: bunx --bun rlz@latest add avatar
 ```
 
+# Usage
+```tsx
+import { Avatar } from "@ui/components/Avatar"
+```
+
+```tsx
+<Avatar
+  src="/c.gif"
+  alt="Avatar"
+  fallback="CN"
+  size="lg"
+/>
+```
+## or use it as is for better personalisation
+```tsx
+<Avatar.Root>
+  <Avatar.Image src="/c.gif" alt="Avatar" />
+  <Avatar.Fallback>CN</Avatar.Fallback>
+</Avatar.Root>
+```
+
 # Props
 <ComponentProps name="avatar" />
 
