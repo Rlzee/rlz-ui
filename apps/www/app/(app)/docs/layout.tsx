@@ -28,7 +28,7 @@ export default function DocsLayout({
       <Sidebar.Inset className="overflow-auto max-h-[calc(100vh-56px)] scrollbar-hide">
         <header className="bg-background/60 backdrop-blur-lg sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b border-dashed border-border md:px-6 px-4 justify-between">
           <div className="flex items-center gap-2">
-            <h1 className="text-lg font-semibold">{title}</h1>
+            <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="icon" className="h-8 w-8">

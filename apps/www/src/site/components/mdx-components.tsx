@@ -7,6 +7,7 @@ import { ComponentPreview } from "./component-preview";
 import { CodeBlock } from "./code-block";
 import { InputCopyCLI } from "./input-copy";
 import { ComponentProps } from "./component-props";
+import { Separator } from "@ui/components/separator";
 
 const components = {
   BlockDocs,
@@ -14,7 +15,7 @@ const components = {
   ComponentProps,
   h1: ({ className, ...props }: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h1
-      className={cn("mt-8 text-xl text-foreground font-semibold", className)}
+      className={cn("mt-8 text-xl text-foreground font-medium font-heading tracking-tight", className)}
       {...props}
     />
   ),
@@ -26,6 +27,9 @@ const components = {
       )}
       {...props}
     />
+  ),
+  Separator: ({ className, ...props }: React.ComponentProps<typeof Separator>) => (
+    <Separator className={cn("my-2", className)} {...props} />
   ),
   MarkdownFallback: ({ children }: { children: React.ReactNode }) => {
     return null; // site ignore
