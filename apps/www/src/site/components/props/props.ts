@@ -4,6 +4,8 @@ import { buttonPropsExport } from "./button-props";
 import { buttonGroupPropsExport } from "./button-group-props";
 import { badgePropsExport } from "./badge-props";
 import { inputPropsExport } from "./input-props";
+import { textareaPropsExport } from "./textarea-props";
+import { labelPropsExport } from "./label-props";
 
 const props = {
   accordion: accordionProps,
@@ -12,6 +14,8 @@ const props = {
   badge: badgePropsExport,
   buttonGroup: buttonGroupPropsExport,
   input: inputPropsExport,
+  textarea: textareaPropsExport,
+  label: labelPropsExport,
 };
 
 export { props };

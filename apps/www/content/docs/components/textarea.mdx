@@ -1,0 +1,36 @@
+---
+title: This is an example of a textarea component.
+component: true
+---
+
+<ComponentPreview name="textarea" />
+
+# Installation
+```bash
+npm: npx rlz@latest add textarea
+pnpm: pnpm dlx rlz@latest add textarea
+yarn: yarn rlz@latest add textarea
+bun: bunx --bun rlz@latest add textarea
+```
+
+# Usage
+```tsx
+import { Textarea } from "@ui/components/textarea"
+```
+
+```tsx
+<Textarea placeholder="Enter your message..." />
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="textarea" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| `className` | `string` | Predefined styles | Additional CSS classes to apply to the textarea element |
+| ...props | All native `<textarea>` element props | Standard HTML props for `<textarea>`. |  |
+
+</MarkdownFallback>

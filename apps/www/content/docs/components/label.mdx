@@ -1,0 +1,36 @@
+---
+title: This is an example of a label component.
+component: true
+---
+
+<ComponentPreview name="label" />
+
+# Installation
+```bash
+npm: npx rlz@latest add label
+pnpm: pnpm dlx rlz@latest add label
+yarn: yarn rlz@latest add label
+bun: bunx --bun rlz@latest add label
+```
+
+# Usage
+```tsx
+import { Label } from "@ui/components/label"
+```
+
+```tsx
+<Label htmlFor="email">Email</Label>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="label" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| `className` | `string` | Predefined styles | Additional CSS classes to apply to the label element |
+| ...props | All Radix UI Label props | Standard props from Radix UI Label component. |  |
+
+</MarkdownFallback>
