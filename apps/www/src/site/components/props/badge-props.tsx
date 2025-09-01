@@ -12,13 +12,18 @@ export const badgeProps: PropRow[] = [
     default: "false",
   },
   {
+    prop: "className",
+    type: "string",
+    default: "Predefined styles",
+  },
+  {
     prop: "...props",
     type: "Record<string, any>",
     default: "{}",
-  }
+  },
 ];
 
 const badgePropsExport = {
-    main: badgeProps,
+  main: badgeProps,
 };
 export { badgePropsExport };

@@ -3,6 +3,7 @@ import { avatarPropsExport } from "./avatar-props";
 import { buttonPropsExport } from "./button-props";
 import { buttonGroupPropsExport } from "./button-group-props";
 import { badgePropsExport } from "./badge-props";
+import { inputPropsExport } from "./input-props";
 
 const props = {
   accordion: accordionProps,
@@ -10,6 +11,7 @@ const props = {
   button: buttonPropsExport,
   badge: badgePropsExport,
   buttonGroup: buttonGroupPropsExport,
+  input: inputPropsExport,
 };
 
 export { props };

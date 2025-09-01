@@ -17,6 +17,11 @@ export const buttonProps: PropRow[] = [
     default: "false",
   },
   {
+    prop: "className",
+    type: "string",
+    default: "Predefined styles",
+  },
+  {
     prop: "...props",
     type: "Record<string, any>",
     default: "{}",
