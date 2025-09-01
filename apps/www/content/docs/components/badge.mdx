@@ -1,0 +1,37 @@
+---
+title: This is an example of an badge component.
+component: true
+---
+
+<ComponentPreview name="badge" />
+
+# Installation
+```bash
+npm: npx rlz@latest add badge
+pnpm: pnpm dlx rlz@latest add badge
+yarn: yarn rlz@latest add badge
+bun: bunx --bun rlz@latest add badge
+```
+
+# Usage
+```tsx
+import { Badge } from "@ui/components/badge"
+```
+
+```tsx
+<Badge variant="primary">Primary Badge</Badge>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="badge" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"primary"` \| `"outline"` \| `"background"` | Sets the badge style. | `"primary"` |
+| asChild | `boolean` | Renders the badge as another component via Slot. | `false` |
+| ...props | All native `<span>` element props | Standard HTML props for `<span>`. |  |
+
+</MarkdownFallback>

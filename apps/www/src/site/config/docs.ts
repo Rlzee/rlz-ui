@@ -25,6 +25,7 @@ export const docsConfig: DocsConfig = {
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
         { title: "Avatar", href: "/docs/components/avatar" },
+        { title: "Badge", href: "/docs/components/badge" },
         { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
         { title: "Input", href: "/docs/components/input" },
