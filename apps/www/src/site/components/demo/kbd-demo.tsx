@@ -6,8 +6,7 @@ export default function Example() {
   return (
     <Kbd shortcutKey="⌘K" />
   );
-};
-`;
+};`;
 
 const Component = () => {
   return (
@@ -19,5 +18,5 @@ const Component = () => {
 
 export const KbdDemo = {
   code,
-  component: <Component />
+  component: <Component />,
 };

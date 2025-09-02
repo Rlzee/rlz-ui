@@ -11,21 +11,20 @@ export function Example() {
   );
 };
 
-export default InputAddonDemo;
-`;
+export default InputAddonDemo;`;
 
 const Component = () => {
   return (
     <div className="mx-auto w-[300px]">
-    <InputAddon placeholder="0.00" className="pr-12 pl-8">
-      <InputAddon.Left>$</InputAddon.Left>
-      <InputAddon.Right>USD</InputAddon.Right>
-    </InputAddon>
+      <InputAddon placeholder="0.00" className="pr-12 pl-8">
+        <InputAddon.Left>$</InputAddon.Left>
+        <InputAddon.Right>USD</InputAddon.Right>
+      </InputAddon>
     </div>
   );
 };
 
 export const InputAddonDemo = {
-    code,
-    component: <Component />
-}
+  code,
+  component: <Component />,
+};
