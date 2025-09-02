@@ -130,3 +130,14 @@ input[type="password"]::-webkit-textfield-decoration-container {
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+/* Text Selection */
+::selection {
+  background-color: var(--color-foreground);
+  color: var(--color-black);
+}
+
+::-moz-selection {
+  background-color: var(--color-foreground);
+  color: var(--color-black);
+}
