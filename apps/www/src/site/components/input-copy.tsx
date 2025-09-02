@@ -53,7 +53,12 @@ const InputCopyWithHeader = ({
   ...props
 }: InputCopyWithHeaderProps) => {
   return (
-    <div className={cn("relative bg-background-secondary rounded-lg", wrapperClassName)}>
+    <div
+      className={cn(
+        "relative bg-background-secondary rounded-lg",
+        wrapperClassName
+      )}
+    >
       <div className="h-12 w-full flex items-center px-3 text-muted-foreground text-sm border-b border-border">
         {headerContent}
       </div>
@@ -62,7 +67,6 @@ const InputCopyWithHeader = ({
         readOnly={readOnly}
         className={cn(
           "rounded-none h-12 border-0 text-muted-foreground bg-transparent text-sm",
-          "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
           className
         )}
         {...props}
@@ -91,7 +95,10 @@ export const InputCopyCLI = ({
     <InputCopyWithHeader
       value={commands[pm]}
       readOnly={readOnly}
-      className={className}
+      className={cn(
+        "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
+        className
+      )}
       wrapperClassName={wrapperClassName}
       headerContent={
         <>
