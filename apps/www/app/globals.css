@@ -105,6 +105,7 @@
   --warning: oklch(0.7924 0.2066 101.27);
 }
 
+/* fonts */
 h1,
 h2,
 h3 {
@@ -115,6 +116,7 @@ body {
   font-family: var(--font-inter), sans-serif;
 }
 
+/* Input password */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear,
 input[type="password"]::-webkit-contacts-auto-fill-button,
@@ -123,6 +125,7 @@ input[type="password"]::-webkit-textfield-decoration-container {
   display: none !important;
 }
 
+/* Scrollbar Hide */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
