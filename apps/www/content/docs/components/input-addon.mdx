@@ -1,0 +1,67 @@
+---
+title: This is an example of an input addon component.
+component: true
+---
+
+<ComponentPreview name="inputAddon" />
+
+# Installation
+```bash
+npm: npx rlz@latest add input-addon
+pnpm: pnpm dlx rlz@latest add input-addon
+yarn: yarn rlz@latest add input-addon
+bun: bunx --bun rlz@latest add input-addon
+```
+
+# Usage
+```tsx
+import { InputAddon } from "@ui/components/input-addon"
+```
+
+```tsx
+<InputAddon placeholder="Enter your email...">
+  <InputAddon.Left>
+    <MailIcon />
+  </InputAddon.Left>
+  <InputAddon.Right>
+    <SearchIcon />
+  </InputAddon.Right>
+</InputAddon>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="inputAddon" />
+
+<MarkdownFallback>
+
+## InputAddon (Main)
+
+An input component with left and right addon support.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The addon components (Left/Right). | `undefined` |
+| classNameContent | `string` | Additional CSS classes for the container. | `undefined` |
+| type | `string` | Sets the input type (text, email, password, etc.). | `"text"` |
+| ...props | All native `<input>` element props | Standard HTML props for `<input>`. |  |
+
+## InputAddon.Left
+
+The left addon component for icons or text.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content to render in the left addon. | - |
+| className | `string` | Additional CSS classes for the left addon. | Predefined styles |
+
+## InputAddon.Right
+
+The right addon component for icons or text.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content to render in the right addon. | - |
+| className | `string` | Additional CSS classes for the right addon. | Predefined styles |
+
+</MarkdownFallback>

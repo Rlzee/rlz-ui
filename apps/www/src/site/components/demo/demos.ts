@@ -6,6 +6,7 @@ import { BadgeDemo } from "./badge-demo";
 import { InputDemo } from "./input-demo";
 import { TextareaDemo } from "./textarea-demo";
 import { LabelDemo } from "./label-demo";
+import { InputAddonDemo } from "./input-addon-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -16,4 +17,5 @@ export const demos = {
   buttonGroup: ButtonGroupDemo,
   input: InputDemo,
   label: LabelDemo,
+  inputAddon: InputAddonDemo,
 };

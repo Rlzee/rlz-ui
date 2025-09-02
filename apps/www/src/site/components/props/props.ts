@@ -6,6 +6,7 @@ import { badgePropsExport } from "./badge-props";
 import { inputPropsExport } from "./input-props";
 import { textareaPropsExport } from "./textarea-props";
 import { labelPropsExport } from "./label-props";
+import { inputAddonPropsExport } from "./input-addon-props";
 
 const props = {
   accordion: accordionProps,
@@ -16,6 +17,7 @@ const props = {
   input: inputPropsExport,
   textarea: textareaPropsExport,
   label: labelPropsExport,
+  inputAddon: inputAddonPropsExport,
 };
 
 export { props };
