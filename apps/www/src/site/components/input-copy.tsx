@@ -62,6 +62,7 @@ const InputCopyWithHeader = ({
         readOnly={readOnly}
         className={cn(
           "rounded-none h-12 border-0 text-muted-foreground bg-transparent text-sm",
+          "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
           className
         )}
         {...props}

@@ -1,0 +1,38 @@
+---
+title: This is an example of a kbd component.
+component: true
+---
+
+<ComponentPreview name="kbd" />
+
+# Installation
+```bash
+npm: npx rlz@latest add kbd
+pnpm: pnpm dlx rlz@latest add kbd
+yarn: yarn rlz@latest add kbd
+bun: bunx --bun rlz@latest add kbd
+```
+
+# Usage
+```tsx
+import { Kbd } from "@ui/components/kbd"
+```
+
+```tsx
+<Kbd shortcutKey="⌘K" onShortcutPressed={() => console.log("Shortcut pressed!")} />
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="kbd" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| shortcutKey | `string` | The keyboard shortcut to listen for (e.g., "Ctrl+K", "⌘K"). | - |
+| onShortcutPressed | `() => void` | Callback function executed when the shortcut is pressed. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the kbd element. | Predefined styles |
+| ...props | All native `<kbd>` element props | Standard HTML props for `<kbd>`. |  |
+
+</MarkdownFallback>

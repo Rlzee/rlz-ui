@@ -7,6 +7,7 @@ import { InputDemo } from "./input-demo";
 import { TextareaDemo } from "./textarea-demo";
 import { LabelDemo } from "./label-demo";
 import { InputAddonDemo } from "./input-addon-demo";
+import { KbdDemo } from "./kbd-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -18,4 +19,5 @@ export const demos = {
   input: InputDemo,
   label: LabelDemo,
   inputAddon: InputAddonDemo,
+  kbd: KbdDemo
 };
