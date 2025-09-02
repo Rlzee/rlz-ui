@@ -137,10 +137,10 @@ input[type="password"]::-webkit-textfield-decoration-container {
 /* Text Selection */
 ::selection {
   background-color: var(--color-foreground);
-  color: var(--color-black);
+  color: var(--color-background);
 }
 
 ::-moz-selection {
   background-color: var(--color-foreground);
-  color: var(--color-black);
+  color: var(--color-background);
 }
