@@ -1,0 +1,40 @@
+---
+title: This is an example of a divider component.
+component: true
+---
+
+<ComponentPreview name="divider" />
+
+# Installation
+```bash
+npm: npx rlz@latest add divider
+pnpm: pnpm dlx rlz@latest add divider
+yarn: yarn rlz@latest add divider
+bun: bunx --bun rlz@latest add divider
+```
+
+# Usage
+```tsx
+import { Divider } from "@ui/components/divider"
+```
+
+```tsx
+<Divider position="left" gradient>
+  Left positioned with gradient
+</Divider>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="divider" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| position | `"left"` \| `"right"` \| `"center"` | Position of the text content within the divider. | `"center"` |
+| children | `ReactNode` | The content to display in the divider (usually text). | `undefined` |
+| gradient | `boolean` | Whether to use gradient effect on the divider lines. | `false` |
+| className | `string` | Additional CSS classes to apply to the divider. | `undefined` |
+
+</MarkdownFallback>

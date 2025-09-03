@@ -29,6 +29,7 @@ export const docsConfig: DocsConfig = {
         { title: "Breadcrumb", href: "/docs/components/breadcrumb" },
         { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
+        { title: "Divider", href: "/docs/components/divider" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input", href: "/docs/components/input" },
         { title: "Kbd", href: "/docs/components/kbd" },

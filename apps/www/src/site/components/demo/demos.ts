@@ -9,6 +9,7 @@ import { LabelDemo } from "./label-demo";
 import { InputAddonDemo } from "./input-addon-demo";
 import { KbdDemo } from "./kbd-demo";
 import { BreadcrumbDemo } from "./breadcrumb-demo";
+import { DividerDemo } from "./divider-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -17,6 +18,7 @@ export const demos = {
   breadcrumb: BreadcrumbDemo,
   textarea: TextareaDemo,
   button: ButtonDemo,
+  divider: DividerDemo,
   buttonGroup: ButtonGroupDemo,
   input: InputDemo,
   label: LabelDemo,
