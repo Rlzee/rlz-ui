@@ -8,6 +8,7 @@ import { textareaPropsExport } from "./textarea-props";
 import { labelPropsExport } from "./label-props";
 import { inputAddonPropsExport } from "./input-addon-props";
 import { kbdPropsExport } from "./kbd-props";
+import { breadcrumbPropsExport } from "./breadcrump-props";
 
 const props = {
   accordion: accordionProps,
@@ -19,7 +20,8 @@ const props = {
   textarea: textareaPropsExport,
   label: labelPropsExport,
   inputAddon: inputAddonPropsExport,
-  kbd: kbdPropsExport
+  kbd: kbdPropsExport,
+  breadcrumb: breadcrumbPropsExport
 };
 
 export { props };

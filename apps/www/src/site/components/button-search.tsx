@@ -29,8 +29,8 @@ const ButtonSearch = ({
       onClick={() => openDialog(CommandDialogName)}
       className={cn(
         "flex justify-between items-center gap-2 px-3 py-1.5 font-normal",
-        fullWidth 
-          ? "w-full" 
+        fullWidth
+          ? "w-full"
           : "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
         className
       )}

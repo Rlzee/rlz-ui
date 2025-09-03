@@ -8,11 +8,13 @@ import { TextareaDemo } from "./textarea-demo";
 import { LabelDemo } from "./label-demo";
 import { InputAddonDemo } from "./input-addon-demo";
 import { KbdDemo } from "./kbd-demo";
+import { BreadcrumbDemo } from "./breadcrumb-demo";
 
 export const demos = {
   accordion: AccordionDemo,
   avatar: AvatarDemo,
   badge: BadgeDemo,
+  breadcrumb: BreadcrumbDemo,
   textarea: TextareaDemo,
   button: ButtonDemo,
   buttonGroup: ButtonGroupDemo,

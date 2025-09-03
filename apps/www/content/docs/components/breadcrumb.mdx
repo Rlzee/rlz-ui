@@ -1,0 +1,108 @@
+---
+title: This is an example of a breadcrumb component.
+component: true
+---
+
+<ComponentPreview name="breadcrumb" />
+
+# Installation
+```bash
+npm: npx rlz@latest add breadcrumb
+pnpm: pnpm dlx rlz@latest add breadcrumb
+yarn: yarn rlz@latest add breadcrumb
+bun: bunx --bun rlz@latest add breadcrumb
+```
+
+# Usage
+```tsx
+import { Breadcrumb } from "@ui/components/breadcrumb"
+```
+
+```tsx
+<Breadcrumb>
+  <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item href="/docs">Docs</Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item isActive>Breadcrumb</Breadcrumb.Item>
+</Breadcrumb>
+```
+## or use it as is for better personalisation
+```tsx
+<Breadcrumb.Root>
+    <Breadcrumb.Group>
+        <Breadcrumb.List>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+            <Breadcrumb.Separator>{">"}</Breadcrumb.Separator>
+            <Breadcrumb.Item href="/">...</Breadcrumb.Item>
+            <Breadcrumb.Separator>{">"}</Breadcrumb.Separator>
+            <Breadcrumb.Item href="/creator" isActive>
+                Creator
+            </Breadcrumb.Item>
+        </Breadcrumb.List>
+    </Breadcrumb.Group>
+</Breadcrumb.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="breadcrumb" />
+
+<MarkdownFallback>
+
+## Breadcrumb (Main)
+
+A navigation component that shows the current page's location within a navigational hierarchy.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The breadcrumb items and separators. | - |
+
+## Breadcrumb.Root
+
+The root navigation element of the breadcrumb.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| ...props | All native `<nav>` element props | Standard HTML props for `<nav>`. |  |
+
+## Breadcrumb.Group
+
+The ordered list container for breadcrumb items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes for the group. | Predefined styles |
+| ...props | All native `<ol>` element props | Standard HTML props for `<ol>`. |  |
+
+## Breadcrumb.List
+
+The list item container for individual breadcrumb content.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes for the list. | Predefined styles |
+| ...props | All native `<li>` element props | Standard HTML props for `<li>`. |  |
+
+## Breadcrumb.Item
+
+An individual breadcrumb item, typically a link.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| isActive | `boolean` | Whether this item represents the current page. | `false` |
+| asChild | `boolean` | Renders the item as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes for the item. | Predefined styles |
+| ...props | All native `<a>` element props | Standard HTML props for `<a>`. |  |
+
+## Breadcrumb.Separator
+
+A separator between breadcrumb items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Custom separator content. | `"/"` |
+| className | `string` | Additional CSS classes for the separator. | Predefined styles |
+| ...props | All native `<span>` element props | Standard HTML props for `<span>`. |  |
+
+</MarkdownFallback>
