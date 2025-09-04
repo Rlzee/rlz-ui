@@ -34,6 +34,7 @@ export const docsConfig: DocsConfig = {
         { title: "Input", href: "/docs/components/input" },
         { title: "Kbd", href: "/docs/components/kbd" },
         { title: "Label", href: "/docs/components/label" },
+        { title: "Separator", href: "/docs/components/separator" },
         { title: "Textarea", href: "/docs/components/textarea" },
       ],
       Text: [

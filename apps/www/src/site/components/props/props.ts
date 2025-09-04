@@ -10,6 +10,7 @@ import { inputAddonPropsExport } from "./input-addon-props";
 import { kbdPropsExport } from "./kbd-props";
 import { breadcrumbPropsExport } from "./breadcrump-props";
 import { dividerPropsExport } from "./divider-props";
+import { separatorPropsExport } from "./separator-props";
 
 const props = {
   accordion: accordionProps,
@@ -23,7 +24,8 @@ const props = {
   inputAddon: inputAddonPropsExport,
   kbd: kbdPropsExport,
   breadcrumb: breadcrumbPropsExport,
-  divider: dividerPropsExport
+  divider: dividerPropsExport,
+  separator: separatorPropsExport
 };
 
 export { props };
