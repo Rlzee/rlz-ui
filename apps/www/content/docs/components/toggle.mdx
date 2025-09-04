@@ -1,0 +1,46 @@
+---
+title: This is an example of a toggle component.
+component: true
+---
+
+<ComponentPreview name="toggle" />
+
+# Installation
+```bash
+npm: npx rlz@latest add toggle
+pnpm: pnpm dlx rlz@latest add toggle
+yarn: yarn rlz@latest add toggle
+bun: bunx --bun rlz@latest add toggle
+```
+
+# Usage
+```tsx
+import { Toggle } from "@ui/components/toggle"
+```
+
+```tsx
+<Toggle>Toggle Me</Toggle>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="toggle" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"default"` \| `"outline"` | Sets the toggle style variant. | `"default"` |
+| size | `"default"` \| `"sm"` \| `"lg"` \| Sets the toggle size. | `"default"` |
+| pressed | `boolean` | The controlled pressed state of the toggle. | `undefined` |
+| defaultPressed | `boolean` | The default pressed state when initially rendered. | `false` |
+| onPressedChange | `(pressed: boolean) => void` | Event handler called when the pressed state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the toggle. | `false` |
+| name | `string` | The name of the toggle (useful for form data). | `undefined` |
+| value | `string` | The value given as data when submitted with a name. | `undefined` |
+| required | `boolean` | When true, indicates that the user must toggle before submitting. | `false` |
+| asChild | `boolean` | Renders the toggle as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the toggle. | Predefined styles |
+| ...props | `Record<string, any>` | All other props are forwarded to the underlying element. | `{}` |
+
+</MarkdownFallback>

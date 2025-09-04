@@ -15,6 +15,7 @@ import { separatorBorderPropsExport } from "./separator-border-props";
 import { checkboxPropsExport } from "./checkbox-props";
 import { switchPropsExport } from "./switch-props";
 import { radioGroupPropsExport } from "./radio-group-props";
+import { togglePropsExport } from "./toggle-props";
 
 const props = {
   accordion: accordionProps,
@@ -34,6 +35,7 @@ const props = {
   checkbox: checkboxPropsExport,
   switch: switchPropsExport,
   radioGroup: radioGroupPropsExport,
+  toggle: togglePropsExport,
 };
 
 export { props };
