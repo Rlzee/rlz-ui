@@ -1,0 +1,104 @@
+---
+title: This is an example of a radio group component.
+component: true
+---
+
+<ComponentPreview name="radioGroup" />
+
+# Installation
+```bash
+npm: npx rlz@latest add radio-group
+pnpm: pnpm dlx rlz@latest add radio-group
+yarn: yarn rlz@latest add radio-group
+bun: bunx --bun rlz@latest add radio-group
+```
+
+# Usage
+```tsx
+import { RadioGroup } from "@ui/components/radio-group"
+```
+
+```tsx
+<RadioGroup defaultValue="option1">
+  <RadioGroup.Item value="option1" />
+  <RadioGroup.Item value="option2" />
+  <RadioGroup.Item value="option3" />
+</RadioGroup>
+```
+## or use it as is for better personalisation
+```tsx
+<RadioGroup.Root>
+  <RadioGroup.ItemBase value="custom">
+    <RadioGroup.Indicator>
+      <RadioGroup.Icon />
+    </RadioGroup.Indicator>
+  </RadioGroup.ItemBase>
+</RadioGroup.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="radioGroup" />
+
+<MarkdownFallback>
+
+## RadioGroup (Main)
+
+A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | The controlled value of the radio item to check. | `undefined` |
+| defaultValue | `string` | The value of the radio item that should be checked when initially rendered. | `undefined` |
+| onValueChange | `(value: string) => void` | Event handler called when the value changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with radio items. | `false` |
+| required | `boolean` | When true, indicates that the user must check a radio item before submitting. | `false` |
+| name | `string` | The name of the group (useful for form submission). | `undefined` |
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the component. | `"vertical"` |
+| className | `string` | Additional CSS classes to apply to the radio group. | Predefined styles |
+
+## RadioGroup.Item
+
+A radio item component with built-in indicator and icon.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | The value given as data when submitted with a name. | - |
+| disabled | `boolean` | When true, prevents the user from interacting with the radio item. | `false` |
+| required | `boolean` | When true, indicates that the user must check this radio item. | `false` |
+| asChild | `boolean` | Renders the radio item as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the radio item. | Predefined styles |
+
+## RadioGroup.ItemBase
+
+The base radio item component that contains all the parts of a radio.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content to render inside the radio item. | `undefined` |
+| value | `string` | The value given as data when submitted with a name. | - |
+| disabled | `boolean` | When true, prevents the user from interacting with the radio item. | `false` |
+| asChild | `boolean` | Renders the radio item as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the radio item. | Predefined styles |
+
+## RadioGroup.Indicator
+
+Renders when the radio item is in a checked state.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content to render inside the indicator. | `undefined` |
+| asChild | `boolean` | Renders the indicator as another component via Slot. | `false` |
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| className | `string` | Additional CSS classes to apply to the indicator. | Predefined styles |
+
+## RadioGroup.Icon
+
+The icon displayed inside the radio when checked.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| icon | `ReactNode` | Custom icon to display instead of the default circle icon. | `CircleIcon` |
+| className | `string` | Additional CSS classes to apply to the icon. | Predefined styles |
+
+</MarkdownFallback>

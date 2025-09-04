@@ -14,6 +14,7 @@ import { SeparatorDemo } from "./separator-demo";
 import { SeparatorBorderDemo } from "./separator-border-demo";
 import { CheckboxDemo } from "./checkbox-demo";
 import { SwitchDemo } from "./switch-demo";
+import { RadioGroupDemo } from "./radio-group-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -32,4 +33,5 @@ export const demos = {
   separatorBorder: SeparatorBorderDemo,
   checkbox: CheckboxDemo,
   switch: SwitchDemo,
+  radioGroup: RadioGroupDemo,
 };

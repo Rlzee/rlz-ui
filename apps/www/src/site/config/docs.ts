@@ -35,6 +35,7 @@ export const docsConfig: DocsConfig = {
         { title: "Input", href: "/docs/components/input" },
         { title: "Kbd", href: "/docs/components/kbd" },
         { title: "Label", href: "/docs/components/label" },
+        { title: "Radio Group", href: "/docs/components/radio-group" },
         { title: "Separator Border", href: "/docs/components/separator-border" },
         { title: "Separator", href: "/docs/components/separator" },
         { title: "Switch", href: "/docs/components/switch" },
