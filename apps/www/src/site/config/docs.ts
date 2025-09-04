@@ -41,6 +41,7 @@ export const docsConfig: DocsConfig = {
         { title: "Switch", href: "/docs/components/switch" },
         { title: "Textarea", href: "/docs/components/textarea" },
         { title: "Toggle", href: "/docs/components/toggle" },
+        { title: "Tooltip", href: "/docs/components/tooltip" },
       ],
       // Text: [
       //   { title: "Gradient Text", href: "/docs/components/gradient-text" },

@@ -1,0 +1,94 @@
+---
+title: This is an example of a tooltip component.
+component: true
+---
+
+<ComponentPreview name="tooltip" />
+
+# Installation
+```bash
+npm: npx rlz@latest add tooltip
+pnpm: pnpm dlx rlz@latest add tooltip
+yarn: yarn rlz@latest add tooltip
+bun: bunx --bun rlz@latest add tooltip
+```
+
+# Usage
+```tsx
+import { Tooltip } from "@ui/components/tooltip"
+```
+
+```tsx
+<Tooltip content="This is a tooltip">Hover Me</Tooltip>
+```
+## or use it as is for better personalisation
+```tsx
+<Tooltip.Root>
+  <Tooltip.Trigger>
+    Hover Me
+  </Tooltip.Trigger>
+  <Tooltip.Content>
+    This is a tooltip
+  </Tooltip.Content>
+</Tooltip.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="tooltip" />
+
+<MarkdownFallback>
+
+## Tooltip (Main)
+
+A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| content | `ReactNode` | The content to display in the tooltip. | `undefined` |
+| children | `ReactElement` | The element that triggers the tooltip. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the tooltip content. | `undefined` |
+| side | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | The preferred side of the trigger to render against. | `"top"` |
+| delayDuration | `number` | The duration from when the mouse leaves the trigger until the tooltip closes. | `500` |
+
+## Tooltip.Root
+
+The root component that contains all the parts of a tooltip.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| open | `boolean` | The controlled open state of the tooltip. | `undefined` |
+| defaultOpen | `boolean` | The default open state when initially rendered. | `false` |
+| onOpenChange | `(open: boolean) => void` | Event handler called when the open state changes. | `undefined` |
+| openDelay | `number` | The duration from when the mouse enters the trigger until the tooltip opens. | `500` |
+| closeDelay | `number` | The duration from when the mouse leaves the trigger until the tooltip closes. | `100` |
+
+## Tooltip.Trigger
+
+The button that toggles the tooltip. By default, the Tooltip.Content will position itself against the trigger.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content of the trigger. | `undefined` |
+| asChild | `boolean` | Renders the trigger as another component via Slot. | `true` |
+
+## Tooltip.Content
+
+The component that pops out when the tooltip is open.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| id | `string` | A unique identifier for the tooltip content. | `undefined` |
+| side | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | The preferred side of the trigger to render against. | `"top"` |
+| sideOffset | `number` | The distance in pixels from the trigger. | `6` |
+| align | `"start"` \| `"center"` \| `"end"` | The preferred alignment against the trigger. | `"center"` |
+| alignOffset | `number` | An offset in pixels from the "start" or "end" alignment options. | `0` |
+| avoidCollisions | `boolean` | When true, overrides the side and align preferences to prevent collisions. | `true` |
+| collisionBoundary | `Element \| null \| Array<Element \| null>` | The element used as the collision boundary. | `[]` |
+| collisionPadding | `number \| Partial<Record<Side, number>>` | The distance in pixels from the boundary edges where collision detection should occur. | `0` |
+| arrowPadding | `number` | The padding between the arrow and the edges of the content. | `0` |
+| sticky | `"partial"` \| `"always"` | The sticky behavior on the align axis. | `"partial"` |
+| hideWhenDetached | `boolean` | Whether to hide the content when the trigger becomes fully occluded. | `false` |
+| className | `string` | Additional CSS classes to apply to the tooltip content. | Predefined styles |
+
+</MarkdownFallback>
