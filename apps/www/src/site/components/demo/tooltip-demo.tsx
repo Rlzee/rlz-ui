@@ -6,7 +6,7 @@ import { Button } from "@ui/components/button";
 
 export default function Example() {
     return (
-      <Tooltip content="Hello, I am a tooltip!" side="bottom">
+      <Tooltip content="Hello, I am a tooltip!" side="top">
         <Button variant="outline">Hover me</Button>
       </Tooltip>
     );
@@ -15,7 +15,7 @@ export default function Example() {
 const Component = () => {
   return (
     <div className="flex flex-col gap-4 mx-auto max-w-[100px]">
-      <Tooltip content="Hello, I am a tooltip!" side="bottom">
+      <Tooltip content="Hello, I am a tooltip!" side="top">
         <Button variant="outline">Hover me</Button>
       </Tooltip>
     </div>
