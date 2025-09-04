@@ -37,6 +37,7 @@ export const docsConfig: DocsConfig = {
         { title: "Label", href: "/docs/components/label" },
         { title: "Separator Border", href: "/docs/components/separator-border" },
         { title: "Separator", href: "/docs/components/separator" },
+        { title: "Switch", href: "/docs/components/switch" },
         { title: "Textarea", href: "/docs/components/textarea" },
       ],
       // Text: [

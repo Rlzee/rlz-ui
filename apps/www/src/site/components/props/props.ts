@@ -13,6 +13,7 @@ import { dividerPropsExport } from "./divider-props";
 import { separatorPropsExport } from "./separator-props";
 import { separatorBorderPropsExport } from "./separator-border-props";
 import { checkboxPropsExport } from "./checkbox-props";
+import { switchPropsExport } from "./switch-props";
 
 const props = {
   accordion: accordionProps,
@@ -30,6 +31,7 @@ const props = {
   separator: separatorPropsExport,
   separatorBorder: separatorBorderPropsExport,
   checkbox: checkboxPropsExport,
+  switch: switchPropsExport,
 };
 
 export { props };

@@ -1,0 +1,80 @@
+---
+title: This is an example of a switch component.
+component: true
+---
+
+<ComponentPreview name="switch" />
+
+# Installation
+```bash
+npm: npx rlz@latest add switch
+pnpm: pnpm dlx rlz@latest add switch
+yarn: yarn rlz@latest add switch
+bun: bunx --bun rlz@latest add switch
+```
+
+# Usage
+```tsx
+import { Switch } from "@ui/components/switch"
+```
+
+```tsx
+<Switch
+  checked={isEnabled}
+  onCheckedChange={setIsEnabled}
+/>
+```
+
+```tsx
+<Switch.Root>
+  <Switch.Thumb />
+</Switch.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="switch" />
+
+<MarkdownFallback>
+
+## Switch (Main)
+
+A control that allows the user to toggle between checked and not checked.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| checked | `boolean` | The controlled checked state of the switch. | `undefined` |
+| defaultChecked | `boolean` | The default checked state when initially rendered. | `false` |
+| onCheckedChange | `(checked: boolean) => void` | Event handler called when the checked state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the switch. | `false` |
+| required | `boolean` | When true, indicates that the user must check the switch before submitting. | `false` |
+| name | `string` | The name of the switch (useful for form data). | `undefined` |
+| value | `string` | The value given as data when submitted with a name. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the switch. | Predefined styles |
+
+## Switch.Root
+
+The root component that contains all the parts of a switch.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| checked | `boolean` | The controlled checked state of the switch. | `undefined` |
+| defaultChecked | `boolean` | The default checked state when initially rendered. | `false` |
+| onCheckedChange | `(checked: boolean) => void` | Event handler called when the checked state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the switch. | `false` |
+| required | `boolean` | When true, indicates that the user must check the switch before submitting. | `false` |
+| name | `string` | The name of the switch (useful for form data). | `undefined` |
+| value | `string` | The value given as data when submitted with a name. | `undefined` |
+| asChild | `boolean` | Renders the switch root as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the switch root. | Predefined styles |
+
+## Switch.Thumb
+
+The thumb that is used to visually indicate whether the switch is on or off.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | Renders the thumb as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the thumb. | Predefined styles |
+
+</MarkdownFallback>
