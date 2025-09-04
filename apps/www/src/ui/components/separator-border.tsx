@@ -1,9 +1,9 @@
+import { ComponentProps } from "react";
 import { cn } from "@ui/lib/utils";
-import { motion, type HTMLMotionProps } from "framer-motion";
 
 type Orientation = "horizontal" | "vertical";
 
-interface SeparatorProps extends HTMLMotionProps<"div"> {
+interface SeparatorProps extends ComponentProps<"div"> {
   orientation?: Orientation;
   className?: string;
 }
@@ -16,7 +16,7 @@ const SeparatorBorder = ({
   const isHorizontal = orientation === "horizontal";
 
   return (
-    <motion.div
+    <div
       className={cn(
         isHorizontal ? "w-full h-6 border-y" : "h-full w-6 border-x",
         "relative z-[1] border-border",
@@ -39,7 +39,7 @@ const SeparatorBorder = ({
           <rect width="100%" height="100%" fill="url(#diagonalHatch)" />
         </svg>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

@@ -11,6 +11,7 @@ import { KbdDemo } from "./kbd-demo";
 import { BreadcrumbDemo } from "./breadcrumb-demo";
 import { DividerDemo } from "./divider-demo";
 import { SeparatorDemo } from "./separator-demo";
+import { SeparatorBorderDemo } from "./separator-border-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -25,5 +26,6 @@ export const demos = {
   label: LabelDemo,
   inputAddon: InputAddonDemo,
   kbd: KbdDemo,
-  separator: SeparatorDemo
+  separator: SeparatorDemo,
+  separatorBorder: SeparatorBorderDemo,
 };

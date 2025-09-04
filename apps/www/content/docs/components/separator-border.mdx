@@ -1,0 +1,41 @@
+---
+title: This is an example of a separator border component.
+component: true
+---
+
+<ComponentPreview name="separatorBorder" />
+
+# Installation
+```bash
+npm: npx rlz@latest add separator-border
+pnpm: pnpm dlx rlz@latest add separator-border
+yarn: yarn rlz@latest add separator-border
+bun: bunx --bun rlz@latest add separator-border
+```
+
+# Usage
+```tsx
+import { SeparatorBorder } from "@ui/components/separator-border"
+```
+
+```tsx
+<div className="space-y-4">
+  <p>Content above</p>
+  <SeparatorBorder orientation="horizontal" />
+  <p>Content below</p>
+</div>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="separatorBorder" />
+
+<MarkdownFallback>
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the separator border. | `"horizontal"` |
+| className | `string` | Additional CSS classes to apply to the separator. | Predefined styles |
+| ...props | All native `<div>` element props | Standard HTML props for `<div>`. |  |
+
+</MarkdownFallback>
