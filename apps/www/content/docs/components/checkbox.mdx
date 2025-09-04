@@ -1,0 +1,89 @@
+---
+title: This is an example of a checkbox component.
+component: true
+---
+
+<ComponentPreview name="checkbox" />
+
+# Installation
+```bash
+npm: npx rlz@latest add checkbox
+pnpm: pnpm dlx rlz@latest add checkbox
+yarn: yarn rlz@latest add checkbox
+bun: bunx --bun rlz@latest add checkbox
+```
+
+# Usage
+```tsx
+import { Checkbox } from "@ui/components/checkbox"
+```
+
+```tsx
+<Checkbox
+  checked={checked}
+  onCheckedChange={setChecked}
+/>
+```
+## or use it as is for better personalisation
+```tsx
+<Checkbox.Root>
+  <Checkbox.Indicator>
+    <Checkbox.Icon />
+  </Checkbox.Indicator>
+</Checkbox.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="checkbox" />
+
+<MarkdownFallback>
+
+## Checkbox (Main)
+
+A control that allows the user to toggle between checked and not checked.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| checked | `boolean` \| `'indeterminate'` | The controlled checked state of the checkbox. | `undefined` |
+| defaultChecked | `boolean` | The default checked state when initially rendered. | `false` |
+| onCheckedChange | `(checked: boolean \| 'indeterminate') => void` | Event handler called when the checked state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the checkbox. | `false` |
+| required | `boolean` | When true, indicates that the user must check the checkbox before submitting. | `false` |
+| name | `string` | The name of the checkbox (useful for form data). | `undefined` |
+| value | `string` | The value given as data when submitted with a name. | `undefined` |
+
+## Checkbox.Root
+
+The root component that contains all the parts of a checkbox.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| checked | `boolean` \| `'indeterminate'` | The controlled checked state of the checkbox. | `undefined` |
+| defaultChecked | `boolean` | The default checked state when initially rendered. | `false` |
+| onCheckedChange | `(checked: boolean \| 'indeterminate') => void` | Event handler called when the checked state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the checkbox. | `false` |
+| asChild | `boolean` | Renders the checkbox root as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the checkbox root. | Predefined styles |
+
+## Checkbox.Indicator
+
+Renders when the checkbox is in a checked or indeterminate state.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | The content to render inside the indicator. | `undefined` |
+| asChild | `boolean` | Renders the indicator as another component via Slot. | `false` |
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| className | `string` | Additional CSS classes to apply to the indicator. | Predefined styles |
+
+## Checkbox.Icon
+
+The icon displayed inside the checkbox when checked.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| icon | `ReactNode` | Custom icon to display instead of the default check icon. | `CheckIcon` |
+| className | `string` | Additional CSS classes to apply to the icon. | Predefined styles |
+
+</MarkdownFallback>

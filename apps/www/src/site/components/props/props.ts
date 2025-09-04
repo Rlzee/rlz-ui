@@ -12,6 +12,7 @@ import { breadcrumbPropsExport } from "./breadcrump-props";
 import { dividerPropsExport } from "./divider-props";
 import { separatorPropsExport } from "./separator-props";
 import { separatorBorderPropsExport } from "./separator-border-props";
+import { checkboxPropsExport } from "./checkbox-props";
 
 const props = {
   accordion: accordionProps,
@@ -27,7 +28,8 @@ const props = {
   breadcrumb: breadcrumbPropsExport,
   divider: dividerPropsExport,
   separator: separatorPropsExport,
-  separatorBorder: separatorBorderPropsExport
+  separatorBorder: separatorBorderPropsExport,
+  checkbox: checkboxPropsExport,
 };
 
 export { props };

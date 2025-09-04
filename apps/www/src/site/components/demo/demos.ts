@@ -12,6 +12,7 @@ import { BreadcrumbDemo } from "./breadcrumb-demo";
 import { DividerDemo } from "./divider-demo";
 import { SeparatorDemo } from "./separator-demo";
 import { SeparatorBorderDemo } from "./separator-border-demo";
+import { CheckboxDemo } from "./checkbox-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -28,4 +29,5 @@ export const demos = {
   kbd: KbdDemo,
   separator: SeparatorDemo,
   separatorBorder: SeparatorBorderDemo,
+  checkbox: CheckboxDemo,
 };

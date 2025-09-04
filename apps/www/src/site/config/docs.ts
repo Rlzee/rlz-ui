@@ -21,7 +21,7 @@ export const docsConfig: DocsConfig = {
       GettingStarted: [
         { title: "Installation", href: "/docs" },
       ],
-      Background: [{ title: "Grid", href: "" }],
+      // Background: [{ title: "Grid", href: "" }],
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
         { title: "Avatar", href: "/docs/components/avatar" },
@@ -29,6 +29,7 @@ export const docsConfig: DocsConfig = {
         { title: "Breadcrumb", href: "/docs/components/breadcrumb" },
         { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
+        { title: "Checkbox", href: "/docs/components/checkbox" },
         { title: "Divider", href: "/docs/components/divider" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input", href: "/docs/components/input" },
@@ -38,9 +39,9 @@ export const docsConfig: DocsConfig = {
         { title: "Separator", href: "/docs/components/separator" },
         { title: "Textarea", href: "/docs/components/textarea" },
       ],
-      Text: [
-        { title: "Gradient Text", href: "/docs/components/gradient-text" },
-      ],
+      // Text: [
+      //   { title: "Gradient Text", href: "/docs/components/gradient-text" },
+      // ],
     },
     itemsRight: {
       OneThisPage: [
