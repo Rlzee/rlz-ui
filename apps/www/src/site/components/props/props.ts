@@ -17,6 +17,7 @@ import { switchPropsExport } from "./switch-props";
 import { radioGroupPropsExport } from "./radio-group-props";
 import { togglePropsExport } from "./toggle-props";
 import { tooltipPropsExport } from "./tooltip-props";
+import { toggleGroupPropsExport } from "./toggle-group-props";
 
 const props = {
   accordion: accordionProps,
@@ -38,6 +39,7 @@ const props = {
   radioGroup: radioGroupPropsExport,
   toggle: togglePropsExport,
   tooltip: tooltipPropsExport,
+  toggleGroup: toggleGroupPropsExport,
 };
 
 export { props };

@@ -1,0 +1,77 @@
+---
+title: This is an example of a toggle group component.
+component: true
+---
+
+<ComponentPreview name="toggleGroup" />
+
+# Installation
+```bash
+npm: npx rlz@latest add toggle-group
+pnpm: pnpm dlx rlz@latest add toggle-group
+yarn: yarn rlz@latest add toggle-group
+bun: bunx --bun rlz@latest add toggle-group
+```
+
+# Usage
+```tsx
+import { ToggleGroup } from "@ui/components/toggle-group"
+```
+
+```tsx
+<ToggleGroup type="single" value={value} onValueChange={setValue}>
+  <ToggleGroup.Item value="bold">Bold</ToggleGroup.Item>
+  <ToggleGroup.Item value="italic">Italic</ToggleGroup.Item>
+  <ToggleGroup.Item value="underline">Underline</ToggleGroup.Item>
+</ToggleGroup>
+```
+
+```tsx
+<ToggleGroup type="multiple" value={values} onValueChange={setValues}>
+  <ToggleGroup.Item value="bold">Bold</ToggleGroup.Item>
+  <ToggleGroup.Item value="italic">Italic</ToggleGroup.Item>
+  <ToggleGroup.Item value="underline">Underline</ToggleGroup.Item>
+</ToggleGroup>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="toggleGroup" />
+
+<MarkdownFallback>
+
+## ToggleGroup (Main)
+
+A set of two-state buttons that can be toggled on or off.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"default"` \| `"outline"` | Sets the toggle group style variant. | `"default"` |
+| size | `"default"` \| `"sm"` \| `"lg"` \| `"custom"` | Sets the toggle group size for all items. | `"default"` |
+| type | `"single"` \| `"multiple"` | Determines whether one or multiple items can be pressed at a time. | `"single"` |
+| value | `string \| string[]` | The controlled value of the toggle group. For type="single", use string. For type="multiple", use string[]. | `undefined` |
+| defaultValue | `string \| string[]` | The default value when initially rendered. For type="single", use string. For type="multiple", use string[]. | `undefined` |
+| onValueChange | `(value: string \| string[]) => void` | Event handler called when the value changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the toggle group. | `false` |
+| rovingFocus | `boolean` | When true, keyboard navigation will loop from last item to first, and vice versa. | `true` |
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the component. | `"horizontal"` |
+| dir | `"ltr"` \| `"rtl"` | The reading direction of the toggle group. | `"ltr"` |
+| loop | `boolean` | When true, keyboard navigation will loop from last item to first, and vice versa. | `true` |
+| className | `string` | Additional CSS classes to apply to the toggle group. | Predefined styles |
+| children | `ReactNode` | The toggle group items. | `undefined` |
+
+## ToggleGroup.Item
+
+An item in the toggle group.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"default"` \| `"outline"` | Sets the toggle item style variant. Overrides the group variant if specified. | Inherited from ToggleGroup |
+| size | `"default"` \| `"sm"` \| `"lg"` \| `"custom"` | Sets the toggle item size. Overrides the group size if specified. | Inherited from ToggleGroup |
+| value | `string` | A unique value for the item. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the item. | `false` |
+| asChild | `boolean` | Renders the item as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the toggle item. | Predefined styles |
+| children | `ReactNode` | The content of the toggle item. | `undefined` |
+
+</MarkdownFallback>

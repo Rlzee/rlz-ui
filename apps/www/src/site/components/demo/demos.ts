@@ -17,6 +17,7 @@ import { SwitchDemo } from "./switch-demo";
 import { RadioGroupDemo } from "./radio-group-demo";
 import { ToggleDemo } from "./toggle-demo";
 import { TooltipDemo } from "./tooltip-demo";
+import { ToggleGroupDemo } from "./toggle-group-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -38,4 +39,5 @@ export const demos = {
   radioGroup: RadioGroupDemo,
   toggle: ToggleDemo,
   tooltip: TooltipDemo,
+  toggleGroup: ToggleGroupDemo,
 };

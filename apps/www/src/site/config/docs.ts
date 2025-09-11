@@ -40,6 +40,7 @@ export const docsConfig: DocsConfig = {
         { title: "Separator", href: "/docs/components/separator" },
         { title: "Switch", href: "/docs/components/switch" },
         { title: "Textarea", href: "/docs/components/textarea" },
+        { title: "Toggle Group", href: "/docs/components/toggle-group" },
         { title: "Toggle", href: "/docs/components/toggle" },
         { title: "Tooltip", href: "/docs/components/tooltip" },
       ],
