@@ -1,0 +1,89 @@
+---
+title: This is an example of an alert component.
+component: true
+---
+
+<ComponentPreview name="alert" />
+
+# Installation
+```bash
+npm: npx rlz@latest add alert
+pnpm: pnpm dlx rlz@latest add alert
+yarn: yarn rlz@latest add alert
+bun: bunx --bun rlz@latest add alert
+```
+
+# Usage
+```tsx
+import { Alert } from "@ui/components/alert"
+```
+
+```tsx
+<Alert
+  variant="info"
+  title="Heads up!"
+  icon={<AlertCircle className="w-4 h-4" />}
+  description="You can add components to your app using the cli."
+/>
+```
+## or use it as is for better personalisation
+```tsx
+<Alert.Root variant="destructive">
+  <Alert.Title>Error</Alert.Title>
+  <Alert.Description>
+    Your session has expired. Please log in again.
+  </Alert.Description>
+</Alert.Root>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="alert" />
+
+<MarkdownFallback>
+
+## Alert (Main)
+
+Displays a callout for user attention.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"default"` \| `"destructive"` \| `"warning"` \| `"info"` \| `"success"` | Sets the alert style variant. | `"default"` |
+| icon | `ReactNode` | An optional icon to display alongside the title. | `undefined` |
+| title | `string` | The title of the alert. | `undefined` |
+| description | `string` | The description content of the alert. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the alert. | Predefined styles |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+## Alert.Root
+
+The root container for the alert.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| variant | `"default"` \| `"destructive"` \| `"warning"` \| `"info"` \| `"success"` | Sets the alert style variant. | `"default"` |
+| className | `string` | Additional CSS classes to apply to the alert root. | Predefined styles |
+| children | `ReactNode` | The content of the alert. | `undefined` |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+## Alert.Title
+
+The title heading of the alert.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the alert title. | Predefined styles |
+| children | `ReactNode` | The title content. | `undefined` |
+| ...props | `ComponentProps<'h4'>` | All other props are forwarded to the underlying h4 element. | `{}` |
+
+## Alert.Description
+
+The descriptive text content of the alert.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the alert description. | Predefined styles |
+| children | `ReactNode` | The description content. | `undefined` |
+| ...props | `ComponentProps<'p'>` | All other props are forwarded to the underlying p element. | `{}` |
+
+</MarkdownFallback>

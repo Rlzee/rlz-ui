@@ -24,6 +24,7 @@ export const docsConfig: DocsConfig = {
       // Background: [{ title: "Grid", href: "" }],
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
+        { title: "Alert", href: "/docs/components/alert" },
         { title: "Avatar", href: "/docs/components/avatar" },
         { title: "Badge", href: "/docs/components/badge" },
         { title: "Breadcrumb", href: "/docs/components/breadcrumb" },
