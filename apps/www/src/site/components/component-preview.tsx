@@ -18,7 +18,7 @@ const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
 
   return (
     <div className="grid">
-      <div className="flex items-center justify-start mb-4">
+      <div className="flex items-center justify-start">
         <ToggleGroup
           type="single"
           defaultValue="preview"
@@ -43,11 +43,13 @@ const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
         </ToggleGroup>
       </div>
       {view === "preview" ? (
-        <BorderFlash.Box className="w-full max-w-none">
-          <BorderFlash.BoxContent className="h-[450px] items-center justify-center p-6">
-            <div className="w-full">{example.component}</div>
-          </BorderFlash.BoxContent>
-        </BorderFlash.Box>
+        <div className="pt-3.5">
+          <BorderFlash.Box className="w-full max-w-none">
+            <BorderFlash.BoxContent className="h-[450px] items-center justify-center p-6">
+              <div className="w-full">{example.component}</div>
+            </BorderFlash.BoxContent>
+          </BorderFlash.Box>
+        </div>
       ) : (
         <CodeBlock code={example.code} />
       )}

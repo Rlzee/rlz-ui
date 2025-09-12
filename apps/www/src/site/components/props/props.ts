@@ -19,6 +19,7 @@ import { togglePropsExport } from "./toggle-props";
 import { tooltipPropsExport } from "./tooltip-props";
 import { toggleGroupPropsExport } from "./toggle-group-props";
 import { alertPropsExport } from "./alert-props";
+import { collapsiblePropsExport } from "./collapsible-props";
 
 const props = {
   accordion: accordionProps,
@@ -42,6 +43,7 @@ const props = {
   tooltip: tooltipPropsExport,
   toggleGroup: toggleGroupPropsExport,
   alert: alertPropsExport,
+  collapsible: collapsiblePropsExport,
 };
 
 export { props };

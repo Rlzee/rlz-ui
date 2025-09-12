@@ -3,8 +3,8 @@ import { Clipboard } from "./clipboard";
 
 const CodeBlock = ({ code }: { code: string }) => {
   return (
-    <div className="relative pb-3.5">
-      <div className="absolute top-2 right-2">
+    <div className="relative py-3.5">
+      <div className="absolute top-6 right-2">
         <Clipboard text={code} />
       </div>
       <CodeWrapper

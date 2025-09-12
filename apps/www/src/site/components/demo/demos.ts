@@ -19,6 +19,7 @@ import { ToggleDemo } from "./toggle-demo";
 import { TooltipDemo } from "./tooltip-demo";
 import { ToggleGroupDemo } from "./toggle-group-demo";
 import { AlertDemo } from "./alert-demo";
+import { CollapsibleDemo } from "./collapsible-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -42,4 +43,5 @@ export const demos = {
   tooltip: TooltipDemo,
   toggleGroup: ToggleGroupDemo,
   alert: AlertDemo,
+  collapsible: CollapsibleDemo,
 };

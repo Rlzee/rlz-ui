@@ -24,15 +24,15 @@ export const InputCopy = ({
   return (
     <InputAddon
       id={id}
-      className={cn("pe-9", className)}
+      className={cn("px-3", className)}
       type="text"
       value={value}
       readOnly={readOnly}
       onFocus={(e) => e.target.select()}
-      aria-label="Copier le contenu"
+      aria-label="Copy to clipboard"
       {...props}
     >
-      <InputAddon.Right className="pe-0">
+      <InputAddon.Right className="pe-2">
         <Clipboard text={value} />
       </InputAddon.Right>
     </InputAddon>
@@ -92,31 +92,33 @@ export const InputCopyCLI = ({
   const packageManagers = Object.keys(commands) as (keyof typeof commands)[];
 
   return (
-    <InputCopyWithHeader
-      value={commands[pm]}
-      readOnly={readOnly}
-      className={cn(
-        "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
-        className
-      )}
-      wrapperClassName={wrapperClassName}
-      headerContent={
-        <>
-          <Terminal size={16} className="mr-2" />
-          {packageManagers.map((manager) => (
-            <Toggle
-              key={manager}
-              className="h-6 w-auto mr-1 hover:bg-transparent cursor-pointer"
-              pressed={pm === manager}
-              onPressedChange={() => setPm(manager)}
-              aria-pressed={pm === manager}
-            >
-              {manager}
-            </Toggle>
-          ))}
-        </>
-      }
-    />
+    <div className="pt-1.5">
+      <InputCopyWithHeader
+        value={commands[pm]}
+        readOnly={readOnly}
+        className={cn(
+          "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
+          className
+        )}
+        wrapperClassName={wrapperClassName}
+        headerContent={
+          <>
+            <Terminal size={16} className="mr-2" />
+            {packageManagers.map((manager) => (
+              <Toggle
+                key={manager}
+                className="h-6 w-auto mr-1 hover:bg-transparent cursor-pointer"
+                pressed={pm === manager}
+                onPressedChange={() => setPm(manager)}
+                aria-pressed={pm === manager}
+              >
+                {manager}
+              </Toggle>
+            ))}
+          </>
+        }
+      />
+    </div>
   );
 };
 

@@ -31,6 +31,7 @@ export const docsConfig: DocsConfig = {
         { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
         { title: "Checkbox", href: "/docs/components/checkbox" },
+        { title: "Collapsible", href: "/docs/components/collapsible" },
         { title: "Divider", href: "/docs/components/divider" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input", href: "/docs/components/input" },

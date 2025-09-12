@@ -1,0 +1,74 @@
+---
+title: This is an example of a collapsible component.
+component: true
+---
+
+<ComponentPreview name="collapsible" />
+
+# Installation
+```bash
+npm: npx rlz@latest add collapsible
+pnpm: pnpm dlx rlz@latest add collapsible
+yarn: yarn rlz@latest add collapsible
+bun: bunx --bun rlz@latest add collapsible
+```
+
+# Usage
+```tsx
+import { Collapsible } from "@ui/components/collapsible"
+```
+
+```tsx
+<Collapsible>
+  <Collapsible.Trigger>
+    Can I use this in my project?
+  </Collapsible.Trigger>
+  <Collapsible.Content>
+    Yes. Free to use for personal and commercial projects. No attribution required.
+  </Collapsible.Content>
+</Collapsible>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="collapsible" />
+
+<MarkdownFallback>
+
+## Collapsible (Main)
+
+An interactive component which expands/collapses a panel.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| open | `boolean` | The controlled open state of the collapsible. | `undefined` |
+| defaultOpen | `boolean` | The default open state when initially rendered. | `false` |
+| onOpenChange | `(open: boolean) => void` | Event handler called when the open state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the collapsible. | `false` |
+| className | `string` | Additional CSS classes to apply to the collapsible. | `undefined` |
+| children | `ReactNode` | The trigger and content elements. | `undefined` |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+## Collapsible.Trigger
+
+The button that toggles the collapsible.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | Renders the trigger as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the trigger. | `undefined` |
+| children | `ReactNode` | The content of the trigger. | `undefined` |
+| ...props | `ComponentProps<'button'>` | All other props are forwarded to the underlying button element. | `{}` |
+
+## Collapsible.Content
+
+The component that contains the collapsible content.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| className | `string` | Additional CSS classes to apply to the content. | `undefined` |
+| children | `ReactNode` | The collapsible content. | `undefined` |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+</MarkdownFallback>
