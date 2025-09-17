@@ -40,6 +40,7 @@ export const docsConfig: DocsConfig = {
         { title: "Radio Group", href: "/docs/components/radio-group" },
         { title: "Separator Border", href: "/docs/components/separator-border" },
         { title: "Separator", href: "/docs/components/separator" },
+        { title: "Slider", href: "/docs/components/slider" },
         { title: "Switch", href: "/docs/components/switch" },
         { title: "Textarea", href: "/docs/components/textarea" },
         { title: "Toggle Group", href: "/docs/components/toggle-group" },

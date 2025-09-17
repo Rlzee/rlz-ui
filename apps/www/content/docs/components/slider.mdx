@@ -1,0 +1,135 @@
+---
+title: This is an example of a slider component.
+component: true
+---
+
+<ComponentPreview name="slider" />
+
+# Installation
+```bash
+npm: npx rlz@latest add slider
+pnpm: pnpm dlx rlz@latest add slider
+yarn: yarn rlz@latest add slider
+bun: bunx --bun rlz@latest add slider
+```
+
+# Usage
+```tsx
+import { Slider } from "@ui/components/slider"
+```
+
+```tsx
+<Slider defaultValue={[50]} max={100} step={1} />
+```
+
+```tsx
+<Slider
+  value={value}
+  onValueChange={setValue}
+  min={0}
+  max={100}
+  step={5}
+  className="w-60"
+/>
+```
+
+```tsx
+<Slider.Root value={value} onValueChange={setValue} min={0} max={100}>
+  <Slider.Track>
+    <Slider.Range />
+  </Slider.Track>
+  <Slider.Thumb />
+</Slider.Root>
+```
+
+```tsx
+{/* Range slider with multiple thumbs */}
+<Slider defaultValue={[25, 75]} max={100} step={1} />
+```
+
+```tsx
+{/* Vertical slider */}
+<Slider
+  defaultValue={[50]}
+  orientation="vertical"
+  className="h-60"
+/>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="slider" />
+
+<MarkdownFallback>
+
+## Slider (Main)
+
+An input where the user selects a value from within a given range.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `number[]` | The controlled value of the slider. | `undefined` |
+| defaultValue | `number[]` | The default value when initially rendered. | `[min, max]` |
+| onValueChange | `(value: number[]) => void` | Event handler called when the value changes. | `undefined` |
+| onValueCommit | `(value: number[]) => void` | Event handler called when the user stops dragging. | `undefined` |
+| min | `number` | The minimum value for the slider. | `0` |
+| max | `number` | The maximum value for the slider. | `100` |
+| step | `number` | The stepping interval. | `1` |
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the slider. | `"horizontal"` |
+| dir | `"ltr"` \| `"rtl"` | The reading direction of the slider. | `"ltr"` |
+| disabled | `boolean` | When true, prevents the user from interacting with the slider. | `false` |
+| inverted | `boolean` | Whether the slider is visually inverted. | `false` |
+| className | `string` | Additional CSS classes to apply to the slider. | Predefined styles |
+| ...props | `ComponentProps<typeof SliderRoot>` | All other props are forwarded to the SliderRoot component. | `{}` |
+
+## Slider.Root
+
+The root component that contains all the parts of a slider.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `number[]` | The controlled value of the slider. | `undefined` |
+| defaultValue | `number[]` | The default value when initially rendered. | `undefined` |
+| onValueChange | `(value: number[]) => void` | Event handler called when the value changes. | `undefined` |
+| onValueCommit | `(value: number[]) => void` | Event handler called when the user stops dragging. | `undefined` |
+| min | `number` | The minimum value for the slider. | `0` |
+| max | `number` | The maximum value for the slider. | `100` |
+| step | `number` | The stepping interval. | `1` |
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the slider. | `"horizontal"` |
+| dir | `"ltr"` \| `"rtl"` | The reading direction of the slider. | `"ltr"` |
+| disabled | `boolean` | When true, prevents the user from interacting with the slider. | `false` |
+| inverted | `boolean` | Whether the slider is visually inverted. | `false` |
+| name | `string` | The name of the slider (useful for form data). | `undefined` |
+| className | `string` | Additional CSS classes to apply to the slider root. | Predefined styles |
+| children | `ReactNode` | The track, range, and thumb elements. | `undefined` |
+| ...props | `ComponentProps<typeof SliderPrimitive.Root>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Slider.Track
+
+The track that contains the slider range.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the track. | Predefined styles |
+| children | `ReactNode` | The range component. | `undefined` |
+| ...props | `ComponentProps<typeof SliderPrimitive.Track>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Slider.Range
+
+The range part of the track.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the range. | Predefined styles |
+| ...props | `ComponentProps<typeof SliderPrimitive.Range>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Slider.Thumb
+
+A draggable thumb. You can render multiple thumbs.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the thumb. | Predefined styles |
+| ...props | `ComponentProps<typeof SliderPrimitive.Thumb>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+</MarkdownFallback>
