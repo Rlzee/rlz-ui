@@ -22,6 +22,7 @@ import { AlertDemo } from "./alert-demo";
 import { CollapsibleDemo } from "./collapsible-demo";
 import { SliderDemo } from "./slider-demo";
 import { CardDemo } from "./card-demo";
+import { DropdownMenuDemo } from "./dropdown-menu-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -48,4 +49,5 @@ export const demos = {
   collapsible: CollapsibleDemo,
   slider: SliderDemo,
   card: CardDemo,
+  dropdownMenu: DropdownMenuDemo,
 };

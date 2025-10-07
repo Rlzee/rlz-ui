@@ -1,0 +1,281 @@
+---
+title: This is an example of a dropdown menu component.
+component: true
+---
+
+<ComponentPreview name="dropdownMenu" />
+
+# Installation
+```bash
+npm: npx rlz@latest add dropdown-menu
+pnpm: pnpm dlx rlz@latest add dropdown-menu
+yarn: yarn rlz@latest add dropdown-menu
+bun: bunx --bun rlz@latest add dropdown-menu
+```
+
+# Usage
+```tsx
+import { DropdownMenu } from "@ui/components/dropdown-menu"
+```
+
+```tsx
+<DropdownMenu>
+  <DropdownMenu.Trigger>
+    <Button variant="outline">Open</Button>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Label>My Account</DropdownMenu.Label>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item>Profile</DropdownMenu.Item>
+    <DropdownMenu.Item>Billing</DropdownMenu.Item>
+    <DropdownMenu.Item>Team</DropdownMenu.Item>
+    <DropdownMenu.Item>Subscription</DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu>
+```
+
+```tsx
+<DropdownMenu>
+  <DropdownMenu.Trigger asChild>
+    <Button variant="outline">
+      Open Menu
+    </Button>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content className="w-56">
+    <DropdownMenu.Label>My Account</DropdownMenu.Label>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Group>
+      <DropdownMenu.Item>
+        Profile
+        <DropdownMenu.Shortcut>⇧⌘P</DropdownMenu.Shortcut>
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
+        Billing
+        <DropdownMenu.Shortcut>⌘B</DropdownMenu.Shortcut>
+      </DropdownMenu.Item>
+      <DropdownMenu.Item>
+        Settings
+        <DropdownMenu.Shortcut>⌘S</DropdownMenu.Shortcut>
+      </DropdownMenu.Item>
+    </DropdownMenu.Group>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item>Team</DropdownMenu.Item>
+    <DropdownMenu.Sub>
+      <DropdownMenu.SubTrigger>Invite users</DropdownMenu.SubTrigger>
+      <DropdownMenu.SubContent>
+        <DropdownMenu.Item>Email</DropdownMenu.Item>
+        <DropdownMenu.Item>Message</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item>More...</DropdownMenu.Item>
+      </DropdownMenu.SubContent>
+    </DropdownMenu.Sub>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item variant="destructive">
+      Log out
+      <DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
+    </DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu>
+```
+
+```tsx
+<DropdownMenu>
+  <DropdownMenu.Trigger asChild>
+    <Button variant="outline">Options</Button>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content className="w-56">
+    <DropdownMenu.Label>Appearance</DropdownMenu.Label>
+    <DropdownMenu.Separator />
+    <DropdownMenu.CheckboxItem checked={showStatusBar} onCheckedChange={setShowStatusBar}>
+      Status Bar
+    </DropdownMenu.CheckboxItem>
+    <DropdownMenu.CheckboxItem checked={showActivityBar} onCheckedChange={setShowActivityBar}>
+      Activity Bar
+    </DropdownMenu.CheckboxItem>
+    <DropdownMenu.CheckboxItem checked={showPanel} onCheckedChange={setShowPanel}>
+      Panel
+    </DropdownMenu.CheckboxItem>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Label>Theme</DropdownMenu.Label>
+    <DropdownMenu.RadioGroup value={theme} onValueChange={setTheme}>
+      <DropdownMenu.RadioItem value="light">Light</DropdownMenu.RadioItem>
+      <DropdownMenu.RadioItem value="dark">Dark</DropdownMenu.RadioItem>
+      <DropdownMenu.RadioItem value="system">System</DropdownMenu.RadioItem>
+    </DropdownMenu.RadioGroup>
+  </DropdownMenu.Content>
+</DropdownMenu>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="dropdownMenu" />
+
+<MarkdownFallback>
+
+## DropdownMenu (Main)
+
+A menu opened by a trigger which can contain items, submenus, and more.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| open | `boolean` | The controlled open state of the dropdown menu. | `undefined` |
+| defaultOpen | `boolean` | The default open state when initially rendered. | `false` |
+| onOpenChange | `(open: boolean) => void` | Event handler called when the open state changes. | `undefined` |
+| modal | `boolean` | Whether the dropdown menu should be modal. | `true` |
+| dir | `"ltr"` \| `"rtl"` | The reading direction of the dropdown menu. | `"ltr"` |
+| children | `ReactNode` | The trigger and content elements. | `undefined` |
+
+## DropdownMenu.Trigger
+
+The button that toggles the dropdown menu.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | Renders the trigger as another component via Slot. | `false` |
+| children | `ReactNode` | The trigger content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Trigger>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.Content
+
+The component that pops out when the dropdown menu is open.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| sideOffset | `number` | The distance in pixels from the trigger. | `4` |
+| side | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | The preferred side of the trigger to render against. | `"bottom"` |
+| align | `"start"` \| `"center"` \| `"end"` | The preferred alignment against the trigger. | `"center"` |
+| alignOffset | `number` | An offset in pixels from the "start" or "end" alignment options. | `0` |
+| avoidCollisions | `boolean` | When true, overrides the side and align preferences to prevent collisions. | `true` |
+| collisionBoundary | `Element \| null \| Array<Element \| null>` | The element used as the collision boundary. | `[]` |
+| collisionPadding | `number \| Partial<Record<Side, number>>` | The distance in pixels from the boundary edges where collision detection should occur. | `0` |
+| arrowPadding | `number` | The padding between the arrow and the edges of the content. | `0` |
+| sticky | `"partial"` \| `"always"` | The sticky behavior on the align axis. | `"partial"` |
+| hideWhenDetached | `boolean` | Whether to hide the content when the trigger becomes fully occluded. | `false` |
+| className | `string` | Additional CSS classes to apply to the content. | Predefined styles |
+| children | `ReactNode` | The dropdown menu content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Content>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.Item
+
+A menu item that can be selected.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| inset | `boolean` | Whether the item should have left padding to align with labeled items. | `false` |
+| variant | `"default"` \| `"destructive"` | The style variant of the item. | `"default"` |
+| disabled | `boolean` | When true, prevents the user from interacting with the item. | `false` |
+| onSelect | `(event: Event) => void` | Event handler called when the user selects an item. | `undefined` |
+| textValue | `string` | The textual value of the item for typeahead purposes. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the item. | Predefined styles |
+| children | `ReactNode` | The item content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Item>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.CheckboxItem
+
+A menu item that can be checked.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| checked | `boolean \| "indeterminate"` | The controlled checked state of the item. | `false` |
+| onCheckedChange | `(checked: boolean) => void` | Event handler called when the checked state changes. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the item. | `false` |
+| onSelect | `(event: Event) => void` | Event handler called when the user selects an item. | `undefined` |
+| textValue | `string` | The textual value of the item for typeahead purposes. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the item. | Predefined styles |
+| children | `ReactNode` | The item content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.CheckboxItem>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.RadioGroup
+
+A group of radio items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | The controlled value of the radio group. | `undefined` |
+| onValueChange | `(value: string) => void` | Event handler called when the value changes. | `undefined` |
+| children | `ReactNode` | The radio items. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.RadioGroup>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.RadioItem
+
+A menu item that can be selected as part of a radio group.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | The value given as data when the radio item is selected. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the item. | `false` |
+| onSelect | `(event: Event) => void` | Event handler called when the user selects an item. | `undefined` |
+| textValue | `string` | The textual value of the item for typeahead purposes. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the item. | Predefined styles |
+| children | `ReactNode` | The item content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.RadioItem>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.Label
+
+A label that can be used to describe a group of items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| inset | `boolean` | Whether the label should have left padding to align with items. | `false` |
+| className | `string` | Additional CSS classes to apply to the label. | Predefined styles |
+| children | `ReactNode` | The label content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Label>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.Separator
+
+A visual separator between menu items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the separator. | Predefined styles |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Separator>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.Shortcut
+
+A keyboard shortcut display for menu items.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| shortcutKey | `string` | The keyboard shortcut to display. | `""` |
+| className | `string` | Additional CSS classes to apply to the shortcut. | Predefined styles |
+| children | `ReactNode` | Custom shortcut content (overrides shortcutKey). | `undefined` |
+
+## DropdownMenu.Sub
+
+A submenu container.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| open | `boolean` | The controlled open state of the submenu. | `undefined` |
+| defaultOpen | `boolean` | The default open state when initially rendered. | `false` |
+| onOpenChange | `(open: boolean) => void` | Event handler called when the open state changes. | `undefined` |
+| children | `ReactNode` | The submenu trigger and content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.Sub>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.SubTrigger
+
+The trigger for a submenu.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| inset | `boolean` | Whether the trigger should have left padding to align with items. | `false` |
+| disabled | `boolean` | When true, prevents the user from interacting with the trigger. | `false` |
+| textValue | `string` | The textual value of the trigger for typeahead purposes. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the trigger. | Predefined styles |
+| children | `ReactNode` | The trigger content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.SubTrigger>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## DropdownMenu.SubContent
+
+The content of a submenu.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| sideOffset | `number` | The distance in pixels from the trigger. | `0` |
+| side | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | The preferred side of the trigger to render against. | `"right"` |
+| align | `"start"` \| `"center"` \| `"end"` | The preferred alignment against the trigger. | `"start"` |
+| className | `string` | Additional CSS classes to apply to the subcontent. | Predefined styles |
+| children | `ReactNode` | The submenu content. | `undefined` |
+| ...props | `ComponentProps<typeof DropdownMenuPrimitive.SubContent>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+</MarkdownFallback>

@@ -33,37 +33,6 @@ import { Card } from "@ui/components/card"
 </Card>
 ```
 
-```tsx
-<Card className="w-80">
-  <Card.Header>
-    <Card.Title>Notifications</Card.Title>
-    <Card.Description>
-      You have 3 unread messages.
-    </Card.Description>
-  </Card.Header>
-  <Card.Body>
-    <div className="space-y-4">
-      <div className="flex items-center space-x-4 rounded-md border p-4">
-        <div className="flex-1 space-y-1">
-          <p className="text-sm font-medium leading-none">
-            Push Notifications
-          </p>
-          <p className="text-sm text-muted-foreground">
-            Send notifications to device.
-          </p>
-        </div>
-        <Switch />
-      </div>
-    </div>
-  </Card.Body>
-  <Card.Footer>
-    <Button variant="outline" className="w-full">
-      Mark all as read
-    </Button>
-  </Card.Footer>
-</Card>
-```
-
 # Props
 <Separator orientation="horizontal" />
 <ComponentProps name="card" />
