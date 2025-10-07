@@ -36,6 +36,7 @@ export const docsConfig: DocsConfig = {
         { title: "Divider", href: "/docs/components/divider" },
         { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
+        { title: "Input OTP", href: "/docs/components/input-otp" },
         { title: "Input", href: "/docs/components/input" },
         { title: "Kbd", href: "/docs/components/kbd" },
         { title: "Label", href: "/docs/components/label" },

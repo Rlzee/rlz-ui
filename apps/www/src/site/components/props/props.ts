@@ -23,6 +23,7 @@ import { collapsiblePropsExport } from "./collapsible-props";
 import { sliderPropsExport } from "./slider-props";
 import { cardPropsExport } from "./card-props";
 import { dropdownMenuPropsExport } from "./dropdown-menu-props";
+import { inputOtpPropsExport } from "./input-otp-props";
 
 const props = {
   accordion: accordionProps,
@@ -50,6 +51,7 @@ const props = {
   slider: sliderPropsExport,
   card: cardPropsExport,
   dropdownMenu: dropdownMenuPropsExport,
+  inputOtp: inputOtpPropsExport,
 };
 
 export { props };

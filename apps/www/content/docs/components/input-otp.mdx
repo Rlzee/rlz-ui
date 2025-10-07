@@ -1,0 +1,124 @@
+---
+title: This is an example of an input OTP component.
+component: true
+---
+
+<ComponentPreview name="inputOtp" />
+
+# Installation
+```bash
+npm: npx rlz@latest add input-otp
+pnpm: pnpm dlx rlz@latest add input-otp
+yarn: yarn rlz@latest add input-otp
+bun: bunx --bun rlz@latest add input-otp
+```
+
+# Usage
+```tsx
+import { InputOtp } from "@ui/components/input-otp"
+```
+
+```tsx
+<InputOtp onComplete={(value) => console.log(value)}>
+  <InputOtp.Slot />
+  <InputOtp.Slot />
+  <InputOtp.Slot />
+  <InputOtp.Slot />
+  <InputOtp.Slot />
+  <InputOtp.Slot />
+</InputOtp>
+```
+
+```tsx
+<InputOtp type="alphanumeric" onComplete={handleComplete}>
+  <InputOtp.Group>
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+  </InputOtp.Group>
+  <InputOtp.Separator />
+  <InputOtp.Group>
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+  </InputOtp.Group>
+</InputOtp>
+```
+
+```tsx
+const [value, setValue] = useState("");
+
+<InputOtp
+  type="number"
+  onComplete={(code) => {
+    setValue(code);
+    // Handle OTP verification
+    verifyOtp(code);
+  }}
+>
+  <InputOtp.Group>
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+  </InputOtp.Group>
+  <InputOtp.Separator />
+  <InputOtp.Group>
+    <InputOtp.Slot />
+    <InputOtp.Slot />
+  </InputOtp.Group>
+</InputOtp>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="inputOtp" />
+
+<MarkdownFallback>
+
+## InputOtp (Main)
+
+A component for entering one-time passwords or verification codes.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| type | `"number"` \| `"alphanumeric"` | The type of characters allowed in the OTP input. | `"number"` |
+| onComplete | `(value: string) => void` | Callback function called when all slots are filled. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the OTP container. | `"flex gap-2"` |
+| children | `ReactNode` | The OTP slots, groups, and separators. | `undefined` |
+
+## InputOtp.Slot
+
+An individual input slot for a single OTP character.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| index | `number` | The position of the slot (automatically assigned). | Auto-assigned |
+| className | `string` | Additional CSS classes to apply to the slot. | Predefined styles |
+| disabled | `boolean` | When true, prevents the user from interacting with the slot. | `false` |
+| placeholder | `string` | Placeholder text for the input slot. | `undefined` |
+| onInput | `(e: React.ChangeEvent<HTMLInputElement>) => void` | Input event handler (managed internally). | Internal handler |
+| onKeyDown | `(e: React.KeyboardEvent<HTMLInputElement>) => void` | Key down event handler for navigation (managed internally). | Internal handler |
+| onPaste | `(e: React.ClipboardEvent<HTMLInputElement>) => void` | Paste event handler for auto-filling (managed internally). | Internal handler |
+| onFocus | `() => void` | Focus event handler (managed internally). | Internal handler |
+| ...props | `ComponentProps<typeof Input>` | All other props are forwarded to the underlying Input component. | `{}` |
+
+## InputOtp.Group
+
+A container for grouping multiple OTP slots together.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the group. | `"flex"` |
+| children | `ReactNode` | The OTP slots within this group. | `undefined` |
+
+## InputOtp.Separator
+
+A visual separator between OTP groups.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the separator. | `"flex items-center justify-center"` |
+| children | `ReactNode` | Custom separator content (overrides default dash). | `undefined` |
+
+</MarkdownFallback>
