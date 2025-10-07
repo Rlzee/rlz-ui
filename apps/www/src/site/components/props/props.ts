@@ -24,6 +24,7 @@ import { sliderPropsExport } from "./slider-props";
 import { cardPropsExport } from "./card-props";
 import { dropdownMenuPropsExport } from "./dropdown-menu-props";
 import { inputOtpPropsExport } from "./input-otp-props";
+import { popoverPropsExport } from "./popover-props";
 
 const props = {
   accordion: accordionProps,
@@ -52,6 +53,7 @@ const props = {
   card: cardPropsExport,
   dropdownMenu: dropdownMenuPropsExport,
   inputOtp: inputOtpPropsExport,
+  popover: popoverPropsExport,
 };
 
 export { props };

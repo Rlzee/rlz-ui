@@ -1,0 +1,106 @@
+---
+title: This is an example of a popover component.
+component: true
+---
+
+<ComponentPreview name="popover" />
+
+# Installation
+```bash
+npm: npx rlz@latest add popover
+pnpm: pnpm dlx rlz@latest add popover
+yarn: yarn rlz@latest add popover
+bun: bunx --bun rlz@latest add popover
+```
+
+# Usage
+```tsx
+import { Popover } from "@ui/components/popover"
+```
+
+```tsx
+<Popover>
+  <Popover.Trigger asChild>
+    <Button variant="ghost">Open</Button>
+  </Popover.Trigger>
+  <Popover.Content side="top" align="end" className="w-80">
+    Place content for the popover here.
+  </Popover.Content>
+</Popover>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="popover" />
+
+<MarkdownFallback>
+
+## Popover (Main)
+
+A floating element that displays rich content when triggered.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| open | `boolean` | The controlled open state of the popover. | `undefined` |
+| defaultOpen | `boolean` | The default open state when initially rendered. | `false` |
+| onOpenChange | `(open: boolean) => void` | Event handler called when the open state changes. | `undefined` |
+| modal | `boolean` | Whether the popover should be modal. | `false` |
+| children | `ReactNode` | The trigger and content elements. | `undefined` |
+
+## Popover.Trigger
+
+The button that toggles the popover.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | Renders the trigger as another component via Slot. | `false` |
+| children | `ReactNode` | The trigger content. | `undefined` |
+| ...props | `ComponentProps<typeof PopoverPrimitive.Trigger>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Popover.Content
+
+The component that pops out when the popover is open.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| side | `"top"` \| `"right"` \| `"bottom"` \| `"left"` | The preferred side of the trigger to render against. | `"bottom"` |
+| sideOffset | `number` | The distance in pixels from the trigger. | `4` |
+| align | `"start"` \| `"center"` \| `"end"` | The preferred alignment against the trigger. | `"center"` |
+| alignOffset | `number` | An offset in pixels from the "start" or "end" alignment options. | `0` |
+| avoidCollisions | `boolean` | When true, overrides the side and align preferences to prevent collisions. | `true` |
+| collisionBoundary | `Element \| null \| Array<Element \| null>` | The element used as the collision boundary. | `[]` |
+| collisionPadding | `number \| Partial<Record<Side, number>>` | The distance in pixels from the boundary edges where collision detection should occur. | `0` |
+| arrowPadding | `number` | The padding between the arrow and the edges of the content. | `0` |
+| sticky | `"partial"` \| `"always"` | The sticky behavior on the align axis. | `"partial"` |
+| hideWhenDetached | `boolean` | Whether to hide the content when the trigger becomes fully occluded. | `false` |
+| updatePositionStrategy | `"optimized"` \| `"always"` | The strategy to update the position of the content. | `"optimized"` |
+| onEscapeKeyDown | `(event: KeyboardEvent) => void` | Event handler called when the escape key is down. | `undefined` |
+| onPointerDownOutside | `(event: PointerEvent) => void` | Event handler called when a pointer event happens outside of the component. | `undefined` |
+| onFocusOutside | `(event: FocusEvent) => void` | Event handler called when the focus moves outside of the component. | `undefined` |
+| onInteractOutside | `(event: PointerEvent \| FocusEvent) => void` | Event handler called when an interaction happens outside the component. | `undefined` |
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| className | `string` | Additional CSS classes to apply to the content. | Predefined styles |
+| children | `ReactNode` | The popover content. | `undefined` |
+| ...props | `ComponentProps<typeof PopoverPrimitive.Content>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Popover.Anchor
+
+An optional element to position the popover relative to.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | Renders the anchor as another component via Slot. | `false` |
+| children | `ReactNode` | The anchor content. | `undefined` |
+| ...props | `ComponentProps<typeof PopoverPrimitive.Anchor>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Popover.Portal
+
+When used, portals the content part into a different DOM subtree.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| container | `HTMLElement \| null` | Specify a container element to portal the content into. | `document.body` |
+| children | `ReactNode` | The content to portal. | `undefined` |
+
+</MarkdownFallback>
