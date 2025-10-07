@@ -21,6 +21,7 @@ import { toggleGroupPropsExport } from "./toggle-group-props";
 import { alertPropsExport } from "./alert-props";
 import { collapsiblePropsExport } from "./collapsible-props";
 import { sliderPropsExport } from "./slider-props";
+import { cardPropsExport } from "./card-props";
 
 const props = {
   accordion: accordionProps,
@@ -46,6 +47,7 @@ const props = {
   alert: alertPropsExport,
   collapsible: collapsiblePropsExport,
   slider: sliderPropsExport,
+  card: cardPropsExport,
 };
 
 export { props };

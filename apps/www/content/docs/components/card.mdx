@@ -1,0 +1,133 @@
+---
+title: This is an example of a card component.
+component: true
+---
+
+<ComponentPreview name="card" />
+
+# Installation
+```bash
+npm: npx rlz@latest add card
+pnpm: pnpm dlx rlz@latest add card
+yarn: yarn rlz@latest add card
+bun: bunx --bun rlz@latest add card
+```
+
+# Usage
+```tsx
+import { Card } from "@ui/components/card"
+```
+
+```tsx
+<Card>
+  <Card.Header>
+    <Card.Title>Card Title</Card.Title>
+    <Card.Description>Card description here.</Card.Description>
+  </Card.Header>
+  <Card.Body>
+    <p>Card content goes here.</p>
+  </Card.Body>
+  <Card.Footer>
+    <Button>Action</Button>
+  </Card.Footer>
+</Card>
+```
+
+```tsx
+<Card className="w-80">
+  <Card.Header>
+    <Card.Title>Notifications</Card.Title>
+    <Card.Description>
+      You have 3 unread messages.
+    </Card.Description>
+  </Card.Header>
+  <Card.Body>
+    <div className="space-y-4">
+      <div className="flex items-center space-x-4 rounded-md border p-4">
+        <div className="flex-1 space-y-1">
+          <p className="text-sm font-medium leading-none">
+            Push Notifications
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Send notifications to device.
+          </p>
+        </div>
+        <Switch />
+      </div>
+    </div>
+  </Card.Body>
+  <Card.Footer>
+    <Button variant="outline" className="w-full">
+      Mark all as read
+    </Button>
+  </Card.Footer>
+</Card>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="card" />
+
+<MarkdownFallback>
+
+## Card (Main)
+
+A container for displaying content in a structured format.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card. | Predefined styles |
+| children | `ReactNode` | The content of the card. | `undefined` |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+## Card.Header
+
+The header section of the card, typically containing the title and description.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card header. | Predefined styles |
+| children | `ReactNode` | The header content (usually Title and Description). | `undefined` |
+| ...props | `ComponentProps<'header'>` | All other props are forwarded to the underlying header element. | `{}` |
+
+## Card.Title
+
+The main title of the card.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card title. | Predefined styles |
+| children | `ReactNode` | The title content. | `undefined` |
+| ...props | `ComponentProps<'h3'>` | All other props are forwarded to the underlying h3 element. | `{}` |
+
+## Card.Description
+
+A description or subtitle for the card.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card description. | Predefined styles |
+| children | `ReactNode` | The description content. | `undefined` |
+| ...props | `ComponentProps<'p'>` | All other props are forwarded to the underlying p element. | `{}` |
+
+## Card.Body
+
+The main content area of the card.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card body. | Predefined styles |
+| children | `ReactNode` | The main content of the card. | `undefined` |
+| ...props | `ComponentProps<'div'>` | All other props are forwarded to the underlying div element. | `{}` |
+
+## Card.Footer
+
+The footer section of the card, typically containing actions or additional information.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes to apply to the card footer. | Predefined styles |
+| children | `ReactNode` | The footer content (usually buttons or actions). | `undefined` |
+| ...props | `ComponentProps<'footer'>` | All other props are forwarded to the underlying footer element. | `{}` |
+
+</MarkdownFallback>
