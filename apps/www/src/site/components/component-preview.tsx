@@ -19,7 +19,7 @@ const ComponentPreview = ({ name }: { name: keyof typeof demos }) => {
         <Tabs.Trigger value="preview" className="border-none hover:text-white">Preview</Tabs.Trigger>
         <Tabs.Trigger value="code" className="border-none hover:text-white">Code</Tabs.Trigger>
       </Tabs.List>
-      <Tabs.Content value="preview" className="pt-1">
+      <Tabs.Content value="preview" className="pt-3.5">
         <BorderFlash.Box className="w-full max-w-none">
           <BorderFlash.BoxContent className="h-[450px] items-center justify-center p-6">
             <div className="w-full">{example.component}</div>
