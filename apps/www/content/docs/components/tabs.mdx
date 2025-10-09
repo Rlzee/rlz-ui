@@ -1,0 +1,92 @@
+---
+title: This is an example of a tabs component.
+component: true
+---
+
+<ComponentPreview name="tabs" />
+
+# Installation
+```bash
+npm: npx rlz@latest add tabs
+pnpm: pnpm dlx rlz@latest add tabs
+yarn: yarn rlz@latest add tabs
+bun: bunx --bun rlz@latest add tabs
+```
+
+# Usage
+```tsx
+import { Tabs } from "@ui/components/tabs"
+```
+
+```tsx
+<Tabs defaultValue="trigger1">
+  <Tabs.List>
+    <Tabs.Trigger value="trigger1">Trigger 1</Tabs.Trigger>
+    <Tabs.Trigger value="trigger2">Trigger 2</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="trigger1">
+    Trigger 1 Content.
+  </Tabs.Content>
+  <Tabs.Content value="trigger2">Trigger 2 Content</Tabs.Content>
+</Tabs>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="tabs" />
+
+<MarkdownFallback>
+
+## Tabs (Main)
+
+A set of layered sections of content—known as tab panels—that are displayed one at a time.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | The controlled value of the tab to activate. | `undefined` |
+| defaultValue | `string` | The default value when initially rendered. | `undefined` |
+| onValueChange | `(value: string) => void` | Event handler called when the value changes. | `undefined` |
+| orientation | `"horizontal"` \| `"vertical"` | The orientation of the component. | `"horizontal"` |
+| dir | `"ltr"` \| `"rtl"` | The reading direction of the tabs. | `"ltr"` |
+| activationMode | `"automatic"` \| `"manual"` | When automatic, tabs are activated when focused. When manual, tabs are activated when clicked. | `"automatic"` |
+| className | `string` | Additional CSS classes to apply to the tabs container. | `"flex flex-col gap-2"` |
+| children | `ReactNode` | The tab list and content elements. | `undefined` |
+| ...props | `ComponentProps<typeof TabsPrimitive.Root>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Tabs.List
+
+Contains the triggers that are aligned along the edge of the active content.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| loop | `boolean` | When true, keyboard navigation will loop from last tab to first, and vice versa. | `true` |
+| className | `string` | Additional CSS classes to apply to the tabs list. | Predefined styles |
+| children | `ReactNode` | The tab triggers. | `undefined` |
+| ...props | `ComponentProps<typeof TabsPrimitive.List>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Tabs.Trigger
+
+The button that activates its associated content.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | A unique value that associates the trigger with a content. | `undefined` |
+| disabled | `boolean` | When true, prevents the user from interacting with the tab. | `false` |
+| asChild | `boolean` | Renders the trigger as another component via Slot. | `false` |
+| className | `string` | Additional CSS classes to apply to the trigger. | Predefined styles |
+| children | `ReactNode` | The trigger content. | `undefined` |
+| ...props | `ComponentProps<typeof TabsPrimitive.Trigger>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Tabs.Content
+
+Contains the content associated with each trigger.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `string` | A unique value that associates the content with a trigger. | `undefined` |
+| forceMount | `boolean` | Used to force mounting when more control is needed. | `false` |
+| className | `string` | Additional CSS classes to apply to the content. | `"flex-1 outline-none"` |
+| children | `ReactNode` | The tab content. | `undefined` |
+| ...props | `ComponentProps<typeof TabsPrimitive.Content>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+</MarkdownFallback>

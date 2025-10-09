@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { ToggleGroup } from "@ui/components/toggle-group";
 import { BorderFlash } from "@ui/components/animations/border-flash";
-import { Clipboard } from "./clipboard";
 import { CodeBlock } from "./code-block";
 
 import { demos } from "./demo/demos";
