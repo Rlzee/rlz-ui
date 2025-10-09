@@ -1,0 +1,72 @@
+---
+title: This is an example of a progress component.
+component: true
+---
+
+<ComponentPreview name="progress" />
+
+# Installation
+```bash
+npm: npx rlz@latest add progress
+pnpm: pnpm dlx rlz@latest add progress
+yarn: yarn rlz@latest add progress
+bun: bunx --bun rlz@latest add progress
+```
+
+# Usage
+```tsx
+import { Progress } from "@ui/components/progress"
+```
+
+```tsx
+<Progress value={33} />
+```
+## or use it as is for better personalisation
+```tsx
+<ProgressRoot value={33}>
+  <ProgressIndicator value={33} />
+</ProgressRoot>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="progress" />
+
+<MarkdownFallback>
+
+## Progress (Main)
+
+Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `number \| null` | The progress value. Use `null` for indeterminate progress. | `0` |
+| max | `number` | The maximum progress value. | `100` |
+| getValueLabel | `(value: number, max: number) => string` | A function to get the accessible label text representing the current value. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the progress. | Predefined styles |
+| ...props | `ComponentProps<typeof ProgressPrimitive.Root>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Progress.Root
+
+The root component that contains the progress indicator.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `number \| null` | The progress value. Use `null` for indeterminate progress. | `undefined` |
+| max | `number` | The maximum progress value. | `100` |
+| getValueLabel | `(value: number, max: number) => string` | A function to get the accessible label text representing the current value. | `undefined` |
+| className | `string` | Additional CSS classes to apply to the progress root. | Predefined styles |
+| children | `ReactNode` | The progress indicator. | `undefined` |
+| ...props | `ComponentProps<typeof ProgressPrimitive.Root>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+## Progress.Indicator
+
+The component that visually represents the progress value.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| value | `number \| null` | The progress value used to calculate the indicator width. | `0` |
+| className | `string` | Additional CSS classes to apply to the progress indicator. | Predefined styles |
+| ...props | `ComponentProps<typeof ProgressPrimitive.Indicator>` | All other props are forwarded to the underlying Radix UI component. | `{}` |
+
+</MarkdownFallback>

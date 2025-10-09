@@ -26,6 +26,7 @@ import { dropdownMenuPropsExport } from "./dropdown-menu-props";
 import { inputOtpPropsExport } from "./input-otp-props";
 import { popoverPropsExport } from "./popover-props";
 import { tabsPropsExport } from "./tabs-props";
+import { progressPropsExport } from "./progress-props";
 
 const props = {
   accordion: accordionProps,
@@ -56,6 +57,7 @@ const props = {
   inputOtp: inputOtpPropsExport,
   popover: popoverPropsExport,
   tabs: tabsPropsExport,
+  progress: progressPropsExport,
 };
 
 export { props };

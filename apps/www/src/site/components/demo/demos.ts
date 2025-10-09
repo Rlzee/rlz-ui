@@ -26,6 +26,7 @@ import { DropdownMenuDemo } from "./dropdown-menu-demo";
 import { InputOtpDemo } from "./input-otp-demo";
 import { PopoverDemo } from "./popover-demo";
 import { TabsDemo } from "./tabs-demo";
+import { ProgressDemo } from "./progress-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -56,4 +57,5 @@ export const demos = {
   inputOtp: InputOtpDemo,
   popover: PopoverDemo,
   tabs: TabsDemo,
+  progress: ProgressDemo,
 };
