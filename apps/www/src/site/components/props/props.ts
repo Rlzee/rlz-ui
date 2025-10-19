@@ -27,6 +27,7 @@ import { inputOtpPropsExport } from "./input-otp-props";
 import { popoverPropsExport } from "./popover-props";
 import { tabsPropsExport } from "./tabs-props";
 import { progressPropsExport } from "./progress-props";
+import { scrollAreaPropsExport } from "./scroll-area-props";
 
 const props = {
   accordion: accordionProps,
@@ -58,6 +59,7 @@ const props = {
   popover: popoverPropsExport,
   tabs: tabsPropsExport,
   progress: progressPropsExport,
+  scrollArea: scrollAreaPropsExport,
 };
 
 export { props };

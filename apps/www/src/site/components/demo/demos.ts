@@ -27,6 +27,7 @@ import { InputOtpDemo } from "./input-otp-demo";
 import { PopoverDemo } from "./popover-demo";
 import { TabsDemo } from "./tabs-demo";
 import { ProgressDemo } from "./progress-demo";
+import { ScrollAreaDemo } from "./scroll-area-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -58,4 +59,5 @@ export const demos = {
   popover: PopoverDemo,
   tabs: TabsDemo,
   progress: ProgressDemo,
+  scrollArea: ScrollAreaDemo,
 };
