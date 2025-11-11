@@ -1,0 +1,83 @@
+---
+title: Hover Card
+component: true
+---
+
+<ComponentPreview name="hoverCard" />
+
+# Installation
+```bash
+npm: npx rlz@latest add hover-card
+pnpm: pnpm dlx rlz@latest add hover-card
+yarn: yarn rlz@latest add hover-card
+bun: bunx --bun rlz@latest add hover-card
+```
+
+# Usage
+```tsx
+import { HoverCard } from "@ui/components/hover-card";
+
+<HoverCard>
+  <HoverCard.Trigger>
+    <button className="btn">Hover me</button>
+  </HoverCard.Trigger>
+  <HoverCard.Content>
+    <div className="text-sm">Some helpful information on hover.</div>
+  </HoverCard.Content>
+</HoverCard>
+```
+
+```tsx
+// Custom alignment and offset
+<HoverCard>
+  <HoverCard.Trigger>
+    <span className="underline">Hover here</span>
+  </HoverCard.Trigger>
+  <HoverCard.Content align="start" sideOffset={8}>
+    <div className="p-2">Aligned content</div>
+  </HoverCard.Content>
+</HoverCard>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="hoverCard" />
+
+<MarkdownFallback>
+
+## HoverCard (Main)
+
+A lightweight hover-triggered card built on Radix Hover Card primitives. Use the composed subcomponents for full control.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| ...props | `ComponentProps<typeof import('@radix-ui/react-hover-card').Root>` | All props forwarded to Radix HoverCard Root. | - |
+
+## HoverCard.Trigger
+
+The trigger element that shows the content on hover.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| ...props | `ComponentProps<typeof import('@radix-ui/react-hover-card').Trigger>` | All props forwarded to the trigger element. | - |
+
+## HoverCard.Portal
+
+Portal wrapper for the content — usually not needed to use directly.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| ...props | `ComponentProps<typeof import('@radix-ui/react-hover-card').Portal>` | All props forwarded to the portal. | - |
+
+## HoverCard.Content
+
+The content box shown on hover. Accepts alignment and offset props.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional classes applied to the content wrapper. | - |
+| align | `'start' \| 'center' \| 'end'` | Content alignment relative to the trigger. | `"center"` |
+| sideOffset | `number` | Offset in pixels used when positioning the content from the side. | `4` |
+| ...props | `ComponentProps<typeof import('@radix-ui/react-hover-card').Content>` | All other props forwarded to Radix HoverCard.Content. | - |
+
+</MarkdownFallback>

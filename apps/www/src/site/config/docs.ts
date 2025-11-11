@@ -39,6 +39,7 @@ export const docsConfig: DocsConfig = {
         { title: "Divider", href: "/docs/components/divider" },
         { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
         { title: "Emoji Picker", href: "/docs/components/emoji-picker" },
+        { title: "Hover Card", href: "/docs/components/hover-card" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input OTP", href: "/docs/components/input-otp" },
         { title: "Input", href: "/docs/components/input" },

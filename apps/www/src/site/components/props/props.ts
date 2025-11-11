@@ -32,6 +32,7 @@ import { calendarPropsExport } from "./calendar-props";
 import { carouselPropsExport } from "./carousel-props";
 import { codeWrapperPropsExport } from "./code-wrapper-props";
 import { emojiPickerPropsExport } from "./emoji-picker-props";
+import { hoverCardPropsExport } from "./hover-card-props";
 
 const props = {
   accordion: accordionProps,
@@ -68,6 +69,7 @@ const props = {
   carousel: carouselPropsExport,
   codeWrapper: codeWrapperPropsExport,
   emojiPicker: emojiPickerPropsExport,
+  hoverCard: hoverCardPropsExport,
 };
 
 export { props };
