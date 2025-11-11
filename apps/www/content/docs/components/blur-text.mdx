@@ -1,0 +1,57 @@
+---
+title: Blur Text
+component: true
+---
+
+<ComponentPreview name="blurText" refresh={true} />
+
+# Installation
+```bash
+npm: npx rlz@latest add blur-text
+pnpm: pnpm dlx rlz@latest add blur-text
+yarn: yarn rlz@latest add blur-text
+bun: bunx --bun rlz@latest add blur-text
+```
+
+# Usage
+```tsx
+import { BlurText } from "@ui/components/texts/blur-text";
+
+export default function Example() {
+  return (
+    <>
+      <div className="space-y-2">
+        <BlurText text="Hello world" animateBy="letters" delay={0.2} />
+        <BlurText text="Split by words example" animateBy="words" />
+      </div>
+    </>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="blurText" />
+
+<MarkdownFallback>
+
+## BlurText (Main)
+
+Animated text element that progressively clears a blur and fades in. It uses Framer Motion and an IntersectionObserver to trigger once the element enters the viewport.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| text | `string` | The text to animate. | `'Blur Text Animation'` |
+| delay | `number` | Delay (in seconds) before children animations start. | `0` |
+| className | `string` | Additional classes applied to the wrapper element. | `''` |
+| animateBy | `'words' \| 'letters'` | Animate by splitting the text into words or letters. | `'words'` |
+| direction | `'top' \| 'bottom'` | Direction used to compute initial Y offset. | `'top'` |
+| threshold | `number` | Intersection observer threshold (how much must be visible to start). | `0.1` |
+| rootMargin | `string` | Root margin for the observer (CSS margin syntax). | `'0px'` |
+| animationFrom | `Record<string, string \| number>` | Initial style for each element (e.g., blur/opacity/y). | `{ filter: 'blur(10px)', opacity: 0, y: direction === 'top' ? -20 : 20 }` |
+| animationTo | `Array<Record<string, string \| number>>` | Array of style targets; final item is used as the final state. | `[{ filter: 'blur(5px)', opacity: 0.5, y: 0 }, { filter: 'blur(0px)', opacity: 1, y: 0 }]` |
+| easing | `(t: number) => number` | Easing function for timing. | `(t) => t * (2 - t)` |
+| onAnimationComplete | `() => void` | Callback called when the animation completes. | `undefined` |
+| stepDuration | `number` | Duration (in seconds) of each element's animation step. | `0.4` |
+
+</MarkdownFallback>

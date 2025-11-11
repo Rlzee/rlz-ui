@@ -22,6 +22,9 @@ export const docsConfig: DocsConfig = {
         { title: "Installation", href: "/docs" },
       ],
       // Background: [{ title: "Grid", href: "" }],
+      Texts: [
+        { title: "Blur Text", href: "/docs/components/blur-text" },
+      ],
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
         { title: "Alert", href: "/docs/components/alert" },

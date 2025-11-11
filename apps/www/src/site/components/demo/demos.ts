@@ -35,6 +35,9 @@ import { EmojiPickerDemo } from "./emoji-picker-demo";
 import { HoverCardDemo } from "./hover-card-demo";
 import { TableDemo } from "./table-demo";
 
+// Texts
+import { BlurTextDemo } from "./texts/blur-text-demo";
+
 export const demos = {
   accordion: AccordionDemo,
   avatar: AvatarDemo,
@@ -72,4 +75,7 @@ export const demos = {
   emojiPicker: EmojiPickerDemo,
   hoverCard: HoverCardDemo,
   table: TableDemo,
+
+  // Texts
+  blurText: BlurTextDemo,
 };

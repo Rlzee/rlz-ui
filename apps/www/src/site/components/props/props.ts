@@ -35,6 +35,9 @@ import { emojiPickerPropsExport } from "./emoji-picker-props";
 import { hoverCardPropsExport } from "./hover-card-props";
 import { tablePropsExport } from "./table-props";
 
+// Texts
+import { blurTextPropsExport } from "./texts/blur-text-props";
+
 const props = {
   accordion: accordionProps,
   avatar: avatarPropsExport,
@@ -72,6 +75,9 @@ const props = {
   emojiPicker: emojiPickerPropsExport,
   hoverCard: hoverCardPropsExport,
   table: tablePropsExport,
+
+  // Texts
+  blurText: blurTextPropsExport,
 };
 
 export { props };
