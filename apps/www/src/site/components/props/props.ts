@@ -31,6 +31,7 @@ import { scrollAreaPropsExport } from "./scroll-area-props";
 import { calendarPropsExport } from "./calendar-props";
 import { carouselPropsExport } from "./carousel-props";
 import { codeWrapperPropsExport } from "./code-wrapper-props";
+import { emojiPickerPropsExport } from "./emoji-picker-props";
 
 const props = {
   accordion: accordionProps,
@@ -66,6 +67,7 @@ const props = {
   calendar: calendarPropsExport,
   carousel: carouselPropsExport,
   codeWrapper: codeWrapperPropsExport,
+  emojiPicker: emojiPickerPropsExport,
 };
 
 export { props };

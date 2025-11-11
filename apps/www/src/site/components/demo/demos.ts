@@ -31,6 +31,7 @@ import { ScrollAreaDemo } from "./scroll-area-demo";
 import { CalendarDemo } from "./calendar-demo";
 import { CarouselDemo } from "./carousel-demo";
 import { CodeWrapperDemo } from "./code-wrapper-demo";
+import { EmojiPickerDemo } from "./emoji-picker-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -66,4 +67,5 @@ export const demos = {
   calendar: CalendarDemo,
   carousel: CarouselDemo,
   codeWrapper: CodeWrapperDemo,
+  emojiPicker: EmojiPickerDemo,
 };

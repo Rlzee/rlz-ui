@@ -38,6 +38,7 @@ export const docsConfig: DocsConfig = {
         { title: "Collapsible", href: "/docs/components/collapsible" },
         { title: "Divider", href: "/docs/components/divider" },
         { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
+        { title: "Emoji Picker", href: "/docs/components/emoji-picker" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input OTP", href: "/docs/components/input-otp" },
         { title: "Input", href: "/docs/components/input" },

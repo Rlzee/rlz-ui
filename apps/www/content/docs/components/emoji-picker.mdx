@@ -1,0 +1,120 @@
+---
+title: Emoji Picker
+component: true
+---
+
+<ComponentPreview name="emojiPicker" />
+
+# Installation
+```bash
+npm: npx rlz@latest add emoji-picker
+pnpm: pnpm dlx rlz@latest add emoji-picker
+yarn: yarn rlz@latest add emoji-picker
+bun: bunx --bun rlz@latest add emoji-picker
+```
+
+# Usage
+```tsx
+import { EmojiPicker } from "@ui/components/emoji-picker";
+
+<EmojiPicker className="h-[326px] rounded-lg border">
+  <EmojiPicker.Search />
+  <EmojiPicker.Content>
+    <EmojiPicker.Empty />
+    <EmojiPicker.List />
+  </EmojiPicker.Content>
+</EmojiPicker>
+```
+
+```tsx
+// Provide an onEmojiClick handler to receive selected emoji
+<EmojiPicker onEmojiClick={(emoji) => console.log(emoji)} className="h-[326px] rounded-lg border">
+  <EmojiPicker.Search />
+  <EmojiPicker.Content>
+    <EmojiPicker.List />
+  </EmojiPicker.Content>
+</EmojiPicker>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="emojiPicker" />
+
+<MarkdownFallback>
+
+## EmojiPicker (Main)
+
+Composed emoji picker built on top of Frimousse primitives. Use the composed subcomponents for full control.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes applied to the root. | - |
+| ...props | `ComponentProps<typeof import('frimousse').EmojiPicker.Root>` | All other props are forwarded to the underlying Frimousse Root. | - |
+
+## EmojiPicker.Search
+
+Search input used to filter emojis.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional classes for the search wrapper. | - |
+| ...props | `ComponentProps<typeof import('frimousse').EmojiPicker.Search>` | All other props forwarded to the search input. | - |
+
+## EmojiPicker.Content / Viewport
+
+Container for loading state, list and empty state.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Content inside the viewport. | - |
+| className | `string` | Additional classes for the viewport. | - |
+| ...props | `ComponentProps<typeof import('frimousse').EmojiPicker.Viewport>` | All other viewport props forwarded. | - |
+
+## EmojiPicker.List
+
+The list of emojis. You can pass `components` to customize Row, Emoji and CategoryHeader renderers.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| components | `Partial<Record<string, any>>` | Custom render components for list parts (Row, Emoji, CategoryHeader). | - |
+| onEmojiClick | `(emoji: any) => void` | Optional callback invoked when an emoji is clicked. | - |
+| className | `string` | Classes applied to the list container. | `select-none pb-1` |
+| ...props | `ComponentProps<typeof import('frimousse').EmojiPicker.List>` | All other Frimousse list props. | - |
+
+## EmojiPicker.Row
+
+Row wrapper used for grouping emojis.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Row children (emoji buttons). | - |
+| className | `string` | Classes applied to the row. | `scroll-my-1 px-1` |
+
+## EmojiPicker.Empty
+
+Empty state displayed when no emojis match the query.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Custom content for empty state. | `No emojis found` |
+| className | `string` | Classes for the empty wrapper. | `absolute inset-0 flex items-center justify-center text-muted-foreground text-sm` |
+
+## EmojiPicker.CategoryHeader
+
+Category header component used by the list.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| category | `{ label: string }` | Category object containing the label. | - |
+
+## EmojiPicker.Emoji
+
+Individual emoji button.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| emoji | `{ emoji: string; label: string }` | Emoji data object (character and accessible label). | - |
+| onClick | `(emoji: any) => void` | Click handler receiving the emoji object. | - |
+| className | `string` | Classes applied to emoji button. | `data-[active]:bg-secondary flex size-7 items-center justify-center rounded-sm` |
+
+</MarkdownFallback>
