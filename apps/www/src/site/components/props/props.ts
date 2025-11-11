@@ -29,6 +29,7 @@ import { tabsPropsExport } from "./tabs-props";
 import { progressPropsExport } from "./progress-props";
 import { scrollAreaPropsExport } from "./scroll-area-props";
 import { calendarPropsExport } from "./calendar-props";
+import { carouselPropsExport } from "./carousel-props";
 
 const props = {
   accordion: accordionProps,
@@ -62,6 +63,7 @@ const props = {
   progress: progressPropsExport,
   scrollArea: scrollAreaPropsExport,
   calendar: calendarPropsExport,
+  carousel: carouselPropsExport,
 };
 
 export { props };

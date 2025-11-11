@@ -1,0 +1,103 @@
+---
+title: Carousel Component
+component: true
+---
+
+<ComponentPreview name="carousel" />
+
+# Installation
+```bash
+npm: npx rlz@latest add carousel
+pnpm: pnpm dlx rlz@latest add carousel
+yarn: yarn rlz@latest add carousel
+bun: bunx --bun rlz@latest add carousel
+```
+
+# Usage
+```tsx
+import { Carousel } from "@ui/components/carousel";
+import { Card } from "@ui/components/card";
+```
+
+```tsx
+<Carousel className="w-full max-w-md">
+  <Carousel.Content>
+    {Array.from({ length: 5 }).map((_, index) => (
+      <Carousel.Slide key={index}>
+        <div className="p-1">
+          <Card>
+            <Card.Body className="flex aspect-square items-center justify-center p-6">
+              <span className="text-4xl font-semibold">{index + 1}</span>
+            </Card.Body>
+          </Card>
+        </div>
+      </Carousel.Slide>
+    ))}
+  </Carousel.Content>
+  <div className="flex justify-between items-center mt-2 gap-2">
+    <Carousel.Indicators />
+    <div className="flex items-center mt-2 gap-2">
+      <Carousel.Previous />
+      <Carousel.Next />
+    </div>
+  </div>
+</Carousel>
+```
+
+```tsx
+import Autoplay from "embla-carousel-autoplay";
+
+<Carousel
+  opts={{ align: "start", loop: true }}
+  plugins={[Autoplay({ delay: 2000, stopOnInteraction: false })]}
+  className="w-full max-w-md"
+>
+  <Carousel.Content>
+    {/* Slides */}
+  </Carousel.Content>
+</Carousel>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="carousel" />
+
+<MarkdownFallback>
+
+## Carousel (Main)
+
+A carousel built on Embla with composable subcomponents and helpers.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Carousel children (Content + controls). | - |
+| className | `string` | Additional CSS classes for the root. | - |
+| opts | `CarouselOptions` | Options forwarded to Embla (align, loop, etc.). | - |
+| plugins | `CarouselPlugin` | Embla plugins (autoplay, etc.). | - |
+| orientation | `"horizontal" \| "vertical"` | Carousel orientation. | `"horizontal"` |
+| setApi | `(api: CarouselApi) => void` | Optional callback to receive the Embla API. | - |
+
+## Subcomponents
+
+### Carousel.Provider
+Context provider for carousel state and API. Props mirror the main `Carousel` props.
+
+### Carousel.Inner
+Wrapper that handles keyboard navigation and ARIA region.
+
+### Carousel.Content
+Container that holds slides; uses Embla ref and overflow-hidden.
+
+### Carousel.Slide
+Single slide element. Use these inside `Carousel.Content`.
+
+### Carousel.Previous / Carousel.Next
+Navigation buttons wired to the carousel API. Forward all `Button` props.
+
+### Carousel.Indicators
+Dot indicators reflecting the current slide and allowing navigation.
+
+### Carousel.Counter
+Displays the current slide and total slides; customizable separator.
+
+</MarkdownFallback>
