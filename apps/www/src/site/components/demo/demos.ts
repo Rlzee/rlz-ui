@@ -30,6 +30,7 @@ import { ProgressDemo } from "./progress-demo";
 import { ScrollAreaDemo } from "./scroll-area-demo";
 import { CalendarDemo } from "./calendar-demo";
 import { CarouselDemo } from "./carousel-demo";
+import { CodeWrapperDemo } from "./code-wrapper-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -64,4 +65,5 @@ export const demos = {
   scrollArea: ScrollAreaDemo,
   calendar: CalendarDemo,
   carousel: CarouselDemo,
+  codeWrapper: CodeWrapperDemo,
 };

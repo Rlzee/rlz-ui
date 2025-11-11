@@ -1,0 +1,59 @@
+---
+title: Code Wrapper
+component: true
+---
+
+<ComponentPreview name="codeWrapper" />
+
+# Installation
+```bash
+npm: npx rlz@latest add code-wrapper
+pnpm: pnpm dlx rlz@latest add code-wrapper
+yarn: yarn rlz@latest add code-wrapper
+bun: bunx --bun rlz@latest add code-wrapper
+```
+
+# Usage
+```tsx
+import { CodeWrapper } from "@ui/components/code-wrapper";
+
+<CodeWrapper code={"console.log('Hello world')"} />
+```
+
+```tsx
+// Show line numbers and specify language
+<CodeWrapper
+  language="tsx"
+  showLineNumbers={true}
+  code={`import React from 'react';\nconsole.log('Hello');`}
+/>
+```
+
+```tsx
+// Pass custom inline styles
+<CodeWrapper
+  code={codeString}
+  customStyle={{ padding: '0.75rem', fontSize: '0.8rem' }}
+/>
+```
+
+> Note: the component uses `next-themes` to pick a light/dark Prism theme and guards rendering behind a mounted check. When using server-side rendering, the component intentionally returns null until mounted to avoid hydration mismatches.
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="codeWrapper" />
+
+<MarkdownFallback>
+
+## CodeWrapper (Main)
+
+Renders syntax-highlighted code using react-syntax-highlighter (Prism). It picks the theme according to `next-themes` and avoids rendering on the server until the theme is resolved.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| code | `string` | Code string to render inside the syntax highlighter. | - |
+| language | `string` | Language identifier for syntax highlighting (e.g. `tsx`, `js`, `css`). | `"tsx"` |
+| showLineNumbers | `boolean` | Whether to show line numbers alongside the code. | `false` |
+| customStyle | `CSSProperties` | Optional inline style object applied to the underlying SyntaxHighlighter container. | - |
+
+</MarkdownFallback>

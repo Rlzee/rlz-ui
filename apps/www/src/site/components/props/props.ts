@@ -30,6 +30,7 @@ import { progressPropsExport } from "./progress-props";
 import { scrollAreaPropsExport } from "./scroll-area-props";
 import { calendarPropsExport } from "./calendar-props";
 import { carouselPropsExport } from "./carousel-props";
+import { codeWrapperPropsExport } from "./code-wrapper-props";
 
 const props = {
   accordion: accordionProps,
@@ -64,6 +65,7 @@ const props = {
   scrollArea: scrollAreaPropsExport,
   calendar: calendarPropsExport,
   carousel: carouselPropsExport,
+  codeWrapper: codeWrapperPropsExport,
 };
 
 export { props };
