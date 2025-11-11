@@ -1,0 +1,141 @@
+---
+title: Calendar Component
+component: true
+---
+
+<ComponentPreview name="calendar" />
+
+# Installation
+```bash
+npm: npx rlz@latest add calendar
+pnpm: pnpm dlx rlz@latest add calendar
+yarn: yarn rlz@latest add calendar
+bun: bunx --bun rlz@latest add calendar
+```
+
+# Usage
+```tsx
+import { Calendar } from "@ui/components/calendar";
+```
+
+```tsx
+<Calendar />
+```
+
+```tsx
+// Customizing the calendar with locales and options
+<Calendar
+  localeKey="fr"
+  showOutsideDays={false}
+  className="w-fit"
+/>
+```
+
+```tsx
+// Passing custom classNames to override defaults
+<Calendar
+  classNames={{
+    months: "grid grid-cols-2 gap-6",
+    day: "text-sm px-1",
+  }}
+/>
+```
+
+```tsx
+// Providing custom components (e.g. Chevron icons)
+<Calendar
+  components={{
+    Chevron: ({ orientation }) => (
+      orientation === "left" ? <MyLeftChevron /> : <MyRightChevron />
+    ),
+  }}
+/>
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="calendar" />
+
+<MarkdownFallback>
+
+## Calendar (Main)
+
+A lightweight calendar component built on top of react-day-picker with sensible default styling and locale support.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional CSS classes applied to the calendar container. | - |
+| classNames | `Partial<Record<string, string>>` | Override or extend internal DayPicker class names (see available keys). | - |
+| showOutsideDays | `boolean` | Whether days from adjacent months are shown in the month grid. | `true` |
+| localeKey | `LocaleKey` | Locale key used to resolve the locale from the internal `locales` map. | `"en-US"` |
+| components | `Partial<Record<string, any>>` | Custom renderer components passed to react-day-picker (e.g. custom Chevron). | - |
+| ...props | `ComponentProps<typeof import('react-day-picker').DayPicker>` | All other props supported by react-day-picker are forwarded. | - |
+
+## classNames keys
+
+The Calendar exposes a `classNames` prop which accepts an object with keys mirroring internal parts of the calendar. Common keys include:
+
+- `months` — container for months
+- `month` — single month wrapper
+- `month_caption` — caption container
+- `caption_label` — caption label
+- `nav` — navigation wrapper
+- `button_previous` — previous button classes
+- `button_next` — next button classes
+- `weekday` — weekday header styling
+- `day_button` — day button styling
+- `day` — day wrapper
+- `range_start`, `range_end`, `range_middle` — range state helpers
+- `today` — today decoration
+- `outside` — styling for days outside the active month
+- `hidden` — hidden elements
+- `week_number` — week number cell styling
+
+You can pass any of these to `classNames` to tweak styling or to merge with the defaults.
+
+## Locales
+
+The component bundles a small set of locales and exposes the `localeKey` prop. Available keys include:
+
+- `"en-US"`, `fr`, `"fa-IR"`, `"ar-SA"`, `de`, `es`, `ja`, `ru`
+
+Set `localeKey` to one of the keys above to switch the locale. For example:
+
+```tsx
+<Calendar localeKey="fr" />
+```
+
+## Features
+
+- Built on top of `react-day-picker` for feature completeness
+- Easy locale switching via `localeKey`
+- Sensible default Tailwind-based styling via `classNames`
+- Customizable navigation icons via `components` prop
+- Supports showing/hiding days from adjacent months
+
+## Examples
+
+### Simple calendar
+```tsx
+<Calendar />
+```
+
+### Two-month layout
+```tsx
+<Calendar classNames={{ months: "grid grid-cols-2 gap-6" }} />
+```
+
+### Localization
+```tsx
+<Calendar localeKey="de" />
+```
+
+### Custom chevrons
+```tsx
+const MyLeftChevron = () => <span>{"<"}</span>;
+const MyRightChevron = () => <span>{">"}</span>;
+
+<Calendar components={{ Chevron: ({ orientation }) => orientation === 'left' ? <MyLeftChevron /> : <MyRightChevron /> }} />
+```
+
+</MarkdownFallback>

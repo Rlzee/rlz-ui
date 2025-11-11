@@ -30,6 +30,7 @@ export const docsConfig: DocsConfig = {
         { title: "Breadcrumb", href: "/docs/components/breadcrumb" },
         { title: "Button Group", href: "/docs/components/button-group" },
         { title: "Button", href: "/docs/components/button" },
+        { title: "Calendar", href: "/docs/components/calendar" },
         { title: "Card", href: "/docs/components/card" },
         { title: "Checkbox", href: "/docs/components/checkbox" },
         { title: "Collapsible", href: "/docs/components/collapsible" },

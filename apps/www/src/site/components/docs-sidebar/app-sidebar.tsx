@@ -41,7 +41,7 @@ const AppSidebar = ({
         className="pt-16 group-data-[side=left]:border-r-0"
         backgroundColor="bg-background"
       >
-        <Sidebar.Content className="gap-0">
+        <Sidebar.Content className="gap-0 scrollbar-hide">
           {Object.entries(data.itemsLeft).map(([key, items]) => (
             <ContentSidebar key={key} items={items} label={key} />
           ))}

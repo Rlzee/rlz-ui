@@ -28,6 +28,7 @@ import { popoverPropsExport } from "./popover-props";
 import { tabsPropsExport } from "./tabs-props";
 import { progressPropsExport } from "./progress-props";
 import { scrollAreaPropsExport } from "./scroll-area-props";
+import { calendarPropsExport } from "./calendar-props";
 
 const props = {
   accordion: accordionProps,
@@ -60,6 +61,7 @@ const props = {
   tabs: tabsPropsExport,
   progress: progressPropsExport,
   scrollArea: scrollAreaPropsExport,
+  calendar: calendarPropsExport,
 };
 
 export { props };
