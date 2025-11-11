@@ -1,0 +1,66 @@
+---
+title: Decrypted Text
+component: true
+---
+
+<ComponentPreview name="decryptedText" refresh={true} />
+
+# Installation
+```bash
+npm: npx rlz@latest add decrypted-text
+pnpm: pnpm dlx rlz@latest add decrypted-text
+yarn: yarn rlz@latest add decrypted-text
+bun: bunx --bun rlz@latest add decrypted-text
+```
+
+# Usage
+```tsx
+import { DecryptedText } from "@ui/components/texts/decrypted-text";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      {/* Hover to trigger animation (default) */}
+      <DecryptedText text="Hover to reveal me" />
+
+      {/* Reveal on view (animate when element enters viewport) */}
+      <DecryptedText text="Reveal when in view" animateOn="view" />
+
+      {/* Sequential reveal from center with custom speed */}
+      <DecryptedText text="Sequential reveal" sequential revealDirection="center" speed={40} />
+    </div>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="decryptedText" />
+
+<MarkdownFallback>
+
+## DecryptedText (Main)
+
+Animated text that scrambles and then reveals the original characters. You can trigger the effect on hover or when the element enters the viewport.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| text | `string` | Text to decrypt/reveal. | `-` |
+| speed | `number` | Interval (ms) between scramble updates. | `50` |
+| maxIterations | `number` | Maximum scramble iterations when not sequential. | `10` |
+| sequential | `boolean` | Reveal characters sequentially instead of random iterations. | `false` |
+| revealDirection | `'start' \| 'end' \| 'center'` | Direction used when revealing sequentially. | `'start'` |
+| useOriginalCharsOnly | `boolean` | When true, scrambled chars will only use characters present in the original text. | `false` |
+| characters | `string` | Character set used for scrambling when `useOriginalCharsOnly` is false. | `'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*()_+'` |
+| className | `string` | Classes applied to revealed characters. | `''` |
+| encryptedClassName | `string` | Classes applied to scrambled/encrypted characters while animating. | `''` |
+| parentClassName | `string` | Classes applied to the outer wrapper element. | `''` |
+| animateOn | `'view' \| 'hover'` | Trigger mode: animate on hover or when the element enters the viewport. | `'hover'` |
+
+### Character slot
+
+Each rendered character is a span (data-slot="decrypted-char"). You can style revealed vs scrambled chars via `className` and `encryptedClassName`.
+
+</MarkdownFallback>

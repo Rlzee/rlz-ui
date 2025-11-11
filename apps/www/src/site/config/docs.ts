@@ -25,6 +25,7 @@ export const docsConfig: DocsConfig = {
       Texts: [
         { title: "Blur Text", href: "/docs/components/blur-text" },
         { title: "Count Number", href: "/docs/components/count-number" },
+        { title: "Decrypted Text", href: "/docs/components/decrypted-text" },
       ],
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
