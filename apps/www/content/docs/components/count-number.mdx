@@ -1,0 +1,53 @@
+---
+title: Count Number
+component: true
+---
+
+<ComponentPreview name="countNumber" refresh={true} />
+
+# Installation
+```bash
+npm: npx rlz@latest add count-number
+pnpm: pnpm dlx rlz@latest add count-number
+yarn: yarn rlz@latest add count-number
+bun: bunx --bun rlz@latest add count-number
+```
+
+# Usage
+```tsx
+import { CountNumber } from "@ui/components/texts/count-number";
+
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      <CountNumber to={100} duration={2} className="text-3xl font-bold" />
+      <CountNumber to={12345} duration={3} separator=" " className="text-2xl" />
+    </div>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="countNumber" />
+
+<MarkdownFallback>
+
+## CountNumber (Main)
+
+Animated counter powered by Framer Motion. Starts when the element enters the viewport by default (uses an IntersectionObserver).
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| to | `number` | Target number to count to. | `-` |
+| from | `number` | Start number. Defaults to 0 (or `to` when direction is 'down'). | `0` |
+| direction | `'up' \| 'down'` | Direction of the count animation. | `'up'` |
+| delay | `number` | Delay (in seconds) before the animation starts. | `0` |
+| duration | `number` | Duration (in seconds) of the animation. | `2` |
+| className | `string` | Classes applied to the wrapper element (span). | `''` |
+| startWhen | `boolean` | If true the animation starts when the element enters the viewport. | `true` |
+| separator | `string` | Optional thousands separator character (replaces `,`). | `''` |
+| onStart | `() => void` | Callback invoked when the animation starts. | `undefined` |
+| onEnd | `() => void` | Callback invoked when the animation ends. | `undefined` |
+
+</MarkdownFallback>
