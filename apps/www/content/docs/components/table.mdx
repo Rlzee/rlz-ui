@@ -1,0 +1,119 @@
+---
+title: Table
+component: true
+---
+
+<ComponentPreview name="table" />
+
+# Installation
+```bash
+npm: npx rlz@latest add table
+pnpm: pnpm dlx rlz@latest add table
+yarn: yarn rlz@latest add table
+bun: bunx --bun rlz@latest add table
+```
+
+# Usage
+```tsx
+import { Table } from "@ui/components/table"
+```
+
+```tsx
+export default function Example() {
+  return (
+    <Table className="w-full">
+      <Table.Header>
+        <Table.Row>
+          <Table.Head>Name</Table.Head>
+          <Table.Head>Email</Table.Head>
+          <Table.Head>Role</Table.Head>
+        </Table.Row>
+      </Table.Header>
+      <Table.Body>
+        <Table.Row>
+          <Table.Cell>Jane Doe</Table.Cell>
+          <Table.Cell>jane@example.com</Table.Cell>
+          <Table.Cell>Admin</Table.Cell>
+        </Table.Row>
+        <Table.Row>
+          <Table.Cell>John Smith</Table.Cell>
+          <Table.Cell>john@example.com</Table.Cell>
+          <Table.Cell>Editor</Table.Cell>
+        </Table.Row>
+      </Table.Body>
+      <Table.Footer>
+        <Table.Row>
+          <Table.Caption>List of users</Table.Caption>
+        </Table.Row>
+      </Table.Footer>
+    </Table>
+  )
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="table" />
+
+<MarkdownFallback>
+
+## Table (Main)
+
+Wrapper for table content that adds responsive overflow and base styles.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| containerClassName | `string` | Additional classes applied to the table wrapper (responsive overflow container). | `-` |
+| className | `string` | Additional classes applied to the table element. | `-` |
+| ...props | `ComponentProps<'table'>` | All other table element props are forwarded. | `{}` |
+
+## TableHeader
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to the table header (thead). | `'border-b border-border'` |
+| ...props | `ComponentProps<'thead'>` | All other thead props forwarded. | `{}` |
+
+## TableBody
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to the table body (tbody). | `'[_&tr:last-child]:border-0'` |
+| ...props | `ComponentProps<'tbody'>` | All other tbody props forwarded. | `{}` |
+
+## TableFooter
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to the table footer (tfoot). | `'border-t border-border font-medium'` |
+| ...props | `ComponentProps<'tfoot'>` | All other tfoot props forwarded. | `{}` |
+
+## TableRow
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to each table row (tr). | `'border-b border-border'` |
+| ...props | `ComponentProps<'tr'>` | All other tr props forwarded. | `{}` |
+
+## TableHead
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to table head cells (th). | `'h-12 px-3 text-left font-semibold'` |
+| ...props | `ComponentProps<'th'>` | All other th props forwarded. | `{}` |
+
+## TableCell
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to table cells (td). | `'align-middle px-3 py-3'` |
+| ...props | `ComponentProps<'td'>` | All other td props forwarded. | `{}` |
+
+## TableCaption
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Classes applied to the caption element. | `'mt-4 text-sm text-muted-foreground'` |
+| ...props | `ComponentProps<'caption'>` | All other caption props forwarded. | `{}` |
+
+</MarkdownFallback>

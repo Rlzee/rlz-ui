@@ -33,6 +33,7 @@ import { CarouselDemo } from "./carousel-demo";
 import { CodeWrapperDemo } from "./code-wrapper-demo";
 import { EmojiPickerDemo } from "./emoji-picker-demo";
 import { HoverCardDemo } from "./hover-card-demo";
+import { TableDemo } from "./table-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -70,4 +71,5 @@ export const demos = {
   codeWrapper: CodeWrapperDemo,
   emojiPicker: EmojiPickerDemo,
   hoverCard: HoverCardDemo,
+  table: TableDemo,
 };
