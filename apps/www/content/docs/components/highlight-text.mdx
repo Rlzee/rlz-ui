@@ -1,0 +1,91 @@
+---
+title: Highlight Text
+component: true
+---
+
+<ComponentPreview name="highlightText" refresh={true} />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add highlight-text
+pnpm: pnpm dlx rlz@latest add highlight-text
+yarn: yarn rlz@latest add highlight-text
+bun: bunx --bun rlz@latest add highlight-text
+```
+
+# Usage
+
+```tsx
+import {
+  HighlightText,
+  ScrollHighlight,
+  ControlledHighlight,
+} from "@ui/components/texts/highlight-text";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <div className="flex items-center justify-center">
+      <div className="space-y-4">
+        <h2 className="text-2xl font-semibold">Highlight Text</h2>
+        <HighlightText>
+          This is highlighted text with a custom background color
+        </HighlightText>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-semibold">Scroll Highlight</h2>
+        <ScrollHighlight>This text highlights on scroll</ScrollHighlight>
+      </div>
+
+      <div className="space-y-4">
+        <h2 className="text-2xl font-semibold">Controlled Highlight</h2>
+        <ControlledHighlight>
+          This text can be highlighted on click
+        </ControlledHighlight>
+      </div>
+    </div>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="highlightText" />
+
+<MarkdownFallback>
+
+## HighlightText (Main)
+
+Inline highlight that reveals a background on hover using Framer Motion variants.
+
+| Prop          | Type                                          | Description                                                                        | Default     |
+| ------------- | --------------------------------------------- | ---------------------------------------------------------------------------------- | ----------- |
+| children      | `ReactNode`                                   | Text or elements to render; the content that will receive the highlight.           | `-`         |
+| color         | `string`                                      | Background color used for the highlight (CSS color string).                        | `'#ffeb3b'` |
+| delay         | `number`                                      | Delay (seconds) before the highlight animation starts (used by the hover variant). | `0`         |
+| duration      | `number`                                      | Duration (seconds) of the highlight animation.                                     | `0.8`       |
+| animationType | `'slideIn' \| 'fadeIn' \| 'expand' \| 'wave'` | Animation variant used to reveal the highlight.                                    | `'slideIn'` |
+| className     | `string`                                      | Additional classes applied to the outer wrapper element.                           | `''`        |
+| style         | `CSSProperties`                               | Inline styles applied to the outer wrapper element.                                | `-`         |
+
+### ScrollHighlight (Scroll)
+
+Highlight that triggers when the element enters the viewport.
+
+| Prop      | Type     | Description                                                                | Default |
+| --------- | -------- | -------------------------------------------------------------------------- | ------- |
+| threshold | `number` | Viewport amount (0-1) required before the scroll-triggered highlight runs. | `0.1`   |
+
+### ControlledHighlight (Controlled)
+
+Controlled variant where the highlight is toggled via a boolean prop.
+
+| Prop          | Type      | Description                                                                         | Default |
+| ------------- | --------- | ----------------------------------------------------------------------------------- | ------- |
+| isHighlighted | `boolean` | When true the ControlledHighlight renders the highlight; when false it is disabled. | `false` |
+
+</MarkdownFallback>

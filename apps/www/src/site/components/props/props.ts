@@ -41,6 +41,7 @@ import { countNumberPropsExport } from "./texts/count-number-props";
 import { decryptedTextPropsExport } from "./texts/decrypted-text-props";
 import { generatingTextPropsExport } from "./texts/generating-text-props";
 import { gradientTextPropsExport } from "./texts/gradient-text-props";
+import { highlightTextPropsExport } from "./texts/highlight-text-props";
 
 const props = {
   accordion: accordionProps,
@@ -86,6 +87,7 @@ const props = {
   decryptedText: decryptedTextPropsExport,
   generatingText: generatingTextPropsExport,
   gradientText: gradientTextPropsExport,
+  highlightText: highlightTextPropsExport,
 };
 
 export { props };

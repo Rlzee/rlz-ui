@@ -41,6 +41,7 @@ import { CountNumberDemo } from "./texts/count-number-demo";
 import { DecryptedTextDemo } from "./texts/decrypted-text-demo";
 import { GeneratingTextDemo } from "./texts/generating-text-demo";
 import { GradientTextDemo } from "./texts/gradient-text-demo";
+import { HighlightTextDemo } from "./texts/highlight-text-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -86,4 +87,5 @@ export const demos = {
   decryptedText: DecryptedTextDemo,
   generatingText: GeneratingTextDemo,
   gradientText: GradientTextDemo,
+  highlightText: HighlightTextDemo,
 };
