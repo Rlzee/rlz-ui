@@ -39,6 +39,7 @@ import { TableDemo } from "./table-demo";
 import { BlurTextDemo } from "./texts/blur-text-demo";
 import { CountNumberDemo } from "./texts/count-number-demo";
 import { DecryptedTextDemo } from "./texts/decrypted-text-demo";
+import { GeneratingTextDemo } from "./texts/generating-text-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -82,4 +83,5 @@ export const demos = {
   blurText: BlurTextDemo,
   countNumber: CountNumberDemo,
   decryptedText: DecryptedTextDemo,
+  generatingText: GeneratingTextDemo,
 };

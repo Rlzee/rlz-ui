@@ -1,0 +1,48 @@
+---
+title: Generating Text
+component: true
+---
+
+<ComponentPreview name="generatingText" refresh={true} />
+
+# Installation
+```bash
+npm: npx rlz@latest add generating-text
+pnpm: pnpm dlx rlz@latest add generating-text
+yarn: yarn rlz@latest add generating-text
+bun: bunx --bun rlz@latest add generating-text
+```
+
+# Usage
+```tsx
+import { GeneratingText } from "@ui/components/texts/generating-text";
+
+export default function Example() {
+  return (
+    <GeneratingText
+      words="This is a generating text effect example with Framer Motion"
+      className="text-3xl font-bold"
+      duration={0.5}
+    />
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="generatingText" />
+
+<MarkdownFallback>
+
+## GeneratingText (Main)
+
+Simple generating text effect that animates words into view using Framer Motion.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| words | `string` | Text content — words separated by spaces. | `-` |
+| className | `string` | Additional classes applied to the container wrapper. | `''` |
+| blur | `boolean` | If true, words are initially blurred and animate to sharpness. | `false` |
+| duration | `number` | Duration (s) of the word animation; used as the Framer Motion duration. | `0.5` |
+
+</MarkdownFallback>

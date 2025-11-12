@@ -39,6 +39,7 @@ import { tablePropsExport } from "./table-props";
 import { blurTextPropsExport } from "./texts/blur-text-props";
 import { countNumberPropsExport } from "./texts/count-number-props";
 import { decryptedTextPropsExport } from "./texts/decrypted-text-props";
+import { generatingTextPropsExport } from "./texts/generating-text-props";
 
 const props = {
   accordion: accordionProps,
@@ -82,6 +83,7 @@ const props = {
   blurText: blurTextPropsExport,
   countNumber: countNumberPropsExport,
   decryptedText: decryptedTextPropsExport,
+  generatingText: generatingTextPropsExport,
 };
 
 export { props };

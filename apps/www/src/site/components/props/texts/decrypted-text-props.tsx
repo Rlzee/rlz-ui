@@ -14,14 +14,8 @@ export const decryptedTextProps: PropRow[] = [
   { prop: "animateOn", type: "'view' | 'hover'", default: "'hover'", description: "Trigger mode: animate on hover or when the element enters the viewport ('view')." },
 ];
 
-export const decryptedCharProps: PropRow[] = [
-  { prop: "children", type: "string", default: "-", description: "Rendered character (letter or space)." },
-  { prop: "className", type: "string", default: "''", description: "Classes applied to the character element (varies between revealed and encrypted states)." },
-];
-
 const decryptedTextPropsExport = {
   main: decryptedTextProps,
-  char: decryptedCharProps,
 };
 
 export { decryptedTextPropsExport };

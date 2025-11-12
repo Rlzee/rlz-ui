@@ -15,14 +15,8 @@ export const blurTextProps: PropRow[] = [
 	{ prop: "stepDuration", type: "number", default: "0.4", description: "Duration (in seconds) of each element's animation step." },
 ];
 
-export const blurTextElementProps: PropRow[] = [
-	{ prop: "children", type: "ReactNode", default: "-", description: "Individual text element (word or letter)." },
-	{ prop: "style", type: "CSSProperties", default: "-", description: "Inline style applied to the element (for spacing)." },
-];
-
 const blurTextPropsExport = {
 	main: blurTextProps,
-	element: blurTextElementProps,
 };
 
 export { blurTextPropsExport };
