@@ -66,8 +66,8 @@ export const calendarLocalesProps: PropRow[] = [
 
 const calendarPropsExport = {
 	main: calendarProps,
-	classNames: calendarClassNamesProps,
-	locales: calendarLocalesProps,
+	classNames: {title: "classNames Props", props: calendarClassNamesProps},
+	locales: {title: "locales Props", props: calendarLocalesProps},
 };
 
 export { calendarPropsExport };
