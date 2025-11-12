@@ -1,0 +1,45 @@
+---
+title: Shimmer Text
+component: true
+---
+
+<ComponentPreview name="shimmerText" />
+
+# Installation
+```bash
+npm: npx rlz@latest add shimmer-text
+pnpm: pnpm dlx rlz@latest add shimmer-text
+yarn: yarn rlz@latest add shimmer-text
+bun: bunx --bun rlz@latest add shimmer-text
+```
+
+# Usage
+```tsx
+import { TextShimmer } from "@ui/components/texts/shimmer-text";
+```
+
+```tsx
+export default function Example() {
+  return <TextShimmer className="text-xl">Generating code...</TextShimmer>;
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="shimmerText" />
+
+<MarkdownFallback>
+
+## TextShimmer (Main)
+
+Applies an animated shimmer gradient to text. Uses Framer Motion for a continuous animation loop and adjusts spread based on the text length.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `string` | Text content to apply the shimmer effect to. | `-` |
+| as | `React.ElementType` | Element type to render (e.g., 'p', 'span', 'h1'). | `'p'` |
+| className | `string` | Additional classes applied to the wrapper element. | `''` |
+| duration | `number` | Animation duration in seconds for the shimmer loop. | `2` |
+| spread | `number` | Multiplier controlling the shimmer spread relative to the text length. | `2` |
+
+</MarkdownFallback>

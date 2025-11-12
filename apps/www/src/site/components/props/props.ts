@@ -43,6 +43,7 @@ import { generatingTextPropsExport } from "./texts/generating-text-props";
 import { gradientTextPropsExport } from "./texts/gradient-text-props";
 import { highlightTextPropsExport } from "./texts/highlight-text-props";
 import { rotatingTextPropsExport } from "./texts/rotating-text-props";
+import { shimmerTextPropsExport } from "./texts/shimmer-text-props";
 
 const props = {
   accordion: accordionProps,
@@ -90,6 +91,7 @@ const props = {
   gradientText: gradientTextPropsExport,
   highlightText: highlightTextPropsExport,
   rotatingText: rotatingTextPropsExport,
+  shimmerText: shimmerTextPropsExport,
 };
 
 export { props };

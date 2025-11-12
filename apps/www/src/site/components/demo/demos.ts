@@ -43,6 +43,7 @@ import { GeneratingTextDemo } from "./texts/generating-text-demo";
 import { GradientTextDemo } from "./texts/gradient-text-demo";
 import { HighlightTextDemo } from "./texts/highlight-text-demo";
 import { RotatingTextDemo } from "./texts/rotating-text-demo";
+import { ShimmerTextDemo } from "./texts/shimmer-text-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -90,4 +91,5 @@ export const demos = {
   gradientText: GradientTextDemo,
   highlightText: HighlightTextDemo,
   rotatingText: RotatingTextDemo,
+  shimmerText: ShimmerTextDemo,
 };
