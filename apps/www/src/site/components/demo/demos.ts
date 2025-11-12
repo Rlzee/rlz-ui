@@ -42,6 +42,7 @@ import { DecryptedTextDemo } from "./texts/decrypted-text-demo";
 import { GeneratingTextDemo } from "./texts/generating-text-demo";
 import { GradientTextDemo } from "./texts/gradient-text-demo";
 import { HighlightTextDemo } from "./texts/highlight-text-demo";
+import { RotatingTextDemo } from "./texts/rotating-text-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -88,4 +89,5 @@ export const demos = {
   generatingText: GeneratingTextDemo,
   gradientText: GradientTextDemo,
   highlightText: HighlightTextDemo,
+  rotatingText: RotatingTextDemo,
 };

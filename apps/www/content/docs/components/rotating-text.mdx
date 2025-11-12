@@ -1,0 +1,70 @@
+---
+title: Rotating Text
+component: true
+---
+
+<ComponentPreview name="rotatingText" />
+
+# Installation
+```bash
+npm: npx rlz@latest add rotating-text
+pnpm: pnpm dlx rlz@latest add rotating-text
+yarn: yarn rlz@latest add rotating-text
+bun: bunx --bun rlz@latest add rotating-text
+```
+
+# Usage
+```tsx
+import { RotatingText } from "@ui/components/texts/rotating-text";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <RotatingText
+      texts={["rlz", "best", "ui"]}
+      mainClassName="px-2 sm:px-2 md:px-3 bg-cyan-300 text-black overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+      staggerFrom={"last"}
+      initial={{ y: "100%" }}
+      animate={{ y: 0 }}
+      exit={{ y: "-120%" }}
+      staggerDuration={0.025}
+      splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+      transition={{ type: "spring", damping: 30, stiffness: 400 }}
+      rotationInterval={2000}
+    />
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="rotatingText" />
+
+<MarkdownFallback>
+
+## RotatingText (Main)
+
+Animated text rotator using Framer Motion. Splits text into characters/words/lines and animates entrance/exit.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| texts | `string[]` | Array of strings to rotate through. | `-` |
+| transition | `Transition` | Framer Motion transition used for element animations. | `{ type: 'spring', damping: 25, stiffness: 300 }` |
+| initial | `MotionProps['initial']` | Initial animation state for characters/segments. | `{ y: '100%', opacity: 0 }` |
+| animate | `MotionProps['animate']` | Animate state for characters/segments. | `{ y: 0, opacity: 1 }` |
+| exit | `MotionProps['exit']` | Exit state for characters/segments when they leave. | `{ y: '-120%', opacity: 0 }` |
+| animatePresenceMode | `'sync' \| 'wait'` | Mode passed to AnimatePresence (synchronous or wait). | `'wait'` |
+| animatePresenceInitial | `boolean` | Whether AnimatePresence runs its initial animations. | `false` |
+| rotationInterval | `number` | Interval (ms) between automatic rotations when `auto` is true. | `2000` |
+| staggerDuration | `number` | Delay between staggered character/element animations (seconds). | `0` |
+| staggerFrom | `'first' \| 'last' \| 'center' \| 'random' \| number` | Direction or index used to compute staggered delays. | `'first'` |
+| loop | `boolean` | When true the rotation loops back to the first text after the last. | `true` |
+| auto | `boolean` | When true the component auto-rotates on an interval; set false to control programmatically. | `true` |
+| splitBy | `string` | Splitter used to break text: 'characters', 'words', 'lines' or a custom separator string. | `'characters'` |
+| onNext | `(index: number) => void` | Callback fired when the active index changes (receives the new index). | `-` |
+| mainClassName | `string` | Classes applied to the outer wrapper element. | `-` |
+| splitLevelClassName | `string` | Classes applied to the split-level wrapper (word/part). | `-` |
+| elementLevelClassName | `string` | Classes applied to the individual animated elements (characters). | `-` |
+
+</MarkdownFallback>

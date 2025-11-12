@@ -42,6 +42,7 @@ import { decryptedTextPropsExport } from "./texts/decrypted-text-props";
 import { generatingTextPropsExport } from "./texts/generating-text-props";
 import { gradientTextPropsExport } from "./texts/gradient-text-props";
 import { highlightTextPropsExport } from "./texts/highlight-text-props";
+import { rotatingTextPropsExport } from "./texts/rotating-text-props";
 
 const props = {
   accordion: accordionProps,
@@ -88,6 +89,7 @@ const props = {
   generatingText: generatingTextPropsExport,
   gradientText: gradientTextPropsExport,
   highlightText: highlightTextPropsExport,
+  rotatingText: rotatingTextPropsExport,
 };
 
 export { props };
