@@ -1,0 +1,61 @@
+---
+title: Gradient Text
+component: true
+---
+
+<ComponentPreview name="gradientText" />
+
+# Installation
+```bash
+npm: npx rlz@latest add gradient-text
+pnpm: pnpm dlx rlz@latest add gradient-text
+yarn: yarn rlz@latest add gradient-text
+bun: bunx --bun rlz@latest add gradient-text
+```
+
+# Usage
+```tsx
+import { GradientText } from "@ui/components/texts/gradient-text";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <div className="space-y-4">
+      <GradientText className="text-4xl font-bold">Gradient Title</GradientText>
+
+      <GradientText
+        className="text-2xl"
+        colors={["#ff7a18", "#af002d", "#319197"]}
+        animationSpeed={6}
+      >
+        Custom Colors & Speed
+      </GradientText>
+
+      <GradientText showBorder className="text-lg">
+        With Animated Border
+      </GradientText>
+    </div>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="gradientText" />
+
+<MarkdownFallback>
+
+## GradientText (Main)
+
+Displays text (or children) clipped to an animated linear-gradient. The gradient is applied via inline styles and a small keyframes block injected by the component.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Text or elements to render with the gradient. | `-` |
+| className | `string` | Additional classes applied to the outer wrapper. | `''` |
+| colors | `string[]` | Array of color stops used to build the linear-gradient. | `['#40ffaa','#4079ff','#40ffaa','#4079ff','#40ffaa']` |
+| animationSpeed | `number` | Animation duration (seconds) for the gradient keyframes loop. | `8` |
+| showBorder | `boolean` | When true, renders an animated gradient border behind the content. | `false` |
+
+</MarkdownFallback>

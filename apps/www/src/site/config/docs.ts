@@ -27,6 +27,7 @@ export const docsConfig: DocsConfig = {
         { title: "Count Number", href: "/docs/components/count-number" },
         { title: "Decrypted Text", href: "/docs/components/decrypted-text" },
         { title: "Generating Text", href: "/docs/components/generating-text" },
+        { title: "Gradient Text", href: "/docs/components/gradient-text" },
       ],
       Components: [
         { title: "Accordion", href: "/docs/components/accordion" },
