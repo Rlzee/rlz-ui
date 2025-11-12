@@ -34,6 +34,7 @@ import { CodeWrapperDemo } from "./code-wrapper-demo";
 import { EmojiPickerDemo } from "./emoji-picker-demo";
 import { HoverCardDemo } from "./hover-card-demo";
 import { TableDemo } from "./table-demo";
+import { ContextMenuDemo } from "./context-menu-demo";
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -82,6 +83,7 @@ export const demos = {
   emojiPicker: EmojiPickerDemo,
   hoverCard: HoverCardDemo,
   table: TableDemo,
+  contextMenu: ContextMenuDemo,
 
   // Texts
   blurText: BlurTextDemo,

@@ -1,0 +1,85 @@
+---
+title: Context Menu
+component: true
+---
+
+<ComponentPreview name="contextMenu" />
+
+# Installation
+```bash
+npm: npx rlz@latest add context-menu
+pnpm: pnpm dlx rlz@latest add context-menu
+yarn: yarn rlz@latest add context-menu
+bun: bunx --bun rlz@latest add context-menu
+```
+
+# Usage
+```tsx
+import { ContextMenu } from "@ui/components/context-menu";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <ContextMenu>
+      <ContextMenu.Trigger asChild>
+        <div className="h-40 w-80 border border-dashed rounded-md flex items-center justify-center text-sm bg-background-secondary">
+          Right-click here
+        </div>
+      </ContextMenu.Trigger>
+      <ContextMenu.Content className="w-56" align="start">
+        <ContextMenu.Label>My Account</ContextMenu.Label>
+        <ContextMenu.Group>
+          <ContextMenu.Item>
+            Profile
+            <ContextMenu.Shortcut shortcutKey="⌘+p" />
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            Billing
+            <ContextMenu.Shortcut shortcutKey="⌘+b" />
+          </ContextMenu.Item>
+        </ContextMenu.Group>
+      </ContextMenu.Content>
+    </ContextMenu>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="contextMenu" />
+
+<MarkdownFallback>
+
+## ContextMenu (Main)
+
+Composed context menu built on top of the DropdownMenu primitives. Use `ContextMenu.Trigger` to attach to a right-click target and `ContextMenu.Content` for the menu body.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| children | `ReactNode` | Context menu structure (Trigger, Content, Items, etc). | `undefined` |
+
+### ContextMenu.Trigger (Trigger)
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | When true, renders the trigger's child directly and attaches event handlers to it. | `false` |
+| children | `ReactNode` | Trigger content (element to right-click). | `undefined` |
+
+### ContextMenu.Content (Content)
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| className | `string` | Additional classes applied to the content wrapper. | Predefined styles |
+| children | `ReactNode` | Content of the context menu (groups, items, separators...). | `undefined` |
+| style | `CSSProperties` | Inline styles. The component positions the content using fixed positioning based on the cursor location. | `-` |
+
+### ContextMenu.Item (Item)
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| inset | `boolean` | If true, renders the item inset (aligned with labels/shortcuts). | `false` |
+| disabled | `boolean` | Disable the item; keyboard and pointer interactions are prevented. | `false` |
+| onSelect | `(event: Event) => void` | Callback fired when the item is selected. | `undefined` |
+
+</MarkdownFallback>
