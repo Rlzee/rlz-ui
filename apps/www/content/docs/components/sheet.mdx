@@ -1,0 +1,98 @@
+---
+title: Sheet
+component: true
+---
+
+<ComponentPreview name="sheet" />
+
+# Installation
+```bash
+npm: npx rlz@latest add sheet
+pnpm: pnpm dlx rlz@latest add sheet
+yarn: yarn rlz@latest add sheet
+bun: bunx --bun rlz@latest add sheet
+```
+
+# Usage
+```tsx
+import { Sheet } from "@ui/components/sheet";
+```
+
+```tsx
+import { Button } from "@ui/components/button";
+import { Input } from "@ui/components/input";
+import { Label } from "@ui/components/label";
+
+export default function Example() {
+  return (
+    <Sheet>
+      <Sheet.Trigger asChild>
+        <Button variant="outline">Open</Button>
+      </Sheet.Trigger>
+      <Sheet.Content>
+        <Sheet.Header>
+          <Sheet.Title>Edit profile</Sheet.Title>
+          <Sheet.Description>
+            Make changes to your profile here. Click save when you&apos;re done.
+          </Sheet.Description>
+        </Sheet.Header>
+        <Sheet.Body>
+          <div className="grid gap-3">
+            <Label htmlFor="sheet-demo-name">Name</Label>
+            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+          </div>
+          <div className="grid gap-3">
+            <Label htmlFor="sheet-demo-username">Username</Label>
+            <Input id="sheet-demo-username" defaultValue="@peduarte" />
+          </div>
+        </Sheet.Body>
+        <Sheet.Footer>
+          <Button type="submit">Save changes</Button>
+          <Sheet.Close asChild>
+            <Button variant="outline">Close</Button>
+          </Sheet.Close>
+        </Sheet.Footer>
+      </Sheet.Content>
+    </Sheet>
+  );
+}
+```
+
+# Props
+<Separator orientation="horizontal" />
+<ComponentProps name="sheet" />
+
+<MarkdownFallback>
+
+## Sheet (Main)
+
+Slide-in panel (sheet) built on top of Radix Dialog primitives. Use `Sheet.Trigger` to open and `Sheet.Content` to define the panel content.
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| direction | `'top' \| 'right' \| 'bottom' \| 'left'` | Slide direction for the sheet (controls enter/exit animations and placement). | `'right'` |
+| children | `ReactNode` | Sheet structure (Trigger, Content, Header, Body, Footer, etc). | `undefined` |
+| open | `boolean` | Controlled open state forwarded to the underlying Radix Root. | `undefined` |
+| defaultOpen | `boolean` | Initial open state for uncontrolled usage. | `false` |
+| onOpenChange | `(open: boolean) => void` | Callback fired when the open state changes. | `undefined` |
+
+### Sheet.Trigger (Trigger)
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| asChild | `boolean` | When true the trigger renders its child directly and attaches event handlers to it. | `false` |
+| children | `ReactNode` | Trigger content (element that toggles the sheet). | `undefined` |
+
+### Sheet.Content (Content)
+
+| Prop | Type | Description | Default |
+|------|------|-------------|---------|
+| overlay | `boolean` | When true renders an overlay behind the sheet content. | `true` |
+| className | `string` | Additional classes applied to the content wrapper. | Predefined styles |
+| style | `CSSProperties` | Inline styles applied to the content wrapper (positioning is handled by the component). | `-` |
+
+### Sheet.Header / Body / Footer / Title / Description
+
+These subcomponents accept the usual `className`, `children` and native element props (see the components in `@ui/components/sheet`).
+
+</MarkdownFallback>

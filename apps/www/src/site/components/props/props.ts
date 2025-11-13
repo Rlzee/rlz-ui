@@ -35,6 +35,7 @@ import { emojiPickerPropsExport } from "./emoji-picker-props";
 import { hoverCardPropsExport } from "./hover-card-props";
 import { tablePropsExport } from "./table-props";
 import { contextMenuPropsExport } from "./context-menu-props";
+import { sheetPropsExport } from "./sheet-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -84,6 +85,7 @@ const props = {
   hoverCard: hoverCardPropsExport,
   table: tablePropsExport,
   contextMenu: contextMenuPropsExport,
+  sheet: sheetPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,

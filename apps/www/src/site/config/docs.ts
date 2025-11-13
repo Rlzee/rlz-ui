@@ -62,6 +62,7 @@ export const docsConfig: DocsConfig = {
         { title: "Scroll Area", href: "/docs/components/scroll-area" },
         { title: "Separator Border", href: "/docs/components/separator-border" },
         { title: "Separator", href: "/docs/components/separator" },
+        { title: "Sheet", href: "/docs/components/sheet" },
         { title: "Slider", href: "/docs/components/slider" },
         { title: "Switch", href: "/docs/components/switch" },
         { title: "Table", href: "/docs/components/table" },

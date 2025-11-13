@@ -45,6 +45,7 @@ import { GradientTextDemo } from "./texts/gradient-text-demo";
 import { HighlightTextDemo } from "./texts/highlight-text-demo";
 import { RotatingTextDemo } from "./texts/rotating-text-demo";
 import { ShimmerTextDemo } from "./texts/shimmer-text-demo";
+import { SheetDemo } from "./sheet-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -84,6 +85,7 @@ export const demos = {
   hoverCard: HoverCardDemo,
   table: TableDemo,
   contextMenu: ContextMenuDemo,
+  sheet: SheetDemo,
 
   // Texts
   blurText: BlurTextDemo,
