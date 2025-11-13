@@ -97,7 +97,7 @@
   --destructive-foreground: oklch(1 0 0);
 
   /* Popover, Dialog, Toast... */
-  --popover: oklch(0.18 0 0);
+  --popover: hsl(0, 0%, 5%);
   --popover-foreground: oklch(0.95 0 0);
 
   --success: oklch(0.7262 0.1805 148.55);
