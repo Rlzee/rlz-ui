@@ -20,6 +20,7 @@ export const docsConfig: DocsConfig = {
     itemsLeft: {
       GettingStarted: [
         { title: "Installation", href: "/docs" },
+        { title: "Importing", href: "/docs/importing" },
       ],
       // Background: [{ title: "Grid", href: "" }],
       Texts: [

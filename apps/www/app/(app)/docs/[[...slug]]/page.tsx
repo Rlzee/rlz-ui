@@ -33,7 +33,7 @@ export default async function DocPage({ params }: DocPageProps) {
 
   return (
     <div className="flex flex-col flex-1">
-      <div className={cn("flex items-center justify-between mt-2", doc.install ? "mb-2" : "mb-8 md:mb-12")}>
+      <div className={cn("flex items-center justify-between mt-2", doc.component ? "mb-8 md:mb-12 " : "mb-2")}>
         <p className="text-muted-foreground">{doc.title}</p>
         {doc.links && doc.component && (
           <div className="flex items-center gap-4">
@@ -51,7 +51,7 @@ export default async function DocPage({ params }: DocPageProps) {
             </div>
           </div>
         )}
-        {!doc.component && doc.install && (
+        {doc.install && (
           <ToggleGroup
             type="single"
             defaultValue="next"
