@@ -139,7 +139,10 @@ export const InputCopyTerminal = ({
     <InputCopyWithHeader
       value={command}
       readOnly={readOnly}
-      className={className}
+      className={cn(
+        "focus-visible:border-none focus-visible:ring-transparent focus-visible:ring-[0px]",
+        className
+      )}
       wrapperClassName={wrapperClassName}
       headerContent={
         <>

@@ -5,7 +5,7 @@ import { useMDXComponent } from "next-contentlayer2/hooks";
 import { BlockDocs } from "./block-docs";
 import { ComponentPreview } from "./component-preview";
 import { CodeBlock } from "./code-block";
-import { InputCopyCLI } from "./input-copy";
+import { InputCopyCLI, InputCopyTerminal } from "./input-copy";
 import { ComponentProps } from "./component-props";
 import { Separator } from "@ui/components/separator";
 
@@ -70,6 +70,17 @@ const components = {
       }
 
       return <InputCopyCLI commands={commands} wrapperClassName="mt-2" />;
+    }
+
+    if (language === "simpleBash") {
+      const lines = code
+        .split("\n")
+        .map((line: string) => line.trim())
+        .filter(Boolean);
+
+      const command = lines.join("\n");
+
+      return <InputCopyTerminal command={command} wrapperClassName="mt-2" />;
     }
 
     return <pre>{code}</pre>; // fallback

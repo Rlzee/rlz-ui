@@ -1,3 +1,44 @@
 ﻿---
 title: How to install rlz and structure your app.
+install: true
 ---
+
+# Create Project
+Run the init command to create a new Next.js project.
+```simpleBash
+npx create-next-app@latest
+```
+
+#
+Use Typescript, Tailwind and alias:
+```tsx
+✔ What is your project named? … my-app
+✔ Would you like to use TypeScript? … Yes
+✔ Would you like to use ESLint? … Yes
+✔ Would you like to use Tailwind CSS? … Yes
+✔ Would you like your code inside a \`src/\` directory? … Yes
+✔ Would you like to use App Router? (recommended) … Yes
+✔ Would you like to use Turbopack for \`next dev\`? … No
+✔ Would you like to customize the import alias (\`@/*\` by default)? … Yes
+✔ What import alias would you like configured? … @/*
+```
+
+# Configure project
+Go to the tsconfig.json file and add the following:
+
+```tsx
+paths": {
+  "@/*": ["./*"],
+  "@ui/*": ["./src/ui/*"]
+}
+```
+
+# Initialize rlz/ui
+Run the init command to Initialize rlz/ui.
+
+```bash
+npm: npm rlz@latest init
+pnpm: pnpm rlz@latest init
+yarn: yarn rlz@latest init
+bun: bun rlz@latest init
+```

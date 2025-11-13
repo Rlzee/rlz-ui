@@ -1,6 +1,7 @@
 import { allDocs, type Doc } from ".contentlayer/generated";
 import { notFound } from "next/navigation";
 import { Mdx } from "@site/components/mdx-components";
+import { cn } from "@ui/lib/utils";
 
 import { ArrowUpRight } from "lucide-react";
 import { ToggleGroup, ToggleGroupItem } from "@ui/components/toggle-group";
@@ -32,7 +33,7 @@ export default async function DocPage({ params }: DocPageProps) {
 
   return (
     <div className="flex flex-col flex-1">
-      <div className="flex items-center justify-between md:mb-12 mb-8 mt-2">
+      <div className={cn("flex items-center justify-between mt-2", doc.install ? "mb-2" : "mb-8 md:mb-12")}>
         <p className="text-muted-foreground">{doc.title}</p>
         {doc.links && doc.component && (
           <div className="flex items-center gap-4">
@@ -50,7 +51,7 @@ export default async function DocPage({ params }: DocPageProps) {
             </div>
           </div>
         )}
-        {!doc.component && (
+        {!doc.component && doc.install && (
           <ToggleGroup
             type="single"
             defaultValue="next"

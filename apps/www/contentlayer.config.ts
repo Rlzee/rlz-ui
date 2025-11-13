@@ -31,6 +31,7 @@ export const Doc = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     component: { type: "boolean", default: false },
+    install: { type: "boolean", default: false },
     links: { type: "nested", of: LinksProperties },
   },
   computedFields,
