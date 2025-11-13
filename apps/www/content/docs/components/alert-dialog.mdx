@@ -1,0 +1,78 @@
+---
+title: Alert Dialog
+component: true
+---
+
+<ComponentPreview name="alertDialog" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add alert-dialog
+pnpm: pnpm dlx rlz@latest add alert-dialog
+yarn: yarn rlz@latest add alert-dialog
+bun: bunx --bun rlz@latest add alert-dialog
+```
+
+# Usage
+
+```tsx
+import { AlertDialog } from "@ui/components/alert-dialog";
+```
+
+```tsx
+<AlertDialog />
+```
+
+```tsx
+import { ALERT_DIALOG_NAME } from "@ui/components/alert-dialog";
+import { useDialog } from "@ui/stores/dialog.store";
+```
+
+```tsx
+<Button
+  variant="outline"
+  onClick={() =>
+    openDialog(ALERT_DIALOG_NAME, {
+      title: "Alert Dialog",
+      description:
+        "This is an alert dialog. It requires user interaction before proceeding.",
+    })
+  }
+>
+  Open Alert Dialog
+</Button>
+```
+
+# Note
+
+You can render the `<AlertDialog />` component anywhere in your app tree (for example in the root layout or in `App`). The component reads its state from the global dialog store (`useDialog`), so once it is rendered it can be opened from any other component by calling:
+
+```ts
+openDialog(ALERT_DIALOG_NAME, { title: "...", description: "..." });
+```
+
+This allows you to open the dialog from a button, a page, or a deep child component without having to thread an `open` prop.
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="alertDialog" />
+
+<MarkdownFallback>
+
+## AlertDialog (Main)
+
+The `AlertDialog` is powered by the dialog store. Open it using `openDialog(ALERT_DIALOG_NAME, params)` where `params` contains the displayed text and optional callbacks.
+
+- `title` (string) — Title text displayed in the alert dialog. Default: `'Are you absolutely sure?'`.
+- `description` (string) — Supporting description text inside the dialog. Default: `'This action cannot be undone.'`.
+- `ConfirmText` (string) — Label for the confirm button. Default: `'Confirm'`.
+- `CloseText` (string) — Label for the close button. Default: `'Close'`.
+- `ConfirmVariant` (buttonVariantTypes) — Variant for the confirm button. Default: `'primary'`.
+- `CloseVariant` (buttonVariantTypes) — Variant for the close button. Default: `'outline'`.
+- `onConfirm` (`() => void | Promise<void>`) — Callback executed when confirming; dialog closes after it resolves.
+
+You normally render the `<AlertDialog />` component once and open it from other components using the `openDialog` helper.
+
+</MarkdownFallback>

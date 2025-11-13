@@ -37,6 +37,7 @@ import { tablePropsExport } from "./table-props";
 import { contextMenuPropsExport } from "./context-menu-props";
 import { sheetPropsExport } from "./sheet-props";
 import { dialogPropsExport } from "./dialog-props";
+import { alertDialogPropsExport } from "./alert-dialog-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -88,6 +89,7 @@ const props = {
   contextMenu: contextMenuPropsExport,
   sheet: sheetPropsExport,
   dialog: dialogPropsExport,
+  alertDialog: alertDialogPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,
