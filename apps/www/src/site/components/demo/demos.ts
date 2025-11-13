@@ -1,3 +1,4 @@
+import { Dialog } from '@ui/components/dialog';
 import { AccordionDemo } from "./accordion-demo";
 import { AvatarDemo } from "./avatar-demo";
 import { ButtonDemo } from "./button-demo";
@@ -35,6 +36,8 @@ import { EmojiPickerDemo } from "./emoji-picker-demo";
 import { HoverCardDemo } from "./hover-card-demo";
 import { TableDemo } from "./table-demo";
 import { ContextMenuDemo } from "./context-menu-demo";
+import { SheetDemo } from "./sheet-demo";
+import { DialogDemo } from "./dialog-demo";
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -45,7 +48,6 @@ import { GradientTextDemo } from "./texts/gradient-text-demo";
 import { HighlightTextDemo } from "./texts/highlight-text-demo";
 import { RotatingTextDemo } from "./texts/rotating-text-demo";
 import { ShimmerTextDemo } from "./texts/shimmer-text-demo";
-import { SheetDemo } from "./sheet-demo";
 
 export const demos = {
   accordion: AccordionDemo,
@@ -86,6 +88,7 @@ export const demos = {
   table: TableDemo,
   contextMenu: ContextMenuDemo,
   sheet: SheetDemo,
+  dialog: DialogDemo,
 
   // Texts
   blurText: BlurTextDemo,

@@ -12,7 +12,7 @@ export default function Example() {
   return (
     <Sheet>
       <Sheet.Trigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button variant="secondary">Open</Button>
       </Sheet.Trigger>
       <Sheet.Content>
         <Sheet.Header>
@@ -24,11 +24,11 @@ export default function Example() {
         <Sheet.Body>
           <div className="grid gap-3">
             <Label htmlFor="sheet-demo-name">Name</Label>
-            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+            <Input id="sheet-demo-name" defaultValue="Rlz UI" />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="sheet-demo-username">Username</Label>
-            <Input id="sheet-demo-username" defaultValue="@peduarte" />
+            <Input id="sheet-demo-username" defaultValue="@rlzui" />
           </div>
         </Sheet.Body>
         <Sheet.Footer>
@@ -46,7 +46,7 @@ const Component = () => {
   return (
     <Sheet>
       <Sheet.Trigger asChild className="flex justify-center items-center mx-auto">
-        <Button variant="outline">Open</Button>
+        <Button variant="secondary">Open</Button>
       </Sheet.Trigger>
       <Sheet.Content>
         <Sheet.Header>
@@ -58,11 +58,11 @@ const Component = () => {
         <Sheet.Body>
           <div className="grid gap-3">
             <Label htmlFor="sheet-demo-name">Name</Label>
-            <Input id="sheet-demo-name" defaultValue="Pedro Duarte" />
+            <Input id="sheet-demo-name" defaultValue="Rlz UI" />
           </div>
           <div className="grid gap-3">
             <Label htmlFor="sheet-demo-username">Username</Label>
-            <Input id="sheet-demo-username" defaultValue="@peduarte" />
+            <Input id="sheet-demo-username" defaultValue="@rlzui" />
           </div>
         </Sheet.Body>
         <Sheet.Footer>
