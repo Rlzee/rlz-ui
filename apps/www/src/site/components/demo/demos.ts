@@ -40,6 +40,7 @@ import { SheetDemo } from "./sheet-demo";
 import { DialogDemo } from "./dialog-demo";
 import { AlertDialogDemo } from './alert-dialog-demo';
 import { CommandDemo } from './command-demo';
+import { ComboboxDemo } from './combobox-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -93,6 +94,7 @@ export const demos = {
   dialog: DialogDemo,
   alertDialog: AlertDialogDemo,
   command: CommandDemo,
+  combobox: ComboboxDemo,
 
   // Texts
   blurText: BlurTextDemo,

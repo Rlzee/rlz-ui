@@ -38,6 +38,7 @@ import { contextMenuPropsExport } from "./context-menu-props";
 import { sheetPropsExport } from "./sheet-props";
 import { dialogPropsExport } from "./dialog-props";
 import { alertDialogPropsExport } from "./alert-dialog-props";
+import { comboboxPropsExport } from "./combobox-props";
 import { commandPropsExport } from "./command-props";
 
 // Texts
@@ -91,6 +92,7 @@ const props = {
   sheet: sheetPropsExport,
   dialog: dialogPropsExport,
   alertDialog: alertDialogPropsExport,
+  combobox: comboboxPropsExport,
   command: commandPropsExport,
 
   // Texts

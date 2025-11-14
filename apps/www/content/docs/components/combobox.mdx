@@ -1,0 +1,71 @@
+---
+title: Combobox
+component: true
+---
+
+<ComponentPreview name="combobox" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add combobox
+pnpm: pnpm dlx rlz@latest add combobox
+yarn: yarn rlz@latest add combobox
+bun: bunx --bun rlz@latest add combobox
+```
+
+# Usage
+
+```tsx
+import { Combobox } from "@ui/components/combobox";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <Combobox>
+      <Combobox.Trigger>
+        <Combobox.TriggerButton chevron="both" />
+      </Combobox.Trigger>
+      <Combobox.Content>
+        <Combobox.Input placeholder="Search..." />
+        <Combobox.List>
+          <Combobox.Label>Frameworks</Combobox.Label>
+          <Combobox.Group>
+            <Combobox.Item value="React">React</Combobox.Item>
+            <Combobox.Item value="Vue">Vue</Combobox.Item>
+            <Combobox.Item value="Angular">Angular</Combobox.Item>
+          </Combobox.Group>
+        </Combobox.List>
+      </Combobox.Content>
+    </Combobox>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="combobox" />
+
+<MarkdownFallback>
+
+## Combobox
+
+The `Combobox` component is a Popover + Command composition exposing several slots used to build a searchable select UI.
+
+- `main` — Root popover/combobox container. Use `className` to adjust width and spacing.
+- `trigger` — Trigger wrapper (usually contains a `TriggerButton`).
+- `triggerButton` — Prebuilt trigger button with optional chevron.
+- `content` — Popover content wrapper that holds the input and list.
+- `input` — Search input slot (placeholder, value, onValueChange, className).
+- `list` — Scrollable results container and empty state.
+- `label` — Small label/headings used inside the list.
+- `group` — Group wrapper for grouping items.
+- `item` — Selectable item (value, disabled, children).
+- `empty` — Empty state slot rendered when there are no results (use `Combobox.Empty`).
+- `label` — Small label/headings used inside the list.
+
+Use the `Combobox` by rendering the root once and composing the slots inside it — the demo shows a minimal example.
+
+</MarkdownFallback>
