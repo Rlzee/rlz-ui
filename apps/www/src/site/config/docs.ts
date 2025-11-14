@@ -48,6 +48,7 @@ export const docsConfig: DocsConfig = {
         { title: "Checkbox", href: "/docs/components/checkbox" },
         { title: "Code Wrapper", href: "/docs/components/code-wrapper" },
         { title: "Collapsible", href: "/docs/components/collapsible" },
+        { title: "Command", href: "/docs/components/command" },
         { title: "Context Menu", href: "/docs/components/context-menu" },
         { title: "Dialog", href: "/docs/components/dialog" },
         { title: "Divider", href: "/docs/components/divider" },

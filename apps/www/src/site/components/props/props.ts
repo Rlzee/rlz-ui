@@ -38,6 +38,7 @@ import { contextMenuPropsExport } from "./context-menu-props";
 import { sheetPropsExport } from "./sheet-props";
 import { dialogPropsExport } from "./dialog-props";
 import { alertDialogPropsExport } from "./alert-dialog-props";
+import { commandPropsExport } from "./command-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -90,6 +91,7 @@ const props = {
   sheet: sheetPropsExport,
   dialog: dialogPropsExport,
   alertDialog: alertDialogPropsExport,
+  command: commandPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,

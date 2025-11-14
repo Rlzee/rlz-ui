@@ -39,6 +39,7 @@ import { ContextMenuDemo } from "./context-menu-demo";
 import { SheetDemo } from "./sheet-demo";
 import { DialogDemo } from "./dialog-demo";
 import { AlertDialogDemo } from './alert-dialog-demo';
+import { CommandDemo } from './command-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -91,6 +92,7 @@ export const demos = {
   sheet: SheetDemo,
   dialog: DialogDemo,
   alertDialog: AlertDialogDemo,
+  command: CommandDemo,
 
   // Texts
   blurText: BlurTextDemo,

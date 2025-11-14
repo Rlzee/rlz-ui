@@ -1,0 +1,92 @@
+---
+title: Command
+component: true
+---
+
+<ComponentPreview name="command" />
+
+# Installation
+
+```bash
+npx: rlz@latest add command
+pnpm: dlx rlz@latest add command
+yarn: yarn rlz@latest add command
+bun: bunx --bun rlz@latest add command
+```
+
+# Usage
+
+```tsx
+import { Command } from "@ui/components/command";
+```
+
+Note: the composable `Command` exposes a `Dialog` variant — you normally render the dialog once (so it can read global state) and open it programmatically via the dialog store.
+
+```tsx
+import { Command, CommandDialogName } from "@ui/components/command";
+import { Button } from "@ui/components/button";
+import { useDialog } from "@ui/stores/dialog.store";
+
+export default function Example() {
+  const { openDialog } = useDialog();
+
+  return (
+    <>
+      <div className="flex items-center justify-center">
+        <Button
+          variant="secondary"
+          onClick={() => openDialog(CommandDialogName)}
+        >
+          Open Command
+        </Button>
+      </div>
+
+      {/* Render the Command dialog once (it reads state from the dialog store) */}
+      <Command.Dialog>
+        <Command.Input placeholder="Type a command or search..." />
+        <Command.List>
+          <Command.Empty>No results found.</Command.Empty>
+          <Command.Group heading="Suggestions">
+            <Command.Item>Show dashboard</Command.Item>
+            <Command.Item>Open profile</Command.Item>
+            <Command.Item>New file</Command.Item>
+          </Command.Group>
+          <Command.Group heading="Settings">
+            <Command.Item>
+              Toggle sidebar
+              <Command.Shortcut shortcutKey="⌘B" />
+            </Command.Item>
+          </Command.Group>
+        </Command.List>
+      </Command.Dialog>
+    </>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="command" />
+
+<MarkdownFallback>
+
+## Command
+
+The `Command` component is a cmdk-powered command palette with several internal slots (Input, List, Group, Item, Shortcut, Footer, Empty, Loading).
+
+- `main` — Root command container. Use the `className` prop to adjust width/visuals.
+- `dialog` — Dialog/content wrapper props (title, description, className).
+- `input` — Input slot (placeholder, value, onValueChange, kbd, className).
+- `list` — Results list (className, style).
+- `item` — Individual item props (children, disabled, className).
+- `group` — Group wrapper (children, className).
+- `separator` — Visual separator between groups.
+- `shortcut` — Shortcut element (shortcutKey or custom children).
+- `footer` — Footer content slot.
+- `loading` — Loading indicator slot.
+- `empty` — Empty state slot.
+
+You normally render the `<Command />` (or the dialog variant) near the root of your app and open it programmatically using `openDialog(CommandDialogName)`.
+
+</MarkdownFallback>

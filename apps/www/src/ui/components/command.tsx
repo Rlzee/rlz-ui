@@ -85,13 +85,13 @@ const CommandInput = ({
   return (
     <div
       data-slot="command-input-wrapper"
-      className="flex h-9 items-center gap-2 px-3"
+      className="flex h-11 items-center gap-2 px-3"
     >
       <SearchIcon className="size-4 shrink-0 opacity-50" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "placeholder:text-muted-foreground flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
+          "placeholder:text-muted-foreground flex w-full rounded-md bg-transparent text-sm outline-hidden disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
         {...props}
@@ -187,7 +187,7 @@ const CommandItem = ({
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "group/command-item data-[selected=true]:bg-secondary [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "group/command-item data-[selected=true]:bg-secondary [&_svg:not([class*='text-'])]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm p-2 text-sm outline-hidden select-none data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -249,7 +249,7 @@ const CommandFooter = ({
   return (
     <footer
       data-slot="command-footer"
-      className={cn("py-4 border-t border-border", className)}
+      className={cn("h-9 px-3 border-t border-border", className)}
       {...props}
     >
       {children}
