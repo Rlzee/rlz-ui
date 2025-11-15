@@ -42,6 +42,7 @@ import { AlertDialogDemo } from './alert-dialog-demo';
 import { CommandDemo } from './command-demo';
 import { ComboboxDemo } from './combobox-demo';
 import { ClipboardDemo } from './clipboard-demo';
+import { ColorPickerDemo } from './color-picker-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -97,6 +98,7 @@ export const demos = {
   command: CommandDemo,
   combobox: ComboboxDemo,
   clipboard: ClipboardDemo,
+  colorPicker: ColorPickerDemo,
 
   // Texts
   blurText: BlurTextDemo,

@@ -49,6 +49,7 @@ export const docsConfig: DocsConfig = {
         { title: "Clipboard", href: "/docs/components/clipboard" },
         { title: "Code Wrapper", href: "/docs/components/code-wrapper" },
         { title: "Collapsible", href: "/docs/components/collapsible" },
+        { title: "Color Picker", href: "/docs/components/color-picker" },
         { title: "Combobox", href: "/docs/components/combobox" },
         { title: "Command", href: "/docs/components/command" },
         { title: "Context Menu", href: "/docs/components/context-menu" },
@@ -78,9 +79,6 @@ export const docsConfig: DocsConfig = {
         { title: "Toggle", href: "/docs/components/toggle" },
         { title: "Tooltip", href: "/docs/components/tooltip" },
       ],
-      // Text: [
-      //   { title: "Gradient Text", href: "/docs/components/gradient-text" },
-      // ],
     },
     itemsRight: {
       OneThisPage: [

@@ -1,0 +1,66 @@
+---
+title: Color Picker
+component: true
+---
+
+<ComponentPreview name="colorPicker" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add color-picker; npx rlz@latest add -t types eyedropper
+pnpm: pnpm dlx rlz@latest add color-picker; pnpm dlx rlz@latest add -t types eyedropper
+yarn: yarn rlz@latest add color-picker; yarn rlz@latest add -t types eyedropper
+bun: bunx --bun rlz@latest add color-picker; bunx --bun rlz@latest add -t types eyedropper
+```
+
+# Usage
+```tsx
+import { ColorPicker } from "@ui/components/color-picker";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <ColorPicker defaultColor="#ff6b6b" className="border border-border rounded-md">
+      <ColorPicker.Preview />
+      <ColorPicker.Saturation />
+      <div className="flex items-center gap-2">
+        <ColorPicker.EyeDropper />
+        <div className="flex-col w-full">
+          <ColorPicker.Hue className="mb-2" />
+          <ColorPicker.Alpha />
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+        <ColorPicker.FormatSelector />
+        <ColorPicker.Input />
+      </div>
+    </ColorPicker>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="colorPicker" />
+
+<MarkdownFallback>
+
+## Color Picker
+
+The `ColorPicker` is a composed control that exposes multiple slots to build a complete color selection UI.
+
+- `main` — Root container. Props: `defaultColor`, `className`, and standard container props.
+- `Saturation` — Large color area to pick saturation/value.
+- `Hue` — Horizontal hue slider.
+- `Alpha` — Alpha slider (opacity control).
+- `Preview` — Shows the resulting color.
+- `FormatSelector` — Small selector to switch between `hex`, `hsl`, and `rgba` formats.
+- `Input` — Read-only input showing the formatted color and a clipboard action.
+- `EyeDropper` — Button that triggers the EyeDropper API when available.
+
+Use the demo preview above to interact with the component.
+
+</MarkdownFallback>
