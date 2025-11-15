@@ -1,0 +1,64 @@
+---
+title: Navigation Menu
+component: true
+---
+
+<ComponentPreview name="navigationMenu" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add navigation-menu
+pnpm: pnpm dlx rlz@latest add navigation-menu
+yarn: yarn rlz@latest add navigation-menu
+bun: bunx --bun rlz@latest add navigation-menu
+```
+
+# Usage
+```tsx
+import { NavigationMenu } from "@ui/components/navigation-menu";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <NavigationMenu>
+      <NavigationMenu.List>
+        <NavigationMenu.Item>
+          <NavigationMenu.Trigger>Docs</NavigationMenu.Trigger>
+          <NavigationMenu.Content>
+            {/* Menu content */}
+          </NavigationMenu.Content>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </NavigationMenu>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="navigationMenu" />
+
+<MarkdownFallback>
+
+## Navigation Menu
+
+The `NavigationMenu` is a composed navigation control exposing several slots:
+
+- `main` — Root container.
+- `list` — A horizontal list of items.
+- `item` — A wrapper for `Trigger` + `Content` or `Link`.
+- `trigger` — Clickable label that opens content (supports `variant`).
+- `content` — Popup grid of links or list items.
+- `link` — Individual link slot (usually `asChild`).
+- `indicator` — Pointer/indicator element.
+- `viewport` — Floating viewport used for animated content.
+- `listItem` — Small helper component for rendering linked items inside content.
+
+Use the demo preview above to explore the component and its slots.
+
+</MarkdownFallback>
+
+````

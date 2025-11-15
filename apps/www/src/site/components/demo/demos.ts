@@ -44,6 +44,7 @@ import { ComboboxDemo } from './combobox-demo';
 import { ClipboardDemo } from './clipboard-demo';
 import { ColorPickerDemo } from './color-picker-demo';
 import { MenubarDemo } from './menubar-demo';
+import { NavigationMenuDemo } from './navigation-menu-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -101,6 +102,7 @@ export const demos = {
   clipboard: ClipboardDemo,
   colorPicker: ColorPickerDemo,
   menubar: MenubarDemo,
+  navigationMenu: NavigationMenuDemo,
 
   // Texts
   blurText: BlurTextDemo,

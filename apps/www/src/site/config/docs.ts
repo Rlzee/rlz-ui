@@ -64,6 +64,7 @@ export const docsConfig: DocsConfig = {
         { title: "Kbd", href: "/docs/components/kbd" },
         { title: "Label", href: "/docs/components/label" },
         { title: "Menubar", href: "/docs/components/menubar" },
+        { title: "Navigation Menu", href: "/docs/components/navigation-menu" },
         { title: "Progress", href: "/docs/components/progress" },
         { title: "Popover", href: "/docs/components/popover" },
         { title: "Radio Group", href: "/docs/components/radio-group" },
