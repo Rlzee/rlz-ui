@@ -83,7 +83,7 @@ const HeaderNavLink = ({
       variant={variant}
       asChild
       size="sm"
-      className={variant === "link" ? "px-2" : ""}
+      className={variant === "link" ? "px-2 hover:no-underline" : ""}
     >
       <a href={href} className={cn(isActive && "text-primary")}>
         {children}

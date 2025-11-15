@@ -46,6 +46,7 @@ import { clipboardPropsExport } from "./clipboard-props";
 import { colorPickerPropsExport } from "./color-picker-props";
 import { menubarPropsExport } from "./menubar-props";
 import { navigationMenuPropsExport } from "./navigation-menu-props";
+import { emptyPropsExport } from "./empty-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -106,6 +107,7 @@ const props = {
   colorPicker: colorPickerPropsExport,
   menubar: menubarPropsExport,
   navigationMenu: navigationMenuPropsExport,
+  empty: emptyPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,

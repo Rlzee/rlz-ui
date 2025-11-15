@@ -47,6 +47,7 @@ import { MenubarDemo } from './menubar-demo';
 import { NavigationMenuDemo } from './navigation-menu-demo';
 import { SelectDemo } from './select-demo';
 import { DrawerDemo } from './drawer-demo';
+import { EmptyDemo } from './empty-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -107,6 +108,7 @@ export const demos = {
   navigationMenu: NavigationMenuDemo,
   select: SelectDemo,
   drawer: DrawerDemo,
+  empty: EmptyDemo,
 
   // Texts
   blurText: BlurTextDemo,

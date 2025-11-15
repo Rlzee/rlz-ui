@@ -1,0 +1,55 @@
+---
+title: Empty
+component: true
+---
+
+<ComponentPreview name="empty" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add empty
+pnpm: pnpm dlx rlz@latest add empty
+yarn: yarn rlz@latest add empty
+bun: bunx --bun rlz@latest add empty
+```
+
+# Usage
+```tsx
+import { Empty } from "@ui/components/empty";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <Empty>
+      <Empty.Header>
+        <Empty.Icon variant="secondary" />
+        <Empty.Title>No Data</Empty.Title>
+        <Empty.Description>There is nothing to show here yet.</Empty.Description>
+      </Empty.Header>
+    </Empty>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="empty" />
+
+<MarkdownFallback>
+
+## Empty
+
+The `Empty` component is a simple, composed placeholder for empty states. It exposes the following slots:
+
+- `main` — Root container.
+- `Header` — Container for icon, title and description.
+- `Icon` — Visual icon slot (variants + sizes).
+- `Title` — Title text.
+- `Description` — Supporting description text.
+
+Use the demo preview above to explore the component and its slots.
+
+</MarkdownFallback>

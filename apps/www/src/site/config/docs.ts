@@ -58,6 +58,7 @@ export const docsConfig: DocsConfig = {
         { title: "Drawer", href: "/docs/components/drawer" },
         { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
         { title: "Emoji Picker", href: "/docs/components/emoji-picker" },
+        { title: "Empty", href: "/docs/components/empty" },
         { title: "Hover Card", href: "/docs/components/hover-card" },
         { title: "Input Addon", href: "/docs/components/input-addon" },
         { title: "Input OTP", href: "/docs/components/input-otp" },
