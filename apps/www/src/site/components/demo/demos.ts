@@ -43,6 +43,7 @@ import { CommandDemo } from './command-demo';
 import { ComboboxDemo } from './combobox-demo';
 import { ClipboardDemo } from './clipboard-demo';
 import { ColorPickerDemo } from './color-picker-demo';
+import { MenubarDemo } from './menubar-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -99,6 +100,7 @@ export const demos = {
   combobox: ComboboxDemo,
   clipboard: ClipboardDemo,
   colorPicker: ColorPickerDemo,
+  menubar: MenubarDemo,
 
   // Texts
   blurText: BlurTextDemo,

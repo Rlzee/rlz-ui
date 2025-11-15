@@ -42,6 +42,7 @@ import { comboboxPropsExport } from "./combobox-props";
 import { commandPropsExport } from "./command-props";
 import { clipboardPropsExport } from "./clipboard-props";
 import { colorPickerPropsExport } from "./color-picker-props";
+import { menubarPropsExport } from "./menubar-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -98,6 +99,7 @@ const props = {
   command: commandPropsExport,
   clipboard: clipboardPropsExport,
   colorPicker: colorPickerPropsExport,
+  menubar: menubarPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,

@@ -1,0 +1,69 @@
+---
+title: Menubar
+component: true
+---
+
+<ComponentPreview name="menubar" />
+
+# Installation
+
+```bash
+npx: rlz@latest add menubar
+pnpm: pnpm dlx rlz@latest add menubar
+yarn: yarn rlz@latest add menubar
+bun: bunx --bun rlz@latest add menubar
+```
+
+# Usage
+```tsx
+import { Menubar } from "@ui/components/menubar";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <Menubar>
+      <Menubar.Menu>
+        <Menubar.Trigger>File</Menubar.Trigger>
+        <Menubar.Content>
+          <Menubar.Item>New Tab <Menubar.Shortcut shortcutKey="⌘T" /></Menubar.Item>
+          <Menubar.Item>New Window <Menubar.Shortcut shortcutKey="⌘N" /></Menubar.Item>
+          <Menubar.Separator />
+          <Menubar.Sub>
+            <Menubar.SubTrigger>Share</Menubar.SubTrigger>
+            <Menubar.SubContent>
+              <Menubar.Item>Email link</Menubar.Item>
+              <Menubar.Item>Messages</Menubar.Item>
+            </Menubar.SubContent>
+          </Menubar.Sub>
+        </Menubar.Content>
+      </Menubar.Menu>
+    </Menubar>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="menubar" />
+
+<MarkdownFallback>
+
+## Menubar
+
+The `Menubar` is a composed navigation/menu control exposing several slots:
+
+- `main` — Root bar container.
+- `Menu` — A top-level menu grouping a `Trigger` and `Content`.
+- `Trigger` — The clickable label that opens the menu.
+- `Content` — The popup content list.
+- `Item` — Action items (supports `inset`, `disabled`, `variant`).
+- `CheckboxItem` / `RadioItem` — Selection items.
+- `Separator` — Visual divider.
+- `Sub` / `SubTrigger` / `SubContent` — Nested submenu.
+- `Shortcut` — Small shortcut/kbd indicator for items.
+
+Use the demo preview above to explore the available slots and behavior.
+
+</MarkdownFallback>
