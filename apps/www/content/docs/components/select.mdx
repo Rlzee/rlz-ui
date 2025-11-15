@@ -1,0 +1,55 @@
+---
+title: Select
+component: true
+---
+
+<ComponentPreview name="select" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add select
+pnpm: pnpm dlx rlz@latest add select
+yarn: yarn rlz@latest add select
+bun: bunx --bun rlz@latest add select
+```
+
+# Usage
+```tsx
+import { Select } from "@ui/components/select";
+```
+
+```tsx
+export default function Example() {
+  return (
+    <Select>
+      <Select.Trigger placeholder="Select a value" />
+      <Select.Content>{/* groups / items */}</Select.Content>
+    </Select>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="select" />
+
+<MarkdownFallback>
+
+## Select
+
+The `Select` component is a composed control exposing several slots:
+
+- `main` — Root container.
+- `Trigger` — The clickable/selectable trigger (supports `placeholder`).
+- `Content` — Popup/overlay holding groups and items.
+- `Group` — Logical grouping for items with an optional `Label`.
+- `Item` — Selectable option (provides `value`).
+- `Separator` — Visual divider between groups.
+
+Use the demo preview above to explore the component and its slots.
+
+</MarkdownFallback>
+
+````

@@ -69,6 +69,7 @@ export const docsConfig: DocsConfig = {
         { title: "Popover", href: "/docs/components/popover" },
         { title: "Radio Group", href: "/docs/components/radio-group" },
         { title: "Scroll Area", href: "/docs/components/scroll-area" },
+        { title: "Select", href: "/docs/components/select" },
         { title: "Separator Border", href: "/docs/components/separator-border" },
         { title: "Separator", href: "/docs/components/separator" },
         { title: "Sheet", href: "/docs/components/sheet" },
