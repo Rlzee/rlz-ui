@@ -107,8 +107,8 @@ const DrawerHeader = ({ className, ...props }: ComponentProps<"header">) => {
     <header
       data-slot="drawer-header"
       className={cn(
-        "flex flex-col gap-0.5 p-4 md:gap-1.5 md:text-left",
-        "group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center",
+        "flex flex-col gap-0.5 p-4 md:gap-1.5",
+        "group-data-[vaul-drawer-direction=left]/drawer-content:text-left group-data-[vaul-drawer-direction=right]/drawer-content:text-left",
         className
       )}
       {...props}
@@ -150,7 +150,7 @@ const DrawerBody = ({ className, ...props }: ComponentProps<"main">) => {
       data-slot="drawer-body"
       className={cn(
         "flex-1 overflow-y-auto px-4",
-        "group-data-[vaul-drawer-direction=bottom]/drawer-content:text-center group-data-[vaul-drawer-direction=top]/drawer-content:text-center",
+        "group-data-[vaul-drawer-direction=left]/drawer-content:text-left group-data-[vaul-drawer-direction=right]/drawer-content:text-left",
         className
       )}
       {...props}

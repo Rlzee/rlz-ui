@@ -50,13 +50,16 @@ export default function Example() {
 const Component = () => {
   return (
     <Drawer>
-      <Drawer.Trigger asChild className="flex items-center justify-center mx-auto">
+      <Drawer.Trigger
+        asChild
+        className="flex items-center justify-center mx-auto"
+      >
         <Button variant="outline">Open Drawer</Button>
       </Drawer.Trigger>
       <Drawer.Content>
         <Drawer.Handle />
         <Drawer.Header>
-          <div className="w-full max-w-lg mx-auto !text-left mt-4">
+          <div className="w-full max-w-lg mx-auto text-left mt-4">
             <Drawer.Title>Drawer Title</Drawer.Title>
             <Drawer.Description>
               This is a description of the drawer content.
@@ -64,7 +67,7 @@ const Component = () => {
           </div>
         </Drawer.Header>
         <Drawer.Body>
-          <div className="w-full max-w-lg mx-auto !text-left mb-4 mt-2">
+          <div className="w-full max-w-lg mx-auto text-left mb-4 mt-2">
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque,
               quasi dolorum aliquid corporis nesciunt exercitationem ipsa
@@ -80,7 +83,10 @@ const Component = () => {
             <a href="" className="underline text-sm text-muted-foreground">
               Documentations
             </a>
-            <a href="https://github.com/Rlzee/rlz-ui" className="underline text-sm text-muted-foreground">
+            <a
+              href="https://github.com/Rlzee/rlz-ui"
+              className="underline text-sm text-muted-foreground"
+            >
               GitHub
             </a>
           </div>
