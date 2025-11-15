@@ -6,8 +6,8 @@ export default function Example() {
   return (
     <Select>
       <Select.Trigger
-        className="w-[200px]"
-        placeholder="Select a framework"
+        className="w-[240px]"
+        placeholder="Select a fruits or vegetable"
       />
       <Select.Content>
         <Select.Group>
@@ -35,8 +35,8 @@ const Component = () => {
     <div className="flex items-center justify-center">
       <Select>
         <Select.Trigger
-          className="w-[200px]"
-          placeholder="Select a framework"
+          className="w-[240px]"
+          placeholder="Select a fruits or vegetable"
         />
         <Select.Content>
           <Select.Group>
