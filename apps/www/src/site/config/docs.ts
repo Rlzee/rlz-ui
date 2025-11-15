@@ -46,6 +46,7 @@ export const docsConfig: DocsConfig = {
         { title: "Card", href: "/docs/components/card" },
         { title: "Carousel", href: "/docs/components/carousel" },
         { title: "Checkbox", href: "/docs/components/checkbox" },
+        { title: "Clipboard", href: "/docs/components/clipboard" },
         { title: "Code Wrapper", href: "/docs/components/code-wrapper" },
         { title: "Collapsible", href: "/docs/components/collapsible" },
         { title: "Combobox", href: "/docs/components/combobox" },

@@ -40,6 +40,7 @@ import { dialogPropsExport } from "./dialog-props";
 import { alertDialogPropsExport } from "./alert-dialog-props";
 import { comboboxPropsExport } from "./combobox-props";
 import { commandPropsExport } from "./command-props";
+import { clipboardPropsExport } from "./clipboard-props";
 
 // Texts
 import { blurTextPropsExport } from "./texts/blur-text-props";
@@ -94,6 +95,7 @@ const props = {
   alertDialog: alertDialogPropsExport,
   combobox: comboboxPropsExport,
   command: commandPropsExport,
+  clipboard: clipboardPropsExport,
 
   // Texts
   blurText: blurTextPropsExport,

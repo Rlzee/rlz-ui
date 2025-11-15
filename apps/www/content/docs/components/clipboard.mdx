@@ -1,0 +1,56 @@
+---
+title: Clipboard
+component: true
+---
+
+<ComponentPreview name="clipboard" />
+
+# Installation
+
+```bash
+npm: npx rlz@latest add clipboard
+pnpm: pnpm dlx rlz@latest add clipboard
+yarn: yarn rlz@latest add clipboard
+bun: bunx --bun rlz@latest add clipboard
+```
+
+# Usage
+```tsx
+import { Clipboard } from "@ui/components/clipboard";
+```
+
+```tsx
+export default function Example() {
+  const text = "Hello, Clipboard!";
+
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <span className="text-muted-foreground">{text}</span>
+      <Clipboard text={text} />
+    </div>
+  );
+}
+```
+
+# Props
+
+<Separator orientation="horizontal" />
+<ComponentProps name="clipboard" />
+
+<MarkdownFallback>
+
+## Clipboard
+
+The `Clipboard` component renders a small button that copies the provided `text` to the system clipboard. It exposes a few configuration options:
+
+- `text` — The string to copy when activated.
+- `size` — Icon size: `sm | md | lg` (maps to CSS size classes).
+- `position` — `relative` or `absolute` helper for overlay placement.
+- `showTooltip` / `tooltipContent` — Controls the helper tooltip and the text shown while in the copied state.
+- `successDuration` — How long (ms) the copied state persists before reverting.
+- `onCopy` — Callback invoked after a successful copy.
+- `children` — Provide custom trigger content to replace the default icons.
+
+Use the demo preview above to interact with the component.
+
+</MarkdownFallback>

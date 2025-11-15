@@ -41,6 +41,7 @@ import { DialogDemo } from "./dialog-demo";
 import { AlertDialogDemo } from './alert-dialog-demo';
 import { CommandDemo } from './command-demo';
 import { ComboboxDemo } from './combobox-demo';
+import { ClipboardDemo } from './clipboard-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -95,6 +96,7 @@ export const demos = {
   alertDialog: AlertDialogDemo,
   command: CommandDemo,
   combobox: ComboboxDemo,
+  clipboard: ClipboardDemo,
 
   // Texts
   blurText: BlurTextDemo,
