@@ -40,6 +40,7 @@ import { dialogPropsExport } from "./dialog-props";
 import { alertDialogPropsExport } from "./alert-dialog-props";
 import { comboboxPropsExport } from "./combobox-props";
 import { selectPropsExport } from "./select-props";
+import { drawerPropsExport } from "./drawer-props";
 import { commandPropsExport } from "./command-props";
 import { clipboardPropsExport } from "./clipboard-props";
 import { colorPickerPropsExport } from "./color-picker-props";
@@ -99,6 +100,7 @@ const props = {
   alertDialog: alertDialogPropsExport,
   combobox: comboboxPropsExport,
   select: selectPropsExport,
+  drawer: drawerPropsExport,
   command: commandPropsExport,
   clipboard: clipboardPropsExport,
   colorPicker: colorPickerPropsExport,

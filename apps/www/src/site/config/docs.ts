@@ -55,6 +55,7 @@ export const docsConfig: DocsConfig = {
         { title: "Context Menu", href: "/docs/components/context-menu" },
         { title: "Dialog", href: "/docs/components/dialog" },
         { title: "Divider", href: "/docs/components/divider" },
+        { title: "Drawer", href: "/docs/components/drawer" },
         { title: "Dropdown Menu", href: "/docs/components/dropdown-menu" },
         { title: "Emoji Picker", href: "/docs/components/emoji-picker" },
         { title: "Hover Card", href: "/docs/components/hover-card" },

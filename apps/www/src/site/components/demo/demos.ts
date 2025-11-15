@@ -46,6 +46,7 @@ import { ColorPickerDemo } from './color-picker-demo';
 import { MenubarDemo } from './menubar-demo';
 import { NavigationMenuDemo } from './navigation-menu-demo';
 import { SelectDemo } from './select-demo';
+import { DrawerDemo } from './drawer-demo';
 
 // Texts
 import { BlurTextDemo } from "./texts/blur-text-demo";
@@ -105,6 +106,7 @@ export const demos = {
   menubar: MenubarDemo,
   navigationMenu: NavigationMenuDemo,
   select: SelectDemo,
+  drawer: DrawerDemo,
 
   // Texts
   blurText: BlurTextDemo,
