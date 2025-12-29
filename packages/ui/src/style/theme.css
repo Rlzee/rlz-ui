@@ -1,0 +1,77 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: hsl(0, 0%, 98%);
+  --foreground: oklch(0.145 0 0);
+  --border: hsl(0, 0%, 88%);
+  --muted: hsl(0, 0%, 40%);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: hsl(0, 0%, 95%);
+  --accent-foreground: oklch(0.205 0 0);
+  --primary: hsl(0, 0%, 9%);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: hsl(0, 0%, 100%);
+  --secondary-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: oklch(0.145 0 0);
+  --input: hsl(0, 0%, 100%);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: hsl(0, 0%, 0%);
+  --foreground: oklch(0.985 0 0);
+  --border: hsl(0, 0%, 16%);
+  --muted: hsl(0, 0%, 63%);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: hsl(0, 0%, 9%);
+  --accent-foreground: oklch(0.985 0 0);
+  --primary: hsl(0, 0%, 100%);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: hsl(0, 0%, 4%);
+  --secondary-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --popover: hsl(0, 0%, 4%);
+  --popover-foreground: oklch(0.985 0 0);
+  --input: hsl(0, 0%, 4%);
+  --card: hsl(0, 0%, 4%);
+  --card-foreground: oklch(0.985 0 0);
+  --ring: oklch(0.556 0 0);
+}
+
+@layer utilities {
+  .state-invalid {
+    @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
+  }
+
+  .state-focus-ring {
+    @apply focus-visible:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
