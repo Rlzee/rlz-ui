@@ -1,0 +1,58 @@
+{
+  "name": "rlz",
+  "version": "1.0.0",
+  "description": "",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Rlzee",
+    "url": "https://github.com/Rlzee"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "rlz",
+    "ui",
+    "components",
+    "tailwindcss",
+    "base-ui"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "bin": "./dist/index.js",
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@antfu/ni": "^23.2.0",
+    "ts-morph": "^18.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "stringify-object": "^5.0.0",
+    "prompts": "^2.4.2",
+    "node-fetch": "^3.3.0",
+    "fs-extra": "^11.1.0",
+    "diff": "^5.1.0",
+    "commander": "^10.0.0",
+    "zod": "^3.20.2",
+    "zod-to-json-schema": "^3.24.5",
+    "kleur": "^4.1.5"
+  },
+  "devDependencies": {
+    "type-fest": "^3.8.0",
+    "@types/diff": "^5.0.3",
+    "@types/fs-extra": "^11.0.1",
+    "@types/prompts": "^2.4.2",
+    "@types/stringify-object": "^4.0.5",
+    "tsup": "^6.6.3",
+    "typescript": "^4.9.3"
+  }
+}
