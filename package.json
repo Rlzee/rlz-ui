@@ -1,0 +1,50 @@
+{
+  "name": "rlz-ui",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "author": {
+    "name": "Rlzee",
+    "url": "https://github.com/Rlzee"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "packageManager": "pnpm@9.0.0",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@typescript-eslint/parser": "^5.59.7",
+    "eslint": "^8.41.0",
+    "eslint-config-next": "13.3.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-config-turbo": "^1.9.9",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.8",
+    "tailwindcss": "^4",
+    "tsx": "^4.1.4",
+    "turbo": "^1.9.9"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.4",
+    "@types/node": "^20.11.27",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.1",
+    "typescript": "^5.5.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0",
+      "@types/react": "19.0.1",
+      "@types/react-dom": "19.0.1"
+    }
+  }
+}
