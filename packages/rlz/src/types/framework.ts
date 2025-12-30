@@ -6,5 +6,4 @@ export type Framework =
 
 export type FrameworkInfo = {
   framework: Framework;
-  appDir: string;
 };

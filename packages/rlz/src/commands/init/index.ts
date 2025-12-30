@@ -1,9 +1,11 @@
 import { Command } from "commander";
-import { logger } from "../utils/logger.js";
-import { getPackageInfo } from "../utils/get-package-info.js";
-import { getFramework } from "../utils/get-framework.js";
-import { getTailwindInfo } from "../utils/get-tailwind-info.js";
-import { getTypeScriptInfo } from "../utils/get-typescript-info.js";
+import { logger } from "../../utils/logger";
+import { getPackageInfo } from "../../utils/get-package-info";
+import { getFramework } from "../../utils/get-framework";
+import { getTailwindInfo } from "../../utils/get-tailwind-info";
+import { getTypeScriptInfo } from "../../utils/get-typescript-info";
+
+import { runInit } from "./run";
 
 export const initCommand = new Command()
   .name("init")
@@ -22,8 +24,8 @@ export const initCommand = new Command()
 
       // Framework info
 
-      const { framework, appDir } = getFramework(cwd, packageInfo);
-      if (framework === "invalid") {
+      const frameworkInfo = getFramework(packageInfo);
+      if (frameworkInfo.framework === "invalid") {
         logger.error(
           "Unsupported framework. rlz-ui supports Next.js, Vite, and React projects."
         );
@@ -58,9 +60,11 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      logger.info(`Framework detected: ${framework}, appDir: ${appDir}`);
+      logger.info(`Framework detected: ${frameworkInfo.framework}`);
       logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
       logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
+
+      await runInit({ cwd, framework: frameworkInfo.framework });
     } catch (error) {
       logger.error("Initialization failed.");
       logger.error(error);
