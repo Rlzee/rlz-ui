@@ -3,7 +3,7 @@ import path from "path";
 import type { PackageJson } from "type-fest";
 import type { TailwindInfo } from "../types/tailwind.js";
 
-export function getTailwindInfo(cwd: string, pkg: PackageJson) {
+export function getTailwindInfo(cwd: string, pkg: PackageJson): TailwindInfo {
   const deps = {
     ...pkg.dependencies,
     ...pkg.devDependencies,
@@ -32,12 +32,10 @@ export function getTailwindInfo(cwd: string, pkg: PackageJson) {
   const configPath =
     configFiles.map((f) => path.join(cwd, f)).find(fs.existsSync) ?? null;
 
-  const tailwindInfo: TailwindInfo = {
+  return {
     installed: true,
     version: Number.isNaN(major) ? null : major,
     rawVersion,
     configPath,
   };
-
-  return tailwindInfo;
 }
