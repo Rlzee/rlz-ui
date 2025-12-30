@@ -1,6 +1,5 @@
 export type TailwindInfo = {
   installed: boolean;
   version: number | null;
-  rawVersion?: string;
-  configPath: string | null;
+  rawVersion?: string | null;
 };

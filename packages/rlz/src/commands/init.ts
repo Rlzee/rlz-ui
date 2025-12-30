@@ -43,25 +43,11 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      if (!ts.jsx) {
-        logger.error(
-          "TypeScript JSX support is not enabled. Set compilerOptions.jsx in tsconfig.json."
-        );
-        process.exit(1);
-      }
-
       // Tailwind info
 
       const tailwind = getTailwindInfo(cwd, packageInfo);
       if (!tailwind.installed) {
         logger.error("Tailwind CSS is required (v4+).");
-        process.exit(1);
-      }
-
-      if (!tailwind.configPath) {
-        logger.error(
-          "No Tailwind config found. Please create a tailwind.config.ts before using rlz-ui."
-        );
         process.exit(1);
       }
 
@@ -74,9 +60,7 @@ export const initCommand = new Command()
 
       logger.info(`Framework detected: ${framework}, appDir: ${appDir}`);
       logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
-      logger.info(
-        `Tailwind v${tailwind.rawVersion} detected at ${tailwind.configPath}`
-      );
+      logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
     } catch (error) {
       logger.error("Initialization failed.");
       logger.error(error);
