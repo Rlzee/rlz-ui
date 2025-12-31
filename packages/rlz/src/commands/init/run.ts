@@ -5,6 +5,8 @@ import { cssPathResponseSchema } from "../../shemas/init";
 import { safeParseWithError } from "../../utils/validation";
 import { createConfig } from "../../utils/config";
 import type { rlzConfig } from "../../types/config";
+import { getUiFile } from "@/src/utils/get-ui-file";
+import { UI_URL } from "@/src/config";
 import path from "path";
 import fs from "fs";
 
@@ -53,6 +55,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   const rootDir = fs.existsSync(path.join(cwd, "src")) ? "src" : ".";
 
   // Create rlz config
+  const themeCssPath = path.join(path.dirname(cssPath), "theme.css");
   const rlzConfig: rlzConfig = {
     framework,
     dirs: {
@@ -60,7 +63,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     },
     css: {
       global: cssPath,
-      theme: cssPath,
+      theme: themeCssPath,
     },
     aliases: {
       baseComponent: "@/components/base",
@@ -73,4 +76,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
 
   // Write config to file
   createConfig(cwd, rlzConfig);
+
+  // initialize css file
+  await getUiFile(`${UI_URL}/style/theme.css`, themeCssPath);
 }
