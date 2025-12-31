@@ -55,7 +55,6 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   const rootDir = fs.existsSync(path.join(cwd, "src")) ? "src" : ".";
 
   // Create rlz config
-  const themeCssPath = path.join(path.dirname(cssPath), "theme.css");
   const rlzConfig: rlzConfig = {
     framework,
     dirs: {
@@ -63,7 +62,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     },
     css: {
       global: cssPath,
-      theme: themeCssPath,
+      theme: cssPath,
     },
     aliases: {
       baseComponent: "@/components/base",
@@ -78,5 +77,5 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   createConfig(cwd, rlzConfig);
 
   // initialize css file
-  await getUiFile(`${UI_URL}/style/theme.css`, themeCssPath);
+  await getUiFile(`${UI_URL}/style/theme.css`, cssPath);
 }
