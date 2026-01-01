@@ -60,9 +60,9 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      logger.info(`Framework detected: ${frameworkInfo.framework}`);
-      logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
-      logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
+      // logger.info(`Framework detected: ${frameworkInfo.framework}`);
+      // logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
+      // logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
 
       await runInit({ cwd, framework: frameworkInfo.framework });
     } catch (error) {

@@ -6,13 +6,12 @@ import { safeParseWithError } from "../../utils/validation";
 import { createConfig } from "../../utils/config";
 import type { rlzConfig } from "../../types/config";
 import { getUiFile } from "@/src/utils/get-ui-file";
-import { UI_URL } from "@/src/config";
+import { UI_URL, defaultDependencies } from "@/src/config";
+import { installDependencies } from "@/src/utils/install-dependencies";
 import path from "path";
 import fs from "fs";
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
-  logger.info("Initializing rlz-ui...");
-
   // Prompt CSS path
   const cssPathResponse = await prompts({
     type: "text",
@@ -44,13 +43,6 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     "CSS path validation failed"
   );
 
-  // Resolve CSS absolute path
-  const cssAbsolutePath = path.resolve(cwd, cssPath);
-  if (!fs.existsSync(cssAbsolutePath)) {
-    logger.error(`CSS file not found at "${cssAbsolutePath}".`);
-    process.exit(1);
-  }
-
   // Determine root directory
   const rootDir = fs.existsSync(path.join(cwd, "src")) ? "src" : ".";
 
@@ -76,6 +68,12 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   // Write config to file
   createConfig(cwd, rlzConfig);
 
+  // Install default dependencies
+  await installDependencies(defaultDependencies, cwd);
+
   // initialize css file
   await getUiFile(`${UI_URL}/style/theme.css`, cssPath);
+
+  // success message
+  logger.success("rlz-ui initialized successfully.");
 }
