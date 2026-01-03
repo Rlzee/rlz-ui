@@ -1,4 +1,4 @@
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import type { PackageJson } from "type-fest";
 import type { TypeScriptInfo } from "../types/typescript.js";
@@ -29,7 +29,7 @@ export function getTypeScriptInfo(
   const major = parseInt(rawVersion.replace(/^[^\d]*/, ""), 10);
 
   const configPath = path.join(cwd, "tsconfig.json");
-  if (!fs.existsSync(configPath)) {
+  if (!fs.pathExistsSync(configPath)) {
     return {
       installed: true,
       version: Number.isNaN(major) ? null : major,
@@ -40,7 +40,7 @@ export function getTypeScriptInfo(
     };
   }
 
-  const config = JSON.parse(fs.readFileSync(configPath, "utf8"));
+  const config = fs.readJsonSync(configPath);
   const compilerOptions = config.compilerOptions ?? {};
 
   return {

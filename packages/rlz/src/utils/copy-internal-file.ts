@@ -1,5 +1,5 @@
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 import { getUiFile } from "@/src/utils/get-ui-file";
 import { logger } from "./logger";
 import { resolveDirs } from "@/src/utils/resolve-dirs";
@@ -15,7 +15,7 @@ export async function copyInternalFile(dep: string, dirs: ReturnType<typeof reso
   const destDir = dirs[matchedDirKey as keyof typeof dirs] as string;
   const destPath = path.join(destDir, path.basename(dep) + ".ts");
 
-  await fs.promises.mkdir(path.dirname(destPath), { recursive: true });
+  await fs.ensureDir(path.dirname(destPath));
 
   const sourceUrl = `${UI_URL}/${dep}.ts`;
   await getUiFile(sourceUrl, destPath);

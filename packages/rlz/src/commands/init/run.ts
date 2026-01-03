@@ -9,7 +9,7 @@ import { getUiFile } from "@/src/utils/get-ui-file";
 import { UI_URL, defaultDependencies } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
 import path from "path";
-import fs from "fs";
+import fs from "fs-extra";
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   // Prompt CSS path
@@ -44,7 +44,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   );
 
   // Determine root directory
-  const rootDir = fs.existsSync(path.join(cwd, "src")) ? "src" : ".";
+  const rootDir = (await fs.pathExists(path.join(cwd, "src"))) ? "src" : ".";
 
   // Create rlz config
   const rlzConfig: rlzConfig = {
@@ -59,7 +59,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     aliases: {
       baseComponent: "@/components/base",
       uiComponents: "@/components/ui",
-      utils: "@/lib/utils",
+      utils: "@/utils",
       lib: "@/lib",
       types: "@/types",
     },

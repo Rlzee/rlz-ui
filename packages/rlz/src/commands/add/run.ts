@@ -1,5 +1,5 @@
 import type { AddComponentRunOptions } from "@/src/types/add";
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 import { logger } from "../../utils/logger";
 import { resolveDirs } from "@/src/utils/resolve-dirs";
@@ -9,6 +9,7 @@ import type { ComponentManifest } from "@/src/types/components-manifest";
 import { UI_URL } from "@/src/config";
 import { copyInternalFile } from "@/src/utils/copy-internal-file";
 import { getUiFile } from "@/src/utils/get-ui-file";
+import { UpdateComponent } from "@/src/utils/update-component";
 
 export async function runAdd({
   cwd,
@@ -19,18 +20,7 @@ export async function runAdd({
   try {
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
 
-    // Ensure dirs only when needed
-    await fs.promises.mkdir(dirs.components, { recursive: true });
-
-    const componentFilePath = path.join(
-      dirs.components,
-      `${componentName}.tsx`
-    );
-
-    if (fs.existsSync(componentFilePath)) {
-      logger.error(`Component "${componentName}" already exists.`);
-      return;
-    }
+    await fs.ensureDir(dirs.components);
 
     const manifestUrl = `${UI_URL}/components/${type}/${componentName}/component.json`;
     const manifest = (await getComponentManifest(
@@ -39,6 +29,13 @@ export async function runAdd({
 
     if (!manifest.files || !manifest.files.source || !manifest.files.target) {
       throw new Error(`Invalid manifest for component "${componentName}"`);
+    }
+
+    const componentFilePath = path.join(dirs.components, manifest.files.source);
+
+    if (await fs.pathExists(componentFilePath)) {
+      logger.error(`Component "${componentName}" already exists.`);
+      return;
     }
 
     if (manifest.dependencies?.npm && manifest.dependencies.npm.length > 0) {
@@ -65,10 +62,13 @@ export async function runAdd({
       }
     }
 
-    await getUiFile(
-      `${UI_URL}/${manifest.files.target}`,
-      `${dirs.components}/${manifest.files.source}`
-    );
+    await getUiFile(`${UI_URL}/${manifest.files.target}`, componentFilePath);
+
+    // Update component
+    await UpdateComponent({
+      filePath: componentFilePath,
+      config,
+    });
 
     logger.success(`Component "${componentName}" added successfully.`);
   } catch (error: any) {
