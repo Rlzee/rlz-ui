@@ -37,7 +37,7 @@ export async function runAdd({
       manifestUrl
     )) as ComponentManifest;
 
-    if (!manifest.files || manifest.files.length === 0) {
+    if (!manifest.files || !manifest.files.source || !manifest.files.target) {
       throw new Error(`Invalid manifest for component "${componentName}"`);
     }
 
@@ -66,8 +66,8 @@ export async function runAdd({
     }
 
     await getUiFile(
-      `${UI_URL}/components/ui/${componentName}/${componentName}.tsx`,
-      `${dirs.components}/${componentName}.tsx`
+      `${UI_URL}/${manifest.files.target}`,
+      `${dirs.components}/${manifest.files.source}`
     );
 
     logger.success(`Component "${componentName}" added successfully.`);

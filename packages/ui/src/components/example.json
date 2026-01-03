@@ -3,7 +3,7 @@
   "dependencies": {
     "npm": ["class-variance-authority"],
     "internalComponents": ["base/menu-base", "base/popup-arrow"],
-    "internalFiles": ["types/ui", "lib/utils"]
+    "internal": ["base/menu-base", "base/popup-arrow", "types/ui", "lib/utils"]
   },
   "files": {
     "source": "example-component.tsx",
