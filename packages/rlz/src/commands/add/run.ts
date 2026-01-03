@@ -2,17 +2,19 @@ import type { AddComponentRunOptions } from "@/src/types/add";
 import fs from "fs";
 import path from "path";
 import { logger } from "../../utils/logger";
-import { getUiFile } from "@/src/utils/get-ui-file";
-import { UI_URL } from "@/src/config";
-import { Project } from "ts-morph";
-import { addUseClient } from "@/src/utils/add-use-client";
-import { getPackageManager } from "@/src/utils/get-package-manager";
 import { resolveDirs } from "@/src/utils/resolve-dirs";
+import { installDependencies } from "@/src/utils/install-dependencies";
+import { getComponentManifest } from "@/src/utils/get-component-manifest";
+import type { ComponentManifest } from "@/src/types/components-manifest";
+import { UI_URL } from "@/src/config";
+import { copyInternalFile } from "@/src/utils/copy-internal-file";
+import { getUiFile } from "@/src/utils/get-ui-file";
 
 export async function runAdd({
   cwd,
   componentName,
   config,
+  type,
 }: AddComponentRunOptions): Promise<void> {
   try {
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
@@ -30,22 +32,45 @@ export async function runAdd({
       return;
     }
 
-    // Download the UI file
-    await getUiFile(
-      `${UI_URL}/components/${componentName}.tsx`,
-      componentFilePath
-    );
+    const manifestUrl = `${UI_URL}/components/${type}/${componentName}/component.json`;
+    const manifest = (await getComponentManifest(
+      manifestUrl
+    )) as ComponentManifest;
 
-    // ts-morph handling
-    const project = new Project({ skipAddingFilesFromTsConfig: true });
-    const sourceFile = project.addSourceFileAtPath(componentFilePath);
-
-    if (config.framework === "next") {
-      addUseClient(sourceFile);
-      await sourceFile.save();
+    if (!manifest.files || manifest.files.length === 0) {
+      throw new Error(`Invalid manifest for component "${componentName}"`);
     }
 
-    logger.success(`Component "${componentName}" added successfully !`);
+    if (manifest.dependencies?.npm && manifest.dependencies.npm.length > 0) {
+      await installDependencies(manifest.dependencies.npm, cwd);
+    }
+
+    if (manifest.dependencies?.internalComponents?.length) {
+      for (const internal of manifest.dependencies.internalComponents) {
+        const [internalType, ...internalNameParts] = internal.split("/");
+        const internalComponentName = internalNameParts.join("/");
+
+        await runAdd({
+          cwd,
+          componentName: internalComponentName,
+          config,
+          type: internalType as AddComponentRunOptions["type"],
+        });
+      }
+    }
+
+    if (manifest.dependencies?.internalFiles?.length) {
+      for (const dep of manifest.dependencies.internalFiles) {
+        await copyInternalFile(dep, dirs, cwd);
+      }
+    }
+
+    await getUiFile(
+      `${UI_URL}/components/ui/${componentName}/${componentName}.tsx`,
+      `${dirs.components}/${componentName}.tsx`
+    );
+
+    logger.success(`Component "${componentName}" added successfully.`);
   } catch (error: any) {
     logger.error(`Failed to add component: ${error.message}`);
     throw error;

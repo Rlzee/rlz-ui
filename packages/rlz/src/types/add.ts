@@ -4,4 +4,5 @@ export type AddComponentRunOptions = {
   cwd: string;
   componentName: string;
   config: rlzConfig;
+  type: "ui" | "base";
 };

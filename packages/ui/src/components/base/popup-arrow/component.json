@@ -1,0 +1,15 @@
+{
+  "name": "popup-arrow",
+  "dependencies": {
+    "npm": [],
+    "internalComponents": [],
+    "internalFiles": ["lib/utils"]
+  },
+  "files": {
+    "source": "popup-arrow.tsx",
+    "target": "components/base/popup-arrow.tsx"
+  },
+  "imports": {
+    "utils": "@/lib/utils"
+  }
+}

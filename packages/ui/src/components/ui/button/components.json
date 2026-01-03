@@ -1,0 +1,17 @@
+{
+  "name": "button",
+  "dependencies": {
+    "npm": ["class-variance-authority"],
+    "internalComponents": [],
+    "internalFiles": ["lib/utils"]
+  },
+  "files": [
+    {
+      "source": "button.tsx",
+      "target": "components/ui/button.tsx"
+    }
+  ],
+  "imports": {
+    "utils": "@/lib/utils"
+  }
+}

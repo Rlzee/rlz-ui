@@ -20,7 +20,7 @@ export const addCommand = new Command()
       const config = readConfig(cwd);
 
       // Run the add component logic
-      await runAdd({ cwd, componentName, config });
+      await runAdd({ cwd, componentName, config, type: "ui" });
     } catch (error: any) {
       logger.error(`Error adding component: ${error.message}`);
       process.exit(1);
