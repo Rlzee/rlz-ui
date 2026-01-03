@@ -7,7 +7,7 @@
   },
   "files": {
     "source": "popup-arrow.tsx",
-    "target": "components/base/popup-arrow.tsx"
+    "target": "components/base/popup-arrow/popup-arrow.tsx"
   },
   "imports": {
     "utils": "@/lib/utils"

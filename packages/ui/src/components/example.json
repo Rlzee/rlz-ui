@@ -7,7 +7,7 @@
   },
   "files": {
     "source": "example-component.tsx",
-    "target": "components/ui/example-component.tsx"
+    "target": "components/ui/example-component/example-component.tsx"
   },
   "imports": {
     "baseComponent": "@/components/base",
