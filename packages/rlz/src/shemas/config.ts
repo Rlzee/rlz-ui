@@ -9,15 +9,17 @@ export const aliasesSchema = z.object({
   types: z.string(),
 });
 
+export const dirsSchema = z.object({
+  root: z.string(),
+  components: z.string().optional(),
+  utils: z.string().optional(),
+  lib: z.string().optional(),
+  types: z.string().optional(),
+});
+
 export const rlzConfigSchema = z.object({
   framework: frameworkSchema,
-  dirs: z.object({
-    root: z.string(),
-    components: z.string().optional(),
-    utils: z.string().optional(),
-    lib: z.string().optional(),
-    types: z.string().optional(),
-  }),
+  dirs: dirsSchema,
   css: z.object({
     global: z.string(),
     theme: z.string(),
