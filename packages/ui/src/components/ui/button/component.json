@@ -3,7 +3,7 @@
   "dependencies": {
     "npm": ["class-variance-authority"],
     "internalComponents": [],
-    "internalFiles": ["lib/utils"]
+    "internalFiles": ["lib/utils/utils"]
   },
   "files": {
     "source": "button.tsx",
