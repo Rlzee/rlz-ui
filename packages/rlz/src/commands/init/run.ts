@@ -12,7 +12,6 @@ import path from "path";
 import fs from "fs-extra";
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
-  // Prompt CSS path
   const cssPathResponse = await prompts({
     type: "text",
     name: "cssPath",
@@ -31,22 +30,18 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     },
   });
 
-  // Handle cancellation
   if (!cssPathResponse || !cssPathResponse.cssPath) {
     logger.error("Initialization cancelled or no CSS path provided.");
     process.exit(1);
   }
 
-  // Validate final response
   const { cssPath } = safeParseWithError(
     () => cssPathResponseSchema.parse(cssPathResponse),
     "CSS path validation failed"
   );
 
-  // Determine root directory
   const rootDir = (await fs.pathExists(path.join(cwd, "src"))) ? "src" : ".";
 
-  // Create rlz config
   const rlzConfig: rlzConfig = {
     framework,
     dirs: {
@@ -65,15 +60,11 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     },
   };
 
-  // Write config to file
   createConfig(cwd, rlzConfig);
 
-  // Install default dependencies
   await installDependencies(defaultDependencies, cwd);
 
-  // initialize css file
   await getUiFile(`${UI_URL}/style/theme.css`, cssPath);
 
-  // success message
   logger.success("rlz-ui initialized successfully.");
 }

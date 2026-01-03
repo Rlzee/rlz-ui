@@ -14,15 +14,11 @@ export const initCommand = new Command()
     try {
       const cwd = process.cwd();
 
-      // Package info
-
       const packageInfo = getPackageInfo(cwd, false);
       if (!packageInfo) {
         logger.error("No package.json found. Run this inside a project.");
         process.exit(1);
       }
-
-      // Framework info
 
       const frameworkInfo = getFramework(packageInfo);
       if (frameworkInfo.framework === "invalid") {
@@ -31,8 +27,6 @@ export const initCommand = new Command()
         );
         process.exit(1);
       }
-
-      // TypeScript info
 
       const ts = getTypeScriptInfo(cwd, packageInfo);
       if (!ts.installed) {
@@ -44,8 +38,6 @@ export const initCommand = new Command()
         logger.error("tsconfig.json not found. Please initialize TypeScript.");
         process.exit(1);
       }
-
-      // Tailwind info
 
       const tailwind = getTailwindInfo(cwd, packageInfo);
       if (!tailwind.installed) {

@@ -64,7 +64,6 @@ export async function runAdd({
 
     await getUiFile(`${UI_URL}/${manifest.files.target}`, componentFilePath);
 
-    // Update component
     await UpdateComponent({
       filePath: componentFilePath,
       config,

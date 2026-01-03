@@ -19,7 +19,6 @@ export const addCommand = new Command()
       const cwd = process.cwd();
       const config = readConfig(cwd);
 
-      // Run the add component logic
       await runAdd({ cwd, componentName, config, type: "ui" });
     } catch (error: any) {
       logger.error(`Error adding component: ${error.message}`);
