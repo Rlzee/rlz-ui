@@ -5,10 +5,18 @@ import { URL } from "url";
 
 export function getUiFile(
   url: string,
-  destPath: string,
+  destPathOrDir: string,
   timeoutMs = 15_000
 ): Promise<void> {
   return new Promise((resolve, reject) => {
+    // Allow callers to pass either a full destination file path or a destination
+    // directory. If a directory is provided (no extension), derive the file
+    // name from the URL's pathname.
+    const isLikelyDirectory = path.extname(destPathOrDir) === "";
+    const destPath = isLikelyDirectory
+      ? path.join(destPathOrDir, path.basename(new URL(url).pathname))
+      : destPathOrDir;
+
     const dir = path.dirname(destPath);
     fs.ensureDirSync(dir);
 

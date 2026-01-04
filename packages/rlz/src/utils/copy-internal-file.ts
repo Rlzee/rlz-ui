@@ -5,6 +5,7 @@ import { logger } from "./logger";
 import { resolveDirs } from "@/src/utils/resolve-dirs";
 import { UI_URL } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
+import { getJsonManifest } from "@/src/utils/get-json-manifest";
 
 type DepsManifest = {
   dependencies?: string[];
@@ -15,62 +16,36 @@ export async function copyInternalFile(
   dirs: ReturnType<typeof resolveDirs>,
   cwd: string
 ): Promise<void> {
-  const baseDirKey = Object.keys(dirs).find((key) => dep.startsWith(key));
+  const [type, ...rest] = dep.split("/");
 
-  if (!baseDirKey) {
-    logger.warn(
-      `No matching directory found in config for internal file "${dep}". Skipping.`
-    );
+  const destBaseDir = dirs[type as keyof typeof dirs];
+  if (!destBaseDir) {
+    logger.warn(`No destination dir for internal file "${dep}"`);
     return;
   }
 
-  const destDir = dirs[baseDirKey as keyof typeof dirs] as string;
-  const fileName = path.basename(dep);
-  const destPath = path.join(destDir, `${fileName}.ts`);
-
-  await fs.ensureDir(path.dirname(destPath));
+  const relativePath = rest.join("/");
 
   const sourceUrl = `${UI_URL}/${dep}.ts`;
-  await getUiFile(sourceUrl, destPath);
+  // Pass the base destination directory for this type (e.g. `dirs.lib`).
+  // `getUiFile` accepts a directory or file path now and will derive filename.
+  await getUiFile(sourceUrl, (dirs as any)[type]);
 
-  logger.info(`Copied internal file "${dep}" to ${destPath}`);
-
-  if (baseDirKey === "types") {
-    return;
-  }
-
-  const depsUrl = `${UI_URL}/${dep}/deps.json`;
+  if (type === "types") return;
 
   try {
-    const tempDepsPath = path.join(destDir, `${fileName}.deps.json`);
-    await getUiFile(depsUrl, tempDepsPath);
+    const depsUrl = `${UI_URL}/${type}/${path.dirname(relativePath)}/deps.json`;
+    const depsManifest = await getJsonManifest<DepsManifest>(depsUrl);
 
-    const raw = await fs.readFile(tempDepsPath, "utf-8");
-
-    let deps: string[] | undefined;
-
-    try {
-      const parsed = JSON.parse(raw) as DepsManifest;
-      if (Array.isArray(parsed.dependencies)) {
-        deps = parsed.dependencies;
-      }
-    } catch {
-      logger.warn(`Invalid deps.json format for "${dep}"`);
+    if (depsManifest.dependencies?.length) {
+      await installDependencies(depsManifest.dependencies, cwd, true);
+      // logger.info(
+      //   `Installed deps for "${dep}": ${depsManifest.dependencies.join(", ")}`
+      // );
     }
-
-    if (deps?.length) {
-      await installDependencies(deps, cwd);
-      logger.info(
-        `Installed dependencies for internal file "${dep}": ${deps.join(", ")}`
-      );
-    }
-
-    await fs.remove(tempDepsPath);
   } catch (err: any) {
     if (!err.message?.includes("404")) {
-      logger.warn(
-        `Failed to fetch deps.json for internal file "${dep}": ${err.message}`
-      );
+      logger.warn(`deps.json error for "${dep}": ${err.message}`);
     }
   }
 }

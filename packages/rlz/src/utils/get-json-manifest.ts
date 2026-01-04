@@ -1,6 +1,6 @@
 import https from "https";
 
-export function getComponentManifest<T = unknown>(url: string): Promise<T> {
+export function getJsonManifest<T = unknown>(url: string): Promise<T> {
   return new Promise((resolve, reject) => {
     https
       .get(url, (res) => {

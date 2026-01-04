@@ -4,7 +4,7 @@ import path from "path";
 import { logger } from "../../utils/logger";
 import { resolveDirs } from "@/src/utils/resolve-dirs";
 import { installDependencies } from "@/src/utils/install-dependencies";
-import { getComponentManifest } from "@/src/utils/get-component-manifest";
+import { getJsonManifest } from "@/src/utils/get-json-manifest";
 import type { ComponentManifest } from "@/src/types/components-manifest";
 import { UI_URL } from "@/src/config";
 import { copyInternalFile } from "@/src/utils/copy-internal-file";
@@ -23,9 +23,7 @@ export async function runAdd({
     await fs.ensureDir(dirs.components);
 
     const manifestUrl = `${UI_URL}/components/${type}/${componentName}/component.json`;
-    const manifest = (await getComponentManifest(
-      manifestUrl
-    )) as ComponentManifest;
+    const manifest = await getJsonManifest<ComponentManifest>(manifestUrl);
 
     if (!manifest.files || !manifest.files.source || !manifest.files.target) {
       throw new Error(`Invalid manifest for component "${componentName}"`);
@@ -39,7 +37,7 @@ export async function runAdd({
     }
 
     if (manifest.dependencies?.npm && manifest.dependencies.npm.length > 0) {
-      await installDependencies(manifest.dependencies.npm, cwd);
+      await installDependencies(manifest.dependencies.npm, cwd, true);
     }
 
     if (manifest.dependencies?.internalComponents?.length) {
