@@ -8,21 +8,25 @@ import type { rlzConfig } from "../../types/config";
 import { getUiFile } from "@/src/utils/get-ui-file";
 import { UI_URL, defaultDependencies } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
+import { DEFAULT_CSS_BY_FRAMEWORK } from "../../utils/default-css-by-framework";
 import path from "path";
 import fs from "fs-extra";
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
+  const hasSrc = await fs.pathExists(path.join(cwd, "src"));
+  const rootDir = hasSrc ? "src" : ".";
+
+  const defaultCssPath =
+    DEFAULT_CSS_BY_FRAMEWORK[framework]?.(rootDir) ?? "src/index.css";
+
   const cssPathResponse = await prompts({
     type: "text",
     name: "cssPath",
     message: "Enter the path to your CSS file:",
-    initial: "src/index.css",
+    initial: defaultCssPath,
     validate: (value: string) => {
       try {
-        safeParseWithError(
-          () => cssPathResponseSchema.parse({ cssPath: value }),
-          "Invalid CSS path"
-        );
+        cssPathResponseSchema.parse({ cssPath: value });
         return true;
       } catch (err: any) {
         return err.message;
@@ -39,8 +43,6 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     () => cssPathResponseSchema.parse(cssPathResponse),
     "CSS path validation failed"
   );
-
-  const rootDir = (await fs.pathExists(path.join(cwd, "src"))) ? "src" : ".";
 
   const rlzConfig: rlzConfig = {
     framework,
