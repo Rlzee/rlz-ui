@@ -8,8 +8,5 @@
   "files": {
     "source": "button.tsx",
     "target": "components/ui/button/button.tsx"
-  },
-  "imports": {
-    "utils": "@/lib/utils"
   }
 }

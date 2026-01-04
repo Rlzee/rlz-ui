@@ -8,12 +8,5 @@
   "files": {
     "source": "example-component.tsx",
     "target": "components/ui/example-component/example-component.tsx"
-  },
-  "imports": {
-    "baseComponent": "@/components/base",
-    "uiComponents": "@/components/ui",
-    "utils": "@/lib/utils",
-    "lib": "@/lib",
-    "types": "@/types"
   }
 }

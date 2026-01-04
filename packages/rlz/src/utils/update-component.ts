@@ -15,30 +15,36 @@ export async function UpdateComponent({
   const project = new Project();
   const sourceFile = project.addSourceFileAtPath(filePath);
 
-  // Add "use client" if Next.js and needed
   if (config.framework === "next") {
     addUseClient(sourceFile);
   }
 
-  // Update imports based on aliases
-  const aliasMap: rlzConfig["aliases"] = config.aliases;
+  const aliases = config.aliases;
 
   sourceFile.getImportDeclarations().forEach((imp) => {
-    const moduleSpecifier = imp.getModuleSpecifierValue();
+    const specifier = imp.getModuleSpecifierValue();
+    if (!specifier.startsWith("@/")) return;
 
-    for (const [aliasKey, aliasPath] of Object.entries(aliasMap)) {
-      const defaultAlias = aliasKey;
+    for (const [key, userAlias] of Object.entries(aliases)) {
+      const canonical = `@/${key}`;
 
-      if (
-        moduleSpecifier === defaultAlias ||
-        moduleSpecifier.startsWith(defaultAlias + "/")
-      ) {
-        imp.setModuleSpecifier(moduleSpecifier.replace(defaultAlias, aliasPath));
-        break;
+      if (specifier === canonical || specifier.startsWith(canonical + "/")) {
+        const rest = specifier.slice(canonical.length + 1);
+        const parts = rest.split("/");
+
+        if (parts.length >= 2 && parts.at(-1) === parts.at(-2)) {
+          parts.pop();
+        }
+
+        const finalPath =
+          parts.length > 0 ? `${userAlias}/${parts.join("/")}` : userAlias;
+
+        imp.setModuleSpecifier(finalPath);
+        return;
       }
     }
   });
 
   await sourceFile.save();
-  logger.info(`Updated component file: ${filePath}`);
+  // logger.info(`Updated component file: ${filePath}`);
 }

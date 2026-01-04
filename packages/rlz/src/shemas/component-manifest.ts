@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { aliasesSchema } from "./config";
 
 export const ComponentManifestSchema = z.object({
   name: z.string(),
@@ -13,6 +12,5 @@ export const ComponentManifestSchema = z.object({
   files: z.object({
     source: z.string(),
     target: z.string(),
-  }),
-  imports: aliasesSchema.optional(),
+  })
 });
