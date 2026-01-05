@@ -8,9 +8,19 @@ import type { rlzConfig } from "../../types/config";
 import { getUiFile } from "@/src/utils/get-ui-file";
 import { UI_URL, defaultDependencies } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
-import { DEFAULT_CSS_BY_FRAMEWORK } from "../../utils/default-css-by-framework";
+import { ensureTsconfigPaths } from "@/src/utils/ensure-config-path";
+import { updateViteConfig } from "@/src/utils/update-vite-config";
 import path from "path";
 import fs from "fs-extra";
+
+export const DEFAULT_CSS_BY_FRAMEWORK: Record<
+  string,
+  (rootDir: string) => string
+> = {
+  next: () => "app/globals.css",
+  vite: (rootDir) => (rootDir === "." ? "index.css" : "src/index.css"),
+  react: (rootDir) => (rootDir === "." ? "index.css" : "src/index.css"),
+};
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
@@ -67,6 +77,20 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   await installDependencies(defaultDependencies, cwd);
 
   await getUiFile(`${UI_URL}/style/theme.css`, cssPath);
+
+  if (framework !== "next") {
+    ensureTsconfigPaths({
+      cwd,
+      paths: {
+        "@/*": [`${rootDir}/*`],
+      },
+    });
+
+    if (framework === "vite") {
+      installDependencies(["vite-tsconfig-paths"], cwd, true);
+      await updateViteConfig(cwd);
+    }
+  }
 
   logger.success("rlz-ui initialized successfully.");
 }
