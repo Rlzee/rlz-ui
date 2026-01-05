@@ -80,11 +80,11 @@ export async function runAddComponent({
       const pathMatch = inf.match(/\/(lib|types|utils)\/([^\/]+)$/);
       if (pathMatch) {
         const type = pathMatch[1] as FilesType;
-        const name = pathMatch[2].replace(/\.tsx?$/, "");
+        const name = pathMatch[2];
 
         await runAddFiles({
           cwd,
-          fileNames: [name],
+          fileNames: [`${name}.ts`],
           config,
           type,
         });
