@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { logger } from "../../utils/logger";
 import { readConfig } from "@/src/utils/config";
-import { runAdd } from "./run";
+import { runAddComponent } from "./runComponent";
 import { componentSchema } from "@/src/shemas/add";
 
 export const addCommand = new Command()
@@ -19,7 +19,7 @@ export const addCommand = new Command()
       const cwd = process.cwd();
       const config = readConfig(cwd);
 
-      await runAdd({ cwd, componentName, config, type: "ui" });
+      await runAddComponent({ cwd, componentName, config, type: "ui" });
     } catch (error: any) {
       logger.error(`Error adding component: ${error.message}`);
       process.exit(1);

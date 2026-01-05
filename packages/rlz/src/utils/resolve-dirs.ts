@@ -7,7 +7,12 @@ export function resolveDirs({
 }: {
   dirs: rlzConfig["dirs"];
   cwd: string;
-}): Required<rlzConfig["dirs"]> {
+}): Required<
+  rlzConfig["dirs"] & {
+    uiComponents: string;
+    baseComponent: string;
+  }
+> {
   const givenRoot = dirs.root || ".";
   const rootPath = path.isAbsolute(givenRoot)
     ? path.normalize(givenRoot)
@@ -23,7 +28,9 @@ export function resolveDirs({
     return path.join(rootPath, ...defaultSegments);
   }
 
-  const components = resolveField(dirs.components, ["components", "ui"]);
+  const components = resolveField(dirs.components, ["components"]);
+  const uiComponents = path.join(components, "ui");
+  const baseComponent = path.join(components, "base");
   const utils = resolveField(dirs.utils, ["utils"]);
   const types = resolveField(dirs.types, ["types"]);
   const lib = resolveField(dirs.lib, ["lib"]);
@@ -31,6 +38,8 @@ export function resolveDirs({
   return {
     root: rootPath,
     components,
+    uiComponents,
+    baseComponent,
     utils,
     types,
     lib,
