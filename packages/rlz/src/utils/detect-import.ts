@@ -23,8 +23,10 @@ export function detectImport({
     .getImportDeclarations()
     .map((imp) => imp.getModuleSpecifierValue());
 
-  const internalComponents = allImports.filter((pkg) =>
-    pkg.startsWith(dirs.components)
+  const internalComponents = allImports.filter(
+    (pkg) =>
+      pkg.startsWith(aliases.uiComponents) ||
+      pkg.startsWith(aliases.baseComponent)
   );
 
   const dependencies = allImports.filter((pkg) => {
