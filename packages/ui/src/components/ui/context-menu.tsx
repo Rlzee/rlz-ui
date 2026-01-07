@@ -2,6 +2,7 @@ import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
 import { cn } from "@/lib/utils";
 import { MenuBase } from "@/components/base/menu-base";
+import { Shortcut } from "@/components/base/shortcut";
 
 /* -------------------------- Context Menu Root -------------------------- */
 
@@ -198,13 +199,8 @@ function ContextMenuRadioItem({
 
 /* ---------------------------- Context Menu Shortcut --------------------------- */
 
-function ContextMenuShortcut({
-  className,
-  children,
-}: React.ComponentProps<"span">) {
-  return (
-    <MenuBase.Shortcut className={className}>{children}</MenuBase.Shortcut>
-  );
+function ContextMenuShortcut(props: React.ComponentProps<typeof Shortcut>) {
+  return <Shortcut data-slot="context-menu-shortcut" {...props} />;
 }
 
 /* ----------------------- Exports ----------------------- */

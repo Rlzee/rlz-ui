@@ -6,6 +6,7 @@ import {
 } from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
 import { MenuBase } from "@/components/base/menu-base";
+import { Shortcut } from "@/components/base/shortcut";
 
 /* ------------------------------ Root Menu ------------------------------ */
 
@@ -193,10 +194,8 @@ function MenuRadioItem({
 
 /* ---------------------------- Menu Shortcut --------------------------- */
 
-function MenuShortcut({ className, children }: React.ComponentProps<"span">) {
-  return (
-    <MenuBase.Shortcut className={className}>{children}</MenuBase.Shortcut>
-  );
+function MenuShortcut(props: React.ComponentProps<typeof Shortcut>) {
+  return <Shortcut data-slot="menu-shortcut" {...props} />;
 }
 
 /* ---------------------------- Exports --------------------------- */
