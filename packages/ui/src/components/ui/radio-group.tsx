@@ -12,7 +12,7 @@ function RadioRoot({
     <RadioPrimitive.Root
       data-slot="radio"
       className={cn(
-        "flex size-5 items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
+        "flex size-4 items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
         "state-invalid",
         className
       )}
