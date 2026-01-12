@@ -96,3 +96,13 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 }
+
+::selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+::-moz-selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
