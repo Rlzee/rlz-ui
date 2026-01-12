@@ -25,8 +25,7 @@ function ComboboxTrigger({
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
       className={cn(
-        "flex h-9 items-center justify-between gap-3 rounded-md border pr-3 pl-3.5 text-sm bg-secondary text-foreground hover:bg-accent data-popup-open:bg-accent outline-none state-focus-ring",
-        "has-[input]:hover:bg-secondary has-[input]:data-popup-open:bg-secondary has-[input]:focus-within:ring-ring/50 has-[input]:focus-within:ring-[3px] has-[input]:focus-within:border-ring",
+        "border bg-secondary min-w-0 rounded-md text-foreground flex items-center justify-between gap-3 h-9 text-sm px-3",
         className
       )}
       {...props}
@@ -69,7 +68,8 @@ function ComboboxInput({
     <ComboboxPrimitive.Input
       data-slot="combobox-input"
       className={cn(
-        "flex h-9 w-full min-w-36 appearance-none bg-transparent outline-none placeholder:text-muted-foreground text-sm",
+        "bg-secondary border h-9 outline-none w-full px-3 text-sm placeholder:text-muted-foreground rounded-md",
+        "data-popup-open:bg-secondary focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
         className
       )}
       {...props}
@@ -96,6 +96,39 @@ function ComboboxIcon({
     >
       <Icon className="h-4 w-4" />
     </ComboboxPrimitive.Icon>
+  );
+}
+
+/* ------------------------------ Combobox Field ------------------------------ */
+
+type ComboboxFieldProps = {
+  placeholder?: string;
+  clearable?: boolean;
+  icon?: LucideIcon;
+  className?: string;
+};
+
+function ComboboxField({
+  placeholder,
+  clearable,
+  icon,
+  className,
+}: ComboboxFieldProps) {
+  return (
+    <div
+      data-slot="combobox-field"
+      className={cn(
+        "relative [&>input]:pr-10 has-[data-slot=combobox-clear]:[&>input]:pr-16",
+        className
+      )}
+    >
+      <ComboboxInput placeholder={placeholder} />
+
+      <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
+        {clearable && <ComboboxClear />}
+        <ComboboxIcon icon={icon} />
+      </div>
+    </div>
   );
 }
 
@@ -140,7 +173,6 @@ function ComboboxPopup({
           className={cn(
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-foreground shadow-md",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            "**:data-[slot=combobox-input]:px-3 **:data-[slot=combobox-input]:border-b",
             className
           )}
           {...props}
@@ -335,7 +367,8 @@ function ComboboxChips({
     <ComboboxPrimitive.Chips
       data-slot="combobox-chips"
       className={cn(
-        "flex flex-wrap items-center gap-0.5 rounded-md border px-3 w-64 bg-secondary text-foreground outline-none",
+        "flex flex-wrap items-center gap-0.5 rounded-md border w-64 bg-secondary text-foreground outline-none min-h-9",
+        "[&_input]:border-0 [&_input]:focus-within:ring-0 [&_input]:h-7 [&_input]:flex-1",
         "focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
         "has-data-[slot=combobox-chip]:px-1 has-data-[slot=combobox-chip]:py-0.5",
         className
@@ -387,6 +420,7 @@ const ComboboxExports = Object.assign(ComboboxRoot, {
   Input: ComboboxInput,
   Clear: ComboboxClear,
   Trigger: ComboboxTrigger,
+  Field: ComboboxField,
   Icon: ComboboxIcon,
   Popup: ComboboxPopup,
   Arrow: ComboboxArrow,
