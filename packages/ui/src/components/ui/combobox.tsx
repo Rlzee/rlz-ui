@@ -25,7 +25,7 @@ function ComboboxTrigger({
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
       className={cn(
-        "flex h-9 min-w-36 items-center justify-between gap-3 rounded-md border pr-3 pl-3.5 text-sm bg-secondary text-foreground hover:bg-accent data-popup-open:bg-accent outline-none state-focus-ring",
+        "flex h-9 items-center justify-between gap-3 rounded-md border pr-3 pl-3.5 text-sm bg-secondary text-foreground hover:bg-accent data-popup-open:bg-accent outline-none state-focus-ring",
         "has-[input]:hover:bg-secondary has-[input]:data-popup-open:bg-secondary has-[input]:focus-within:ring-ring/50 has-[input]:focus-within:ring-[3px] has-[input]:focus-within:border-ring",
         className
       )}
@@ -69,7 +69,7 @@ function ComboboxInput({
     <ComboboxPrimitive.Input
       data-slot="combobox-input"
       className={cn(
-        "flex h-9 w-full min-w-0 appearance-none bg-transparent outline-none placeholder:text-muted-foreground text-sm",
+        "flex h-9 w-full min-w-36 appearance-none bg-transparent outline-none placeholder:text-muted-foreground text-sm",
         className
       )}
       {...props}
