@@ -1,8 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-/* ------------------------------ Types ------------------------------ */
-
 export type PopupArrowPublicProps = Omit<
   PopupArrowProps<React.ElementType>,
   "baseComponent" | "border"
@@ -17,8 +15,6 @@ type PopupArrowProps<T extends React.ElementType> = React.ComponentProps<T> & {
   classNameBg?: string;
   classNameBorder?: string;
 };
-
-/* ------------------------------ Popup Arrow ------------------------------ */
 
 export function PopupArrow({
   className,

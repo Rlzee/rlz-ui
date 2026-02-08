@@ -9,7 +9,7 @@ export function Shortcut({
     <span
       data-slot="shortcut"
       className={cn(
-        "text-muted-foreground ml-auto text-sm tracking-widest group-hover/menu-item:text-primary-foreground",
+        "text-muted-foreground/40 ml-auto text-sm tracking-widest group-hover/menu-item:text-primary-foreground/70",
         className
       )}
     >

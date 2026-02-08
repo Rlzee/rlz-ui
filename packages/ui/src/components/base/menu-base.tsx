@@ -2,14 +2,10 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { CheckIcon, ChevronRightIcon, CircleIcon } from "lucide-react";
 
-/* ------------------------------ Types ------------------------------ */
-
 type BaseComponentProps<T extends React.ElementType> = {
   baseComponent: T;
   className?: React.ComponentProps<T>["className"];
 } & Omit<React.ComponentProps<T>, "className">;
-
-/* ------------------------------ Menu Popup Base ------------------------------ */
 
 type MenuPopupBaseProps<
   TPortal extends React.ElementType,
@@ -65,8 +61,6 @@ function MenuPopupBase<
   );
 }
 
-/* ------------------------------ Menu Group Label Base ------------------------------ */
-
 function MenuGroupLabelBase({
   baseComponent: Component,
   className,
@@ -83,8 +77,6 @@ function MenuGroupLabelBase({
     />
   );
 }
-
-/* ------------------------------ Menu Item Base ------------------------------ */
 
 function MenuItemBase({
   baseComponent: Component,
@@ -116,8 +108,6 @@ function MenuItemBase({
   );
 }
 
-/* ------------------------------ Menu Separator Base ------------------------------ */
-
 function MenuSeparatorBase({
   baseComponent: Component,
   className,
@@ -131,8 +121,6 @@ function MenuSeparatorBase({
     />
   );
 }
-
-/* ------------------------------ Menu Checkbox Item Base ------------------------------ */
 
 type MenuCheckboxItemBaseProps<
   TItem extends React.ElementType,
@@ -172,8 +160,6 @@ function MenuCheckboxItemBase<
     </Item>
   );
 }
-
-/* ------------------------------ Menu Submenu Trigger Base ------------------------------ */
 
 function MenuSubmenuTriggerBase({
   baseComponent: Component,
@@ -217,8 +203,6 @@ function MenuSubmenuTriggerBase({
   );
 }
 
-/* ---------------------------- Menu Radio Item Base --------------------------- */
-
 type MenuRadioItemBaseProps<
   TItem extends React.ElementType,
   TIndicator extends React.ElementType
@@ -256,27 +240,6 @@ function MenuRadioItemBase<
   );
 }
 
-/* ---------------------------- Menu Shortcut Base --------------------------- */
-
-function MenuShortcutBase({
-  className,
-  children,
-}: React.ComponentProps<"span">) {
-  return (
-    <span
-      data-slot="menu-shortcut"
-      className={cn(
-        "text-muted-foreground ml-auto text-sm tracking-widest group-hover/menu-item:text-primary-foreground",
-        className
-      )}
-    >
-      {children}
-    </span>
-  );
-}
-
-/* ---------------------------- Exports --------------------------- */
-
 const MenuBase = {
   Popup: MenuPopupBase,
   GroupLabel: MenuGroupLabelBase,
@@ -285,7 +248,6 @@ const MenuBase = {
   CheckboxItem: MenuCheckboxItemBase,
   SubmenuTrigger: MenuSubmenuTriggerBase,
   RadioItem: MenuRadioItemBase,
-  Shortcut: MenuShortcutBase,
 };
 
 export {
@@ -297,5 +259,4 @@ export {
   MenuCheckboxItemBase,
   MenuSubmenuTriggerBase,
   MenuRadioItemBase,
-  MenuShortcutBase,
 };
