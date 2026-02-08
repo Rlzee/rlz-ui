@@ -9,9 +9,11 @@ export const defaultDependencies: string[] = [
 ];
 
 export const defaultAliasesRlzConfig: rlzConfig["aliases"] = {
-  baseComponent: "@/components/ui/base",
+  baseComponents: "@/components/ui/base",
   uiComponents: "@/components/ui",
   utils: "@/utils",
   lib: "@/lib",
   types: "@/types",
+  hooks: "@/hooks",
+  stores: "@/stores",
 };

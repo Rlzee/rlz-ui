@@ -8,9 +8,10 @@ import { getUiFile } from "@/src/utils/get-ui-file";
 import { detectImport } from "@/src/utils/detect-import";
 import { Project } from "ts-morph";
 import { installDependencies } from "@/src/utils/install-dependencies";
+import type { rlzConfig } from "@/src/types/config";
 
 function getTargetPath(
-  type: "utils" | "types" | "lib",
+  type: keyof Omit<rlzConfig["aliases"], "baseComponents" | "uiComponents">,
   dirs: ReturnType<typeof resolveDirs>
 ): string {
   switch (type) {
@@ -20,6 +21,10 @@ function getTargetPath(
       return dirs.types;
     case "lib":
       return dirs.lib;
+    case "hooks":
+      return dirs.hooks;
+    case "stores":
+      return dirs.stores;
     default:
       throw new Error(`Unknown type: ${type}`);
   }

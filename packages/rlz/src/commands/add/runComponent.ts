@@ -21,7 +21,7 @@ export async function runAddComponent({
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
 
     const componentsPath =
-      type === "ui" ? dirs.uiComponents : dirs.baseComponent;
+      type === "ui" ? dirs.uiComponents : dirs.baseComponents;
 
     await fs.ensureDir(componentsPath);
     const componentFilePath = path.join(componentsPath, `${componentName}.tsx`);

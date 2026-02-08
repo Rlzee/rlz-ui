@@ -10,7 +10,7 @@ export function resolveDirs({
 }): Required<
   rlzConfig["dirs"] & {
     uiComponents: string;
-    baseComponent: string;
+    baseComponents: string;
   }
 > {
   const givenRoot = dirs.root || ".";
@@ -30,18 +30,22 @@ export function resolveDirs({
 
   const components = resolveField(dirs.components, ["components"]);
   const uiComponents = path.join(components, "ui");
-  const baseComponent = path.join(components, "base");
+  const baseComponents = path.join(components, "base");
   const utils = resolveField(dirs.utils, ["utils"]);
   const types = resolveField(dirs.types, ["types"]);
   const lib = resolveField(dirs.lib, ["lib"]);
+  const hooks = resolveField(dirs.hooks, ["hooks"]);
+  const stores = resolveField(dirs.stores, ["hooks"]);
 
   return {
     root: rootPath,
     components,
     uiComponents,
-    baseComponent,
+    baseComponents,
     utils,
     types,
     lib,
+    hooks,
+    stores,
   };
 }
