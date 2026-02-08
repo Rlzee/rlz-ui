@@ -10,17 +10,9 @@ import { defaultDependencies, defaultAliasesRlzConfig } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
 import { ensureTsconfigPaths } from "@/src/utils/ensure-config-path";
 import { updateViteConfig } from "@/src/utils/update-vite-config";
+import { DEFAULT_CSS_BY_FRAMEWORK } from "@/src/utils/get-default-css-by-framework";
 import path from "path";
 import fs from "fs-extra";
-
-export const DEFAULT_CSS_BY_FRAMEWORK: Record<
-  string,
-  (rootDir: string) => string
-> = {
-  next: () => "app/globals.css",
-  vite: (rootDir) => (rootDir === "." ? "index.css" : "src/index.css"),
-  react: (rootDir) => (rootDir === "." ? "index.css" : "src/index.css"),
-};
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));

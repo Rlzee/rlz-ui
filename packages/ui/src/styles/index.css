@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import "@/styles/theme.css";
-
 .root {
   isolation: isolate;
 }
