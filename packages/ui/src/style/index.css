@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@import "@/styles/theme.css";
+
+.root {
+  isolation: isolate;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground relative;
+  }
+}
+
+::selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
+
+::-moz-selection {
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+}
