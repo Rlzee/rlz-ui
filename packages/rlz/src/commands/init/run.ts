@@ -6,7 +6,11 @@ import { safeParseWithError } from "../../utils/validation";
 import { createConfig } from "../../utils/config";
 import type { rlzConfig } from "../../types/config";
 import { getUiFile } from "@/src/utils/get-ui-file";
-import { UI_URL, defaultDependencies } from "@/src/config";
+import {
+  UI_URL,
+  defaultDependencies,
+  defaultAliasesRlzConfig,
+} from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
 import { ensureTsconfigPaths } from "@/src/utils/ensure-config-path";
 import { updateViteConfig } from "@/src/utils/update-vite-config";
@@ -63,13 +67,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
       global: cssPath,
       theme: cssPath,
     },
-    aliases: {
-      baseComponent: "@/components/base",
-      uiComponents: "@/components/ui",
-      utils: "@/utils",
-      lib: "@/lib",
-      types: "@/types",
-    },
+    aliases: defaultAliasesRlzConfig,
   };
 
   createConfig(cwd, rlzConfig);
