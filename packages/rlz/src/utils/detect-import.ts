@@ -26,7 +26,7 @@ export function detectImport({
   const internalComponents = allImports.filter(
     (pkg) =>
       pkg.startsWith(aliases.uiComponents) ||
-      pkg.startsWith(aliases.baseComponent)
+      pkg.startsWith(aliases.baseComponents)
   );
 
   const dependencies = allImports.filter((pkg) => {
@@ -40,7 +40,7 @@ export function detectImport({
 
   const internalFiles = allImports.filter((pkg) => {
     if (
-      pkg.startsWith(aliases.baseComponent) ||
+      pkg.startsWith(aliases.baseComponents) ||
       pkg.startsWith(aliases.uiComponents)
     )
       return false;

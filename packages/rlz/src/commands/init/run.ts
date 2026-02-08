@@ -5,12 +5,8 @@ import { cssPathResponseSchema } from "../../shemas/init";
 import { safeParseWithError } from "../../utils/validation";
 import { createConfig } from "../../utils/config";
 import type { rlzConfig } from "../../types/config";
-import { getUiFile } from "@/src/utils/get-ui-file";
-import {
-  UI_URL,
-  defaultDependencies,
-  defaultAliasesRlzConfig,
-} from "@/src/config";
+import { initializeCss } from "@/src/utils/initialize-css";
+import { defaultDependencies, defaultAliasesRlzConfig } from "@/src/config";
 import { installDependencies } from "@/src/utils/install-dependencies";
 import { ensureTsconfigPaths } from "@/src/utils/ensure-config-path";
 import { updateViteConfig } from "@/src/utils/update-vite-config";
@@ -74,7 +70,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
 
   await installDependencies(defaultDependencies, cwd);
 
-  await getUiFile(`${UI_URL}/style/theme.css`, cssPath);
+  initializeCss(cssPath);
 
   if (framework !== "next") {
     ensureTsconfigPaths({
