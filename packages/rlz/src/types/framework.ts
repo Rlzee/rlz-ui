@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { frameworkSchema } from "../shemas/framework";
+import { frameworkSchema } from "../schemas/framework";
 
 export type Framework = z.infer<typeof frameworkSchema>;
 

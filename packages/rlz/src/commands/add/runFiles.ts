@@ -1,14 +1,14 @@
-import { logger } from "../../utils/logger";
-import type { AddFilesRunOptions } from "@/src/types/add";
-import { resolveDirs } from "@/src/utils/resolve-dirs";
+import { logger } from "@/utils/logger";
+import type { AddFilesRunOptions } from "@/types/add";
+import { resolveDirs } from "@/config/utils";
 import fs from "fs-extra";
 import path from "path";
-import { UI_URL } from "@/src/config";
-import { getUiFile } from "@/src/utils/get-ui-file";
-import { detectImport } from "@/src/utils/detect-import";
+import { UI_URL } from "@/config";
+import { getUiFile } from "@/utils/get-ui-file";
+import { detectImport } from "@/utils/detect-import";
 import { Project } from "ts-morph";
-import { installDependencies } from "@/src/utils/install-dependencies";
-import type { rlzConfig } from "@/src/types/config";
+import { installDependencies } from "@/utils/install-dependencies";
+import type { rlzConfig } from "@/config/types";
 
 function getTargetPath(
   type: keyof Omit<rlzConfig["aliases"], "baseComponents" | "uiComponents">,
@@ -61,7 +61,6 @@ export async function runAddFiles({
 
         const { dependencies } = detectImport({
           sourceFile: sourceFile,
-          dirs,
           aliases: config.aliases,
         });
 

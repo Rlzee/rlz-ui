@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { cssPathResponseSchema } from "../shemas/init";
+import { cssPathResponseSchema } from "../schemas/init";
 import { UI_URL } from "../config";
 import { getUiFile } from "./get-ui-file";
 import fs from "fs-extra";

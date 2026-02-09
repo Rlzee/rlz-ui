@@ -1,10 +1,8 @@
 import { SourceFile } from "ts-morph";
-import { resolveDirs } from "./resolve-dirs";
-import type { rlzConfig } from "../types/config";
+import type { rlzConfig } from "@/config/types";
 
 type detectedImportsParams = {
   sourceFile: SourceFile;
-  dirs: ReturnType<typeof resolveDirs>;
   aliases: rlzConfig["aliases"];
 };
 
@@ -16,7 +14,6 @@ type ReturnFunction = {
 
 export function detectImport({
   sourceFile,
-  dirs,
   aliases,
 }: detectedImportsParams): ReturnFunction {
   const allImports = sourceFile
@@ -31,21 +28,21 @@ export function detectImport({
 
   const dependencies = allImports.filter((pkg) => {
     if (pkg.startsWith(".") || pkg.startsWith("/")) return false;
-    if (pkg.startsWith("@/") || pkg.startsWith("~/")) return false;
-    if (pkg.startsWith(dirs.components)) return false;
+
     if (Object.values(aliases).some((alias) => pkg.startsWith(alias)))
       return false;
+
     return true;
   });
 
   const internalFiles = allImports.filter((pkg) => {
     if (
-      pkg.startsWith(aliases.baseComponents) ||
-      pkg.startsWith(aliases.uiComponents)
+      pkg.startsWith(aliases.uiComponents) ||
+      pkg.startsWith(aliases.baseComponents)
     )
       return false;
-    if (Object.values(aliases).some((alias) => pkg.startsWith(alias)))
-      return true;
+
+    return Object.values(aliases).some((alias) => pkg.startsWith(alias));
   });
 
   return {

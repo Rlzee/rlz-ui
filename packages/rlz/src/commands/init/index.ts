@@ -1,9 +1,9 @@
 import { Command } from "commander";
-import { logger } from "../../utils/logger";
-import { getPackageInfo } from "../../utils/get-package-info";
-import { getFramework } from "../../utils/get-framework";
-import { getTailwindInfo } from "../../utils/get-tailwind-info";
-import { getTypeScriptInfo } from "../../utils/get-typescript-info";
+import { logger } from "@/utils/logger";
+import { getPackageInfo } from "@/utils/get-package-info";
+import { getFramework } from "@/utils/get-framework";
+import { getTailwindInfo } from "@/utils/get-tailwind-info";
+import { getTypeScriptInfo } from "@/utils/get-typescript-info";
 
 import { runInit } from "./run";
 

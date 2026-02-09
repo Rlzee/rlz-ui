@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { frameworkSchema } from "./framework";
+import { frameworkSchema } from "../schemas/framework";
+import { DIR_DEFINITION } from "./def";
 
 export const aliasesSchema = z.object({
   baseComponents: z.string(),
@@ -11,15 +12,15 @@ export const aliasesSchema = z.object({
   stores: z.string(),
 });
 
-export const dirsSchema = z.object({
-  root: z.string(),
-  components: z.string().optional(),
-  utils: z.string().optional(),
-  lib: z.string().optional(),
-  types: z.string().optional(),
-  hooks: z.string().optional(),
-  stores: z.string().optional(),
-});
+export const dirsSchema = z
+  .object({
+    root: z.string(),
+  })
+  .extend(
+    Object.fromEntries(
+      Object.keys(DIR_DEFINITION).map((key) => [key, z.string().optional()])
+    ) as Record<string, z.ZodOptional<z.ZodString>>
+  );
 
 export const rlzConfigSchema = z.object({
   framework: frameworkSchema,

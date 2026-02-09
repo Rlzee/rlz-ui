@@ -1,4 +1,4 @@
-import type { rlzConfig } from "../types/config";
+import type { rlzConfig } from "@/config/types";
 import { addUseClient } from "./add-use-client";
 import { SourceFile } from "ts-morph";
 

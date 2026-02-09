@@ -1,14 +1,14 @@
-import type { AddComponentRunOptions, FilesType } from "@/src/types/add";
+import type { AddComponentRunOptions, FilesType } from "@/types/add";
 import fs from "fs-extra";
 import path from "path";
-import { logger } from "../../utils/logger";
-import { resolveDirs } from "@/src/utils/resolve-dirs";
-import { installDependencies } from "@/src/utils/install-dependencies";
-import { UI_URL } from "@/src/config";
-import { getUiFile } from "@/src/utils/get-ui-file";
-import { UpdateComponent } from "@/src/utils/update-component";
+import { logger } from "@/utils/logger";
+import { resolveDirs, resolveComponentSubDirs } from "@/config/utils";
+import { installDependencies } from "@/utils/install-dependencies";
+import { UI_URL } from "@/config";
+import { getUiFile } from "@/utils/get-ui-file";
+import { UpdateComponent } from "@/utils/update-component";
 import { Project } from "ts-morph";
-import { detectImport } from "@/src/utils/detect-import";
+import { detectImport } from "@/utils/detect-import";
 import { runAddFiles } from "./runFiles";
 
 export async function runAddComponent({
@@ -19,9 +19,10 @@ export async function runAddComponent({
 }: AddComponentRunOptions): Promise<void> {
   try {
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
+    const componentDirs = resolveComponentSubDirs(dirs);
 
     const componentsPath =
-      type === "ui" ? dirs.uiComponents : dirs.baseComponents;
+      type === "ui" ? componentDirs.uiComponents : componentDirs.baseComponents;
 
     await fs.ensureDir(componentsPath);
     const componentFilePath = path.join(componentsPath, `${componentName}.tsx`);

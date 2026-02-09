@@ -1,19 +1,8 @@
-import fs from "fs-extra";
+import type { rlzConfig } from "./types";
+import { rlzConfigSchema } from "./schemas";
+import { logger } from "../utils/logger";
 import path from "path";
-import { rlzConfigSchema } from "../shemas/config";
-import type { rlzConfig } from "../types/config";
-import { logger } from "./logger";
-
-/**
- * Creates and writes the rlz configuration file.
- * @param cwd - The current working directory.
- * @param config - The rlz configuration object.
- */
-export function createConfig(cwd: string, config: rlzConfig) {
-  rlzConfigSchema.parse(config);
-  const configPath = path.join(cwd, "rlz.config.json");
-  fs.writeJsonSync(configPath, config, { spaces: 2 });
-}
+import fs from "fs-extra";
 
 /**
  * Reads and validates the rlz-ui config from rlz.config.json

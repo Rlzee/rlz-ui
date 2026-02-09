@@ -1,4 +1,4 @@
 import { z } from "zod";
-import { rlzConfigSchema } from "../shemas/config";
+import { rlzConfigSchema } from "./schemas";
 
 export type rlzConfig = z.infer<typeof rlzConfigSchema>;

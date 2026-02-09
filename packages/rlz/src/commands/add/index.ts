@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import { logger } from "../../utils/logger";
-import { readConfig } from "@/src/utils/config";
+import { readConfig } from "@/config/read";
 import { runAddComponent } from "./runComponent";
-import { componentSchema } from "@/src/shemas/add";
+import { componentSchema } from "@/schemas/add";
 
 export const addCommand = new Command()
   .name("add")
