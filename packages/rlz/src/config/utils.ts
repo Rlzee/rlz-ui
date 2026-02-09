@@ -38,7 +38,7 @@ export function resolveDirs({
 export function resolveComponentSubDirs(resolvedDirs: { components: string }) {
   return {
     uiComponents: path.join(resolvedDirs.components, "ui"),
-    baseComponents: path.join(resolvedDirs.components, "base"),
+    baseComponents: path.join(resolvedDirs.components, "ui/base"),
   };
 }
 
