@@ -3,7 +3,7 @@ import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/ui/base/popup-arrow";
+} from "@/components/base/popup-arrow";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,7 @@ function TooltipPositioner(props: TooltipPrimitive.Positioner.Props) {
 const tooltipPopupVariants = cva(
   cn(
     "group flex flex-col px-2 py-1 rounded-md text-sm shadow-md",
-    "transition-[transform,scale,opacity] data-ending-style:opacity-0 data-ending-style:scale-90 data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-90",
+    "transition-[transform,scale,opacity] data-ending-style:opacity-0 data-ending-style:scale-90 data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-90"
   ),
   {
     variants: {
@@ -42,7 +42,7 @@ const tooltipPopupVariants = cva(
     defaultVariants: {
       variant: "primary",
     },
-  },
+  }
 );
 
 type TooltipPopupProps = TooltipPrimitive.Popup.Props &
@@ -89,11 +89,11 @@ function TooltipArrow(props: ArrowType) {
       border={1}
       classNameBg={cn(
         "fill-foreground group-data-[variant=outline]:fill-popover",
-        props.classNameBg,
+        props.classNameBg
       )}
       classNameBorder={cn(
         "fill-none group-data-[variant=outline]:fill-border",
-        props.classNameBorder,
+        props.classNameBorder
       )}
       baseComponent={TooltipPrimitive.Arrow}
       {...props}

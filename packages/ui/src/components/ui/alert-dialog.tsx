@@ -1,6 +1,6 @@
 import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
-import { Backdrop } from "@/components/ui/base/backdrop";
+import { Backdrop } from "@/components/base/backdrop";
 import { cn } from "@/lib/utils";
 
 const AlertDialogCreateHandle = AlertDialogPrimitive.createHandle;
@@ -30,7 +30,7 @@ function AlertDialogViewport({
       data-slot="alert-dialog-viewport"
       className={cn(
         "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4",
-        className,
+        className
       )}
       {...props}
     />
@@ -81,7 +81,7 @@ function AlertDialogPopup({
             "relative row-start-2 flex w-full max-w-md flex-col rounded-lg border text-popover-foreground gap-0.5 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
             "-translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            className,
+            className
           )}
           {...props}
         >
@@ -132,7 +132,7 @@ function AlertDialogActions({
       className={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
         "data-[variant=default]:bg-popover data-[variant=default]:border-border/50 data-[variant=default]:border-t data-[variant=default]:pt-4 data-[variant=default]:rounded-b-lg",
-        className,
+        className
       )}
       {...props}
     />

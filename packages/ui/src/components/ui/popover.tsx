@@ -3,7 +3,7 @@ import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/ui/base/popup-arrow";
+} from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
 
 const PopoverCreateHandle = PopoverPrimitive.createHandle;
@@ -72,7 +72,7 @@ function PopoverPopup({
             "origin-(--transform-origin) rounded-md bg-popover px-6 py-4 shadow-md border",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             "data-side-bottom:slide-in-from-top-2 data-side-left:slide-in-from-right-2 data-side-right:slide-in-from-left-2 data-side-top:slide-in-from-bottom-2",
-            className,
+            className
           )}
           {...props}
         >

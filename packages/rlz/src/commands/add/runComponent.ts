@@ -2,7 +2,11 @@ import type { AddComponentRunOptions, FilesType } from "@/types/add";
 import fs from "fs-extra";
 import path from "path";
 import { logger } from "@/utils/logger";
-import { resolveDirs, resolveComponentSubDirs } from "@/config/utils";
+import {
+  resolveDirs,
+  resolveComponentSubDirs,
+  resolveComponentTypeFromAlias,
+} from "@/config/utils";
 import { installDependencies } from "@/utils/install-dependencies";
 import { UI_URL } from "@/config";
 import { getUiFile } from "@/utils/get-ui-file";
@@ -45,7 +49,6 @@ export async function runAddComponent({
 
     const { dependencies, internalComponents, internalFiles } = detectImport({
       sourceFile,
-      dirs,
       aliases: config.aliases,
     });
 
@@ -56,7 +59,7 @@ export async function runAddComponent({
         cwd,
         componentName: compName,
         config,
-        type: ic.startsWith(config.aliases.uiComponents) ? "ui" : "base",
+        type: resolveComponentTypeFromAlias(ic, config.aliases),
       });
     }
 

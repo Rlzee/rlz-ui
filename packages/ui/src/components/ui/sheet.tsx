@@ -2,7 +2,7 @@ import * as React from "react";
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Backdrop } from "@/components/ui/base/backdrop";
+import { Backdrop } from "@/components/base/backdrop";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 type SheetVariant = "default" | "bare" | "bare-bottom" | "bare-top";
@@ -90,7 +90,7 @@ function SheetViewport({
         "data-[side=right]:flex data-[side=right]:justify-end",
 
         // inset
-        "data-[layout=inset]:m-4 data-[layout=inset]:data-[side=right]:mx-2",
+        "data-[layout=inset]:m-4 data-[layout=inset]:data-[side=right]:mx-2"
       )}
       {...props}
     />
@@ -106,7 +106,7 @@ function SheetCloseButton({ className, ...props }: SheetPrimitive.Close.Props) {
         "data-open:bg-accent data-open:text-muted-foreground",
         "focus:ring-ring focus:ring-2 focus:ring-offset-2 focus:outline-hidden",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
+        className
       )}
       {...props}
     >
@@ -160,7 +160,7 @@ function SheetPopup({
 
             // inset
             "data-[layout=inset]:rounded-lg data-[layout=inset]:border",
-            className,
+            className
           )}
           {...props}
         >
@@ -187,7 +187,7 @@ const SheetHeader = ({
           ? "border-b border-border/50 pb-4 bg-popover"
           : "",
         layout === "inset" ? "rounded-t-lg" : "",
-        className,
+        className
       )}
       {...props}
     />
@@ -200,7 +200,7 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
       data-slot="sheet-title"
       className={cn(
         "text-lg font-semibold leading-none tracking-tight",
-        className,
+        className
       )}
       {...props}
     />
@@ -252,7 +252,7 @@ function SheetFooter({ className, ...props }: React.ComponentProps<"footer">) {
           ? "pt-4 border-t border-border/50 bg-popover"
           : "",
         layout === "inset" ? "rounded-b-lg" : "",
-        className,
+        className
       )}
       {...props}
     />

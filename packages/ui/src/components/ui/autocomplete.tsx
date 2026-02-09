@@ -5,7 +5,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/ui/base/popup-arrow";
+} from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
 import { ChevronDown, XIcon, type LucideIcon } from "lucide-react";
 
@@ -20,7 +20,7 @@ function AutocompleteTrigger({
       data-slot="autocomplete-trigger"
       className={cn(
         "border bg-secondary min-w-0 rounded-md text-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -93,7 +93,7 @@ function AutocompleteClear({
       data-slot="autocomplete-clear"
       className={cn(
         "cursor-pointer flex text-muted-foreground hover:text-foreground",
-        className,
+        className
       )}
       {...props}
     >
@@ -181,7 +181,7 @@ function AutocompletePopup({
           className={cn(
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-foreground shadow-md",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            className,
+            className
           )}
           {...props}
         ></AutocompletePrimitive.Popup>
@@ -210,7 +210,7 @@ function AutocompleteStatus({
       data-slot="autocomplete-status"
       className={cn(
         "text-center text-sm text-muted-foreground empty:hidden my-2",
-        className,
+        className
       )}
       {...props}
     />
@@ -226,7 +226,7 @@ function AutocompleteEmpty({
       data-slot="autocomplete-empty"
       className={cn(
         "text-center text-sm text-muted-foreground empty:m-0 empty:p-0 my-2",
-        className,
+        className
       )}
       {...props}
     />
@@ -243,7 +243,7 @@ function AutocompleteList({
         data-slot="autocomplete-list"
         className={cn(
           "relative py-1 scroll-py-6 max-h-(--available-height) data-empty:hidden",
-          className,
+          className
         )}
         {...props}
       />
@@ -264,7 +264,7 @@ function AutocompleteItem({
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
         "hover:before:absolute hover:text-primary-foreground hover:before:inset-x-1 hover:before:inset-y-0 hover:before:rounded-sm hover:before:z-[-1] hover:before:bg-primary/80",
         "data-highlighted:relative hover:relative data-highlighted:text-primary-foreground data-highlighted:z-0 hover:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-primary/80",
-        className,
+        className
       )}
       {...props}
     />
@@ -306,7 +306,7 @@ function AutocompleteGroupLabel({
       data-slot="autocomplete-group-label"
       className={cn(
         "px-2.5 py-1.5 text-sm font-medium text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />

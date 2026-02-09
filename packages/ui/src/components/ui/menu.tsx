@@ -3,10 +3,10 @@ import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/ui/base/popup-arrow";
+} from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
-import { MenuBase } from "@/components/ui/base/menu-base";
-import { Shortcut } from "@/components/ui/base/shortcut";
+import { MenuBase } from "@/components/base/menu-base";
+import { Shortcut } from "@/components/base/shortcut";
 
 function MenuRoot(props: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="menu-root" {...props} />;

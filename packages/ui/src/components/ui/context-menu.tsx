@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
 import { cn } from "@/lib/utils";
-import { MenuBase } from "@/components/ui/base/menu-base";
-import { Shortcut } from "@/components/ui/base/shortcut";
+import { MenuBase } from "@/components/base/menu-base";
+import { Shortcut } from "@/components/base/shortcut";
 
 function ContextMenuRoot(props: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu-root" {...props} />;
@@ -132,7 +132,7 @@ function ContextMenuSubmenuTrigger({
 }
 
 function ContextMenuRadioGroup(
-  props: React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>,
+  props: React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
 ) {
   return (
     <ContextMenuPrimitive.RadioGroup

@@ -3,7 +3,7 @@ import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/ui/base/popup-arrow";
+} from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
 
 function PreviewCardRoot(props: PreviewCardPrimitive.Root.Props) {
@@ -73,7 +73,7 @@ function PreviewCardPopup({
           className={cn(
             "flex w-60 origin-(--transform-origin) flex-col gap-2 rounded-lg bg-popover text-popover-foreground p-2 shadow-md outline-1 outline-border transition-[transform,scale,opacity] dark:shadow-none dark:-outline-offset-1",
             "data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0",
-            className,
+            className
           )}
           {...props}
         >

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Backdrop } from "@/components/ui/base/backdrop";
+import { Backdrop } from "@/components/base/backdrop";
 import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
 
@@ -39,7 +39,7 @@ function DialogViewport({
       data-slot="dialog-viewport"
       className={cn(
         "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4",
-        className,
+        className
       )}
       {...props}
     />
@@ -76,7 +76,7 @@ function DialogCloseButton({
         "data-open:bg-accent data-open:text-muted-foreground",
         "focus:ring-ring focus:ring-2 focus:ring-offset-2 focus:outline-hidden",
         "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className,
+        className
       )}
       {...props}
     >
@@ -116,7 +116,7 @@ function DialogPopup({
             "relative row-start-2 flex max-h-[calc(100vh-8rem)] min-h-0 w-full min-w-0 max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground",
             "-translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            className,
+            className
           )}
           {...props}
         >
@@ -134,7 +134,7 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
       data-slot="dialog-title"
       className={cn(
         "text-lg font-semibold leading-none tracking-tight",
-        className,
+        className
       )}
       {...props}
     />
@@ -185,7 +185,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"footer">) {
         variant === "default" || variant === "bare-top"
           ? "pt-4 border-t border-border/50 bg-popover rounded-b-lg"
           : "",
-        className,
+        className
       )}
       {...props}
     />
@@ -210,7 +210,7 @@ const DialogHeader = ({
         variant === "default" || variant === "bare-bottom"
           ? "border-b border-border/50 pb-4 bg-popover rounded-t-lg"
           : "",
-        className,
+        className
       )}
       {...props}
     />

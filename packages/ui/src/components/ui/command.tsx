@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Dialog as CommandDialogPrimitive } from "@base-ui/react/dialog";
 import { Autocomplete } from "@/components/ui/autocomplete";
-import { Backdrop } from "@/components/ui/base/backdrop";
-import { Shortcut } from "./base/shortcut";
+import { Backdrop } from "@/components/base/backdrop";
+import { Shortcut } from "@/components/base/shortcut";
 import { cn } from "@/lib/utils";
 
 const CommandCreateHandle = CommandDialogPrimitive.createHandle;
@@ -56,7 +56,7 @@ function CommandDialogViewport({
       data-slot="command-dialog-viewport"
       className={cn(
         "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4",
-        className,
+        className
       )}
       {...props}
     />
@@ -88,7 +88,7 @@ function CommandDialogPopup({
             "relative row-start-2 flex w-full max-w-xl min-h-0 min-w-0 flex-col",
             "-translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            className,
+            className
           )}
           {...props}
         >
@@ -140,7 +140,7 @@ function CommandInput({
         "h-11 py-4 md:text-base",
         "has-focus-visible:has-aria-invalid:ring-0 dark:has-focus-visible:has-aria-invalid:ring-0 has-focus-visible:has-aria-invalid:border-border",
         "has-focus-visible:ring-0 has-focus-visible:border-border",
-        className,
+        className
       )}
       placeholder={placeholder}
       {...props}
@@ -187,7 +187,7 @@ function CommandBody({ className, ...props }: React.ComponentProps<"div">) {
           ? "rounded-b-none!"
           : "",
         "bg-background border relative rounded-lg min-h-0 bg-clip-padding max-h-80",
-        className,
+        className
       )}
       {...props}
     />
@@ -263,7 +263,7 @@ function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
           ? "rounded-t-none! border-t-0!"
           : "mt-2",
         "bg-popover border py-2 rounded-lg px-3 flex justify-between items-center",
-        className,
+        className
       )}
       {...props}
     />
@@ -279,7 +279,7 @@ function CommandShortcut({
       data-slot="command-shortcut"
       className={cn(
         "text-md text-muted-foreground/50 group-data-highlighted/command-item:text-primary-foreground/80",
-        className,
+        className
       )}
       {...props}
     />
