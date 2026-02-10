@@ -96,16 +96,28 @@ export async function runAddComponent({
     }
 
     for (const inf of internalFiles || []) {
-      const pathMatch = inf.match(/\/(lib|types|utils)\/([^\/]+)$/);
+      const pathMatch = inf.match(
+        /\/(lib|types|utils|hooks|stores)\/([^\/]+)$/
+      );
       if (pathMatch) {
-        const type = pathMatch[1] as FilesType;
+        const candidate = pathMatch[1];
         const name = pathMatch[2];
+
+        const allowedTypes = ["utils", "types", "lib", "hooks", "stores"];
+        if (!allowedTypes.includes(candidate)) {
+          logger.warn(
+            `Skipping internal file '${inf}': unknown file type '${candidate}'.`
+          );
+          continue;
+        }
+
+        const fileType = candidate as FilesType;
 
         await runAddFiles({
           cwd,
           fileNames: [`${name}.ts`],
           config,
-          type,
+          type: fileType,
         });
       }
     }

@@ -11,7 +11,7 @@ import { installDependencies } from "@/utils/install-dependencies";
 import type { rlzConfig } from "@/config/types";
 
 function getTargetPath(
-  type: keyof Omit<rlzConfig["aliases"], "baseComponents" | "uiComponents">,
+  type: keyof Omit<rlzConfig["dirs"], "root" | "components">,
   dirs: ReturnType<typeof resolveDirs>
 ): string {
   switch (type) {

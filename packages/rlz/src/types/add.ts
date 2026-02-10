@@ -4,10 +4,10 @@ export type AddComponentRunOptions = {
   cwd: string;
   componentName: string;
   config: rlzConfig;
-  type: string;
+  type: FilesType | string;
 };
 
-export type FilesType = "utils" | "types" | "lib";
+export type FilesType = Exclude<keyof rlzConfig["dirs"], "root" | "components">;
 
 export type AddFilesRunOptions = {
   cwd: string;
