@@ -10,6 +10,7 @@ import { UpdateComponent } from "@/utils/update-component";
 import { Project } from "ts-morph";
 import { detectImport } from "@/utils/detect-import";
 import { runAddFiles } from "./runFiles";
+import { remoteFileExists } from "@/utils/remote-file-exist";
 
 export async function runAddComponent({
   cwd,
@@ -21,16 +22,27 @@ export async function runAddComponent({
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
 
     const componentsPath = path.join(dirs.components, type);
-
-    await fs.ensureDir(componentsPath);
     const componentFilePath = path.join(componentsPath, `${componentName}.tsx`);
 
+    // If the file already exists locally, bail early.
     if (await fs.pathExists(componentFilePath)) {
       logger.error(`Component "${componentName}" already exists.`);
       return;
     }
 
     const componentUrl = `${UI_URL}/components/${type}/${componentName}.tsx`;
+
+    // Verify remote component exists before creating any directories or files.
+    const exists = await remoteFileExists(componentUrl);
+    if (!exists) {
+      logger.error(
+        `Component "${componentName}" of type "${type}" not found at remote UI registry.`
+      );
+      return;
+    }
+
+    // Now that we know the remote file exists, ensure the directory and download it.
+    await fs.ensureDir(componentsPath);
     await getUiFile(componentUrl, componentFilePath);
 
     const project = new Project();
