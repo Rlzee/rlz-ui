@@ -1,8 +1,7 @@
 import type { rlzConfig } from "./types";
 
 export const defaultAliasesRlzConfig: rlzConfig["aliases"] = {
-  baseComponents: "@/components/ui/base",
-  uiComponents: "@/components/ui",
+  components: "@/components",
   utils: "@/utils",
   lib: "@/lib",
   types: "@/types",
@@ -11,8 +10,7 @@ export const defaultAliasesRlzConfig: rlzConfig["aliases"] = {
 };
 
 export const defaultUiComponentsAliases: rlzConfig["aliases"] = {
-  baseComponents: "@/components/base",
-  uiComponents: "@/components/ui",
+  components: "@/components",
   utils: "@/utils",
   lib: "@/lib",
   types: "@/types",

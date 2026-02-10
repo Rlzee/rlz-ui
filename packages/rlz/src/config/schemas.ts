@@ -3,8 +3,7 @@ import { frameworkSchema } from "../schemas/framework";
 import { DIR_DEFINITION } from "./def";
 
 export const aliasesSchema = z.object({
-  baseComponents: z.string(),
-  uiComponents: z.string(),
+  components: z.string(),
   utils: z.string(),
   lib: z.string(),
   types: z.string(),

@@ -2,11 +2,7 @@ import type { AddComponentRunOptions, FilesType } from "@/types/add";
 import fs from "fs-extra";
 import path from "path";
 import { logger } from "@/utils/logger";
-import {
-  resolveDirs,
-  resolveComponentSubDirs,
-  resolveComponentTypeFromAlias,
-} from "@/config/utils";
+import { resolveDirs } from "@/config/utils";
 import { installDependencies } from "@/utils/install-dependencies";
 import { UI_URL } from "@/config";
 import { getUiFile } from "@/utils/get-ui-file";
@@ -23,10 +19,8 @@ export async function runAddComponent({
 }: AddComponentRunOptions): Promise<void> {
   try {
     const dirs = resolveDirs({ dirs: config.dirs, cwd });
-    const componentDirs = resolveComponentSubDirs(dirs);
 
-    const componentsPath =
-      type === "ui" ? componentDirs.uiComponents : componentDirs.baseComponents;
+    const componentsPath = path.join(dirs.components, type);
 
     await fs.ensureDir(componentsPath);
     const componentFilePath = path.join(componentsPath, `${componentName}.tsx`);
@@ -55,11 +49,32 @@ export async function runAddComponent({
     for (const ic of internalComponents) {
       const compName = path.basename(ic);
 
+      // Derive child component "type" from the components alias path.
+      // Expected import shapes:
+      //  - "@/components/<type>/<Component>"
+      //  - "@/components/<Component>" (no type folder)
+      const aliasesAny = config.aliases as Record<string, string>;
+      const compAlias = String(aliasesAny.components || "@/components").replace(
+        /\/+$/g,
+        ""
+      );
+      const matchingAlias =
+        Object.values(aliasesAny)
+          .map(String)
+          .find((a) => ic.startsWith(a)) || compAlias;
+      const remainder = ic
+        .slice(String(matchingAlias).length)
+        .replace(/^\/+/, "");
+      const segments = remainder.split("/").filter(Boolean);
+
+      // If there's a subfolder after the alias, treat it as the type. Otherwise fall back to parent `type`.
+      const childType = segments.length >= 2 ? segments[0] : type || "";
+
       await runAddComponent({
         cwd,
         componentName: compName,
         config,
-        type: resolveComponentTypeFromAlias(ic, config.aliases),
+        type: childType,
       });
     }
 

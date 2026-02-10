@@ -20,10 +20,8 @@ export function detectImport({
     .getImportDeclarations()
     .map((imp) => imp.getModuleSpecifierValue());
 
-  const internalComponents = allImports.filter(
-    (pkg) =>
-      pkg.startsWith(aliases.uiComponents) ||
-      pkg.startsWith(aliases.baseComponents)
+  const internalComponents = allImports.filter((pkg) =>
+    pkg.startsWith(aliases.components)
   );
 
   const dependencies = allImports.filter((pkg) => {
@@ -36,11 +34,7 @@ export function detectImport({
   });
 
   const internalFiles = allImports.filter((pkg) => {
-    if (
-      pkg.startsWith(aliases.uiComponents) ||
-      pkg.startsWith(aliases.baseComponents)
-    )
-      return false;
+    if (pkg.startsWith(aliases.components)) return false;
 
     return Object.values(aliases).some((alias) => pkg.startsWith(alias));
   });

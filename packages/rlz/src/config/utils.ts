@@ -34,30 +34,3 @@ export function resolveDirs({
     root: string;
   } & Record<keyof typeof DIR_DEFINITION, string>;
 }
-
-export function resolveComponentSubDirs(resolvedDirs: { components: string }) {
-  return {
-    uiComponents: path.join(resolvedDirs.components, "ui"),
-    baseComponents: path.join(resolvedDirs.components, "ui/base"),
-  };
-}
-
-export function resolveComponentTypeFromAlias(
-  importPath: string,
-  aliases: rlzConfig["aliases"]
-): "ui" | "base" {
-  const entries = [
-    { type: "ui" as const, path: aliases.uiComponents },
-    { type: "base" as const, path: aliases.baseComponents },
-  ];
-
-  const matches = entries
-    .filter((e) => importPath.startsWith(e.path))
-    .sort((a, b) => b.path.length - a.path.length); // most specific first
-
-  if (matches.length === 0) {
-    throw new Error(`Unknown internal component import: ${importPath}`);
-  }
-
-  return matches[0].type;
-}

@@ -1,10 +1,10 @@
-import { rlzConfig } from "./config";
+import { rlzConfig } from "@/config/types";
 
 export type AddComponentRunOptions = {
   cwd: string;
   componentName: string;
   config: rlzConfig;
-  type: "ui" | "base";
+  type: string;
 };
 
 export type FilesType = "utils" | "types" | "lib";
