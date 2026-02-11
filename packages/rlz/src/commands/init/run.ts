@@ -52,10 +52,7 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
     dirs: {
       root: rootDir,
     },
-    css: {
-      global: cssPath,
-      theme: cssPath,
-    },
+    css: cssPath,
     aliases: defaultAliasesRlzConfig,
   };
 

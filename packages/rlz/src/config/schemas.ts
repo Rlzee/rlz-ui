@@ -24,9 +24,6 @@ export const dirsSchema = z
 export const rlzConfigSchema = z.object({
   framework: frameworkSchema,
   dirs: dirsSchema,
-  css: z.object({
-    global: z.string(),
-    theme: z.string(),
-  }),
+  css: z.string(),
   aliases: aliasesSchema,
 });

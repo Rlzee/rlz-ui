@@ -48,22 +48,10 @@ export async function initializeCss(
       fs.readFile(themeTmp, "utf8"),
     ]);
 
-    // Combine: index first, then a separator and theme
-    const combined = [
-      "/* rlz-ui: combined index.css */",
-      indexContent.trim(),
-      "",
-      "/* rlz-ui: theme.css */",
-      themeContent.trim(),
-      "",
-    ].join("\n");
-
-    await fs.writeFile(destPath, combined, "utf8");
+    await fs.writeFile(destPath, "utf8");
 
     // Cleanup temporary files
     await fs.remove(tmpDir);
-
-    logger.info(`Combined CSS written to ${destPath}`);
   } catch (err: any) {
     // Attempt cleanup on error
     try {
