@@ -48,7 +48,11 @@ export async function initializeCss(
       fs.readFile(themeTmp, "utf8"),
     ]);
 
-    await fs.writeFile(destPath, "utf8");
+    const combined = [indexContent.trim(), "", themeContent.trim(), ""].join(
+      "\n"
+    );
+
+    await fs.writeFile(destPath, combined, "utf8");
 
     // Cleanup temporary files
     await fs.remove(tmpDir);

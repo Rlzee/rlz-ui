@@ -10,6 +10,13 @@ import fs from "fs-extra";
  */
 export function createConfig(cwd: string, config: rlzConfig) {
   rlzConfigSchema.parse(config);
+
+  const configWithSchema = {
+    $schema:
+      "https://raw.githubusercontent.com/Rlzee/rlz-ui/main/packages/rlz/schema/rlz.config.schema.json",
+    ...config,
+  };
+
   const configPath = path.join(cwd, "rlz.config.json");
-  fs.writeJsonSync(configPath, config, { spaces: 2 });
+  fs.writeJsonSync(configPath, configWithSchema, { spaces: 2 });
 }
