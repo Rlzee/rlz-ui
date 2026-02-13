@@ -29,10 +29,11 @@
     "eslint-config-turbo": "^1.9.9",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-tailwindcss": "3.13.1",
-    "tailwindcss": "^4",
     "prettier": "^2.8.8",
+    "tailwindcss": "^4",
     "tsx": "^4.1.4",
-    "turbo": "^1.9.9"
+    "turbo": "^1.9.9",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/hast": "^3.0.4",
