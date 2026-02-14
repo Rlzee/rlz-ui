@@ -275,7 +275,6 @@ function DrawerClose(props: DrawerPrimitive.Close.Props) {
   return <DrawerPrimitive.Close data-slot="Drawer-close" {...props} />;
 }
 
-/* eslint-disable react-refresh/only-export-components */
 const DrawerExports = Object.assign(DrawerRoot, {
   Portal: DrawerPortal,
   Trigger: DrawerTrigger,
