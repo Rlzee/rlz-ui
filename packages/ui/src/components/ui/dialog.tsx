@@ -113,9 +113,9 @@ function DialogPopup({
           data-slot="dialog-popup"
           className={cn(
             variant === "bare" ? "bg-popover" : "bg-background",
-            "relative row-start-2 flex max-h-[calc(100vh-8rem)] min-h-0 w-full min-w-0 max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground",
-            "-translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))]",
-            "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
+            "relative row-start-2 flex max-h-[calc(100vh-8rem)] min-h-0 w-full min-w-0 max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200",
+            "-translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top",
+            "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 data-ending-style:scale-95 data-starting-style:scale-95",
             className
           )}
           {...props}

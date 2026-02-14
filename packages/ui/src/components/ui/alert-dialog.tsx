@@ -79,7 +79,6 @@ function AlertDialogPopup({
           className={cn(
             "bg-background [&:has([data-slot=alert-dialog-actions][data-variant=bare])]:bg-popover",
             "relative row-start-2 flex w-full max-w-md flex-col rounded-lg border text-popover-foreground gap-0.5 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
-            "-translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             className
           )}
