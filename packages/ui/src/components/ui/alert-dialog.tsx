@@ -57,22 +57,17 @@ function AlertDialogBackdrop({
 
 function AlertDialogPopup({
   backdrop = true,
-  backdropProps,
+  backdropBlur,
   children,
   className,
   ...props
 }: AlertDialogPrimitive.Popup.Props & {
   backdrop?: boolean;
-  backdropProps?: React.ComponentProps<typeof AlertDialogBackdrop>;
+  backdropBlur?: boolean;
 }) {
   return (
     <AlertDialogPortal>
-      {backdrop && (
-        <AlertDialogBackdrop
-          className={backdropProps?.className}
-          {...backdropProps}
-        />
-      )}
+      {backdrop && <AlertDialogBackdrop blur={backdropBlur} />}
       <AlertDialogViewport>
         <AlertDialogPrimitive.Popup
           data-slot="alert-dialog-popup"

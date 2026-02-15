@@ -65,22 +65,17 @@ function CommandDialogViewport({
 
 function CommandDialogPopup({
   backdrop = true,
-  backdropProps,
+  backdropBlur,
   children,
   className,
   ...props
 }: CommandDialogPrimitive.Popup.Props & {
   backdrop?: boolean;
-  backdropProps?: React.ComponentProps<typeof CommandDialogBackdrop>;
+  backdropBlur?: boolean;
 }) {
   return (
     <CommandDialogPortal>
-      {backdrop && (
-        <CommandDialogBackdrop
-          className={backdropProps?.className}
-          {...backdropProps}
-        />
-      )}
+      {backdrop && <CommandDialogBackdrop blur={backdropBlur} />}
       <CommandDialogViewport>
         <CommandDialogPrimitive.Popup
           data-slot="command-dialog-popup"

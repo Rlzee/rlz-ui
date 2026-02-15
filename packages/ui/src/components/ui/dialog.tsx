@@ -88,26 +88,21 @@ function DialogCloseButton({
 
 function DialogPopup({
   backdrop = true,
-  backdropProps,
+  backdropBlur,
   showCloseButton = true,
   children,
   className,
   ...props
 }: DialogPrimitive.Popup.Props & {
   backdrop?: boolean;
-  backdropProps?: React.ComponentProps<typeof DialogBackdrop>;
+  backdropBlur?: boolean;
   showCloseButton?: boolean;
 }) {
   const variant = useDialogVariant();
 
   return (
     <DialogPortal>
-      {backdrop && (
-        <DialogBackdrop
-          className={backdropProps?.className}
-          {...backdropProps}
-        />
-      )}
+      {backdrop && <DialogBackdrop blur={backdropBlur} />}
       <DialogViewport>
         <DialogPrimitive.Popup
           data-slot="dialog-popup"
@@ -217,7 +212,6 @@ const DialogHeader = ({
   );
 };
 
-/* eslint-disable react-refresh/only-export-components */
 const DialogExports = Object.assign(DialogRoot, {
   Portal: DialogPortal,
   Trigger: DialogTrigger,
