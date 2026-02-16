@@ -1,8 +1,8 @@
 import * as React from "react";
 import { DrawerPreview as DrawerPrimitive } from "@base-ui/react/drawer";
-import { XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Backdrop } from "@/components/base/backdrop";
+import { Xclose } from "@/components/base/x-close";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top";
@@ -149,20 +149,12 @@ function DrawerCloseButton({
   ...props
 }: DrawerPrimitive.Close.Props) {
   return (
-    <DrawerPrimitive.Close
-      data-slot="drawer-close-button-x"
-      className={cn(
-        "ring-offset-background absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none",
-        "data-open:bg-accent data-open:text-muted-foreground",
-        "focus:ring-ring focus:ring-2 focus:ring-offset-2 focus:outline-hidden",
-        "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-        className
-      )}
+    <Xclose
+      data-slot="drawer-close-button"
+      baseComponent={DrawerPrimitive.Close}
+      className={className}
       {...props}
-    >
-      <XIcon />
-      <span className="sr-only">Close</span>
-    </DrawerPrimitive.Close>
+    />
   );
 }
 
