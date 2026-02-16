@@ -11,11 +11,13 @@ type DrawerLayout = "inset" | "full";
 type DrawerContextValue = {
   layout: DrawerLayout;
   variant: DrawerVariant;
+  indent: boolean;
 };
 
 const DrawerContext = React.createContext<DrawerContextValue | undefined>({
   layout: "full",
   variant: "default",
+  indent: false,
 });
 
 const useDrawerContext = (): DrawerContextValue => {
@@ -31,14 +33,16 @@ const DrawerCreateHandle = DrawerPrimitive.createHandle;
 function DrawerRoot({
   layout = "full",
   variant = "default",
+  indent = false,
   swipeDirection = "right",
   ...props
 }: DrawerPrimitive.Root.Props & {
   layout?: DrawerLayout;
   variant?: DrawerVariant;
+  indent?: boolean;
 }) {
   return (
-    <DrawerContext.Provider value={{ layout: layout, variant: variant }}>
+    <DrawerContext.Provider value={{ layout, variant, indent }}>
       <DrawerPrimitive.Root
         data-slot="drawer"
         swipeDirection={swipeDirection}
@@ -46,6 +50,38 @@ function DrawerRoot({
       />
     </DrawerContext.Provider>
   );
+}
+
+function DrawerIndent({ className, ...props }: DrawerPrimitive.Indent.Props) {
+  return (
+    <DrawerPrimitive.Indent
+      data-slot="drawer-indent"
+      className={cn(
+        "[transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform transform-[scale(1)_translateY(0)] duration-[calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))]",
+        "data-active:transform-[scale(calc(0.98+(0.02*var(--indent-progress))))_translateY(calc(0.5rem*(1-var(--indent-progress))))] data-active:rounded-tl-(--indent-radius) data-active:rounded-tr-(--indent-radius)",
+        "[--indent-progress:var(--drawer-swipe-progress)] [--indent-radius:calc(1rem*(1-var(--indent-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))]",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function DrawerIndentBackground({
+  className,
+  ...props
+}: DrawerPrimitive.IndentBackground.Props) {
+  return (
+    <DrawerPrimitive.IndentBackground
+      data-slot="drawer-indent-background"
+      className={cn("absolute inset-0", className)}
+      {...props}
+    />
+  );
+}
+
+function DrawerProvider(props: DrawerPrimitive.Provider.Props) {
+  return <DrawerPrimitive.Provider data-slot="drawer-provider" {...props} />;
 }
 
 function DrawerTrigger(props: DrawerPrimitive.Trigger.Props) {
@@ -63,26 +99,32 @@ function DrawerBackdrop({
 }: DrawerPrimitive.Backdrop.Props & {
   blur?: boolean;
 }) {
+  const { indent } = useDrawerContext();
+
   return (
     <Backdrop
       data-slot="drawer-backdrop"
       baseComponent={DrawerPrimitive.Backdrop}
       blur={blur}
-      className={className}
+      className={cn(indent && "absolute", className)}
       {...props}
     />
   );
 }
 
-function DrawerViewport(props: DrawerPrimitive.Viewport.Props) {
-  const { layout } = useDrawerContext();
+function DrawerViewport({
+  className,
+  ...props
+}: DrawerPrimitive.Viewport.Props) {
+  const { layout, indent } = useDrawerContext();
 
   return (
     <DrawerPrimitive.Viewport
-      data-slot="Drawer-viewport"
+      data-slot="drawer-viewport"
       data-layout={layout}
+      data-indent={indent}
       className={cn(
-        "fixed inset-0 z-50 grid",
+        "fixed inset-0 z-50 grid data-[indent=true]:absolute",
 
         // position
         "data-[swipe-direction=down]:grid data-[swipe-direction=down]:grid-rows-[1fr_auto] data-[swipe-direction=down]:pt-12",
@@ -94,7 +136,8 @@ function DrawerViewport(props: DrawerPrimitive.Viewport.Props) {
         "data-[layout=inset]:m-4 data-[layout=inset]:data-[swipe-direction=right]:mx-2",
 
         //nested
-        "data-[layout=inset]:data-nested:m-5"
+        "data-[layout=inset]:data-nested:m-5",
+        className
       )}
       {...props}
     />
@@ -107,7 +150,7 @@ function DrawerCloseButton({
 }: DrawerPrimitive.Close.Props) {
   return (
     <DrawerPrimitive.Close
-      data-slot="Drawer-close-button-x"
+      data-slot="drawer-close-button-x"
       className={cn(
         "ring-offset-background absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none",
         "data-open:bg-accent data-open:text-muted-foreground",
@@ -124,30 +167,32 @@ function DrawerCloseButton({
 }
 
 function DrawerPopup({
+  portalProps,
   backdrop = true,
-  backdropProps,
+  backdropBlur,
+  viewportProps,
   showCloseButton = true,
   children,
   className,
   ...props
 }: DrawerPrimitive.Popup.Props & {
+  portalProps?: React.ComponentProps<typeof DrawerPortal>;
   backdrop?: boolean;
-  backdropProps?: React.ComponentProps<typeof DrawerBackdrop>;
+  backdropBlur?: boolean;
+  viewportProps?: React.ComponentProps<typeof DrawerViewport>;
   showCloseButton?: boolean;
 }) {
   const { layout, variant } = useDrawerContext();
 
+  const { className: viewportClassName, ...restViewportProps } =
+    viewportProps ?? {};
+
   return (
-    <DrawerPortal>
-      {backdrop && (
-        <DrawerBackdrop
-          className={backdropProps?.className}
-          {...backdropProps}
-        />
-      )}
-      <DrawerViewport>
+    <DrawerPortal {...portalProps}>
+      {backdrop && <DrawerBackdrop blur={backdropBlur} />}
+      <DrawerViewport {...restViewportProps} className={viewportClassName}>
         <DrawerPrimitive.Popup
-          data-slot="Drawer-popup"
+          data-slot="drawer-popup"
           data-layout={layout}
           className={cn(
             variant === "bare" ? "bg-popover" : "bg-background",
@@ -157,10 +202,10 @@ function DrawerPopup({
             "transition-[scale,opacity,translate] duration-200 ease-in-out data-starting-style:opacity-0 data-ending-style:opacity-0",
 
             //nested
-            "data-[layout=inset]:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))]",
+            "data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))]",
             "data-[swipe-direction=right]:data-nested:data-ending-style:translate-x-8 data-[swipe-direction=right]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=right]:data-nested-dialog-open:origin-right",
             "data-[swipe-direction=left]:data-nested:data-ending-style:translate-x-8 data-[swipe-direction=left]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=left]:data-nested-dialog-open:origin-left",
-            "data-[layout=inset]:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))]",
+            "data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))]",
             "data-[swipe-direction=down]:data-nested:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=down]:data-nested-dialog-open:origin-bottom",
             "data-[swipe-direction=up]:data-nested:data-ending-style:translate-y-8 data-[swipe-direction=up]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=up]:data-nested-dialog-open:origin-top",
 
@@ -192,7 +237,7 @@ const DrawerHeader = ({
 
   return (
     <header
-      data-slot="Drawer-header"
+      data-slot="drawer-header"
       className={cn(
         "flex flex-col text-left gap-0.5 pt-4 px-6",
         variant === "default" || variant === "bare-bottom"
@@ -209,7 +254,7 @@ const DrawerHeader = ({
 function DrawerTitle({ className, ...props }: DrawerPrimitive.Title.Props) {
   return (
     <DrawerPrimitive.Title
-      data-slot="Drawer-title"
+      data-slot="drawer-title"
       className={cn(
         "text-lg font-semibold leading-none tracking-tight",
         className
@@ -225,7 +270,7 @@ function DrawerDescription({
 }: DrawerPrimitive.Description.Props) {
   return (
     <DrawerPrimitive.Description
-      data-slot="Drawer-description"
+      data-slot="drawer-description"
       className={cn("text-sm text-muted-foreground", className)}
       {...props}
     />
@@ -244,7 +289,7 @@ function DrawerBody({
   return (
     <ScrollArea scrollFade={scrollFade} className={scrollClassName}>
       <div
-        data-slot="Drawer-body"
+        data-slot="drawer-body"
         className={cn("flex flex-col gap-6 px-6 py-6 h-full", className)}
         {...props}
       />
@@ -257,7 +302,7 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
 
   return (
     <footer
-      data-slot="Drawer-footer"
+      data-slot="drawer-footer"
       className={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
         variant === "default" || variant === "bare-top"
@@ -272,10 +317,17 @@ function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
 }
 
 function DrawerClose(props: DrawerPrimitive.Close.Props) {
-  return <DrawerPrimitive.Close data-slot="Drawer-close" {...props} />;
+  return <DrawerPrimitive.Close data-slot="drawer-close" {...props} />;
+}
+
+function DrawerContent(props: DrawerPrimitive.Content.Props) {
+  return <DrawerPrimitive.Content data-slot="drawer-content" {...props} />;
 }
 
 const DrawerExports = Object.assign(DrawerRoot, {
+  Provider: DrawerProvider,
+  IndentBackground: DrawerIndentBackground,
+  Indent: DrawerIndent,
   Portal: DrawerPortal,
   Trigger: DrawerTrigger,
   Header: DrawerHeader,
@@ -287,11 +339,15 @@ const DrawerExports = Object.assign(DrawerRoot, {
   Popup: DrawerPopup,
   Viewport: DrawerViewport,
   Backdrop: DrawerBackdrop,
+  Content: DrawerContent,
 });
 
 export {
   DrawerCreateHandle,
   DrawerExports as Drawer,
+  DrawerProvider,
+  DrawerIndentBackground,
+  DrawerIndent,
   DrawerPortal,
   DrawerHeader,
   DrawerTitle,
@@ -303,5 +359,6 @@ export {
   DrawerBackdrop,
   DrawerPopup,
   DrawerTrigger,
+  DrawerContent,
   useDrawerContext,
 };
