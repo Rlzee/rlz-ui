@@ -11,7 +11,7 @@ function Card({
     "data-slot": "card",
     className: cn(
       "bg-card flex flex-col gap-6 rounded-lg border py-4",
-      className,
+      className
     ),
   };
 
@@ -46,7 +46,7 @@ function CardTitle({
 }: useRender.ComponentProps<"h3">) {
   const defaultProps = {
     "data-slot": "card-title",
-    className: cn("text-lg leading-none font-semibold", className),
+    className: cn("ui-title", className),
   };
 
   return useRender({
@@ -63,7 +63,7 @@ function CardDescription({
 }: useRender.ComponentProps<"p">) {
   const defaultProps = {
     "data-slot": "card-description",
-    className: cn("text-sm text-muted-foreground", className),
+    className: cn("ui-description", className),
   };
 
   return useRender({

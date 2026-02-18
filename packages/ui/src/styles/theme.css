@@ -74,6 +74,13 @@
   .state-focus-ring {
     @apply focus-visible:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
   }
+
+  .ui-title {
+    @apply text-lg text-foreground leading-none font-semibold;
+  }
+  .ui-description {
+    @apply text-sm text-muted-foreground;
+  }
 }
 
 @theme inline {

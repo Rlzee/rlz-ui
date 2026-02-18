@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const alertVariants = cva(
   cn(
     "w-full rounded-lg border py-3 px-3 text-card-foreground grid grid-cols-[0_1fr] items-start",
-    "[&>svg]:size-4 has-[>svg]:py-2.5 [&>svg]:translate-y-1 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2",
+    "[&>svg]:size-4 has-[>svg]:py-2.5 [&>svg]:translate-y-1 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
   ),
   {
     variants: {
@@ -21,7 +21,7 @@ const alertVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 function Alert({
@@ -43,7 +43,7 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"h3">) {
   return (
     <h3
       data-slot="alert-title"
-      className={cn("col-start-2 font-medium tracking-tight", className)}
+      className={cn("col-start-2 font-medium leading-none", className)}
       {...props}
     />
   );
@@ -53,10 +53,7 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="alert-description"
-      className={cn(
-        "col-start-2 text-muted-foreground text-sm [&_p]:leading-relaxed",
-        className,
-      )}
+      className={cn("col-start-2 ui-description", className)}
       {...props}
     />
   );

@@ -12,7 +12,7 @@ function EmptyRoot({
       data-slot="empty"
       className={cn(
         "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg p-6 text-center text-balance md:p-12",
-        className,
+        className
       )}
       {...props}
     >
@@ -40,7 +40,7 @@ const emptyIconVariants = cva(
       variant: "default",
       size: "md",
     },
-  },
+  }
 );
 
 function EmptyIcon({
@@ -66,7 +66,7 @@ function EmptyHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="empty-header"
       className={cn(
         "flex max-w-sm flex-col items-center gap-2 text-center",
-        className,
+        className
       )}
       {...props}
     />
@@ -77,10 +77,7 @@ function EmptyTitle({ className, ...props }: React.ComponentProps<"h3">) {
   return (
     <h3
       data-slot="empty-title"
-      className={cn(
-        "text-lg font-medium tracking-tight text-foreground",
-        className,
-      )}
+      className={cn("ui-title", className)}
       {...props}
     />
   );
@@ -90,7 +87,7 @@ function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
   return (
     <p
       data-slot="empty-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("ui-description", className)}
       {...props}
     />
   );
