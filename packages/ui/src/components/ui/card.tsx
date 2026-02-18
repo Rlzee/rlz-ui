@@ -46,7 +46,10 @@ function CardTitle({
 }: useRender.ComponentProps<"h3">) {
   const defaultProps = {
     "data-slot": "card-title",
-    className: cn("ui-title", className),
+    className: cn(
+      "text-lg text-card-foreground leading-none font-semibold",
+      className
+    ),
   };
 
   return useRender({

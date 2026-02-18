@@ -1,5 +1,7 @@
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
+import { CheckIcon, ChevronDown, XIcon, type LucideIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { InputProps } from "@/components/ui/input";
 import {
@@ -7,8 +9,6 @@ import {
   type PopupArrowPublicProps as ArrowType,
 } from "@/components/base/popup-arrow";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
-import { CheckIcon, ChevronDown, XIcon, type LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const ComboboxContext = React.createContext<{
   chipsRef: React.RefObject<Element | null> | null;
@@ -282,7 +282,7 @@ function ComboboxList({ className, ...props }: ComboboxPrimitive.List.Props) {
       <ComboboxPrimitive.List
         data-slot="combobox-list"
         className={cn(
-          "relative py-1 scroll-py-6 max-h-(--available-height) data-empty:hidden",
+          "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] data-empty:hidden",
           className
         )}
         {...props}
@@ -422,7 +422,7 @@ function ComboboxChip({ className, ...props }: ComboboxPrimitive.Chip.Props) {
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"
       className={cn(
-        "flex items-center gap-1 rounded-md bg-accent px-1.5 py-[0.2rem] text-sm text-secondary-foreground outline-none cursor-default",
+        "flex items-center gap-1 rounded-md bg-accent px-1.5 py-[0.2rem] text-sm text-secondary-foreground outline-none cursor-default h-[calc(--spacing(5.25))]",
         className
       )}
       {...props}
