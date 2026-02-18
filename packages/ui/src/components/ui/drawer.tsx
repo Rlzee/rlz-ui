@@ -14,16 +14,12 @@ type DrawerContextValue = {
   indent: boolean;
 };
 
-const DrawerContext = React.createContext<DrawerContextValue | undefined>({
-  layout: "full",
-  variant: "default",
-  indent: false,
-});
+const DrawerContext = React.createContext<DrawerContextValue | null>(null);
 
-const useDrawerContext = (): DrawerContextValue => {
+const useDrawer = (): DrawerContextValue => {
   const ctx = React.useContext(DrawerContext);
   if (!ctx) {
-    throw new Error("useDrawerContext must be used within a Drawer provider");
+    throw new Error("useDrawer must be used within a Drawer provider");
   }
   return ctx;
 };
@@ -99,7 +95,7 @@ function DrawerBackdrop({
 }: DrawerPrimitive.Backdrop.Props & {
   blur?: boolean;
 }) {
-  const { indent } = useDrawerContext();
+  const { indent } = useDrawer();
 
   return (
     <Backdrop
@@ -116,7 +112,7 @@ function DrawerViewport({
   className,
   ...props
 }: DrawerPrimitive.Viewport.Props) {
-  const { layout, indent } = useDrawerContext();
+  const { layout, indent } = useDrawer();
 
   return (
     <DrawerPrimitive.Viewport
@@ -174,7 +170,7 @@ function DrawerPopup({
   viewportProps?: React.ComponentProps<typeof DrawerViewport>;
   showCloseButton?: boolean;
 }) {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   const { className: viewportClassName, ...restViewportProps } =
     viewportProps ?? {};
@@ -225,7 +221,7 @@ const DrawerHeader = ({
   className,
   ...props
 }: React.ComponentProps<"header">) => {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   return (
     <header
@@ -290,7 +286,7 @@ function DrawerBody({
 }
 
 function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   return (
     <footer
@@ -352,5 +348,5 @@ export {
   DrawerPopup,
   DrawerTrigger,
   DrawerContent,
-  useDrawerContext,
+  useDrawer,
 };
