@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { frameworkSchema } from "../schemas/framework";
 import { DIR_DEFINITION } from "./def";
+import { iconLibSchema } from "../icons/schema";
 
 export const aliasesSchema = z.object({
   components: z.string(),
@@ -26,4 +27,5 @@ export const rlzConfigSchema = z.object({
   dirs: dirsSchema,
   css: z.string(),
   aliases: aliasesSchema,
+  icons: iconLibSchema,
 });

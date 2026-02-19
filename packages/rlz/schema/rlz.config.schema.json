@@ -3,7 +3,11 @@
   "properties": {
     "framework": {
       "type": "string",
-      "enum": ["next", "vite", "react"]
+      "enum": [
+        "next",
+        "vite",
+        "react"
+      ]
     },
     "dirs": {
       "type": "object",
@@ -30,7 +34,9 @@
           "type": "string"
         }
       },
-      "required": ["root"],
+      "required": [
+        "root"
+      ],
       "additionalProperties": false
     },
     "css": {
@@ -58,11 +64,31 @@
           "type": "string"
         }
       },
-      "required": ["components", "utils", "lib", "types", "hooks", "stores"],
+      "required": [
+        "components",
+        "utils",
+        "lib",
+        "types",
+        "hooks",
+        "stores"
+      ],
       "additionalProperties": false
+    },
+    "icons": {
+      "type": "string",
+      "enum": [
+        "lucide",
+        "tabler"
+      ]
     }
   },
-  "required": ["framework", "dirs", "css", "aliases"],
+  "required": [
+    "framework",
+    "dirs",
+    "css",
+    "aliases",
+    "icons"
+  ],
   "additionalProperties": false,
   "$schema": "http://json-schema.org/draft-07/schema#"
 }
