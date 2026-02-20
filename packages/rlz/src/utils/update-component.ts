@@ -1,7 +1,8 @@
 import type { rlzConfig } from "@/config/types";
 import { addUseClient } from "./add-use-client";
+import { updateIcons } from "../icons/update";
 import { defaultUiComponentsAliases } from "@/config/constants";
-import { SourceFile } from "ts-morph";
+import type { SourceFile } from "ts-morph";
 
 type UpdateComponentParams = {
   sourceFile: SourceFile;
@@ -14,6 +15,10 @@ export async function UpdateComponent({
 }: UpdateComponentParams): Promise<void> {
   if (config.framework === "next") {
     addUseClient(sourceFile);
+  }
+
+  if (config.icons !== "lucide") {
+    await updateIcons({ sourceFile, iconLib: config.icons });
   }
 
   sourceFile.getImportDeclarations().forEach((imp) => {

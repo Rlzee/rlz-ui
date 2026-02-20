@@ -7,7 +7,7 @@ import {
   type PopupArrowPublicProps as ArrowType,
 } from "@/components/base/popup-arrow";
 import { cn } from "@/lib/utils";
-import { ChevronDown, XIcon, type LucideIcon } from "lucide-react";
+import { ChevronDown as ChevronDownIcon, X as XIcon } from "lucide-react";
 
 const AutocompleteRoot = AutocompletePrimitive.Root;
 
@@ -104,10 +104,10 @@ function AutocompleteClear({
 
 function AutocompleteIcon({
   className,
-  icon: Icon = ChevronDown,
+  icon: Icon = ChevronDownIcon,
   ...props
 }: AutocompletePrimitive.Icon.Props & {
-  icon?: LucideIcon;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <AutocompletePrimitive.Icon

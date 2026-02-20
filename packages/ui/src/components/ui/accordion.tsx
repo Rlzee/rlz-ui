@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "@/lib/utils";
-import { Plus, type LucideIcon } from "lucide-react";
+import { Plus as PlusIcon } from "lucide-react";
 
 function AccordionRoot(props: AccordionPrimitive.Root.Props) {
   return <AccordionPrimitive.Root data-slot="accordion-root" {...props} />;
@@ -40,7 +40,7 @@ function AccordionTrigger({
         data-slot="accordion-trigger"
         className={cn(
           "relative flex w-full items-baseline justify-between gap-4 py-4 bg-transparent text-left text-sm font-medium [&[data-panel-open]>svg]:rotate-45 [&[data-panel-open]>svg]:scale-110",
-          className,
+          className
         )}
         {...props}
       />
@@ -49,17 +49,18 @@ function AccordionTrigger({
 }
 
 function AccordionIcon({
-  icon: Icon = Plus,
+  icon: Icon = PlusIcon,
   className,
-}: React.ComponentProps<LucideIcon> & {
-  icon?: LucideIcon;
+}: {
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  className?: string;
 }) {
   return (
     <Icon
       data-slot="accordion-icon"
       className={cn(
         "h-4 w-4 shrink-0 transition-transform duration-200",
-        className,
+        className
       )}
     />
   );
@@ -75,7 +76,7 @@ function AccordionPanel({
       data-slot="accordion-panel"
       className={cn(
         "h-(--accordion-panel-height) overflow-hidden text-muted-foreground text-sm transition-[height] duration-200 ease-in-out data-ending-style:h-0 data-starting-style:h-0",
-        className,
+        className
       )}
       {...props}
     >

@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
-import { CheckIcon, ChevronDown, XIcon, type LucideIcon } from "lucide-react";
+import {
+  Check as CheckIcon,
+  ChevronDown as ChevronDownIcon,
+  X as XIcon,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { InputProps } from "@/components/ui/input";
@@ -106,10 +110,10 @@ function ComboboxInput({
 
 function ComboboxIcon({
   className,
-  icon: Icon = ChevronDown,
+  icon: Icon = ChevronDownIcon,
   ...props
 }: ComboboxPrimitive.Icon.Props & {
-  icon?: LucideIcon;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <ComboboxPrimitive.Icon
@@ -134,7 +138,7 @@ function ComboboxField({
 }: {
   placeholder?: string;
   clearable?: boolean;
-  icon?: LucideIcon;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   className?: string;
   variant?: InputProps["variant"];
 }) {

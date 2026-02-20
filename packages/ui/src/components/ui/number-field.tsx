@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
 import { Label } from "@/components/ui/label";
-import { MinusIcon, PlusIcon, type LucideIcon } from "lucide-react";
+import { Minus as MinusIcon, Plus as PlusIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NumberFieldContext = React.createContext<{
@@ -41,7 +41,7 @@ function NumberFieldScrubArea({
 
   if (!context) {
     throw new Error(
-      "NumberFieldScrubArea must be used within a NumberField component for accessibility.",
+      "NumberFieldScrubArea must be used within a NumberField component for accessibility."
     );
   }
 
@@ -63,7 +63,7 @@ function NumberFieldScrubAreaCursor({
   cursor: Cursor = CursorGrowIcon,
   ...props
 }: NumberFieldPrimitive.ScrubAreaCursor.Props & {
-  cursor?: React.ComponentType<React.ComponentProps<"svg">> | LucideIcon;
+  cursor?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <NumberFieldPrimitive.ScrubAreaCursor
@@ -106,42 +106,42 @@ function NumberFieldGroup({
 
 function NumberFieldDecrement({
   className,
-  icon,
+  icon: Icon = MinusIcon,
   ...props
 }: NumberFieldPrimitive.Decrement.Props & {
-  icon?: React.ReactNode;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <NumberFieldPrimitive.Decrement
       data-slot="number-field-decrement"
       className={cn(
         "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-accent bg-clip-padding text-secondary-foreground select-none hover:bg-accent/80 active:bg-accent/80",
-        className,
+        className
       )}
       {...props}
     >
-      {icon ? icon : <MinusIcon className="h-4 w-4" />}
+      <Icon className="h-4 w-4" />
     </NumberFieldPrimitive.Decrement>
   );
 }
 
 function NumberFieldIncrement({
   className,
-  icon,
+  icon: Icon = PlusIcon,
   ...props
 }: NumberFieldPrimitive.Increment.Props & {
-  icon?: React.ReactNode;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
   return (
     <NumberFieldPrimitive.Increment
       data-slot="number-field-increment"
       className={cn(
         "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-accent bg-clip-padding text-secondary-foreground select-none hover:bg-accent/80 active:bg-accent/80",
-        className,
+        className
       )}
       {...props}
     >
-      {icon ? icon : <PlusIcon className="h-4 w-4" />}
+      <Icon className="h-4 w-4" />
     </NumberFieldPrimitive.Increment>
   );
 }
@@ -155,7 +155,7 @@ function NumberFieldInput({
       data-slot="number-field-input"
       className={cn(
         "bg-input h-9 w-24 border-t border-b text-center text-base text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
-        className,
+        className
       )}
       {...props}
     />

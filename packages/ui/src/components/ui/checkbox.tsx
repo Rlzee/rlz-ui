@@ -1,7 +1,7 @@
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { cn } from "@/lib/utils";
-import { Check as CheckIcon, type LucideIcon } from "lucide-react";
+import { Check as CheckIcon } from "lucide-react";
 
 function CheckboxRoot({ className, ...props }: CheckboxPrimitive.Root.Props) {
   return (
@@ -12,7 +12,7 @@ function CheckboxRoot({ className, ...props }: CheckboxPrimitive.Root.Props) {
         "data-checked:bg-primary data-checked:text-primary-foreground border data-checked:shadow-md ring-0",
         "disabled:cursor-not-allowed disabled:opacity-50",
         "state-focus-ring state-invalid",
-        className,
+        className
       )}
       {...props}
     />
@@ -29,7 +29,7 @@ function CheckboxIndicator({
       className={cn(
         "-inset-px absolute flex items-center justify-center rounded-sm text-primary-foreground",
         "data-unchecked:hidden data-checked:bg-primary data-indeterminate:text-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -39,15 +39,16 @@ function CheckboxIndicator({
 function CheckboxIcon({
   icon: Icon = CheckIcon,
   className,
-}: React.ComponentProps<LucideIcon> & {
-  icon?: LucideIcon;
+}: {
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  className?: string;
 }) {
   return (
     <Icon
       data-slot="checkbox-icon"
       className={cn(
         "size-3.5 text-primary-foreground flex items-center justify-center",
-        className,
+        className
       )}
     />
   );

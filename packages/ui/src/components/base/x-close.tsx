@@ -1,5 +1,5 @@
 import * as React from "react";
-import { XIcon } from "lucide-react";
+import { X as XIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type XcloseProps<T extends React.ElementType> = React.ComponentProps<T> & {
