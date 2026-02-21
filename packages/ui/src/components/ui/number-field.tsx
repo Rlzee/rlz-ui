@@ -1,7 +1,7 @@
 import * as React from "react";
 import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field";
 import { Label } from "@/components/ui/label";
-import { Minus as MinusIcon, Plus as PlusIcon } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NumberFieldContext = React.createContext<{
@@ -106,7 +106,7 @@ function NumberFieldGroup({
 
 function NumberFieldDecrement({
   className,
-  icon: Icon = MinusIcon,
+  icon: Icon = Minus,
   ...props
 }: NumberFieldPrimitive.Decrement.Props & {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -127,7 +127,7 @@ function NumberFieldDecrement({
 
 function NumberFieldIncrement({
   className,
-  icon: Icon = PlusIcon,
+  icon: Icon = Plus,
   ...props
 }: NumberFieldPrimitive.Increment.Props & {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;

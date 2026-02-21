@@ -3,11 +3,11 @@ import type { ToastManagerAddOptions } from "@base-ui/react/toast";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import {
-  CircleAlert as CircleAlertIcon,
-  CircleCheck as CircleCheckIcon,
-  Info as InfoIcon,
-  LoaderCircle as LoaderCircleIcon,
-  TriangleAlert as TriangleAlertIcon,
+  CircleAlert,
+  CircleCheck,
+  Info,
+  LoaderCircle,
+  TriangleAlert,
 } from "lucide-react";
 
 /* ------------------------------ Types ------------------------------ */
@@ -24,12 +24,12 @@ const ToastVariants: Record<
   ToastVariantsType,
   React.ComponentType<React.SVGProps<SVGSVGElement>>
 > = {
-  default: InfoIcon,
-  success: CircleCheckIcon,
-  error: CircleAlertIcon,
-  loading: LoaderCircleIcon,
-  warning: TriangleAlertIcon,
-  info: InfoIcon,
+  default: Info,
+  success: CircleCheck,
+  error: CircleAlert,
+  loading: LoaderCircle,
+  warning: TriangleAlert,
+  info: Info,
 };
 
 type ToastPosition =

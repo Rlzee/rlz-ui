@@ -2,10 +2,7 @@ import * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { type ButtonProps, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  ChevronDown as ChevronDownIcon,
-  Check as CheckIcon,
-} from "lucide-react";
+import { ChevronDown, Check } from "lucide-react";
 
 const SelectRoot = SelectPrimitive.Root;
 
@@ -44,7 +41,7 @@ function SelectTrigger({
 
 function SelectIcon({
   className,
-  icon: Icon = ChevronDownIcon,
+  icon: Icon = ChevronDown,
   ...props
 }: SelectPrimitive.Icon.Props & {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -212,7 +209,7 @@ function SelectItemIndicator({
       className={cn("col-start-1", className)}
       {...props}
     >
-      {children ?? <CheckIcon className="h-4 w-4" />}
+      {children ?? <Check className="h-4 w-4" />}
     </SelectPrimitive.ItemIndicator>
   );
 }

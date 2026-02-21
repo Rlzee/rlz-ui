@@ -24,7 +24,6 @@ export async function runAddComponent({
     const componentsPath = path.join(dirs.components, type);
     const componentFilePath = path.join(componentsPath, `${componentName}.tsx`);
 
-    // If the file already exists locally, bail early.
     if (await fs.pathExists(componentFilePath)) {
       logger.error(`Component "${componentName}" already exists.`);
       return;
@@ -32,7 +31,6 @@ export async function runAddComponent({
 
     const componentUrl = `${UI_URL}/components/${type}/${componentName}.tsx`;
 
-    // Verify remote component exists before creating any directories or files.
     const exists = await remoteFileExists(componentUrl);
     if (!exists) {
       logger.error(
@@ -41,7 +39,6 @@ export async function runAddComponent({
       return;
     }
 
-    // Now that we know the remote file exists, ensure the directory and download it.
     await fs.ensureDir(componentsPath);
     await getUiFile(componentUrl, componentFilePath);
 

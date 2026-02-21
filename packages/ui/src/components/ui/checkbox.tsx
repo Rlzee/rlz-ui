@@ -1,7 +1,7 @@
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
 import { cn } from "@/lib/utils";
-import { Check as CheckIcon } from "lucide-react";
+import { Check } from "lucide-react";
 
 function CheckboxRoot({ className, ...props }: CheckboxPrimitive.Root.Props) {
   return (
@@ -37,7 +37,7 @@ function CheckboxIndicator({
 }
 
 function CheckboxIcon({
-  icon: Icon = CheckIcon,
+  icon: Icon = Check,
   className,
 }: {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "@/lib/utils";
-import { Plus as PlusIcon } from "lucide-react";
+import { Plus } from "lucide-react";
 
 function AccordionRoot(props: AccordionPrimitive.Root.Props) {
   return <AccordionPrimitive.Root data-slot="accordion-root" {...props} />;
@@ -49,7 +49,7 @@ function AccordionTrigger({
 }
 
 function AccordionIcon({
-  icon: Icon = PlusIcon,
+  icon: Icon = Plus,
   className,
 }: {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;

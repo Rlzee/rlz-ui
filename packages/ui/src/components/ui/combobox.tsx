@@ -1,10 +1,6 @@
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
-import {
-  Check as CheckIcon,
-  ChevronDown as ChevronDownIcon,
-  X as XIcon,
-} from "lucide-react";
+import { Check, ChevronDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { InputProps } from "@/components/ui/input";
@@ -82,7 +78,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
       )}
       {...props}
     >
-      <XIcon className="h-3.5 w-3.5" />
+      <X className="h-3.5 w-3.5" />
     </ComboboxPrimitive.Clear>
   );
 }
@@ -110,7 +106,7 @@ function ComboboxInput({
 
 function ComboboxIcon({
   className,
-  icon: Icon = ChevronDownIcon,
+  icon: Icon = ChevronDown,
   ...props
 }: ComboboxPrimitive.Icon.Props & {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
@@ -323,7 +319,7 @@ function ComboboxIndicator({
       className={cn("col-start-1", className)}
       {...props}
     >
-      {children ?? <CheckIcon className="h-4 w-4" />}
+      {children ?? <Check className="h-4 w-4" />}
     </ComboboxPrimitive.ItemIndicator>
   );
 }
@@ -444,7 +440,7 @@ function ComboboxChipRemove({
       className={cn("cursor-pointer", className)}
       {...props}
     >
-      <XIcon className="h-4 w-4" />
+      <X className="h-4 w-4" />
     </ComboboxPrimitive.ChipRemove>
   );
 }

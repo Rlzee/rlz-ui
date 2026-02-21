@@ -9,22 +9,6 @@ type updateIconsProps = {
   iconLib: IconLib;
 };
 
-/**
- * Rewrite icon imports from one icon package to another using ICON_MAP.
- *
- * Behavior:
- * - Finds import declarations that import from any known icon package (values in ICON_LIBS).
- * - For each named import (e.g. `import { Check } from "lucide-react"`), determine the "icon key"
- *   by looking up which key in ICON_MAP[sourceLib] maps to the imported name.
- * - Replace the imported name with the corresponding name for `iconLib`.
- * - Preserve local aliases (e.g. `Check as CheckIcon` -> `IconCheck as CheckIcon`).
- * - Update the module specifier to the target package (ICON_LIBS[iconLib].package).
- *
- * Notes:
- * - Default imports and namespace imports (e.g. `import * as Icons from ...`) are left untouched.
- * - If a named import cannot be mapped (no matching export name in ICON_MAP[sourceLib]),
- *   it will be skipped.
- */
 export async function updateIcons({ sourceFile, iconLib }: updateIconsProps) {
   const libEntries = Object.entries(ICON_LIBS) as [
     IconLib,
@@ -75,9 +59,14 @@ export async function updateIcons({ sourceFile, iconLib }: updateIconsProps) {
       const aliasNode = ni.getAliasNode && ni.getAliasNode();
       const aliasText = aliasNode ? aliasNode.getText() : null;
 
-      const replacement = aliasText
-        ? `${desiredName} as ${aliasText}`
-        : desiredName;
+      let replacement: string;
+      if (aliasText) {
+        replacement = `${desiredName} as ${aliasText}`;
+      } else if (desiredName !== importedName) {
+        replacement = `${desiredName} as ${importedName}`;
+      } else {
+        replacement = desiredName;
+      }
 
       ni.replaceWithText(replacement);
     }
