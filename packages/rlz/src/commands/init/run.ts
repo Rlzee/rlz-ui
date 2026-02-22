@@ -1,4 +1,3 @@
-import type { InitOptions } from "@/types/init";
 import { logger } from "@/utils/logger";
 import prompts from "prompts";
 import { cssPathResponseSchema } from "@/schemas/init";
@@ -16,6 +15,12 @@ import { iconLibSchema } from "@/icons/schema";
 import { type IconLib, ICON_LIBS } from "@/icons/libs";
 import path from "path";
 import fs from "fs-extra";
+
+import type { Framework } from "@/types/framework";
+type InitOptions = {
+  cwd: string;
+  framework: Framework;
+};
 
 export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
