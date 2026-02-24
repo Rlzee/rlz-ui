@@ -8,11 +8,21 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
+    "tw-animate-css": "^1.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.556.0",
     "tailwind-merge": "^3.4.0",
     "zustand": "^5.0.11"
+  },
+  "exports": {
+    "./postcss.config": "./postcss.config.mjs",
+    "./styles/*": "./src/styles/*.css",
+    "./lib/*": "./src/lib/*.ts",
+    "./components/*": "./src/components/**/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./utils/*": "./src/utils/*.ts",
+    "./types/*": "./src/types/*.ts"
   }
 }
