@@ -23,15 +23,6 @@
         },
         "lib": {
           "type": "string"
-        },
-        "types": {
-          "type": "string"
-        },
-        "hooks": {
-          "type": "string"
-        },
-        "stores": {
-          "type": "string"
         }
       },
       "required": [
@@ -53,24 +44,12 @@
         },
         "lib": {
           "type": "string"
-        },
-        "types": {
-          "type": "string"
-        },
-        "hooks": {
-          "type": "string"
-        },
-        "stores": {
-          "type": "string"
         }
       },
       "required": [
         "components",
         "utils",
-        "lib",
-        "types",
-        "hooks",
-        "stores"
+        "lib"
       ],
       "additionalProperties": false
     },

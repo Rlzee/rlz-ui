@@ -3,14 +3,14 @@ import { frameworkSchema } from "../schemas/framework";
 import { DIR_DEFINITION } from "./def";
 import { iconLibSchema } from "../icons/schema";
 
-export const aliasesSchema = z.object({
-  components: z.string(),
-  utils: z.string(),
-  lib: z.string(),
-  types: z.string(),
-  hooks: z.string(),
-  stores: z.string(),
-});
+const dirKeys = Object.keys(DIR_DEFINITION) as (keyof typeof DIR_DEFINITION)[];
+
+export const aliasesSchema = z.object(
+  Object.fromEntries(dirKeys.map((key) => [key, z.string()])) as Record<
+    (typeof dirKeys)[number],
+    z.ZodString
+  >
+);
 
 export const dirsSchema = z
   .object({
