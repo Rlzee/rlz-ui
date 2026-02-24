@@ -15,14 +15,5 @@
     "lucide-react": "^0.556.0",
     "tailwind-merge": "^3.4.0",
     "zustand": "^5.0.11"
-  },
-  "exports": {
-    "./postcss.config": "./postcss.config.mjs",
-    "./styles/*": "./src/styles/*.css",
-    "./lib/*": "./src/lib/*.ts",
-    "./components/*": "./src/components/**/*.ts",
-    "./hooks/*": "./src/hooks/*.ts",
-    "./utils/*": "./src/utils/*.ts",
-    "./types/*": "./src/types/*.ts"
   }
 }
