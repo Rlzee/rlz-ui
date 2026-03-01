@@ -1,0 +1,5 @@
+@import "tailwindcss";
+@import "../../../packages/ui/src/styles/index.css";
+@import "../../../packages/ui/src/styles/theme.css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
