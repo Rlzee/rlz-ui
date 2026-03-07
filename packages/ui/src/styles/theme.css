@@ -154,7 +154,3 @@
     @apply text-sm text-muted-foreground;
   }
 }
-
-body {
-  letter-spacing: var(--tracking-normal);
-}
