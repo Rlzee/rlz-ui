@@ -14,20 +14,13 @@ function getTargetPath(
   type: keyof Omit<rlzConfig["dirs"], "root" | "components">,
   dirs: ReturnType<typeof resolveDirs>
 ): string {
-  switch (type) {
-    case "utils":
-      return dirs.utils;
-    case "types":
-      return dirs.types;
-    case "lib":
-      return dirs.lib;
-    case "hooks":
-      return dirs.hooks;
-    case "stores":
-      return dirs.stores;
-    default:
-      throw new Error(`Unknown type: ${type}`);
+  const value = (dirs as Record<string, string>)[type as string];
+
+  if (typeof value === "string" && value.length > 0) {
+    return value;
   }
+
+  throw new Error(`Unknown type: ${type}`);
 }
 
 export async function runAddFiles({
