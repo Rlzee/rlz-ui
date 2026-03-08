@@ -4,7 +4,8 @@ import { cssPathResponseSchema } from "@/schemas/init";
 import { safeParseWithError } from "@/utils/validation";
 import { createConfig } from "@/config/create";
 import type { rlzConfig } from "@/config/types";
-import { initializeCss } from "@/utils/initialize-css";
+import { getUiFile } from "@/utils/get-ui-file";
+import { UI_URL } from "@/config";
 import { defaultAliasesRlzConfig } from "@/config/constants";
 import { defaultDependencies } from "@/config";
 import { installDependencies } from "@/utils/install-dependencies";
@@ -88,7 +89,8 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
 
   await installDependencies(defaultDependencies, cwd);
 
-  initializeCss(cssPath);
+  const cssUrl = `${UI_URL}/styles/globals.css`;
+  await getUiFile(cssUrl, cssPath);
 
   if (framework !== "next") {
     ensureTsconfigPaths({
