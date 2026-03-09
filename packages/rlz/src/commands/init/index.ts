@@ -4,13 +4,15 @@ import { getPackageInfo } from "@/utils/get-package-info";
 import { getFramework } from "@/utils/get-framework";
 import { getTailwindInfo } from "@/utils/get-tailwind-info";
 import { getTypeScriptInfo } from "@/utils/get-typescript-info";
+import { type FontKey, FONT_DEFINITION } from "@/fonts/def";
 
 import { runInit } from "./run";
 
 export const initCommand = new Command()
   .name("init")
   .description("Initialize rlz-ui")
-  .action(async () => {
+  .option("-f, --font <font>", "Font", Object.keys(FONT_DEFINITION))
+  .action(async (options: { font?: FontKey }) => {
     try {
       const cwd = process.cwd();
 
@@ -52,11 +54,22 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      // logger.info(`Framework detected: ${frameworkInfo.framework}`);
-      // logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
-      // logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
+      if (options.font && !FONT_DEFINITION[options.font]) {
+        logger.error(`Unknown font: ${options.font}`);
+        process.exit(1);
+      }
 
-      await runInit({ cwd, framework: frameworkInfo.framework });
+      logger.info(`Framework detected: ${frameworkInfo.framework}`);
+      logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
+      logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
+      if (options.font) {
+        logger.info(`Font detected: ${options.font}`);
+      }
+
+      await runInit({
+        framework: frameworkInfo.framework,
+        font: options.font,
+      });
     } catch (error) {
       logger.error("Initialization failed.");
       logger.error(error);

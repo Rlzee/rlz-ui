@@ -1,3 +1,5 @@
+import type { FontKey } from "./fonts/def";
+
 export const UI_URL =
   "https://raw.githubusercontent.com/Rlzee/rlz-ui/main/packages/ui/src";
 
@@ -5,3 +7,5 @@ export const defaultDependencies: string[] = [
   "@base-ui/react",
   "tw-animate-css",
 ];
+
+export const defaultFont: FontKey = "geist";

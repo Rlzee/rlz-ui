@@ -14,16 +14,24 @@ import { updateViteConfig } from "@/utils/update-vite-config";
 import { DEFAULT_CSS_BY_FRAMEWORK } from "@/utils/get-default-css-by-framework";
 import { iconLibSchema } from "@/icons/schema";
 import { type IconLib, ICON_LIBS } from "@/icons/libs";
+import { addFont } from "@/fonts/add";
+import { defaultFont } from "@/config";
+import type { FontKey } from "@/fonts/def";
 import path from "path";
 import fs from "fs-extra";
 
 import type { Framework } from "@/types/framework";
 type InitOptions = {
-  cwd: string;
+  cwd?: string;
   framework: Framework;
+  font?: FontKey;
 };
 
-export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
+export async function runInit({
+  cwd = process.cwd(),
+  framework,
+  font,
+}: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
   const rootDir = hasSrc ? "src" : ".";
 
@@ -89,8 +97,16 @@ export async function runInit({ cwd, framework }: InitOptions): Promise<void> {
 
   await installDependencies(defaultDependencies, cwd);
 
-  const cssUrl = `${UI_URL}/styles/globals.css`;
+  const cssUrl =
+    framework === "vite"
+      ? `${UI_URL}/styles/globals.vite.css`
+      : `${UI_URL}/styles/globals.css`;
   await getUiFile(cssUrl, cssPath);
+
+  addFont({
+    fontName: font ?? defaultFont,
+    framework,
+  });
 
   if (framework !== "next") {
     ensureTsconfigPaths({
