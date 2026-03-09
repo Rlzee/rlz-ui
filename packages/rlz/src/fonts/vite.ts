@@ -6,13 +6,10 @@ import fs from "fs-extra";
 
 type AddViteFontOptions = {
   name: FontKey;
-  cwd?: string;
+  cwd: string;
 };
 
-export async function addViteFont({
-  name,
-  cwd = process.cwd(),
-}: AddViteFontOptions) {
+export async function addViteFont({ name, cwd }: AddViteFontOptions) {
   const font = FONT_DEFINITION[name];
   if (!font.vite) throw new Error(`Font ${name} not supported by Vite`);
 

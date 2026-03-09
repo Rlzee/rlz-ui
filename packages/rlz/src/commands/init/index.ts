@@ -11,7 +11,7 @@ import { runInit } from "./run";
 export const initCommand = new Command()
   .name("init")
   .description("Initialize rlz-ui")
-  .option("-f, --font <font>", "Font", Object.keys(FONT_DEFINITION))
+  .option("-f, --font <font>", "Font")
   .action(async (options: { font?: FontKey }) => {
     try {
       const cwd = process.cwd();
@@ -60,7 +60,7 @@ export const initCommand = new Command()
       }
 
       logger.info(`Framework detected: ${frameworkInfo.framework}`);
-      logger.info(`TypeScript v${ts.rawVersion} detected at ${ts.configPath}`);
+      logger.info(`TypeScript v${ts.rawVersion}`);
       logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
       if (options.font) {
         logger.info(`Font detected: ${options.font}`);

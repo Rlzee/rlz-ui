@@ -104,6 +104,7 @@ export async function runInit({
   await getUiFile(cssUrl, cssPath);
 
   addFont({
+    cwd,
     fontName: font ?? defaultFont,
     framework,
   });

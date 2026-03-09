@@ -7,14 +7,10 @@ import { addNextFont } from "./next";
 type AddFontOptions = {
   fontName: FontKey;
   framework: Framework;
-  cwd?: string;
+  cwd: string;
 };
 
-export function addFont({
-  fontName,
-  framework,
-  cwd = process.cwd(),
-}: AddFontOptions) {
+export function addFont({ fontName, framework, cwd }: AddFontOptions) {
   const font = FONT_DEFINITION[fontName];
   if (!font) throw new Error(`Font ${fontName} not found`);
 
