@@ -1,4 +1,4 @@
-import { type FontKey, FONT_DEFINITION } from "./def";
+import { type FontKey, fallbackMap, FONT_DEFINITION } from "./def";
 import { installDependencies } from "@/utils/install-dependencies";
 import { defaultFont } from "@/config";
 import { readConfig } from "@/config/read";
@@ -27,7 +27,10 @@ export async function addViteFont({ name, cwd }: AddViteFontOptions) {
       /@import\s+"@fontsource-variable\/[^"]+"/,
       `@import "${font.vite.package}"`
     )
-    .replace(/--font-sans:\s*[^;]+;/, `--font-sans: ${font.vite.family};`);
+    .replace(
+      /--font-sans:\s*[^;]+;/,
+      `--font-sans: "${font.vite.family}", ${fallbackMap[font.type]};`
+    );
 
   await fs.writeFile(cssPath, css);
 }

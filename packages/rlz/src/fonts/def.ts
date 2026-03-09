@@ -47,4 +47,11 @@ export const FONT_DEFINITION = {
   },
 } as const;
 
+export const fallbackMap = {
+  sans: "sans-serif",
+  serif: "serif",
+  mono: "monospace",
+} as const;
+
 export type FontKey = keyof typeof FONT_DEFINITION;
+export type FallbackKey = keyof typeof fallbackMap;
