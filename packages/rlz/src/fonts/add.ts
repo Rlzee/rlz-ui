@@ -17,7 +17,7 @@ export function addFont({ fontName, framework, cwd }: AddFontOptions) {
   if (framework === "vite" || framework === "react") {
     addViteFont({ name: fontName, cwd });
   } else if (framework === "next") {
-    addNextFont();
+    addNextFont({ name: fontName, cwd });
   } else {
     throw new Error(`Framework ${framework} not supported`);
   }
