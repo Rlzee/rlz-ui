@@ -19,18 +19,12 @@ export async function addNextFont({ name, cwd }: AddNextFontOptions) {
     throw new Error("Missing config.dirs.root");
   }
 
-  // Create app/fonts directory and write fonts.ts
   const fontsDir = path.join(cwd, rootDir, "app", "fonts");
   await fs.promises.mkdir(fontsDir, { recursive: true });
 
   const fontsPath = path.join(fontsDir, "fonts.ts");
-
-  // Use the Next import name for the chosen font (e.g. "Geist", "Inter")
   const fontImportName = font.next.import;
-  // Always include Geist_Mono for the mono variable
   const monoImportName = "Geist_Mono";
-
-  // Create export names and CSS variable names derived from the font key
   const sanitizedName = name.replace(/-/g, "_");
   const sansExportName = `${sanitizedName}Sans`;
 
@@ -49,7 +43,6 @@ export const geistMono = ${monoImportName}({
 
   await fs.promises.writeFile(fontsPath, content, "utf8");
 
-  // Update or create the Next.js root layout to import and use the fonts
   await updateNextRootLayout({
     cwd,
     rootDir,
