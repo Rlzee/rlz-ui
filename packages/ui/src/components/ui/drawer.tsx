@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DrawerPreview as DrawerPrimitive } from "@base-ui/react/drawer";
+import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
 import { cn } from "@/lib/utils";
 import { Backdrop } from "@/components/base/backdrop";
 import { Xclose } from "@/components/base/x-close";
@@ -14,12 +14,16 @@ type DrawerContextValue = {
   indent: boolean;
 };
 
-const DrawerContext = React.createContext<DrawerContextValue | null>(null);
+const DrawerContext = React.createContext<DrawerContextValue | undefined>({
+  layout: "full",
+  variant: "default",
+  indent: false,
+});
 
-const useDrawer = (): DrawerContextValue => {
+const useDrawerContext = (): DrawerContextValue => {
   const ctx = React.useContext(DrawerContext);
   if (!ctx) {
-    throw new Error("useDrawer must be used within a Drawer provider");
+    throw new Error("useDrawerContext must be used within a Drawer provider");
   }
   return ctx;
 };
@@ -84,6 +88,23 @@ function DrawerTrigger(props: DrawerPrimitive.Trigger.Props) {
   return <DrawerPrimitive.Trigger data-slot="drawer-trigger" {...props} />;
 }
 
+function DrawerSwipeArea({
+  className,
+  ...props
+}: DrawerPrimitive.SwipeArea.Props) {
+  return (
+    <DrawerPrimitive.SwipeArea
+      data-slot="drawer-swipe-area"
+      className={cn(
+        "absolute inset-y-0 z-10 box-border w-10",
+        "data-[swipe-direction=right]:left-0 data-[swipe-direction=left]:right-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=up]:top-0",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 function DrawerPortal(props: DrawerPrimitive.Portal.Props) {
   return <DrawerPrimitive.Portal data-slot="drawer-portal" {...props} />;
 }
@@ -95,7 +116,7 @@ function DrawerBackdrop({
 }: DrawerPrimitive.Backdrop.Props & {
   blur?: boolean;
 }) {
-  const { indent } = useDrawer();
+  const { indent } = useDrawerContext();
 
   return (
     <Backdrop
@@ -112,7 +133,7 @@ function DrawerViewport({
   className,
   ...props
 }: DrawerPrimitive.Viewport.Props) {
-  const { layout, indent } = useDrawer();
+  const { layout, indent } = useDrawerContext();
 
   return (
     <DrawerPrimitive.Viewport
@@ -170,7 +191,7 @@ function DrawerPopup({
   viewportProps?: React.ComponentProps<typeof DrawerViewport>;
   showCloseButton?: boolean;
 }) {
-  const { layout, variant } = useDrawer();
+  const { layout, variant } = useDrawerContext();
 
   const { className: viewportClassName, ...restViewportProps } =
     viewportProps ?? {};
@@ -187,15 +208,20 @@ function DrawerPopup({
             "relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground",
 
             // animation
-            "transition-[scale,opacity,translate] duration-200 ease-in-out data-starting-style:opacity-0 data-ending-style:opacity-0",
+            "will-change-transform duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] data-starting-style:opacity-0 data-ending-style:opacity-0",
 
-            //nested
+            // swipe animation
+            "transform-[translateX(var(--drawer-swipe-movement-x,0))]",
+            "data-swiping:transition-none",
+            "data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)]",
+            "data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(100%)]",
+            "data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(100%)]",
+            "data-[swipe-direction=up]:data-starting-style:transform-[translateY(100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)]",
+            "data-[swipe-direction=up]:data-ending-style:transform-[translateY(100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)]",
+
+            // nested
             "data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))]",
-            "data-[swipe-direction=right]:data-nested:data-ending-style:translate-x-8 data-[swipe-direction=right]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=right]:data-nested-dialog-open:origin-right",
-            "data-[swipe-direction=left]:data-nested:data-ending-style:translate-x-8 data-[swipe-direction=left]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=left]:data-nested-dialog-open:origin-left",
             "data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))]",
-            "data-[swipe-direction=down]:data-nested:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=down]:data-nested-dialog-open:origin-bottom",
-            "data-[swipe-direction=up]:data-nested:data-ending-style:translate-y-8 data-[swipe-direction=up]:data-nested:data-starting-style:translate-x-8 data-[swipe-direction=up]:data-nested-dialog-open:origin-top",
 
             // position
             "data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:border-t data-[swipe-direction=down]:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-starting-style:translate-y-8",
@@ -221,7 +247,7 @@ const DrawerHeader = ({
   className,
   ...props
 }: React.ComponentProps<"header">) => {
-  const { layout, variant } = useDrawer();
+  const { layout, variant } = useDrawerContext();
 
   return (
     <header
@@ -283,7 +309,7 @@ function DrawerBody({
 }
 
 function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
-  const { layout, variant } = useDrawer();
+  const { layout, variant } = useDrawerContext();
 
   return (
     <footer
@@ -315,6 +341,7 @@ const DrawerExports = Object.assign(DrawerRoot, {
   Indent: DrawerIndent,
   Portal: DrawerPortal,
   Trigger: DrawerTrigger,
+  SwipeArea: DrawerSwipeArea,
   Header: DrawerHeader,
   Title: DrawerTitle,
   Description: DrawerDescription,
@@ -344,6 +371,7 @@ export {
   DrawerBackdrop,
   DrawerPopup,
   DrawerTrigger,
+  DrawerSwipeArea,
   DrawerContent,
-  useDrawer,
+  useDrawerContext,
 };
