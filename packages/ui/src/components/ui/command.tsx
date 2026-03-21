@@ -3,7 +3,7 @@ import { Dialog as CommandDialogPrimitive } from "@base-ui/react/dialog";
 import { Autocomplete } from "@/components/ui/autocomplete";
 import { Backdrop } from "@/components/base/backdrop";
 import { Shortcut } from "@/components/base/shortcut";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 const CommandCreateHandle = CommandDialogPrimitive.createHandle;
 

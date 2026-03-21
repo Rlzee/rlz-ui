@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 const AvatarVariants = cva(
   "relative flex shrink-0 overflow-hidden rounded-full",
@@ -17,7 +17,7 @@ const AvatarVariants = cva(
     defaultVariants: {
       size: "md",
     },
-  },
+  }
 );
 
 function AvatarRoot({
@@ -61,7 +61,7 @@ function AvatarFallback({
       data-slot="avatar-fallback"
       className={cn(
         "bg-accent flex size-full items-center justify-center font-medium",
-        className,
+        className
       )}
       {...props}
     />

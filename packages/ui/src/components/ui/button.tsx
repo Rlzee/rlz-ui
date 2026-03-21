@@ -2,13 +2,13 @@ import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 const defaultClass = cn(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap outline-none rounded-md text-sm font-medium transition-all",
   "disabled:pointer-events-none disabled:opacity-50",
   "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
-  "state-focus-ring state-invalid",
+  "state-focus-ring state-invalid"
 );
 
 const buttonVariants = cva(defaultClass, {

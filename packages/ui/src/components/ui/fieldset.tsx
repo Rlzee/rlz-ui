@@ -1,5 +1,5 @@
 import { Fieldset as FieldsetPrimitive } from "@base-ui/react/fieldset";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 /* ------------------------------ Root Fieldset ------------------------------ */
 

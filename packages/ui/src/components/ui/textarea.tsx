@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { mergeProps } from "@base-ui/react/merge-props";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 type TextareaProps = React.ComponentProps<"textarea"> & {
   unstyled?: boolean;
@@ -26,7 +26,7 @@ function Textarea({
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] has-focus-visible:border-ring",
         ],
-        className,
+        className
       )}
     >
       <FieldPrimitive.Control

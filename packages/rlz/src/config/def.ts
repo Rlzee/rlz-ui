@@ -1,10 +1,9 @@
 export const DIR_DEFINITION = {
   components: ["components"],
-  utils: ["utils"],
+  hooks: ["hooks"],
   lib: ["lib"],
+  // utils: ["utils"],
   // types: ["types"],
-  // hooks: ["hooks"],
-  // stores: ["stores"],
 } as const;
 
 export type DirKey = keyof typeof DIR_DEFINITION;

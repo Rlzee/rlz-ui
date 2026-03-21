@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { MenuBase } from "@/components/base/menu-base";
 import { Shortcut } from "@/components/base/shortcut";
 

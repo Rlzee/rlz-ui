@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import {
   Check as CheckIcon,
   ChevronRight as ChevronRightIcon,

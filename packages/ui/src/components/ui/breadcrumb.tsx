@@ -1,7 +1,7 @@
 import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function BreadcrumbRoot(props: React.ComponentProps<"nav">) {
   return <nav data-slot="breadcrumb" aria-label="breadcrumb" {...props} />;
@@ -41,7 +41,7 @@ function BreadcrumbLink({
     "aria-current": isActive ? "page" : undefined,
     className: cn(
       "text-muted-foreground hover:text-primary transition-colors data-[active=true]:text-primary",
-      className,
+      className
     ),
   };
 

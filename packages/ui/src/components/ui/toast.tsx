@@ -1,6 +1,6 @@
 import { Toast } from "@base-ui/react/toast";
 import type { ToastManagerAddOptions } from "@base-ui/react/toast";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { buttonVariants } from "@/components/ui/button";
 import {
   CircleAlert,

@@ -3,7 +3,7 @@ import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { toggleVariants } from "@/components/ui/toggle";
 import type { VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants>
@@ -43,7 +43,7 @@ function ToggleGroup({
       data-size={size}
       className={cn(
         "group/toggle-group flex items-center rounded-md data-[variant=outline]:bg-secondary data-[variant=outline]:border data-[variant=outline]:gap-0 gap-1",
-        className,
+        className
       )}
       {...props}
     >
@@ -73,7 +73,7 @@ function ToggleGroupItem({
           size: size || context.size,
         }),
         "min-w-0 flex-1 shrink-0 data-[variant=outline]:rounded-none shadow-none focus:z-10 focus-visible:z-10 border-none data-[variant=outline]:last:rounded-r-md data-[variant=outline]:first:rounded-l-md rounded-md",
-        className,
+        className
       )}
       {...props}
     />

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { Backdrop } from "@/components/base/backdrop";
 import { Xclose } from "@/components/base/x-close";
 import { ScrollArea } from "@/components/ui/scroll-area";

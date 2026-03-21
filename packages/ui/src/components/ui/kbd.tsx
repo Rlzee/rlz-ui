@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function KbdRoot({ className, ...props }: React.ComponentProps<"kbd">) {
   return (
@@ -6,7 +6,7 @@ function KbdRoot({ className, ...props }: React.ComponentProps<"kbd">) {
       data-slot="kbd"
       className={cn(
         "bg-background text-muted-foreground flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium [&_svg:not([class*='size-'])]:size-3",
-        className,
+        className
       )}
       {...props}
     />

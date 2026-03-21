@@ -1,5 +1,5 @@
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function ProgressRoot({ className, ...props }: ProgressPrimitive.Root.Props) {
   return (
@@ -27,7 +27,7 @@ function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
       data-slot="progress-value"
       className={cn(
         "col-start-2 text-right text-sm text-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -40,7 +40,7 @@ function ProgressTrack({ className, ...props }: ProgressPrimitive.Track.Props) {
       data-slot="progress-track"
       className={cn(
         "col-span-full h-1 overflow-hidden rounded bg-accent",
-        className,
+        className
       )}
       {...props}
     />
@@ -56,7 +56,7 @@ function ProgressIndicator({
       data-slot="progress-indicator"
       className={cn(
         "h-full w-full bg-primary transition-all duration-200 ease-in-out",
-        className,
+        className
       )}
       {...props}
     />

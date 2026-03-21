@@ -2,7 +2,7 @@ import * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { Separator } from "@/components/ui/separator";
 
 const groupVariants = cva("flex w-fit items-stretch", {
@@ -48,7 +48,7 @@ function GroupText({
     className: cn(
       "bg-secondary flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs",
       "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
-      className,
+      className
     ),
   };
 
@@ -70,7 +70,7 @@ function GroupSeparator({
       orientation={orientation}
       className={cn(
         "bg-border relative m-0! self-stretch data-[orientation=vertical]:h-auto",
-        className,
+        className
       )}
       {...props}
     />

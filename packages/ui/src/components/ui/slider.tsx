@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function SliderRoot(props: SliderPrimitive.Root.Props) {
   return <SliderPrimitive.Root data-slot="slider" {...props} />;
@@ -16,7 +16,7 @@ function SliderControl({ className, ...props }: SliderPrimitive.Control.Props) {
       data-slot="slider-control"
       className={cn(
         "flex w-full touch-none items-center py-3 select-none",
-        className,
+        className
       )}
       {...props}
     />
@@ -52,7 +52,7 @@ function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
       data-slot="slider-thumb"
       className={cn(
         "size-4 rounded-full bg-primary outline-1 outline-ring select-none",
-        className,
+        className
       )}
       {...props}
     />

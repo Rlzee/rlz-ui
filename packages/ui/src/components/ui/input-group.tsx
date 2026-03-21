@@ -1,6 +1,6 @@
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import { Input, type InputProps } from "@/components/ui/input";
 import { Textarea, type TextareaProps } from "@/components/ui/textarea";
 
@@ -38,7 +38,7 @@ function InputGroupRoot({
         "has-data-[align=inline-start]:**:[[data-size=sm]_input]:ps-1.5 has-data-[align=inline-start]:**:[input]:ps-2",
         // inline-end
         "has-data-[align=inline-end]:**:[[data-size=sm]_input]:pe-1.5 has-data-[align=inline-end]:**:[input]:pe-2",
-        className,
+        className
       )}
       {...props}
     />
@@ -63,7 +63,7 @@ const inputGroupAddonVariants = cva(
     defaultVariants: {
       align: "inline-start",
     },
-  },
+  }
 );
 
 function InputGroupAddon({
@@ -79,7 +79,7 @@ function InputGroupAddon({
       onMouseDown={(e) => {
         const target = e.target as HTMLElement;
         const isInteractive = target.closest(
-          "button, a, input, select, textarea, [role='button'], [role='combobox'], [role='listbox'], [data-slot='select-trigger']",
+          "button, a, input, select, textarea, [role='button'], [role='combobox'], [role='listbox'], [data-slot='select-trigger']"
         );
         if (isInteractive) return;
         e.preventDefault();
@@ -113,7 +113,7 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="input-group-text"
       className={cn(
         "inline-flex items-center px-3 text-sm font-medium text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />

@@ -1,6 +1,6 @@
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function TabsRoot({ className, ...props }: TabsPrimitive.Root.Props) {
   return (
@@ -28,7 +28,7 @@ function TabsTab({ className, ...props }: TabsPrimitive.Tab.Props) {
       data-slot="tabs-tab"
       className={cn(
         "flex h-9 items-center justify-center border-0 px-2 text-sm font-medium break-keep whitespace-nowrap text-muted-foreground outline-none select-none before:inset-x-0 before:inset-y-1 before:rounded-sm before:-outline-offset-1 hover:text-foreground focus-visible:relative focus-visible:before:absolute focus-visible:before:outline-2 data-active:text-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -47,7 +47,7 @@ const TabsIndicatorVariants = cva(
     defaultVariants: {
       variant: "default",
     },
-  },
+  }
 );
 
 function TabsIndicator({

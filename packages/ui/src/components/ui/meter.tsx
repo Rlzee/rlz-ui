@@ -1,5 +1,5 @@
 import { Meter as MeterPrimitive } from "@base-ui/react/meter";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function MeterRoot({ className, ...props }: MeterPrimitive.Root.Props) {
   return (
@@ -27,7 +27,7 @@ function MeterValue({ className, ...props }: MeterPrimitive.Value.Props) {
       data-slot="meter-value"
       className={cn(
         "col-start-2 m-0 text-right text-sm leading-5 text-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -40,7 +40,7 @@ function MeterTrack({ className, ...props }: MeterPrimitive.Track.Props) {
       data-slot="meter-track"
       className={cn(
         "col-span-2 block h-2 w-full overflow-hidden bg-accent",
-        className,
+        className
       )}
       {...props}
     />

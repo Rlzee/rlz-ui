@@ -2,18 +2,16 @@ import type { rlzConfig } from "./types";
 
 export const defaultAliasesRlzConfig: rlzConfig["aliases"] = {
   components: "@/components",
-  utils: "@/utils",
+  hooks: "@/hooks",
   lib: "@/lib",
+  // utils: "@/utils",
   // types: "@/types",
-  // hooks: "@/hooks",
-  // stores: "@/stores",
 };
 
 export const defaultUiComponentsAliases: rlzConfig["aliases"] = {
   components: "@/components",
-  utils: "@/utils",
+  hooks: "@/hooks",
   lib: "@/lib",
+  // utils: "@/utils",
   // types: "@/types",
-  // hooks: "@/hooks",
-  // stores: "@/stores",
 };

@@ -2,7 +2,7 @@
 
 import { Command } from "commander";
 import { initCommand } from "./commands/init/index";
-import { addCommand } from "./commands/add/index";
+import { addCommand } from "./commands/add";
 
 async function main() {
   const program = new Command();

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function TableRoot({ className, ...props }: React.ComponentProps<"table">) {
   return (
@@ -53,7 +53,7 @@ function TableHead({ className, ...props }: React.ComponentProps<"th">) {
       className={cn(
         "h-12 px-3 text-left align-middle font-semibold text-foreground",
         "[&:has([data-slot=table-sort-icon])]:pr-8 [&:has([role=checkbox])]:w-px [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5",
-        className,
+        className
       )}
       {...props}
     />
@@ -66,7 +66,7 @@ function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
       data-slot="table-row"
       className={cn(
         "border-b transition-colors hover:bg-accent data-[state=selected]:bg-accent",
-        className,
+        className
       )}
       {...props}
     />
@@ -79,7 +79,7 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
       data-slot="table-cell"
       className={cn(
         "p-2 whitespace-nowrap align-middle leading-none",
-        className,
+        className
       )}
       {...props}
     />

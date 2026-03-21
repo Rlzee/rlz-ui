@@ -1,6 +1,6 @@
 import { Radio as RadioPrimitive } from "@base-ui/react/radio";
 import { RadioGroup as RadioGroupPrimitive } from "@base-ui/react/radio-group";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 function RadioRoot({ className, ...props }: RadioPrimitive.Root.Props) {
   return (
@@ -9,7 +9,7 @@ function RadioRoot({ className, ...props }: RadioPrimitive.Root.Props) {
       className={cn(
         "flex size-4 items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
         "state-focus-ring state-invalid",
-        className,
+        className
       )}
       {...props}
     >
@@ -27,7 +27,7 @@ function RadioIndicator({
       data-slot="radio-indicator"
       className={cn(
         "flex before:size-2 before:rounded-full before:bg-background data-unchecked:hidden",
-        className,
+        className
       )}
       {...props}
     />

@@ -1,10 +1,10 @@
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 
 const inputClassName = cn(
   "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 py-1 rounded-[inherit] outline-none",
   "file:text-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
-  "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden",
+  "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
 );
 
 type InputProps = Omit<
@@ -36,7 +36,7 @@ function Input({
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] has-focus-visible:border-ring",
         ],
-        className,
+        className
       )}
     >
       {nativeInput ? (
