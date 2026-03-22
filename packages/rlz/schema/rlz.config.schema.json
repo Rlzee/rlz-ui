@@ -18,7 +18,7 @@
         "components": {
           "type": "string"
         },
-        "utils": {
+        "hooks": {
           "type": "string"
         },
         "lib": {
@@ -39,7 +39,7 @@
         "components": {
           "type": "string"
         },
-        "utils": {
+        "hooks": {
           "type": "string"
         },
         "lib": {
@@ -48,7 +48,7 @@
       },
       "required": [
         "components",
-        "utils",
+        "hooks",
         "lib"
       ],
       "additionalProperties": false

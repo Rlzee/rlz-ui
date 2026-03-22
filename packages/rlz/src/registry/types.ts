@@ -5,6 +5,7 @@ export type RegistryItem = {
   type: RegistryType;
   description?: string;
   path: string;
+  destPath?: string;
   version: string;
   dependencies?: string[];
   registryDependencies?: string[];

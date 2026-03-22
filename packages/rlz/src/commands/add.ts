@@ -60,12 +60,23 @@ export const addCommand = new Command()
       const installed = new Set<string>();
 
       const installSingleItem = async (item: any) => {
-        const dirKey = typeToDir[item.type];
-        if (!dirKey) throw new Error(`Unknown item type: ${item.type}`);
+        const baseDirKey = typeToDir[item.type];
+        const baseDir = dirs[baseDirKey];
 
-        const targetDir = dirs[dirKey];
-        if (!targetDir)
+        if (!baseDir)
           throw new Error(`Target directory not found for type: ${item.type}`);
+
+        let targetDir = baseDir;
+
+        if (item.type === "component") {
+          const subDir = item.destPath ?? "ui";
+
+          if (subDir.includes("..")) {
+            throw new Error(`Invalid destPath in registry for ${item.name}`);
+          }
+
+          targetDir = path.join(baseDir, subDir);
+        }
 
         const fileName = path.basename(item.path);
         const itemPath = path.join(targetDir, fileName);
