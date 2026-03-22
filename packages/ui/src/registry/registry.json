@@ -6,9 +6,7 @@
     "path": "components/base/backdrop.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
+    "registryDependencies": ["cn"],
     "allowManualInstall": false
   },
   "menu-base": {
@@ -18,9 +16,7 @@
     "path": "components/base/menu-base.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
+    "registryDependencies": ["cn"],
     "allowManualInstall": false
   },
   "popup-arrow": {
@@ -30,9 +26,7 @@
     "path": "components/base/popup-arrow.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
+    "registryDependencies": ["cn"],
     "allowManualInstall": false
   },
   "shortcut": {
@@ -42,9 +36,7 @@
     "path": "components/base/shortcut.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
+    "registryDependencies": ["cn"],
     "allowManualInstall": false
   },
   "x-close": {
@@ -54,9 +46,7 @@
     "path": "components/base/x-close.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
+    "registryDependencies": ["cn"],
     "allowManualInstall": false
   },
   "accordion": {
@@ -66,9 +56,7 @@
     "path": "components/ui/accordion.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "alert-dialog": {
     "name": "alert-dialog",
@@ -77,10 +65,7 @@
     "path": "components/ui/alert-dialog.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop"
-    ]
+    "registryDependencies": ["cn", "backdrop"]
   },
   "alert": {
     "name": "alert",
@@ -88,12 +73,8 @@
     "description": "An inline alert message component",
     "path": "components/ui/alert.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "autocomplete": {
     "name": "autocomplete",
@@ -102,12 +83,7 @@
     "path": "components/ui/autocomplete.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "input",
-      "scroll-area",
-      "popup-arrow"
-    ]
+    "registryDependencies": ["cn", "input", "scroll-area", "popup-arrow"]
   },
   "avatar": {
     "name": "avatar",
@@ -115,12 +91,8 @@
     "description": "A user avatar image or fallback initials component",
     "path": "components/ui/avatar.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "badge": {
     "name": "badge",
@@ -128,12 +100,8 @@
     "description": "A small badge used to display counts or statuses",
     "path": "components/ui/badge.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "breadcrumb": {
     "name": "breadcrumb",
@@ -142,9 +110,7 @@
     "path": "components/ui/breadcrumb.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "button": {
     "name": "button",
@@ -152,12 +118,8 @@
     "description": "A styled button component",
     "path": "components/ui/button.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "card": {
     "name": "card",
@@ -166,9 +128,7 @@
     "path": "components/ui/card.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "checkbox": {
     "name": "checkbox",
@@ -177,9 +137,7 @@
     "path": "components/ui/checkbox.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "collapsible": {
     "name": "collapsible",
@@ -188,9 +146,7 @@
     "path": "components/ui/collapsible.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "combobox": {
     "name": "combobox",
@@ -214,12 +170,7 @@
     "path": "components/ui/command.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "autocomplete",
-      "backdrop",
-      "shortcut"
-    ]
+    "registryDependencies": ["cn", "autocomplete", "backdrop", "shortcut"]
   },
   "context-menu": {
     "name": "context-menu",
@@ -228,11 +179,7 @@
     "path": "components/ui/context-menu.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "menu-base",
-      "shortcut"
-    ]
+    "registryDependencies": ["cn", "menu-base", "shortcut"]
   },
   "dialog": {
     "name": "dialog",
@@ -241,12 +188,7 @@
     "path": "components/ui/dialog.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop",
-      "scroll-area",
-      "x-close"
-    ]
+    "registryDependencies": ["cn", "backdrop", "scroll-area", "x-close"]
   },
   "drawer": {
     "name": "drawer",
@@ -255,12 +197,7 @@
     "path": "components/ui/drawer.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop",
-      "scroll-area",
-      "x-close"
-    ]
+    "registryDependencies": ["cn", "backdrop", "scroll-area", "x-close"]
   },
   "empty": {
     "name": "empty",
@@ -268,12 +205,8 @@
     "description": "A placeholder component for empty states",
     "path": "components/ui/empty.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "field": {
     "name": "field",
@@ -281,12 +214,8 @@
     "description": "A form field wrapper component",
     "path": "components/ui/field.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "fieldset": {
     "name": "fieldset",
@@ -295,9 +224,7 @@
     "path": "components/ui/fieldset.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "form": {
     "name": "form",
@@ -306,9 +233,7 @@
     "path": "components/ui/form.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "group": {
     "name": "group",
@@ -316,13 +241,8 @@
     "description": "A simple grouping/layout component",
     "path": "components/ui/group.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "separator"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn", "separator"]
   },
   "input-group": {
     "name": "input-group",
@@ -330,14 +250,8 @@
     "description": "A wrapper for grouping input-related elements",
     "path": "components/ui/input-group.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "input",
-      "textarea"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn", "input", "textarea"]
   },
   "input": {
     "name": "input",
@@ -346,9 +260,7 @@
     "path": "components/ui/input.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "kbd": {
     "name": "kbd",
@@ -357,9 +269,7 @@
     "path": "components/ui/kbd.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "label": {
     "name": "label",
@@ -368,9 +278,7 @@
     "path": "components/ui/label.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "menu": {
     "name": "menu",
@@ -379,12 +287,7 @@
     "path": "components/ui/menu.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow",
-      "menu-base",
-      "shortcut"
-    ]
+    "registryDependencies": ["cn", "popup-arrow", "menu-base", "shortcut"]
   },
   "menubar": {
     "name": "menubar",
@@ -393,9 +296,7 @@
     "path": "components/ui/menubar.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "meter": {
     "name": "meter",
@@ -404,9 +305,7 @@
     "path": "components/ui/meter.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "number-field": {
     "name": "number-field",
@@ -415,10 +314,7 @@
     "path": "components/ui/number-field.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "label"
-    ]
+    "registryDependencies": ["cn", "label"]
   },
   "popover": {
     "name": "popover",
@@ -427,10 +323,7 @@
     "path": "components/ui/popover.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ]
+    "registryDependencies": ["cn", "popup-arrow"]
   },
   "preview-card": {
     "name": "preview-card",
@@ -439,10 +332,7 @@
     "path": "components/ui/preview-card.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ]
+    "registryDependencies": ["cn", "popup-arrow"]
   },
   "progress": {
     "name": "progress",
@@ -451,9 +341,7 @@
     "path": "components/ui/progress.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "radio-group": {
     "name": "radio-group",
@@ -462,9 +350,7 @@
     "path": "components/ui/radio-group.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "scroll-area": {
     "name": "scroll-area",
@@ -473,9 +359,7 @@
     "path": "components/ui/scroll-area.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "select": {
     "name": "select",
@@ -484,10 +368,7 @@
     "path": "components/ui/select.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "button"
-    ]
+    "registryDependencies": ["cn", "button"]
   },
   "separator": {
     "name": "separator",
@@ -496,9 +377,7 @@
     "path": "components/ui/separator.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "skeleton": {
     "name": "skeleton",
@@ -507,9 +386,7 @@
     "path": "components/ui/skeleton.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "slider": {
     "name": "slider",
@@ -518,9 +395,7 @@
     "path": "components/ui/slider.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "spinner": {
     "name": "spinner",
@@ -529,9 +404,7 @@
     "path": "components/ui/spinner.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "switch": {
     "name": "switch",
@@ -540,9 +413,7 @@
     "path": "components/ui/switch.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "table": {
     "name": "table",
@@ -551,9 +422,7 @@
     "path": "components/ui/table.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "tabs": {
     "name": "tabs",
@@ -561,12 +430,8 @@
     "description": "A tabs navigation component",
     "path": "components/ui/tabs.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "textarea": {
     "name": "textarea",
@@ -575,9 +440,7 @@
     "path": "components/ui/textarea.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "toast": {
     "name": "toast",
@@ -586,10 +449,7 @@
     "path": "components/ui/toast.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "button"
-    ]
+    "registryDependencies": ["cn", "button"]
   },
   "toggle-group": {
     "name": "toggle-group",
@@ -597,13 +457,8 @@
     "description": "A group of toggle buttons",
     "path": "components/ui/toggle-group.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "toggle"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn", "toggle"]
   },
   "toggle": {
     "name": "toggle",
@@ -611,12 +466,8 @@
     "description": "A toggle button component",
     "path": "components/ui/toggle.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn"]
   },
   "toolbar": {
     "name": "toolbar",
@@ -625,9 +476,7 @@
     "path": "components/ui/toolbar.tsx",
     "version": "1.0.0",
     "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ]
+    "registryDependencies": ["cn"]
   },
   "tooltip": {
     "name": "tooltip",
@@ -635,13 +484,8 @@
     "description": "A tooltip component for contextual hints",
     "path": "components/ui/tooltip.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ]
+    "dependencies": ["class-variance-authority"],
+    "registryDependencies": ["cn", "popup-arrow"]
   },
   "border-flash": {
     "name": "border-flash",
@@ -649,18 +493,14 @@
     "description": "A component that flashes the border of an element",
     "path": "components/ui/border-flash.tsx",
     "version": "1.0.0",
-    "dependencies": [
-      "framer-motion"
-    ],
-    "registryDependencies": [
-      "cn"
-    ]
+    "dependencies": ["framer-motion"],
+    "registryDependencies": ["cn"]
   },
   "cn": {
     "name": "cn",
     "type": "lib",
     "description": "",
-    "path": "libs/cn.ts",
+    "path": "lib/cn.ts",
     "version": "1.0.0"
   },
   "use-copy-to-clipboard": {

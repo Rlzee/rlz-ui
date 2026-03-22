@@ -37,7 +37,7 @@ export const addCommand = new Command()
         return logger.error(`Item not found in registry: ${name}`);
       }
 
-      if (!item.allowManualInstall) {
+      if (item.allowManualInstall === false) {
         return logger.error(
           `Item ${name} cannot be installed directly via the CLI.`
         );

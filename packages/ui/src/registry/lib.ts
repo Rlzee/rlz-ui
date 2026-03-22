@@ -3,7 +3,7 @@ export const registryLibs = {
     name: "cn",
     type: "lib",
     description: "",
-    path: "libs/cn.ts",
+    path: "lib/cn.ts",
     version: "1.0.0",
   },
 };
