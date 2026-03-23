@@ -12,6 +12,9 @@ import { UI_URL } from "@/config";
 import fs from "fs-extra";
 import path from "path";
 
+import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@/registry/types";
+import type { RegistryItemType, RegistryItem } from "@/registry/types";
+
 export const addCommand = new Command()
   .name("add")
   .description("Add a new component, hook, or lib from rlz-ui")
@@ -31,10 +34,18 @@ export const addCommand = new Command()
       }
 
       const normalizedName = name.toLowerCase().replace(/\.(tsx?|ts?)$/, "");
-      const item = registry[normalizedName];
+      const item = registry[normalizedName] as RegistryItem | undefined;
 
       if (!item) {
         return logger.error(`Item not found in registry: ${name}`);
+      }
+
+      if (!isRegistryItemType(item.type)) {
+        return logger.error(
+          `Registry item '${item.name}' has invalid type '${String(
+            item.type
+          )}'. Valid types are: ${REGISTRY_ITEM_TYPES.join(", ")}`
+        );
       }
 
       if (item.allowManualInstall === false) {
@@ -51,7 +62,7 @@ export const addCommand = new Command()
 
       const dirs = resolveDirs({ dirs: config.dirs, cwd });
 
-      const typeToDir: Record<string, keyof typeof dirs> = {
+      const typeToDir: Record<RegistryItemType, keyof typeof dirs> = {
         component: "components",
         hook: "hooks",
         lib: "lib",
@@ -59,7 +70,7 @@ export const addCommand = new Command()
 
       const installed = new Set<string>();
 
-      const installSingleItem = async (item: any) => {
+      const installSingleItem = async (item: RegistryItem) => {
         const baseDirKey = typeToDir[item.type];
         const baseDir = dirs[baseDirKey];
 
@@ -105,16 +116,24 @@ export const addCommand = new Command()
       const installItem = async (itemName: string) => {
         if (installed.has(itemName)) return;
 
-        const item = registry[itemName];
-        if (!item) throw new Error(`Registry item not found: ${itemName}`);
+        const regItem = registry[itemName] as RegistryItem | undefined;
+        if (!regItem) throw new Error(`Registry item not found: ${itemName}`);
 
-        if (item.registryDependencies?.length) {
-          for (const dep of item.registryDependencies) {
+        if (!isRegistryItemType(regItem.type)) {
+          throw new Error(
+            `Registry item '${regItem.name}' has invalid type '${String(
+              regItem.type
+            )}'`
+          );
+        }
+
+        if (regItem.registryDependencies?.length) {
+          for (const dep of regItem.registryDependencies) {
             await installItem(dep);
           }
         }
 
-        await installSingleItem(item);
+        await installSingleItem(regItem);
         installed.add(itemName);
       };
 
@@ -122,7 +141,7 @@ export const addCommand = new Command()
 
       logger.success(`Item "${normalizedName}" added successfully.`);
     } catch (error: any) {
-      logger.error(`Error adding item: ${error.message}`);
+      logger.error(`Error adding item: ${error?.message ?? String(error)}`);
       process.exit(1);
     }
   });
