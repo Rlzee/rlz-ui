@@ -73,7 +73,7 @@ export const listCommand = new Command()
           for (const name of entries) {
             logger.info(`  ${name}`);
           }
-          logger.info("");
+          logger.break();
         }
       }
 
