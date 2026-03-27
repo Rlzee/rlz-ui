@@ -94,7 +94,12 @@ function CommandDialogPopup({
   );
 }
 
-type CommandVariant = "default" | "attach" | "attach-bottom" | "attach-top";
+type CommandVariant =
+  | "default"
+  | "attach"
+  | "attach-bottom"
+  | "attach-top"
+  | "frame";
 const CommandVariantContext = React.createContext<CommandVariant>("default");
 const useCommandVariant = () => React.useContext(CommandVariantContext);
 
@@ -129,10 +134,11 @@ function CommandInput({
   return (
     <Autocomplete.Input
       className={cn(
-        variant === "attach" || variant === "attach-top"
+        variant === "frame" ? "-mb-4 py-8 pt-6 border-border/50" : "py-6",
+        variant === "attach" || variant === "attach-top" || variant === "frame"
           ? "border-b-0 rounded-b-none"
           : "",
-        "h-11 py-4 md:text-base",
+        "h-11 md:text-base",
         "has-focus-visible:has-aria-invalid:ring-0 dark:has-focus-visible:has-aria-invalid:ring-0 has-focus-visible:has-aria-invalid:border-border",
         "has-focus-visible:ring-0 has-focus-visible:border-border",
         className
@@ -254,10 +260,13 @@ function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="command-footer"
       className={cn(
-        variant === "attach-bottom" || variant === "attach"
+        variant === "frame" ? "-mt-2 py-3 pt-4.5 border-border/50" : "py-3",
+        variant === "attach-bottom" ||
+          variant === "attach" ||
+          variant === "frame"
           ? "rounded-t-none! border-t-0!"
           : "mt-2",
-        "bg-popover border py-2 rounded-lg px-3 flex justify-between items-center",
+        "bg-popover border rounded-lg px-3 flex justify-between items-center",
         className
       )}
       {...props}
