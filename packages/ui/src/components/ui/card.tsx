@@ -9,8 +9,8 @@ function CardFrame({
 }: useRender.ComponentProps<"div">): React.ReactElement {
   const defaultProps = {
     className: cn(
-      "relative flex flex-col rounded-xl bg-accent text-card-foreground shadow-md border border-border/50",
-      "*:data-[slot=card]:-m-px *:not-first:data-[slot=card]:rounded-t-lg *:not-last:data-[slot=card]:rounded-b-lg *:data-[slot=card]:shadow-none",
+      "relative flex flex-col rounded-xl bg-popover text-card-foreground shadow-md border border-border/50",
+      "*:data-[slot=card]:bg-background *:data-[slot=card]:-m-px *:not-first:data-[slot=card]:rounded-t-lg *:not-last:data-[slot=card]:rounded-b-lg *:data-[slot=card]:shadow-none",
       "[--clip-bottom:-1rem] [--clip-top:-1rem]",
       className
     ),
