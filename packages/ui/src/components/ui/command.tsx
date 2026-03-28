@@ -134,7 +134,7 @@ function CommandInput({
   return (
     <Autocomplete.Input
       className={cn(
-        variant === "frame" ? "-mb-4 py-8 pt-6 border-border/50" : "py-6",
+        variant === "frame" ? "-mb-4 py-8 pt-6 !border-border/50" : "py-6",
         variant === "attach" || variant === "attach-top" || variant === "frame"
           ? "border-b-0 rounded-b-none"
           : "",
