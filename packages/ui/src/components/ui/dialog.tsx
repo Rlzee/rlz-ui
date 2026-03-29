@@ -100,7 +100,7 @@ function DialogPopup({
           data-slot="dialog-popup"
           className={cn(
             variant === "frame"
-              ? "border-border/50 bg-popover -m-px [--clip-bottom:-1rem] [--clip-top:-1rem]"
+              ? "border-border/15 bg-popover -m-px [--clip-bottom:-1rem] [--clip-top:-1rem]"
               : "bg-background",
             "relative row-start-2 flex max-h-[calc(100vh-8rem)] min-h-0 w-full min-w-0 max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200",
             "-translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top",

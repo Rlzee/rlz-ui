@@ -134,7 +134,7 @@ function CommandInput({
   return (
     <Autocomplete.Input
       className={cn(
-        variant === "frame" ? "-mb-4 py-8 pt-6 !border-border/50" : "py-6",
+        variant === "frame" ? "-mb-4 py-8 pt-6 !border-border/15" : "py-6",
         variant === "attach" || variant === "attach-top" || variant === "frame"
           ? "border-b-0 rounded-b-none"
           : "",
@@ -260,7 +260,7 @@ function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="command-footer"
       className={cn(
-        variant === "frame" ? "-mt-2 py-3 pt-4.5 border-border/50" : "py-3",
+        variant === "frame" ? "-mt-2 py-3 pt-4.5 border-border/15" : "py-3",
         variant === "attach-bottom" ||
           variant === "attach" ||
           variant === "frame"
