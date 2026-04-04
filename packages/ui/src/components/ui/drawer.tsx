@@ -204,9 +204,11 @@ function DrawerPopup({
           data-slot="drawer-popup"
           data-layout={layout}
           className={cn(
+            variant !== "bare" && variant !== "frame"
+              ? "bg-background"
+              : "bg-popover",
             variant === "frame" &&
               "border-border/15 -m-px [--clip-bottom:-1rem] [--clip-top:-1rem]",
-            variant === "default" ? "bg-background" : "bg-popover",
             "group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground",
 
             // animation
@@ -216,10 +218,10 @@ function DrawerPopup({
             "transform-[translateX(var(--drawer-swipe-movement-x,0))]",
             "data-swiping:transition-none",
             "data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)]",
-            "data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(100%)]",
-            "data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(100%)]",
-            "data-[swipe-direction=up]:data-starting-style:transform-[translateY(100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)]",
-            "data-[swipe-direction=up]:data-ending-style:transform-[translateY(100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)]",
+            "data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(-100%)]",
+            "data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(-100%)]",
+            "data-[swipe-direction=up]:data-starting-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)]",
+            "data-[swipe-direction=up]:data-ending-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)]",
 
             // nested
             "data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))]",
