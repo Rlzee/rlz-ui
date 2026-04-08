@@ -28,7 +28,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       className={cn(
         buttonVariants({ size } as SelectTriggerProps["size"]),
-        "group flex min-w-36 items-center justify-between gap-3 rounded-md border pr-3 pl-3.5 text-sm bg-secondary text-foreground select-none hover:bg-accent data-popup-open:bg-accent outline-none",
+        "group flex min-w-36 items-center justify-between gap-3 rounded-md border pr-3 pl-3.5 text-sm bg-secondary text-foreground select-none hover:bg-accent data-popup-open:bg-accent data-popup-open:text-muted-foreground outline-none",
         "state-focus-ring",
         className
       )}
@@ -50,7 +50,7 @@ function SelectIcon({
     <SelectPrimitive.Icon
       data-slot="select-icon"
       className={cn(
-        "flex text-muted-foreground group-hover:text-foreground hover:text-foreground group-data-popup-open:text-foreground",
+        "flex text-muted-foreground group-hover:text-foreground hover:text-foreground",
         className
       )}
       {...props}
@@ -190,7 +190,7 @@ function SelectItem({ className, ...props }: SelectPrimitive.Item.Props) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-highlighted:relative data-highlighted:text-primary-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-primary/80 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
+        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
         className
       )}
       {...props}

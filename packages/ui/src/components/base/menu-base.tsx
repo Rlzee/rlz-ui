@@ -1,10 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/cn";
-import {
-  Check as CheckIcon,
-  ChevronRight as ChevronRightIcon,
-  Circle as CircleIcon,
-} from "lucide-react";
+import { Check, ChevronRight, Circle } from "lucide-react";
 
 type BaseComponentProps<T extends React.ElementType> = {
   baseComponent: T;
@@ -110,10 +106,10 @@ function MenuItemBase({
         "[&_svg:not([class*='text-'])]:text-muted-foreground",
 
         "data-highlighted:relative data-highlighted:z-0",
-        "data-highlighted:text-primary-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-primary-foreground",
+        "data-highlighted:text-accent-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-accent-foreground",
         "data-highlighted:before:absolute data-highlighted:before:inset-0",
         "data-highlighted:before:rounded-sm",
-        "data-highlighted:before:bg-primary/80",
+        "data-highlighted:before:bg-accent/70",
         "data-highlighted:before:-z-10",
 
         className
@@ -168,7 +164,7 @@ function MenuCheckboxItemBase<
     >
       <span className="absolute left-2 flex h-4 w-4 items-center justify-center">
         <Indicator>
-          <CheckIcon className="size-4" />
+          <Check className="size-4" />
         </Indicator>
       </span>
       {children}
@@ -194,10 +190,10 @@ function MenuSubmenuTriggerBase({
         "[&_svg:not([class*='text-'])]:text-muted-foreground",
 
         "data-highlighted:relative data-highlighted:z-0",
-        "data-highlighted:text-primary-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-primary-foreground",
+        "data-highlighted:text-accent-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-accent-foreground",
         "data-highlighted:before:absolute data-highlighted:before:inset-0",
         "data-highlighted:before:rounded-sm",
-        "data-highlighted:before:bg-primary/80",
+        "data-highlighted:before:bg-accent/70",
         "data-highlighted:before:-z-10",
 
         "data-popup-open:relative data-popup-open:z-0",
@@ -206,14 +202,14 @@ function MenuSubmenuTriggerBase({
         "data-popup-open:before:bg-accent",
         "data-popup-open:before:-z-10",
 
-        "data-highlighted:data-popup-open:before:bg-primary/80",
+        "data-highlighted:data-popup-open:before:bg-accent",
 
         className
       )}
       {...props}
     >
       {children}
-      <ChevronRightIcon />
+      <ChevronRight />
     </Component>
   );
 }
@@ -247,7 +243,7 @@ function MenuRadioItemBase<
     >
       <span className="pointer-events-none absolute left-2 flex size-3.5 items-center justify-center">
         <Indicator>
-          <CircleIcon className="size-2 fill-current" />
+          <Circle className="size-2 fill-current" />
         </Indicator>
       </span>
       {children}

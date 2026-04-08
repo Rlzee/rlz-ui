@@ -8,22 +8,22 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top" | "frame";
 type DrawerLayout = "inset" | "full";
 
-type DrawerContextValue = {
+type DrawerContextProps = {
   layout: DrawerLayout;
   variant: DrawerVariant;
   indent: boolean;
 };
 
-const DrawerContext = React.createContext<DrawerContextValue | undefined>({
+const DrawerContext = React.createContext<DrawerContextProps | undefined>({
   layout: "full",
   variant: "default",
   indent: false,
 });
 
-const useDrawerContext = (): DrawerContextValue => {
+const useDrawer = (): DrawerContextProps => {
   const ctx = React.useContext(DrawerContext);
   if (!ctx) {
-    throw new Error("useDrawerContext must be used within a Drawer provider");
+    throw new Error("useDrawer must be used within a Drawer provider");
   }
   return ctx;
 };
@@ -116,7 +116,7 @@ function DrawerBackdrop({
 }: DrawerPrimitive.Backdrop.Props & {
   blur?: boolean;
 }) {
-  const { indent } = useDrawerContext();
+  const { indent } = useDrawer();
 
   return (
     <Backdrop
@@ -133,7 +133,7 @@ function DrawerViewport({
   className,
   ...props
 }: DrawerPrimitive.Viewport.Props) {
-  const { layout, indent } = useDrawerContext();
+  const { layout, indent } = useDrawer();
 
   return (
     <DrawerPrimitive.Viewport
@@ -191,7 +191,7 @@ function DrawerPopup({
   viewportProps?: React.ComponentProps<typeof DrawerViewport>;
   showCloseButton?: boolean;
 }) {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   const { className: viewportClassName, ...restViewportProps } =
     viewportProps ?? {};
@@ -251,7 +251,7 @@ const DrawerHeader = ({
   className,
   ...props
 }: React.ComponentProps<"header">) => {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   return (
     <header
@@ -302,7 +302,7 @@ function DrawerBody({
   scrollFade?: React.ComponentProps<typeof ScrollArea>["scrollFade"];
   scrollClassName?: React.ComponentProps<typeof ScrollArea>["className"];
 }) {
-  const { variant, layout } = useDrawerContext();
+  const { variant, layout } = useDrawer();
 
   return (
     <ScrollArea
@@ -347,7 +347,7 @@ function DrawerBody({
 }
 
 function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
-  const { layout, variant } = useDrawerContext();
+  const { layout, variant } = useDrawer();
 
   return (
     <footer
@@ -412,5 +412,5 @@ export {
   DrawerTrigger,
   DrawerSwipeArea,
   DrawerContent,
-  useDrawerContext,
+  useDrawer,
 };

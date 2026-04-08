@@ -10,7 +10,7 @@ const badgeVariants = cva(
       variant: {
         primary: "bg-primary text-primary-foreground",
         secondary: "bg-accent text-muted-foreground",
-        outline: "border bg-transparent",
+        outline: "border bg-transparent text-foreground",
         error: "bg-destructive/25 text-destructive [&>svg]:text-destructive",
         info: "bg-info/20 text-info [&>svg]:text-info",
         success: "bg-success/20 text-success [&>svg]:text-success",
@@ -39,5 +39,4 @@ function Badge({ className, variant, render, ...props }: BadgeProps) {
   });
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export { Badge, badgeVariants };

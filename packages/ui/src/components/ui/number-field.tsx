@@ -106,42 +106,42 @@ function NumberFieldGroup({
 
 function NumberFieldDecrement({
   className,
-  icon: Icon = Minus,
+  icon,
   ...props
 }: NumberFieldPrimitive.Decrement.Props & {
-  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ReactNode;
 }) {
   return (
     <NumberFieldPrimitive.Decrement
       data-slot="number-field-decrement"
       className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-accent bg-clip-padding text-secondary-foreground select-none hover:bg-accent/80 active:bg-accent/80",
+        "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70",
         className
       )}
       {...props}
     >
-      <Icon className="h-4 w-4" />
+      {icon ? icon : <Minus className="h-4 w-4" />}
     </NumberFieldPrimitive.Decrement>
   );
 }
 
 function NumberFieldIncrement({
   className,
-  icon: Icon = Plus,
+  icon,
   ...props
 }: NumberFieldPrimitive.Increment.Props & {
-  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  icon?: React.ReactNode;
 }) {
   return (
     <NumberFieldPrimitive.Increment
       data-slot="number-field-increment"
       className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-accent bg-clip-padding text-secondary-foreground select-none hover:bg-accent/80 active:bg-accent/80",
+        "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70",
         className
       )}
       {...props}
     >
-      <Icon className="h-4 w-4" />
+      {icon ? icon : <Plus className="h-4 w-4" />}
     </NumberFieldPrimitive.Increment>
   );
 }
@@ -154,7 +154,7 @@ function NumberFieldInput({
     <NumberFieldPrimitive.Input
       data-slot="number-field-input"
       className={cn(
-        "bg-input h-9 w-24 border-t border-b text-center text-base text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
+        "bg-transparent h-9 w-24 border-t border-b text-center text-base text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
         className
       )}
       {...props}

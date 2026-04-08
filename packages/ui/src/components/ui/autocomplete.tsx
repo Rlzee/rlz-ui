@@ -262,8 +262,8 @@ function AutocompleteItem({
         "flex cursor-default items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none",
         "group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
-        "hover:before:absolute hover:text-primary-foreground hover:before:inset-x-1 hover:before:inset-y-0 hover:before:rounded-sm hover:before:z-[-1] hover:before:bg-primary/80",
-        "data-highlighted:relative hover:relative data-highlighted:text-primary-foreground data-highlighted:z-0 hover:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-primary/80",
+        "hover:before:absolute hover:text-accent-foreground hover:before:inset-x-1 hover:before:inset-y-0 hover:before:rounded-sm hover:before:z-[-1] hover:before:bg-accent/70",
+        "data-highlighted:relative hover:relative data-highlighted:text-accent-foreground data-highlighted:z-0 hover:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70",
         className
       )}
       {...props}
@@ -326,7 +326,6 @@ function AutocompleteCollection(props: AutocompletePrimitive.Collection.Props) {
   );
 }
 
-/* eslint-disable react-refresh/only-export-components */
 export const useAutocompleteFilter = AutocompletePrimitive.useFilter;
 
 const AutocompleteExports = Object.assign(AutocompleteRoot, {

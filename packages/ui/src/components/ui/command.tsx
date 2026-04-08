@@ -286,10 +286,7 @@ function CommandShortcut({
   return (
     <Shortcut
       data-slot="command-shortcut"
-      className={cn(
-        "text-md text-muted-foreground/50 group-data-highlighted/command-item:text-primary-foreground/80",
-        className
-      )}
+      className={cn("text-md", className)}
       {...props}
     />
   );
