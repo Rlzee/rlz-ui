@@ -1,13 +1,20 @@
 import { Collapsible as CollapsiblePrimitive } from "@base-ui/react/collapsible";
-import { cn } from "@/lib/cn";
+import { cn } from "@/lib/utils";
 
 function CollapsibleRoot(props: CollapsiblePrimitive.Root.Props) {
   return <CollapsiblePrimitive.Root data-slot="collapsible-root" {...props} />;
 }
 
-function CollapsibleTrigger(props: CollapsiblePrimitive.Trigger.Props) {
+function CollapsibleTrigger({
+  className,
+  ...props
+}: CollapsiblePrimitive.Trigger.Props) {
   return (
-    <CollapsiblePrimitive.Trigger data-slot="collapsible-trigger" {...props} />
+    <CollapsiblePrimitive.Trigger
+      data-slot="collapsible-trigger"
+      className={cn("group", className)}
+      {...props}
+    />
   );
 }
 
