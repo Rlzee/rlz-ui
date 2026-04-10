@@ -71,6 +71,10 @@
   --success: oklch(0.7262 0.1805 148.55);
   --info: oklch(0.627 0.2 264.4);
   --warning: oklch(0.7924 0.2066 101.27);
+
+  /* Sidebar */
+  --sidebar-background: oklch(1 0 0);
+  --sidebar-border: hsl(0, 0%, 95%);
 }
 
 .dark {
@@ -105,6 +109,10 @@
   --success: oklch(0.7262 0.1805 148.55);
   --info: oklch(0.627 0.2 264.4);
   --warning: oklch(0.7924 0.2066 101.27);
+
+  /* Sidebar */
+  --sidebar-background: hsl(0, 0%, 4%);
+  --sidebar-border: hsl(0, 0%, 10%);
 }
 
 @theme inline {
@@ -148,6 +156,10 @@
   --color-success: var(--success);
   --color-info: var(--info);
   --color-warning: var(--warning);
+
+  /* Sidebar */
+  --color-sidebar-background: var(--sidebar-background);
+  --color-sidebar-border: var(--sidebar-border);
 }
 
 @layer utilities {
