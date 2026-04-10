@@ -53,6 +53,7 @@ function MenuPopupBase<
       )}
       <Positioner
         data-slot="menu-positioner"
+        style={{ zIndex: 50 }}
         {...restPositionerProps}
         sideOffset={sideOffset}
         className={positionerClassName}
