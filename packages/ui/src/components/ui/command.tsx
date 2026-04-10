@@ -244,7 +244,7 @@ function CommandItem({
   return (
     <Autocomplete.Item
       data-slot="command-item"
-      className={cn("group/command-item", className)}
+      className={cn("group/command-item py-2.5", className)}
       {...props}
     />
   );
