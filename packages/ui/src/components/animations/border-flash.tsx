@@ -167,13 +167,4 @@ const BorderFlashBoxContent = ({
   );
 };
 
-const BorderFlashExports = Object.assign(BorderFlash, {
-  Box: BorderFlashBox,
-  BoxContent: BorderFlashBoxContent,
-});
-
-export {
-  BorderFlashExports as BorderFlash,
-  BorderFlashBox,
-  BorderFlashBoxContent,
-};
+export { BorderFlash, BorderFlashBox, BorderFlashBoxContent };

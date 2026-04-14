@@ -437,13 +437,22 @@ export const registryComponents = {
     dependencies: ["class-variance-authority"],
     registryDependencies: ["cn", "popup-arrow"],
   },
-  "border-flash": {
-    name: "border-flash",
+  "separator-border": {
+    name: "separator-border",
     type: "component",
-    description: "A component that flashes the border of an element",
-    path: "components/ui/border-flash.tsx",
+    description: "A separator border component",
+    path: "components/ui/separator-border.tsx",
     version: "1.0.0",
-    dependencies: ["framer-motion"],
+    dependencies: [],
     registryDependencies: ["cn"],
   },
+  // "border-flash": {
+  //   name: "border-flash",
+  //   type: "component",
+  //   description: "A component that flashes the border of an element",
+  //   path: "components/ui/border-flash.tsx",
+  //   version: "1.0.0",
+  //   dependencies: ["framer-motion"],
+  //   registryDependencies: ["cn"],
+  // },
 };
