@@ -102,15 +102,21 @@ function TooltipArrow(props: ArrowType) {
 }
 
 type TooltipProps = TooltipPrimitive.Root.Props & {
+  delay?: TooltipPrimitive.Provider.Props["delay"];
+  closeDelay?: TooltipPrimitive.Provider.Props["closeDelay"];
+  timeout?: TooltipPrimitive.Provider.Props["timeout"];
   arrow?: boolean;
   arrowProps?: React.ComponentProps<typeof TooltipArrow>;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   popupContent: React.ReactNode;
   popupProps?: React.ComponentProps<typeof TooltipPopup>;
   triggerRender?: TooltipPrimitive.Trigger.Props["render"];
 };
 
 function Tooltip({
+  delay = 0,
+  closeDelay = 500,
+  timeout = 0,
   children: childrenTrigger,
   triggerRender,
   popupContent,
@@ -120,7 +126,7 @@ function Tooltip({
   ...props
 }: TooltipProps) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delay={delay} closeDelay={closeDelay} timeout={timeout}>
       <TooltipRoot {...props}>
         <TooltipTrigger render={triggerRender}>
           {childrenTrigger}
