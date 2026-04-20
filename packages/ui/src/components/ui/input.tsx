@@ -1,5 +1,7 @@
+"use client";
+
 import { Input as InputPrimitive } from "@base-ui/react/input";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 const inputClassName = cn(
   "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 py-1 rounded-[inherit] outline-none",

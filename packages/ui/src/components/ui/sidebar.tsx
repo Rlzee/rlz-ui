@@ -1,18 +1,20 @@
+"use client";
+
 import * as React from "react";
 
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import { PanelLeft } from "lucide-react";
 
-import { useIsMobile } from "@/hooks/use-mobile";
+import { useIsMobile } from "@rlz/ui/hooks/use-mobile";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 
-import { Button, type ButtonProps } from "@/components/ui/button";
-import { Drawer } from "@/components/ui/drawer";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tooltip } from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
+import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
+import { Drawer } from "@rlz/ui/components/ui/drawer";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import { Tooltip } from "@rlz/ui/components/ui/tooltip";
+import { Separator } from "@rlz/ui/components/ui/separator";
 
 const SIDEBAR_COOKIE_NAME: string = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE: number = 60 * 60 * 24 * 7;

@@ -1,6 +1,8 @@
+"use client";
+
 import * as React from "react";
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 function SliderRoot(props: SliderPrimitive.Root.Props) {
   return <SliderPrimitive.Root data-slot="slider" {...props} />;

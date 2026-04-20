@@ -1,9 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
-import { cn } from "@/lib/cn";
-import { Backdrop } from "@/components/base/backdrop";
-import { Xclose } from "@/components/base/x-close";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@rlz/ui/lib/cn";
+import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { Xclose } from "@rlz/ui/components/base/x-close";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
 type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top" | "frame";
 type DrawerLayout = "inset" | "full";

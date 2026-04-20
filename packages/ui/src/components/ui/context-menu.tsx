@@ -1,8 +1,10 @@
+"use client";
+
 import * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
-import { cn } from "@/lib/cn";
-import { MenuBase } from "@/components/base/menu-base";
-import { Shortcut } from "@/components/base/shortcut";
+import { cn } from "@rlz/ui/lib/cn";
+import { MenuBase } from "@rlz/ui/components/base/menu-base";
+import { Shortcut } from "@rlz/ui/components/base/shortcut";
 
 function ContextMenuRoot(props: ContextMenuPrimitive.Root.Props) {
   return <ContextMenuPrimitive.Root data-slot="context-menu-root" {...props} />;

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 function KbdRoot({ className, ...props }: React.ComponentProps<"kbd">) {
   return (

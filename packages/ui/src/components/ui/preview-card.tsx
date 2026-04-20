@@ -1,10 +1,12 @@
+"use client";
+
 import * as React from "react";
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
-import { cn } from "@/lib/cn";
+} from "@rlz/ui/components/base/popup-arrow";
+import { cn } from "@rlz/ui/lib/cn";
 
 function PreviewCardRoot(props: PreviewCardPrimitive.Root.Props) {
   return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />;

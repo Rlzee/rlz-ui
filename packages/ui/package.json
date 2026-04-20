@@ -1,5 +1,5 @@
 {
-  "name": "ui",
+  "name": "@rlz/ui",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -16,10 +16,15 @@
     "framer-motion": "^12.34.0",
     "lucide-react": "^0.556.0",
     "tailwind-merge": "^3.4.0",
-    "tw-animate-css": "^1.0.0",
-    "zustand": "^5.0.11"
+    "tw-animate-css": "^1.0.0"
   },
   "devDependencies": {
     "tsx": "^4.1.4"
+  },
+  "exports": {
+    "./globals.css": "./src/styles/globals.css",
+    "./lib/*": "./src/lib/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./hooks/*": "./src/hooks/*.ts"
   }
 }

@@ -1,8 +1,10 @@
+"use client";
+
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/cn";
-import { Input, type InputProps } from "@/components/ui/input";
-import { Textarea, type TextareaProps } from "@/components/ui/textarea";
+import { cn } from "@rlz/ui/lib/cn";
+import { Input, type InputProps } from "@rlz/ui/components/ui/input";
+import { Textarea, type TextareaProps } from "@rlz/ui/components/ui/textarea";
 
 function InputGroupRoot({
   variant = "default",

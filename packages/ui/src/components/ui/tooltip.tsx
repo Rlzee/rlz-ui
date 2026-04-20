@@ -1,11 +1,13 @@
+"use client";
+
 import * as React from "react";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
+} from "@rlz/ui/components/base/popup-arrow";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 const TooltipCreateHandle = TooltipPrimitive.createHandle;
 

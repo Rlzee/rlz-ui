@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 type BackdropProps<T extends React.ElementType> = React.ComponentProps<T> & {
   baseComponent: T;

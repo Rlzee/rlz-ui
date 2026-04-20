@@ -1,9 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/cn";
-
-/* ------------------------------ Field Group ------------------------------ */
+import { cn } from "@rlz/ui/lib/cn";
 
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
@@ -17,8 +17,6 @@ function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
     />
   );
 }
-
-/* ------------------------------ Root Field ------------------------------ */
 
 const fieldVariants = cva(
   "group/field flex w-full gap-1 data-[invalid=true]:text-destructive",
@@ -60,8 +58,6 @@ function FieldRoot({
   );
 }
 
-/* ------------------------------ Field Label ------------------------------ */
-
 function FieldLabel({ className, ...props }: FieldPrimitive.Label.Props) {
   return (
     <FieldPrimitive.Label
@@ -76,8 +72,6 @@ function FieldLabel({ className, ...props }: FieldPrimitive.Label.Props) {
     />
   );
 }
-
-/* ------------------------------ Field Control ------------------------------ */
 
 function FieldControl({ className, ...props }: FieldPrimitive.Control.Props) {
   return (
@@ -94,8 +88,6 @@ function FieldControl({ className, ...props }: FieldPrimitive.Control.Props) {
   );
 }
 
-/* ------------------------------ Field Error ------------------------------ */
-
 function FieldError({ className, ...props }: FieldPrimitive.Error.Props) {
   return (
     <FieldPrimitive.Error
@@ -105,8 +97,6 @@ function FieldError({ className, ...props }: FieldPrimitive.Error.Props) {
     />
   );
 }
-
-/* ------------------------------ Field Description ------------------------------ */
 
 function FieldDescription({
   className,
@@ -126,13 +116,9 @@ function FieldDescription({
   );
 }
 
-/* ------------------------------ Field Validity ------------------------------ */
-
 function FieldValidity(props: FieldPrimitive.Validity.Props) {
   return <FieldPrimitive.Validity data-slot="field-validity" {...props} />;
 }
-
-/* ------------------------------ Field Item ------------------------------ */
 
 function FieldItem({ className, ...props }: FieldPrimitive.Item.Props) {
   return (
@@ -143,8 +129,6 @@ function FieldItem({ className, ...props }: FieldPrimitive.Item.Props) {
     />
   );
 }
-
-/* ------------------------------ Exports ------------------------------ */
 
 const FieldExports = Object.assign(FieldRoot, {
   Group: FieldGroup,

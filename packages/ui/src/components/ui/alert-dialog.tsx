@@ -1,7 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
-import { Backdrop } from "@/components/base/backdrop";
-import { cn } from "@/lib/cn";
+import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { cn } from "@rlz/ui/lib/cn";
 
 const AlertDialogCreateHandle = AlertDialogPrimitive.createHandle;
 

@@ -1,7 +1,7 @@
-import { Fieldset as FieldsetPrimitive } from "@base-ui/react/fieldset";
-import { cn } from "@/lib/cn";
+"use client";
 
-/* ------------------------------ Root Fieldset ------------------------------ */
+import { Fieldset as FieldsetPrimitive } from "@base-ui/react/fieldset";
+import { cn } from "@rlz/ui/lib/cn";
 
 function FieldsetRoot({ className, ...props }: FieldsetPrimitive.Root.Props) {
   return (
@@ -16,8 +16,6 @@ function FieldsetRoot({ className, ...props }: FieldsetPrimitive.Root.Props) {
   );
 }
 
-/* ------------------------------ Fieldset Legend ------------------------------ */
-
 function FieldsetLegend({
   className,
   ...props
@@ -30,8 +28,6 @@ function FieldsetLegend({
     />
   );
 }
-
-/* ------------------------------ Exports ------------------------------ */
 
 const FieldsetExports = Object.assign(FieldsetRoot, {
   Legend: FieldsetLegend,

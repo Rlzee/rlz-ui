@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 import { Check, ChevronRight, Circle } from "lucide-react";
 
 type BaseComponentProps<T extends React.ElementType> = {

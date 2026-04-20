@@ -1,12 +1,14 @@
+"use client";
+
 import * as React from "react";
 import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomplete";
-import { Input, type InputProps } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input, type InputProps } from "@rlz/ui/components/ui/input";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
-import { cn } from "@/lib/cn";
+} from "@rlz/ui/components/base/popup-arrow";
+import { cn } from "@rlz/ui/lib/cn";
 import { ChevronDown, X } from "lucide-react";
 
 const AutocompleteRoot = AutocompletePrimitive.Root;

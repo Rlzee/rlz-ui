@@ -1,10 +1,12 @@
+"use client";
+
 import * as React from "react";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
-import { cn } from "@/lib/cn";
+} from "@rlz/ui/components/base/popup-arrow";
+import { cn } from "@rlz/ui/lib/cn";
 
 const PopoverCreateHandle = PopoverPrimitive.createHandle;
 

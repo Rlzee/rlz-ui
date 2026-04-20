@@ -1,9 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Dialog as CommandDialogPrimitive } from "@base-ui/react/dialog";
-import { Autocomplete } from "@/components/ui/autocomplete";
-import { Backdrop } from "@/components/base/backdrop";
-import { Shortcut } from "@/components/base/shortcut";
-import { cn } from "@/lib/cn";
+import { Autocomplete } from "@rlz/ui/components/ui/autocomplete";
+import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { Shortcut } from "@rlz/ui/components/base/shortcut";
+import { cn } from "@rlz/ui/lib/cn";
 
 const CommandCreateHandle = CommandDialogPrimitive.createHandle;
 

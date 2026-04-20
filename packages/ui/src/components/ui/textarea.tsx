@@ -1,7 +1,9 @@
+"use client";
+
 import * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { mergeProps } from "@base-ui/react/merge-props";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 type TextareaProps = React.ComponentProps<"textarea"> & {
   unstyled?: boolean;

@@ -1,9 +1,11 @@
+"use client";
+
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Backdrop } from "@/components/base/backdrop";
-import { Xclose } from "@/components/base/x-close";
-import { cn } from "@/lib/cn";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { Xclose } from "@rlz/ui/components/base/x-close";
+import { cn } from "@rlz/ui/lib/cn";
 
 type DialogVariant = "default" | "bare" | "bare-bottom" | "bare-top" | "frame";
 const DialogVariantContext = React.createContext<DialogVariant>("default");

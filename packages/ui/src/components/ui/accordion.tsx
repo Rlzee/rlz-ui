@@ -1,6 +1,8 @@
+"use client";
+
 import * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 import { Plus } from "lucide-react";
 
 function AccordionRoot(props: AccordionPrimitive.Root.Props) {

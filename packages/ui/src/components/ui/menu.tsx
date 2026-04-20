@@ -1,12 +1,14 @@
+"use client";
+
 import * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
-import { cn } from "@/lib/cn";
-import { MenuBase } from "@/components/base/menu-base";
-import { Shortcut } from "@/components/base/shortcut";
+} from "@rlz/ui/components/base/popup-arrow";
+import { cn } from "@rlz/ui/lib/cn";
+import { MenuBase } from "@rlz/ui/components/base/menu-base";
+import { Shortcut } from "@rlz/ui/components/base/shortcut";
 
 function MenuRoot(props: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="menu-root" {...props} />;

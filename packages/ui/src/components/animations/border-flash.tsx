@@ -1,6 +1,8 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y";
 type Animation = "bottom" | "top" | "left" | "right";
@@ -42,14 +44,14 @@ const getBorderAnim = (side: Animation) => {
 
 interface BorderFlashProps {
   border: Orientation;
-  Animation: Animation;
+  animation: Animation;
   dashed?: boolean;
   className?: string;
 }
 
 const BorderFlash = ({
   border,
-  Animation,
+  animation,
   dashed = false,
   className,
 }: BorderFlashProps) => {
@@ -108,13 +110,13 @@ const BorderFlash = ({
                 "dark:border-[oklch(1_0_0)]",
               ])
       )}
-      {...getBorderAnim(Animation)}
+      {...getBorderAnim(animation)}
     />
   );
 };
 
 interface BorderFlashBoxProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }
 
@@ -129,22 +131,22 @@ const BorderFlashBox: React.FC<BorderFlashBoxProps> = ({
     >
       {/* Top border */}
       <div className="absolute inset-x-0 top-0 mx-px">
-        <BorderFlash border="top" Animation="left" />
+        <BorderFlash border="top" animation="left" />
       </div>
 
       {/* Bottom border */}
       <div className="absolute inset-x-0 bottom-0 mx-px">
-        <BorderFlash border="bottom" Animation="right" />
+        <BorderFlash border="bottom" animation="right" />
       </div>
 
       {/* Left border */}
       <div className="absolute inset-y-0 left-0 h-full">
-        <BorderFlash border="left" Animation="top" className="h-full" />
+        <BorderFlash border="left" animation="top" className="h-full" />
       </div>
 
       {/* Right border */}
       <div className="absolute inset-y-0 right-0 h-full">
-        <BorderFlash border="right" Animation="bottom" className="h-full" />
+        <BorderFlash border="right" animation="bottom" className="h-full" />
       </div>
 
       {/* Content */}
@@ -167,4 +169,13 @@ const BorderFlashBoxContent = ({
   );
 };
 
-export { BorderFlash, BorderFlashBox, BorderFlashBoxContent };
+const BorderFlashExports = Object.assign(BorderFlash, {
+  Box: BorderFlashBox,
+  BoxContent: BorderFlashBoxContent,
+});
+
+export {
+  BorderFlashExports as BorderFlash,
+  BorderFlashBox,
+  BorderFlashBoxContent,
+};

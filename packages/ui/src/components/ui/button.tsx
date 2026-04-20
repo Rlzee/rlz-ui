@@ -1,8 +1,10 @@
+"use client";
+
 import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 const defaultClass = cn(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap outline-none rounded-md text-sm font-medium transition-all",

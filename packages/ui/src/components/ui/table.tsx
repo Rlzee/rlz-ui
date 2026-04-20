@@ -1,5 +1,7 @@
+"use client";
+
 import * as React from "react";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 function TableRoot({ className, ...props }: React.ComponentProps<"table">) {
   return (

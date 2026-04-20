@@ -1,7 +1,9 @@
+"use client";
+
 import { Toast } from "@base-ui/react/toast";
 import type { ToastManagerAddOptions } from "@base-ui/react/toast";
-import { cn } from "@/lib/cn";
-import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@rlz/ui/lib/cn";
+import { buttonVariants } from "@rlz/ui/components/ui/button";
 import {
   CircleAlert,
   CircleCheck,

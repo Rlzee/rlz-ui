@@ -1,6 +1,8 @@
+"use client";
+
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 import { Check } from "lucide-react";
 
 function CheckboxRoot({ className, ...props }: CheckboxPrimitive.Root.Props) {

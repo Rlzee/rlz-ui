@@ -1,14 +1,16 @@
+"use client";
+
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import type { InputProps } from "@/components/ui/input";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import type { InputProps } from "@rlz/ui/components/ui/input";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
-} from "@/components/base/popup-arrow";
-import { type ButtonProps, buttonVariants } from "@/components/ui/button";
+} from "@rlz/ui/components/base/popup-arrow";
+import { type ButtonProps, buttonVariants } from "@rlz/ui/components/ui/button";
 import { Check, ChevronDown, X } from "lucide-react";
-import { cn } from "@/lib/cn";
+import { cn } from "@rlz/ui/lib/cn";
 
 const ComboboxContext = React.createContext<{
   chipsRef: React.RefObject<Element | null> | null;
