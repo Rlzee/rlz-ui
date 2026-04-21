@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getMDXComponents } from "@/components/mdx";
+import { useMDXComponents } from "@/components/mdx";
 import { getPageImage, source } from "@/lib/source";
 import { findNeighbour } from "fumadocs-core/page-tree";
 
@@ -99,7 +99,7 @@ export default async function Page(props: {
           </p>
         )}
         <div className="flex flex-col">
-          <MDX components={getMDXComponents()} />
+          <MDX components={useMDXComponents()} />
         </div>
         <div className="hidden w-full items-center gap-2 px-4 sm:flex sm:px-0 mt-8">
           {neighbours.previous && (

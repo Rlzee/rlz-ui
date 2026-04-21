@@ -13,7 +13,7 @@ import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
 import { cn } from "@rlz/ui/lib/cn";
 
-export function getMDXComponents(components?: MDXComponents) {
+function MDXComponents() {
   return {
     h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
       <h1
@@ -123,8 +123,8 @@ export function getMDXComponents(components?: MDXComponents) {
   } satisfies MDXComponents;
 }
 
-export const useMDXComponents = getMDXComponents;
+export const useMDXComponents = MDXComponents;
 
 declare global {
-  type MDXProvidedComponents = ReturnType<typeof getMDXComponents>;
+  type MDXProvidedComponents = ReturnType<typeof MDXComponents>;
 }
