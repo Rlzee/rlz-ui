@@ -29,7 +29,8 @@ export function SiteHeader() {
               key={item.label}
               href={item.href}
               isActive={
-                pathname === item.href || pathname.startsWith(item.href + "/")
+                pathname === item.href ||
+                (pathname.startsWith(item.href + "/") && item.href !== "/docs")
               }
             >
               {item.label}

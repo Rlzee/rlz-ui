@@ -9,6 +9,7 @@ import {
   TabsIndicator,
 } from "@rlz/ui/components/ui/tabs";
 import { CodeBlock } from "./code-block";
+import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
 import { cn } from "@rlz/ui/lib/cn";
 
@@ -118,6 +119,7 @@ export function getMDXComponents(components?: MDXComponents) {
     ),
     CodeTabs,
     TabsTab,
+    ComponentsList,
   } satisfies MDXComponents;
 }
 

@@ -7,7 +7,7 @@ export const siteConfig = {
     },
     {
       label: "Components",
-      href: "/components",
+      href: "/docs/components",
     },
     {
       label: "Themes",
