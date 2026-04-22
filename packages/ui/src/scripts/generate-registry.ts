@@ -15,7 +15,7 @@ const scriptDir = scriptPath
 
 async function generateRegistry() {
   try {
-    const outputDir = path.resolve(scriptDir, "..", "registry");
+    const outputDir = path.resolve(scriptDir, "..", "..");
     await fs.mkdir(outputDir, { recursive: true });
 
     const outputPath = path.join(outputDir, "registry.json");
