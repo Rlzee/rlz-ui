@@ -1,5 +1,8 @@
 import type { FontKey } from "./fonts/def";
 
+export const UI_ROOT_URL =
+  "https://raw.githubusercontent.com/Rlzee/rlz-ui/main/packages/ui";
+
 export const UI_URL =
   "https://raw.githubusercontent.com/Rlzee/rlz-ui/main/packages/ui/src";
 
