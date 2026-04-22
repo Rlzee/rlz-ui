@@ -1,4 +1,6 @@
-export const registryHooks = {
+import { defineRegistry } from "@rlz/registry";
+
+export const registryHooks = defineRegistry({
   "use-copy-to-clipboard": {
     name: "use-copy-to-clipboard",
     type: "hook",
@@ -13,4 +15,4 @@ export const registryHooks = {
     path: "hooks/use-mobile.ts",
     version: "1.0.0",
   },
-};
+});

@@ -1,4 +1,6 @@
-export const registryLibs = {
+import { defineRegistry } from "@rlz/registry";
+
+export const registryLibs = defineRegistry({
   cn: {
     name: "cn",
     type: "lib",
@@ -6,4 +8,4 @@ export const registryLibs = {
     path: "lib/cn.ts",
     version: "1.0.0",
   },
-};
+});

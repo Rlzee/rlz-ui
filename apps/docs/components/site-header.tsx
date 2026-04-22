@@ -47,11 +47,11 @@ export function SiteHeader() {
           </Button>
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
-          <Separator orientation="vertical" className="h-5" />
+          {/*<Separator orientation="vertical" className="h-5" />
           <Button size="sm" className="ml-1">
             <Plus />
             New
-          </Button>
+          </Button>*/}
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">

@@ -1,8 +1,8 @@
 import { Command } from "commander";
 import { logger } from "@/utils/logger";
-import { readRegistry } from "@/registry/read";
-import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@/registry/types";
-import type { RegistryItemType } from "@/registry/types";
+import { readRegistry } from "@/utils/read-registry";
+import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@rlz/registry";
+import type { RegistryItemType } from "@rlz/registry";
 
 export const listCommand = new Command()
   .name("list")

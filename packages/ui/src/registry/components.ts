@@ -1,4 +1,6 @@
-export const registryComponents = {
+import { defineRegistry } from "@rlz/registry";
+
+export const registryComponents = defineRegistry({
   accordion: {
     name: "accordion",
     type: "component",
@@ -455,4 +457,4 @@ export const registryComponents = {
   //   dependencies: ["framer-motion"],
   //   registryDependencies: ["cn"],
   // },
-};
+});

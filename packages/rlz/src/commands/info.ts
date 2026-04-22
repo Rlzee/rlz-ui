@@ -1,6 +1,6 @@
 import { Command } from "commander";
 import { logger } from "@/utils/logger";
-import { readRegistry } from "@/registry/read";
+import { readRegistry } from "@/utils/read-registry";
 import kleur from "kleur";
 
 export const infoCommand = new Command()

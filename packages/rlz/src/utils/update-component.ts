@@ -1,5 +1,5 @@
 import type { rlzConfig } from "@/config/types";
-import { addUseClient } from "./add-use-client";
+import { removeUseClient } from "./remove-use-client";
 import { updateIcons } from "../icons/update";
 import { defaultUiComponentsAliases } from "@/config/constants";
 import type { SourceFile } from "ts-morph";
@@ -13,8 +13,8 @@ export async function UpdateComponent({
   sourceFile,
   config,
 }: UpdateComponentParams): Promise<void> {
-  if (config.framework === "next") {
-    addUseClient(sourceFile);
+  if (config.framework === "vite") {
+    removeUseClient(sourceFile);
   }
 
   if (config.icons !== "lucide") {

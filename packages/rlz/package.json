@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@antfu/ni": "^23.2.0",
+    "@rlz/registry": "workspace:^",
     "commander": "^10.0.0",
     "diff": "^5.1.0",
     "fs-extra": "^11.3.3",

@@ -1,4 +1,6 @@
-export const registryBaseComponents = {
+import { defineRegistry } from "@rlz/registry";
+
+export const registryBaseComponents = defineRegistry({
   backdrop: {
     name: "backdrop",
     type: "component",
@@ -54,4 +56,4 @@ export const registryBaseComponents = {
     registryDependencies: ["cn"],
     allowManualInstall: false,
   },
-};
+});

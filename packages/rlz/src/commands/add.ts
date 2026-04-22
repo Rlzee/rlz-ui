@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { logger } from "@/utils/logger";
 import { readConfig } from "@/config/read";
 import { resolveDirs } from "@/config/utils";
-import { readRegistry } from "@/registry/read";
+import { readRegistry } from "@/utils/read-registry";
 import { getUiFile } from "@/utils/get-ui-file";
 import { Project } from "ts-morph";
 import { UpdateComponent } from "@/utils/update-component";
@@ -12,8 +12,8 @@ import { UI_URL } from "@/config";
 import fs from "fs-extra";
 import path from "path";
 
-import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@/registry/types";
-import type { RegistryItemType, RegistryItem } from "@/registry/types";
+import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@rlz/registry";
+import type { RegistryItemType, RegistryItem } from "@rlz/registry";
 
 export const addCommand = new Command()
   .name("add")
