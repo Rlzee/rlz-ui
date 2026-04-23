@@ -16,7 +16,7 @@ function extractCode(children: React.ReactNode): string {
 
 export function CodeBlock({ children }: { children: React.ReactNode }) {
   return (
-    <Card className="p-0 mt-6 relative rounded-md">
+    <Card className="p-0 mt-6 relative rounded-md gap-0">
       <CopyButton
         className="absolute right-2 top-2"
         code={extractCode(children)}

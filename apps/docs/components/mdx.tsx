@@ -11,6 +11,7 @@ import {
 import { CodeBlock } from "./code-block";
 import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
+import { ComponentSource } from "./component-source";
 import { cn } from "@rlz/ui/lib/cn";
 
 function MDXComponents() {
@@ -120,6 +121,7 @@ function MDXComponents() {
     CodeTabs,
     TabsTab,
     ComponentsList,
+    ComponentSource,
   } satisfies MDXComponents;
 }
 

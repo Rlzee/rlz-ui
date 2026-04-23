@@ -1,30 +1,18 @@
-import React from "react";
+import { getComponentSource } from "@/lib/component-source";
+import { highlightCode } from "@/lib/highlight";
+import { ComponentSourceView } from "./component-source-view";
 
-import { getIconForLanguageExtension } from "./icons/language";
+export async function ComponentSource({ name }: { name: string }) {
+  const result = await getComponentSource(name);
+  if (!result) return null;
 
-import { CodeBlock } from "./code-block";
-import { Card } from "@rlz/ui/components/ui/card";
-
-type Props = {
-  children: React.ReactNode;
-  name: string;
-  // maxLines?: number;
-  // collapsible?: boolean;
-  title?: string;
-};
-
-export function ComponentSource({ children, name, title }: Props) {
-  if (!name) return null;
+  const highlighted = await highlightCode(result.source);
 
   return (
-    <CodeBlock>
-      <Card.Header>
-        <Card.Title>
-          <span>{getIconForLanguageExtension("tsx")}</span>
-          {title}
-        </Card.Title>
-      </Card.Header>
-      {children}
-    </CodeBlock>
+    <ComponentSourceView
+      name={name}
+      title={result.path}
+      highlighted={highlighted}
+    />
   );
 }
