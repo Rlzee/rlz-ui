@@ -31,9 +31,5 @@ export function ComponentSourceView({
 
   if (!collapsible) return componentBase;
 
-  return (
-    <CodeCollapsibleWrapper title={title ?? `${name}.tsx`}>
-      {componentBase}
-    </CodeCollapsibleWrapper>
-  );
+  return <CodeCollapsibleWrapper>{componentBase}</CodeCollapsibleWrapper>;
 }

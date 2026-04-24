@@ -10,7 +10,7 @@ type CopyButtonProps = ButtonProps & {
 export function CopyButton({
   size = "icon-sm",
   variant = "ghost",
-  code = "",
+  code,
   className,
   ...props
 }: CopyButtonProps) {

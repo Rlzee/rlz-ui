@@ -13,6 +13,7 @@ import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
 import { ComponentSource } from "./component-source";
 import { cn } from "@rlz/ui/lib/cn";
+import { ComponentPreview } from "./component-preview";
 
 function MDXComponents() {
   return {
@@ -122,6 +123,7 @@ function MDXComponents() {
     TabsTab,
     ComponentsList,
     ComponentSource,
+    ComponentPreview,
   } satisfies MDXComponents;
 }
 

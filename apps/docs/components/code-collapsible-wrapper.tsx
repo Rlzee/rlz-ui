@@ -37,7 +37,7 @@ export function CodeCollapsibleWrapper({
       >
         {children}
       </Collapsible.Panel>
-      <Collapsible.Trigger className="bg-gradient-to-b from-secondary/70 to-secondary/90 dark:from-secondary/90 dark:to-secondary/90 absolute inset-x-0 -bottom-2 flex h-20 cursor-pointer items-center justify-center rounded-b-lg font-medium text-muted-foreground text-sm transition-colors hover:text-foreground group-data-open/collapsible:hidden border border-t-0">
+      <Collapsible.Trigger className="bg-gradient-to-b from-secondary/70 to-secondary/90 dark:from-secondary/90 dark:to-secondary/90 absolute inset-x-0 -bottom-2 flex h-20 cursor-pointer items-center justify-center rounded-b-md font-medium text-muted-foreground text-sm transition-colors hover:text-foreground group-data-open/collapsible:hidden border border-t-0">
         {isOpened ? "Collapse" : "Expand"}
       </Collapsible.Trigger>
     </Collapsible>

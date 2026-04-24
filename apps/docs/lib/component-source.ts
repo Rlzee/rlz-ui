@@ -25,3 +25,25 @@ export async function getComponentSource(
     return null;
   }
 }
+
+//
+
+const UI_DEMO_ROOT = path.resolve(
+  process.cwd(),
+  "../../packages/ui/src/components/examples/ui"
+);
+
+export async function getDemoSource(name: string): Promise<string | null> {
+  const parts = name.split("-");
+  const component = parts[0];
+  const variant = parts.slice(1).join("-") || "default";
+  const filePath = path.join(UI_DEMO_ROOT, component, `${variant}.tsx`);
+
+  try {
+    const content = await fs.readFile(filePath, "utf-8");
+    return content;
+  } catch (e) {
+    console.error(`[getDemoSource] error:`, e);
+    return null;
+  }
+}
