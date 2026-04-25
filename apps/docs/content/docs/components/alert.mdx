@@ -1,0 +1,83 @@
+---
+title: Alert
+description: Displays important messages to inform users about a state, action, or outcome.
+---
+
+<ComponentPreview name="alert" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add alert
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="alert" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Alert } from "@/components/ui/alert";
+```
+
+```tsx
+<Alert>
+  <Alert.Title>Notice</Alert.Title>
+  <Alert.Description>
+    This is a default alert used to display general information.
+  </Alert.Description>
+</Alert>
+```
+
+## API Reference
+
+This is a custom component, not a Base UI wrapper.
+
+### Alert (Root)
+
+| Prop      | Type                                                       | Default     |
+| --------- | ---------------------------------------------------------- | ----------- |
+| `variant` | `"default" \| "error" \| "info" \| "success" \| "warning"` | `"default"` |
+
+### Alert Title
+
+Title text for the alert. Renders as a styled `h3`.
+
+### Alert Description
+
+Description text for the alert. Renders as a styled `p`.
+
+### Alert Action
+
+Container for action buttons. Automatically positions to the right on larger screens.

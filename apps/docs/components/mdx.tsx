@@ -11,6 +11,7 @@ import {
 import { CodeBlock } from "./code-block";
 import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { ComponentSource } from "./component-source";
 import { cn } from "@rlz/ui/lib/cn";
 import { ComponentPreview } from "./component-preview";
@@ -41,9 +42,21 @@ function MDXComponents() {
         {...props}
       />
     ),
+    h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
+      <h3
+        className={cn(
+          "mt-8 scroll-m-20 font-semibold text-lg *:[code]:text-lg",
+          className
+        )}
+        {...props}
+      />
+    ),
     p: ({ className, ...props }: React.ComponentProps<"p">) => (
       <p
-        className={cn("leading-relaxed text-muted-foreground", className)}
+        className={cn(
+          "not-first:mt-6 leading-relaxed text-muted-foreground",
+          className
+        )}
         {...props}
       />
     ),
@@ -74,13 +87,25 @@ function MDXComponents() {
     }: React.ComponentProps<typeof TabsPanel>) => (
       <TabsPanel className={cn("mt-3", className)} {...props} />
     ),
-    pre: ({ ref: _ref, ...props }: any) => {
-      const codeProps = props.children?.props ?? {};
-
-      const __npm__ = props.__npm__ ?? codeProps.__npm__;
-      const __pnpm__ = props.__pnpm__ ?? codeProps.__pnpm__;
-      const __yarn__ = props.__yarn__ ?? codeProps.__yarn__;
-      const __bun__ = props.__bun__ ?? codeProps.__bun__;
+    code: ({
+      __npm__,
+      __pnpm__,
+      __yarn__,
+      __bun__,
+      className,
+      ...props
+    }: any) => {
+      if (typeof props.children === "string") {
+        return (
+          <code
+            className={cn(
+              "relative rounded-md bg-accent px-1.5 py-1 font-mono text-[.8125rem] text-muted-foreground outline-none",
+              className
+            )}
+            {...props}
+          />
+        );
+      }
 
       if (__npm__ || __pnpm__ || __yarn__ || __bun__) {
         return (
@@ -95,7 +120,7 @@ function MDXComponents() {
 
       return (
         <CodeBlock>
-          <Pre style={props.style} className={props.className}>
+          <Pre style={props.style} className={className}>
             {props.children}
           </Pre>
         </CodeBlock>
@@ -116,6 +141,44 @@ function MDXComponents() {
           "steps [counter-reset:step] md:ml-4 md:border-l md:pl-8 [&>h3]:step",
           className
         )}
+        {...props}
+      />
+    ),
+    table: ({ className, ...props }: React.ComponentProps<"table">) => (
+      <ScrollArea
+        className="mt-6 border rounded-md bg-background"
+        scrollbarGutter
+      >
+        <table
+          className={cn(
+            "relative w-full border-none text-sm [&_tbody_tr:last-child]:border-b-0",
+            className
+          )}
+          {...props}
+        />
+      </ScrollArea>
+    ),
+    td: ({ className, ...props }: React.ComponentProps<"td">) => (
+      <td
+        className={cn(
+          "whitespace-nowrap px-3 py-3 text-left [[align=center]]:text-center [[align=right]]:text-right",
+          className
+        )}
+        {...props}
+      />
+    ),
+    th: ({ className, ...props }: React.ComponentProps<"th">) => (
+      <th
+        className={cn(
+          "px-3 py-2 text-left bg-secondary rounded-t-md font-medium [[align=center]]:text-center [[align=right]]:text-right",
+          className
+        )}
+        {...props}
+      />
+    ),
+    tr: ({ className, ...props }: React.ComponentProps<"tr">) => (
+      <tr
+        className={cn("m-0 border-b last:border-b-none", className)}
         {...props}
       />
     ),

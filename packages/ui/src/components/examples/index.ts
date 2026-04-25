@@ -5,4 +5,5 @@ export const ComponentsExamples: Record<
   () => Promise<{ default: ComponentType }>
 > = {
   accordion: () => import("@rlz/ui/components/examples/ui/accordion/default"),
+  alert: () => import("@rlz/ui/components/examples/ui/alert/default"),
 };
