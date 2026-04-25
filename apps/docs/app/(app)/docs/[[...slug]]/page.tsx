@@ -52,7 +52,7 @@ export default async function Page(props: {
     <div className="flex items-stretch w-full h-full" data-slot="docs">
       <SeparatorBorder
         orientation="vertical"
-        className="hidden lg:block opacity-70"
+        className="hidden lg:block opacity-60"
       />
       <div className="relative flex w-full min-w-0 flex-1 flex-col md:py-8 md:mx-12 py-4 mx-8">
         <div className="flex items-center justify-between md:items-start">
@@ -131,7 +131,7 @@ export default async function Page(props: {
       </div>
       <SeparatorBorder
         orientation="vertical"
-        className="hidden xl:block opacity-70"
+        className="hidden xl:block opacity-60"
       />
       <div className="sticky top-(--header-height) z-30 ms-auto hidden h-[calc(100svh-var(--header-height))] w-72 flex-col overflow-hidden overscroll-none xl:flex">
         <DocsTableOfContents toc={doc.toc} />

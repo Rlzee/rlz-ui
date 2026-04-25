@@ -1,4 +1,4 @@
 {
-  "pages": ["index", "installation", "importing", "cli"],
+  "pages": ["index", "installation", "importing", "cli", "base-components"],
   "title": "Get Started"
 }

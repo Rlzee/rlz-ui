@@ -170,7 +170,7 @@ function MDXComponents() {
     th: ({ className, ...props }: React.ComponentProps<"th">) => (
       <th
         className={cn(
-          "px-3 py-2 text-left bg-secondary rounded-t-md font-medium [[align=center]]:text-center [[align=right]]:text-right",
+          "px-3 py-2.5 text-left bg-secondary rounded-t-md font-medium [[align=center]]:text-center [[align=right]]:text-right",
           className
         )}
         {...props}

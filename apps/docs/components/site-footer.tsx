@@ -7,11 +7,7 @@ import {
 export function SiteFooter() {
   return (
     <div className="relative">
-      <BorderFlash
-        border="top"
-        animation="left"
-        className="border-sidebar-border"
-      />
+      <BorderFlash border="top" animation="left" className="border-border/70" />
 
       <div className="container pointer-events-none absolute inset-0 overflow-visible">
         <BorderFlashBox className="absolute -top-[4.5px] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0 z-50">

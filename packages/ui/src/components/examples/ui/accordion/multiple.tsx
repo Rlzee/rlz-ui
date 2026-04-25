@@ -17,7 +17,7 @@ export default function Example() {
   ];
 
   return (
-    <Accordion className="w-full max-w-md">
+    <Accordion className="w-full max-w-md" multiple>
       {items.map((item) => (
         <Accordion.Item key={item.id} value={String(item.id)}>
           <Accordion.Trigger>

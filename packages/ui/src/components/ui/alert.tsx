@@ -4,8 +4,9 @@ import { cn } from "@rlz/ui/lib/cn";
 
 const alertVariants = cva(
   cn(
-    "w-full rounded-lg border py-3 px-3 text-card-foreground grid grid-cols-[0_1fr] items-start",
-    "[&>svg]:size-4 has-[>svg]:py-2.5 [&>svg]:translate-y-1 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
+    "w-full rounded-lg border py-3 px-3 text-card-foreground",
+    "grid items-start grid-cols-[0_1fr_auto]",
+    "[&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr_auto] has-[>svg]:gap-x-2"
   ),
   {
     variants: {
@@ -64,7 +65,8 @@ function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="alert-action"
       className={cn(
-        "flex gap-1 max-sm:col-start-2 max-sm:mt-2 sm:row-start-1 sm:row-end-3 sm:self-center sm:[[data-slot=alert-description]~&]:col-start-2 sm:[[data-slot=alert-title]~&]:col-start-2 sm:[svg~&]:col-start-2 sm:[svg~[data-slot=alert-description]~&]:col-start-3 sm:[svg~[data-slot=alert-title]~&]:col-start-3",
+        "flex gap-1 col-start-3 row-start-1 row-end-3 self-center",
+        "max-sm:col-start-2 max-sm:row-start-auto max-sm:mt-2",
         className
       )}
       {...props}

@@ -58,7 +58,7 @@ export function SiteHeader() {
         <BorderFlash
           border="bottom"
           animation="left"
-          className="border-sidebar-border"
+          className="border-border/70"
         />
       </div>
     </header>
