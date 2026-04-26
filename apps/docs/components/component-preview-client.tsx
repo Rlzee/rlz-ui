@@ -23,7 +23,7 @@ export function ComponentPreviewClient({
 
   return (
     <div className={cn("flex flex-col", className)}>
-      <div className="relative h-[350px] flex items-center justify-center p-6 border border-b-0 rounded-t-md">
+      <div className="relative h-[350px] bg-secondary flex items-center justify-center p-6 border border-b-0 rounded-t-md">
         {DemoComponent ? (
           <DemoComponent />
         ) : (
@@ -31,7 +31,7 @@ export function ComponentPreviewClient({
         )}
       </div>
       <CodeTriggerWrapper>
-        <CodeBlock className="mt-0 rounded-t-none h-80">
+        <CodeBlock className="mt-0 rounded-t-none border-t-0 h-80">
           <Pre dangerouslySetInnerHTML={{ __html: highlighted }} />
         </CodeBlock>
       </CodeTriggerWrapper>
