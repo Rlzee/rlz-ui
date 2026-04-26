@@ -26,7 +26,7 @@ export function CopyButton({
       {...props}
     >
       <span className="sr-only">Copy</span>
-      {isCopied ? <Check className="text-success" /> : <Copy />}
+      {isCopied ? <Check className="text-foreground" /> : <Copy />}
     </Button>
   );
 }
