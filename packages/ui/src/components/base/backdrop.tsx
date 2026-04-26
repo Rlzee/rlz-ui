@@ -1,4 +1,4 @@
-import * as React from "react";
+import type * as React from "react";
 import { cn } from "@rlz/ui/lib/cn";
 
 type BackdropProps<T extends React.ElementType> = React.ComponentProps<T> & {
@@ -7,13 +7,13 @@ type BackdropProps<T extends React.ElementType> = React.ComponentProps<T> & {
 };
 
 export function Backdrop<T extends React.ElementType>({
-  baseComponent: Backdrop,
+  baseComponent: Base,
   blur = true,
   className,
   ...props
 }: BackdropProps<T>) {
   return (
-    <Backdrop
+    <Base
       className={cn(
         blur
           ? "backdrop-blur-sm bg-black/32"

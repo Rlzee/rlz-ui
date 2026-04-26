@@ -5,7 +5,8 @@ import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { cn } from "@rlz/ui/lib/cn";
 
-const AlertDialogCreateHandle = AlertDialogPrimitive.createHandle;
+const AlertDialogCreateHandle: typeof AlertDialogPrimitive.createHandle =
+  AlertDialogPrimitive.createHandle;
 
 function AlertDialogRoot(props: AlertDialogPrimitive.Root.Props) {
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />;
@@ -17,7 +18,9 @@ function AlertDialogPortal(props: AlertDialogPrimitive.Portal.Props) {
   );
 }
 
-function AlertDialogTrigger(props: AlertDialogPrimitive.Trigger.Props) {
+function AlertDialogTrigger(
+  props: AlertDialogPrimitive.Trigger.Props
+): React.ReactElement {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   );
@@ -75,7 +78,7 @@ function AlertDialogPopup({
           data-slot="alert-dialog-popup"
           className={cn(
             "bg-background [&:has([data-slot=alert-dialog-actions][data-variant=bare])]:bg-popover",
-            "relative row-start-2 flex w-full max-w-md flex-col rounded-lg border text-popover-foreground gap-0.5 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
+            "relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             className
           )}
@@ -91,7 +94,7 @@ function AlertDialogPopup({
 function AlertDialogTitle({
   className,
   ...props
-}: AlertDialogPrimitive.Title.Props) {
+}: AlertDialogPrimitive.Title.Props): React.ReactElement {
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
@@ -104,11 +107,11 @@ function AlertDialogTitle({
 function AlertDialogDescription({
   className,
   ...props
-}: AlertDialogPrimitive.Description.Props) {
+}: AlertDialogPrimitive.Description.Props): React.ReactElement {
   return (
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
-      className={cn("ui-description px-6 pb-4", className)}
+      className={cn("ui-description px-6 pb-1", className)}
       {...props}
     />
   );
@@ -135,8 +138,12 @@ function AlertDialogActions({
   );
 }
 
-function AlertDialogClose(props: AlertDialogPrimitive.Close.Props) {
-  return <AlertDialogPrimitive.Close data-slot="dialog-close" {...props} />;
+function AlertDialogClose(
+  props: AlertDialogPrimitive.Close.Props
+): React.ReactElement {
+  return (
+    <AlertDialogPrimitive.Close data-slot="alert-dialog-close" {...props} />
+  );
 }
 
 const AlertDialogExports = Object.assign(AlertDialogRoot, {

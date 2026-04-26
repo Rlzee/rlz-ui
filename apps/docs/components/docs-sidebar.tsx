@@ -43,7 +43,8 @@ export function DocsSidebar({ tree, ...props }: Props) {
                             isActive={
                               page.url === "/docs"
                                 ? pathname === page.url
-                                : pathname.startsWith(page.url)
+                                : pathname === page.url ||
+                                  pathname.startsWith(page.url + "/")
                             }
                             onClick={() => router.push(page.url)}
                           >

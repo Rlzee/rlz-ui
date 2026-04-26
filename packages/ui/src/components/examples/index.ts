@@ -20,4 +20,8 @@ export const ComponentsExamples: Record<
   "alert-success": () => import("@rlz/ui/components/examples/ui/alert/success"),
   "alert-info": () => import("@rlz/ui/components/examples/ui/alert/info"),
   "alert-action": () => import("@rlz/ui/components/examples/ui/alert/action"),
+
+  // Alert Dialog
+  "alert-dialog": () =>
+    import("@rlz/ui/components/examples/ui/alert-dialog/default"),
 };

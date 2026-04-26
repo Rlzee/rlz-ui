@@ -34,10 +34,17 @@ const UI_DEMO_ROOT = path.resolve(
 );
 
 export async function getDemoSource(name: string): Promise<string | null> {
-  const parts = name.split("-");
-  const component = parts[0];
-  const variant = parts.slice(1).join("-") || "default";
-  const filePath = path.join(UI_DEMO_ROOT, component, `${variant}.tsx`);
+  const item = (registry as Record<string, RegistryItem>)[name];
+  let filePath: string;
+
+  if (item) {
+    filePath = path.join(UI_DEMO_ROOT, name, "default.tsx");
+  } else {
+    const parts = name.split("-");
+    const component = parts[0];
+    const variant = parts.slice(1).join("-") || "default";
+    filePath = path.join(UI_DEMO_ROOT, component, `${variant}.tsx`);
+  }
 
   try {
     const content = await fs.readFile(filePath, "utf-8");
