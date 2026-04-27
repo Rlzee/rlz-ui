@@ -4,9 +4,9 @@ import { cn } from "@rlz/ui/lib/cn";
 
 const alertVariants = cva(
   cn(
-    "w-full rounded-lg border py-3 px-3 text-card-foreground",
-    "grid items-start grid-cols-[0_1fr_auto]",
-    "[&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr_auto] has-[>svg]:gap-x-2"
+    "relative w-full rounded-lg border py-3 px-3 text-card-foreground",
+    "grid items-start grid-cols-[0_1fr] has-[[data-slot=alert-action]]:pr-18",
+    "[&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
   ),
   {
     variants: {
@@ -29,7 +29,8 @@ function Alert({
   className,
   variant,
   ...props
-}: React.ComponentProps<"div"> & VariantProps<typeof alertVariants>) {
+}: React.ComponentProps<"div"> &
+  VariantProps<typeof alertVariants>): React.ReactElement {
   return (
     <div
       data-slot="alert"
@@ -40,7 +41,10 @@ function Alert({
   );
 }
 
-function AlertTitle({ className, ...props }: React.ComponentProps<"h3">) {
+function AlertTitle({
+  className,
+  ...props
+}: React.ComponentProps<"h3">): React.ReactElement {
   return (
     <h3
       data-slot="alert-title"
@@ -50,7 +54,10 @@ function AlertTitle({ className, ...props }: React.ComponentProps<"h3">) {
   );
 }
 
-function AlertDescription({ className, ...props }: React.ComponentProps<"p">) {
+function AlertDescription({
+  className,
+  ...props
+}: React.ComponentProps<"p">): React.ReactElement {
   return (
     <p
       data-slot="alert-description"
@@ -60,15 +67,14 @@ function AlertDescription({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
-function AlertAction({ className, ...props }: React.ComponentProps<"div">) {
+function AlertAction({
+  className,
+  ...props
+}: React.ComponentProps<"div">): React.ReactElement {
   return (
     <div
       data-slot="alert-action"
-      className={cn(
-        "flex gap-1 col-start-3 row-start-1 row-end-3 self-center",
-        "max-sm:col-start-2 max-sm:row-start-auto max-sm:mt-2",
-        className
-      )}
+      className={cn("absolute top-1/2 -translate-y-1/2 right-3", className)}
       {...props}
     />
   );

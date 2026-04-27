@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { cn } from "@rlz/ui/lib/cn";
 import { Plus } from "lucide-react";
@@ -38,7 +38,7 @@ function AccordionHeader({
 function AccordionTrigger({
   className,
   ...props
-}: AccordionPrimitive.Trigger.Props) {
+}: AccordionPrimitive.Trigger.Props): React.ReactElement {
   return (
     <AccordionHeader>
       <AccordionPrimitive.Trigger
@@ -59,7 +59,7 @@ function AccordionIcon({
 }: {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   className?: string;
-}) {
+}): React.ReactElement {
   return (
     <Icon
       data-slot="accordion-icon"
@@ -75,7 +75,7 @@ function AccordionPanel({
   children,
   className,
   ...props
-}: AccordionPrimitive.Panel.Props) {
+}: AccordionPrimitive.Panel.Props): React.ReactElement {
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-panel"
@@ -95,6 +95,7 @@ const AccordionExport = Object.assign(AccordionRoot, {
   Trigger: AccordionTrigger,
   Icon: AccordionIcon,
   Panel: AccordionPanel,
+  Header: AccordionHeader,
 });
 
 export {
@@ -103,4 +104,5 @@ export {
   AccordionTrigger,
   AccordionIcon,
   AccordionPanel,
+  AccordionHeader,
 };

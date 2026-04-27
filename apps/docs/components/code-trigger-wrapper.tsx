@@ -23,7 +23,7 @@ export function CodeTriggerWrapper({
     >
       <Collapsible.Trigger
         className={cn(
-          "cursor-pointer w-full bg-background py-4 text-sm text-muted-foreground border text-left px-3 flex items-center rounded-b-md transition-[border-radius] duration-500",
+          "cursor-pointer w-full bg-background py-3.5 text-sm text-muted-foreground border text-left px-3 flex items-center rounded-b-md transition-[border-radius] duration-500",
           "data-panel-open:duration-0 data-panel-open:[&_svg]:rotate-90 data-panel-open:rounded-b-none"
         )}
       >

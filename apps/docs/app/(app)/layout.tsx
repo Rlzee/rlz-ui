@@ -18,13 +18,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <BorderFlash
           border="left"
           animation="top"
-          className="absolute inset-y-0 -left-3 h-full border-border"
+          className="absolute inset-y-0 -left-3 h-full"
           dashed
         />
         <BorderFlash
           border="right"
           animation="bottom"
-          className="absolute inset-y-0 -right-3 h-full border-border"
+          className="absolute inset-y-0 -right-3 h-full"
           dashed
         />
       </div>
@@ -36,7 +36,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
           <BorderFlashBoxContent className="p-0" />
         </BorderFlashBox>
-        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 dark:bg-clip-border p-0">
+        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
           <BorderFlashBoxContent className="p-0" />
         </BorderFlashBox>
       </div>

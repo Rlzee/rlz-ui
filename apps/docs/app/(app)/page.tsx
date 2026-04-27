@@ -31,12 +31,7 @@ export default function IndexPage() {
         </section>
 
         <div className="relative">
-          <BorderFlash
-            border="bottom"
-            animation="right"
-            className="border-sidebar-border"
-            dashed
-          />
+          <BorderFlash border="bottom" animation="right" dashed />
           <div className="container pointer-events-none absolute bottom-0 inset-x-0 overflow-visible">
             <BorderFlashBox className="absolute -bottom-[3.5px] -left-[11.5px] -ml-1 size-2 bg-background shadow-xs/5 p-0 z-50">
               <BorderFlashBoxContent className="p-0" />
