@@ -28,27 +28,19 @@ export async function getComponentSource(
 
 //
 
+import { demoPaths } from "@rlz/ui/components/examples";
 const UI_DEMO_ROOT = path.resolve(
   process.cwd(),
   "../../packages/ui/src/components/examples/ui"
 );
 
 export async function getDemoSource(name: string): Promise<string | null> {
-  const item = (registry as Record<string, RegistryItem>)[name];
-  let filePath: string;
+  const demoPath = demoPaths[name];
+  if (!demoPath) return null;
 
-  if (item) {
-    filePath = path.join(UI_DEMO_ROOT, name, "default.tsx");
-  } else {
-    const parts = name.split("-");
-    const component = parts[0];
-    const variant = parts.slice(1).join("-") || "default";
-    filePath = path.join(UI_DEMO_ROOT, component, `${variant}.tsx`);
-  }
-
+  const filePath = path.join(UI_DEMO_ROOT, demoPath + ".tsx");
   try {
-    const content = await fs.readFile(filePath, "utf-8");
-    return content;
+    return await fs.readFile(filePath, "utf-8");
   } catch (e) {
     console.error(`[getDemoSource] error:`, e);
     return null;

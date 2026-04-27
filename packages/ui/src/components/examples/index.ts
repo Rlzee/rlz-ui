@@ -1,27 +1,17 @@
-import type { ComponentType } from "react";
-
-export const ComponentsExamples: Record<
-  string,
-  () => Promise<{ default: ComponentType }>
-> = {
+export const demoPaths: Record<string, string> = {
   // Accordion
-  accordion: () => import("@rlz/ui/components/examples/ui/accordion/default"),
-  "accordion-multiple": () =>
-    import("@rlz/ui/components/examples/ui/accordion/multiple"),
-  "accordion-disabled": () =>
-    import("@rlz/ui/components/examples/ui/accordion/disabled"),
-
+  accordion: "accordion/default",
+  "accordion-multiple": "accordion/multiple",
+  "accordion-disabled": "accordion/disabled",
   // Alert
-  alert: () => import("@rlz/ui/components/examples/ui/alert/default"),
-  "alert-with-icon": () =>
-    import("@rlz/ui/components/examples/ui/alert/with-icon"),
-  "alert-warning": () => import("@rlz/ui/components/examples/ui/alert/warning"),
-  "alert-error": () => import("@rlz/ui/components/examples/ui/alert/error"),
-  "alert-success": () => import("@rlz/ui/components/examples/ui/alert/success"),
-  "alert-info": () => import("@rlz/ui/components/examples/ui/alert/info"),
-  "alert-action": () => import("@rlz/ui/components/examples/ui/alert/action"),
-
+  alert: "alert/default",
+  "alert-with-icon": "alert/with-icon",
+  "alert-warning": "alert/warning",
+  "alert-error": "alert/error",
+  "alert-success": "alert/success",
+  "alert-info": "alert/info",
+  "alert-action": "alert/action",
   // Alert Dialog
-  "alert-dialog": () =>
-    import("@rlz/ui/components/examples/ui/alert-dialog/default"),
+  "alert-dialog": "alert-dialog/default",
+  "alert-dialog-bare": "alert-dialog/bare",
 };

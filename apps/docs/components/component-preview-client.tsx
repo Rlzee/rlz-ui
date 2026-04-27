@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-import { ComponentsExamples } from "@rlz/ui/components/examples";
+import { demoPaths } from "@rlz/ui/components/examples";
 import { CodeTriggerWrapper } from "./code-trigger-wrapper";
 import { CodeBlock } from "./code-block";
 import { Pre } from "./Pre";
@@ -18,8 +18,12 @@ export function ComponentPreviewClient({
   highlighted: string;
   className?: string;
 }) {
-  const loader = ComponentsExamples[name];
-  const DemoComponent = loader ? dynamic(loader, { ssr: false }) : null;
+  const entry = demoPaths[name];
+  const DemoComponent = entry
+    ? dynamic(() => import(`@rlz/ui/components/examples/ui/${entry}`), {
+        ssr: false,
+      })
+    : null;
 
   return (
     <div className={cn("flex flex-col", className)}>
