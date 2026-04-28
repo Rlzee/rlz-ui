@@ -7,7 +7,6 @@ import { CommandInput } from "./command-input";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { ModeSwitcher } from "./mode-switcher";
 import GithubIcon from "./icons/Github";
-import { Plus } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@rlz/ui/lib/cn";
 import { Badge } from "@rlz/ui/components/ui/badge";
@@ -19,7 +18,7 @@ export function SiteHeader() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-sidebar-background backdrop-blur-lg">
+    <header className="sticky top-0 z-40 w-full bg-sidebar-background">
       <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6 container">
         {/* left side nav */}
         <nav className="items-center gap-0.5 hidden lg:flex">

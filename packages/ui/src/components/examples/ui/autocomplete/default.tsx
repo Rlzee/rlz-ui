@@ -20,7 +20,6 @@ export default function Example() {
         className="w-60 mx-auto"
         aria-label="Search fruit"
         placeholder="Search fruit"
-        clearable
       />
       <Autocomplete.Popup>
         <Autocomplete.Empty>No fruits found.</Autocomplete.Empty>

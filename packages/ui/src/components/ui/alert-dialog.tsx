@@ -18,9 +18,7 @@ function AlertDialogPortal(props: AlertDialogPrimitive.Portal.Props) {
   );
 }
 
-function AlertDialogTrigger(
-  props: AlertDialogPrimitive.Trigger.Props
-): React.ReactElement {
+function AlertDialogTrigger(props: AlertDialogPrimitive.Trigger.Props) {
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   );
@@ -94,7 +92,7 @@ function AlertDialogPopup({
 function AlertDialogTitle({
   className,
   ...props
-}: AlertDialogPrimitive.Title.Props): React.ReactElement {
+}: AlertDialogPrimitive.Title.Props) {
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
@@ -107,7 +105,7 @@ function AlertDialogTitle({
 function AlertDialogDescription({
   className,
   ...props
-}: AlertDialogPrimitive.Description.Props): React.ReactElement {
+}: AlertDialogPrimitive.Description.Props) {
   return (
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
@@ -138,9 +136,7 @@ function AlertDialogActions({
   );
 }
 
-function AlertDialogClose(
-  props: AlertDialogPrimitive.Close.Props
-): React.ReactElement {
+function AlertDialogClose(props: AlertDialogPrimitive.Close.Props) {
   return (
     <AlertDialogPrimitive.Close data-slot="alert-dialog-close" {...props} />
   );

@@ -1,11 +1,11 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 
-const AvatarVariants = cva(
+const avatarVariants = cva(
   "relative flex shrink-0 overflow-hidden rounded-full",
   {
     variants: {
@@ -27,27 +27,20 @@ function AvatarRoot({
   className,
   ...props
 }: AvatarPrimitive.Root.Props &
-  Pick<VariantProps<typeof AvatarVariants>, "size">) {
+  Pick<VariantProps<typeof avatarVariants>, "size">) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      className={cn(AvatarVariants({ size }), className)}
+      className={cn(avatarVariants({ size }), className)}
       {...props}
     />
   );
 }
 
-function AvatarImage({
-  className,
-  src,
-  alt,
-  ...props
-}: AvatarPrimitive.Image.Props) {
+function AvatarImage({ className, ...props }: AvatarPrimitive.Image.Props) {
   return (
     <AvatarPrimitive.Image
       data-slot="avatar-image"
-      src={src}
-      alt={alt}
       className={cn("aspect-square size-full object-cover", className)}
       {...props}
     />
@@ -84,7 +77,7 @@ type AvatarProps = AvatarPrimitive.Root.Props & {
   src?: string;
   alt?: string;
   fallback?: React.ReactNode;
-  size?: VariantProps<typeof AvatarVariants>["size"];
+  size?: VariantProps<typeof avatarVariants>["size"];
   loading?: AvatarPrimitive.Image.Props["loading"];
 };
 

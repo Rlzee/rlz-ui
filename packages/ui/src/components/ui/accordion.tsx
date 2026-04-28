@@ -38,7 +38,7 @@ function AccordionHeader({
 function AccordionTrigger({
   className,
   ...props
-}: AccordionPrimitive.Trigger.Props): React.ReactElement {
+}: AccordionPrimitive.Trigger.Props) {
   return (
     <AccordionHeader>
       <AccordionPrimitive.Trigger
@@ -59,7 +59,7 @@ function AccordionIcon({
 }: {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   className?: string;
-}): React.ReactElement {
+}) {
   return (
     <Icon
       data-slot="accordion-icon"
@@ -75,7 +75,7 @@ function AccordionPanel({
   children,
   className,
   ...props
-}: AccordionPrimitive.Panel.Props): React.ReactElement {
+}: AccordionPrimitive.Panel.Props) {
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-panel"
