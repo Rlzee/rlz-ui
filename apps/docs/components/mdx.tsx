@@ -92,6 +92,7 @@ function MDXComponents() {
       __pnpm__,
       __yarn__,
       __bun__,
+      __raw__,
       className,
       ...props
     }: any) => {
@@ -119,7 +120,7 @@ function MDXComponents() {
       }
 
       return (
-        <CodeBlock>
+        <CodeBlock rawCode={__raw__}>
           <Pre style={props.style} className={className}>
             {props.children}
           </Pre>

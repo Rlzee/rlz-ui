@@ -16,6 +16,7 @@ export async function ComponentPreview({
     <ComponentPreviewClient
       name={name}
       highlighted={highlighted ?? ""}
+      rawCode={source ?? ""}
       className={className}
     />
   );

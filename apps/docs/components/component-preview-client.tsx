@@ -12,10 +12,12 @@ import { cn } from "@rlz/ui/lib/cn";
 export function ComponentPreviewClient({
   name,
   highlighted,
+  rawCode,
   className,
 }: {
   name: string;
   highlighted: string;
+  rawCode: string;
   className?: string;
 }) {
   const entry = demoPaths[name];
@@ -35,7 +37,10 @@ export function ComponentPreviewClient({
         )}
       </div>
       <CodeTriggerWrapper>
-        <CodeBlock className="mt-0 rounded-t-none border-t-0 h-80">
+        <CodeBlock
+          rawCode={rawCode}
+          className="mt-0 rounded-t-none border-t-0 h-80"
+        >
           <Pre dangerouslySetInnerHTML={{ __html: highlighted }} />
         </CodeBlock>
       </CodeTriggerWrapper>
