@@ -25,7 +25,7 @@ const alertVariants = cva(
   }
 );
 
-function Alert({
+function AlertRoot({
   className,
   variant,
   ...props
@@ -80,7 +80,7 @@ function AlertAction({
   );
 }
 
-const AlertExports = Object.assign(Alert, {
+const AlertExports = Object.assign(AlertRoot, {
   Title: AlertTitle,
   Description: AlertDescription,
   Action: AlertAction,

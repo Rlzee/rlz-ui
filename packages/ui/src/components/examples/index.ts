@@ -14,4 +14,6 @@ export const demoPaths: Record<string, string> = {
   // Alert Dialog
   "alert-dialog": "alert-dialog/default",
   "alert-dialog-bare": "alert-dialog/bare",
+  // Autocomplete
+  autocomplete: "autocomplete/default",
 };

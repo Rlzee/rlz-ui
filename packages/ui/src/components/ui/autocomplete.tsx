@@ -11,12 +11,13 @@ import {
 import { cn } from "@rlz/ui/lib/cn";
 import { ChevronDown, X } from "lucide-react";
 
-const AutocompleteRoot = AutocompletePrimitive.Root;
+const AutocompleteRoot: typeof AutocompletePrimitive.Root =
+  AutocompletePrimitive.Root;
 
 function AutocompleteTrigger({
   className,
   ...props
-}: AutocompletePrimitive.Trigger.Props) {
+}: AutocompletePrimitive.Trigger.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Trigger
       data-slot="autocomplete-trigger"
@@ -41,31 +42,7 @@ function AutocompleteInput({
   clearable?: boolean;
   ref?: React.Ref<HTMLInputElement>;
 }) {
-  if (clearable) {
-    return (
-      <div className="relative [&>input]:pr-10 w-full">
-        <AutocompletePrimitive.Input
-          data-slot="autocomplete-input"
-          render={
-            <Input
-              nativeInput
-              variant={variant}
-              unstyled={unstyled}
-              className="w-full"
-            />
-          }
-          className={cn("h-9", "data-popup-open:bg-secondary", className)}
-          {...props}
-        />
-
-        <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
-          {clearable && <AutocompleteClear />}
-        </div>
-      </div>
-    );
-  }
-
-  return (
+  const input = (
     <AutocompletePrimitive.Input
       data-slot="autocomplete-input"
       render={
@@ -80,16 +57,31 @@ function AutocompleteInput({
       {...props}
     />
   );
+
+  if (!clearable) return input;
+
+  return (
+    <div className="relative [&>input]:pr-10 w-auto">
+      {input}
+      <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
+        <AutocompleteClear />
+      </div>
+    </div>
+  );
 }
 
-function AutocompleteValue(props: AutocompletePrimitive.Value.Props) {
-  return <AutocompletePrimitive.Value {...props} />;
+function AutocompleteValue(
+  props: AutocompletePrimitive.Value.Props
+): React.ReactElement {
+  return (
+    <AutocompletePrimitive.Value data-slot="autocomplete-value" {...props} />
+  );
 }
 
 function AutocompleteClear({
   className,
   ...props
-}: AutocompletePrimitive.Clear.Props) {
+}: AutocompletePrimitive.Clear.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Clear
       data-slot="autocomplete-clear"
@@ -110,7 +102,7 @@ function AutocompleteIcon({
   ...props
 }: AutocompletePrimitive.Icon.Props & {
   icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-}) {
+}): React.ReactElement {
   return (
     <AutocompletePrimitive.Icon
       data-slot="autocomplete-icon"
@@ -125,7 +117,7 @@ function AutocompleteIcon({
 function AutocompleteBackdrop({
   className,
   ...props
-}: AutocompletePrimitive.Backdrop.Props) {
+}: AutocompletePrimitive.Backdrop.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Backdrop
       data-slot="autocomplete-backdrop"
@@ -138,7 +130,7 @@ function AutocompleteBackdrop({
 function AutocompletePositioner({
   className,
   ...props
-}: AutocompletePrimitive.Positioner.Props) {
+}: AutocompletePrimitive.Positioner.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Positioner
       data-slot="autocomplete-positioner"
@@ -160,7 +152,7 @@ function AutocompletePopup({
   positionerProps?: React.ComponentProps<typeof AutocompletePositioner>;
 }) {
   const {
-    sideOffset = 4,
+    sideOffset = 6,
     className: positionerClassName,
     ...restPositionerProps
   } = positionerProps ?? {};
@@ -192,7 +184,7 @@ function AutocompletePopup({
   );
 }
 
-function AutocompleteArrow(props: ArrowType) {
+function AutocompleteArrow(props: ArrowType): React.ReactElement {
   return (
     <PopupArrow
       border={2}
@@ -206,7 +198,7 @@ function AutocompleteArrow(props: ArrowType) {
 function AutocompleteStatus({
   className,
   ...props
-}: AutocompletePrimitive.Status.Props) {
+}: AutocompletePrimitive.Status.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Status
       data-slot="autocomplete-status"
@@ -222,7 +214,7 @@ function AutocompleteStatus({
 function AutocompleteEmpty({
   className,
   ...props
-}: AutocompletePrimitive.Empty.Props) {
+}: AutocompletePrimitive.Empty.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Empty
       data-slot="autocomplete-empty"
@@ -256,7 +248,7 @@ function AutocompleteList({
 function AutocompleteItem({
   className,
   ...props
-}: AutocompletePrimitive.Item.Props) {
+}: AutocompletePrimitive.Item.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Item
       data-slot="autocomplete-item"
@@ -276,7 +268,7 @@ function AutocompleteItem({
 function AutocompleteSeparator({
   className,
   ...props
-}: AutocompletePrimitive.Separator.Props) {
+}: AutocompletePrimitive.Separator.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Separator
       data-slot="autocomplete-separator"
@@ -289,7 +281,7 @@ function AutocompleteSeparator({
 function AutocompleteGroup({
   className,
   ...props
-}: AutocompletePrimitive.Group.Props) {
+}: AutocompletePrimitive.Group.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.Group
       data-slot="autocomplete-group"
@@ -302,7 +294,7 @@ function AutocompleteGroup({
 function AutocompleteGroupLabel({
   className,
   ...props
-}: AutocompletePrimitive.GroupLabel.Props) {
+}: AutocompletePrimitive.GroupLabel.Props): React.ReactElement {
   return (
     <AutocompletePrimitive.GroupLabel
       data-slot="autocomplete-group-label"
@@ -315,11 +307,15 @@ function AutocompleteGroupLabel({
   );
 }
 
-function AutocompleteRow(props: AutocompletePrimitive.Row.Props) {
-  return <AutocompletePrimitive.Row {...props} />;
+function AutocompleteRow(
+  props: AutocompletePrimitive.Row.Props
+): React.ReactElement {
+  return <AutocompletePrimitive.Row data-slot="autocomplete-row" {...props} />;
 }
 
-function AutocompleteCollection(props: AutocompletePrimitive.Collection.Props) {
+function AutocompleteCollection(
+  props: AutocompletePrimitive.Collection.Props
+): React.ReactElement {
   return (
     <AutocompletePrimitive.Collection
       data-slot="autocomplete-collection"
