@@ -50,7 +50,7 @@ function AutocompleteInput({
           nativeInput
           variant={variant}
           unstyled={unstyled}
-          className="w-full"
+          className="w-full has-disabled:opacity-50"
         />
       }
       className={cn("h-9", "data-popup-open:bg-secondary", className)}
@@ -173,6 +173,7 @@ function AutocompletePopup({
           className={cn(
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-foreground shadow-md",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
+            "data-disabled:pointer-events-none data-disabled:opacity-50",
             className
           )}
           {...props}

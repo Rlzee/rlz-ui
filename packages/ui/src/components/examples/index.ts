@@ -16,4 +16,9 @@ export const demoPaths: Record<string, string> = {
   "alert-dialog-bare": "alert-dialog/bare",
   // Autocomplete
   autocomplete: "autocomplete/default",
+  "autocomplete-disabled": "autocomplete/disabled",
+  "autocomplete-inline": "autocomplete/inline",
+  "autocomplete-auto-highlight": "autocomplete/auto-highlight",
+  "autocomplete-group": "autocomplete/group",
+  // "autocomplete-grid-layout": "autocomplete/grid-layout",
 };
