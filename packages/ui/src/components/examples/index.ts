@@ -24,4 +24,5 @@ export const demoPaths: Record<string, string> = {
   // Avatar
   avatar: "avatar/default",
   "avatar-size": "avatar/size",
+  "avatar-stack": "avatar/stack",
 };

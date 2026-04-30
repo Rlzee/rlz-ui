@@ -63,11 +63,33 @@ function AvatarFallback({
   );
 }
 
-function AvatarStack({ className, ...props }: React.ComponentProps<"div">) {
+const avatarStackVariants = cva(
+  "flex items-center [&_[data-slot=avatar]]:ring-2 [&_[data-slot=avatar]]:ring-accent",
+  {
+    variants: {
+      space: {
+        xs: "-space-x-[0.2rem] ",
+        sm: "-space-x-[0.3rem] ",
+        md: "-space-x-[0.6rem] ",
+        lg: "-space-x-[1rem] ",
+        xl: "-space-x-[1.5rem] ",
+      },
+    },
+    defaultVariants: {
+      space: "md",
+    },
+  }
+);
+
+function AvatarStack({
+  space = "md",
+  className,
+  ...props
+}: React.ComponentProps<"div"> & VariantProps<typeof avatarStackVariants>) {
   return (
     <div
       data-slot="avatar-stack"
-      className={cn("-space-x-[0.6rem] flex items-center", className)}
+      className={cn(avatarStackVariants({ space }), className)}
       {...props}
     />
   );
