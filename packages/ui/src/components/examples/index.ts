@@ -20,5 +20,8 @@ export const demoPaths: Record<string, string> = {
   "autocomplete-inline": "autocomplete/inline",
   "autocomplete-auto-highlight": "autocomplete/auto-highlight",
   "autocomplete-group": "autocomplete/group",
-  // "autocomplete-grid-layout": "autocomplete/grid-layout",
+  "autocomplete-clear": "autocomplete/clear",
+  // Avatar
+  avatar: "avatar/default",
+  "avatar-size": "avatar/size",
 };

@@ -1,0 +1,77 @@
+---
+title: Avatar
+description: Displays a user photo with an automatic fallback to initials when the image fails to load.
+---
+
+<ComponentPreview name="avatar" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add avatar
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="avatar" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Avatar } from "@/components/ui/avatar";
+```
+
+```tsx
+<Avatar src="/example.png" alt="Example" fallback="EX" />
+```
+
+Or
+
+```tsx
+<Avatar>
+  <Avatar.Image src="/example.png" alt="Example" />
+  <Avatar.Fallback>EX</Avatar.Fallback>
+</Avatar>
+```
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/avatar/#api-reference) documentation for more information.
+
+## Examples
+
+### Different Sizes
+
+Use `size` prop in `<Avatar>` to set the size of the avatar.
+
+<ComponentPreview className="pt-4" name="avatar-size" />
