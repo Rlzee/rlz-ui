@@ -94,14 +94,14 @@ export default async function Page(props: {
           </div>
         </div>
         {doc.description && (
-          <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:max-w-[60%] max-w-[80%] pb-6">
+          <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:max-w-[60%] max-w-[80%]">
             {doc.description}
           </p>
         )}
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-8 gap-6">
           <MDX components={useMDXComponents()} />
         </div>
-        <div className="hidden w-full items-center gap-2 px-4 sm:flex sm:px-0 mt-8">
+        <div className="mt-12 hidden w-full items-center gap-2 px-4 sm:flex sm:px-0">
           {neighbours.previous && (
             <Button
               variant="secondary"

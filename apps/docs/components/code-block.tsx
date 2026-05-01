@@ -15,7 +15,7 @@ export function CodeBlock({
   rawCode?: string;
 }) {
   return (
-    <Card className={cn("p-0 mt-6 relative rounded-md gap-0", className)}>
+    <Card className={cn("p-0 relative rounded-md gap-0", className)}>
       <CopyButton className="absolute right-2 top-2 z-2" code={rawCode ?? ""} />
       {children}
     </Card>

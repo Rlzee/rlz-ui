@@ -11,7 +11,6 @@ import {
 import { CodeBlock } from "./code-block";
 import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
-import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { ComponentSource } from "./component-source";
 import { cn } from "@rlz/ui/lib/cn";
 import { ComponentPreview } from "./component-preview";
@@ -21,7 +20,7 @@ function MDXComponents() {
     h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
       <h1
         className={cn(
-          "scroll-m-20 text-3xl font-semibold tracking-tight xl:text-4xl",
+          "text-3xl font-semibold tracking-tight xl:text-4xl scroll-m-20",
           className
         )}
         {...props}
@@ -36,7 +35,7 @@ function MDXComponents() {
           .replace(/\?/g, "")
           .toLowerCase()}
         className={cn(
-          "[&+]*:[code]:text-xl mt-10 scroll-m-24 text-xl xl:text-2xl font-medium tracking-tight first:mt-0 lg:mt-12 [&+.steps]:mt-0! [&+.steps>h3]:mt-4! [&+h3]:mt-6! [&+p]:mt-4!",
+          "scroll-m-24 text-xl xl:text-2xl font-medium tracking-tight mt-4 first:mt-0",
           className
         )}
         {...props}
@@ -44,19 +43,13 @@ function MDXComponents() {
     ),
     h3: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
-        className={cn(
-          "mt-8 scroll-m-20 font-semibold text-lg *:[code]:text-lg",
-          className
-        )}
+        className={cn("scroll-m-20 font-semibold text-lg mt-2", className)}
         {...props}
       />
     ),
     p: ({ className, ...props }: React.ComponentProps<"p">) => (
       <p
-        className={cn(
-          "not-first:mt-6 leading-relaxed text-muted-foreground",
-          className
-        )}
+        className={cn("leading-relaxed text-muted-foreground", className)}
         {...props}
       />
     ),
@@ -85,7 +78,7 @@ function MDXComponents() {
       className,
       ...props
     }: React.ComponentProps<typeof TabsPanel>) => (
-      <TabsPanel className={cn("mt-3", className)} {...props} />
+      <TabsPanel className={cn("mt-2", className)} {...props} />
     ),
     code: ({
       __npm__,
@@ -130,7 +123,7 @@ function MDXComponents() {
     Step: ({ className, ...props }: React.ComponentProps<"h3">) => (
       <h3
         className={cn(
-          "mt-8 scroll-m-32 text-md xl:text-lg font-normal tracking-tight",
+          "scroll-m-32 text-md xl:text-lg font-normal tracking-tight",
           className
         )}
         {...props}
@@ -139,14 +132,14 @@ function MDXComponents() {
     Steps: ({ className, ...props }: React.ComponentProps<"div">) => (
       <div
         className={cn(
-          "steps [counter-reset:step] md:ml-4 md:border-l md:pl-8 [&>h3]:step",
+          "steps [counter-reset:step] flex flex-col gap-4 md:ml-4 md:border-l md:pl-8 [&>h3]:step",
           className
         )}
         {...props}
       />
     ),
     table: ({ className, ...props }: React.ComponentProps<"table">) => (
-      <div className="mt-6 border rounded-md bg-background">
+      <div className="border rounded-md bg-background">
         <table
           className={cn(
             "relative w-full border-none text-sm [&_tbody_tr:last-child]:border-b-0",
