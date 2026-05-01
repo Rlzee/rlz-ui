@@ -73,7 +73,7 @@ function MDXComponents() {
       className,
       ...props
     }: React.ComponentProps<typeof TabsList>) => (
-      <TabsList className={cn("border-b w-26.5", className)} {...props} />
+      <TabsList className={cn("border-b", className)} {...props} />
     ),
     TabsIndicator: ({
       variant = "underline",
@@ -146,10 +146,7 @@ function MDXComponents() {
       />
     ),
     table: ({ className, ...props }: React.ComponentProps<"table">) => (
-      <ScrollArea
-        className="mt-6 border rounded-md bg-background"
-        scrollbarGutter
-      >
+      <div className="mt-6 border rounded-md bg-background">
         <table
           className={cn(
             "relative w-full border-none text-sm [&_tbody_tr:last-child]:border-b-0",
@@ -157,7 +154,7 @@ function MDXComponents() {
           )}
           {...props}
         />
-      </ScrollArea>
+      </div>
     ),
     td: ({ className, ...props }: React.ComponentProps<"td">) => (
       <td
