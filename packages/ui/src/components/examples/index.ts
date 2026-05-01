@@ -3,6 +3,7 @@ export const demoPaths: Record<string, string> = {
   accordion: "accordion/default",
   "accordion-multiple": "accordion/multiple",
   "accordion-disabled": "accordion/disabled",
+  "accordion-icon": "accordion/icon",
   // Alert
   alert: "alert/default",
   "alert-with-icon": "alert/with-icon",
