@@ -20,7 +20,7 @@ export function CodeCollapsibleWrapper({
       open={isOpened}
       {...props}
     >
-      <div className="absolute top-8 right-10 z-10 flex items-center">
+      <div className="absolute top-2 right-10 z-10 flex items-center">
         <Collapsible.Trigger
           render={
             <Button className="text-muted-foreground" variant="ghost" size="sm">

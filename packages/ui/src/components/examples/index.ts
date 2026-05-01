@@ -26,4 +26,7 @@ export const demoPaths: Record<string, string> = {
   avatar: "avatar/default",
   "avatar-size": "avatar/size",
   "avatar-stack": "avatar/stack",
+  // Badge
+  badge: "badge/default",
+  "badge-variant": "badge/variant",
 };

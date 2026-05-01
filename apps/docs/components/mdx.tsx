@@ -8,6 +8,7 @@ import {
   TabsTab,
   TabsIndicator,
 } from "@rlz/ui/components/ui/tabs";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { CodeBlock } from "./code-block";
 import { ComponentsList } from "./components-list";
 import { Pre } from "./Pre";
@@ -139,7 +140,7 @@ function MDXComponents() {
       />
     ),
     table: ({ className, ...props }: React.ComponentProps<"table">) => (
-      <div className="border rounded-md bg-background">
+      <ScrollArea className="border rounded-md bg-background h-auto">
         <table
           className={cn(
             "relative w-full border-none text-sm [&_tbody_tr:last-child]:border-b-0",
@@ -147,7 +148,7 @@ function MDXComponents() {
           )}
           {...props}
         />
-      </div>
+      </ScrollArea>
     ),
     td: ({ className, ...props }: React.ComponentProps<"td">) => (
       <td
