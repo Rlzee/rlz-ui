@@ -1,0 +1,100 @@
+---
+title: Breadcrumb
+description: Displays a breadcrumb navigation.
+---
+
+<ComponentPreview name="breadcrumb" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add breadcrumb
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="breadcrumb" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+```
+
+```tsx
+<Breadcrumb>
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="#">Home</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="#" isActive>
+      Laptops
+    </Breadcrumb.Link>
+  </Breadcrumb.Item>
+</Breadcrumb>
+```
+
+## API Reference
+
+This is a custom component, not a Base UI wrapper.
+
+### Breadcrumb (Root)
+
+The `Breadcrumb` component is the root navigation container.
+
+### Breadcrumb List
+
+Ordered list container for `Breadcrumb.Item`
+
+### Breadcrumb Items
+
+Individual breadcrumb item container.
+
+### Breadcrumb Link
+
+Link element for navigable breadcrumb items.
+
+| Prop      | Type                                                                                   | Default     |
+| --------- | -------------------------------------------------------------------------------------- | ----------- |
+| `render`  | `React.ReactElement`                                                                   | -           |
+
+### Breadcrumb Separator
+
+The `Breadcrumb.Separator` component displays a separator between breadcrumb items. You can pass custom children to override the default separator.
+
+## Examples
+
+### Custom Separator
+
+<ComponentPreview name="breadcrumb-custom-separator" />

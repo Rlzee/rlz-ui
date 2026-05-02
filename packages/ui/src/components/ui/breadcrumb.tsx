@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cn } from "@rlz/ui/lib/cn";
@@ -13,7 +13,10 @@ function BreadcrumbList({ className, ...props }: React.ComponentProps<"ol">) {
   return (
     <ol
       data-slot="breadcrumb-group"
-      className={cn("flex space-x-2 text-sm", className)}
+      className={cn(
+        "wrap-break-word flex flex-wrap items-center gap-1.5 text-muted-foreground text-sm sm:gap-2.5",
+        className
+      )}
       {...props}
     />
   );
@@ -72,16 +75,7 @@ function BreadcrumbSeparator({
   );
 }
 
-function Breadcrumb({ children }: { children: React.ReactNode }) {
-  return (
-    <BreadcrumbRoot>
-      <BreadcrumbList>{children}</BreadcrumbList>
-    </BreadcrumbRoot>
-  );
-}
-
-const BreadcrumbExports = Object.assign(Breadcrumb, {
-  Root: BreadcrumbRoot,
+const BreadcrumbExports = Object.assign(BreadcrumbRoot, {
   List: BreadcrumbList,
   Item: BreadcrumbItem,
   Link: BreadcrumbLink,

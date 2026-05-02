@@ -29,4 +29,7 @@ export const demoPaths: Record<string, string> = {
   // Badge
   badge: "badge/default",
   "badge-variant": "badge/variant",
+  // Breadcrumb
+  breadcrumb: "breadcrumb/default",
+  "breadcrumb-custom-separator": "breadcrumb/custom-separator",
 };
