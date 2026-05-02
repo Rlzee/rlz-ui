@@ -1,0 +1,94 @@
+---
+title: Button
+description: Displays a badge or a component that looks like a badge.
+---
+
+<ComponentPreview name="button" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add button
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="button" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<Button>Button</Button>
+```
+
+## API Reference
+
+This is a custom component, using Base UI's `useRender` hook, not a direct Base UI wrapper.
+
+### Button
+
+| Prop      | Type                                                                                                    | Default     |
+| --------- | ------------------------------------------------------------------------------------------------------- | ----------- |
+| `variant` | `"primary" \| "secondary" \| "outline" \| "ghost" \| "link" \| "destructive"`                           | `"primary"` |
+| `size`    | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "icon-xs" \| "icon-sm" \| "icon-md" \| "icon-lg" \| "icon-xl"` | `"md"`      |
+| `render`  | `React.ReactElement`                                                                                    | -           |
+
+## Examples
+
+### Different Sizes
+
+Use the `size` prop to change the size of the button.
+
+<ComponentPreview name="button-size" />
+
+### Disabled
+
+Use the `disabled` prop on `<Button>` to disable buttons.
+
+<ComponentPreview name="button-disabled" />
+
+### Variants
+
+Use the `variant` prop to change the appearance of the button.
+
+<ComponentPreview name="button-variants" />
+
+### Spinner
+
+Use the `<Spinner />` component to add a loading spinner to the button.
+
+<ComponentPreview name="button-spinner" />

@@ -42,7 +42,7 @@ export function SiteHeader() {
           <CommandInput className="mr-1" />
           <Separator orientation="vertical" className="h-5" />
           <Button variant="ghost" size="icon-sm" render={<Link href="" />}>
-            <GithubIcon className="size-4" />
+            <GithubIcon />
           </Button>
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
@@ -84,7 +84,7 @@ function NavLink({
           ? "px-2 hover:no-underline text-muted-foreground"
           : ""
       }
-      render={<a href={href} className={cn(isActive && "text-primary")} />}
+      render={<Link href={href} className={cn(isActive && "text-primary")} />}
     >
       {children}
     </Button>

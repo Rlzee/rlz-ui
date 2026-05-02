@@ -32,4 +32,11 @@ export const demoPaths: Record<string, string> = {
   // Breadcrumb
   breadcrumb: "breadcrumb/default",
   "breadcrumb-custom-separator": "breadcrumb/custom-separator",
+  // Button
+  button: "button/default",
+  "button-size": "button/size",
+  "button-disabled": "button/disabled",
+  "button-variants": "button/variant",
+  "button-spinner": "button/spinner",
+  "button-button-group": "button/button-group",
 };

@@ -7,19 +7,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 import { Separator } from "@rlz/ui/components/ui/separator";
 
-const groupVariants = cva("flex w-fit items-stretch", {
-  variants: {
-    orientation: {
-      horizontal:
-        "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none",
-      vertical:
-        "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none",
+const groupVariants = cva(
+  "flex w-fit items-stretch has-[>[data-slot=group]]:gap-2",
+  {
+    variants: {
+      orientation: {
+        horizontal:
+          "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none",
+        vertical:
+          "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none",
+      },
     },
-  },
-  defaultVariants: {
-    orientation: "horizontal",
-  },
-});
+    defaultVariants: {
+      orientation: "horizontal",
+    },
+  }
+);
 
 function GroupRoot({
   className,
