@@ -38,5 +38,5 @@ export const demoPaths: Record<string, string> = {
   "button-disabled": "button/disabled",
   "button-variants": "button/variant",
   "button-spinner": "button/spinner",
-  "button-button-group": "button/button-group",
+  "button-group": "button/button-group",
 };

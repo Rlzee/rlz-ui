@@ -1,21 +1,20 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
-import { Separator } from "@rlz/ui/components/ui/separator";
 
 const groupVariants = cva(
-  "flex w-fit items-stretch has-[>[data-slot=group]]:gap-2",
+  "flex w-fit items-center has-[>[data-slot=group]]:gap-2",
   {
     variants: {
       orientation: {
         horizontal:
-          "[&>*:not(:first-child)]:rounded-l-none [&>*:not(:first-child)]:border-l-0 [&>*:not(:last-child)]:rounded-r-none",
+          "*:data-slot:has-[~[data-slot]]:rounded-e-none *:data-slot:has-[~[data-slot]]:border-e-0 *:[[data-slot]~[data-slot]]:rounded-s-none *:[[data-slot]~[data-slot]]:border-s-0",
         vertical:
-          "flex-col [&>*:not(:first-child)]:rounded-t-none [&>*:not(:first-child)]:border-t-0 [&>*:not(:last-child)]:rounded-b-none",
+          "flex-col *:data-slot:has-[~[data-slot]]:rounded-b-none *:data-slot:has-[~[data-slot]]:border-b-0 *:[[data-slot]~[data-slot]]:rounded-t-none *:[[data-slot]~[data-slot]]:border-t-0",
       },
     },
     defaultVariants: {
@@ -26,8 +25,7 @@ const groupVariants = cva(
 
 function GroupRoot({
   className,
-  orientation,
-  children,
+  orientation = "horizontal",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof groupVariants>) {
   return (
@@ -37,9 +35,27 @@ function GroupRoot({
       data-orientation={orientation}
       className={cn(groupVariants({ orientation }), className)}
       {...props}
-    >
-      {children}
-    </div>
+    />
+  );
+}
+
+function GroupSeparator({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      role="separator"
+      data-slot="group-separator"
+      className={cn(
+        "pointer-events-none relative z-2 shrink-0 bg-border",
+        "[[data-orientation=horizontal]_&]:self-stretch [[data-orientation=horizontal]_&]:w-px",
+        "[[data-orientation=vertical]_&]:h-px [[data-orientation=vertical]_&]:w-full",
+        "[[data-orientation=horizontal]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px",
+        "[[data-orientation=horizontal]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px",
+        "[[data-orientation=vertical]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px",
+        "[[data-orientation=vertical]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
@@ -47,12 +63,11 @@ function GroupText({
   className,
   render,
   ...props
-}: useRender.ComponentProps<"div">) {
+}: useRender.ComponentProps<"div">): React.ReactElement {
   const defaultProps = {
     "data-slot": "group-text",
     className: cn(
-      "bg-secondary flex items-center gap-2 rounded-md border px-4 text-sm font-medium shadow-xs",
-      "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4",
+      "relative inline-flex self-stretch items-center gap-2 whitespace-nowrap rounded-md border bg-secondary px-[calc(--spacing(3)-1px)] text-sm text-muted-foreground",
       className
     ),
   };
@@ -64,27 +79,9 @@ function GroupText({
   });
 }
 
-function GroupSeparator({
-  className,
-  orientation = "vertical",
-  ...props
-}: React.ComponentProps<typeof Separator>) {
-  return (
-    <Separator
-      data-slot="group-separator"
-      orientation={orientation}
-      className={cn(
-        "bg-border relative m-0! self-stretch data-[orientation=vertical]:h-auto",
-        className
-      )}
-      {...props}
-    />
-  );
-}
-
 const GroupExports = Object.assign(GroupRoot, {
-  Text: GroupText,
   Separator: GroupSeparator,
+  Text: GroupText,
 });
 
-export { GroupExports as Group, GroupSeparator, GroupText };
+export { GroupExports as Group, GroupSeparator };

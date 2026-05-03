@@ -164,7 +164,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
       <Group.Separator />
       <Menu>
         <Menu.Trigger
-          className="data-popup-open:bg-accent/70 !rounded-r-md"
+          className="data-popup-open:bg-accent/70"
           render={<Button size="icon-sm" variant="secondary" />}
         >
           <ChevronDown />
