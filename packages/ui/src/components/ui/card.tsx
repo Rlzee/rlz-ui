@@ -6,17 +6,23 @@ import { cn } from "@rlz/ui/lib/cn";
 
 function CardFrame({
   className,
+  variant = "primary",
   render,
   ...props
-}: useRender.ComponentProps<"div">): React.ReactElement {
+}: useRender.ComponentProps<"div"> & {
+  variant?: "primary" | "secondary";
+}) {
   const defaultProps = {
+    "data-slot": "card-frame",
+    "data-variant": variant,
     className: cn(
-      "relative flex flex-col rounded-xl bg-popover text-card-foreground shadow-md border border-border/15",
-      "*:data-[slot=card]:bg-background *:data-[slot=card]:-m-px *:not-first:data-[slot=card]:rounded-t-lg *:not-last:data-[slot=card]:rounded-b-lg *:data-[slot=card]:shadow-none",
+      "relative flex flex-col rounded-lg text-card-foreground shadow-md border",
+      "data-[variant=primary]:bg-card data-[variant=primary]:*:data-[slot=card]:bg-background data-[variant=primary]:border-border/32",
+      "data-[variant=secondary]:bg-background data-[variant=secondary]:*:data-[slot=card]:bg-card data-[variant=secondary]:border-border/50",
+      " *:data-[slot=card]:-m-px *:not-first:data-[slot=card]:rounded-t-md *:not-last:data-[slot=card]:rounded-b-md *:data-[slot=card]:shadow-none",
       "[--clip-bottom:-1rem] [--clip-top:-1rem]",
       className
     ),
-    "data-slot": "card-frame",
   };
 
   return useRender({
@@ -68,7 +74,7 @@ function Card({
   const defaultProps = {
     "data-slot": "card",
     className: cn(
-      "bg-card flex flex-col gap-6 rounded-xl border py-4 shadow-md",
+      "bg-card flex flex-col gap-6 rounded-lg border py-4 shadow-md",
       className
     ),
   };

@@ -1,0 +1,172 @@
+---
+title: Card
+description: Container for grouping related content with a header, body, and footer.
+---
+
+<ComponentPreview name="card" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add card
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="card" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Card } from "@/components/ui/card";
+```
+
+```tsx
+<Card>
+  <Card.Header>
+    <Card.Title>Title</Card.Title>
+    <Card.Description>This is a description</Card.Description>
+  </Card.Header>
+  <Card.Body>Content</Card.Body>
+  <Card.Footer>This is a footer</Card.Footer>
+</Card>
+```
+
+With Frame
+
+```tsx
+import { CardFrame, Card } from "@/components/ui/card";
+```
+
+```tsx
+<CardFrame>
+  <CardFrame.Header>
+    <Card.Title>Title Frame</Card.Title>
+    <Card.Description>This is a description Frame</Card.Description>
+  </CardFrame.Header>
+  <Card>
+    <Card.Header>
+      <Card.Title>Title</Card.Title>
+      <Card.Description>This is a description</Card.Description>
+    </Card.Header>
+    <Card.Body>Content</Card.Body>
+    <Card.Footer>This is a footer</Card.Footer>
+  </Card>
+  <CardFrame.Footer>This is a footer Frame</CardFrame.Footer>
+</CardFrame>
+```
+
+## API Reference
+
+This is a custom component, not a Base UI wrapper.
+
+### Card Frame
+
+Root container for the framed `<Card>` layout.
+
+| Prop      | Type                       | Default     |
+| --------- | -------------------------- | ----------- |
+| `variant` | `"primary" \| "secondary"` | `"primary"` |
+| `render`  | `React.ReactElement`       | -           |
+
+### Card Frame Header
+
+Header section for the card frame. Supports the `render` prop.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card (Root)
+
+Container for grouping related content with a `<Card.Header>`, `<Card.Body>`, and `<Card.Footer>`.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Header
+
+Header section for the card. Supports the `render` prop.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Title
+
+Title text for the `<Card.Header>`. Renders as a styled `<h3>`.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Description
+
+Description text for the `<Card.Header>`. Renders as a styled `<p>`.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Body
+
+Body section for the card. Supports the `render` prop.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Footer
+
+Footer section for the card. Supports the `render` prop.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+### Card Frame Footer
+
+Footer section for the frame.
+
+| Prop     | Type                 | Default |
+| -------- | -------------------- | ------- |
+| `render` | `React.ReactElement` | -       |
+
+## Examples
+
+### Card Frame
+
+Use `<Card.Frame>` to create a card with a frame.
+
+<ComponentPreview name="card-frame" />

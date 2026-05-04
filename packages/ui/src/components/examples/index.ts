@@ -39,4 +39,7 @@ export const demoPaths: Record<string, string> = {
   "button-variants": "button/variant",
   "button-spinner": "button/spinner",
   "button-group": "button/button-group",
+  // Card
+  card: "card/default",
+  "card-frame": "card/frame",
 };

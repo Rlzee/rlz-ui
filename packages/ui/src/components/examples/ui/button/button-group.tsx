@@ -1,7 +1,6 @@
 import { Button } from "@rlz/ui/components/ui/button";
 import { Group } from "@rlz/ui/components/ui/group";
 import { Plus, Minus } from "lucide-react";
-import { Input } from "@rlz/ui/components/ui/input";
 
 export default function Example() {
   return (
