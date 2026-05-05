@@ -1,0 +1,112 @@
+---
+title: Checkbox
+description: Display collapsible content sections, where each item can be opened or closed to reveal or hide its content.
+links:
+  doc: https://base-ui.com/react/components/checkbox | https://base-ui.com/react/components/checkbox-group
+  api: https://base-ui.com/react/components/checkbox/#api-reference | https://base-ui.com/react/components/checkbox-group/#api-reference
+---
+
+<ComponentPreview name="checkbox" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add checkbox
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="checkbox" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Checkbox } from "@/components/ui/checkbox";
+```
+
+```tsx
+<Checkbox />
+```
+
+Or
+
+```tsx
+<Checkbox.Root>
+  <Checkbox.Indicator>
+    <Checkbox.Icon />
+  </Checkbox.Indicator>
+</Checkbox.Root>
+```
+
+## API Reference
+
+### Checkbox
+
+| Prop                | Type                                                 | Default   |
+| ------------------- | ---------------------------------------------------- | --------- |
+| `icon`              | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `"Check"` |
+| `indeterminateIcon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `"Minus"` |
+
+### Checkbox Icon
+
+| Prop   | Type                                                 | Default   |
+| ------ | ---------------------------------------------------- | --------- |
+| `icon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `"Check"` |
+
+See the [Base UI](https://base-ui.com/react/components/checkbox#api-reference) documentation for more information.
+
+For checkbox group, see the [CheckboxGroup](https://base-ui.com/react/components/checkbox-group#api-reference) in Base UI documentation.
+
+## Examples
+
+### Disabled
+
+Use the `disabled` prop on `<Checkbox>` to disable it.
+
+<ComponentPreview name="checkbox-disabled" />
+
+### Card
+
+<ComponentPreview name="checkbox-card" />
+
+### Group
+
+<ComponentPreview name="checkbox-group" />
+
+### Parent
+
+<ComponentPreview name="checkbox-parent" />
+
+### Nested
+
+<ComponentPreview name="checkbox-nested" />
