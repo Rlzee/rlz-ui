@@ -41,5 +41,4 @@ export const demoPaths: Record<string, string> = {
   "button-group": "button/button-group",
   // Card
   card: "card/default",
-  "card-frame": "card/frame",
 };

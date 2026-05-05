@@ -4,68 +4,6 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { cn } from "@rlz/ui/lib/cn";
 
-function CardFrame({
-  className,
-  variant = "primary",
-  render,
-  ...props
-}: useRender.ComponentProps<"div"> & {
-  variant?: "primary" | "secondary";
-}) {
-  const defaultProps = {
-    "data-slot": "card-frame",
-    "data-variant": variant,
-    className: cn(
-      "relative flex flex-col rounded-lg text-card-foreground shadow-md border",
-      "data-[variant=primary]:bg-card data-[variant=primary]:*:data-[slot=card]:bg-background data-[variant=primary]:border-border/32",
-      "data-[variant=secondary]:bg-background data-[variant=secondary]:*:data-[slot=card]:bg-card data-[variant=secondary]:border-border/50",
-      " *:data-[slot=card]:-m-px *:not-first:data-[slot=card]:rounded-t-md *:not-last:data-[slot=card]:rounded-b-md *:data-[slot=card]:shadow-none",
-      "[--clip-bottom:-1rem] [--clip-top:-1rem]",
-      className
-    ),
-  };
-
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps<"div">(defaultProps, props),
-    render,
-  });
-}
-
-function CardFrameHeader({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
-  const defaultProps = {
-    "data-slot": "card-frame-header",
-    className: cn("px-6 flex flex-col gap-0.5 py-4", className),
-  };
-
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps(defaultProps, props),
-    render,
-  });
-}
-
-function CardFrameFooter({
-  className,
-  render,
-  ...props
-}: useRender.ComponentProps<"div">) {
-  const defaultProps = {
-    "data-slot": "card-frame-footer",
-    className: cn("flex items-center px-6 py-2", className),
-  };
-
-  return useRender({
-    defaultTagName: "div",
-    props: mergeProps(defaultProps, props),
-    render,
-  });
-}
-
 function Card({
   className,
   render,
@@ -182,21 +120,8 @@ const CardExports = Object.assign(Card, {
   Footer: CardFooter,
 });
 
-const CardFrameExports = Object.assign(CardFrame, {
-  Frame: CardFrame,
-  Header: CardFrameHeader,
-  Footer: CardFrameFooter,
-  Title: CardTitle,
-  Description: CardDescription,
-});
-
 export {
   CardExports as Card,
-  CardFrameExports as CardFrame,
-  CardFrameHeader,
-  CardFrameFooter,
-  CardTitle as CardFrameTitle,
-  CardDescription as CardFrameDescription,
   CardHeader,
   CardTitle,
   CardDescription,

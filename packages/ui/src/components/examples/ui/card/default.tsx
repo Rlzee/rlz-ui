@@ -1,29 +1,20 @@
 import { Card } from "@rlz/ui/components/ui/card";
-import { Avatar } from "@rlz/ui/components/ui/avatar";
-import { Button } from "@rlz/ui/components/ui/button";
+import { Meter } from "@rlz/ui/components/ui/meter";
 
 export default function Example() {
   return (
     <Card className="w-full max-w-xs">
       <Card.Header>
-        <Avatar
-          src="https://randomuser.me/api/portraits/women/15.jpg"
-          alt="Alice Martin"
-          fallback="AM"
-          className="mb-2"
-        />
-        <Card.Title>Alice Martin</Card.Title>
-        <Card.Description>Product Designer</Card.Description>
+        <Card.Title>Storage usage</Card.Title>
+        <Card.Description>Your current plan includes 10 GB.</Card.Description>
       </Card.Header>
       <Card.Body>
-        <p className="text-sm text-muted-foreground">
-          Focused on design systems and component-driven interfaces.
-        </p>
+        <Meter label="Used space" value={72} min={0} max={100} />
       </Card.Body>
       <Card.Footer>
-        <Button variant="outline" size="sm">
-          View profile
-        </Button>
+        <span className="text-xs text-muted-foreground">
+          Resets on June 1st
+        </span>
       </Card.Footer>
     </Card>
   );
