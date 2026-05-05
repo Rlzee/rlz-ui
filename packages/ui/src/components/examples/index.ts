@@ -48,4 +48,6 @@ export const demoPaths: Record<string, string> = {
   "checkbox-group": "checkbox/group",
   "checkbox-parent": "checkbox/parent",
   "checkbox-nested": "checkbox/nested-parent",
+  // Collapsible
+  collapsible: "collapsible/default",
 };
