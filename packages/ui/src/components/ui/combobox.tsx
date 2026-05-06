@@ -12,7 +12,7 @@ import { type ButtonProps, buttonVariants } from "@rlz/ui/components/ui/button";
 import { Check, ChevronDown, X } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
-const ComboboxContext = React.createContext<{
+export const ComboboxContext = React.createContext<{
   chipsRef: React.RefObject<Element | null> | null;
   multiple: boolean;
 }>({
@@ -20,30 +20,19 @@ const ComboboxContext = React.createContext<{
   multiple: false,
 });
 
-type ComboboxRootProps<
-  ItemValue,
-  Multiple extends boolean | undefined
-> = Parameters<typeof ComboboxPrimitive.Root<ItemValue, Multiple>>[0];
-
-function ComboboxRoot<ItemValue, Multiple extends boolean | undefined = false>(
-  props: ComboboxPrimitive.Root.Props<ItemValue, Multiple>
-) {
+function ComboboxRoot<Value, Multiple extends boolean | undefined = false>(
+  props: ComboboxPrimitive.Root.Props<Value, Multiple>
+): React.ReactElement {
   const chipsRef = React.useRef<Element | null>(null);
-
   return (
     <ComboboxContext.Provider value={{ chipsRef, multiple: !!props.multiple }}>
-      <ComboboxPrimitive.Root
-        {...(props as ComboboxRootProps<ItemValue, Multiple>)}
-      />
+      <ComboboxPrimitive.Root {...props} />
     </ComboboxContext.Provider>
   );
 }
 
 type ComboboxTriggerProps = ComboboxPrimitive.Trigger.Props & {
-  size?: Omit<
-    ButtonProps["size"],
-    "icon-xs" | "icon-sm" | "icon-md" | "icon-lg" | "icon-xl"
-  >;
+  size?: Exclude<ButtonProps["size"], `icon-${string}`>;
 };
 
 function ComboboxTrigger({
@@ -55,10 +44,10 @@ function ComboboxTrigger({
     <ComboboxPrimitive.Trigger
       data-slot="combobox-trigger"
       className={cn(
-        buttonVariants({ size } as ComboboxTriggerProps["size"]),
+        buttonVariants({ size: size as ButtonProps["size"] }),
         "group border bg-secondary min-w-0 rounded-md text-foreground flex items-center justify-between gap-3 text-sm px-3",
         "data-popup-open:bg-accent data-popup-open:text-muted-foreground hover:bg-accent",
-        "outline-none state-focus-ring",
+        "outline-none state-focus-ring has-disabled:hover:bg-transparent",
         className
       )}
       {...props}
@@ -117,7 +106,7 @@ function ComboboxIcon({
     <ComboboxPrimitive.Icon
       data-slot="combobox-icon"
       className={cn(
-        "flex text-muted-foreground group-hover:text-foreground hover:text-foreground",
+        "flex text-muted-foreground group-hover:text-foreground",
         className
       )}
       {...props}
@@ -127,11 +116,28 @@ function ComboboxIcon({
   );
 }
 
+function ComboboxInputGroup({
+  className,
+  ...props
+}: ComboboxPrimitive.InputGroup.Props) {
+  return (
+    <ComboboxPrimitive.InputGroup
+      data-slot="combobox-input-group"
+      className={cn(
+        "relative [&>input]:pr-10 has-[data-slot=combobox-clear]:[&>input]:pr-16",
+        "has-disabled:opacity-50",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 function ComboboxField({
   variant = "default",
   placeholder,
-  clearable,
-  icon,
+  clearable = false,
+  icon = ChevronDown,
   className,
 }: {
   placeholder?: string;
@@ -141,13 +147,7 @@ function ComboboxField({
   variant?: InputProps["variant"];
 }) {
   return (
-    <div
-      data-slot="combobox-field"
-      className={cn(
-        "relative [&>input]:pr-10 has-[data-slot=combobox-clear]:[&>input]:pr-16",
-        className
-      )}
-    >
+    <ComboboxInputGroup className={className}>
       <ComboboxInput
         variant={variant}
         className="focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring"
@@ -160,7 +160,7 @@ function ComboboxField({
         </ComboboxPrimitive.Trigger>
         {clearable && <ComboboxClear />}
       </div>
-    </div>
+    </ComboboxInputGroup>
   );
 }
 
@@ -298,7 +298,7 @@ function ComboboxItem({ className, ...props }: ComboboxPrimitive.Item.Props) {
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none",
+        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2.5 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
         "group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4",
         "hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70",

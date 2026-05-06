@@ -50,4 +50,7 @@ export const demoPaths: Record<string, string> = {
   "checkbox-nested": "checkbox/nested-parent",
   // Collapsible
   collapsible: "collapsible/default",
+  // Combobox
+  combobox: "combobox/default",
+  "combobox-disabled": "combobox/disabled",
 };

@@ -1,0 +1,180 @@
+---
+title: Combobox
+description: Input that suggests options from a list as the user types.
+links:
+  doc: https://base-ui.com/react/components/combobox
+  api: https://base-ui.com/react/components/combobox#api-reference
+---
+
+<ComponentPreview name="combobox" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add combobox
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="combobox" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Combobox } from "@/components/ui/combobox";
+```
+
+```tsx
+const langs = [
+  { id: "js", value: "JavaScript" },
+  { id: "ts", value: "TypeScript" },
+  { id: "py", value: "Python" },
+  { id: "java", value: "Java" },
+  { id: "cpp", value: "C++" },
+  { id: "cs", value: "C#" },
+  { id: "php", value: "PHP" },
+  { id: "ruby", value: "Ruby" },
+  { id: "go", value: "Go" },
+  { id: "rust", value: "Rust" },
+  { id: "swift", value: "Swift" },
+];
+```
+
+### Single Selection
+
+```tsx
+<Combobox items={langs}>
+  <Combobox.Field placeholder="Select a language" />
+  <Combobox.Popup>
+    <Combobox.Empty>No language found.</Combobox.Empty>
+    <Combobox.List>
+      {(item) => (
+        <Combobox.Item key={item.id} value={item.value}>
+          {item.value}
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Popup>
+</Combobox>
+```
+
+### Multiple Selection
+
+```tsx
+<Combobox items={langs} multiple>
+  <Combobox.Chips>
+    <Combobox.Value>
+      {(value: ProgrammingLanguage[]) => (
+        <React.Fragment>
+          {value.map((lang) => (
+            <Combobox.Chip key={lang.id} aria-label={lang.value}>
+              {lang.value}
+              <Combobox.ChipRemove aria-label="Remove" />
+            </Combobox.Chip>
+          ))}
+          <Combobox.Input
+            id={id}
+            placeholder={value.length > 0 ? "" : "e.g. TypeScript"}
+          />
+        </React.Fragment>
+      )}
+    </Combobox.Value>
+  </Combobox.Chips>
+
+  <Combobox.Popup>
+    <Combobox.Empty>No languages found.</Combobox.Empty>
+    <Combobox.List>
+      {(language: ProgrammingLanguage) => (
+        <Combobox.Item key={language.id} value={language}>
+          <Combobox.ItemIndicator />
+          <Combobox.ItemText>{language.value}</Combobox.ItemText>
+        </Combobox.Item>
+      )}
+    </Combobox.List>
+  </Combobox.Popup>
+</Combobox>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/combobox/#api-reference) counterpart.
+Only added or modified props are listed here.
+
+### Combobox Field
+
+| Prop          | Type                                                 | Default       |
+| ------------- | ---------------------------------------------------- | ------------- |
+| `variant`     | `"default" \| "background" \| "accent"`              | `"default"`   |
+| `placeholder` | `string`                                             | -             |
+| `clearable`   | `boolean`                                            | `false`       |
+| `icon`        | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
+
+### Combobox Trigger
+
+| Prop   | Type                                   | Default |
+| ------ | -------------------------------------- | ------- |
+| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"`  |
+
+### Combobox Input
+
+| Prop      | Type                                    | Default     |
+| --------- | --------------------------------------- | ----------- |
+| `variant` | `"default" \| "background" \| "accent"` | `"default"` |
+
+### Combobox Icon
+
+| Prop   | Type                                                 | Default       |
+| ------ | ---------------------------------------------------- | ------------- |
+| `icon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
+
+### Combobox Popup
+
+| Prop              | Type                                              | Default             |
+| ----------------- | ------------------------------------------------- | ------------------- |
+| `backdrop`        | `boolean`                                         | -                   |
+| `backdropProps`   | `React.ComponentProps<typeof ComboboxBackdrop>`   | -                   |
+| `positionerProps` | `React.ComponentProps<typeof ComboboxPositioner>` | `{ sideOffset: 4 }` |
+
+### Combobox Item Text
+
+Text for the `<Combobox.Item>`. Renders as a styled `<span>`.
+
+See the [Base UI](https://base-ui.com/react/components/combobox/#api-reference) documentation for more information.
+
+## Examples
+
+### Disabled
+
+Use `disabled` prop in `<Combobox>` to disable the combobox.
+
+<ComponentPreview name="combobox-disabled" />
