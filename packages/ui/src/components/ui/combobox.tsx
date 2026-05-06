@@ -384,6 +384,10 @@ function ComboboxCollection(props: ComboboxPrimitive.Collection.Props) {
   );
 }
 
+function ComboboxRow(props: ComboboxPrimitive.Row.Props) {
+  return <ComboboxPrimitive.Row data-slot="combobox-row" {...props} />;
+}
+
 function ComboboxChips({
   className,
   ...props
@@ -447,7 +451,7 @@ function ComboboxChipRemove({
   );
 }
 
-export const ComboboxFilter = ComboboxPrimitive.useFilter;
+export const useComboboxFilter = ComboboxPrimitive.useFilter;
 
 const ComboboxExports = Object.assign(ComboboxRoot, {
   Value: ComboboxValue,
@@ -468,6 +472,7 @@ const ComboboxExports = Object.assign(ComboboxRoot, {
   Group: ComboboxGroup,
   GroupLabel: ComboboxGroupLabel,
   Collection: ComboboxCollection,
+  Row: ComboboxRow,
   Chips: ComboboxChips,
   Chip: ComboboxChip,
   ChipRemove: ComboboxChipRemove,
@@ -485,6 +490,7 @@ export {
   ComboboxGroup,
   ComboboxGroupLabel,
   ComboboxCollection,
+  ComboboxRow,
   ComboboxIndicator,
   ComboboxValue,
   ComboboxClear,
