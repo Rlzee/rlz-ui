@@ -22,6 +22,7 @@ export const demoPaths: Record<string, string> = {
   "autocomplete-auto-highlight": "autocomplete/auto-highlight",
   "autocomplete-group": "autocomplete/group",
   "autocomplete-clear": "autocomplete/clear",
+  "autocomplete-input-group": "autocomplete/input-group",
   // Avatar
   avatar: "avatar/default",
   "avatar-size": "avatar/size",

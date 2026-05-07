@@ -25,8 +25,7 @@ export default function Example() {
       </Combobox.Trigger>
       <Combobox.Popup>
         <Combobox.Input placeholder="Select fruit" />
-        <Combobox.Separator className="-mx-2" />
-        <Combobox.Empty>No fruits found.</Combobox.Empty>
+        <Combobox.Empty className="pt-2">No fruits found.</Combobox.Empty>
         <Combobox.List>
           {(item) => (
             <Combobox.Item key={item.id} value={item.value}>

@@ -76,10 +76,12 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
 
 function ComboboxInput({
   variant = "default",
+  focus = false,
   className,
   ...props
 }: ComboboxPrimitive.Input.Props & {
   variant?: InputProps["variant"];
+  focus?: boolean;
 }) {
   return (
     <ComboboxPrimitive.Input
@@ -88,6 +90,9 @@ function ComboboxInput({
       className={cn(
         "data-[variant=default]:bg-input data-[variant=background]:bg-background data-[variant=accent]:bg-accent",
         "border h-9 outline-none w-full px-3 text-sm placeholder:text-muted-foreground rounded-md",
+
+        focus &&
+          "focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
         className
       )}
       {...props}
@@ -148,11 +153,7 @@ function ComboboxField({
 }) {
   return (
     <ComboboxInputGroup className={className}>
-      <ComboboxInput
-        variant={variant}
-        className="focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring"
-        placeholder={placeholder}
-      />
+      <ComboboxInput variant={variant} placeholder={placeholder} />
 
       <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
         <ComboboxPrimitive.Trigger className="group has-[+[data-slot=combobox-clear]]:hidden">
@@ -191,6 +192,7 @@ function ComboboxPositioner({
 }
 
 function ComboboxPopup({
+  children,
   backdrop,
   backdropProps,
   positionerProps,
@@ -206,6 +208,7 @@ function ComboboxPopup({
   const {
     sideOffset = 4,
     className: positionerClassName,
+    anchor: positionerAnchor,
     ...restPositionerProps
   } = positionerProps ?? {};
 
@@ -219,7 +222,7 @@ function ComboboxPopup({
       )}
       <ComboboxPositioner
         {...restPositionerProps}
-        anchor={chipsRef}
+        anchor={chipsRef ?? positionerAnchor}
         sideOffset={sideOffset}
         className={positionerClassName}
       >
@@ -232,7 +235,9 @@ function ComboboxPopup({
             className
           )}
           {...props}
-        ></ComboboxPrimitive.Popup>
+        >
+          {children}
+        </ComboboxPrimitive.Popup>
       </ComboboxPositioner>
     </ComboboxPrimitive.Portal>
   );
