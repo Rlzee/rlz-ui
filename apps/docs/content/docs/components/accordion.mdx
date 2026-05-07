@@ -55,9 +55,12 @@ import { Accordion } from "@/components/ui/accordion";
 ```
 
 ```tsx
-<Accordion multiple>
+<Accordion>
   <Accordion.Item>
-    <Accordion.Trigger>Accordion Item 1</Accordion.Trigger>
+    <Accordion.Trigger>
+      Accordion Item 1
+      <Accordion.Icon />
+    </Accordion.Trigger>
     <Accordion.Panel>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, minima.
       Mollitia expedita, doloribus dolores quae officia esse asperiores odio
@@ -66,7 +69,10 @@ import { Accordion } from "@/components/ui/accordion";
     </Accordion.Panel>
   </Accordion.Item>
   <Accordion.Item>
-    <Accordion.Trigger>Accordion Item 2</Accordion.Trigger>
+    <Accordion.Trigger>
+      Accordion Item 2
+      <Accordion.Icon />
+    </Accordion.Trigger>
     <Accordion.Panel>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo placeat
       quibusdam porro voluptates, suscipit neque quisquam fugit dolore quasi.

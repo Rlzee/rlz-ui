@@ -53,4 +53,10 @@ export const demoPaths: Record<string, string> = {
   // Combobox
   combobox: "combobox/default",
   "combobox-disabled": "combobox/disabled",
+  "combobox-autohighlight": "combobox/autohighlight",
+  "combobox-clear": "combobox/clear",
+  "combobox-group": "combobox/group",
+  "combobox-trigger": "combobox/trigger",
+  "combobox-multiple": "combobox/multiple",
+  "combobox-indicator": "combobox/indicator",
 };
