@@ -190,7 +190,7 @@ function ComboboxPopup({
       )}
       <ComboboxPositioner
         {...restPositionerProps}
-        anchor={chipsRef ?? positionerAnchor}
+        anchor={chipsRef?.current != null ? chipsRef : positionerAnchor}
         sideOffset={sideOffset}
         className={positionerClassName}
       >

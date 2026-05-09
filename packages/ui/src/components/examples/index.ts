@@ -60,6 +60,7 @@ export const demoPaths: Record<string, string> = {
   "combobox-trigger": "combobox/trigger",
   "combobox-multiple": "combobox/multiple",
   "combobox-indicator": "combobox/indicator",
+  "combobox-input-group": "combobox/input-group",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
