@@ -102,9 +102,8 @@ const langs = [
               <Combobox.ChipRemove aria-label="Remove" />
             </Combobox.Chip>
           ))}
-          <Combobox.Input
-            id={id}
-            placeholder={value.length > 0 ? "" : "e.g. TypeScript"}
+          <Combobox.ChipsInput
+            placeholder={value.length > 0 ? undefined : "Select a language..."}
           />
         </React.Fragment>
       )}
@@ -132,24 +131,19 @@ Only additions and modifications are listed here.
 
 ### Combobox Field
 
-| Prop          | Type                                                 | Default       |
-| ------------- | ---------------------------------------------------- | ------------- |
-| `variant`     | `"default" \| "background" \| "accent"`              | `"default"`   |
-| `placeholder` | `string`                                             | -             |
-| `clearable`   | `boolean`                                            | `false`       |
-| `icon`        | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
+Extends `<Combobox.Input>` props.
 
-### Combobox Trigger
-
-| Prop   | Type                                   | Default |
-| ------ | -------------------------------------- | ------- |
-| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"`  |
+| Prop        | Type                                                 | Default       |
+| ----------- | ---------------------------------------------------- | ------------- |
+| `clearable` | `boolean`                                            | `false`       |
+| `icon`      | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
 
 ### Combobox Input
 
-| Prop      | Type                                    | Default     |
-| --------- | --------------------------------------- | ----------- |
-| `variant` | `"default" \| "background" \| "accent"` | `"default"` |
+| Prop       | Type                                    | Default     |
+| ---------- | --------------------------------------- | ----------- |
+| `variant`  | `"default" \| "background" \| "accent"` | `"default"` |
+| `unstyled` | `boolean`                               | `false`     |
 
 ### Combobox Icon
 
@@ -157,13 +151,19 @@ Only additions and modifications are listed here.
 | ------ | ---------------------------------------------------- | ------------- |
 | `icon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
 
+### Combobox Chips Input
+
+| Prop      | Type                                    | Default     |
+| --------- | --------------------------------------- | ----------- |
+| `variant` | `"default" \| "background" \| "accent"` | `"default"` |
+
 ### Combobox Popup
 
 | Prop              | Type                                              | Default             |
 | ----------------- | ------------------------------------------------- | ------------------- |
 | `backdrop`        | `boolean`                                         | -                   |
 | `backdropProps`   | `React.ComponentProps<typeof ComboboxBackdrop>`   | -                   |
-| `positionerProps` | `React.ComponentProps<typeof ComboboxPositioner>` | `{ sideOffset: 4 }` |
+| `positionerProps` | `React.ComponentProps<typeof ComboboxPositioner>` | `{ sideOffset: 6 }` |
 
 ### Combobox Item Text
 

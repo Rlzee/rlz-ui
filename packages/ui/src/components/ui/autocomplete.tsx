@@ -292,7 +292,7 @@ function AutocompleteGroupLabel({
     <AutocompletePrimitive.GroupLabel
       data-slot="autocomplete-group-label"
       className={cn(
-        "px-2.5 py-1.5 text-sm font-medium text-muted-foreground",
+        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground",
         className
       )}
       {...props}

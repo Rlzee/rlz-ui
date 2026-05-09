@@ -1,6 +1,7 @@
 "use client";
 
 import { Combobox } from "@rlz/ui/components/ui/combobox";
+import { Button } from "@rlz/ui/components/ui/button";
 
 const langs = [
   { id: "js", value: "JavaScript" },
@@ -19,14 +20,22 @@ const langs = [
 export default function Example() {
   return (
     <Combobox items={langs} defaultValue={langs[0]}>
-      <Combobox.Trigger className="w-60">
+      <Combobox.Trigger
+        className="w-60"
+        render={
+          <Button
+            variant="outline"
+            className="justify-between data-popup-open:bg-accent"
+          />
+        }
+      >
         <Combobox.Value />
         <Combobox.Icon />
       </Combobox.Trigger>
       <Combobox.Popup>
         <Combobox.Input placeholder="Select fruit" />
         <Combobox.Empty className="pt-2">No fruits found.</Combobox.Empty>
-        <Combobox.List>
+        <Combobox.List className="pt-2">
           {(item) => (
             <Combobox.Item key={item.id} value={item.value}>
               {item.value}

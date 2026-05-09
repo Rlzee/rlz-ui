@@ -27,7 +27,7 @@ export default function Example() {
 
   return (
     <Combobox items={langs} multiple>
-      <Combobox.Chips>
+      <Combobox.Chips className="w-60">
         <Combobox.Value>
           {(value: ProgrammingLanguage[]) => (
             <React.Fragment>
@@ -37,9 +37,10 @@ export default function Example() {
                   <Combobox.ChipRemove aria-label="Remove" />
                 </Combobox.Chip>
               ))}
-              <Combobox.Input
-                id={id}
-                placeholder={value.length > 0 ? "" : "e.g. TypeScript"}
+              <Combobox.ChipsInput
+                placeholder={
+                  value.length > 0 ? undefined : "Select a language..."
+                }
               />
             </React.Fragment>
           )}

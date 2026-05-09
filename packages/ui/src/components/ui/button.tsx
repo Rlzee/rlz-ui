@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 
 const defaultClass = cn(
-  "px-4 inline-flex items-center justify-center gap-2 whitespace-nowrap outline-none rounded-md font-medium transition-all",
+  "px-3 inline-flex items-center justify-center gap-2 whitespace-nowrap outline-none rounded-md font-medium transition-all",
   "disabled:pointer-events-none disabled:opacity-50",
   "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
   "state-focus-ring state-invalid"
@@ -30,10 +30,10 @@ const buttonVariants = cva(defaultClass, {
     },
     size: {
       xs: "h-7 px-2 has-[>svg]:px-1.5 text-xs",
-      sm: "h-8 px-3 has-[>svg]:px-2.5 text-sm",
+      sm: "h-8 has-[>svg]:px-2.5 text-sm",
       md: "h-9 has-[>svg]:px-3 text-sm",
-      lg: "h-10 has-[>svg]:px-4 text-base",
-      xl: "h-11 has-[>svg]:px-6 text-lg",
+      lg: "h-10 px-4 has-[>svg]:px-4 text-base",
+      xl: "h-11 px-4 has-[>svg]:px-6 text-lg",
 
       "icon-xs": "size-7 [&>svg:not([class*='size-'])]:size-3.5",
       "icon-sm": "size-8 [&>svg:not([class*='size-'])]:size-4",

@@ -3,7 +3,7 @@ import { Spinner } from "@rlz/ui/components/ui/spinner";
 
 export default function Example() {
   return (
-    <Button>
+    <Button disabled>
       <Spinner />
       Loading
     </Button>

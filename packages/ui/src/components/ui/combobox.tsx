@@ -3,12 +3,11 @@
 import * as React from "react";
 import { Combobox as ComboboxPrimitive } from "@base-ui/react/combobox";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
-import type { InputProps } from "@rlz/ui/components/ui/input";
+import { Input, type InputProps } from "@rlz/ui/components/ui/input";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
-import { type ButtonProps, buttonVariants } from "@rlz/ui/components/ui/button";
 import { Check, ChevronDown, X } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
@@ -31,28 +30,8 @@ function ComboboxRoot<Value, Multiple extends boolean | undefined = false>(
   );
 }
 
-type ComboboxTriggerProps = ComboboxPrimitive.Trigger.Props & {
-  size?: Exclude<ButtonProps["size"], `icon-${string}`>;
-};
-
-function ComboboxTrigger({
-  size = "md",
-  className,
-  ...props
-}: ComboboxTriggerProps) {
-  return (
-    <ComboboxPrimitive.Trigger
-      data-slot="combobox-trigger"
-      className={cn(
-        buttonVariants({ size: size as ButtonProps["size"] }),
-        "group border bg-secondary min-w-0 rounded-md text-foreground flex items-center justify-between gap-3 text-sm px-3",
-        "data-popup-open:bg-accent data-popup-open:text-muted-foreground hover:bg-accent",
-        "outline-none state-focus-ring has-disabled:hover:bg-transparent",
-        className
-      )}
-      {...props}
-    />
-  );
+function ComboboxTrigger(props: ComboboxPrimitive.Trigger.Props) {
+  return <ComboboxPrimitive.Trigger data-slot="combobox-trigger" {...props} />;
 }
 
 function ComboboxValue(props: ComboboxPrimitive.Value.Props) {
@@ -75,26 +54,28 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
 }
 
 function ComboboxInput({
-  variant = "default",
-  focus = false,
+  variant,
+  unstyled = false,
   className,
   ...props
 }: ComboboxPrimitive.Input.Props & {
   variant?: InputProps["variant"];
-  focus?: boolean;
+  unstyled?: InputProps["unstyled"];
+  clearable?: boolean;
+  ref?: React.Ref<HTMLInputElement>;
 }) {
   return (
     <ComboboxPrimitive.Input
       data-slot="combobox-input"
-      data-variant={variant}
-      className={cn(
-        "data-[variant=default]:bg-input data-[variant=background]:bg-background data-[variant=accent]:bg-accent",
-        "border h-9 outline-none w-full px-3 text-sm placeholder:text-muted-foreground rounded-md",
-
-        focus &&
-          "focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
-        className
-      )}
+      render={
+        <Input
+          nativeInput
+          variant={variant}
+          unstyled={unstyled}
+          className="w-full has-disabled:opacity-50"
+        />
+      }
+      className={cn("h-9", "data-popup-open:bg-secondary", className)}
       {...props}
     />
   );
@@ -121,10 +102,16 @@ function ComboboxIcon({
   );
 }
 
-function ComboboxInputGroup({
+function ComboboxField({
+  clearable = false,
+  icon = ChevronDown,
   className,
   ...props
-}: ComboboxPrimitive.InputGroup.Props) {
+}: React.ComponentProps<typeof ComboboxInput> & {
+  clearable?: boolean;
+  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  className?: string;
+}) {
   return (
     <ComboboxPrimitive.InputGroup
       data-slot="combobox-input-group"
@@ -133,27 +120,8 @@ function ComboboxInputGroup({
         "has-disabled:opacity-50",
         className
       )}
-      {...props}
-    />
-  );
-}
-
-function ComboboxField({
-  variant = "default",
-  placeholder,
-  clearable = false,
-  icon = ChevronDown,
-  className,
-}: {
-  placeholder?: string;
-  clearable?: boolean;
-  icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
-  className?: string;
-  variant?: InputProps["variant"];
-}) {
-  return (
-    <ComboboxInputGroup className={className}>
-      <ComboboxInput variant={variant} placeholder={placeholder} />
+    >
+      <ComboboxInput {...props} />
 
       <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
         <ComboboxPrimitive.Trigger className="group has-[+[data-slot=combobox-clear]]:hidden">
@@ -161,7 +129,7 @@ function ComboboxField({
         </ComboboxPrimitive.Trigger>
         {clearable && <ComboboxClear />}
       </div>
-    </ComboboxInputGroup>
+    </ComboboxPrimitive.InputGroup>
   );
 }
 
@@ -206,7 +174,7 @@ function ComboboxPopup({
   const { chipsRef } = React.useContext(ComboboxContext);
 
   const {
-    sideOffset = 4,
+    sideOffset = 6,
     className: positionerClassName,
     anchor: positionerAnchor,
     ...restPositionerProps
@@ -231,7 +199,7 @@ function ComboboxPopup({
           className={cn(
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            "has-data-[slot=combobox-input]:p-2 [&_input]:mb-2",
+            "has-data-[slot=combobox-input]:p-2",
             className
           )}
           {...props}
@@ -375,7 +343,7 @@ function ComboboxGroupLabel({
     <ComboboxPrimitive.GroupLabel
       data-slot="combobox-group-label"
       className={cn(
-        "px-2.5 py-1.5 text-sm font-medium text-muted-foreground",
+        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground",
         className
       )}
       {...props}
@@ -417,10 +385,10 @@ function ComboboxChips({
         }
       }}
       className={cn(
-        "flex flex-wrap items-center gap-0.5 rounded-md border w-64 bg-secondary text-foreground outline-none min-h-9",
-        "[&_input]:border-0 [&_input]:focus-within:ring-0 [&_input]:h-7 [&_input]:flex-1",
+        "relative inline-flex min-h-9 w-full flex-wrap gap-1 rounded-md border bg-input text-sm p-[calc(--spacing(1)-1px)] outline-none *:min-h-7",
         "focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
-        "has-data-[slot=combobox-chip]:px-1 has-data-[slot=combobox-chip]:py-0.5",
+        "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive",
+        "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
         className
       )}
       {...props}
@@ -433,7 +401,7 @@ function ComboboxChip({ className, ...props }: ComboboxPrimitive.Chip.Props) {
     <ComboboxPrimitive.Chip
       data-slot="combobox-chip"
       className={cn(
-        "flex items-center gap-1 rounded-md bg-accent px-1.5 py-[0.2rem] text-sm text-secondary-foreground outline-none cursor-default h-[calc(--spacing(5.25))]",
+        "flex items-center rounded-[calc(var(--radius-md)-1px)] bg-accent ps-2 font-medium text-accent-foreground text-sm outline-none [&_svg]:size-4",
         className
       )}
       {...props}
@@ -448,11 +416,34 @@ function ComboboxChipRemove({
   return (
     <ComboboxPrimitive.ChipRemove
       data-slot="combobox-chip-remove"
-      className={cn("cursor-pointer", className)}
+      className={cn(
+        "h-full shrink-0 cursor-pointer px-1 text-muted-foreground",
+        className
+      )}
       {...props}
     >
-      <X className="h-4 w-4" />
+      <X />
     </ComboboxPrimitive.ChipRemove>
+  );
+}
+
+function ComboboxChipsInput({
+  variant = "default",
+  className,
+  ...props
+}: ComboboxPrimitive.Input.Props & {
+  variant?: InputProps["variant"];
+  ref?: React.Ref<HTMLInputElement>;
+}) {
+  return (
+    <ComboboxPrimitive.Input
+      data-slot="combobox-chips-input"
+      className={cn(
+        "min-w-12 flex-1 ps-3 outline-none [[data-slot=combobox-chip]+&]:ps-0.5",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
@@ -479,6 +470,7 @@ const ComboboxExports = Object.assign(ComboboxRoot, {
   Collection: ComboboxCollection,
   Row: ComboboxRow,
   Chips: ComboboxChips,
+  ChipsInput: ComboboxChipsInput,
   Chip: ComboboxChip,
   ChipRemove: ComboboxChipRemove,
 });
