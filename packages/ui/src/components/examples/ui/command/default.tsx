@@ -46,7 +46,7 @@ export const groupedItems: Group[] = [
 export default function Example() {
   return (
     <Command items={groupedItems} className="w-120">
-      <InputGroup variant="accent">
+      <InputGroup variant="secondary">
         <InputGroup.Addon align="inline-start">
           <Search />
         </InputGroup.Addon>

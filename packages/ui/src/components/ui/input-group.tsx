@@ -7,7 +7,7 @@ import { Input, type InputProps } from "@rlz/ui/components/ui/input";
 import { Textarea, type TextareaProps } from "@rlz/ui/components/ui/textarea";
 
 function InputGroupRoot({
-  variant = "default",
+  variant = "primary",
   focusVisible = true,
   className,
   ...props
@@ -21,7 +21,7 @@ function InputGroupRoot({
       role="group"
       data-variant={variant}
       className={cn(
-        "data-[variant=default]:bg-input data-[variant=background]:bg-background data-[variant=accent]:bg-accent/60",
+        "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
         "group/input-group relative inline-flex w-full h-9 min-w-0 items-center rounded-md border not-dark:bg-clip-padding text-base md:text-sm shadow-xs transition-[color,box-shadow]",
         "has-[input:disabled,textarea:disabled]:cursor-not-allowed has-[input:disabled,textarea:disabled]:opacity-50",
 

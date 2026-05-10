@@ -127,7 +127,7 @@ function CommandRoot({
 }
 
 function CommandInput({
-  variant = "accent",
+  variant = "secondary",
   ...props
 }: React.ComponentProps<typeof Autocomplete.Input>) {
   return (

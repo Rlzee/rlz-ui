@@ -428,7 +428,7 @@ function ComboboxChipRemove({
 }
 
 function ComboboxChipsInput({
-  variant = "default",
+  variant = "primary",
   className,
   ...props
 }: ComboboxPrimitive.Input.Props & {

@@ -13,7 +13,7 @@ type CommandInputProps = {
 
 export function CommandInput({
   className,
-  placeholder = "Search docs...",
+  placeholder = "Search documentations...",
   shortcutKey = "⌘k",
   fullWidth = false,
 }: CommandInputProps) {

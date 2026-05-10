@@ -15,11 +15,11 @@ type InputProps = Omit<
 > & {
   unstyled?: boolean;
   nativeInput?: boolean;
-  variant?: "default" | "background" | "accent";
+  variant?: "primary" | "secondary";
 };
 
 function Input({
-  variant = "default",
+  variant = "primary",
   unstyled = false,
   nativeInput = false,
   className,
@@ -32,7 +32,7 @@ function Input({
       className={cn(
         "flex items-center",
         !unstyled && [
-          "data-[variant=default]:bg-input data-[variant=background]:bg-background data-[variant=accent]:bg-accent/60",
+          "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
           "text-base md:text-sm relative w-full rounded-md border not-dark:bg-clip-padding shadow-xs transition-[color,box-shadow]",
           "disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
