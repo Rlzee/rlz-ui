@@ -20,10 +20,9 @@ export function CommandInput({
   return (
     <Button
       data-slot="button-search"
-      variant="secondary"
       size="sm"
       className={cn(
-        "flex justify-between items-center gap-2 px-3 py-1.5 font-normal",
+        "flex justify-between items-center gap-2 px-3 py-1.5 font-normal bg-accent/60 border hover:bg-accent",
         fullWidth
           ? "w-full"
           : "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",

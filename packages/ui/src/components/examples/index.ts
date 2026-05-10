@@ -61,6 +61,8 @@ export const demoPaths: Record<string, string> = {
   "combobox-multiple": "combobox/multiple",
   "combobox-indicator": "combobox/indicator",
   "combobox-input-group": "combobox/input-group",
+  //Command
+  command: "command/default",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

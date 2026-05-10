@@ -1,13 +1,14 @@
 "use client";
 
 import * as React from "react";
+
 import { Dialog as CommandDialogPrimitive } from "@base-ui/react/dialog";
-import { Autocomplete } from "@rlz/ui/components/ui/autocomplete";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { Autocomplete } from "@rlz/ui/components/ui/autocomplete";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
 import { cn } from "@rlz/ui/lib/cn";
 
-const CommandCreateHandle = CommandDialogPrimitive.createHandle;
+export const CommandCreateHandle = CommandDialogPrimitive.createHandle;
 
 function CommandDialogRoot(props: CommandDialogPrimitive.Root.Props) {
   return <CommandDialogPrimitive.Root data-slot="command-dialog" {...props} />;
@@ -96,82 +97,43 @@ function CommandDialogPopup({
   );
 }
 
-type CommandVariant = "default" | "detached-top" | "bare" | "frame";
-const CommandVariantContext = React.createContext<CommandVariant>("default");
-const useCommandVariant = () => React.useContext(CommandVariantContext);
-
 function CommandRoot({
-  variant = "default",
+  children,
+  className,
   autoHighlight = "always",
   keepHighlight = true,
   ...props
 }: React.ComponentProps<typeof Autocomplete> & {
-  variant?: CommandVariant;
+  className?: string;
 }) {
   return (
-    <CommandVariantContext.Provider value={variant}>
+    <div
+      className={cn(
+        "flex size-full flex-col overflow-hidden rounded-lg bg-popover p-2 border",
+        className
+      )}
+    >
       <Autocomplete
         autoHighlight={autoHighlight}
         inline
         keepHighlight={keepHighlight}
         open
         {...props}
-      />
-    </CommandVariantContext.Provider>
+      >
+        {children}
+      </Autocomplete>
+    </div>
   );
 }
 
 function CommandInput({
-  className,
-  placeholder,
+  variant = "accent",
   ...props
 }: React.ComponentProps<typeof Autocomplete.Input>) {
-  const variant = useCommandVariant();
-
-  const variantClasses: Record<string, string | false> = {
-    default:
-      "rounded-b-none border-b-border/50 has-focus-visible:border-b-border/50",
-    frame: "!border-border/15 border-b-0 -mb-4 py-9.5 pt-6",
-    "detached-top": "border-b-border rounded-b-lg mb-2",
-    bare: false,
-  };
-
-  const inputClass = cn(
-    "h-11 md:text-base",
-    "has-focus-visible:has-aria-invalid:ring-0 dark:has-focus-visible:has-aria-invalid:ring-0 has-focus-visible:has-aria-invalid:border-border",
-    "has-focus-visible:ring-0 has-focus-visible:border-border",
-    variant !== "bare" && variantClasses.default,
-    variantClasses[variant],
-    className
-  );
-
-  const input = (
-    <Autocomplete.Input
-      className={inputClass}
-      placeholder={placeholder}
-      {...props}
-    />
-  );
-
-  if (variant === "bare") {
-    return (
-      <div className="border border-b-0 px-3 pt-2 bg-popover rounded-t-lg">
-        {input}
-      </div>
-    );
-  }
-
-  return input;
-}
-
-function CommandList({
-  className,
-  ...props
-}: React.ComponentProps<typeof Autocomplete.List>) {
   return (
-    <Autocomplete.List
-      className={cn("not-empty:scroll-py-2 not-empty:p-2", className)}
-      data-slot="command-list"
+    <Autocomplete.Input
+      variant={variant}
+      data-slot="command-input"
       {...props}
     />
   );
@@ -190,47 +152,27 @@ function CommandEmpty({
   );
 }
 
-function CommandBody({ className, ...props }: React.ComponentProps<"div">) {
-  const variant = useCommandVariant();
-
+function CommandList({
+  className,
+  ...props
+}: React.ComponentProps<typeof Autocomplete.List>) {
   return (
-    <div
-      className={cn(
-        variant === "bare" ? "bg-popover" : "bg-background",
-        variant === "frame" && "rounded-lg border",
-        variant === "detached-top" && "rounded-t-lg border-t",
-        "border-x relative min-h-0 bg-clip-padding max-h-80",
-        className
-      )}
+    <Autocomplete.List
+      data-slot="command-list"
+      className={cn("relative min-h-0 bg-clip-padding max-h-80", className)}
       {...props}
     />
   );
 }
 
-function CommandGroup({
-  className,
-  ...props
-}: React.ComponentProps<typeof Autocomplete.Group>) {
-  return (
-    <Autocomplete.Group
-      className={className}
-      data-slot="command-group"
-      {...props}
-    />
-  );
+function CommandGroup(props: React.ComponentProps<typeof Autocomplete.Group>) {
+  return <Autocomplete.Group data-slot="command-group" {...props} />;
 }
 
-function CommandGroupLabel({
-  className,
-  ...props
-}: React.ComponentProps<typeof Autocomplete.GroupLabel>) {
-  return (
-    <Autocomplete.GroupLabel
-      className={className}
-      data-slot="command-group-label"
-      {...props}
-    />
-  );
+function CommandGroupLabel(
+  props: React.ComponentProps<typeof Autocomplete.GroupLabel>
+) {
+  return <Autocomplete.GroupLabel data-slot="command-group-label" {...props} />;
 }
 
 function CommandCollection({
@@ -245,40 +187,17 @@ function CommandItem({
 }: React.ComponentProps<typeof Autocomplete.Item>) {
   return (
     <Autocomplete.Item
+      className={cn("group/command-item", className)}
       data-slot="command-item"
-      className={cn("group/command-item py-2.5", className)}
       {...props}
     />
   );
 }
 
-function CommandSeparator({
-  className,
-  ...props
-}: React.ComponentProps<typeof Autocomplete.Separator>) {
-  return (
-    <Autocomplete.Separator
-      data-slot="command-separator"
-      className={cn("my-2", className)}
-      {...props}
-    />
-  );
-}
-
-function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
-  const variant = useCommandVariant();
-
-  return (
-    <div
-      data-slot="command-footer"
-      className={cn(
-        "bg-popover py-3 border rounded-b-lg px-3 flex justify-between items-center border-t-border/50",
-        variant === "frame" && "-mt-2 border-border/15 pt-4.5",
-        className
-      )}
-      {...props}
-    />
-  );
+function CommandSeparator(
+  props: React.ComponentProps<typeof Autocomplete.Separator>
+) {
+  return <Autocomplete.Separator data-slot="command-separator" {...props} />;
 }
 
 function CommandShortcut({
@@ -288,7 +207,23 @@ function CommandShortcut({
   return (
     <Shortcut
       data-slot="command-shortcut"
-      className={cn("text-md", className)}
+      className={cn(
+        "text-xs group-hover/command-item:text-muted-foreground",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="command-footer"
+      className={cn(
+        "flex items-center justify-between text-xs text-muted-foreground gap-2 px-3 py-3 rounded-b-lg bg-background -mx-2 -mb-2 border-t border-t-border/50",
+        className
+      )}
       {...props}
     />
   );
@@ -297,6 +232,8 @@ function CommandShortcut({
 const CommandDialogExports = Object.assign(CommandDialogRoot, {
   Portal: CommandDialogPortal,
   Trigger: CommandDialogTrigger,
+  Backdrop: CommandDialogBackdrop,
+  Viewport: CommandDialogViewport,
   Popup: CommandDialogPopup,
 });
 
@@ -304,32 +241,31 @@ const CommandExports = Object.assign(CommandRoot, {
   Input: CommandInput,
   List: CommandList,
   Empty: CommandEmpty,
-  Body: CommandBody,
   Group: CommandGroup,
   GroupLabel: CommandGroupLabel,
   Collection: CommandCollection,
   Item: CommandItem,
   Separator: CommandSeparator,
-  Footer: CommandFooter,
   Shortcut: CommandShortcut,
+  Footer: CommandFooter,
 });
 
 export {
-  CommandCreateHandle,
+  CommandExports as Command,
   CommandDialogExports as CommandDialog,
   CommandDialogPortal,
+  CommandDialogViewport,
   CommandDialogTrigger,
+  CommandDialogBackdrop,
   CommandDialogPopup,
-  CommandExports as Command,
-  CommandEmpty,
-  CommandList,
   CommandInput,
-  CommandBody,
+  CommandList,
+  CommandEmpty,
   CommandGroup,
   CommandGroupLabel,
   CommandCollection,
   CommandItem,
   CommandSeparator,
-  CommandFooter,
   CommandShortcut,
+  CommandFooter,
 };

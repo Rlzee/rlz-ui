@@ -1,0 +1,119 @@
+---
+title: Command
+description: Searchable command palette with keyboard navigation, groups, and shortcuts.
+---
+
+<ComponentPreview name="command" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add command
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="command" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+### Simple
+
+```tsx
+import { Command } from "@/components/ui/command";
+```
+
+```tsx
+<Command>
+  <Command.Input placeholder="Type a command or search..." />
+  <Command.Empty>No Results Found.</Command.Empty>
+  <Command.List>
+    <Command.Group>
+      <Command.GroupLabel>Suggestions</Command.GroupLabel>
+      <Command.Item>Linear</Command.Item>
+      <Command.Item>
+        <span className="flex-1">Figma</span>
+        <Command.Shortcut>⌘F</Command.Shortcut>
+      </Command.Item>
+    </Command.Group>
+    <Command.Group>
+      <Command.GroupLabel>Commands</Command.GroupLabel>
+      <Command.Item>Clipboard History</Command.Item>
+      <Command.Item>
+        <span className="flex-1">Import Extension</span>
+        <Command.Shortcut>⌘I</Command.Shortcut>
+      </Command.Item>
+    </Command.Group>
+  </Command.List>
+  <Command.Footer>Command Footer</Command.Footer>
+</Command>
+```
+
+### Dialog
+
+```tsx
+import { CommandDialog, Command } from "@/components/ui/command";
+```
+
+```tsx
+<CommandDialog>
+  <CommandDialog.Trigger render={<Button variant="outline" />}>
+    Open Command Palette
+  </CommandDialog.Trigger>
+  <CommandDialog.Popup>
+    <Command>
+      <Command.Input placeholder="Type a command or search..." />
+      <Command.Empty>No Results Found.</Command.Empty>
+      <Command.List>
+        <Command.Group>
+          <Command.GroupLabel>Suggestions</Command.GroupLabel>
+          <Command.Item>Linear</Command.Item>
+          <Command.Item>
+            <span className="flex-1">Figma</span>
+            <Command.Shortcut>⌘F</Command.Shortcut>
+          </Command.Item>
+        </Command.Group>
+        <Command.Group>
+          <Command.GroupLabel>Commands</Command.GroupLabel>
+          <Command.Item>Clipboard History</Command.Item>
+          <Command.Item>
+            <span className="flex-1">Import Extension</span>
+            <Command.Shortcut>⌘I</Command.Shortcut>
+          </Command.Item>
+        </Command.Group>
+      </Command.List>
+      <Command.Footer>Command Footer</Command.Footer>
+    </Command>
+  </CommandDialog.Popup>
+</CommandDialog>
+```
