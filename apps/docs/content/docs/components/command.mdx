@@ -117,3 +117,45 @@ import { CommandDialog, Command } from "@/components/ui/command";
   </CommandDialog.Popup>
 </CommandDialog>
 ```
+
+## API Reference
+
+`Command` extends [Autocomplete](/docs/components/autocomplete).
+`CommandDialog` extends [Base UI Dialog](https://base-ui.com/react/components/dialog/#api-reference).
+Only additions and modifications are listed here.
+
+### Command
+
+| Prop            | Type      | Default    |
+| --------------- | --------- | ---------- |
+| `autoHighlight` | `string`  | `"always"` |
+| `keepHighlight` | `boolean` | `true`     |
+
+### Command Input
+
+| Prop      | Type     | Default       |
+| --------- | -------- | ------------- |
+| `variant` | `string` | `"secondary"` |
+
+### Command Shortcut
+
+Renders a keyboard shortcut hint inside a `<Command.Item>`. Extends [Shortcut](/docs/components/shortcut).
+
+### Command Footer
+
+A footer bar rendered at the bottom of the command panel. Renders as a styled `<div>`.
+
+### CommandDialog Popup
+
+Includes `Portal`, `Backdrop`, and `Viewport` internally.
+
+| Prop           | Type      | Default |
+| -------------- | --------- | ------- |
+| `backdrop`     | `boolean` | `true`  |
+| `backdropBlur` | `boolean` | -       |
+
+### CommandDialog Backdrop
+
+| Prop   | Type      | Default |
+| ------ | --------- | ------- |
+| `blur` | `boolean` | -       |

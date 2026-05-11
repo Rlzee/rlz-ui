@@ -25,7 +25,7 @@ export default function Example() {
         render={
           <Button
             variant="outline"
-            className="justify-between data-popup-open:bg-accent"
+            className="justify-between data-popup-open:bg-accent/60"
           />
         }
       >
