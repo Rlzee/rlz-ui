@@ -1,9 +1,13 @@
 import { SiteHeader } from "@/components/site-header";
+import { CommandMenu } from "@/components/command-menu";
 import {
   BorderFlash,
   BorderFlashBox,
   BorderFlashBoxContent,
 } from "@rlz/ui/components/animations/border-flash";
+
+import { source } from "@/lib/source";
+import { siteConfig } from "@/lib/config";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -43,6 +47,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
       <SiteHeader />
       <main className="flex flex-1 flex-col">{children}</main>
+
+      <CommandMenu navItems={siteConfig.navItems} tree={source.pageTree} />
     </div>
   );
 }

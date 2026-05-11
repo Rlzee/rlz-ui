@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 
 import { PAGES_NEW } from "@/lib/docs";
-import { source } from "@/lib/source";
+import type { source } from "@/lib/source";
 
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
 import { Badge } from "@rlz/ui/components/ui/badge";

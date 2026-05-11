@@ -187,7 +187,7 @@ function CommandItem({
 }: React.ComponentProps<typeof Autocomplete.Item>) {
   return (
     <Autocomplete.Item
-      className={cn("group/command-item", className)}
+      className={cn("group/command-item [&_svg]:size-4", className)}
       data-slot="command-item"
       {...props}
     />
