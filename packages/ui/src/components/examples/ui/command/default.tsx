@@ -46,7 +46,7 @@ export const groupedItems: Group[] = [
 export default function Example() {
   return (
     <Command items={groupedItems} className="w-120">
-      <InputGroup variant="secondary">
+      <InputGroup variant="secondary" focusVisible={false}>
         <InputGroup.Addon align="inline-start">
           <Search />
         </InputGroup.Addon>
@@ -90,10 +90,6 @@ export default function Example() {
             </Kbd>
             <span>Open</span>
           </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <Kbd className="bg-accent border-0">Esc</Kbd>
-          <span>Close</span>
         </div>
       </Command.Footer>
     </Command>

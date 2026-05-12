@@ -153,7 +153,11 @@ export function CommandMenu({
           }}
           className="bg-transparent border-0 p-1"
         >
-          <InputGroup variant="secondary" className="h-11 bg-[#121212]!">
+          <InputGroup
+            variant="secondary"
+            className="h-11 bg-[#121212]!"
+            focusVisible={false}
+          >
             <InputGroup.Addon align="inline-start">
               <Search />
             </InputGroup.Addon>

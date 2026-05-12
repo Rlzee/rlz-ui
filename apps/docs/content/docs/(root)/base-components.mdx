@@ -1,4 +1,73 @@
 ---
 title: Base Components
-description: Your first document
+description: Shared building blocks used internally across components to ensure visual consistency.
 ---
+
+Base components are internal primitives that power multiple components at once.
+They are not installed directly — they are added automatically when a component that depends on them is installed.
+
+Modifying a base component propagates changes across all components that use it, making global customization straightforward.
+
+## Backdrop
+
+Used by [Alert Dialog](/docs/components/alert-dialog), [Command](/docs/components/command), [Dialog](/docs/components/dialog), and [Drawer](/docs/components/drawer).
+
+It accepts a `baseComponent` prop, which allows it to wrap any primitive's Backdrop element while applying consistent styling.
+
+| Prop            | Type                | Default |
+| --------------- | ------------------- | ------- |
+| `baseComponent` | `React.ElementType` | -       |
+| `blur`          | `boolean`           | `true`  |
+
+When `blur` is `true`, the backdrop renders with a frosted glass effect (`backdrop-blur`).
+When `false`, it renders as a plain dark overlay.
+
+## Popup Arrow
+
+Used by [Autocomplete](/docs/components/autocomplete), [Combobox](/docs/components/combobox), [Menu](/docs/components/menu), [Popover](/docs/components/popover), [Preview Card](/docs/components/preview-card), and [Tooltip](/docs/components/tooltip).
+
+Renders an SVG arrow that automatically repositions itself based on the popup's current side (`top`, `bottom`, `left`, `right`).
+
+| Prop              | Type                | Default        |
+| ----------------- | ------------------- | -------------- |
+| `baseComponent`   | `React.ElementType` | -              |
+| `border`          | `1 \| 2`            | `1`            |
+| `classNameBg`     | `string`            | `fill-popover` |
+| `classNameBorder` | `string`            | `fill-border`  |
+
+`border` controls which SVG path is used for the border stroke — `1` for a thin border, `2` for a thicker one.
+`classNameBg` and `classNameBorder` accept a CSS variable name (without `--`) to override the arrow's fill colors.
+
+## Menu Base
+
+Used by [Context Menu](/docs/components/context-menu) and [Menu](/docs/components/menu).
+
+Rather than duplicating styles across every menu-like component, `MenuBase` accepts the underlying primitive as a prop and applies the shared styling once.
+
+| Sub-component             | Description                                                        |
+| ------------------------- | ------------------------------------------------------------------ |
+| `MenuBase.Popup`          | Wraps Portal + Positioner + Popup with shared animation and layout |
+| `MenuBase.Item`           | Shared item styles including highlighted state and icon handling   |
+| `MenuBase.GroupLabel`     | Styled section heading inside a menu                               |
+| `MenuBase.Separator`      | Horizontal divider between menu sections                           |
+| `MenuBase.CheckboxItem`   | Menu item with a checkbox indicator                                |
+| `MenuBase.RadioItem`      | Menu item with a radio indicator                                   |
+| `MenuBase.SubmenuTrigger` | Item that opens a nested menu, with a chevron icon                 |
+
+`MenuBase.Popup` accepts `backdrop`, `backdropProps`, and `positionerProps` to configure the overlay and positioning behavior, with `sideOffset` defaulting to `8`.
+
+## Shortcut
+
+Used by [Command](/docs/components/command), [Context Menu](/docs/components/context-menu), and [Menu](/docs/components/menu) to display keyboard shortcut hints inline with items.
+
+Renders as a styled `<span>` pushed to the right via `ml-auto`.
+
+## X Close
+
+Used by [Dialog](/docs/components/dialog) and [Drawer](/docs/components/drawer) to render a consistent close button in the top-right corner of a panel.
+
+Accepts a `baseComponent` prop to wrap any primitive's Close element.
+
+| Prop            | Type                | Default |
+| --------------- | ------------------- | ------- |
+| `baseComponent` | `React.ElementType` | -       |

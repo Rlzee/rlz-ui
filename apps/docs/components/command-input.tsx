@@ -6,7 +6,6 @@ import { CommandDialogTrigger } from "@rlz/ui/components/ui/command";
 import { commandHandle } from "./command-menu";
 
 import { Button } from "@rlz/ui/components/ui/button";
-import { Kbd } from "@rlz/ui/components/ui/kbd";
 import { cn } from "@rlz/ui/lib/cn";
 
 type CommandInputProps = {
@@ -19,7 +18,6 @@ type CommandInputProps = {
 export function CommandInput({
   className,
   placeholder = "Search documentation...",
-  shortcutKey = "⌘k",
   fullWidth = false,
 }: CommandInputProps) {
   React.useEffect(() => {
@@ -61,7 +59,6 @@ export function CommandInput({
       }
     >
       <span className="truncate text-muted-foreground">{placeholder}</span>
-      {/*<Kbd>{shortcutKey}</Kbd>*/}
     </CommandDialogTrigger>
   );
 }
