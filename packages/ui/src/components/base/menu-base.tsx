@@ -82,7 +82,7 @@ function MenuGroupLabelBase({
     <Component
       data-slot="menu-group-label"
       className={cn(
-        "px-2 py-1.5 text-sm font-medium text-muted-foreground",
+        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground",
         className
       )}
       {...props}

@@ -63,6 +63,8 @@ export const demoPaths: Record<string, string> = {
   "combobox-input-group": "combobox/input-group",
   //Command
   command: "command/default",
+  // Context Menu
+  "context-menu": "context-menu/default",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
