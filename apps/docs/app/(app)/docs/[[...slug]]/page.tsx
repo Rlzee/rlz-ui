@@ -67,8 +67,7 @@ export default async function Page(props: {
               {neighbours.previous && (
                 <Button
                   variant="secondary"
-                  size="icon-md"
-                  className="h-8 w-8"
+                  size="icon-sm"
                   render={
                     <Link href={neighbours.previous.url}>
                       <ArrowLeft />
@@ -80,8 +79,7 @@ export default async function Page(props: {
               {neighbours.next && (
                 <Button
                   variant="secondary"
-                  size="icon-md"
-                  className="h-8 w-8"
+                  size="icon-sm"
                   render={
                     <Link href={neighbours.next.url}>
                       <ArrowRight />
@@ -118,7 +116,7 @@ export default async function Page(props: {
             <Button
               variant="secondary"
               size="sm"
-              className="ml-auto shadow-none"
+              className="ml-auto"
               render={
                 <Link href={neighbours.next.url}>
                   <ArrowRight /> {neighbours.next.name}

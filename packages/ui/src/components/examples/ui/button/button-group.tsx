@@ -5,22 +5,11 @@ import { Plus, Minus } from "lucide-react";
 export default function Example() {
   return (
     <Group>
-      <Group>
-        <Button>Primary</Button>
-        <Group.Separator />
-        <Button size="icon-md">
-          <Plus />
-        </Button>
-      </Group>
-      <Group orientation="vertical">
-        <Button size="icon-md" variant="outline">
-          <Plus />
-        </Button>
-        <Group.Separator />
-        <Button size="icon-md" variant="outline">
-          <Minus />
-        </Button>
-      </Group>
+      <Button>Group</Button>
+      <Group.Separator />
+      <Button size="icon-md">
+        <Plus />
+      </Button>
     </Group>
   );
 }

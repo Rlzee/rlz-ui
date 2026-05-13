@@ -1,4 +1,12 @@
 {
-  "pages": ["index", "installation", "importing", "cli", "base-components"],
+  "pages": [
+    "index",
+    "installation",
+    "importing",
+    "cli",
+    "base-components",
+    "themes",
+    "dark-mode"
+  ],
   "title": "Get Started"
 }

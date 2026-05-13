@@ -8,6 +8,7 @@ import { Separator } from "@rlz/ui/components/ui/separator";
 import { ModeSwitcher } from "./mode-switcher";
 import GithubIcon from "./icons/Github";
 import Link from "next/link";
+import { Plus } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 import { Badge } from "@rlz/ui/components/ui/badge";
 
@@ -46,11 +47,11 @@ export function SiteHeader() {
           </Button>
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
-          {/*<Separator orientation="vertical" className="h-5" />
+          <Separator orientation="vertical" className="h-5" />
           <Button size="sm" className="ml-1">
             <Plus />
             New
-          </Button>*/}
+          </Button>
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">
