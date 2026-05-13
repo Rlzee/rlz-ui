@@ -9,14 +9,12 @@ function RadioRoot({ className, ...props }: RadioPrimitive.Root.Props) {
     <RadioPrimitive.Root
       data-slot="radio"
       className={cn(
-        "flex size-4 items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
-        "state-focus-ring state-invalid",
+        "flex size-4 bg-transparent items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
+        "state-focus-ring state-invalid data-disabled:opacity-50",
         className
       )}
       {...props}
-    >
-      <RadioIndicator />
-    </RadioPrimitive.Root>
+    />
   );
 }
 
@@ -36,6 +34,14 @@ function RadioIndicator({
   );
 }
 
+function Radio(props: RadioPrimitive.Root.Props) {
+  return (
+    <RadioRoot {...props}>
+      <RadioIndicator />
+    </RadioRoot>
+  );
+}
+
 function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
   return (
     <RadioGroupPrimitive
@@ -46,8 +52,10 @@ function RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {
   );
 }
 
-const RadioExports = Object.assign(RadioRoot, {
+const RadioExports = Object.assign(Radio, {
+  Root: RadioRoot,
+  Indicator: RadioIndicator,
   Group: RadioGroup,
 });
 
-export { RadioExports as Radio, RadioGroup };
+export { RadioExports as Radio, RadioRoot, RadioIndicator, RadioGroup };

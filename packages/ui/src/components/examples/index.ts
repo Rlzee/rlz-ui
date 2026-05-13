@@ -68,4 +68,7 @@ export const demoPaths: Record<string, string> = {
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
+  // Radio group
+  "radio-group": "radio-group/default",
+  "radio-group-disabled": "radio-group/disabled",
 };
