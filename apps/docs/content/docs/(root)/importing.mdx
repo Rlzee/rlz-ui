@@ -1,4 +1,41 @@
 ---
 title: Importing
-description: Your first document
+description: Every component supports two import styles — use whichever fits your preference.
 ---
+
+Every component exports both a compound object and individual named exports.
+The two styles are equivalent and can be mixed freely.
+
+### Compound
+
+```tsx
+import { Accordion } from "@/components/ui/accordion";
+
+<Accordion>
+  <Accordion.Item>
+    <Accordion.Trigger>Title</Accordion.Trigger>
+    <Accordion.Panel>Content</Accordion.Panel>
+  </Accordion.Item>
+</Accordion>;
+```
+
+### Named
+
+```tsx
+import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionPanel,
+} from "@/components/ui/accordion";
+
+<Accordion>
+  <AccordionItem>
+    <AccordionTrigger>Title</AccordionTrigger>
+    <AccordionPanel>Content</AccordionPanel>
+  </AccordionItem>
+</Accordion>;
+```
+
+We recommend the compound style — one import, no need to remember every sub-component name.
+Named exports are available for those who prefer explicit imports or need finer tree-shaking control.

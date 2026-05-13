@@ -5,6 +5,7 @@ description: Shared building blocks used internally across components to ensure 
 
 Base components are internal primitives that power multiple components at once.
 They are not installed directly — they are added automatically when a component that depends on them is installed.
+They live in `components/base/` of your project once installed.
 
 Modifying a base component propagates changes across all components that use it, making global customization straightforward.
 
@@ -36,7 +37,7 @@ Renders an SVG arrow that automatically repositions itself based on the popup's 
 | `classNameBorder` | `string`            | `fill-border`  |
 
 `border` controls which SVG path is used for the border stroke — `1` for a thin border, `2` for a thicker one.
-`classNameBg` and `classNameBorder` accept a CSS variable name (without `--`) to override the arrow's fill colors.
+`classNameBg` and `classNameBorder` accept either a Tailwind fill class (e.g. `fill-popover`) or a CSS variable name without `--` (e.g. `popover`) to override the arrow's fill colors.
 
 ## Menu Base
 
