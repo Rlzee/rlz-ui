@@ -94,7 +94,7 @@ function MDXComponents() {
         return (
           <code
             className={cn(
-              "relative rounded-md bg-accent px-1.5 py-1 font-mono text-[.8125rem] text-muted-foreground outline-none",
+              "relative rounded-md bg-accent px-1.5 py-0.5 font-mono text-[.8125rem] text-muted-foreground outline-none",
               className
             )}
             {...props}

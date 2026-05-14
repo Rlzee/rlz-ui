@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
 import { cn } from "@rlz/ui/lib/cn";
 
-type DialogVariant = "default" | "bare" | "bare-bottom" | "bare-top" | "frame";
+type DialogVariant = "default" | "bare" | "bare-bottom" | "bare-top";
 const DialogVariantContext = React.createContext<DialogVariant>("default");
 const useDialogVariant = () => React.useContext(DialogVariantContext);
 
@@ -101,11 +103,7 @@ function DialogPopup({
         <DialogPrimitive.Popup
           data-slot="dialog-popup"
           className={cn(
-            variant === "bare" || variant === "frame"
-              ? "bg-popover"
-              : "bg-background",
-            variant === "frame" &&
-              "border-border/15 -m-px [--clip-bottom:-1rem] [--clip-top:-1rem]",
+            variant === "bare" ? "bg-popover" : "bg-background",
             "relative row-start-2 flex max-h-[calc(100vh-8rem)] min-h-0 w-full min-w-0 max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200",
             "-translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 data-ending-style:scale-95 data-starting-style:scale-95",
@@ -148,51 +146,51 @@ function DialogBody({
   scrollClassName,
   scrollFade = true,
   className,
+  render,
   ...props
-}: React.ComponentProps<"div"> & {
+}: useRender.ComponentProps<"div"> & {
   scrollFade?: React.ComponentProps<typeof ScrollArea>["scrollFade"];
   scrollClassName?: React.ComponentProps<typeof ScrollArea>["className"];
 }) {
-  const variant = useDialogVariant();
+  const defaultProps = {
+    "data-slot": "dialog-body",
+    className: cn("flex flex-col gap-6 px-6 py-6", className),
+  };
 
   return (
-    <ScrollArea
-      scrollFade={scrollFade}
-      className={cn(
-        scrollClassName,
-        variant === "frame" && "border rounded-lg"
-      )}
-    >
-      <div
-        data-slot="dialog-body"
-        className={cn(
-          "flex flex-col gap-6 px-6 py-6",
-          variant === "frame" && "bg-background",
-          className
-        )}
-        {...props}
-      />
+    <ScrollArea scrollFade={scrollFade} className={scrollClassName}>
+      {useRender({
+        defaultTagName: "div",
+        props: mergeProps<"div">(defaultProps, props),
+        render,
+      })}
     </ScrollArea>
   );
 }
 
-function DialogFooter({ className, ...props }: React.ComponentProps<"footer">) {
+function DialogFooter({
+  className,
+  render,
+  ...props
+}: useRender.ComponentProps<"div">) {
   const variant = useDialogVariant();
 
-  return (
-    <footer
-      data-slot="dialog-footer"
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
-        variant === "frame" && "pt-4",
-        variant === "default" || variant === "bare-top"
-          ? "pt-4 border-t border-border/50 bg-popover rounded-b-lg"
-          : "",
-        className
-      )}
-      {...props}
-    />
-  );
+  const defaultProps = {
+    "data-slot": "dialog-footer",
+    className: cn(
+      "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
+      variant === "default" || variant === "bare-top"
+        ? "pt-4 border-t border-border/50 bg-popover rounded-b-lg"
+        : "",
+      className
+    ),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render,
+  });
 }
 
 function DialogClose(props: DialogPrimitive.Close.Props) {
@@ -201,24 +199,27 @@ function DialogClose(props: DialogPrimitive.Close.Props) {
 
 const DialogHeader = ({
   className,
+  render,
   ...props
-}: React.ComponentProps<"header">) => {
+}: useRender.ComponentProps<"div">) => {
   const variant = useDialogVariant();
 
-  return (
-    <header
-      data-slot="dialog-header"
-      className={cn(
-        "flex flex-col text-left gap-0.5 pt-4 px-6",
-        variant === "frame" && "pb-4",
-        variant === "default" || variant === "bare-bottom"
-          ? "border-b border-border/50 pb-4 bg-popover rounded-t-lg"
-          : "",
-        className
-      )}
-      {...props}
-    />
-  );
+  const defaultProps = {
+    "data-slot": "dialog-header",
+    className: cn(
+      "flex flex-col text-left gap-0.5 pt-4 px-6",
+      variant === "default" || variant === "bare-bottom"
+        ? "border-b border-border/50 pb-4 bg-popover rounded-t-lg"
+        : "",
+      className
+    ),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render,
+  });
 };
 
 const DialogExports = Object.assign(DialogRoot, {

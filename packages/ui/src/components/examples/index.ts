@@ -65,6 +65,13 @@ export const demoPaths: Record<string, string> = {
   command: "command/default",
   // Context Menu
   "context-menu": "context-menu/default",
+  // Dialog
+  dialog: "dialog/default",
+  "dialog-bare": "dialog/bare",
+  "dialog-bare-top": "dialog/bare-top",
+  "dialog-bare-bottom": "dialog/bare-bottom",
+  "dialog-terms": "dialog/terms",
+  "dialog-nested": "dialog/nested",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

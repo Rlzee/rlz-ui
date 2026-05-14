@@ -1,0 +1,152 @@
+---
+title: Dialog
+description: Searchable command palette with keyboard navigation, groups, and shortcuts.
+---
+
+<ComponentPreview name="dialog" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add dialog
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="dialog" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Dialog } from "@/components/ui/dialog";
+```
+
+```tsx
+<Dialog>
+  <Dialog.Trigger>Open Dialog</Dialog.Trigger>
+  <Dialog.Popup>
+    <Dialog.Header>
+      <Dialog.Title>Dialog Title</Dialog.Title>
+      <Dialog.Description>Dialog Description</Dialog.Description>
+    </Dialog.Header>
+    <Dialog.Body>Content</Dialog.Body>
+    <Dialog.Footer>
+      <Dialog.Close>Close</Dialog.Close>
+    </Dialog.Footer>
+  </Dialog.Popup>
+</Dialog>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/dialog/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Dialog
+
+| Prop      | Type                                                 | Default     |
+| --------- | ---------------------------------------------------- | ----------- |
+| `variant` | `"default" \| "bare" \| "bare-bottom" \| "bare-top"` | `"default"` |
+
+`variant` controls the visual style of `<Dialog.Header>` and `<Dialog.Footer>`:
+
+- `"default"` — header has a bottom border, footer has a top border
+- `"bare"` — no borders on either
+- `"bare-bottom"` — footer has a top border, header has none
+- `"bare-top"` — header has a bottom border, footer has none
+
+### Dialog Popup
+
+Includes `Portal`, `Viewport`, and `Backdrop` internally.
+
+| Prop              | Type      | Default |
+| ----------------- | --------- | ------- |
+| `backdrop`        | `boolean` | `true`  |
+| `backdropBlur`    | `boolean` | -       |
+| `showCloseButton` | `boolean` | `true`  |
+
+### Dialog Header
+
+Styled header rendered as a `<div>`. Appearance is controlled by `variant` on `<Dialog>`.
+Supports the `render` prop for custom element rendering.
+
+### Dialog Body
+
+Scrollable content area wrapping children in a `<ScrollArea>`.
+
+| Prop              | Type      | Default |
+| ----------------- | --------- | ------- |
+| `scrollFade`      | `boolean` | `true`  |
+| `scrollClassName` | `string`  | -       |
+
+Supports the `render` prop for custom element rendering.
+
+### Dialog Footer
+
+Styled footer rendered as a `<div>`. Appearance is controlled by `variant` on `<Dialog>`.
+Supports the `render` prop for custom element rendering.
+
+### Dialog Backdrop
+
+Extends Base Component [Backdrop](/docs/base-components#backdrop).
+
+See the [Base UI](https://base-ui.com/react/components/combobox/#api-reference) documentation for more information.
+
+## Examples
+
+### Bare
+
+Use `variant="bare"` for a seamless dialog without section separators.
+
+<ComponentPreview name="dialog-bare" />
+
+### Bare Top
+
+Use `variant="bare-top"` when the header blends into the content.
+
+<ComponentPreview name="dialog-bare-top" />
+
+### Bare Bottom
+
+Use `variant="bare-bottom"` when the footer blends into the content.
+
+<ComponentPreview name="dialog-bare-bottom" />
+
+### With Scroll
+
+<ComponentPreview name="dialog-terms" />
+
+
+### Nested
+
+<ComponentPreview name="dialog-nested" />
