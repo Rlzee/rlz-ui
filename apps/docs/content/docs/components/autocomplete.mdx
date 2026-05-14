@@ -70,6 +70,31 @@ import { Autocomplete } from "@/components/ui/autocomplete";
 
 ## API Reference
 
+Each component extends its [Base UI](https://base-ui.com/react/components/autocomplete/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Autocomplete Input
+
+| Prop        | Type                       | Default     |
+| ----------- | -------------------------- | ----------- |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` |
+| `unstyled`  | `boolean`                  | `false`     |
+| `clearable` | `boolean`                  | `false`     |
+
+### Autocomplete Icon
+
+| Prop   | Type                                                 | Default       |
+| ------ | ---------------------------------------------------- | ------------- |
+| `icon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
+
+### Autocomplete Popup
+
+| Prop              | Type                                                  | Default             |
+| ----------------- | ----------------------------------------------------- | ------------------- |
+| `backdrop`        | `boolean`                                             | `false`             |
+| `backdropProps`   | `React.ComponentProps<typeof AutocompleteBackdrop>`   | -                   |
+| `positionerProps` | `React.ComponentProps<typeof AutocompletePositioner>` | `{ sideOffset: 6 }` |
+
 See the [Base UI](https://base-ui.com/react/components/autocomplete/#api-reference) documentation for more information.
 
 ## Examples
