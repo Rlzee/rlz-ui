@@ -10,7 +10,7 @@ function RadioRoot({ className, ...props }: RadioPrimitive.Root.Props) {
       data-slot="radio"
       className={cn(
         "flex size-4 bg-transparent items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border",
-        "state-focus-ring state-invalid data-disabled:opacity-50",
+        "state-focus-ring state-invalid data-disabled:opacity-50 data-disabled:cursor-not-allowed",
         className
       )}
       {...props}
