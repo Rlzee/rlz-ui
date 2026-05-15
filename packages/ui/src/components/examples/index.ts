@@ -67,11 +67,18 @@ export const demoPaths: Record<string, string> = {
   "context-menu": "context-menu/default",
   // Dialog
   dialog: "dialog/default",
-  "dialog-bare": "dialog/bare",
-  "dialog-bare-top": "dialog/bare-top",
-  "dialog-bare-bottom": "dialog/bare-bottom",
+  "dialog-variant": "dialog/variant",
   "dialog-terms": "dialog/terms",
   "dialog-nested": "dialog/nested",
+  // Drawer
+  drawer: "drawer/default",
+  "drawer-variant": "drawer/variant",
+  "drawer-inset": "drawer/inset",
+  "drawer-nested": "drawer/nested",
+  "drawer-nested-inset": "drawer/nested-inset",
+  "drawer-indent": "drawer/indent",
+  "drawer-swipe-area": "drawer/swipe-area",
+  "drawer-action": "drawer/action",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

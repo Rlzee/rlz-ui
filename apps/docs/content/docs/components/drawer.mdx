@@ -1,0 +1,168 @@
+---
+title: Drawer
+description: Searchable command palette with keyboard navigation, groups, and shortcuts.
+---
+
+<ComponentPreview name="drawer" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add drawer
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="drawer" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Drawer } from "@/components/ui/drawer";
+```
+
+```tsx
+<Drawer>
+  <Drawer.Trigger>Open</Drawer.Trigger>
+  <Drawer.Popup>
+    <Drawer.Header>
+      <Drawer.Title>Title</Drawer.Title>
+      <Drawer.Description>Description</Drawer.Description>
+    </Drawer.Header>
+    <Drawer.Body>Content</Drawer.Body>
+    <Drawer.Footer>
+      <Drawer.Close>Cancel</Drawer.Close>
+    </Drawer.Footer>
+  </Drawer.Popup>
+</Drawer>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/drawer/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Drawer
+
+| Prop      | Type                                                 | Default     |
+| --------- | ---------------------------------------------------- | ----------- |
+| `variant` | `"default" \| "bare" \| "bare-bottom" \| "bare-top"` | `"default"` |
+| `layout`  | `"full" \| "inset"`                                  | `"full"`    |
+| `indent`  | `boolean`                                            | `false`     |
+
+`variant` controls the visual style of `<Drawer.Header>` and `<Drawer.Footer>`:
+
+- `"default"` — header has a bottom border, footer has a top border
+- `"bare"` — no borders on either
+- `"bare-bottom"` — footer has a top border, header has none
+- `"bare-top"` — header has a bottom border, footer has none
+
+`layout` controls the drawer's positioning and shape:
+
+- `"full"` — the drawer spans edge to edge
+- `"inset"` — the drawer has margins and rounded corners
+
+`indent` enables the indent animation on the content behind the drawer when opening.
+
+### Drawer Popup
+
+Includes `Portal`, `Viewport`, and `Backdrop` internally.
+
+| Prop              | Type                                          | Default |
+| ----------------- | --------------------------------------------- | ------- |
+| `backdrop`        | `boolean`                                     | `true`  |
+| `backdropBlur`    | `boolean`                                     | -       |
+| `showCloseButton` | `boolean`                                     | `true`  |
+| `portalProps`     | `React.ComponentProps<typeof DrawerPortal>`   | -       |
+| `viewportProps`   | `React.ComponentProps<typeof DrawerViewport>` | -       |
+
+### Drawer Header
+
+Styled header rendered as a `<div>`. Appearance is controlled by `variant` and `layout` on `<Drawer>`.
+Supports the `render` prop for custom element rendering.
+
+### Drawer Body
+
+Scrollable content area wrapping children in a `<ScrollArea>`.
+
+| Prop              | Type      | Default |
+| ----------------- | --------- | ------- |
+| `scrollFade`      | `boolean` | `true`  |
+| `scrollClassName` | `string`  | -       |
+
+Supports the `render` prop for custom element rendering.
+
+### Drawer Footer
+
+Styled footer rendered as a `<div>`. Appearance is controlled by `variant` and `layout` on `<Drawer>`.
+Supports the `render` prop for custom element rendering.
+
+### Drawer Backdrop
+
+Extends Base Component [Backdrop](/docs/base-components#backdrop).
+
+See the [Base UI](https://base-ui.com/react/components/drawer/#api-reference) documentation for more information.
+
+## Examples
+
+### Variant
+
+Use prop `variant`.
+
+<ComponentPreview name="drawer-variant" />
+
+### Inset Layout
+
+Use `layout="inset"`.
+
+<ComponentPreview name="drawer-inset" />
+
+### Nested
+
+<ComponentPreview name="drawer-nested" />
+
+### Nested Inset
+
+<ComponentPreview name="drawer-nested-inset" />
+
+### Indent
+
+<ComponentPreview name="drawer-indent" />
+
+### SwipeArea
+
+<ComponentPreview demoClassName="p-0" name="drawer-swipe-area" />
+
+### Action
+
+<ComponentPreview name="drawer-action" />

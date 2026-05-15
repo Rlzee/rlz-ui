@@ -2,12 +2,14 @@
 
 import * as React from "react";
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { cn } from "@rlz/ui/lib/cn";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
-type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top" | "frame";
+type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top";
 type DrawerLayout = "inset" | "full";
 
 type DrawerContextProps = {
@@ -206,11 +208,7 @@ function DrawerPopup({
           data-slot="drawer-popup"
           data-layout={layout}
           className={cn(
-            variant !== "bare" && variant !== "frame"
-              ? "bg-background"
-              : "bg-popover",
-            variant === "frame" &&
-              "border-border/15 -m-px [--clip-bottom:-1rem] [--clip-top:-1rem]",
+            variant !== "bare" ? "bg-background" : "bg-popover",
             "group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground",
 
             // animation
@@ -251,25 +249,28 @@ function DrawerPopup({
 
 const DrawerHeader = ({
   className,
+  render,
   ...props
-}: React.ComponentProps<"header">) => {
+}: useRender.ComponentProps<"div">) => {
   const { layout, variant } = useDrawer();
 
-  return (
-    <header
-      data-slot="drawer-header"
-      className={cn(
-        "flex flex-col text-left gap-0.5 pt-4 px-6",
-        variant === "frame" && "pb-4",
-        variant === "default" || variant === "bare-bottom"
-          ? "border-b border-border/50 pb-4 bg-popover"
-          : "",
-        layout === "inset" ? "rounded-t-lg" : "",
-        className
-      )}
-      {...props}
-    />
-  );
+  const defaultProps = {
+    "data-slot": "drawer-header",
+    className: cn(
+      "flex flex-col text-left gap-0.5 pt-4 px-6",
+      variant === "default" || variant === "bare-bottom"
+        ? "border-b border-border/50 pb-4 bg-popover"
+        : "",
+      layout === "inset" ? "rounded-t-lg" : "",
+      className
+    ),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render: render,
+  });
 };
 
 function DrawerTitle({ className, ...props }: DrawerPrimitive.Title.Props) {
@@ -299,73 +300,54 @@ function DrawerBody({
   scrollClassName,
   scrollFade = true,
   className,
+  render,
   ...props
-}: React.ComponentProps<"div"> & {
+}: useRender.ComponentProps<"div"> & {
   scrollFade?: React.ComponentProps<typeof ScrollArea>["scrollFade"];
   scrollClassName?: React.ComponentProps<typeof ScrollArea>["className"];
 }) {
   const { variant, layout } = useDrawer();
 
+  const defaultProps = {
+    "data-slot": "drawer-body",
+    className: cn("flex flex-col gap-6 px-6 py-6 h-full", className),
+  };
+
   return (
-    <ScrollArea
-      scrollFade={scrollFade}
-      className={cn(
-        variant === "frame" &&
-          (layout === "inset"
-            ? "rounded-lg border"
-            : [
-                // Right swipe
-                "group-data-[swipe-direction=right]/drawer-popup:border-l",
-                "group-data-[swipe-direction=right]/drawer-popup:border-y",
-                "group-data-[swipe-direction=right]/drawer-popup:rounded-l-lg",
-
-                // Left swipe
-                "group-data-[swipe-direction=left]/drawer-popup:border-r",
-                "group-data-[swipe-direction=left]/drawer-popup:border-y",
-                "group-data-[swipe-direction=left]/drawer-popup:rounded-r-lg",
-
-                // Up swipe
-                "group-data-[swipe-direction=up]/drawer-popup:border",
-                "group-data-[swipe-direction=up]/drawer-popup:rounded-lg",
-
-                // Down swipe
-                "group-data-[swipe-direction=down]/drawer-popup:border",
-                "group-data-[swipe-direction=down]/drawer-popup:rounded-lg",
-              ]),
-        scrollClassName
-      )}
-    >
-      <div
-        data-slot="drawer-body"
-        className={cn(
-          "flex flex-col gap-6 px-6 py-6 h-full",
-          variant === "frame" && "bg-background",
-          className
-        )}
-        {...props}
-      />
+    <ScrollArea scrollFade={scrollFade} className={cn(scrollClassName)}>
+      {useRender({
+        defaultTagName: "div",
+        props: mergeProps<"div">(defaultProps, props),
+        render: render,
+      })}
     </ScrollArea>
   );
 }
 
-function DrawerFooter({ className, ...props }: React.ComponentProps<"footer">) {
+function DrawerFooter({
+  className,
+  render,
+  ...props
+}: useRender.ComponentProps<"div">) {
   const { layout, variant } = useDrawer();
 
-  return (
-    <footer
-      data-slot="drawer-footer"
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
-        variant === "frame" && "pt-4",
-        variant === "default" || variant === "bare-top"
-          ? "pt-4 border-t border-border/50 bg-popover"
-          : "",
-        layout === "inset" ? "rounded-b-lg" : "",
-        className
-      )}
-      {...props}
-    />
-  );
+  const defaultProps = {
+    "data-slot": "drawer-footer",
+    className: cn(
+      "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
+      variant === "default" || variant === "bare-top"
+        ? "pt-4 border-t border-border/50 bg-popover"
+        : "",
+      layout === "inset" ? "rounded-b-lg" : "",
+      className
+    ),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render: render,
+  });
 }
 
 function DrawerClose(props: DrawerPrimitive.Close.Props) {

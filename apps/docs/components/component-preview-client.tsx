@@ -14,11 +14,13 @@ export function ComponentPreviewClient({
   highlighted,
   rawCode,
   className,
+  demoClassName,
 }: {
   name: string;
   highlighted: string;
   rawCode: string;
   className?: string;
+  demoClassName?: string;
 }) {
   const entry = demoPaths[name];
   const DemoComponent = entry
@@ -29,7 +31,12 @@ export function ComponentPreviewClient({
 
   return (
     <div className={cn("flex flex-col", className)}>
-      <div className="relative h-[350px] bg-card flex items-center justify-center p-6 border border-b-0 rounded-t-md">
+      <div
+        className={cn(
+          "relative h-[350px] bg-card flex items-center justify-center p-6 border border-b-0 rounded-t-md",
+          demoClassName
+        )}
+      >
         {DemoComponent ? (
           <DemoComponent />
         ) : (
