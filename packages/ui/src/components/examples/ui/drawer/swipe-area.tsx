@@ -13,7 +13,7 @@ export default function Example() {
       ref={setPortalContainer}
       className="[--bleed:3rem] relative overflow-hidden w-full h-full rounded-t-lg"
     >
-      <Drawer variant="bare-top" indent>
+      <Drawer variant="bare-top" indent modal={false}>
         <Drawer.SwipeArea className="border-l border-dashed backdrop-blur-lg w-20 rounded-r-lg">
           <span className="pointer-events-none absolute right-0 top-1/2 mr-2 -translate-y-1/2 -rotate-90 origin-center whitespace-nowrap text-xs font-bold tracking-[0.12em] text-foreground uppercase">
             Swipe here

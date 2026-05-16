@@ -1,6 +1,9 @@
 ---
 title: Drawer
-description: Searchable command palette with keyboard navigation, groups, and shortcuts.
+description: Panel that slides in from the edge of the screen. Supports swipe gestures, nested drawers, and inset layout.
+links:
+  doc: https://base-ui.com/react/components/drawer
+  api: https://base-ui.com/react/components/drawer/#api-reference
 ---
 
 <ComponentPreview name="drawer" />
@@ -135,15 +138,21 @@ See the [Base UI](https://base-ui.com/react/components/drawer/#api-reference) do
 
 ## Examples
 
+### Swipe Direction
+
+Use prop `swipeDirection`, control which edge the drawer slides in from.
+
+<ComponentPreview name="drawer-swipe-direction" />
+
 ### Variant
 
-Use prop `variant`.
+Use prop `variant`, adjust the visual separation between the header, body, and footer.
 
 <ComponentPreview name="drawer-variant" />
 
 ### Inset Layout
 
-Use `layout="inset"`.
+Use `layout="inset"`, adds margin around the drawer, floating it above the page content.
 
 <ComponentPreview name="drawer-inset" />
 

@@ -79,6 +79,7 @@ export const demoPaths: Record<string, string> = {
   "drawer-indent": "drawer/indent",
   "drawer-swipe-area": "drawer/swipe-area",
   "drawer-action": "drawer/action",
+  "drawer-swipe-direction": "drawer/swipe-direction",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

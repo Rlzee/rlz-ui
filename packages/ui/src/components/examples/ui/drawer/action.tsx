@@ -42,9 +42,8 @@ export default function Example() {
           <div className="m-0 list-none p-0" aria-label="Profile actions">
             <Group orientation="vertical" className="w-full">
               {ACTIONS.map((action) => (
-                <>
+                <React.Fragment key={action}>
                   <Button
-                    key={action}
                     variant="outline"
                     className="w-full"
                     size="lg"
@@ -53,7 +52,7 @@ export default function Example() {
                     {action}
                   </Button>
                   {action !== "Restrict" && <Group.Separator />}
-                </>
+                </React.Fragment>
               ))}
             </Group>
           </div>
