@@ -1,0 +1,108 @@
+---
+title: Empty
+description: Placeholder shown when a list or page has no content to display.
+---
+
+<ComponentPreview name="empty" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add empty
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="empty" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Empty } from "@/components/ui/empty";
+```
+
+```tsx
+<Empty>
+  <Empty.Header>
+    <Empty.Media>
+      <Icon />
+    </Empty.Media>
+    <Empty.Title>No data</Empty.Title>
+    <Empty.Description>No data found</Empty.Description>
+  </Empty.Header>
+  <Empty.Actions>
+    <Button>Add data</Button>
+  </Empty.Actions>
+</Empty>
+```
+
+## API Reference
+
+This is a custom component, not a Base UI wrapper.
+
+### Empty (Root)
+
+Container for all sub-components. Renders as a styled `<div>`.
+
+### Empty Media
+
+| Prop      | Type                       | Default     |
+| --------- | -------------------------- | ----------- |
+| `variant` | `"default" \| "secondary"` | `"default"` |
+| `size`    | `"sm" \| "md" \| "lg"`     | `"md"`      |
+
+`size` only applies when `variant="default"`.
+
+### Empty Header
+
+Wrapper for `<Empty.Title>` and `<Empty.Description>`. Renders as a styled `<div>`.
+
+### Empty Title
+
+Renders as a styled `<h3>`.
+
+### Empty Description
+
+Renders as a styled `<p>`.
+
+### Empty Actions
+
+Container for action buttons. Renders as a styled `<div>`.
+
+## Examples
+
+### Media Variants
+
+Use prop `variant`.
+
+<ComponentPreview name="empty-media" />

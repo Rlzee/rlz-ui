@@ -80,6 +80,9 @@ export const demoPaths: Record<string, string> = {
   "drawer-swipe-area": "drawer/swipe-area",
   "drawer-action": "drawer/action",
   "drawer-swipe-direction": "drawer/swipe-direction",
+  // Empty
+  empty: "empty/default",
+  "empty-media": "empty/media",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

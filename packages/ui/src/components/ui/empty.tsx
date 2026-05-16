@@ -2,11 +2,7 @@ import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 
-function EmptyRoot({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function EmptyRoot({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="empty"
@@ -15,9 +11,7 @@ function EmptyRoot({
         className
       )}
       {...props}
-    >
-      {children}
-    </div>
+    />
   );
 }
 
@@ -43,7 +37,7 @@ const emptyIconVariants = cva(
   }
 );
 
-function EmptyIcon({
+function EmptyMedia({
   className,
   variant,
   size,
@@ -93,17 +87,29 @@ function EmptyDescription({ className, ...props }: React.ComponentProps<"p">) {
   );
 }
 
+function EmptyActions({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="empty-action"
+      className={cn("flex gap-4 max-w-sm w-full justify-center")}
+      {...props}
+    />
+  );
+}
+
 const EmptyExports = Object.assign(EmptyRoot, {
-  Icon: EmptyIcon,
+  Media: EmptyMedia,
   Header: EmptyHeader,
   Title: EmptyTitle,
   Description: EmptyDescription,
+  Actions: EmptyActions,
 });
 
 export {
   EmptyExports as Empty,
-  EmptyIcon,
+  EmptyMedia,
   EmptyHeader,
   EmptyTitle,
   EmptyDescription,
+  EmptyActions,
 };
