@@ -17,7 +17,7 @@ export default function Example() {
             Make changes to your profile here. Click save when you&apos;re done.
           </Dialog.Description>
         </Dialog.Header>
-        <Form>
+        <Form className="flex flex-col">
           <Dialog.Body>
             <Field>
               <Field.Label>Name</Field.Label>
@@ -28,13 +28,13 @@ export default function Example() {
               <Input defaultValue="@rlz.lzone" type="text" />
             </Field>
           </Dialog.Body>
+          <Dialog.Footer>
+            <Dialog.Close render={<Button variant="ghost" />}>
+              Cancel
+            </Dialog.Close>
+            <Button type="submit">Save</Button>
+          </Dialog.Footer>
         </Form>
-        <Dialog.Footer>
-          <Dialog.Close render={<Button variant="ghost" />}>
-            Cancel
-          </Dialog.Close>
-          <Button type="submit">Save</Button>
-        </Dialog.Footer>
       </Dialog.Popup>
     </Dialog>
   );
