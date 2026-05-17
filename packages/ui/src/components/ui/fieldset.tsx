@@ -6,11 +6,18 @@ import { cn } from "@rlz/ui/lib/cn";
 function FieldsetRoot({ className, ...props }: FieldsetPrimitive.Root.Props) {
   return (
     <FieldsetPrimitive.Root
-      data-slot="fieldset-root"
-      className={cn(
-        "flex flex-col gap-6 has-[>[data-slot=checkbox-group]]:gap-3 has-[>[data-slot=radio-group]]:gap-3",
-        className
-      )}
+      data-slot="fieldset"
+      className={cn("flex flex-col gap-6", className)}
+      {...props}
+    />
+  );
+}
+
+function FieldsetHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="fieldset-header"
+      className={cn("grid gap-0.5", className)}
       {...props}
     />
   );
@@ -23,14 +30,37 @@ function FieldsetLegend({
   return (
     <FieldsetPrimitive.Legend
       data-slot="fieldset-legend"
-      className={cn("mb-3 font-medium text-base", className)}
+      className={cn(
+        "text-lg text-card-foreground leading-none font-semibold",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
+function FieldsetDescription({
+  className,
+  ...props
+}: React.ComponentProps<"p">) {
+  return (
+    <p
+      data-slot="fieldset-description"
+      className={cn("ui-description", className)}
       {...props}
     />
   );
 }
 
 const FieldsetExports = Object.assign(FieldsetRoot, {
+  Header: FieldsetHeader,
   Legend: FieldsetLegend,
+  Description: FieldsetDescription,
 });
 
-export { FieldsetExports as Fieldset, FieldsetLegend };
+export {
+  FieldsetExports as Fieldset,
+  FieldsetHeader,
+  FieldsetLegend,
+  FieldsetDescription,
+};
