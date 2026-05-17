@@ -47,7 +47,11 @@ export default function Example() {
         </Combobox.Value>
       </Combobox.Chips>
 
-      <Combobox.Popup>
+      <Combobox.Popup
+        positionerProps={{
+          sideOffset: 8,
+        }}
+      >
         <Combobox.Empty>No languages found.</Combobox.Empty>
         <Combobox.List>
           {(language: ProgrammingLanguage) => (
