@@ -156,9 +156,10 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
       <Button
         size="sm"
         variant="secondary"
+        className="hover:[&_svg]:text-foreground"
         onClick={() => copyToClipboard(page)}
       >
-        {isCopied ? <Check /> : <Copy />}
+        {isCopied ? <Check /> : <Copy className="text-muted" />}
         Copy Page
       </Button>
       <Group.Separator />

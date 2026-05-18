@@ -4,7 +4,7 @@ import { Input } from "@rlz/ui/components/ui/input";
 
 export default function Example() {
   return (
-    <Fieldset className="max-w-xs">
+    <Fieldset className="w-full max-w-xs">
       <Fieldset.Header>
         <Fieldset.Legend>Billing address</Fieldset.Legend>
         <Fieldset.Description>
