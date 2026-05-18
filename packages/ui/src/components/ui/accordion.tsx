@@ -44,7 +44,7 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "cursor-pointer relative flex w-full items-baseline justify-between gap-4 py-4 bg-transparent text-left text-sm font-medium",
+          "cursor-pointer relative flex w-full items-baseline justify-between gap-3 py-4 bg-transparent text-left text-sm font-medium",
           "[&[data-panel-open]>svg]:rotate-45 [&[data-panel-open]>svg]:scale-110",
           className
         )}

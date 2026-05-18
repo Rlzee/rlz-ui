@@ -4,7 +4,7 @@ import { Input as InputPrimitive } from "@base-ui/react/input";
 import { cn } from "@rlz/ui/lib/cn";
 
 const inputClassName = cn(
-  "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 py-1 rounded-[inherit] outline-none",
+  "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 rounded-[inherit] outline-none",
   "file:text-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
   "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
 );
@@ -32,7 +32,7 @@ function Input({
       className={cn(
         "flex items-center",
         !unstyled && [
-          "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
+          "h-9 data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
           "text-base md:text-sm relative w-full rounded-md border not-dark:bg-clip-padding shadow-xs transition-[color,box-shadow]",
           "disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",

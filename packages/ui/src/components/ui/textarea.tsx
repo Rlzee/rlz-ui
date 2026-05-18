@@ -1,19 +1,21 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { cn } from "@rlz/ui/lib/cn";
 
-type TextareaProps = React.ComponentProps<"textarea"> & {
-  unstyled?: boolean;
-  variant?: "default" | "background" | "accent";
-};
+type TextareaProps = React.ComponentProps<"textarea"> &
+  React.RefAttributes<HTMLTextAreaElement> & {
+    unstyled?: boolean;
+    variant?: "primary" | "secondary";
+  };
 
 function Textarea({
-  variant = "default",
+  variant = "primary",
   className,
   unstyled = false,
+  ref,
   ...props
 }: TextareaProps) {
   return (
@@ -22,9 +24,9 @@ function Textarea({
       data-variant={variant}
       className={cn(
         !unstyled && [
-          "data-[variant=default]:bg-input data-[variant=background]:bg-background data-[variant=accent]:bg-accent",
+          "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
           "relative inline-flex w-full rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs",
-          "disabled:cursor-not-allowed disabled:pointer-events-none disabled:opacity-50",
+          "has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] has-focus-visible:border-ring",
         ],
@@ -32,9 +34,15 @@ function Textarea({
       )}
     >
       <FieldPrimitive.Control
-        render={(defaultProps) => (
+        ref={ref}
+        value={props.value}
+        defaultValue={props.defaultValue}
+        disabled={props.disabled}
+        id={props.id}
+        name={props.name}
+        render={(defaultProps: React.ComponentProps<"textarea">) => (
           <textarea
-            className="min-h-20.5 max-sm:min-h-23.5 min-w-0 w-full px-3 py-2 flex rounded-[inherit] placeholder:text-muted-foreground outline-none"
+            className="min-h-20.5 max-sm:min-h-23.5 min-w-0 w-full px-3 py-2 rounded-[inherit] placeholder:text-muted-foreground outline-none"
             data-slot="textarea"
             {...mergeProps(defaultProps, props)}
           />
