@@ -1,0 +1,77 @@
+---
+title: Fieldset
+description: Groups related form fields under a shared legend and description.
+links:
+  doc: https://base-ui.com/react/components/fieldset
+  api: https://base-ui.com/react/components/fieldset/#api-reference
+---
+
+<ComponentPreview name="fieldset" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add fieldset
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="fieldset" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Fieldset } from "@/component/ui/fieldset";
+```
+
+```tsx
+<Fieldset>
+  <Fieldset.Header>
+    <Fieldset.Legend>Legend</Fieldset>
+    <Fieldset.Description>Description</Fieldset.Description>
+  </Fieldset.Header>
+</Fieldset>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/fieldset/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Fieldset Header
+
+Wrapper for `<Fieldset.Legend>` and `<Fieldset.Description>`. Renders as a styled `<div>`.
+
+### Fieldset Description
+
+Renders as a styled `<p>`.

@@ -83,6 +83,8 @@ export const demoPaths: Record<string, string> = {
   // Empty
   empty: "empty/default",
   "empty-media": "empty/media",
+  // Fieldset
+  fieldset: "fieldset/default",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
