@@ -5,8 +5,11 @@
     "importing",
     "cli",
     "base-components",
+    "forms",
     "themes",
-    "dark-mode"
+    "dark-mode",
+    "roadmap",
+    "changelog"
   ],
-  "title": "Get Started"
+  "title": "Overview"
 }
