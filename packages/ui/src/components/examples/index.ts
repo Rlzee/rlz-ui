@@ -95,6 +95,10 @@ export const demoPaths: Record<string, string> = {
   "group-size": "group/size",
   "group-input-group": "group/input-group",
   "group-text": "group/text",
+  // Input
+  input: "input/default",
+  "input-disabled": "input/disabled",
+  "input-variant": "input/variant",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
