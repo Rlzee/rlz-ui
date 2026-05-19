@@ -1,0 +1,73 @@
+---
+title: Field
+description: Wraps a form control with its label, description, and validation error.
+links:
+  doc: https://base-ui.com/react/components/field
+  api: https://base-ui.com/react/components/field/#api-reference
+---
+
+<ComponentPreview name="field" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add field
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="field" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Field } from "@/components/ui/field";
+```
+
+```tsx
+<Field>
+  <FieldLabel>Name</FieldLabel>
+  <Input type="text" placeholder="Enter your name" />
+  <FieldDescription>Visible on your profile</FieldDescription>
+  <FieldError>Please enter a valid name</FieldError>
+  <FieldValidity>
+    {(validity) => (
+      {validity.error && <p>{validity.error}</p>}
+    )}
+  </FieldValidity>
+</Field>
+```
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/field/#api-reference) documentation for more information.

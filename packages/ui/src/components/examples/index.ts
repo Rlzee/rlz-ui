@@ -83,6 +83,8 @@ export const demoPaths: Record<string, string> = {
   // Empty
   empty: "empty/default",
   "empty-media": "empty/media",
+  // Field
+  field: "field/default",
   // Fieldset
   fieldset: "fieldset/default",
   // Form

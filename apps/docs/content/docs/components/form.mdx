@@ -1,6 +1,6 @@
 ---
 title: Form
-description: Groups related form fields under a shared legend and description.
+description: Native form element with built-in validation state management for fields.
 links:
   doc: https://base-ui.com/react/components/form
   api: https://base-ui.com/react/components/form/#api-reference
@@ -47,3 +47,21 @@ npm install @base-ui/react
 </TabsPanel>
 
 </CodeTabs>
+
+## Usage
+
+```tsx
+import { Form } from "@/components/ui/form";
+```
+
+```tsx
+<Form
+  onSubmit={(e) => {
+    /* handle submit */
+  }}
+></Form>
+```
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/form/#api-reference) documentation for more information.
