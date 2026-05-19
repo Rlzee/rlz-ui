@@ -89,6 +89,12 @@ export const demoPaths: Record<string, string> = {
   fieldset: "fieldset/default",
   // Form
   form: "form/default",
+  // Group
+  group: "group/default",
+  "group-orientation": "group/orientation",
+  "group-size": "group/size",
+  "group-input-group": "group/input-group",
+  "group-text": "group/text",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

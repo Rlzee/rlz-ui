@@ -1,0 +1,101 @@
+---
+title: Group
+description: A component for visually grouping a series of controls.
+---
+
+<ComponentPreview name="group" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add group
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="group" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Button } from "@/components/ui/button";
+import { Group } from "@/components/ui/group";
+```
+
+```tsx
+<Group>
+  <Button>Button</Button>
+  <Group.Separator />
+  <Button>Button</Button>
+</Group>
+```
+
+## API Reference
+
+This is a custom component, not a Base UI wrapper.
+
+### Group (Root)
+
+| Prop          | Type                         | Default        |
+| ------------- | ---------------------------- | -------------- |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+
+### Group Separator
+
+Adapts automatically to the parent `<Group>` orientation. Renders as a styled `<div>`.
+
+### Group Text
+
+Styled text or label inside a group. Supports the `render` prop for custom element rendering.
+
+## Examples
+
+### Group Text
+
+<ComponentPreview name="group-text" />
+
+### Orientation
+
+Use the `orientation` prop to change the group layout.
+
+<ComponentPreview name="group-orientation" />
+
+### Size
+
+Control the size of buttons using the `size` prop on individual buttons
+
+<ComponentPreview name="group-size" />
+
+### Input Group
+
+<ComponentPreview name="group-input-group" />
