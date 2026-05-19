@@ -13,7 +13,7 @@ import {
 } from "@rlz/ui/components/ui/command";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
-import { CircleDashed, Search, Redo2 } from "lucide-react";
+import { Target, BookOpenText, Search, Redo2, NotepadText } from "lucide-react";
 
 type PageItem = {
   value: string;
@@ -195,7 +195,13 @@ export function CommandMenu({
                                 />
                               }
                             >
-                              <CircleDashed />
+                              {group.value === "Pages" ? (
+                                <NotepadText />
+                              ) : item.isComponent ? (
+                                <Target />
+                              ) : (
+                                <BookOpenText />
+                              )}
                               <span className="flex-1">{item.label}</span>
                             </Command.Item>
                           )}
