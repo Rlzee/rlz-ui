@@ -163,7 +163,7 @@
   }
 
   .state-focus-ring {
-    @apply focus-visible:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
+    @apply focus-visible:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[2px];
   }
 
   .ui-title {

@@ -99,6 +99,7 @@ export const demoPaths: Record<string, string> = {
   input: "input/default",
   "input-disabled": "input/disabled",
   "input-variant": "input/variant",
+  "input-file": "input/file",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

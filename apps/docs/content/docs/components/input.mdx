@@ -60,7 +60,18 @@ import { Input } from "@/components/ui/input";
 
 ## API Reference
 
-See the [Base UI](https://base-ui.com/react/components/input/#api-reference) documentation for more information.
+Each component extends its [Base UI](https://base-ui.com/react/components/input/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Input
+
+| Prop          | Type                          | Default     |
+| ------------- | ----------------------------- | ----------- |
+| `variant`     | `"primary" \| "secondary"`    | `"primary"` |
+| `unstyled`    | `boolean`                     | `false`     |
+| `nativeInput` | `boolean`                     | `false`     |
+
+When `nativeInput` is `true`, renders a plain `<input>` instead of the Base UI Input — useful when embedding inside other primitives that manage their own input rendering (e.g. `<Combobox.Input>`).
 
 ## Examples
 
@@ -71,6 +82,10 @@ See the [Base UI](https://base-ui.com/react/components/input/#api-reference) doc
 ### Variants
 
 <ComponentPreview name="input-variant" />
+
+### File
+
+<ComponentPreview name="input-file" />
 
 ### Group
 

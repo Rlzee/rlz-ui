@@ -386,7 +386,7 @@ function ComboboxChips({
       }}
       className={cn(
         "relative inline-flex min-h-9 w-full flex-wrap gap-1 rounded-md border bg-input text-sm p-[calc(--spacing(1)-1px)] outline-none *:min-h-7",
-        "focus-within:ring-ring/50 focus-within:ring-[3px] focus-within:border-ring",
+        "focus-within:ring-ring/50 focus-within:ring-[2px] focus-within:border-ring",
         "has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive",
         "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
         className

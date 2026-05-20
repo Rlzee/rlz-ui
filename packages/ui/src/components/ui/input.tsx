@@ -21,9 +21,11 @@ function Input({
   ...props
 }: InputProps) {
   const inputClassName = cn(
-    "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 rounded-[inherit] outline-none",
-    "file:text-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium",
-    "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden"
+    "placeholder:text-muted-foreground w-full min-w-0 h-9 px-3 leading-9 rounded-[inherit] outline-none",
+    props.type === "search" &&
+      "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden",
+    props.type === "file" &&
+      "text-muted-foreground file:me-3 file:bg-transparent file:font-medium file:text-foreground"
   );
 
   return (
@@ -31,13 +33,13 @@ function Input({
       data-slot="input-control"
       data-variant={variant}
       className={cn(
-        "flex items-center",
+        "inline-flex items-center text-sm",
         !unstyled && [
           "h-9 data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
-          "text-base md:text-sm relative w-full rounded-md border not-dark:bg-clip-padding shadow-xs transition-[color,box-shadow]",
+          "relative w-full rounded-md border not-dark:bg-clip-padding shadow-xs transition-shadow",
           "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
-          "has-focus-visible:ring-ring/50 has-focus-visible:ring-[3px] has-focus-visible:border-ring",
+          "has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring",
         ],
         className
       )}
