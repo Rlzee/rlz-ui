@@ -100,7 +100,12 @@ export const demoPaths: Record<string, string> = {
   "input-disabled": "input/disabled",
   "input-variant": "input/variant",
   "input-file": "input/file",
-  "input-button": "input/button",
+  // Input Group
+  "input-group": "input-group/default",
+  "input-group-text": "input-group/text",
+  "input-group-textarea": "input-group/textarea",
+  "input-group-button": "input-group/button",
+  "input-group-kbd": "input-group/kbd",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",

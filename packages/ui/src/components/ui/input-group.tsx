@@ -3,8 +3,7 @@
 import type * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
-import { Input, type InputProps } from "@rlz/ui/components/ui/input";
-import { Textarea, type TextareaProps } from "@rlz/ui/components/ui/textarea";
+import type { InputProps } from "@rlz/ui/components/ui/input";
 
 function InputGroupRoot({
   variant = "primary",
@@ -22,7 +21,7 @@ function InputGroupRoot({
       data-variant={variant}
       className={cn(
         "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
-        "group/input-group relative inline-flex w-full h-9 min-w-0 items-center rounded-md border not-dark:bg-clip-padding text-base md:text-sm shadow-xs transition-[color,box-shadow]",
+        "group/input-group relative inline-flex w-full px-3 h-9 min-w-0 items-center rounded-md border not-dark:bg-clip-padding text-base md:text-sm shadow-xs transition-[color,box-shadow]",
         "has-[input:disabled,textarea:disabled]:cursor-not-allowed has-[input:disabled,textarea:disabled]:opacity-50",
 
         focusVisible && [
@@ -36,10 +35,8 @@ function InputGroupRoot({
         "has-data-[align=block-end]:h-auto has-data-[align=block-end]:flex-col",
         "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col has-data-[align=block-start]:**:[input]:pb-1.5",
         "has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto",
-        // inline-start
-        "has-data-[align=inline-start]:**:[[data-size=sm]_input]:ps-1.5 has-data-[align=inline-start]:**:[input]:ps-2",
-        // inline-end
-        "has-data-[align=inline-end]:**:[[data-size=sm]_input]:pe-1.5 has-data-[align=inline-end]:**:[input]:pe-2",
+        // inline-start - inline-end
+        "has-data-[align=inline-start]:[&_input]:ps-1.5 has-data-[align=inline-end]:[&_input]:pe-1.5",
         className
       )}
       {...props}
@@ -48,18 +45,18 @@ function InputGroupRoot({
 }
 
 const inputGroupAddonVariants = cva(
-  "[&_svg]:-mx-0.5 [&:not(:has(>button))_svg]:text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 leading-none font-medium select-none [&>svg:not([class*='size-'])]:size-4 group-data-[disabled=true]/input-group:opacity-50",
+  "text-muted-foreground [&_svg]:-mx-0.5 [&:not(:has(>button))_svg]:text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 leading-none font-medium select-none [&>svg:not([class*='size-'])]:size-4 group-data-[disabled=true]/input-group:opacity-50",
   {
     variants: {
       align: {
         "inline-start":
-          "order-first pl-3 has-[>button]:ml-[-0.45rem] has-[>kbd]:ml-[-0.35rem]",
+          "order-first has-[>button]:ml-[-0.50rem] has-[>kbd]:ml-[-0.35rem]",
         "inline-end":
-          "order-last pr-3 has-[>button]:mr-[-0.45rem] has-[>kbd]:mr-[-0.35rem]",
+          "order-last has-[>button]:mr-[-0.50rem] has-[>kbd]:mr-[-0.35rem]",
         "block-start":
-          "order-first w-full justify-start px-3 pt-2 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5",
+          "order-first w-full justify-start pt-2 [.border-b]:pb-3 group-has-[>input]/input-group:pt-2.5",
         "block-end":
-          "order-last w-full justify-start px-3 pb-2 [.border-t]:pt-3 group-has-[>input]/input-group:pb-2.5",
+          "order-last w-full justify-start pb-2 [.border-t]:pt-3 group-has-[>input]/input-group:pb-2.5",
       },
     },
     defaultVariants: {
@@ -70,7 +67,7 @@ const inputGroupAddonVariants = cva(
 
 function InputGroupAddon({
   className,
-  align,
+  align = "inline-start",
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof inputGroupAddonVariants>) {
   return (
@@ -98,23 +95,12 @@ function InputGroupAddon({
   );
 }
 
-function InputGroupInput({ className, ...props }: Omit<InputProps, "variant">) {
-  return <Input className={cn("w-full", className)} unstyled {...props} />;
-}
-
-function InputGroupTextarea({
-  className,
-  ...props
-}: Omit<TextareaProps, "variant">) {
-  return <Textarea className={cn("w-full", className)} unstyled {...props} />;
-}
-
 function InputGroupText({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="input-group-text"
       className={cn(
-        "inline-flex items-center px-3 text-sm font-medium text-muted-foreground",
+        "inline-flex items-center text-sm font-medium text-muted-foreground",
         className
       )}
       {...props}
@@ -124,8 +110,6 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"div">) {
 
 const InputGroupExports = Object.assign(InputGroupRoot, {
   Addon: InputGroupAddon,
-  Input: InputGroupInput,
-  Textarea: InputGroupTextarea,
   Text: InputGroupText,
 });
 

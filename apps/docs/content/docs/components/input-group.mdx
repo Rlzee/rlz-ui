@@ -64,3 +64,43 @@ import { InputGroup } from "@/components/ui/input-group";
 ## API Reference
 
 This is a custom component, not a Base UI wrapper.
+
+### Input Group (Root)
+
+| Prop           | Type                       | Default     |
+| -------------- | -------------------------- | ----------- |
+| `variant`      | `"primary" \| "secondary"` | `"primary"` |
+| `focusVisible` | `boolean`                  | `true`      |
+
+### Input Group Addon
+
+| Prop    | Type                                                             | Default          |
+| ------- | ---------------------------------------------------------------- | ---------------- |
+| `align` | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
+
+`align` controls where the addon is placed relative to the input:
+
+- `"inline-start"` / `"inline-end"` — placed to the left or right of the input
+- `"block-start"` / `"block-end"` — placed above or below the input, stacking the group vertically
+
+### Input Group Text
+
+Static text label inside the group. Renders as a styled `<div>`.
+
+## Examples
+
+### Text
+
+<ComponentPreview name="input-group-text" />
+
+### With Button
+
+<ComponentPreview name="input-group-button" />
+
+### With Kbd
+
+<ComponentPreview name="input-group-kbd" />
+
+### Textarea
+
+<ComponentPreview name="input-group-textarea" />

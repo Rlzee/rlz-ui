@@ -155,7 +155,7 @@ export function CommandMenu({
         >
           <InputGroup
             variant="secondary"
-            className="h-11 bg-[#121212]!"
+            className="h-11 dark:bg-[#121212]! bg-[#F2F2F2]!"
             focusVisible={false}
           >
             <InputGroup.Addon align="inline-start">
@@ -214,7 +214,7 @@ export function CommandMenu({
               <Command.Footer className="border mx-0.4 mb-0.5">
                 <div className="flex items-center gap-2">
                   <span className="whitespace-nowrap">Go to Page</span>
-                  <Kbd className="border-0 bg-accent">
+                  <Kbd className="dark:border-0 dark:bg-accent">
                     <Redo2 className="rotate-180" />
                   </Kbd>
                 </div>
@@ -222,10 +222,10 @@ export function CommandMenu({
                   <div className="flex min-w-0 items-center gap-2">
                     <span className="truncate font-mono">{copyPayload}</span>
                     <Kbd.Group>
-                      <Kbd className="border-0 bg-accent">
+                      <Kbd className="dark:border-0 dark:bg-accent">
                         {isMac ? "⌘" : "Ctrl"}
                       </Kbd>
-                      <Kbd className="border-0 bg-accent">C</Kbd>
+                      <Kbd className="dark:border-0 dark:bg-accent">C</Kbd>
                     </Kbd.Group>
                   </div>
                 )}
