@@ -112,6 +112,8 @@ export const demoPaths: Record<string, string> = {
   "kbd-input-group": "kbd/input-group",
   // label
   label: "label/default",
+  // Meter
+  meter: "meter/default",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",

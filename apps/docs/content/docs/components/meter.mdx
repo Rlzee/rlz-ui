@@ -1,0 +1,86 @@
+---
+title: Meter
+description: Displays a scalar value within a known range, such as storage or memory usage.
+links:
+  doc: https://base-ui.com/react/components/meter
+  api: https://base-ui.com/react/components/meter/#api-reference
+---
+
+<ComponentPreview name="meter" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add meter
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="meter" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Meter } from "@/components/ui/meter";
+```
+
+### Shorthand
+
+```tsx
+<Meter label="label" value={72} min={0} max={100} />
+```
+
+### Compound
+
+```tsx
+<Meter.Root value={72} min={0} max={100}>
+  <Meter.Label>Label</MeterLabel>
+  <Meter.Value />
+  <Meter.Track>
+    <Meter.Indicator />
+  </Meter.Track>
+</Meter.Root>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/meter/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Meter
+
+Shorthand that composes `<Meter.Root>`, `<Meter.Label>`, `<Meter.Value>`, `<Meter.Track>`, and `<Meter.Indicator>`.
+
+| Prop    | Type     | Default |
+| ------- | -------- | ------- |
+| `label` | `string` | -       |
