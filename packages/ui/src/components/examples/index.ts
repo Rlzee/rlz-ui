@@ -106,9 +106,12 @@ export const demoPaths: Record<string, string> = {
   "input-group-textarea": "input-group/textarea",
   "input-group-button": "input-group/button",
   "input-group-kbd": "input-group/kbd",
+  "input-group-label": "input-group/label",
   // Kbd
   kbd: "kbd/default",
   "kbd-input-group": "kbd/input-group",
+  // label
+  label: "label/default",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",

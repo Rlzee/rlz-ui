@@ -1,9 +1,9 @@
 ---
-title: Kbd
-description: A component for displaying keyboard keys and shortcuts.
+title: Label
+description: Renders an accessible label associated with controls.
 ---
 
-<ComponentPreview name="kbd" />
+<ComponentPreview name="label" />
 
 ## Installation
 
@@ -18,7 +18,7 @@ description: A component for displaying keyboard keys and shortcuts.
 <TabsPanel value="cli">
 
 ```bash
-npx rlz@latest add kbd
+npx rlz@latest add label
 ```
 
 </TabsPanel>
@@ -35,7 +35,7 @@ npm install @base-ui/react
 
 <Step>Copy and paste the following code into your project.</Step>
 
-<ComponentSource name="kbd" />
+<ComponentSource name="label" />
 
 <Step>Update the import paths to match your project setup.</Step>
 
@@ -48,25 +48,17 @@ npm install @base-ui/react
 ## Usage
 
 ```tsx
-import { Kbd } from "@/components/ui/kbd";
+import { Label } from "@/components/ui/label";
 ```
 
 ```tsx
-<Kbd>Ctrl</Kbd>
+<Label htmlFor="email">Email</Label>
 ```
 
 ## API Reference
 
-This is a custom component, not a Base UI wrapper.
+This is a custom component, using Base UI's `useRender` hook, not a direct Base UI wrapper.
 
-### Kbd (Root)
+### Label
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
-| `className` | `string` | -       |
-
-### Kbd Group
-
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
-| `className` | `string` | -       |
+Renders as a styled `<label>`. Supports the `render` prop for custom element rendering.
