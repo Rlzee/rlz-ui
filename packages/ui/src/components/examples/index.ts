@@ -120,6 +120,8 @@ export const demoPaths: Record<string, string> = {
   "number-field-scrub": "number-field/scrub",
   "number-field-formated": "number-field/formated",
   "number-field-step": "number-field/step",
+  // Popover
+  popover: "popover/default",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",
