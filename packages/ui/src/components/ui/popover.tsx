@@ -1,12 +1,15 @@
 "use client";
 
 import type * as React from "react";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
 import { cn } from "@rlz/ui/lib/cn";
+import { de } from "zod/v4/locales";
 
 export const PopoverCreateHandle = PopoverPrimitive.createHandle;
 
@@ -96,6 +99,23 @@ function PopoverArrow(props: ArrowType) {
   );
 }
 
+function PopoverHeader({
+  className,
+  render,
+  ...props
+}: useRender.ComponentProps<"div">) {
+  const defaultProps = {
+    "data-slot": "popover-header",
+    className: cn("flex flex-col gap-0.5", className),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render,
+  });
+}
+
 function PopoverViewport(props: PopoverPrimitive.Viewport.Props) {
   return <PopoverPrimitive.Viewport data-slot="popover-viewport" {...props} />;
 }
@@ -132,6 +152,7 @@ const PopoverExports = Object.assign(PopoverRoot, {
   Popup: PopoverPopup,
   Arrow: PopoverArrow,
   Viewport: PopoverViewport,
+  Header: PopoverHeader,
   Title: PopoverTitle,
   Description: PopoverDescription,
   Close: PopoverClose,
@@ -143,6 +164,7 @@ export {
   PopoverPopup,
   PopoverArrow,
   PopoverViewport,
+  PopoverHeader,
   PopoverTitle,
   PopoverDescription,
   PopoverClose,

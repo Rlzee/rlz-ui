@@ -58,8 +58,10 @@ import { Popover } from "@/components/ui/popover";
 <Popover>
   <PopoverTrigger>Open Popover</PopoverTrigger>
   <PopoverPopup>
-    <PopoverTitle>Popover Title</PopoverTitle>
-    <PopoverDescription>Popover Description</PopoverDescription>
+    <Popover.Header>
+      <PopoverTitle>Popover Title</PopoverTitle>
+      <PopoverDescription>Popover Description</PopoverDescription>
+    </Popover.Header>
     <PopoverClose>Close</PopoverClose>
   </PopoverPopup>
 </Popover>
@@ -74,11 +76,16 @@ Only additions and modifications are listed here.
 
 Includes `Portal`, `Backdrop`, and `Positioner` internally.
 
-| Prop              | Type                                              | Default             |
-| ----------------- | ------------------------------------------------- | ------------------- |
-| `backdrop`        | `boolean`                                         | `false`             |
-| `backdropProps`   | `React.ComponentProps<typeof PopoverBackdrop>`    | -                   |
-| `positionerProps` | `React.ComponentProps<typeof PopoverPositioner>`  | `{ sideOffset: 6 }` |
+| Prop              | Type                                             | Default             |
+| ----------------- | ------------------------------------------------ | ------------------- |
+| `backdrop`        | `boolean`                                        | `false`             |
+| `backdropProps`   | `React.ComponentProps<typeof PopoverBackdrop>`   | -                   |
+| `positionerProps` | `React.ComponentProps<typeof PopoverPositioner>` | `{ sideOffset: 6 }` |
+
+### Popover Header
+
+Wrapper for `<Popover.Title>` and `<Popover.Description>`. Renders as a styled `<div>`.
+Supports the `render` prop for custom element rendering.
 
 ### Popover Arrow
 

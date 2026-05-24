@@ -11,13 +11,13 @@ export default function Particle() {
       </Popover.Trigger>
       <Popover.Popup className="w-80">
         <Popover.Arrow />
-        <div className="mb-3">
+        <Popover.Header>
           <Popover.Title>New message</Popover.Title>
           <Popover.Description>
             Sarah left a comment on your post.
           </Popover.Description>
-        </div>
-        <Popover.Close render={<Button className="w-full" />}>
+        </Popover.Header>
+        <Popover.Close render={<Button className="w-full mt-3" />}>
           Close
         </Popover.Close>
       </Popover.Popup>
