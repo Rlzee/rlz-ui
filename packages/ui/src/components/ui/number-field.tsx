@@ -6,7 +6,7 @@ import { Label } from "@rlz/ui/components/ui/label";
 import { Minus, Plus } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
-const NumberFieldContext = React.createContext<{
+export const NumberFieldContext = React.createContext<{
   fieldId: string;
 } | null>(null);
 
@@ -23,7 +23,7 @@ function NumberFieldRoot({
       <NumberFieldPrimitive.Root
         id={fieldId}
         data-slot="number-field"
-        className={cn("flex flex-col items-start gap-1", className)}
+        className={cn("flex flex-col items-start gap-1.5", className)}
         {...props}
       />
     </NumberFieldContext.Provider>
@@ -100,7 +100,10 @@ function NumberFieldGroup({
   return (
     <NumberFieldPrimitive.Group
       data-slot="number-field-group"
-      className={cn("flex", className)}
+      className={cn(
+        "flex data-disabled:pointer-events-none data-disabled:opacity-50 ",
+        className
+      )}
       {...props}
     />
   );
@@ -117,12 +120,12 @@ function NumberFieldDecrement({
     <NumberFieldPrimitive.Decrement
       data-slot="number-field-decrement"
       className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70",
+        "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4",
         className
       )}
       {...props}
     >
-      {icon ? icon : <Minus className="h-4 w-4" />}
+      {icon ? icon : <Minus />}
     </NumberFieldPrimitive.Decrement>
   );
 }
@@ -138,12 +141,12 @@ function NumberFieldIncrement({
     <NumberFieldPrimitive.Increment
       data-slot="number-field-increment"
       className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70",
+        "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4",
         className
       )}
       {...props}
     >
-      {icon ? icon : <Plus className="h-4 w-4" />}
+      {icon ? icon : <Plus />}
     </NumberFieldPrimitive.Increment>
   );
 }
@@ -156,7 +159,7 @@ function NumberFieldInput({
     <NumberFieldPrimitive.Input
       data-slot="number-field-input"
       className={cn(
-        "bg-transparent h-9 w-24 border-t border-b text-center text-base text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
+        "bg-transparent h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
         className
       )}
       {...props}

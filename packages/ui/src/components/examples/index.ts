@@ -114,6 +114,12 @@ export const demoPaths: Record<string, string> = {
   label: "label/default",
   // Meter
   meter: "meter/default",
+  // Number Field
+  "number-field": "number-field/default",
+  "number-field-disabled": "number-field/disabled",
+  "number-field-scrub": "number-field/scrub",
+  "number-field-formated": "number-field/formated",
+  "number-field-step": "number-field/step",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",

@@ -22,7 +22,7 @@ const emptyIconVariants = cva(
       variant: {
         default: "bg-transparent",
         secondary:
-          "mb-2 bg-accent text-foreground flex size-10 shrink-0 items-center justify-center rounded-lg [&_svg:not([class*='size-'])]:size-6",
+          "mb-2 bg-accent text-foreground flex shrink-0 items-center justify-center rounded-lg",
       },
       size: {
         sm: "size-8 [&_svg:not([class*='size-'])]:size-4",
