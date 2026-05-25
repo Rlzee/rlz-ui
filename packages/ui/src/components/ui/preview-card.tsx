@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
 import {
   PopupArrow,
@@ -97,38 +97,7 @@ function PreviewCardArrow(props: ArrowType) {
   );
 }
 
-type PreviewCardComponent = PreviewCardPrimitive.Root.Props & {
-  arrow?: boolean;
-  arrowProps?: React.ComponentProps<typeof PreviewCardArrow>;
-  children: React.ReactNode;
-  triggerRender?: PreviewCardPrimitive.Trigger.Props["render"];
-  popupContent?: React.ReactNode;
-  popupProps?: React.ComponentProps<typeof PreviewCardPopup>;
-};
-
-function PreviewCard({
-  children: childrenTrigger,
-  triggerRender,
-  popupContent,
-  popupProps,
-  arrow = true,
-  arrowProps,
-  ...props
-}: PreviewCardComponent) {
-  return (
-    <PreviewCardRoot {...props}>
-      <PreviewCardTrigger render={triggerRender}>
-        {childrenTrigger}
-      </PreviewCardTrigger>
-      <PreviewCardPopup {...popupProps}>
-        {arrow && <PreviewCardArrow {...arrowProps} />}
-        {popupContent}
-      </PreviewCardPopup>
-    </PreviewCardRoot>
-  );
-}
-
-const PreviewCardExports = Object.assign(PreviewCard, {
+const PreviewCardExports = Object.assign(PreviewCardRoot, {
   Root: PreviewCardRoot,
   Trigger: PreviewCardTrigger,
   Popup: PreviewCardPopup,
@@ -137,7 +106,6 @@ const PreviewCardExports = Object.assign(PreviewCard, {
 
 export {
   PreviewCardExports as PreviewCard,
-  PreviewCardRoot,
   PreviewCardTrigger,
   PreviewCardPopup,
   PreviewCardArrow,
