@@ -122,11 +122,13 @@ export const demoPaths: Record<string, string> = {
   "number-field-step": "number-field/step",
   // Popover
   popover: "popover/default",
+  // Preview Card
+  "preview-card": "preview-card/default",
+  // Progress
+  progress: "progress/default",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",
-  // Preview Card
-  "preview-card": "preview-card/default",
   // Switch
   switch: "switch/default",
   "switch-disabled": "switch/disabled",

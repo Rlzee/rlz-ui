@@ -41,7 +41,7 @@ function ProgressTrack({ className, ...props }: ProgressPrimitive.Track.Props) {
     <ProgressPrimitive.Track
       data-slot="progress-track"
       className={cn(
-        "col-span-full h-1 overflow-hidden rounded bg-accent",
+        "col-span-full h-1.5 overflow-hidden rounded bg-accent",
         className
       )}
       {...props}
@@ -67,14 +67,16 @@ function ProgressIndicator({
 
 function Progress({
   label,
+  valueLabel = false,
   ...props
 }: ProgressPrimitive.Root.Props & {
-  label: string;
+  label?: string;
+  valueLabel?: boolean;
 }) {
   return (
     <ProgressRoot {...props}>
-      <ProgressLabel>{label}</ProgressLabel>
-      <ProgressValue />
+      {label && <ProgressLabel>{label}</ProgressLabel>}
+      {valueLabel && <ProgressValue />}
       <ProgressTrack>
         <ProgressIndicator />
       </ProgressTrack>

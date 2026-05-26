@@ -64,14 +64,16 @@ function MeterIndicator({
 
 function Meter({
   label,
+  valueLabel = false,
   ...props
 }: MeterPrimitive.Root.Props & {
   label?: string;
+  valueLabel?: boolean;
 }) {
   return (
     <MeterRoot {...props}>
-      <MeterLabel>{label}</MeterLabel>
-      <MeterValue />
+      {label && <MeterLabel>{label}</MeterLabel>}
+      {valueLabel && <MeterValue />}
       <MeterTrack>
         <MeterIndicator />
       </MeterTrack>

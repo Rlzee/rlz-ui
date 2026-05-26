@@ -1,0 +1,87 @@
+---
+title: Progress
+description: Displays the completion status of a task or operation.
+links:
+  doc: https://base-ui.com/react/components/progress
+  api: https://base-ui.com/react/components/progress/#api-reference
+---
+
+<ComponentPreview name="progress" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add progress
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="progress" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Progress } from "@/components/ui/progress";
+```
+
+### Shorthand
+
+```tsx
+<Progress label="label" value={72} min={0} max={100} />
+```
+
+### Compound
+
+```tsx
+<Progress.Root value={72} min={0} max={100}>
+  <Progress.Label>Label</Progress.Label>
+  <Progress.Value />
+  <Progress.Track>
+    <Progress.Indicator />
+  </Progress.Track>
+</Progress.Root>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/progress/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Progress
+
+Shorthand that composes `<Progress.Root>`, `<Progress.Label>`, `<Progress.Value>`, `<Progress.Track>`, and `<Progress.Indicator>`.
+
+| Prop         | Type      | Default |
+| ------------ | --------- | ------- |
+| `label`      | `string`  | -       |
+| `valueLabel` | `boolean` | `false` |
