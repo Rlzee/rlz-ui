@@ -129,6 +129,8 @@ export const demoPaths: Record<string, string> = {
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",
+  // Scroll area
+  "scroll-area": "scroll-area/default",
   // Switch
   switch: "switch/default",
   "switch-disabled": "switch/disabled",
