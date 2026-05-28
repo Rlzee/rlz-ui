@@ -115,15 +115,11 @@ function ComboboxField({
   return (
     <ComboboxPrimitive.InputGroup
       data-slot="combobox-input-group"
-      className={cn(
-        "relative [&>input]:pr-10 has-[data-slot=combobox-clear]:[&>input]:pr-16",
-        "has-disabled:opacity-50",
-        className
-      )}
+      className={cn("relative", "has-disabled:opacity-50", className)}
     >
       <ComboboxInput {...props} />
 
-      <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
+      <div className="absolute right-3 bottom-0 flex h-9 items-center">
         <ComboboxPrimitive.Trigger className="group has-[+[data-slot=combobox-clear]]:hidden">
           <ComboboxIcon icon={icon} />
         </ComboboxPrimitive.Trigger>

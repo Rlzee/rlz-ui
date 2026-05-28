@@ -28,7 +28,12 @@ export default function Example() {
         <InputGroup.Addon align="inline-start">
           <Search />
         </InputGroup.Addon>
-        <Combobox.Field unstyled placeholder="Select a language" clearable />
+        <Combobox.Field
+          unstyled
+          placeholder="Select a language"
+          clearable
+          className="[&>div]:right-0"
+        />
       </InputGroup>
       <Combobox.Popup
         positionerProps={{
