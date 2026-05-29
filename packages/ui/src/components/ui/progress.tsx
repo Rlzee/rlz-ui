@@ -7,7 +7,7 @@ function ProgressRoot({ className, ...props }: ProgressPrimitive.Root.Props) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
-      className={cn("grid w-full grid-cols-2 gap-y-2", className)}
+      className={cn("w-full", className)}
       {...props}
     />
   );
@@ -27,10 +27,7 @@ function ProgressValue({ className, ...props }: ProgressPrimitive.Value.Props) {
   return (
     <ProgressPrimitive.Value
       data-slot="progress-value"
-      className={cn(
-        "col-start-2 text-right text-sm text-foreground",
-        className
-      )}
+      className={cn("text-right text-sm text-foreground", className)}
       {...props}
     />
   );
@@ -65,18 +62,10 @@ function ProgressIndicator({
   );
 }
 
-function Progress({
-  label,
-  valueLabel = false,
-  ...props
-}: ProgressPrimitive.Root.Props & {
-  label?: string;
-  valueLabel?: boolean;
-}) {
+function Progress({ children, ...props }: ProgressPrimitive.Root.Props) {
   return (
     <ProgressRoot {...props}>
-      {label && <ProgressLabel>{label}</ProgressLabel>}
-      {valueLabel && <ProgressValue />}
+      {children}
       <ProgressTrack>
         <ProgressIndicator />
       </ProgressTrack>

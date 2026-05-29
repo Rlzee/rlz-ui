@@ -4,8 +4,14 @@ import * as React from "react";
 import { Slider as SliderPrimitive } from "@base-ui/react/slider";
 import { cn } from "@rlz/ui/lib/cn";
 
-function SliderRoot(props: SliderPrimitive.Root.Props) {
-  return <SliderPrimitive.Root data-slot="slider" {...props} />;
+function SliderRoot({ className, ...props }: SliderPrimitive.Root.Props) {
+  return (
+    <SliderPrimitive.Root
+      data-slot="slider"
+      className={cn("data-[orientation=horizontal]:w-full", className)}
+      {...props}
+    />
+  );
 }
 
 function SliderValue(props: SliderPrimitive.Value.Props) {
@@ -17,7 +23,8 @@ function SliderControl({ className, ...props }: SliderPrimitive.Control.Props) {
     <SliderPrimitive.Control
       data-slot="slider-control"
       className={cn(
-        "flex w-full touch-none items-center py-3 select-none",
+        "flex w-full touch-none items-center py-1.5 select-none",
+        "data-disabled:cursor-not-allowed data-disabled:opacity-50",
         className
       )}
       {...props}
@@ -62,15 +69,13 @@ function SliderThumb({ className, ...props }: SliderPrimitive.Thumb.Props) {
 }
 
 function Slider({
-  showValue = false,
   value,
   defaultValue,
   min = 0,
   max = 100,
+  children,
   ...props
-}: SliderPrimitive.Root.Props & {
-  showValue?: boolean;
-}) {
+}: SliderPrimitive.Root.Props) {
   const values = React.useMemo(() => {
     if (value !== undefined) return Array.isArray(value) ? value : [value];
     if (defaultValue !== undefined)
@@ -86,7 +91,7 @@ function Slider({
       max={max}
       {...props}
     >
-      {showValue && values.map((_, index) => <SliderValue key={index} />)}
+      {children}
       <SliderControl>
         <SliderTrack>
           <SliderIndicator />

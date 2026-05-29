@@ -114,6 +114,7 @@ export const demoPaths: Record<string, string> = {
   label: "label/default",
   // Meter
   meter: "meter/default",
+  "meter-label": "meter/label",
   // Number Field
   "number-field": "number-field/default",
   "number-field-disabled": "number-field/disabled",
@@ -126,6 +127,7 @@ export const demoPaths: Record<string, string> = {
   "preview-card": "preview-card/default",
   // Progress
   progress: "progress/default",
+  "progress-label": "progress/label",
   // Radio group
   "radio-group": "radio-group/default",
   "radio-group-disabled": "radio-group/disabled",
@@ -133,6 +135,10 @@ export const demoPaths: Record<string, string> = {
   "scroll-area": "scroll-area/default",
   // separator
   separator: "separator",
+  // Slider
+  slider: "slider/default",
+  "slider-disabled": "slider/disabled",
+  "slider-label": "slider/label",
   // Switch
   switch: "switch/default",
   "switch-disabled": "switch/disabled",

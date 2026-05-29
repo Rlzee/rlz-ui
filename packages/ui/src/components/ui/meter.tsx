@@ -7,7 +7,7 @@ function MeterRoot({ className, ...props }: MeterPrimitive.Root.Props) {
   return (
     <MeterPrimitive.Root
       data-slot="meter"
-      className={cn("box-border grid w-full grid-cols-2 gap-y-2", className)}
+      className={cn("w-full", className)}
       {...props}
     />
   );
@@ -27,10 +27,7 @@ function MeterValue({ className, ...props }: MeterPrimitive.Value.Props) {
   return (
     <MeterPrimitive.Value
       data-slot="meter-value"
-      className={cn(
-        "col-start-2 m-0 text-right text-sm leading-5 text-foreground",
-        className
-      )}
+      className={cn("text-right text-sm leading-5 text-foreground", className)}
       {...props}
     />
   );
@@ -62,18 +59,10 @@ function MeterIndicator({
   );
 }
 
-function Meter({
-  label,
-  valueLabel = false,
-  ...props
-}: MeterPrimitive.Root.Props & {
-  label?: string;
-  valueLabel?: boolean;
-}) {
+function Meter({ children, ...props }: MeterPrimitive.Root.Props) {
   return (
     <MeterRoot {...props}>
-      {label && <MeterLabel>{label}</MeterLabel>}
-      {valueLabel && <MeterValue />}
+      {children}
       <MeterTrack>
         <MeterIndicator />
       </MeterTrack>

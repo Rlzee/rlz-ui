@@ -57,7 +57,7 @@ import { Meter } from "@/components/ui/meter";
 ### Shorthand
 
 ```tsx
-<Meter label="label" value={72} min={0} max={100} valueLabel />
+<Meter value={72} min={0} max={100} />
 ```
 
 ### Compound
@@ -79,9 +79,10 @@ Only additions and modifications are listed here.
 
 ### Meter
 
-Shorthand that composes `<Meter.Root>`, `<Meter.Label>`, `<Meter.Value>`, `<Meter.Track>`, and `<Meter.Indicator>`.
+Shorthand that composes `<Meter.Root>`, `<Meter.Track>`, and `<Meter.Indicator>`.
 
-| Prop         | Type      | Default |
-| ------------ | --------- | ------- |
-| `label`      | `string`  | -       |
-| `valueLabel` | `boolean` | `false` |
+## Examples
+
+### With Label
+
+<ComponentPreview name="meter-label" />

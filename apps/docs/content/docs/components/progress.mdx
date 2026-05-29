@@ -57,7 +57,7 @@ import { Progress } from "@/components/ui/progress";
 ### Shorthand
 
 ```tsx
-<Progress label="label" value={72} min={0} max={100} valueLabel />
+<Progress value={72} min={0} max={100} />
 ```
 
 ### Compound
@@ -79,9 +79,10 @@ Only additions and modifications are listed here.
 
 ### Progress
 
-Shorthand that composes `<Progress.Root>`, `<Progress.Label>`, `<Progress.Value>`, `<Progress.Track>`, and `<Progress.Indicator>`.
+Shorthand that composes `<Progress.Root>`, `<Progress.Track>`, and `<Progress.Indicator>`.
 
-| Prop         | Type      | Default |
-| ------------ | --------- | ------- |
-| `label`      | `string`  | -       |
-| `valueLabel` | `boolean` | `false` |
+## Examples
+
+### With Label
+
+<ComponentPreview name="progress-label" />
