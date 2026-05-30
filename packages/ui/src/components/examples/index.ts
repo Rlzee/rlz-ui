@@ -142,4 +142,8 @@ export const demoPaths: Record<string, string> = {
   // Switch
   switch: "switch/default",
   "switch-disabled": "switch/disabled",
+  // textarea
+  textarea: "textarea/default",
+  "textarea-disabled": "textarea/disabled",
+  "textarea-label": "textarea/label",
 };

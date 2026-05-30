@@ -1,5 +1,19 @@
 import { Button } from "@rlz/ui/components/ui/button";
-import { Spinner } from "@rlz/ui/components/ui/spinner";
+import { Loader2 } from "lucide-react";
+
+function Spinner({
+  className,
+  ...props
+}: React.ComponentProps<typeof Loader2>) {
+  return (
+    <Loader2
+      aria-label="Loading"
+      className="animate-spin"
+      role="status"
+      {...props}
+    />
+  );
+}
 
 export default function Example() {
   return (

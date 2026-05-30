@@ -26,7 +26,7 @@ function Textarea({
         "inline-flex text-sm w-full",
         !unstyled && [
           "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
-          "px-3 relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs",
+          "relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs",
           "has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring",
@@ -43,7 +43,10 @@ function Textarea({
         name={props.name}
         render={(defaultProps: React.ComponentProps<"textarea">) => (
           <textarea
-            className="min-h-20.5 max-sm:min-h-23.5 min-w-0 w-full py-2 rounded-[inherit] placeholder:text-muted-foreground outline-none"
+            className={cn(
+              "min-h-20.5 max-sm:min-h-23.5 min-w-0 w-full py-2 rounded-[inherit] placeholder:text-muted-foreground outline-none",
+              !unstyled && "px-3"
+            )}
             data-slot="textarea"
             {...mergeProps(defaultProps, props)}
           />
