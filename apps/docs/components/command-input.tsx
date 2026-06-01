@@ -6,20 +6,11 @@ import { CommandDialogTrigger } from "@rlz/ui/components/ui/command";
 import { commandHandle } from "./command-menu";
 
 import { Button } from "@rlz/ui/components/ui/button";
+import { Kbd } from "@rlz/ui/components/ui/kbd";
+import { Search } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
-type CommandInputProps = {
-  className?: string;
-  placeholder?: string;
-  shortcutKey?: string;
-  fullWidth?: boolean;
-};
-
-export function CommandInput({
-  className,
-  placeholder = "Search documentation...",
-  fullWidth = false,
-}: CommandInputProps) {
+export function CommandInput({ className }: { className: string }) {
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
@@ -47,18 +38,16 @@ export function CommandInput({
         <Button
           data-slot="button-search"
           size="sm"
-          className={cn(
-            "flex justify-between items-center gap-2 px-3 py-1.5 font-normal bg-accent/60 border hover:bg-accent",
-            fullWidth
-              ? "w-full"
-              : "w-[8rem] sm:w-[10rem] md:w-[12rem] lg:w-[14rem] xl:w-[16rem] max-w-full truncate",
-            className
-          )}
+          className={cn("bg-accent/60 border hover:bg-accent", className)}
           aria-label="Open search"
         />
       }
     >
-      <span className="truncate text-muted-foreground">{placeholder}</span>
+      <Search className="text-muted" />
+      <Kbd.Group>
+        <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">Ctrl</Kbd>
+        <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">K</Kbd>
+      </Kbd.Group>
     </CommandDialogTrigger>
   );
 }

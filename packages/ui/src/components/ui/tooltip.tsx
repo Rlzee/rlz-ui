@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 import {
   PopupArrow,
@@ -21,6 +21,10 @@ function TooltipRoot(props: TooltipPrimitive.Root.Props) {
 
 function TooltipTrigger(props: TooltipPrimitive.Trigger.Props) {
   return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}
+
+function TooltipPortal(props: TooltipPrimitive.Portal.Props) {
+  return <TooltipPrimitive.Portal data-slot="tooltip-portal" {...props} />;
 }
 
 function TooltipPositioner(props: TooltipPrimitive.Positioner.Props) {
@@ -65,7 +69,7 @@ function TooltipPopup({
   } = positionerProps ?? {};
 
   return (
-    <TooltipPrimitive.Portal data-slot="tooltip-portal">
+    <TooltipPortal>
       <TooltipPositioner
         {...restPositionerProps}
         sideOffset={sideOffset}
@@ -80,7 +84,7 @@ function TooltipPopup({
           {props.children}
         </TooltipPrimitive.Popup>
       </TooltipPositioner>
-    </TooltipPrimitive.Portal>
+    </TooltipPortal>
   );
 }
 
@@ -146,6 +150,7 @@ const TooltipExport = Object.assign(Tooltip, {
   Root: TooltipRoot,
   Provider: TooltipProvider,
   Trigger: TooltipTrigger,
+  Portal: TooltipPortal,
   Popup: TooltipPopup,
   Arrow: TooltipArrow,
 });
@@ -156,6 +161,7 @@ export {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
+  TooltipPortal,
   TooltipPopup,
   TooltipArrow,
 };

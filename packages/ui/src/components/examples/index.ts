@@ -146,4 +146,7 @@ export const demoPaths: Record<string, string> = {
   textarea: "textarea/default",
   "textarea-disabled": "textarea/disabled",
   "textarea-label": "textarea/label",
+  // Tooltip
+  tooltip: "tooltip/default",
+  "tooltip-variant": "tooltip/variant",
 };
