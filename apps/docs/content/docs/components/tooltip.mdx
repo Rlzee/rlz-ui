@@ -57,15 +57,19 @@ import { Tooltip } from "@/components/ui/tooltip";
 ### Shorthand
 
 ```tsx
-<Tooltip />
+<Tooltip triggerRender={<button>Hover Me</button>} popupContent="Hello !" />
 ```
 
 ### Compound
 
 ```tsx
-<Switch.Root>
-  <Checkbox.Thumb />
-</Checkbox.Root>
+<Tooltip.Root>
+  <Tooltip.Trigger>Hover Me</Tooltip.Trigger>
+  <Tooltip.Popup>
+    <Tooltip.Arrow />
+    Hello !
+  </Tooltip.Popup>
+</Tooltip.Root>
 ```
 
 ## API Reference
@@ -77,25 +81,25 @@ Only additions and modifications are listed here.
 
 Shorthand that composes `<Tooltip.Provider>`, `<Tooltip.Root>`, `<Tooltip.Trigger>`, `<Tooltip.Popup>`, and `<Tooltip.Arrow>`.
 
-| Prop            | Type                                              | Default |
-| --------------- | ------------------------------------------------- | ------- |
-| `popupContent`  | `React.ReactNode`                                 | -       |
-| `triggerRender` | `TooltipPrimitive.Trigger.Props["render"]`        | -       |
-| `arrow`         | `boolean`                                         | `true`  |
-| `arrowProps`    | `React.ComponentProps<typeof TooltipArrow>`       | -       |
-| `popupProps`    | `React.ComponentProps<typeof TooltipPopup>`       | -       |
-| `delay`         | `number`                                          | `0`     |
-| `closeDelay`    | `number`                                          | `500`   |
-| `timeout`       | `number`                                          | `0`     |
+| Prop            | Type                                        | Default |
+| --------------- | ------------------------------------------- | ------- |
+| `popupContent`  | `React.ReactNode`                           | -       |
+| `triggerRender` | `TooltipPrimitive.Trigger.Props["render"]`  | -       |
+| `arrow`         | `boolean`                                   | `true`  |
+| `arrowProps`    | `React.ComponentProps<typeof TooltipArrow>` | -       |
+| `popupProps`    | `React.ComponentProps<typeof TooltipPopup>` | -       |
+| `delay`         | `number`                                    | `0`     |
+| `closeDelay`    | `number`                                    | `500`   |
+| `timeout`       | `number`                                    | `0`     |
 
 ### Tooltip Popup
 
 Includes `Portal` and `Positioner` internally.
 
-| Prop              | Type                                               | Default              |
-| ----------------- | -------------------------------------------------- | -------------------- |
-| `variant`         | `"primary" \| "outline"`                           | `"primary"`          |
-| `positionerProps` | `React.ComponentProps<typeof TooltipPositioner>`   | `{ sideOffset: 10 }` |
+| Prop              | Type                                             | Default              |
+| ----------------- | ------------------------------------------------ | -------------------- |
+| `variant`         | `"primary" \| "outline"`                         | `"primary"`          |
+| `positionerProps` | `React.ComponentProps<typeof TooltipPositioner>` | `{ sideOffset: 10 }` |
 
 ### Tooltip Arrow
 

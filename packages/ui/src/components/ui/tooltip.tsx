@@ -11,8 +11,21 @@ import { cn } from "@rlz/ui/lib/cn";
 
 const TooltipCreateHandle = TooltipPrimitive.createHandle;
 
-function TooltipProvider(props: TooltipPrimitive.Provider.Props) {
-  return <TooltipPrimitive.Provider data-slot="tooltip-provider" {...props} />;
+function TooltipProvider({
+  delay = 0,
+  closeDelay = 500,
+  timeout = 0,
+  ...props
+}: TooltipPrimitive.Provider.Props) {
+  return (
+    <TooltipPrimitive.Provider
+      data-slot="tooltip-provider"
+      delay={delay}
+      closeDelay={closeDelay}
+      timeout={timeout}
+      {...props}
+    />
+  );
 }
 
 function TooltipRoot(props: TooltipPrimitive.Root.Props) {
@@ -108,9 +121,6 @@ function TooltipArrow(props: ArrowType) {
 }
 
 type TooltipProps = TooltipPrimitive.Root.Props & {
-  delay?: TooltipPrimitive.Provider.Props["delay"];
-  closeDelay?: TooltipPrimitive.Provider.Props["closeDelay"];
-  timeout?: TooltipPrimitive.Provider.Props["timeout"];
   arrow?: boolean;
   arrowProps?: React.ComponentProps<typeof TooltipArrow>;
   children?: React.ReactNode;
@@ -120,9 +130,6 @@ type TooltipProps = TooltipPrimitive.Root.Props & {
 };
 
 function Tooltip({
-  delay = 0,
-  closeDelay = 500,
-  timeout = 0,
   children: childrenTrigger,
   triggerRender,
   popupContent,
@@ -132,17 +139,13 @@ function Tooltip({
   ...props
 }: TooltipProps) {
   return (
-    <TooltipProvider delay={delay} closeDelay={closeDelay} timeout={timeout}>
-      <TooltipRoot {...props}>
-        <TooltipTrigger render={triggerRender}>
-          {childrenTrigger}
-        </TooltipTrigger>
-        <TooltipPopup {...popupProps}>
-          {arrow && <TooltipArrow {...arrowProps} />}
-          {popupContent}
-        </TooltipPopup>
-      </TooltipRoot>
-    </TooltipProvider>
+    <TooltipRoot {...props}>
+      <TooltipTrigger render={triggerRender}>{childrenTrigger}</TooltipTrigger>
+      <TooltipPopup {...popupProps}>
+        {arrow && <TooltipArrow {...arrowProps} />}
+        {popupContent}
+      </TooltipPopup>
+    </TooltipRoot>
   );
 }
 
