@@ -149,6 +149,11 @@ export const demoPaths: Record<string, string> = {
   // Toggle
   toggle: "toggle/default",
   "toggle-group": "toggle/group",
+  "toggle-group-variant": "toggle/group-variant",
+  "toggle-variant": "toggle/variant",
+  "toggle-orientation": "toggle/orientation",
+  "toggle-size": "toggle/size",
+  "toggle-group-size": "toggle/group-size",
   // Tooltip
   tooltip: "tooltip/default",
   "tooltip-variant": "tooltip/variant",

@@ -11,32 +11,35 @@ const toggleVariants = cva(
   {
     variants: {
       variant: {
-        default: "data-[pressed]:bg-accent data-[pressed]:text-foreground",
+        default: "px-3 data-[pressed]:bg-accent data-[pressed]:text-foreground",
         outline: [
-          "border border-border bg-secondary data-[pressed]:bg-accent data-[pressed]:text-foreground",
+          "px-3 border border-border bg-secondary data-[pressed]:bg-accent data-[pressed]:text-foreground",
           // horizontal (défaut)
           "in-data-[slot=toggle-group]:in-data-[orientation=horizontal]:not-last:border-r-0",
+          "in-data-[slot=toggle-group]:in-data-[orientation=horizontal]:not-first:border-l-0",
           "in-data-[slot=toggle-group]:in-data-[orientation=horizontal]:first:rounded-r-none",
           "in-data-[slot=toggle-group]:in-data-[orientation=horizontal]:last:rounded-l-none",
           "in-data-[slot=toggle-group]:in-data-[orientation=horizontal]:not-first:not-last:rounded-none",
           // vertical
           "in-data-[slot=toggle-group]:in-data-[orientation=vertical]:not-last:border-b-0",
+          "in-data-[slot=toggle-group]:in-data-[orientation=vertical]:not-first:border-t-0",
           "in-data-[slot=toggle-group]:in-data-[orientation=vertical]:first:rounded-b-none",
           "in-data-[slot=toggle-group]:in-data-[orientation=vertical]:last:rounded-t-none",
           "in-data-[slot=toggle-group]:in-data-[orientation=vertical]:not-first:not-last:rounded-none",
         ],
       },
       size: {
-        xs: "h-7 px-1 min-w-7",
-        sm: "h-8 px-1.5 min-w-8",
-        md: "h-9 px-2 min-w-9",
-        lg: "h-10 px-2.5 min-w-10",
-        xl: "h-11 px-3 min-w-11",
-        "icon-xs": "h-7 w-7 p-0",
-        "icon-sm": "h-8 w-8 p-0",
-        "icon-md": "h-9 w-9 p-0",
-        "icon-lg": "h-10 w-10 p-0",
-        "icon-xl": "h-11 w-11 p-0",
+        xs: "h-7 px-2 has-[>svg]:px-1.5 text-xs",
+        sm: "h-8 has-[>svg]:px-2.5 text-sm",
+        md: "h-9 has-[>svg]:px-3 text-sm",
+        lg: "h-10 px-4 has-[>svg]:px-4 text-base",
+        xl: "h-11 px-4 has-[>svg]:px-6 text-lg",
+
+        "icon-xs": "size-7 [&>svg:not([class*='size-'])]:size-3.5",
+        "icon-sm": "size-8 [&>svg:not([class*='size-'])]:size-4",
+        "icon-md": "size-9 [&>svg:not([class*='size-'])]:size-4",
+        "icon-lg": "size-10 [&>svg:not([class*='size-'])]:size-5",
+        "icon-xl": "size-11 [&>svg:not([class*='size-'])]:size-6",
       },
     },
     defaultVariants: {
@@ -51,8 +54,8 @@ const ToggleGroupContext = createContext<ToggleVariants>({});
 
 function ToggleRoot({
   className,
-  variant,
-  size,
+  variant = "default",
+  size = "md",
   ...props
 }: TogglePrimitive.Props & ToggleVariants) {
   const ctx = useContext(ToggleGroupContext);
@@ -98,8 +101,28 @@ function ToggleGroup({
   );
 }
 
+function ToggleGroupSeparator({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      role="separator"
+      data-slot="group-separator"
+      className={cn(
+        "pointer-events-none relative z-2 shrink-0 bg-border",
+        "in-data-[orientation=horizontal]:self-stretch in-data-[orientation=horizontal]:w-px",
+        "in-data-[orientation=vertical]:h-px in-data-[orientation=vertical]:w-full",
+        className
+      )}
+      {...props}
+    />
+  );
+}
+
 const ToggleExports = Object.assign(ToggleRoot, {
   Group: ToggleGroup,
+  GroupSeparator: ToggleGroupSeparator,
 });
 
-export { ToggleExports as Toggle, ToggleGroup };
+export { ToggleExports as Toggle, ToggleGroup, ToggleGroupSeparator };
