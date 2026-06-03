@@ -187,7 +187,7 @@ export function CommandMenu({
                             <Command.Item
                               key={item.value}
                               value={item.value}
-                              className="data-highlighted:bg-accent data-highlighted:border rounded-md py-2.5 mx-1"
+                              className="data-highlighted:bg-accent data-highlighted:border rounded-md py-2.5 mx-1 [&_svg]:text-foreground"
                               render={
                                 <Link
                                   href={item.url}

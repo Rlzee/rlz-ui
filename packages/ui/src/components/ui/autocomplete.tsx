@@ -246,7 +246,7 @@ function AutocompleteItem({
     <AutocompletePrimitive.Item
       data-slot="autocomplete-item"
       className={cn(
-        "flex cursor-default items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none",
+        "flex cursor-default items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none [&_svg]:text-muted [&_svg]:size-4",
         "group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
         "hover:before:absolute hover:text-accent-foreground hover:before:inset-x-1 hover:before:inset-y-0 hover:before:rounded-sm hover:before:z-[-1] hover:before:bg-accent/70",
@@ -265,7 +265,7 @@ function AutocompleteSeparator({
   return (
     <AutocompletePrimitive.Separator
       data-slot="autocomplete-separator"
-      className={cn("my-1 h-px bg-border mx-2 last:hidden", className)}
+      className={cn("my-1 h-px bg-border mx-2 last:hiddens", className)}
       {...props}
     />
   );

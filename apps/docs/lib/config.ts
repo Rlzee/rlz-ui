@@ -2,6 +2,10 @@ export const siteConfig = {
   name: "rlz-ui",
   navItems: [
     {
+      label: "Home",
+      href: "/",
+    },
+    {
       label: "Docs",
       href: "/docs",
     },
@@ -12,14 +16,6 @@ export const siteConfig = {
     {
       label: "Themes",
       href: "/themes",
-    },
-    {
-      label: "Blocks",
-      href: "/blocks",
-    },
-    {
-      label: "Particles",
-      href: "/particles",
     },
   ],
 };
