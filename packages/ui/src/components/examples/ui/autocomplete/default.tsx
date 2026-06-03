@@ -17,7 +17,7 @@ export default function Example() {
   return (
     <Autocomplete items={fruits}>
       <Autocomplete.Input
-        className="w-60 mx-auto"
+        className="max-w-60"
         aria-label="Search fruit"
         placeholder="Search fruit"
       />

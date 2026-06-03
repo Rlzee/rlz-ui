@@ -7,7 +7,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 
 const defaultClass = cn(
-  "px-3 inline-flex items-center justify-center gap-2 whitespace-nowrap outline-none rounded-md font-medium transition-[color,box-shadow]",
+  "px-3 inline-flex items-center justify-center gap-1.5 whitespace-nowrap outline-none rounded-md font-medium transition-[color,box-shadow]",
   "disabled:pointer-events-none disabled:opacity-50",
   "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0",
   "state-focus-ring state-invalid"

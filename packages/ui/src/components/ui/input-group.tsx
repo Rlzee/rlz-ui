@@ -33,7 +33,7 @@ function InputGroupRoot({
         "has-[textarea]:h-auto **:[textarea]:min-h-20.5 **:[textarea]:resize-none **:[textarea]:max-sm:min-h-23.5",
         // block
         "has-data-[align=block-end]:h-auto has-data-[align=block-end]:flex-col",
-        "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col has-data-[align=block-start]:**:[input]:pb-1.5",
+        "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col", //has-data-[align=block-start]:**:[input]:pb-1.5
         "has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto",
         // inline-start - inline-end
         "has-data-[align=inline-start]:[&_input]:ps-1.5 has-data-[align=inline-end]:[&_input]:pe-1.5",
