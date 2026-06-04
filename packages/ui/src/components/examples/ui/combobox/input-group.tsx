@@ -32,7 +32,7 @@ export default function Example() {
           unstyled
           placeholder="Select a language"
           clearable
-          className="[&>div]:right-0"
+          className="[&>div]:-right-1"
         />
       </InputGroup>
       <Combobox.Popup

@@ -239,6 +239,7 @@ const DialogExports = Object.assign(DialogRoot, {
 export {
   DialogCreateHandle,
   DialogExports as Dialog,
+  DialogTrigger,
   DialogPortal,
   DialogPopup,
   DialogTitle,

@@ -4,6 +4,7 @@ import type * as React from "react";
 import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
 import { CommandInput } from "./command-input";
+import { DialogTrigger } from "@rlz/ui/components/ui/dialog";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { ModeSwitcher } from "./mode-switcher";
 import GithubIcon from "./icons/Github";
@@ -14,6 +15,7 @@ import { Badge } from "@rlz/ui/components/ui/badge";
 
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/config";
+import { dialogHandle } from "./new-project";
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -48,10 +50,19 @@ export function SiteHeader() {
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
           <Separator orientation="vertical" className="h-5" />
-          <Button size="sm" className="ml-1">
+          <DialogTrigger
+            handle={dialogHandle}
+            render={
+              <Button
+                aria-label="Open new project"
+                size="sm"
+                className="ml-1"
+              />
+            }
+          >
             <Plus />
             New
-          </Button>
+          </DialogTrigger>
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">

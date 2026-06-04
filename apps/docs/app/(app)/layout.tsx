@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/site-header";
 import { CommandMenu } from "@/components/command-menu";
+import { NewProject } from "@/components/new-project";
 import {
   BorderFlash,
   BorderFlashBox,
@@ -48,6 +49,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <SiteHeader />
       <main className="flex flex-1 flex-col">{children}</main>
 
+      {/* Dialog */}
+      <NewProject />
       <CommandMenu navItems={siteConfig.navItems} tree={source.pageTree} />
     </div>
   );
