@@ -64,7 +64,7 @@ export const demoPaths: Record<string, string> = {
   //Command
   command: "command/default",
   // Context Menu
-  "context-menu": "context-menu/default",
+  "context-menu": "context-menu",
   // Dialog
   dialog: "dialog/default",
   "dialog-variant": "dialog/variant",
@@ -112,6 +112,8 @@ export const demoPaths: Record<string, string> = {
   "kbd-input-group": "kbd/input-group",
   // label
   label: "label/default",
+  // Menu
+  menu: "menu",
   // Meter
   meter: "meter/default",
   "meter-label": "meter/label",

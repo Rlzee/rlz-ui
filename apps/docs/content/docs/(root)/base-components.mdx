@@ -45,15 +45,15 @@ Used by [Context Menu](/docs/components/context-menu) and [Menu](/docs/component
 
 Rather than duplicating styles across every menu-like component, `MenuBase` accepts the underlying primitive as a prop and applies the shared styling once.
 
-| Sub-component             | Description                                                        |
-| ------------------------- | ------------------------------------------------------------------ |
-| `MenuBase.Popup`          | Wraps Portal + Positioner + Popup with shared animation and layout |
-| `MenuBase.Item`           | Shared item styles including highlighted state and icon handling   |
-| `MenuBase.GroupLabel`     | Styled section heading inside a menu                               |
-| `MenuBase.Separator`      | Horizontal divider between menu sections                           |
-| `MenuBase.CheckboxItem`   | Menu item with a checkbox indicator                                |
-| `MenuBase.RadioItem`      | Menu item with a radio indicator                                   |
-| `MenuBase.SubmenuTrigger` | Item that opens a nested menu, with a chevron icon                 |
+| Sub-component             | Description                                                                        |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| `MenuBase.Popup`          | Wraps Portal + Positioner + Popup with shared animation and layout                 |
+| `MenuBase.Item`           | Shared item styles with `variant="default" \| "destructive"` and highlighted state |
+| `MenuBase.GroupLabel`     | Styled section heading inside a menu                                               |
+| `MenuBase.Separator`      | Horizontal divider between menu sections                                           |
+| `MenuBase.CheckboxItem`   | Menu item with a checkbox indicator                                                |
+| `MenuBase.RadioItem`      | Menu item with a radio indicator                                                   |
+| `MenuBase.SubmenuTrigger` | Item that opens a nested menu, with a chevron icon                                 |
 
 `MenuBase.Popup` accepts `backdrop`, `backdropProps`, and `positionerProps` to configure the overlay and positioning behavior, with `sideOffset` defaulting to `8`.
 

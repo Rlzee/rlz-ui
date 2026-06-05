@@ -74,10 +74,17 @@ function MenuGroupLabel({
   );
 }
 
-function MenuItem({ className, ...props }: MenuPrimitive.Item.Props) {
+function MenuItem({
+  variant = "default",
+  className,
+  ...props
+}: MenuPrimitive.Item.Props & {
+  variant?: React.ComponentProps<typeof MenuBase.Item>["variant"];
+}) {
   return (
     <MenuBase.Item
       baseComponent={MenuPrimitive.Item}
+      variant={variant}
       className={className}
       {...props}
     />
