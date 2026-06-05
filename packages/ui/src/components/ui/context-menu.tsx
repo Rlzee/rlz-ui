@@ -64,12 +64,16 @@ function ContextMenuGroupLabel({
 }
 
 function ContextMenuItem({
+  variant = "default",
   className,
   ...props
-}: ContextMenuPrimitive.Item.Props) {
+}: ContextMenuPrimitive.Item.Props & {
+  variant?: React.ComponentProps<typeof MenuBase.Item>["variant"];
+}) {
   return (
     <MenuBase.Item
       baseComponent={ContextMenuPrimitive.Item}
+      variant={variant}
       className={className}
       {...props}
     />

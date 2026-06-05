@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@rlz/ui/lib/cn";
+import { cva, type VariantProps } from "class-variance-authority";
 import { Check, ChevronRight, Circle } from "lucide-react";
 
 type BaseComponentProps<T extends React.ElementType> = {
@@ -90,31 +91,51 @@ function MenuGroupLabelBase({
   );
 }
 
+const menuItemBaseVariants = cva(
+  cn(
+    "group/menu-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none",
+    "data-disabled:pointer-events-none data-disabled:opacity-50",
+
+    "data-highlighted:relative data-highlighted:z-0",
+    "data-highlighted:before:absolute data-highlighted:before:inset-0",
+    "data-highlighted:before:rounded-sm",
+    "data-highlighted:before:-z-10",
+
+    "[&_svg]:pointer-events-none [&_svg]:shrink-0",
+    "[&_svg:not([class*='size-'])]:size-4"
+  ),
+  {
+    variants: {
+      variant: {
+        default: [
+          "text-foreground data-highlighted:text-accent-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-muted",
+          "data-highlighted:before:bg-accent/70",
+          "[&_svg:not([class*='text-'])]:text-muted",
+        ],
+        destructive: [
+          "text-destructive data-highlighted:text-destructive data-highlighted:[&_svg:not([class*='text-'])]:text-destructive",
+          "data-highlighted:before:bg-accent/70",
+          "[&_svg:not([class*='text-'])]:text-destructive",
+        ],
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
 function MenuItemBase({
   baseComponent: Component,
+  variant = "default",
   className,
   ...props
-}: BaseComponentProps<React.ElementType>) {
+}: BaseComponentProps<React.ElementType> &
+  VariantProps<typeof menuItemBaseVariants>) {
   return (
     <Component
       data-slot="menu-item"
-      className={cn(
-        "group/menu-item relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none",
-        "data-disabled:pointer-events-none data-disabled:opacity-50",
-
-        "[&_svg]:pointer-events-none [&_svg]:shrink-0",
-        "[&_svg:not([class*='size-'])]:size-4",
-        "[&_svg:not([class*='text-'])]:text-muted-foreground",
-
-        "data-highlighted:relative data-highlighted:z-0",
-        "data-highlighted:text-accent-foreground data-highlighted:[&_svg:not([class*='text-'])]:text-accent-foreground",
-        "data-highlighted:before:absolute data-highlighted:before:inset-0",
-        "data-highlighted:before:rounded-sm",
-        "data-highlighted:before:bg-accent/70",
-        "data-highlighted:before:-z-10",
-
-        className
-      )}
+      className={cn(menuItemBaseVariants({ variant }), className)}
       {...props}
     />
   );

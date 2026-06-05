@@ -208,7 +208,7 @@ function CommandShortcut({
     <Shortcut
       data-slot="command-shortcut"
       className={cn(
-        "text-xs group-hover/command-item:text-muted-foreground",
+        "group-hover/command-item:text-muted-foreground",
         className
       )}
       {...props}

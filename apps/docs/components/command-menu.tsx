@@ -176,7 +176,7 @@ export function CommandMenu({
               <div className="bg-popover border border-b-0 rounded-b-none rounded-lg mt-2 px-1">
                 <Command.Empty>No Results Found.</Command.Empty>
 
-                <Command.List>
+                <Command.List className="max-h-50">
                   {(group: PageGroup, _index: number) => (
                     <React.Fragment key={group.value}>
                       <Command.Group items={group.items}>

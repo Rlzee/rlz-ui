@@ -1,4 +1,5 @@
 import { ContextMenu } from "@rlz/ui/components/ui/context-menu";
+import { Send, Reply, ReplyAll, Trash2 } from "lucide-react";
 
 export default function Example() {
   return (
@@ -6,7 +7,23 @@ export default function Example() {
       <ContextMenu.Trigger className="flex h-48 w-96 items-center justify-center rounded border border-dashed text-muted-foreground select-none">
         Right click here
       </ContextMenu.Trigger>
-      <ContextMenu.Popup>
+      <ContextMenu.Popup className="w-40">
+        <ContextMenu.Group>
+          <ContextMenu.Item>
+            <Send /> Forward
+            <ContextMenu.Shortcut>⌘F</ContextMenu.Shortcut>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <Reply /> Reply
+            <ContextMenu.Shortcut>⌘R</ContextMenu.Shortcut>
+          </ContextMenu.Item>
+          <ContextMenu.Item>
+            <ReplyAll /> Reply all
+            <ContextMenu.Shortcut>⌘A</ContextMenu.Shortcut>
+          </ContextMenu.Item>
+        </ContextMenu.Group>
+        <ContextMenu.Separator />
+
         <ContextMenu.Group>
           <ContextMenu.GroupLabel>View</ContextMenu.GroupLabel>
           <ContextMenu.CheckboxItem checked>Show grid</ContextMenu.CheckboxItem>
@@ -36,12 +53,9 @@ export default function Example() {
         </ContextMenu.Submenu>
 
         <ContextMenu.Separator />
-
-        <ContextMenu.Item>
-          Zoom to fit <ContextMenu.Shortcut>⌘⇧F</ContextMenu.Shortcut>
-        </ContextMenu.Item>
-        <ContextMenu.Item>
-          Copy link <ContextMenu.Shortcut>⌘L</ContextMenu.Shortcut>
+        <ContextMenu.Item variant="destructive">
+          <Trash2 /> Delete
+          <ContextMenu.Shortcut>⌘ ⌫</ContextMenu.Shortcut>
         </ContextMenu.Item>
       </ContextMenu.Popup>
     </ContextMenu>
