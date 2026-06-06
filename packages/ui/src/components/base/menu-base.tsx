@@ -178,7 +178,9 @@ function MenuCheckboxItemBase<
     <Item
       data-slot="menu-checkbox-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:bg-accent/70 focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none",
+        "[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
       )}
       checked={checked}
@@ -190,6 +192,54 @@ function MenuCheckboxItemBase<
         </Indicator>
       </span>
       {children}
+    </Item>
+  );
+}
+
+function MenuSwitchItemBase<
+  TItem extends React.ElementType,
+  TIndicator extends React.ElementType
+>({
+  itemC: Item,
+  indicatorC: Indicator,
+  className,
+  checked,
+  children,
+  ...props
+}: MenuCheckboxItemBaseProps<TItem, TIndicator>) {
+  return (
+    <Item
+      data-slot="menu-switch-item"
+      className={cn(
+        "grid grid-cols-[1fr_auto] gap-2 items-center",
+        "in-data-[side=none]:min-w-[calc(var(--anchor-width)+1.25rem)]",
+        "cursor-default text-sm text-foreground outline-none rounded-sm py-1.5 px-2",
+        "data-highlighted:bg-accent/70 data-highlighted:text-accent-foreground",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
+        "[&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        className
+      )}
+      cheked={checked}
+      {...props}
+    >
+      <span className="col-start-1">{children}</span>
+      <Indicator
+        className={cn(
+          "inline-flex h-[calc(var(--thumb-size)+2px)] w-[calc(var(--thumb-size)*2-2px)] [--thumb-size:--spacing(3.5)] shrink-0 items-center rounded-full p-px outline-none",
+          "data-checked:bg-primary data-unchecked:bg-accent",
+          "transition-[background-color,box-shadow] duration-200",
+          "data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+        )}
+        keepMounted
+      >
+        <span
+          className={cn(
+            "pointer-events-none block aspect-square h-full origin-left rounded-(--thumb-size)",
+            "in-data-unchecked:bg-background dark:in-data-unchecked:bg-foreground in-data-checked:bg-primary-foreground",
+            "transition-transform in-data-checked:translate-x-[calc(85%-2px)] in-data-unchecked:translate-x-0"
+          )}
+        />
+      </Indicator>
     </Item>
   );
 }
@@ -258,7 +308,7 @@ function MenuRadioItemBase<
     <Item
       data-slot="menu-radio-item"
       className={cn(
-        "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+        "data-highlighted:bg-accent/70 focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className
       )}
       {...props}
@@ -279,6 +329,7 @@ const MenuBase = {
   Item: MenuItemBase,
   Separator: MenuSeparatorBase,
   CheckboxItem: MenuCheckboxItemBase,
+  SwitchItem: MenuSwitchItemBase,
   SubmenuTrigger: MenuSubmenuTriggerBase,
   RadioItem: MenuRadioItemBase,
 };
@@ -290,6 +341,7 @@ export {
   MenuItemBase,
   MenuSeparatorBase,
   MenuCheckboxItemBase,
+  MenuSwitchItemBase,
   MenuSubmenuTriggerBase,
   MenuRadioItemBase,
 };

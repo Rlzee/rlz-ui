@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import {
   PopupArrow,
@@ -9,6 +9,8 @@ import {
 import { cn } from "@rlz/ui/lib/cn";
 import { MenuBase } from "@rlz/ui/components/base/menu-base";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
+
+export const menuCreateHandle = MenuPrimitive.createHandle;
 
 function MenuRoot(props: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="menu-root" {...props} />;
@@ -120,6 +122,25 @@ function MenuCheckboxItem({
   );
 }
 
+function MenuSwitchItem({
+  className,
+  children,
+  checked,
+  ...props
+}: MenuPrimitive.CheckboxItem.Props) {
+  return (
+    <MenuBase.SwitchItem
+      itemC={MenuPrimitive.CheckboxItem}
+      indicatorC={MenuPrimitive.CheckboxItemIndicator}
+      className={className}
+      checked={checked}
+      {...props}
+    >
+      {children}
+    </MenuBase.SwitchItem>
+  );
+}
+
 function MenuSubmenu(props: MenuPrimitive.SubmenuRoot.Props) {
   return <MenuPrimitive.SubmenuRoot data-slot="menu-submenu-root" {...props} />;
 }
@@ -174,6 +195,7 @@ const MenuExports = Object.assign(MenuRoot, {
   Item: MenuItem,
   Separator: MenuSeparator,
   CheckboxItem: MenuCheckboxItem,
+  SwitchItem: MenuSwitchItem,
   Submenu: MenuSubmenu,
   SubmenuTrigger: MenuSubmenuTrigger,
   RadioGroup: MenuRadioGroup,
@@ -191,6 +213,7 @@ export {
   MenuItem,
   MenuSeparator,
   MenuCheckboxItem,
+  MenuSwitchItem,
   MenuSubmenu,
   MenuSubmenuTrigger,
   MenuRadioGroup,

@@ -9,7 +9,7 @@ export default function Example() {
       <Menu.Popup className="w-40">
         <Menu.Arrow />
         <Menu.Group>
-          <Menu.Item>s
+          <Menu.Item>
             <Send /> Forward
             <Menu.Shortcut>⌘F</Menu.Shortcut>
           </Menu.Item>
@@ -51,6 +51,9 @@ export default function Example() {
             <Menu.Item>PDF</Menu.Item>
           </Menu.Popup>
         </Menu.Submenu>
+
+        <Menu.Separator />
+        <Menu.SwitchItem>Autosave</Menu.SwitchItem>
 
         <Menu.Separator />
         <Menu.Item variant="destructive">
