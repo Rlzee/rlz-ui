@@ -53,6 +53,9 @@ export default function Example() {
         </ContextMenu.Submenu>
 
         <ContextMenu.Separator />
+        <ContextMenu.SwitchItem>Autosave</ContextMenu.SwitchItem>
+
+        <ContextMenu.Separator />
         <ContextMenu.Item variant="destructive">
           <Trash2 /> Delete
           <ContextMenu.Shortcut>⌘ ⌫</ContextMenu.Shortcut>

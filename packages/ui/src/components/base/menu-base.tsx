@@ -161,7 +161,17 @@ type MenuCheckboxItemBaseProps<
 > = React.ComponentProps<TItem> & {
   itemC: TItem;
   indicatorC: TIndicator;
+  variant?: "default" | "solid";
 };
+
+const defaultMenuCheckboxItemBaseClass = cn(
+  "grid gap-2 items-center",
+  "in-data-[side=none]:min-w-[calc(var(--anchor-width)+1.25rem)]",
+  "cursor-default text-sm text-foreground outline-none rounded-sm py-1.5 px-2",
+  "data-highlighted:bg-accent/70 data-highlighted:text-accent-foreground",
+  "data-disabled:pointer-events-none data-disabled:opacity-50",
+  "[&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+);
 
 function MenuCheckboxItemBase<
   TItem extends React.ElementType,
@@ -172,26 +182,50 @@ function MenuCheckboxItemBase<
   className,
   checked,
   children,
+  variant = "default",
   ...props
 }: MenuCheckboxItemBaseProps<TItem, TIndicator>) {
   return (
     <Item
       data-slot="menu-checkbox-item"
       className={cn(
-        "data-highlighted:bg-accent/70 focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm py-1.5 pr-2 pl-8 text-sm outline-hidden select-none",
-        "[&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none",
-        "data-disabled:pointer-events-none data-disabled:opacity-50",
+        defaultMenuCheckboxItemBaseClass,
+        variant === "solid"
+          ? "grid-cols-[1fr_auto] gap-4 pe-1.5"
+          : "grid-cols-[.75rem_1fr] pe-4",
         className
       )}
       checked={checked}
       {...props}
     >
-      <span className="absolute left-2 flex h-4 w-4 items-center justify-center">
-        <Indicator>
-          <Check className="size-4" />
-        </Indicator>
-      </span>
-      {children}
+      {variant === "solid" ? (
+        <>
+          <span className="col-start-1">{children}</span>
+          <Indicator
+            data-slot="menu-checkbox-indicator"
+            className={cn(
+              "inline-flex h-(--checkbox-size) w-(--checkbox-size) [--checkbox-size:--spacing(4.5)] shrink-0 items-center rounded-sm p-px outline-none",
+              "border data-unchecked:bg-transparent data-checked:bg-primary"
+            )}
+            keepMounted
+          >
+            <Check
+              data-slot="menu-checkbox-icon"
+              className="in-data-unchecked:hidden size-3.5 text-primary-foreground flex items-center justify-center"
+            />
+          </Indicator>
+        </>
+      ) : (
+        <>
+          <Indicator
+            data-slot="menu-checkbox-indicator"
+            className="col-start-1 -ms-0.5"
+          >
+            <Check className="size-4" />
+          </Indicator>
+          <span className="col-start-2">{children}</span>
+        </>
+      )}
     </Item>
   );
 }
@@ -211,12 +245,8 @@ function MenuSwitchItemBase<
     <Item
       data-slot="menu-switch-item"
       className={cn(
-        "grid grid-cols-[1fr_auto] gap-2 items-center",
-        "in-data-[side=none]:min-w-[calc(var(--anchor-width)+1.25rem)]",
-        "cursor-default text-sm text-foreground outline-none rounded-sm py-1.5 px-2",
-        "data-highlighted:bg-accent/70 data-highlighted:text-accent-foreground",
-        "data-disabled:pointer-events-none data-disabled:opacity-50",
-        "[&_svg:not([class*='size-'])]:size-4.5 sm:[&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        defaultMenuCheckboxItemBaseClass,
+        "grid-cols-[1fr_auto] gap-4 pe-1.5",
         className
       )}
       cheked={checked}

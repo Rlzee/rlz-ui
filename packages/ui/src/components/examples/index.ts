@@ -64,7 +64,8 @@ export const demoPaths: Record<string, string> = {
   //Command
   command: "command/default",
   // Context Menu
-  "context-menu": "context-menu",
+  "context-menu": "context-menu/default",
+  "context-menu-checkbox-variant": "context-menu/checkbox-variant",
   // Dialog
   dialog: "dialog/default",
   "dialog-variant": "dialog/variant",
@@ -113,7 +114,8 @@ export const demoPaths: Record<string, string> = {
   // label
   label: "label/default",
   // Menu
-  menu: "menu",
+  menu: "menu/default",
+  "menu-checkbox-variant": "menu/checkbox-variant",
   // Meter
   meter: "meter/default",
   "meter-label": "meter/label",

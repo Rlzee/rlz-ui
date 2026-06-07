@@ -1,6 +1,6 @@
 ---
 title: Context Menu
-description: Searchable command palette with keyboard navigation, groups, and shortcuts.
+description: Menu triggered by a right-click, with the same capabilities as Menu — groups, checkboxes, radio items, and submenus.
 ---
 
 <ComponentPreview name="context-menu" />
@@ -44,3 +44,50 @@ npm install @base-ui/react
 </TabsPanel>
 
 </CodeTabs>
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/context-menu/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Context Menu Popup
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop              | Type                                    | Default             |
+| ----------------- | --------------------------------------- | ------------------- |
+| `backdrop`        | `boolean`                               | -                   |
+| `backdropProps`   | `ContextMenuPrimitive.Backdrop.Props`   | -                   |
+| `positionerProps` | `ContextMenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+
+### Context Menu Item
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop      | Type                         | Default     |
+| --------- | ---------------------------- | ----------- |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+
+### Context Menu Checkbox Item
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop      | Type                   | Default     |
+| --------- | ---------------------- | ----------- |
+| `variant` | `"default" \| "solid"` | `"default"` |
+
+### Context Menu Switch Item
+
+Built on [Menu Base](/docs/base-components#menu-base). Menu item with a toggle switch indicator.
+
+### Context Menu Shortcut
+
+Extends Base Component [Shortcut](/docs/base-components#shortcut).
+
+See the [Base UI](https://base-ui.com/react/components/menu/#api-reference) documentation for more information.
+
+## Examples
+
+### Checkbox Solid Variant
+
+<ComponentPreview name="context-menu-checkbox-variant" />

@@ -94,13 +94,36 @@ function ContextMenuSeparator({
 }
 
 function ContextMenuCheckboxItem({
+  variant = "default",
+  className,
+  children,
+  checked,
+  ...props
+}: ContextMenuPrimitive.CheckboxItem.Props & {
+  variant?: React.ComponentProps<typeof MenuBase.CheckboxItem>["variant"];
+}) {
+  return (
+    <MenuBase.CheckboxItem
+      itemC={ContextMenuPrimitive.CheckboxItem}
+      indicatorC={ContextMenuPrimitive.CheckboxItemIndicator}
+      variant={variant}
+      className={className}
+      checked={checked}
+      {...props}
+    >
+      {children}
+    </MenuBase.CheckboxItem>
+  );
+}
+
+function ContextMenuSwitchItem({
   className,
   children,
   checked,
   ...props
 }: ContextMenuPrimitive.CheckboxItem.Props) {
   return (
-    <MenuBase.CheckboxItem
+    <MenuBase.SwitchItem
       itemC={ContextMenuPrimitive.CheckboxItem}
       indicatorC={ContextMenuPrimitive.CheckboxItemIndicator}
       className={className}
@@ -108,7 +131,7 @@ function ContextMenuCheckboxItem({
       {...props}
     >
       {children}
-    </MenuBase.CheckboxItem>
+    </MenuBase.SwitchItem>
   );
 }
 
@@ -177,6 +200,7 @@ const ContextMenuExports = Object.assign(ContextMenuRoot, {
   Item: ContextMenuItem,
   Separator: ContextMenuSeparator,
   CheckboxItem: ContextMenuCheckboxItem,
+  SwitchItem: ContextMenuSwitchItem,
   Submenu: ContextMenuSubmenu,
   SubmenuTrigger: ContextMenuSubmenuTrigger,
   RadioGroup: ContextMenuRadioGroup,
@@ -193,6 +217,7 @@ export {
   ContextMenuItem,
   ContextMenuSeparator,
   ContextMenuCheckboxItem,
+  ContextMenuSwitchItem,
   ContextMenuSubmenu,
   ContextMenuSubmenuTrigger,
   ContextMenuRadioGroup,

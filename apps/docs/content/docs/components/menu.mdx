@@ -44,3 +44,54 @@ npm install @base-ui/react
 </TabsPanel>
 
 </CodeTabs>
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/menu/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Menu Popup
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop              | Type                             | Default             |
+| ----------------- | -------------------------------- | ------------------- |
+| `backdrop`        | `boolean`                        | -                   |
+| `backdropProps`   | `MenuPrimitive.Backdrop.Props`   | -                   |
+| `positionerProps` | `MenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+
+### Menu Item
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop      | Type                         | Default     |
+| --------- | ---------------------------- | ----------- |
+| `variant` | `"default" \| "destructive"` | `"default"` |
+
+### Menu Checkbox Item
+
+Built on [Menu Base](/docs/base-components#menu-base).
+
+| Prop      | Type                   | Default     |
+| --------- | ---------------------- | ----------- |
+| `variant` | `"default" \| "solid"` | `"default"` |
+
+### Menu Switch Item
+
+Built on [Menu Base](/docs/base-components#menu-base). Menu item with a toggle switch indicator.
+
+### Menu Shortcut
+
+Extends Base Component [Shortcut](/docs/base-components#shortcut).
+
+### Menu Arrow
+
+Extends Base Component [Popup Arrow](/docs/base-components#popup-arrow).
+
+See the [Base UI](https://base-ui.com/react/components/menu/#api-reference) documentation for more information.
+
+## Examples
+
+### Checkbox Solid Variant
+
+<ComponentPreview name="menu-checkbox-variant" />

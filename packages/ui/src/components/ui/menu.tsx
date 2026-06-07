@@ -104,15 +104,19 @@ function MenuSeparator({ className, ...props }: MenuPrimitive.Separator.Props) {
 }
 
 function MenuCheckboxItem({
+  variant = "default",
   className,
   children,
   checked,
   ...props
-}: MenuPrimitive.CheckboxItem.Props) {
+}: MenuPrimitive.CheckboxItem.Props & {
+  variant?: React.ComponentProps<typeof MenuBase.CheckboxItem>["variant"];
+}) {
   return (
     <MenuBase.CheckboxItem
       itemC={MenuPrimitive.CheckboxItem}
       indicatorC={MenuPrimitive.CheckboxItemIndicator}
+      variant={variant}
       className={className}
       checked={checked}
       {...props}
