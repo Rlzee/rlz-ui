@@ -8,7 +8,7 @@ function ToolbarRoot({ className, ...props }: ToolbarPrimitive.Root.Props) {
     <ToolbarPrimitive.Root
       data-slot="toolbar"
       className={cn(
-        "relative flex gap-2 rounded-md border bg-popover not-dark:bg-clip-padding p-1 text-foreground shadow-sm transition-colors",
+        "relative flex gap-2 rounded-lg border bg-popover not-dark:bg-clip-padding p-1 text-foreground transition-colors",
         className
       )}
       {...props}
@@ -38,7 +38,9 @@ function ToolbarSeparator({
     <ToolbarPrimitive.Separator
       data-slot="toolbar-separator"
       className={cn(
-        "shrink-0 bg-border data-[orientation=horizontal]:my-0.5 data-[orientation=vertical]:my-1.5 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px data-[orientation=vertical]:not-[[class^='h-']]:not-[[class*='_h-']]:self-stretch",
+        "shrink-0 bg-border",
+        "data-[orientation=horizontal]:my-0.5 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full",
+        "data-[orientation=vertical]:my-1.5 data-[orientation=vertical]:w-px data-[orientation=vertical]:not-[[class^='h-']]:not-[[class*='_h-']]:self-stretch",
         className
       )}
       {...props}

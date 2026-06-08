@@ -45,6 +45,74 @@ npm install @base-ui/react
 
 </CodeTabs>
 
+## Usage
+
+```tsx
+import { ContextMenu } from "@/components/ui/context-menu";
+```
+
+```tsx
+<ContextMenu>
+  <ContextMenu.Trigger className="flex h-48 w-96 items-center justify-center rounded border border-dashed text-muted-foreground select-none">
+    Right click here
+  </ContextMenu.Trigger>
+  <ContextMenu.Popup>
+    <ContextMenu.Arrow />
+
+    <ContextMenu.Group>
+      <ContextMenu.Item>
+        <Send /> Forward
+        <ContextMenu.Shortcut>⌘F</ContextMenu.Shortcut>
+      </ContextMenu.Item>
+      <ContextMenu.Item>
+        <Reply /> Reply
+        <ContextMenu.Shortcut>⌘R</ContextMenu.Shortcut>
+      </ContextMenu.Item>
+      <ContextMenu.Item>
+        <ReplyAll /> Reply all
+        <ContextMenu.Shortcut>⌘A</ContextMenu.Shortcut>
+      </ContextMenu.Item>
+    </ContextMenu.Group>
+
+    <ContextMenu.Separator />
+    <ContextMenu.Group>
+      <ContextMenu.GroupLabel>View</ContextMenu.GroupLabel>
+      <ContextMenu.CheckboxItem checked>Show grid</ContextMenu.CheckboxItem>
+      <ContextMenu.CheckboxItem>Show rulers</ContextMenu.CheckboxItem>
+    </ContextMenu.Group>
+
+    <ContextMenu.Separator />
+    <ContextMenu.Group>
+      <ContextMenu.GroupLabel>Theme</ContextMenu.GroupLabel>
+      <ContextMenu.RadioGroup defaultValue="system">
+        <ContextMenu.RadioItem value="light">Light</ContextMenu.RadioItem>
+        <ContextMenu.RadioItem value="dark">Dark</ContextMenu.RadioItem>
+        <ContextMenu.RadioItem value="system">System</ContextMenu.RadioItem>
+      </ContextMenu.RadioGroup>
+    </ContextMenu.Group>
+
+    <ContextMenu.Separator />
+    <ContextMenu.Submenu>
+      <ContextMenu.SubmenuTrigger>Export as</ContextMenu.SubmenuTrigger>
+      <ContextMenu.Popup>
+        <ContextMenu.Item>PNG</ContextMenu.Item>
+        <ContextMenu.Item>SVG</ContextMenu.Item>
+        <ContextMenu.Item>PDF</ContextMenu.Item>
+      </ContextMenu.Popup>
+    </ContextMenu.Submenu>
+
+    <ContextMenu.Separator />
+    <ContextMenu.SwitchItem>Autosave</ContextMenu.SwitchItem>
+
+    <ContextMenu.Separator />
+    <ContextMenu.Item variant="destructive">
+      <Trash2 /> Delete
+      <ContextMenu.Shortcut>⌘ ⌫</ContextMenu.Shortcut>
+    </ContextMenu.Item>
+  </ContextMenu.Popup>
+</ContextMenu>
+```
+
 ## API Reference
 
 Each component extends its [Base UI](https://base-ui.com/react/components/context-menu/#api-reference) counterpart.

@@ -45,6 +45,72 @@ npm install @base-ui/react
 
 </CodeTabs>
 
+## Usage
+
+```tsx
+import { Menu } from "@/components/ui/menu";
+```
+
+```tsx
+<Menu>
+  <Menu.Trigger>Open</Menu.Trigger>
+  <Menu.Popup>
+    <Menu.Arrow />
+
+    <Menu.Group>
+      <Menu.Item>
+        <Send /> Forward
+        <Menu.Shortcut>⌘F</Menu.Shortcut>
+      </Menu.Item>
+      <Menu.Item>
+        <Reply /> Reply
+        <Menu.Shortcut>⌘R</Menu.Shortcut>
+      </Menu.Item>
+      <Menu.Item>
+        <ReplyAll /> Reply all
+        <Menu.Shortcut>⌘A</Menu.Shortcut>
+      </Menu.Item>
+    </Menu.Group>
+
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>View</Menu.GroupLabel>
+      <Menu.CheckboxItem checked>Show grid</Menu.CheckboxItem>
+      <Menu.CheckboxItem>Show rulers</Menu.CheckboxItem>
+    </Menu.Group>
+
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>Theme</Menu.GroupLabel>
+      <Menu.RadioGroup defaultValue="system">
+        <Menu.RadioItem value="light">Light</Menu.RadioItem>
+        <Menu.RadioItem value="dark">Dark</Menu.RadioItem>
+        <Menu.RadioItem value="system">System</Menu.RadioItem>
+      </Menu.RadioGroup>
+    </Menu.Group>
+
+    <Menu.Separator />
+    <Menu.Submenu>
+      <Menu.SubmenuTrigger>Export as</Menu.SubmenuTrigger>
+      <Menu.Popup>
+        <Menu.Item>PNG</Menu.Item>
+        <Menu.Item>SVG</Menu.Item>
+        <Menu.Item>PDF</Menu.Item>
+      </Menu.Popup>
+    </Menu.Submenu>
+
+    <Menu.Separator />
+    <Menu.SwitchItem>Autosave</Menu.SwitchItem>
+
+    <Menu.Separator />
+    <Menu.Item variant="destructive">
+      <Trash2 /> Delete
+      <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
+    </Menu.Item>
+  </Menu.Popup>
+</Menu>
+```
+
 ## API Reference
 
 Each component extends its [Base UI](https://base-ui.com/react/components/menu/#api-reference) counterpart.
@@ -95,3 +161,4 @@ See the [Base UI](https://base-ui.com/react/components/menu/#api-reference) docu
 ### Checkbox Solid Variant
 
 <ComponentPreview name="menu-checkbox-variant" />
+```
