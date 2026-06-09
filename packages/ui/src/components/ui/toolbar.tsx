@@ -1,6 +1,8 @@
 "use client";
 
 import { Toolbar as ToolbarPrimitive } from "@base-ui/react/toolbar";
+import { mergeProps } from "@base-ui/react/merge-props";
+import { useRender } from "@base-ui/react/use-render";
 import { cn } from "@rlz/ui/lib/cn";
 
 function ToolbarRoot({ className, ...props }: ToolbarPrimitive.Root.Props) {
@@ -56,12 +58,33 @@ function ToolbarInput(props: ToolbarPrimitive.Input.Props) {
   return <ToolbarPrimitive.Input data-slot="toolbar-input" {...props} />;
 }
 
+function ToolbarText({
+  className,
+  render,
+  ...props
+}: useRender.ComponentProps<"div">) {
+  const defaultProps = {
+    "data-slot": "toolbar-text",
+    className: cn(
+      "relative inline-flex self-stretch items-center gap-2 whitespace-nowrap text-sm text-muted-foreground pr-1",
+      className
+    ),
+  };
+
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(defaultProps, props),
+    render,
+  });
+}
+
 const ToolbarExports = Object.assign(ToolbarRoot, {
   Group: ToolbarGroup,
   Button: ToolbarButton,
   Separator: ToolbarSeparator,
   Link: ToolbarLink,
   Input: ToolbarInput,
+  Text: ToolbarText,
 });
 
 export {
@@ -71,4 +94,5 @@ export {
   ToolbarSeparator,
   ToolbarLink,
   ToolbarInput,
+  ToolbarText,
 };

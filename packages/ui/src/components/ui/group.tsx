@@ -63,7 +63,7 @@ function GroupText({
   className,
   render,
   ...props
-}: useRender.ComponentProps<"div">): React.ReactElement {
+}: useRender.ComponentProps<"div">) {
   const defaultProps = {
     "data-slot": "group-text",
     className: cn(

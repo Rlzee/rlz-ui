@@ -48,6 +48,36 @@ npm install @base-ui/react
 
 </CodeTabs>
 
+## Usage
+
+```tsx
+import { Toolbar } from "@/components/ui/toolbar";
+import { Toggle } from "@/components/ui/toggle";
+import { Button } from "@/components/ui/button";
+```
+
+```tsx
+<Toolbar>
+  <Toggle.Group size="xs">
+    <ToolbarButton render={<Toggle />}>Bold</ToolbarButton>
+    <ToolbarButton render={<Toggle />}>Underline</ToolbarButton>
+  </ToolbarGroup>
+  <Toolbar.Separator />
+  <Toolbar.Group>
+    <Toolbar.Button render={<Button size="xs" />}>Save</Toolbar.Button>
+    <Toolbar.Button render={<Button size="xs" />}>Edit</Toolbar.Button>
+  </Toolbar.Group>
+  <Toolbar.Separator />
+  <Toolbar.Text>Edited 5m ago</Toolbar.Text>
+</Toolbar>
+```
+
 ## API Reference
 
-See the [Base UI](https://base-ui.com/react/components/toolbar/#api-reference) documentation for more information.
+Each component extends its [Base UI](https://base-ui.com/react/components/toolbar/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Toolbar Text
+
+Styled text label inside the toolbar. Renders as a styled `<div>`.
+Supports the `render` prop for custom element rendering.
