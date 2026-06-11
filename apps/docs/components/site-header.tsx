@@ -15,7 +15,7 @@ import { Badge } from "@rlz/ui/components/ui/badge";
 
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/config";
-import { dialogHandle } from "./new-project";
+import { dialogHandle } from "./project-dialog";
 
 export function SiteHeader() {
   const pathname = usePathname();

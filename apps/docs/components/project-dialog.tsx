@@ -1,22 +1,32 @@
 "use client";
 
+import * as React from "react";
+
 import { Dialog, DialogCreateHandle } from "@rlz/ui/components/ui/dialog";
 import { Field } from "@rlz/ui/components/ui/field";
 import { CommandTabs } from "./command-tabs";
-import { Button } from "@rlz/ui/components/ui/button";
+import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 
 export const dialogHandle = DialogCreateHandle();
 
-export function NewProject() {
+export function ProjectDialog() {
+  const [activeTab, setActiveTab] = React.useState("new-project");
+
   return (
     <Dialog handle={dialogHandle} variant="bare-bottom">
       <Dialog.Popup>
         <Dialog.Header>
-          <Dialog.Title>New Project</Dialog.Title>
-          <Dialog.Description>
-            create your new project with rlz-ui
-          </Dialog.Description>
+          <Toggle.Group
+            value={[activeTab]}
+            onValueChange={(values) =>
+              setActiveTab((values[0] as typeof activeTab) ?? "new-project")
+            }
+            aria-label="Project type"
+          >
+            <Toggle value="new-project">New Project</Toggle>
+            <Toggle value="existing-project">Existing Project</Toggle>
+          </Toggle.Group>
         </Dialog.Header>
         <Dialog.Body>
           <Field>
