@@ -1,0 +1,56 @@
+---
+title: Menubar
+description: Horizontal bar of menu triggers, typically used for application-level navigation.
+---
+
+<ComponentPreview name="menubar" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add menubar
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="menubar" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Menubar } from "@/components/ui/menubar";
+```
+
+## API Reference
+
+See the [Base UI](https://base-ui.com/react/components/menubar/#api-reference) documentation for more information.

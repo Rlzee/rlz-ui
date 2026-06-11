@@ -116,6 +116,8 @@ export const demoPaths: Record<string, string> = {
   // Menu
   menu: "menu/default",
   "menu-checkbox-variant": "menu/checkbox-variant",
+  // Menubar
+  menubar: "menubar",
   // Meter
   meter: "meter/default",
   "meter-label": "meter/label",

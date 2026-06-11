@@ -22,7 +22,7 @@ function MenubarTrigger({ className, ...props }: MenuPrimitive.Trigger.Props) {
       className={cn(
         "flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none",
         "hover:bg-accent hover:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-foreground",
-        "state-focus-ring",
+        "data-disabled:opacity-50 state-focus-ring",
         className
       )}
       {...props}
