@@ -1,0 +1,92 @@
+---
+title: Select
+description: Dropdown input for picking a single option from a list.
+links:
+  doc: https://base-ui.com/react/components/select
+  api: https://base-ui.com/react/components/select/#api-reference
+---
+
+<ComponentPreview name="select" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add select
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="select" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Select } from "@/components/ui/select";
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/select/#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Select Trigger
+
+| Prop   | Type                                   | Default |
+| ------ | -------------------------------------- | ------- |
+| `size` | `"xs" \| "sm" \| "md" \| "lg" \| "xl"` | `"md"`  |
+
+### Select Icon
+
+| Prop   | Type                                                 | Default       |
+| ------ | ---------------------------------------------------- | ------------- |
+| `icon` | `React.ComponentType<React.SVGProps<SVGSVGElement>>` | `ChevronDown` |
+
+### Select Popup
+
+Includes `Portal`, `Backdrop`, and `Positioner` internally.
+
+| Prop              | Type                                                           | Default |
+| ----------------- | -------------------------------------------------------------- | ------- |
+| `backdrop`        | `boolean`                                                      | `false` |
+| `backdropProps`   | `React.ComponentProps<typeof SelectBackdrop>`                  | -       |
+| `positionerProps` | `React.ComponentProps<typeof SelectPositioner>`                | -       |
+| `scrollUp`        | `boolean`                                                      | `true`  |
+| `scrollDown`      | `boolean`                                                      | `true`  |
+| `scrollUpProps`   | `React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>`   | -       |
+| `scrollDownProps` | `React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>` | -       |
+
+## Examples
+
+### Disabled
+
+<ComponentPreview name="select-disabled" />
