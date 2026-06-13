@@ -36,7 +36,7 @@ function InputGroupRoot({
         "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col", //has-data-[align=block-start]:**:[input]:pb-1.5
         "has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto",
         // inline-start - inline-end
-        "has-data-[align=inline-start]:[&_input]:ps-1.5 has-data-[align=inline-end]:[&_input]:pe-1.5",
+        "has-data-[align=inline-start]:[&_input]:ps-2 has-data-[align=inline-end]:[&_input]:pe-2",
         className
       )}
       {...props}

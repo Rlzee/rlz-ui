@@ -50,19 +50,25 @@ export function SiteHeader() {
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
           <Separator orientation="vertical" className="h-5" />
-          <DialogTrigger
-            handle={dialogHandle}
-            render={
-              <Button
-                aria-label="Open new project"
-                size="sm"
-                className="ml-1"
-              />
-            }
-          >
-            <Plus />
-            New
-          </DialogTrigger>
+          {pathname.startsWith("/themes") ? (
+            <Button aria-label="Create a themes" size="sm" className="ml-1">
+              Create
+            </Button>
+          ) : (
+            <DialogTrigger
+              handle={dialogHandle}
+              render={
+                <Button
+                  aria-label="Open new project"
+                  size="sm"
+                  className="ml-1"
+                />
+              }
+            >
+              <Plus />
+              New
+            </DialogTrigger>
+          )}
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">
