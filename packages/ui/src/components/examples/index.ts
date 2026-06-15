@@ -142,6 +142,7 @@ export const demoPaths: Record<string, string> = {
   // Select
   select: "select/default",
   "select-disabled": "select/disabled",
+  "select-indicator": "select/indicator",
   // separator
   separator: "separator",
   // Slider

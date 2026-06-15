@@ -8,10 +8,6 @@ import { ChevronDown, Check } from "lucide-react";
 
 const SelectRoot = SelectPrimitive.Root;
 
-function SelectValue(props: SelectPrimitive.Value.Props) {
-  return <SelectPrimitive.Value data-slot="select-value" {...props} />;
-}
-
 type SelectTriggerProps = SelectPrimitive.Trigger.Props & {
   size?: Omit<
     ButtonProps["size"],
@@ -22,7 +18,6 @@ type SelectTriggerProps = SelectPrimitive.Trigger.Props & {
 function SelectTrigger({
   size = "md",
   className,
-  children,
   ...props
 }: SelectTriggerProps) {
   return (
@@ -30,14 +25,26 @@ function SelectTrigger({
       data-slot="select-trigger"
       className={cn(
         buttonVariants({ size } as SelectTriggerProps["size"]),
-        "group flex min-w-36 items-center justify-between gap-3 rounded-md border pr-3 pl-4 text-sm bg-secondary text-foreground select-none hover:bg-accent data-popup-open:bg-accent data-popup-open:text-muted-foreground outline-none",
+        "relative inline-flex w-full min-w-36 select-none items-center justify-between gap-2 rounded-md border bg-popover not-dark:bg-clip-padding text-left text-sm text-foreground outline-none",
+        "hover:bg-accent/70 data-popup-open:bg-accent data-popup-open:text-muted-foreground",
         "state-focus-ring",
         className
       )}
       {...props}
-    >
-      {children}
-    </SelectPrimitive.Trigger>
+    />
+  );
+}
+
+function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
+  return (
+    <SelectPrimitive.Value
+      data-slot="select-value"
+      className={cn(
+        "truncate data-placeholder:text-muted-foreground",
+        className
+      )}
+      {...props}
+    />
   );
 }
 
@@ -51,10 +58,7 @@ function SelectIcon({
   return (
     <SelectPrimitive.Icon
       data-slot="select-icon"
-      className={cn(
-        "flex text-muted-foreground group-hover:text-foreground hover:text-foreground",
-        className
-      )}
+      className={cn("text-muted", className)}
       {...props}
     >
       <Icon className="h-4 w-4" />
@@ -120,6 +124,10 @@ function SelectScrollDownArrow({
   );
 }
 
+function SelectPortal(props: SelectPrimitive.Portal.Props) {
+  return <SelectPrimitive.Portal data-slot="select-portal" {...props} />;
+}
+
 type SelectPopupProps = SelectPrimitive.Popup.Props & {
   backdrop?: boolean;
   backdropProps?: React.ComponentProps<typeof SelectBackdrop>;
@@ -137,15 +145,21 @@ function SelectPopup({
   backdrop = false,
   backdropProps,
   positionerProps,
-  scrollUp = true,
-  scrollDown = true,
-  scrollUpProps,
-  scrollDownProps,
   children,
   ...props
 }: SelectPopupProps) {
+  const {
+    sideOffset = 4,
+    side = "bottom",
+    align = "start",
+    alignOffset = 0,
+    alignItemWithTrigger = true,
+    className: positionerClassName,
+    ...restPositionerProps
+  } = positionerProps ?? {};
+
   return (
-    <SelectPrimitive.Portal data-slot="select-portal">
+    <SelectPortal>
       {backdrop && (
         <SelectBackdrop
           className={backdropProps?.className}
@@ -153,37 +167,45 @@ function SelectPopup({
         />
       )}
       <SelectPositioner
-        className={positionerProps?.className}
-        {...positionerProps}
+        {...restPositionerProps}
+        align={align}
+        alignItemWithTrigger={alignItemWithTrigger}
+        alignOffset={alignOffset}
+        sideOffset={sideOffset}
+        side={side}
+        className={positionerClassName}
       >
         <SelectPrimitive.Popup
           data-slot="select-popup"
           className={cn(
-            "border group min-w-(--anchor-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md",
-            "transition-[transform,scale,opacity] data-ending-style:scale-90 data-ending-style:opacity-0 data-[side=none]:min-w-[calc(var(--anchor-width)+1rem)] data-[side=none]:data-ending-style:transition-none data-starting-style:scale-90 data-starting-style:opacity-0 data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100 data-[side=none]:data-starting-style:transition-none",
+            "border min-w-(--anchor-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover",
             className
           )}
           {...props}
         >
-          {scrollUp && <SelectScrollUpArrow {...scrollUpProps} />}
           {children}
-          {scrollDown && <SelectScrollDownArrow {...scrollDownProps} />}
         </SelectPrimitive.Popup>
       </SelectPositioner>
-    </SelectPrimitive.Portal>
+    </SelectPortal>
   );
 }
 
-function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
+function SelectList({
+  children,
+  className,
+  ...props
+}: SelectPrimitive.List.Props) {
   return (
     <SelectPrimitive.List
       data-slot="select-list"
       className={cn(
-        "relative py-1 scroll-py-6 overflow-y-auto max-h-(--available-height)",
+        "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
         className
       )}
       {...props}
-    />
+    >
+      {children}
+    </SelectPrimitive.List>
   );
 }
 
@@ -192,9 +214,27 @@ function SelectItem({ className, ...props }: SelectPrimitive.Item.Props) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2.5 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
+        "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr]",
+        "flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none",
+        "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
+        "group-data-[side=none]:pr-12",
+        "hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70",
+        "data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70",
         className
       )}
+      {...props}
+    />
+  );
+}
+
+function SelectItemText({
+  className,
+  ...props
+}: SelectPrimitive.ItemText.Props) {
+  return (
+    <SelectPrimitive.ItemText
+      data-slot="select-item-text"
+      className={cn("col-start-2 order-last", className)}
       {...props}
     />
   );
@@ -208,7 +248,11 @@ function SelectItemIndicator({
   return (
     <SelectPrimitive.ItemIndicator
       data-slot="select-item-indicator"
-      className={cn("col-start-1", className)}
+      className={cn(
+        "col-start-1 order-first invisible data-selected:visible",
+        className
+      )}
+      keepMounted
       {...props}
     >
       {children ?? <Check className="h-4 w-4" />}
@@ -224,19 +268,6 @@ function SelectSeparator({
     <SelectPrimitive.Separator
       data-slot="select-separator"
       className={cn("my-1 h-px bg-border", className)}
-      {...props}
-    />
-  );
-}
-
-function SelectItemText({
-  className,
-  ...props
-}: SelectPrimitive.ItemText.Props) {
-  return (
-    <SelectPrimitive.ItemText
-      data-slot="select-item-text"
-      className={cn("col-start-2", className)}
       {...props}
     />
   );
@@ -272,11 +303,16 @@ const SelectExports = Object.assign(SelectRoot, {
   Trigger: SelectTrigger,
   Value: SelectValue,
   Icon: SelectIcon,
+  Portal: SelectPortal,
+  Backdrop: SelectBackdrop,
+  Positioner: SelectPositioner,
+  ScrollUp: SelectScrollUpArrow,
+  ScrollDown: SelectScrollDownArrow,
   Popup: SelectPopup,
   List: SelectList,
   Item: SelectItem,
-  ItemIndicator: SelectItemIndicator,
   ItemText: SelectItemText,
+  ItemIndicator: SelectItemIndicator,
   Separator: SelectSeparator,
   Group: SelectGroup,
   GroupLabel: SelectGroupLabel,
@@ -287,11 +323,16 @@ export {
   SelectTrigger,
   SelectValue,
   SelectIcon,
+  SelectPortal,
+  SelectBackdrop,
+  SelectPositioner,
+  SelectScrollUpArrow,
+  SelectScrollDownArrow,
   SelectPopup,
   SelectList,
   SelectItem,
-  SelectItemIndicator,
   SelectItemText,
+  SelectItemIndicator,
   SelectSeparator,
   SelectGroup,
   SelectGroupLabel,

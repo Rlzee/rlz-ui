@@ -14,11 +14,17 @@ export default function Example() {
         <Select.Value placeholder="Select font" />
         <Select.Icon />
       </Select.Trigger>
-      <Select.Popup>
+      <Select.Popup
+        positionerProps={{
+          alignItemWithTrigger: false,
+          sideOffset: -36,
+        }}
+      >
         <Select.List>
           {fonts.map(({ label, value }) => (
             <Select.Item key={label} value={value}>
-              {label}
+              <Select.ItemIndicator />
+              <Select.ItemText>{label}</Select.ItemText>
             </Select.Item>
           ))}
         </Select.List>

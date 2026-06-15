@@ -75,18 +75,18 @@ Only additions and modifications are listed here.
 
 Includes `Portal`, `Backdrop`, and `Positioner` internally.
 
-| Prop              | Type                                                           | Default |
-| ----------------- | -------------------------------------------------------------- | ------- |
-| `backdrop`        | `boolean`                                                      | `false` |
-| `backdropProps`   | `React.ComponentProps<typeof SelectBackdrop>`                  | -       |
-| `positionerProps` | `React.ComponentProps<typeof SelectPositioner>`                | -       |
-| `scrollUp`        | `boolean`                                                      | `true`  |
-| `scrollDown`      | `boolean`                                                      | `true`  |
-| `scrollUpProps`   | `React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>`   | -       |
-| `scrollDownProps` | `React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>` | -       |
+| Prop              | Type                                            | Default                                                                         |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------------------------------------- |
+| `backdrop`        | `boolean`                                       | `false`                                                                         |
+| `backdropProps`   | `React.ComponentProps<typeof SelectBackdrop>`   | -                                                                               |
+| `positionerProps` | `React.ComponentProps<typeof SelectPositioner>` | `{ sideOffset: 4, side: "bottom", align: "start", alignItemWithTrigger: true }` |
 
 ## Examples
 
 ### Disabled
 
 <ComponentPreview name="select-disabled" />
+
+### With Indicator
+
+<ComponentPreview name="select-indicator" />
