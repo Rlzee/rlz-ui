@@ -2,6 +2,7 @@
 
 import type * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { type ButtonProps, buttonVariants } from "@rlz/ui/components/ui/button";
 import { cn } from "@rlz/ui/lib/cn";
 import { ChevronDown, Check } from "lucide-react";
@@ -178,7 +179,7 @@ function SelectPopup({
         <SelectPrimitive.Popup
           data-slot="select-popup"
           className={cn(
-            "border min-w-(--anchor-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover",
+            "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md",
             className
           )}
           {...props}
@@ -190,22 +191,17 @@ function SelectPopup({
   );
 }
 
-function SelectList({
-  children,
-  className,
-  ...props
-}: SelectPrimitive.List.Props) {
+function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
   return (
-    <SelectPrimitive.List
-      data-slot="select-list"
-      className={cn(
-        "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
-        className
-      )}
-      {...props}
-    >
-      {children}
-    </SelectPrimitive.List>
+    <ScrollArea scrollbarGutter scrollFade>
+      <SelectPrimitive.List
+        data-slot="select-list"
+        className={cn(
+          "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]"
+        )}
+        {...props}
+      />
+    </ScrollArea>
   );
 }
 
@@ -234,7 +230,7 @@ function SelectItemText({
   return (
     <SelectPrimitive.ItemText
       data-slot="select-item-text"
-      className={cn("col-start-2 order-last", className)}
+      className={cn("col-start-2 order-last text-sm", className)}
       {...props}
     />
   );
@@ -267,7 +263,7 @@ function SelectSeparator({
   return (
     <SelectPrimitive.Separator
       data-slot="select-separator"
-      className={cn("my-1 h-px bg-border", className)}
+      className={cn("my-1 h-px bg-border mx-2 last:hidden", className)}
       {...props}
     />
   );
@@ -291,7 +287,7 @@ function SelectGroupLabel({
     <SelectPrimitive.GroupLabel
       data-slot="select-group-label"
       className={cn(
-        "px-2.5 py-1.5 text-sm font-medium text-muted-foreground",
+        "px-2.5 py-1.5 text-xs font-medium text-muted-foreground",
         className
       )}
       {...props}
