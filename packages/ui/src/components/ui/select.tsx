@@ -197,7 +197,8 @@ function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
       <SelectPrimitive.List
         data-slot="select-list"
         className={cn(
-          "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]"
+          "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
+          className
         )}
         {...props}
       />
