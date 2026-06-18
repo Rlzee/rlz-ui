@@ -11,8 +11,9 @@ import { runInit } from "./run";
 export const initCommand = new Command()
   .name("init")
   .description("Initialize rlz-ui")
-  .option("-f, --font <font>", "Font")
-  .action(async (options: { font?: FontKey }) => {
+  .option("--body-font <font>", "Body font")
+  .option("--heading-font <font>", "Heading font")
+  .action(async (options: { bodyFont?: FontKey; headingFont?: FontKey }) => {
     try {
       const cwd = process.cwd();
 
@@ -54,21 +55,32 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      if (options.font && !FONT_DEFINITION[options.font]) {
-        logger.error(`Unknown font: ${options.font}`);
+      if (options.bodyFont && !FONT_DEFINITION[options.bodyFont]) {
+        logger.error(`Unknown body font: ${options.bodyFont}`);
+        process.exit(1);
+      }
+
+      if (options.headingFont && !FONT_DEFINITION[options.headingFont]) {
+        logger.error(`Unknown heading font: ${options.headingFont}`);
         process.exit(1);
       }
 
       logger.info(`Framework detected: ${frameworkInfo.framework}`);
       logger.info(`TypeScript v${ts.rawVersion}`);
       logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
-      if (options.font) {
-        logger.info(`Font detected: ${options.font}`);
+
+      if (options.bodyFont) {
+        logger.info(`Body font: ${options.bodyFont}`);
+      }
+
+      if (options.headingFont) {
+        logger.info(`Heading font: ${options.headingFont}`);
       }
 
       await runInit({
         framework: frameworkInfo.framework,
-        font: options.font,
+        bodyFont: options.bodyFont,
+        headingFont: options.headingFont,
       });
     } catch (error) {
       logger.error("Initialization failed.");

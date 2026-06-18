@@ -1,33 +1,14 @@
 import fs from "fs";
 import path from "path";
 
-export type UpdateLayoutOptions = {
-  /**
-   * Project root (cwd passed to CLI command)
-   */
+type UpdateLayoutOptions = {
   cwd: string;
-  /**
-   * The project rootDir from rlz.config.json (e.g. 'apps/web' or '.' )
-   */
   rootDir: string;
-  /**
-   * The named export to import for the chosen sans font in `app/fonts/fonts.ts`.
-   * e.g. 'geistSans' or 'interSans'
-   */
-  fontSansExport: string;
-  /**
-   * The named export to import for the mono font in `app/fonts/fonts.ts`.
-   * Default in our generator is `geistMono`.
-   */
-  fontMonoExport?: string;
-  /**
-   * The relative module specifier to import from. Default is `"@/app/fonts/fonts"`.
-   */
+
+  fontBodyExport: string;
+  fontHeadingExport: string;
+
   fontsImportPath?: string;
-  /**
-   * Whether to overwrite layout.tsx even if it already appears to contain the proper imports/usage.
-   * Defaults to false.
-   */
   force?: boolean;
 };
 
@@ -35,35 +16,33 @@ export type UpdateLayoutOptions = {
  * Create the default RootLayout content using the provided export/import names.
  */
 function buildLayoutContent(
-  fontSansExport: string,
-  fontMonoExport: string,
+  fontBodyExport: string,
+  fontHeadingExport: string,
   fontsImportPath: string
 ) {
   return `import type { Metadata } from "next";
-import { ${fontSansExport}, ${fontMonoExport} } from "${fontsImportPath}";
-import "./globals.css";
+ import { ${fontBodyExport}, ${fontHeadingExport} } from "${fontsImportPath}";
+ import "./globals.css";
 
-export const metadata: Metadata = {
-  title: "rlz ui",
-  description: "Best UI",
-};
+ export const metadata: Metadata = {
+   title: "rlz ui",
+   description: "Best UI",
+ };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={\`\${${fontSansExport}.variable} \${${fontMonoExport}.variable} antialiased\`}
-    >
-      <body className="min-h-screen bg-background">{children}</body>
-    </html>
-  );
-}
-`;
+ export default function RootLayout({
+   children,
+ }: Readonly<{ children: React.ReactNode }>) {
+   return (
+     <html
+       lang="en"
+       suppressHydrationWarning
+       className={\`\${${fontBodyExport}.variable} \${${fontHeadingExport}.variable} antialiased\`}
+     >
+       <body className="min-h-screen bg-background">{children}</body>
+     </html>
+   );
+ }
+ `;
 }
 
 /**
@@ -72,15 +51,15 @@ export default function RootLayout({
  */
 function layoutAlreadyHasFonts(
   content: string,
-  fontSansExport: string,
-  fontMonoExport: string,
+  fontBodyExport: string,
+  fontHeadingExport: string,
   fontsImportPath: string
 ): boolean {
   const importRegex = new RegExp(
     `import\\s+\\{[^}]*\\b${escapeRegExp(
-      fontSansExport
+      fontBodyExport
     )}\\b[^}]*\\b${escapeRegExp(
-      fontMonoExport
+      fontHeadingExport
     )}\\b[^}]*\\}\\s+from\\s+['"]${escapeRegExp(fontsImportPath)}['"]`
   );
 
@@ -88,9 +67,9 @@ function layoutAlreadyHasFonts(
 
   const htmlRegex = new RegExp(
     `<html[^>]*className=\\{[^}]*\\b${escapeRegExp(
-      fontSansExport
+      fontBodyExport
     )}\\.variable\\b[^}]*\\b${escapeRegExp(
-      fontMonoExport
+      fontHeadingExport
     )}\\.variable\\b[^}]*\\}`
   );
 
@@ -115,21 +94,17 @@ export async function updateNextRootLayout(
   const {
     cwd,
     rootDir,
-    fontSansExport,
-    fontMonoExport = "geistMono",
+    fontBodyExport,
+    fontHeadingExport,
     fontsImportPath = "@/app/fonts/fonts",
     force = false,
   } = options;
 
-  if (!cwd || !rootDir) {
-    throw new Error("Both cwd and rootDir must be provided");
-  }
-
   const layoutPath = path.join(cwd, rootDir, "app", "layout.tsx");
 
   const desiredContent = buildLayoutContent(
-    fontSansExport,
-    fontMonoExport,
+    fontBodyExport,
+    fontHeadingExport,
     fontsImportPath
   );
 
@@ -145,68 +120,45 @@ export async function updateNextRootLayout(
     !force &&
     layoutAlreadyHasFonts(
       existing,
-      fontSansExport,
-      fontMonoExport,
+      fontBodyExport,
+      fontHeadingExport,
       fontsImportPath
     )
   ) {
     return;
   }
 
-  try {
-    let modified = existing;
+  let modified = existing;
 
-    const fontsImportLine = `import { ${fontSansExport}, ${fontMonoExport} } from "${fontsImportPath}";`;
-    const importFromFontsRegex = new RegExp(
-      `import\\s+\\{[^}]*\\}\\s+from\\s+['"]${escapeRegExp(
-        fontsImportPath
-      )}['"];?`
-    );
-    if (importFromFontsRegex.test(modified)) {
-      modified = modified.replace(importFromFontsRegex, fontsImportLine);
-    } else {
-      const firstImportEnd = modified.search(/(?:\\r?\\n){1,2}(?!import)/);
-      if (firstImportEnd !== -1) {
-        const before = modified.slice(0, firstImportEnd);
-        const after = modified.slice(firstImportEnd);
-        modified = before + fontsImportLine + "\n" + after;
-      } else {
-        modified = fontsImportLine + "\n" + modified;
-      }
-    }
+  const fontsImportLine = `import { ${fontBodyExport}, ${fontHeadingExport} } from "${fontsImportPath}";`;
 
-    if (!/import\s+["']\.\/globals\.css["'];?/.test(modified)) {
-      const insertAfter = `import { ${fontSansExport}, ${fontMonoExport} } from "${fontsImportPath}";`;
-      const idx = modified.indexOf(insertAfter);
-      if (idx !== -1) {
-        const insertPos = idx + insertAfter.length;
-        modified =
-          modified.slice(0, insertPos) +
-          '\nimport "./globals.css";\n' +
-          modified.slice(insertPos);
-      } else {
-        modified = 'import "./globals.css";\n' + modified;
-      }
-    }
+  const importRegex = new RegExp(
+    `import\\s+\\{[^}]*\\}\\s+from\\s+['"]${escapeRegExp(
+      fontsImportPath
+    )}['"];?`
+  );
 
-    const htmlClassRegex = /<html([^>]*)className=\{([^}]*)\}([^>]*)>/;
-    if (htmlClassRegex.test(modified)) {
-      modified = modified.replace(
-        htmlClassRegex,
-        `<html$1className={\`${
-          "${" +
-          fontSansExport +
-          "}.variable} ${" +
-          fontMonoExport +
-          "}.variable"
-        }$2\`}$3>`
-      );
-    } else {
-      modified = desiredContent;
-    }
-
-    await fs.promises.writeFile(layoutPath, modified, "utf8");
-  } catch (err) {
-    await fs.promises.writeFile(layoutPath, desiredContent, "utf8");
+  if (importRegex.test(modified)) {
+    modified = modified.replace(importRegex, fontsImportLine);
+  } else {
+    modified = fontsImportLine + "\n" + modified;
   }
+
+  // ensure globals.css exists
+  if (!/import\s+["']\.\/globals\.css["'];?/.test(modified)) {
+    modified = `import "./globals.css";\n` + modified;
+  }
+
+  const htmlRegex = /<html([^>]*)className=\{([^}]*)\}([^>]*)>/;
+
+  if (htmlRegex.test(modified)) {
+    modified = modified.replace(
+      htmlRegex,
+      `<html$1className={\`\${${fontBodyExport}.variable} \${${fontHeadingExport}.variable}\`}$2$3>`
+    );
+  } else {
+    modified = desiredContent;
+  }
+
+  await fs.promises.writeFile(layoutPath, modified, "utf8");
 }

@@ -1,35 +1,72 @@
-import { type FontKey, fallbackMap, FONT_DEFINITION } from "./def";
+import { type FontKey, FONT_DEFINITION, fallbackMap } from "./def";
 import { installDependencies } from "@/utils/install-dependencies";
-import { defaultFont } from "@/config";
 import { readConfig } from "@/config/read";
+import { defaultBodyFont, defaultHeadingFont } from "@/config";
 import fs from "fs-extra";
 
-type AddViteFontOptions = {
-  name: FontKey;
+type AddViteFontsOptions = {
+  bodyFont: FontKey;
+  headingFont: FontKey;
   cwd: string;
 };
 
-export async function addViteFont({ name, cwd }: AddViteFontOptions) {
-  const font = FONT_DEFINITION[name];
-  if (!font.vite) throw new Error(`Font ${name} not supported by Vite`);
+export async function addViteFonts({
+  bodyFont,
+  headingFont,
+  cwd,
+}: AddViteFontsOptions) {
+  const body = FONT_DEFINITION[bodyFont];
+  const heading = FONT_DEFINITION[headingFont];
 
-  await installDependencies([font.vite.package], cwd);
+  if (!body.vite)
+    throw new Error(`Body font ${bodyFont} not supported by Vite`);
+  if (!heading.vite)
+    throw new Error(`Heading font ${headingFont} not supported by Vite`);
 
-  if (name === defaultFont) return;
+  await installDependencies(
+    Array.from(new Set([body.vite.package, heading.vite.package])),
+    cwd
+  );
+
+  if (bodyFont === defaultBodyFont) return;
+  if (headingFont === defaultHeadingFont) return;
 
   const config = readConfig(cwd);
   const cssPath = config.css;
 
   let css = await fs.readFile(cssPath, "utf8");
 
+  const imports = [
+    `@import "${body.vite.package}";`,
+    `@import "${heading.vite.package}";`,
+  ];
+
+  for (const imp of imports) {
+    if (!css.includes(imp)) {
+      css = imp + "\n" + css;
+    }
+  }
+
+  if (!css.includes("--font-body:")) {
+    css += `\n  --font-body: "${body.vite.family}", ${
+      fallbackMap[body.type]
+    };\n`;
+  }
+
+  if (!css.includes("--font-heading:")) {
+    css += `  --font-heading: "${heading.vite.family}", ${
+      fallbackMap[heading.type]
+    };\n`;
+  }
+
   css = css
     .replace(
-      /@import\s+"@fontsource-variable\/[^"]+"/,
-      `@import "${font.vite.package}"`
+      /--font-body:\s*[^;]+;/,
+      `--font-body: "${body.vite.family}", ${fallbackMap[body.type]};`
     )
     .replace(
-      /--font-sans:\s*[^;]+;/,
-      `--font-sans: "${font.vite.family}", ${fallbackMap[font.type]};`
+      /--font-heading:\s*[^;]+;/,
+      `--font-heading: "${heading.vite.family}", ${fallbackMap[heading.type]};`
     );
 
   await fs.writeFile(cssPath, css);

@@ -11,4 +11,5 @@ export const defaultDependencies: string[] = [
   "tw-animate-css",
 ];
 
-export const defaultFont: FontKey = "geist";
+export const defaultHeadingFont: FontKey = "geist-mono";
+export const defaultBodyFont: FontKey = "geist";

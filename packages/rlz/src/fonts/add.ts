@@ -1,23 +1,34 @@
-import { type FontKey, FONT_DEFINITION } from "./def";
+import type { FontKey } from "./def";
 import type { Framework } from "@/types/framework";
 
-import { addViteFont } from "./vite";
-import { addNextFont } from "./next";
+import { addViteFonts } from "./vite";
+import { addNextFonts } from "./next";
 
-type AddFontOptions = {
-  fontName: FontKey;
-  framework: Framework;
+type AddFontsOptions = {
+  bodyFont: FontKey;
+  headingFont: FontKey;
   cwd: string;
+  framework: Framework;
 };
 
-export function addFont({ fontName, framework, cwd }: AddFontOptions) {
-  const font = FONT_DEFINITION[fontName];
-  if (!font) throw new Error(`Font ${fontName} not found`);
-
+export async function addFonts({
+  bodyFont,
+  headingFont,
+  framework,
+  cwd,
+}: AddFontsOptions) {
   if (framework === "vite" || framework === "react") {
-    addViteFont({ name: fontName, cwd });
+    await addViteFonts({
+      bodyFont,
+      headingFont,
+      cwd,
+    });
   } else if (framework === "next") {
-    addNextFont({ name: fontName, cwd });
+    await addNextFonts({
+      bodyFont,
+      headingFont,
+      cwd,
+    });
   } else {
     throw new Error(`Framework ${framework} not supported`);
   }
