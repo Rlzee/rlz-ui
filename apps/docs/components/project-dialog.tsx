@@ -14,7 +14,7 @@ export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
   return (
-    <Dialog handle={dialogHandle} variant="bare-bottom">
+    <Dialog handle={dialogHandle}>
       <Dialog.Popup>
         <Dialog.Header>
           <Toggle.Group
@@ -23,6 +23,7 @@ export function ProjectDialog() {
               setActiveTab((values[0] as typeof activeTab) ?? "new-project")
             }
             aria-label="Project type"
+            className="gap-1.5"
           >
             <Toggle value="new-project">New Project</Toggle>
             <Toggle value="existing-project">Existing Project</Toggle>
@@ -30,13 +31,13 @@ export function ProjectDialog() {
         </Dialog.Header>
         <Dialog.Body>
           <Field>
-            <Field.Label>Header Fonts</Field.Label>
+            <Field.Label>Headings Font</Field.Label>
             <Combobox>
               <Combobox.Field clearable />
             </Combobox>
           </Field>
           <Field>
-            <Field.Label>Fonts</Field.Label>
+            <Field.Label>Base Font</Field.Label>
             <Combobox>
               <Combobox.Field clearable />
             </Combobox>
@@ -49,6 +50,9 @@ export function ProjectDialog() {
           </Field>
           <Field>
             <Field.Label>Themes</Field.Label>
+            <Combobox>
+              <Combobox.Field clearable />
+            </Combobox>
           </Field>
         </Dialog.Body>
         <Dialog.Footer className="sm:justify-start sm:flex-col">
