@@ -43,7 +43,7 @@ function ComboboxClear({ className, ...props }: ComboboxPrimitive.Clear.Props) {
     <ComboboxPrimitive.Clear
       data-slot="combobox-clear"
       className={cn(
-        "cursor-pointer flex text-muted-foreground hover:text-foreground",
+        "cursor-pointer flex text-muted hover:text-foreground",
         className
       )}
       {...props}
@@ -91,10 +91,7 @@ function ComboboxIcon({
   return (
     <ComboboxPrimitive.Icon
       data-slot="combobox-icon"
-      className={cn(
-        "flex text-muted-foreground group-hover:text-foreground",
-        className
-      )}
+      className={cn("flex text-muted group-hover:text-foreground", className)}
       {...props}
     >
       <Icon className="h-4 w-4" />
@@ -155,6 +152,10 @@ function ComboboxPositioner({
   );
 }
 
+function ComboboxPortal(props: ComboboxPrimitive.Portal.Props) {
+  return <ComboboxPrimitive.Portal data-slot="combobox-portal" {...props} />;
+}
+
 function ComboboxPopup({
   children,
   backdrop,
@@ -177,7 +178,7 @@ function ComboboxPopup({
   } = positionerProps ?? {};
 
   return (
-    <ComboboxPrimitive.Portal data-slot="combobox-portal">
+    <ComboboxPortal>
       {backdrop && (
         <ComboboxBackdrop
           className={backdropProps?.className}
@@ -203,7 +204,7 @@ function ComboboxPopup({
           {children}
         </ComboboxPrimitive.Popup>
       </ComboboxPositioner>
-    </ComboboxPrimitive.Portal>
+    </ComboboxPortal>
   );
 }
 
@@ -267,9 +268,9 @@ function ComboboxItem({ className, ...props }: ComboboxPrimitive.Item.Props) {
     <ComboboxPrimitive.Item
       data-slot="combobox-item"
       className={cn(
-        "grid cursor-default grid-cols-[0.75rem_1fr] items-center gap-2.5 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none",
+        "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr]",
+        "flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
-        "group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4",
         "hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70",
         "data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70",
         className
@@ -287,7 +288,11 @@ function ComboboxIndicator({
   return (
     <ComboboxPrimitive.ItemIndicator
       data-slot="combobox-item-indicator"
-      className={cn("col-start-1", className)}
+      keepMounted
+      className={cn(
+        "col-start-1 order-first invisible data-selected:visible",
+        className
+      )}
       {...props}
     >
       {children ?? <Check className="h-4 w-4" />}
@@ -302,7 +307,7 @@ function ComboboxItemText({
   return (
     <span
       data-slot="combobox-item-text"
-      className={cn("col-start-2", className)}
+      className={cn("col-start-2 order-last", className)}
       {...props}
     />
   );
@@ -452,6 +457,7 @@ const ComboboxExports = Object.assign(ComboboxRoot, {
   Trigger: ComboboxTrigger,
   Field: ComboboxField,
   Icon: ComboboxIcon,
+  Portal: ComboboxPortal,
   Popup: ComboboxPopup,
   Arrow: ComboboxArrow,
   Empty: ComboboxEmpty,
@@ -474,6 +480,7 @@ const ComboboxExports = Object.assign(ComboboxRoot, {
 export {
   ComboboxExports as Combobox,
   ComboboxArrow,
+  ComboboxPortal,
   ComboboxPopup,
   ComboboxTrigger,
   ComboboxInput,

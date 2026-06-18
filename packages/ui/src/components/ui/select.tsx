@@ -197,7 +197,7 @@ function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
       <SelectPrimitive.List
         data-slot="select-list"
         className={cn(
-          "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))]",
+          "relative py-1 scroll-py-6 max-h-(--available-height)",
           className
         )}
         {...props}
@@ -214,7 +214,6 @@ function SelectItem({ className, ...props }: SelectPrimitive.Item.Props) {
         "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr]",
         "flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
-        "group-data-[side=none]:pr-12",
         "hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70",
         "data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70",
         className
@@ -231,7 +230,7 @@ function SelectItemText({
   return (
     <SelectPrimitive.ItemText
       data-slot="select-item-text"
-      className={cn("col-start-2 order-last text-sm", className)}
+      className={cn("col-start-2 order-last", className)}
       {...props}
     />
   );
@@ -245,11 +244,11 @@ function SelectItemIndicator({
   return (
     <SelectPrimitive.ItemIndicator
       data-slot="select-item-indicator"
+      keepMounted
       className={cn(
         "col-start-1 order-first invisible data-selected:visible",
         className
       )}
-      keepMounted
       {...props}
     >
       {children ?? <Check className="h-4 w-4" />}
