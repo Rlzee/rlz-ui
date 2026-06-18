@@ -105,7 +105,7 @@ export async function runInit({
       : `${UI_URL}/styles/globals.css`;
   await getUiFile(cssUrl, cssPath);
 
-  addFonts({
+  await addFonts({
     cwd,
     framework,
     bodyFont: bodyFont ?? defaultBodyFont,

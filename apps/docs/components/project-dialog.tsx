@@ -31,13 +31,13 @@ export function ProjectDialog() {
         </Dialog.Header>
         <Dialog.Body>
           <Field>
-            <Field.Label>Headings Font</Field.Label>
+            <Field.Label>Heading Font</Field.Label>
             <Combobox>
               <Combobox.Field clearable />
             </Combobox>
           </Field>
           <Field>
-            <Field.Label>Base Font</Field.Label>
+            <Field.Label>Body Font</Field.Label>
             <Combobox>
               <Combobox.Field clearable />
             </Combobox>

@@ -1,7 +1,7 @@
 import { type FontKey, FONT_DEFINITION, fallbackMap } from "./def";
 import { installDependencies } from "@/utils/install-dependencies";
 import { readConfig } from "@/config/read";
-import { defaultBodyFont, defaultHeadingFont } from "@/config";
+// import { defaultBodyFont, defaultHeadingFont } from "@/config";
 import fs from "fs-extra";
 
 type AddViteFontsOptions = {
@@ -28,45 +28,30 @@ export async function addViteFonts({
     cwd
   );
 
-  if (bodyFont === defaultBodyFont) return;
-  if (headingFont === defaultHeadingFont) return;
-
   const config = readConfig(cwd);
   const cssPath = config.css;
 
   let css = await fs.readFile(cssPath, "utf8");
 
-  const imports = [
+  const fontImports = [
     `@import "${body.vite.package}";`,
     `@import "${heading.vite.package}";`,
-  ];
-
-  for (const imp of imports) {
-    if (!css.includes(imp)) {
-      css = imp + "\n" + css;
-    }
-  }
-
-  if (!css.includes("--font-body:")) {
-    css += `\n  --font-body: "${body.vite.family}", ${
-      fallbackMap[body.type]
-    };\n`;
-  }
-
-  if (!css.includes("--font-heading:")) {
-    css += `  --font-heading: "${heading.vite.family}", ${
-      fallbackMap[heading.type]
-    };\n`;
-  }
+  ]
+    .filter((v, i, a) => a.indexOf(v) === i)
+    .join("\n");
 
   css = css
     .replace(
-      /--font-body:\s*[^;]+;/,
-      `--font-body: "${body.vite.family}", ${fallbackMap[body.type]};`
+      /(@import\s+"@fontsource-variable\/[^"]+";\s*)+/,
+      `${fontImports}\n\n`
     )
     .replace(
-      /--font-heading:\s*[^;]+;/,
-      `--font-heading: "${heading.vite.family}", ${fallbackMap[heading.type]};`
+      /--body-font:\s*[^;]+;/,
+      `--body-font: "${body.vite.family}", ${fallbackMap[body.type]};`
+    )
+    .replace(
+      /--heading-font:\s*[^;]+;/,
+      `--heading-font: "${heading.vite.family}", ${fallbackMap[heading.type]};`
     );
 
   await fs.writeFile(cssPath, css);
