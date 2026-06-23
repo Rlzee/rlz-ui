@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "@antfu/ni": "^23.2.0",
+    "@rlz/fonts": "workspace:^",
     "@rlz/registry": "workspace:^",
     "commander": "^10.0.0",
     "diff": "^5.1.0",

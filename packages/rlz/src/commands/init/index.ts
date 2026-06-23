@@ -4,7 +4,7 @@ import { getPackageInfo } from "@/utils/get-package-info";
 import { getFramework } from "@/utils/get-framework";
 import { getTailwindInfo } from "@/utils/get-tailwind-info";
 import { getTypeScriptInfo } from "@/utils/get-typescript-info";
-import { type FontKey, FONT_DEFINITION } from "@/fonts/def";
+import { getFontByFamily } from "@rlz/fonts";
 
 import { runInit } from "./run";
 
@@ -13,7 +13,7 @@ export const initCommand = new Command()
   .description("Initialize rlz-ui")
   .option("--body-font <font>", "Body font")
   .option("--heading-font <font>", "Heading font")
-  .action(async (options: { bodyFont?: FontKey; headingFont?: FontKey }) => {
+  .action(async (options: { bodyFont?: string; headingFont?: string }) => {
     try {
       const cwd = process.cwd();
 
@@ -55,12 +55,12 @@ export const initCommand = new Command()
         process.exit(1);
       }
 
-      if (options.bodyFont && !FONT_DEFINITION[options.bodyFont]) {
+      if (options.bodyFont && !getFontByFamily(options.bodyFont)) {
         logger.error(`Unknown body font: ${options.bodyFont}`);
         process.exit(1);
       }
 
-      if (options.headingFont && !FONT_DEFINITION[options.headingFont]) {
+      if (options.headingFont && !getFontByFamily(options.headingFont)) {
         logger.error(`Unknown heading font: ${options.headingFont}`);
         process.exit(1);
       }

@@ -16,7 +16,6 @@ import { iconLibSchema } from "@/icons/schema";
 import { type IconLib, ICON_LIBS } from "@/icons/libs";
 import { addFonts } from "@/fonts/add";
 import { defaultBodyFont, defaultHeadingFont } from "@/config";
-import type { FontKey } from "@/fonts/def";
 import path from "path";
 import fs from "fs-extra";
 
@@ -24,8 +23,8 @@ import type { Framework } from "@/types/framework";
 type InitOptions = {
   cwd?: string;
   framework: Framework;
-  headingFont?: FontKey;
-  bodyFont?: FontKey;
+  headingFont?: string;
+  bodyFont?: string;
 };
 
 export async function runInit({

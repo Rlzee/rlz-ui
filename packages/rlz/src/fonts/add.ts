@@ -1,12 +1,11 @@
-import type { FontKey } from "./def";
 import type { Framework } from "@/types/framework";
-
+import { getFontByFamily } from "@rlz/fonts";
 import { addViteFonts } from "./vite";
 import { addNextFonts } from "./next";
 
 type AddFontsOptions = {
-  bodyFont: FontKey;
-  headingFont: FontKey;
+  bodyFont: string;
+  headingFont: string;
   cwd: string;
   framework: Framework;
 };
@@ -17,16 +16,23 @@ export async function addFonts({
   framework,
   cwd,
 }: AddFontsOptions) {
+  const body = getFontByFamily(bodyFont);
+  const heading = getFontByFamily(headingFont);
+
+  if (!body || !heading) {
+    throw new Error("Invalid font");
+  }
+
   if (framework === "vite" || framework === "react") {
     await addViteFonts({
-      bodyFont,
-      headingFont,
+      bodyFont: body,
+      headingFont: heading,
       cwd,
     });
   } else if (framework === "next") {
     await addNextFonts({
-      bodyFont,
-      headingFont,
+      bodyFont: body,
+      headingFont: heading,
       cwd,
     });
   } else {

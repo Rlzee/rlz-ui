@@ -1,27 +1,26 @@
-import { type FontKey, FONT_DEFINITION } from "./def";
 import { readConfig } from "@/config/read";
 import path from "path";
 import fs from "fs-extra";
 import { updateNextRootLayout } from "@/utils/update-next-layout";
+import { getFontByFamily } from "@rlz/fonts";
 
 type AddNextFontsOptions = {
-  bodyFont: FontKey;
-  headingFont: FontKey;
+  bodyFont: string;
+  headingFont: string;
   cwd: string;
 };
+
+function toNextImportName(name: string) {
+  return name.replace(/ /g, "_");
+}
 
 export async function addNextFonts({
   bodyFont,
   headingFont,
   cwd,
 }: AddNextFontsOptions) {
-  const body = FONT_DEFINITION[bodyFont];
-  const heading = FONT_DEFINITION[headingFont];
-
-  if (!body.next)
-    throw new Error(`Body font ${bodyFont} not supported by Next.js`);
-  if (!heading.next)
-    throw new Error(`Heading font ${headingFont} not supported by Next.js`);
+  const nextbodyFont = getFontByFamily(bodyFont);
+  const nextheadingFont = getFontByFamily(headingFont);
 
   const config = readConfig(cwd);
   const rootDir = config.dirs.root;
@@ -35,8 +34,8 @@ export async function addNextFonts({
 
   const fontsPath = path.join(fontsDir, "fonts.ts");
 
-  const bodyImport = body.next.import;
-  const headingImport = heading.next.import;
+  const bodyImport = toNextImportName(nextbodyFont?.family);
+  const headingImport = toNextImportName(nextheadingFont?.family);
 
   const content = `import { ${bodyImport}, ${headingImport} } from "next/font/google";
 
