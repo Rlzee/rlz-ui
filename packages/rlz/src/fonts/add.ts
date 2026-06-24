@@ -19,20 +19,24 @@ export async function addFonts({
   const body = getFontByFamily(bodyFont);
   const heading = getFontByFamily(headingFont);
 
-  if (!body || !heading) {
-    throw new Error("Invalid font");
+  if (!body) {
+    throw new Error(`Unknown body font: ${bodyFont}`);
+  }
+
+  if (!heading) {
+    throw new Error(`Unknown heading font: ${headingFont}`);
   }
 
   if (framework === "vite" || framework === "react") {
     await addViteFonts({
-      bodyFont: body,
-      headingFont: heading,
+      bodyFont: body.family,
+      headingFont: heading.family,
       cwd,
     });
   } else if (framework === "next") {
     await addNextFonts({
-      bodyFont: body,
-      headingFont: heading,
+      bodyFont: body.family,
+      headingFont: heading.family,
       cwd,
     });
   } else {

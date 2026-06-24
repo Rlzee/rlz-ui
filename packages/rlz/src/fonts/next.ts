@@ -2,7 +2,7 @@ import { readConfig } from "@/config/read";
 import path from "path";
 import fs from "fs-extra";
 import { updateNextRootLayout } from "@/utils/update-next-layout";
-import { getFontByFamily } from "@rlz/fonts";
+import { getNextImportName } from "./utils";
 
 type AddNextFontsOptions = {
   bodyFont: string;
@@ -10,18 +10,11 @@ type AddNextFontsOptions = {
   cwd: string;
 };
 
-function toNextImportName(name: string) {
-  return name.replace(/ /g, "_");
-}
-
 export async function addNextFonts({
   bodyFont,
   headingFont,
   cwd,
 }: AddNextFontsOptions) {
-  const nextbodyFont = getFontByFamily(bodyFont);
-  const nextheadingFont = getFontByFamily(headingFont);
-
   const config = readConfig(cwd);
   const rootDir = config.dirs.root;
 
@@ -34,10 +27,12 @@ export async function addNextFonts({
 
   const fontsPath = path.join(fontsDir, "fonts.ts");
 
-  const bodyImport = toNextImportName(nextbodyFont?.family);
-  const headingImport = toNextImportName(nextheadingFont?.family);
+  const bodyImport = getNextImportName(bodyFont);
+  const headingImport = getNextImportName(headingFont);
 
-  const content = `import { ${bodyImport}, ${headingImport} } from "next/font/google";
+  const imports = [...new Set([bodyImport, headingImport])];
+
+  const content = `import { ${imports.join(", ")} } from "next/font/google";
 
 export const bodyFont = ${bodyImport}({
   variable: "--font-body",

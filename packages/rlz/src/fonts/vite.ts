@@ -1,12 +1,10 @@
-import { type FontKey, FONT_DEFINITION, fallbackMap } from "./def";
-import { installDependencies } from "@/utils/install-dependencies";
 import { readConfig } from "@/config/read";
-// import { defaultBodyFont, defaultHeadingFont } from "@/config";
 import fs from "fs-extra";
+import { buildGoogleFontImport } from "./utils";
 
 type AddViteFontsOptions = {
-  bodyFont: FontKey;
-  headingFont: FontKey;
+  bodyFont: string;
+  headingFont: string;
   cwd: string;
 };
 
@@ -15,44 +13,30 @@ export async function addViteFonts({
   headingFont,
   cwd,
 }: AddViteFontsOptions) {
-  const body = FONT_DEFINITION[bodyFont];
-  const heading = FONT_DEFINITION[headingFont];
-
-  if (!body.vite)
-    throw new Error(`Body font ${bodyFont} not supported by Vite`);
-  if (!heading.vite)
-    throw new Error(`Heading font ${headingFont} not supported by Vite`);
-
-  await installDependencies(
-    Array.from(new Set([body.vite.package, heading.vite.package])),
-    cwd
-  );
-
   const config = readConfig(cwd);
   const cssPath = config.css;
 
   let css = await fs.readFile(cssPath, "utf8");
 
-  const fontImports = [
-    `@import "${body.vite.package}";`,
-    `@import "${heading.vite.package}";`,
+  const imports = [
+    buildGoogleFontImport(bodyFont),
+    buildGoogleFontImport(headingFont),
   ]
-    .filter((v, i, a) => a.indexOf(v) === i)
+    .filter((v, i, arr) => arr.indexOf(v) === i)
     .join("\n");
 
   css = css
     .replace(
-      /(@import\s+"@fontsource-variable\/[^"]+";\s*)+/,
-      `${fontImports}\n\n`
+      /(@import url\("https:\/\/fonts\.googleapis\.com\/css2[^;]+;\s*)+/g,
+      ""
     )
-    .replace(
-      /--body-font:\s*[^;]+;/,
-      `--body-font: "${body.vite.family}", ${fallbackMap[body.type]};`
-    )
+    .replace(/--body-font:\s*[^;]+;/, `--body-font: "${bodyFont}", sans-serif;`)
     .replace(
       /--heading-font:\s*[^;]+;/,
-      `--heading-font: "${heading.vite.family}", ${fallbackMap[heading.type]};`
+      `--heading-font: "${headingFont}", sans-serif;`
     );
+
+  css = `${imports}\n\n${css}`;
 
   await fs.writeFile(cssPath, css);
 }
