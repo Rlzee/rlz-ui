@@ -7,6 +7,7 @@ import { useConfig } from "@/hooks/use-config";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { CopyButton } from "@/components/copy-button";
 import { Terminal } from "lucide-react";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
 type Props = React.ComponentProps<"pre"> & {
   __npm__?: string;
@@ -55,19 +56,20 @@ export function CommandTabs({ __npm__, __yarn__, __pnpm__, __bun__ }: Props) {
       </div>
       {Object.entries(tabs).map(([key, value]) => {
         return (
-          <Tabs.Panel
-            key={key}
-            value={key}
-            className="relative w-max px-3 pb-2.5 mt-0.5"
-          >
-            <pre>
-              <code
-                className="relative font-mono text-sm leading-none text-muted-foreground"
-                data-language="bash"
-              >
-                {value}
-              </code>
-            </pre>
+          <Tabs.Panel key={key} value={key}>
+            <ScrollArea
+              orientation="horizontal"
+              className="relative px-3 pb-2.5 mt-0.5"
+            >
+              <pre>
+                <code
+                  className="relative font-mono text-sm leading-none text-muted-foreground"
+                  data-language="bash"
+                >
+                  {value}
+                </code>
+              </pre>
+            </ScrollArea>
           </Tabs.Panel>
         );
       })}

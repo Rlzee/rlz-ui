@@ -1,4 +1,4 @@
-import { GOOGLE_FONTS } from "./data";
+import { GOOGLE_FONTS } from "./google-fonts";
 import type { FontInfo } from "./types";
 
 export function getFontByFamily(family: string): FontInfo | undefined {

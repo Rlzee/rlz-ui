@@ -11,4 +11,7 @@ export default defineConfig({
   outDir: "dist",
   treeshake: true,
   outExtension: () => ({ js: ".js" }),
+  loader: {
+    ".json": "json",
+  },
 });

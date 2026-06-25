@@ -81,12 +81,14 @@ function ScrollArea({
   className,
   scrollFade = false,
   scrollbarGutter = false,
+  orientation = "both",
   ...props
 }: ScrollAreaPrimitive.Root.Props & {
   scrollFade?: React.ComponentProps<typeof ScrollAreaViewport>["scrollFade"];
   scrollbarGutter?: React.ComponentProps<
     typeof ScrollAreaViewport
   >["scrollbarGutter"];
+  orientation?: React.ComponentProps<typeof ScrollBar>["orientation"] | "both";
 }) {
   return (
     <ScrollAreaRoot className={className} {...props}>
@@ -96,8 +98,12 @@ function ScrollArea({
       >
         {children}
       </ScrollAreaViewport>
-      <ScrollBar orientation="vertical" />
-      <ScrollBar orientation="horizontal" />
+      {(orientation === "both" || orientation === "vertical") && (
+        <ScrollBar orientation="vertical" />
+      )}
+      {(orientation === "both" || orientation === "horizontal") && (
+        <ScrollBar orientation="horizontal" />
+      )}
       <ScrollAreaCorner />
     </ScrollAreaRoot>
   );

@@ -37,13 +37,22 @@ async function main() {
 
   const outputPath =
     process.env.FONTS_OUTPUT_PATH ??
-    path.resolve(process.cwd(), "data/google-fonts.json");
+    path.resolve(process.cwd(), "src/google-fonts.ts");
 
   await fs.ensureDir(path.dirname(outputPath));
 
-  await fs.writeJson(outputPath, fonts, { spaces: 2 });
+  const fileContent = `import type { FontInfo } from "./types";
 
-  console.log(`Generated ${fonts.length} fonts`);
+export const GOOGLE_FONTS: FontInfo[] = ${JSON.stringify(
+    fonts,
+    null,
+    2
+  )} as const;
+`;
+
+  await fs.writeFile(outputPath, fileContent, "utf8");
+
+  console.log(`Generated ${fonts.length} fonts -> ${outputPath}`);
 }
 
 main().catch((err) => {
