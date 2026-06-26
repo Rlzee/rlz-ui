@@ -5,7 +5,8 @@ import { runCreateCommand } from "./run";
 
 export const createCommand = new Command("create")
   .description("Create a new project")
-  .action(async () => {
+  .option("-f, --framework <framework>", "Framework (next, vite, react)")
+  .action(async (options) => {
     const response = await prompts(
       [
         {
@@ -15,7 +16,7 @@ export const createCommand = new Command("create")
           initial: "my-app",
         },
         {
-          type: "select",
+          type: options.framework ? null : "select",
           name: "framework",
           message: "Framework",
           choices: [
@@ -37,7 +38,7 @@ export const createCommand = new Command("create")
       cwd: process.cwd(),
       project: {
         name: response.projectName,
-        framework: response.framework,
+        framework: options.framework ?? response.framework,
       },
     });
   });

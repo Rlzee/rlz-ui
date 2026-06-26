@@ -7,7 +7,8 @@ import { Field } from "@rlz/ui/components/ui/field";
 import { CommandTabs } from "./command-tabs";
 import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { FontSelect } from "./font-select";
-import { Combobox } from "@rlz/ui/components/ui/combobox";
+import { IconLibSelect } from "./icon-lib-select";
+import { Button } from "@rlz/ui/components/ui/button";
 
 export const dialogHandle = DialogCreateHandle();
 
@@ -16,20 +17,22 @@ export function ProjectDialog() {
 
   const [bodyFont, setBodyFont] = React.useState("Geist");
   const [headingFont, setHeadingFont] = React.useState("Geist Mono");
+  const [template, setTemplate] = React.useState("next");
 
   const command = React.useMemo(() => {
-    const parts = ["npx rlz@latest create"];
-
+    const action = activeTab === "existing-project" ? "init" : "create";
+    const parts = [`npx rlz@latest ${action}`];
+    if (activeTab === "new-project") {
+      parts.push(`--framework ${template}`);
+    }
     if (bodyFont !== "Geist") {
       parts.push(`--body-font "${bodyFont}"`);
     }
-
     if (headingFont !== "Geist Mono") {
       parts.push(`--heading-font "${headingFont}"`);
     }
-
     return parts.join(" ");
-  }, [bodyFont, headingFont]);
+  }, [activeTab, template, bodyFont, headingFont]);
 
   return (
     <Dialog handle={dialogHandle}>
@@ -49,6 +52,39 @@ export function ProjectDialog() {
         </Dialog.Header>
 
         <Dialog.Body>
+          {activeTab === "new-project" && (
+            <Field>
+              <Field.Label>Template</Field.Label>
+              <Toggle.Group
+                value={[template]}
+                onValueChange={(values) => setTemplate(values[0] ?? "next")}
+                aria-label="Select framework"
+                className="gap-1.5"
+              >
+                <Toggle
+                  value="next"
+                  className="w-full rounded-lg border p-3 bg-card justify-start"
+                >
+                  Next.js
+                </Toggle>
+                <Toggle
+                  value="vite"
+                  className="w-full rounded-lg border p-3 bg-card justify-start"
+                >
+                  Vite
+                </Toggle>
+                <Toggle
+                  value="react"
+                  className="w-full rounded-lg border p-3 bg-card justify-start"
+                >
+                  React
+                </Toggle>
+              </Toggle.Group>
+            </Field>
+          )}
+
+          <Button variant="outline">Add a Theme</Button>
+
           <Field>
             <Field.Label>Heading Font</Field.Label>
             <FontSelect
@@ -69,26 +105,19 @@ export function ProjectDialog() {
 
           <Field>
             <Field.Label>Icons Library</Field.Label>
-            <Combobox>
-              <Combobox.Field clearable />
-            </Combobox>
+            <IconLibSelect defaultValue="lucide" />
           </Field>
 
-          <Field>
-            <Field.Label>Themes</Field.Label>
-            <Combobox>
-              <Combobox.Field clearable />
-            </Combobox>
-          </Field>
-        </Dialog.Body>
-
-        <Dialog.Footer className="sm:justify-start sm:flex-col">
           <CommandTabs
             __npm__={command}
             __pnpm__={command}
             __yarn__={command}
             __bun__={command}
           />
+        </Dialog.Body>
+
+        <Dialog.Footer className="sm:justify-start sm:flex-col">
+          <Button>Copy Command</Button>
         </Dialog.Footer>
       </Dialog.Popup>
     </Dialog>
