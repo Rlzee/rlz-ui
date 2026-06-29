@@ -268,6 +268,15 @@ export const registryComponents = defineRegistry({
     dependencies: [],
     registryDependencies: ["cn", "label"],
   },
+  "otp-field": {
+    name: "otp-field",
+    type: "component",
+    description: "A otp input field component",
+    path: "components/ui/otp-field",
+    version: "1.0.0",
+    dependencies: [],
+    registryDependencies: ["cn", "separator"],
+  },
   popover: {
     name: "popover",
     type: "component",
@@ -349,15 +358,6 @@ export const registryComponents = defineRegistry({
     dependencies: [],
     registryDependencies: ["cn"],
   },
-  spinner: {
-    name: "spinner",
-    type: "component",
-    description: "A loading spinner component",
-    path: "components/ui/spinner.tsx",
-    version: "1.0.0",
-    dependencies: [],
-    registryDependencies: ["cn"],
-  },
   switch: {
     name: "switch",
     type: "component",
@@ -402,15 +402,6 @@ export const registryComponents = defineRegistry({
     version: "1.0.0",
     dependencies: [],
     registryDependencies: ["cn", "button"],
-  },
-  "toggle-group": {
-    name: "toggle-group",
-    type: "component",
-    description: "A group of toggle buttons",
-    path: "components/ui/toggle-group.tsx",
-    version: "1.0.0",
-    dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn", "toggle"],
   },
   toggle: {
     name: "toggle",
