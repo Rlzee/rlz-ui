@@ -36,10 +36,7 @@ export function FontSelect({
       onValueChange={(font) => font && onValueChange?.(font)}
       defaultValue={defaultValue}
     >
-      <Combobox.Field
-        clearable
-        onChange={(e: any) => setQuery(e?.target?.value ?? "")}
-      />
+      <Combobox.Field onChange={(e: any) => setQuery(e?.target?.value ?? "")} />
 
       <Combobox.Popup
         positionerProps={{

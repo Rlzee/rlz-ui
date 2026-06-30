@@ -9,6 +9,7 @@ import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { FontSelect } from "./font-select";
 import { IconLibSelect } from "./icon-lib-select";
 import { Button } from "@rlz/ui/components/ui/button";
+import FrameworkIcon from "./icons/framework";
 
 export const dialogHandle = DialogCreateHandle();
 
@@ -21,7 +22,7 @@ export function ProjectDialog() {
 
   const command = React.useMemo(() => {
     const action = activeTab === "existing-project" ? "init" : "create";
-    const parts = [`npx rlz@latest ${action}`];
+    const parts = [`rlz@latest ${action}`];
     if (activeTab === "new-project") {
       parts.push(`--framework ${template}`);
     }
@@ -65,25 +66,31 @@ export function ProjectDialog() {
                   value="next"
                   className="w-full rounded-lg border p-3 bg-card justify-start"
                 >
+                  <FrameworkIcon.NextJs />
                   Next.js
                 </Toggle>
                 <Toggle
                   value="vite"
                   className="w-full rounded-lg border p-3 bg-card justify-start"
                 >
+                  <FrameworkIcon.Vite />
                   Vite
                 </Toggle>
                 <Toggle
                   value="react"
                   className="w-full rounded-lg border p-3 bg-card justify-start"
                 >
+                  <FrameworkIcon.React />
                   React
                 </Toggle>
               </Toggle.Group>
             </Field>
           )}
 
-          <Button variant="outline">Add a Theme</Button>
+          <Field>
+            <Field.Label>Theme</Field.Label>
+            <Button variant="outline">Add a Theme</Button>
+          </Field>
 
           <Field>
             <Field.Label>Heading Font</Field.Label>
@@ -107,17 +114,15 @@ export function ProjectDialog() {
             <Field.Label>Icons Library</Field.Label>
             <IconLibSelect defaultValue="lucide" />
           </Field>
-
-          <CommandTabs
-            __npm__={command}
-            __pnpm__={command}
-            __yarn__={command}
-            __bun__={command}
-          />
         </Dialog.Body>
 
         <Dialog.Footer className="sm:justify-start sm:flex-col">
-          <Button>Copy Command</Button>
+          <CommandTabs
+            __npm__={`npx ${command}`}
+            __pnpm__={`pnpm dlx ${command}`}
+            __yarn__={`yarn dlx ${command}`}
+            __bun__={`bunx --bun ${command}`}
+          />
         </Dialog.Footer>
       </Dialog.Popup>
     </Dialog>

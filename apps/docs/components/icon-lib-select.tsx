@@ -20,7 +20,7 @@ export function IconLibSelect({
       onValueChange={(lib) => lib && onValueChange?.(lib)}
       defaultValue={defaultValue}
     >
-      <Combobox.Field clearable />
+      <Combobox.Field />
       <Combobox.Popup
         positionerProps={{
           className: "z-60",
