@@ -8,16 +8,20 @@ import { CommandTabs } from "./command-tabs";
 import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { FontSelect } from "./font-select";
 import { IconLibSelect } from "./icon-lib-select";
-import { Button } from "@rlz/ui/components/ui/button";
 import FrameworkIcon from "./icons/framework";
 
 export const dialogHandle = DialogCreateHandle();
 
+const DEFAULT_HEADING_FONT = "Geist Mono";
+const DEFAULT_BODY_FONT = "Geist";
+const DEFAULT_ICON_LIB = "lucide";
+
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
-  const [bodyFont, setBodyFont] = React.useState("Geist");
-  const [headingFont, setHeadingFont] = React.useState("Geist Mono");
+  const [bodyFont, setBodyFont] = React.useState(DEFAULT_BODY_FONT);
+  const [headingFont, setHeadingFont] = React.useState(DEFAULT_HEADING_FONT);
+  const [iconLib, setIconLib] = React.useState(DEFAULT_ICON_LIB);
   const [template, setTemplate] = React.useState("next");
 
   const command = React.useMemo(() => {
@@ -32,11 +36,12 @@ export function ProjectDialog() {
     if (headingFont !== "Geist Mono") {
       parts.push(`--heading-font "${headingFont}"`);
     }
+    parts.push(`--icon-lib ${iconLib}`);
     return parts.join(" ");
-  }, [activeTab, template, bodyFont, headingFont]);
+  }, [activeTab, template, bodyFont, headingFont, iconLib]);
 
   return (
-    <Dialog handle={dialogHandle}>
+    <Dialog handle={dialogHandle} variant="bare-bottom">
       <Dialog.Popup>
         <Dialog.Header>
           <Toggle.Group
@@ -87,16 +92,16 @@ export function ProjectDialog() {
             </Field>
           )}
 
-          <Field>
+          {/*<Field>
             <Field.Label>Theme</Field.Label>
             <Button variant="outline">Add a Theme</Button>
-          </Field>
+          </Field>*/}
 
           <Field>
             <Field.Label>Heading Font</Field.Label>
             <FontSelect
               value={headingFont}
-              defaultValue="Geist Mono"
+              defaultValue={DEFAULT_HEADING_FONT}
               onValueChange={setHeadingFont}
             />
           </Field>
@@ -105,14 +110,18 @@ export function ProjectDialog() {
             <Field.Label>Body Font</Field.Label>
             <FontSelect
               value={bodyFont}
-              defaultValue="Geist"
+              defaultValue={DEFAULT_BODY_FONT}
               onValueChange={setBodyFont}
             />
           </Field>
 
           <Field>
             <Field.Label>Icons Library</Field.Label>
-            <IconLibSelect defaultValue="lucide" />
+            <IconLibSelect
+              value={iconLib}
+              defaultValue={DEFAULT_ICON_LIB}
+              onValueChange={setIconLib}
+            />
           </Field>
         </Dialog.Body>
 

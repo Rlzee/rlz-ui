@@ -18,6 +18,7 @@ function Input({
   unstyled = false,
   nativeInput = false,
   className,
+  style,
   ...props
 }: InputProps) {
   const inputClassName = cn(
@@ -36,7 +37,7 @@ function Input({
         "inline-flex items-center text-sm w-full",
         !unstyled && [
           "h-9 data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
-          "relative w-full rounded-md border not-dark:bg-clip-padding shadow-xs transition-shadow",
+          "relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow",
           "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring",
@@ -48,12 +49,14 @@ function Input({
         <input
           data-slot="input"
           className={cn(!unstyled && "px-3", inputClassName)}
+          style={typeof style === "function" ? undefined : style}
           {...props}
         />
       ) : (
         <InputPrimitive
           data-slot="input"
           className={cn(!unstyled && "px-3", inputClassName)}
+          style={style}
           {...props}
         />
       )}

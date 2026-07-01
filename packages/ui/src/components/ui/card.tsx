@@ -12,7 +12,7 @@ function Card({
   const defaultProps = {
     "data-slot": "card",
     className: cn(
-      "bg-card flex flex-col gap-6 rounded-lg border py-4 shadow-md",
+      "bg-card flex flex-col gap-6 rounded-lg border py-4",
       className
     ),
   };

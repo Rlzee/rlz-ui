@@ -40,7 +40,7 @@ export default function Example() {
       </Toolbar.Group>
       <Toolbar.Separator />
       <Select defaultValue={items[0]} items={items}>
-        <Select.Trigger size="xs" className="bg-accent/60">
+        <Select.Trigger size="xs" className="bg-accent/60 w-40">
           <Select.Value />
           <Select.Icon />
         </Select.Trigger>

@@ -25,6 +25,7 @@ type InitOptions = {
   framework: Framework;
   headingFont?: string;
   bodyFont?: string;
+  iconLib?: IconLib;
 };
 
 export async function runInit({
@@ -32,6 +33,7 @@ export async function runInit({
   framework,
   bodyFont,
   headingFont,
+  iconLib,
 }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
   const rootDir = hasSrc ? "src" : ".";
@@ -64,25 +66,31 @@ export async function runInit({
     "CSS path validation failed"
   );
 
-  const iconLibraryResponse = await prompts({
-    type: "select",
-    name: "iconLibrary",
-    message: "Select an icon library:",
-    choices: Object.keys(ICON_LIBS).map((lib) => ({
-      title: lib,
-      value: lib as IconLib,
-    })),
-  });
-
-  if (!iconLibraryResponse || !iconLibraryResponse.iconLibrary) {
-    logger.error("Initialization cancelled or no icon library selected.");
-    process.exit(1);
+  let selectedIconLib: IconLib;
+  if (iconLib) {
+    selectedIconLib = safeParseWithError(
+      () => iconLibSchema.parse(iconLib),
+      "Icon library selection failed"
+    );
+  } else {
+    const iconLibraryResponse = await prompts({
+      type: "select",
+      name: "iconLibrary",
+      message: "Select an icon library:",
+      choices: Object.keys(ICON_LIBS).map((lib) => ({
+        title: lib,
+        value: lib as IconLib,
+      })),
+    });
+    if (!iconLibraryResponse || !iconLibraryResponse.iconLibrary) {
+      logger.error("Initialization cancelled or no icon library selected.");
+      process.exit(1);
+    }
+    selectedIconLib = safeParseWithError(
+      () => iconLibSchema.parse(iconLibraryResponse.iconLibrary),
+      "Icon library selection failed"
+    );
   }
-
-  const iconLibrary = safeParseWithError(
-    () => iconLibSchema.parse(iconLibraryResponse.iconLibrary),
-    "Icon library selection failed"
-  );
 
   const rlzConfig: rlzConfig = {
     framework,
@@ -91,7 +99,7 @@ export async function runInit({
     },
     css: cssPath,
     aliases: defaultAliasesRlzConfig,
-    icons: iconLibrary,
+    icons: selectedIconLib,
   };
 
   createConfig(cwd, rlzConfig);
