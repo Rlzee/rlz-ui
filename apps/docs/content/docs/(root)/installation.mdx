@@ -1,4 +1,59 @@
 ---
 title: Installation
-description: Your first document
+description: Get started with rlz-ui in a new or existing project.
 ---
+
+## Configure from the Web
+
+You can also configure your project visually from this site. Click the **New Project** button in the header to open the configurator — select your framework, fonts, and icon library, then copy the generated command directly.
+
+
+## New Project
+
+The fastest way to get started is to create a new project with everything configured from scratch.
+
+```bash
+npx rlz@latest create
+```
+
+This sets up a new project with your chosen framework, fonts, and icon library.
+
+### Options
+
+| Flag             | Description                           |
+| ---------------- | ------------------------------------- |
+| `--framework`    | `next`, `vite`, or `react`            |
+| `--body-font`    | Body font family                      |
+| `--heading-font` | Heading font family                   |
+| `--icon-lib`     | Icon library (`lucide`, `radix`, ...) |
+
+```bash
+npx rlz@latest create --framework next --body-font "Inter" --heading-font "Geist Mono" --icon-lib lucide
+```
+
+## Existing Project
+
+To add rlz-ui to an existing project, run `init` at the root of your project.
+
+```bash
+npx rlz@latest init
+```
+
+The CLI will detect your framework, TypeScript, and Tailwind setup automatically, then prompt you for any remaining configuration.
+
+**Requirements:**
+
+- TypeScript
+- Tailwind CSS v4+
+
+### Options
+
+| Flag             | Description                           |
+| ---------------- | ------------------------------------- |
+| `--body-font`    | Body font family                      |
+| `--heading-font` | Heading font family                   |
+| `--icon-lib`     | Icon library (`lucide`, `radix`, ...) |
+
+```bash
+npx rlz@latest init --body-font "Inter" --icon-lib lucide
+```
