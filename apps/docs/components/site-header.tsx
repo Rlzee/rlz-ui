@@ -12,9 +12,11 @@ import Link from "next/link";
 import { Plus } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 import { Badge } from "@rlz/ui/components/ui/badge";
+import { MobileNav } from "./mobile-nav";
 
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/config";
+import { source } from "@/lib/source";
 import { dialogHandle } from "./project-dialog";
 
 export function SiteHeader() {
@@ -23,7 +25,13 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 w-full bg-sidebar-background">
       <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6 container">
-        {/* left side nav */}
+        {/* left side nav & Mobile */}
+        <MobileNav
+          items={siteConfig.navItems}
+          tree={source.pageTree}
+          className="lg:hidden"
+        />
+
         <nav className="items-center gap-0.5 hidden lg:flex">
           <Badge variant="info">Beta v1.0</Badge>
           {siteConfig.navItems.map((item) => (

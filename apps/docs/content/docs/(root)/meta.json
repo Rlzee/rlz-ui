@@ -5,10 +5,6 @@
     "importing",
     "cli",
     "base-components",
-    "forms",
-    "themes",
-    "dark-mode",
-    "roadmap",
     "changelog"
   ],
   "title": "Overview"

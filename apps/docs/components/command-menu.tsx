@@ -4,6 +4,11 @@ import * as React from "react";
 import type { source } from "@/lib/source";
 import { useConfig } from "@/hooks/use-config";
 import { useIsMac } from "@/hooks/use-is-mac";
+import {
+  useNavPages,
+  type PageItem,
+  type PageGroup,
+} from "@/hooks/use-nav-pages";
 
 import Link from "next/link";
 import {
@@ -14,19 +19,6 @@ import {
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
 import { Target, BookOpenText, Search, Redo2, NotepadText } from "lucide-react";
-
-type PageItem = {
-  value: string;
-  label: string;
-  url: string;
-  isComponent: boolean;
-  keywords?: string[];
-};
-
-type PageGroup = {
-  value: string;
-  items: PageItem[];
-};
 
 export const commandHandle = CommandCreateHandle();
 
@@ -58,53 +50,7 @@ export function CommandMenu({
     return () => document.removeEventListener("keydown", handler);
   }, [copyPayload]);
 
-  // Convert tree structure to grouped items
-  const groupedItems = React.useMemo<PageGroup[]>(() => {
-    const groups: PageGroup[] = [];
-
-    // Add nav items group
-    if (navItems && navItems.length > 0) {
-      groups.push({
-        items: navItems.map((item) => ({
-          isComponent: false,
-          keywords: ["nav", "navigation", item.label.toLowerCase()],
-          label: item.label,
-          url: item.href,
-          value: `Navigation ${item.label}`,
-        })),
-        value: "Pages",
-      });
-    }
-
-    // Add tree groups
-    tree.children.forEach((group) => {
-      if (group.type === "folder") {
-        const items: PageItem[] = [];
-        group.children.forEach((item) => {
-          if (item.type === "page") {
-            const isComponent = item.url.includes("/components/");
-            const itemName = item.name?.toString() || "";
-            items.push({
-              isComponent,
-              keywords: isComponent ? ["component"] : undefined,
-              label: itemName,
-              url: item.url,
-              value: itemName ? `${group.name} ${itemName}` : "",
-            });
-          }
-        });
-        if (items.length > 0) {
-          groups.push({
-            items,
-            value:
-              typeof group.name === "string" ? group.name : String(group.name),
-          });
-        }
-      }
-    });
-
-    return groups;
-  }, [tree, navItems]);
+  const groupedItems = useNavPages(tree, navItems);
 
   const handlePageHighlight = React.useCallback(
     (item: PageItem) => {

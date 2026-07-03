@@ -7,7 +7,6 @@ import { commandHandle } from "./command-menu";
 
 import { Button } from "@rlz/ui/components/ui/button";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
-import { Search } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
 export function CommandInput({ className }: { className: string }) {
@@ -43,11 +42,8 @@ export function CommandInput({ className }: { className: string }) {
         />
       }
     >
-      <Search className="text-muted" />
-      <Kbd.Group>
-        <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">Ctrl</Kbd>
-        <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">K</Kbd>
-      </Kbd.Group>
+      <span className="text-muted-foreground pr-1.5">Search...</span>
+      <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">Ctrl K</Kbd>
     </CommandDialogTrigger>
   );
 }
