@@ -53,9 +53,9 @@ export function MobileNav({
           </div>
           <span className="sr-only">Toggle Menu</span>
         </div>
-        <span className="flex h-8 items-center text-lg leading-none font-medium">
+        {/*<span className="flex h-8 items-center text-lg leading-none font-medium">
           Menu
-        </span>
+        </span>*/}
       </Popover.Trigger>
       <Popover.Popup
         className="lg:hidden no-scrollbar h-full w-full overflow-y-auto rounded-none border-none backdrop-blur bg-background/82 p-0 shadow-none duration-100 data-open:animate-none!"

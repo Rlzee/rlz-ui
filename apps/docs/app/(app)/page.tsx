@@ -15,15 +15,22 @@ export default function IndexPage() {
           className="container flex flex-col items-center gap-2 max-w-4xl py-8 justify-center md:py-12 lg:py-16 xl:gap-4 text-center"
         >
           <h1 className="text-4xl md:text-5xl xl:text-6xl font-bold">
-            UI Components{" "}
+            A{" "}
             <span className="bg-gradient-to-b from-neutral-50 to-neutral-500 text-transparent bg-clip-text">
-              designed to build{" "}
-            </span>
-            Modern{" "}
+              UI library
+            </span>{" "}
+            that grows into{" "}
             <span className="bg-gradient-to-b from-neutral-50 to-neutral-500 text-transparent bg-clip-text">
-              web applications.
+              your design system.
             </span>
           </h1>
+
+          <p className="max-w-2xl text-muted-foreground md:text-lg">
+            Start with production-ready components. Customize typography, icons,
+            animations and presets or build a completely unique UI library
+            without starting from scratch.
+          </p>
+
           <div className="flex gap-3 mt-2">
             <Button>Get Started</Button>
             <Button variant="outline">Explore</Button>
@@ -41,6 +48,8 @@ export default function IndexPage() {
             </BorderFlashBox>
           </div>
         </div>
+
+        <section id="live-configurator"></section>
       </main>
 
       <SiteFooter />

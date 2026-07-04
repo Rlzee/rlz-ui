@@ -9,7 +9,7 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
 import { cn } from "@rlz/ui/lib/cn";
 
-export function CommandInput({ className }: { className: string }) {
+export function CommandInput({ className }: { className?: string }) {
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {

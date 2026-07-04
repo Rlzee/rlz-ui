@@ -58,7 +58,7 @@ export function SiteHeader() {
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
           <Separator orientation="vertical" className="h-5" />
-          {pathname.startsWith("/themes") ? (
+          {pathname.startsWith("/presets") ? (
             <Button aria-label="Create a themes" size="sm" className="ml-1">
               Create
             </Button>

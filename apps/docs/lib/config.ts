@@ -14,8 +14,8 @@ export const siteConfig = {
       href: "/docs/components",
     },
     {
-      label: "Themes",
-      href: "/themes",
+      label: "Presets",
+      href: "/presets",
     },
   ],
 };
