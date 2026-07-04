@@ -58,7 +58,7 @@ export function MobileNav({
         </span>
       </Popover.Trigger>
       <Popover.Popup
-        className="lg:hidden no-scrollbar h-full w-full overflow-y-auto rounded-none border-none backdrop-blur bg-black/82 p-0 shadow-none duration-100 data-open:animate-none!"
+        className="lg:hidden no-scrollbar h-full w-full overflow-y-auto rounded-none border-none backdrop-blur bg-background/82 p-0 shadow-none duration-100 data-open:animate-none!"
         positionerProps={{
           align: "start",
           side: "bottom",
@@ -71,7 +71,7 @@ export function MobileNav({
         <div className="flex flex-col gap-12 overflow-auto px-6 py-6">
           {groups.map((group) => (
             <div key={group.value} className="flex flex-col gap-4">
-              <div className="text-sm font-medium text-muted-foreground">
+              <div className="text-sm font-medium text-foreground">
                 {group.value}
               </div>
               <div className="flex flex-col gap-3">
@@ -112,7 +112,10 @@ function MobileLink({
         router.push(href.toString());
         onOpenChange?.(false);
       }}
-      className={cn("flex items-center gap-2 text-2xl font-medium", className)}
+      className={cn(
+        "text-muted-foreground hover:text-foreground flex items-center gap-2 text-2xl font-medium",
+        className
+      )}
       {...props}
     >
       {children}
