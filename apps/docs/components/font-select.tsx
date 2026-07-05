@@ -48,16 +48,22 @@ export function FontSelect({
         <Combobox.List>
           <Combobox.Group>
             {filteredFonts.map((font) => (
-              <Combobox.Item key={font.family} value={font.family}>
-                <Combobox.ItemIndicator />
-
-                <Combobox.ItemText
-                  style={{
-                    fontFamily: `"${font.family}", sans-serif`,
-                  }}
-                >
-                  {font.family}
+              <Combobox.Item
+                key={font.family}
+                value={font.family}
+                className="justify-between"
+              >
+                <Combobox.ItemText className="grid gap-0.5">
+                  <span
+                  // style={{
+                  //   fontFamily: `"${font.family}, ${font.category}`,
+                  // }}
+                  >
+                    {font.family}
+                  </span>
+                  <span className="text-muted-foreground">{font.category}</span>
                 </Combobox.ItemText>
+                <Combobox.ItemIndicator className="order-last pr-3" />
               </Combobox.Item>
             ))}
           </Combobox.Group>
