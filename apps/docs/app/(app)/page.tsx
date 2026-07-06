@@ -4,11 +4,14 @@ import {
   BorderFlashBox,
   BorderFlashBoxContent,
 } from "@rlz/ui/components/animations/border-flash";
+import { SiteBorder } from "@/components/site-border";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function IndexPage() {
   return (
     <div className="min-h-[calc(100vh-var(--header-height))] flex flex-col">
+      <SiteBorder />
+
       <main className="flex-1 relative w-full">
         <section
           id="header"
@@ -25,11 +28,11 @@ export default function IndexPage() {
             </span>
           </h1>
 
-          <p className="max-w-2xl text-muted-foreground md:text-lg">
+          {/*<p className="max-w-2xl text-muted-foreground md:text-lg">
             Start with production-ready components. Customize typography, icons,
             animations and presets or build a completely unique UI library
             without starting from scratch.
-          </p>
+          </p>*/}
 
           <div className="flex gap-3 mt-2">
             <Button>Get Started</Button>

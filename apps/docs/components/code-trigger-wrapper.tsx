@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Button } from "@rlz/ui/components/ui/button";
 import { Collapsible } from "@rlz/ui/components/ui/collapsible";
-import { Separator } from "@rlz/ui/components/ui/separator";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 
