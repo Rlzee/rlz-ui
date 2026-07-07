@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Autocomplete } from "@rlz/ui/components/ui/autocomplete";
 import { Button } from "@rlz/ui/components/ui/button";
@@ -17,8 +18,10 @@ export default function SearchField() {
             <Search className="size-5" />
           </InputGroup.Addon>
           <Autocomplete.Input unstyled className="text-base ps-1 pe-1" />
-          <InputGroup.Addon align="inline-end">
-            <Button size="sm">Create</Button>
+          <InputGroup.Addon align="inline-end" className="mr-[-0.50rem] ">
+            <Button size="sm" render={<Link href={"/presets/create"} />}>
+              Create
+            </Button>
           </InputGroup.Addon>
         </InputGroup>
         <Autocomplete.Popup

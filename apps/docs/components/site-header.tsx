@@ -19,12 +19,17 @@ import { siteConfig } from "@/lib/config";
 import { source } from "@/lib/source";
 import { dialogHandle } from "./project-dialog";
 
-export function SiteHeader() {
+export function SiteHeader({ container }: { container?: boolean }) {
   const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-40 w-full bg-sidebar-background">
-      <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6 container">
+      <div
+        className={cn(
+          "relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6",
+          container && "container"
+        )}
+      >
         {/* left side nav & Mobile */}
         <MobileNav
           items={siteConfig.navItems}
@@ -58,25 +63,19 @@ export function SiteHeader() {
           <Separator orientation="vertical" className="h-5" />
           <ModeSwitcher />
           <Separator orientation="vertical" className="h-5" />
-          {pathname.startsWith("/presets") ? (
-            <Button aria-label="Create a themes" size="sm" className="ml-1">
-              Create
-            </Button>
-          ) : (
-            <DialogTrigger
-              handle={dialogHandle}
-              render={
-                <Button
-                  aria-label="Open new project"
-                  size="sm"
-                  className="ml-1"
-                />
-              }
-            >
-              <Plus />
-              New
-            </DialogTrigger>
-          )}
+          <DialogTrigger
+            handle={dialogHandle}
+            render={
+              <Button
+                aria-label="Open new project"
+                size="sm"
+                className="ml-1"
+              />
+            }
+          >
+            <Plus />
+            New
+          </DialogTrigger>
         </div>
       </div>
       <div className="absolute inset-x-0 bottom-0 pointer-events-none">

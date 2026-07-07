@@ -42,7 +42,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </BorderFlashBox>
       </div>
 
-      <SiteHeader />
+      <SiteHeader container />
       <main className="flex flex-1 flex-col">{children}</main>
       <GlobalDialogs />
     </div>
