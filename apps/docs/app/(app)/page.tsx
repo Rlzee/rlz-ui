@@ -4,14 +4,11 @@ import {
   BorderFlashBox,
   BorderFlashBoxContent,
 } from "@rlz/ui/components/animations/border-flash";
-import { SiteBorder } from "@/components/site-border";
 import { SiteFooter } from "@/components/site-footer";
 
 export default function IndexPage() {
   return (
     <div className="min-h-[calc(100vh-var(--header-height))] flex flex-col">
-      <SiteBorder />
-
       <main className="flex-1 relative w-full">
         <section
           id="header"
