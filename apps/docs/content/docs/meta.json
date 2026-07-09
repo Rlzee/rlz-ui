@@ -1,4 +1,4 @@
 {
-  "pages": ["(root)", "components"],
+  "pages": ["(root)", "components", "guides"],
   "root": true
 }

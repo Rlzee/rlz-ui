@@ -1,0 +1,213 @@
+---
+title: Dialog Management
+description: A pattern for managing reusable dialogs that can be opened from anywhere in your application.
+---
+
+## Introduction
+
+Base UI provides a `createHandle()` utility that gives you imperative control over a dialog instance — you can call `open()` and `close()` on it directly. This is useful for simple cases where the dialog lives close to its trigger.
+
+However, a handle alone does not solve the case where you need to:
+
+- Open a reusable dialog from anywhere in the app (a button, a table row action, a keyboard shortcut)
+- Pass dynamic props to that dialog (`title`, `description`, callbacks, etc.)
+
+This page documents an optional pattern that solves this using a small Zustand store. It is not part of Base UI or rlz-ui — it is a recommended convention you can adopt and adapt freely.
+
+## Installation
+
+This pattern uses [Zustand](https://zustand.docs.pmnd.rs) for state management.
+
+```bash
+npm install zustand
+```
+
+You can replace Zustand with any other state management solution — the pattern itself is framework-agnostic.
+
+## Dialog Store
+
+Create a store that holds the open state and params for every dialog in your application.
+
+```tsx
+import { create } from "zustand";
+
+type DialogState = {
+  isOpen: boolean;
+  params?: unknown;
+};
+
+type DialogStore = {
+  dialogs: Record<string, DialogState>;
+  openDialog: <T = unknown>(dialogName: string, params?: T) => void;
+  closeDialog: (dialogName: string) => void;
+  closeAllDialogs: () => void;
+  getDialogState: (dialogName: string) => boolean;
+  getDialogParams: <T = unknown>(dialogName: string) => T | undefined;
+};
+
+export const useDialog = create<DialogStore>((set, get) => ({
+  dialogs: {},
+  openDialog: (dialogName, params) =>
+    set((state) => ({
+      dialogs: {
+        ...state.dialogs,
+        [dialogName]: {
+          isOpen: true,
+          params,
+        },
+      },
+    })),
+  closeDialog: (dialogName) =>
+    set((state) => ({
+      dialogs: {
+        ...state.dialogs,
+        [dialogName]: {
+          isOpen: false,
+        },
+      },
+    })),
+  closeAllDialogs: () =>
+    set({
+      dialogs: {},
+    }),
+  getDialogState: (dialogName) => get().dialogs[dialogName]?.isOpen ?? false,
+  getDialogParams: <T,>(dialogName: string) =>
+    get().dialogs[dialogName]?.params as T | undefined,
+}));
+```
+
+The store provides:
+
+- `openDialog(name, params)` — opens a dialog and optionally attaches typed params to it
+- `closeDialog(name)` — closes a specific dialog
+- `closeAllDialogs()` — closes every open dialog at once
+- `getDialogState(name)` — returns whether a dialog is currently open
+- `getDialogParams(name)` — returns the params attached to a dialog
+
+## Dialog Helper
+
+The `createDialog` helper is optional but provides a cleaner, typed API per dialog. Instead of calling `useDialog` directly with a string name everywhere, you define the dialog once and get a typed object back.
+
+```tsx
+import { useDialog } from "@/stores/dialog.store";
+
+export function createDialog<TParams = unknown>(name: string) {
+  return {
+    name,
+    open: (params?: TParams) => useDialog.getState().openDialog(name, params),
+    close: () => useDialog.getState().closeDialog(name),
+    isOpen: () => useDialog.getState().getDialogState(name),
+    useParams: () => useDialog.getState().getDialogParams<TParams>(name),
+  };
+}
+```
+
+Save this in `lib/create-dialog.ts` or alongside your store.
+
+## Creating a Reusable Dialog
+
+Define a name and a params type for the dialog, then use `createDialog` to get a typed handle.
+
+```tsx
+import { createDialog } from "@/lib/create-dialog";
+import { useDialog } from "@/stores/dialog.store";
+import { AlertDialog } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+
+type ConfirmDialogParams = {
+  title: string;
+  description: string;
+  onConfirm?: () => void;
+};
+
+export const CONFIRM_DIALOG_NAME = "confirm-dialog";
+export const confirmDialog =
+  createDialog<ConfirmDialogParams>(CONFIRM_DIALOG_NAME);
+
+export function ConfirmDialog() {
+  const isOpen = useDialog((s) => s.getDialogState(CONFIRM_DIALOG_NAME));
+  const params = useDialog((s) =>
+    s.getDialogParams<ConfirmDialogParams>(CONFIRM_DIALOG_NAME)
+  );
+
+  return (
+    <AlertDialog
+      open={isOpen}
+      onOpenChange={(open) => !open && confirmDialog.close()}
+    >
+      <AlertDialog.Popup>
+        <AlertDialog.Header>
+          <AlertDialog.Title>{params?.title}</AlertDialog.Title>
+          <AlertDialog.Description>
+            {params?.description}
+          </AlertDialog.Description>
+        </AlertDialog.Header>
+        <AlertDialog.Footer>
+          <Button variant="outline" onClick={() => confirmDialog.close()}>
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              params?.onConfirm?.();
+              confirmDialog.close();
+            }}
+          >
+            Confirm
+          </Button>
+        </AlertDialog.Footer>
+      </AlertDialog.Popup>
+    </AlertDialog>
+  );
+}
+```
+
+Then render `<ConfirmDialog />` once at the root of your app (e.g. in your layout).
+
+```tsx
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+      <ConfirmDialog />
+    </>
+  );
+}
+```
+
+## Opening Dialogs
+
+Once the dialog is mounted, you can open it from anywhere — a button, a server action callback, a keyboard shortcut — without prop drilling.
+
+### Using the store directly
+
+```tsx
+import { useDialog } from "@/stores/dialog.store";
+
+const { openDialog } = useDialog();
+
+openDialog(CONFIRM_DIALOG_NAME, {
+  title: "Delete item?",
+  description: "This action cannot be undone.",
+  onConfirm: () => deleteItem(id),
+});
+```
+
+### Using the helper
+
+```tsx
+import { confirmDialog } from "@/components/dialogs/confirm-dialog";
+
+confirmDialog.open({
+  title: "Delete item?",
+  description: "This action cannot be undone.",
+  onConfirm: () => deleteItem(id),
+});
+```
+
+The helper version is recommended — it keeps types close to the dialog definition and avoids repeating the dialog name as a string.
+
+## Notes
+
+- This pattern is not part of Base UI or rlz-ui — it is a recommended convention.
+- You can replace Zustand with any other state management solution (Jotai, Valtio, Redux, a React context, etc.) without changing the dialog components.
+- The `rlz-ui` `Dialog` and `AlertDialog` components remain fully framework-agnostic.
