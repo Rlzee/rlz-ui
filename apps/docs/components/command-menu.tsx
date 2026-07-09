@@ -18,9 +18,21 @@ import {
 } from "@rlz/ui/components/ui/command";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
-import { Target, BookOpenText, Search, Redo2, NotepadText } from "lucide-react";
+import {
+  Target,
+  BookOpenText,
+  Search,
+  Redo2,
+  NotepadText,
+  NotebookPen,
+} from "lucide-react";
 
 export const commandHandle = CommandCreateHandle();
+
+const groupIcons: Record<string, React.ReactNode> = {
+  Pages: <NotepadText />,
+  Guides: <NotebookPen />,
+};
 
 export function CommandMenu({
   tree,
@@ -141,13 +153,12 @@ export function CommandMenu({
                                 />
                               }
                             >
-                              {group.value === "Pages" ? (
-                                <NotepadText />
-                              ) : item.isComponent ? (
-                                <Target />
-                              ) : (
-                                <BookOpenText />
-                              )}
+                              {groupIcons[group.value] ??
+                                (item.isComponent ? (
+                                  <Target />
+                                ) : (
+                                  <BookOpenText />
+                                ))}
                               <span className="flex-1">{item.label}</span>
                             </Command.Item>
                           )}
