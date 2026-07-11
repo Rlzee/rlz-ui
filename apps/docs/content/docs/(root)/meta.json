@@ -1,11 +1,11 @@
 {
+  "title": "Overview",
   "pages": [
     "index",
     "installation",
-    "importing",
     "cli",
+    "importing",
     "base-components",
     "changelog"
-  ],
-  "title": "Overview"
+  ]
 }
