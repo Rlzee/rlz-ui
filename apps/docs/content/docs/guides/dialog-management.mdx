@@ -47,6 +47,7 @@ type DialogStore = {
 
 export const useDialog = create<DialogStore>((set, get) => ({
   dialogs: {},
+
   openDialog: (dialogName, params) =>
     set((state) => ({
       dialogs: {
@@ -57,6 +58,7 @@ export const useDialog = create<DialogStore>((set, get) => ({
         },
       },
     })),
+
   closeDialog: (dialogName) =>
     set((state) => ({
       dialogs: {
@@ -66,11 +68,14 @@ export const useDialog = create<DialogStore>((set, get) => ({
         },
       },
     })),
+
   closeAllDialogs: () =>
     set({
       dialogs: {},
     }),
+
   getDialogState: (dialogName) => get().dialogs[dialogName]?.isOpen ?? false,
+
   getDialogParams: <T,>(dialogName: string) =>
     get().dialogs[dialogName]?.params as T | undefined,
 }));
