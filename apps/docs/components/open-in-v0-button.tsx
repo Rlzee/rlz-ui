@@ -9,7 +9,7 @@ export function OpenInV0Button({
     <Button
       size={size}
       className="gap-1"
-      render={<a href="" target="_blank" />}
+      render={<a href="" target="_blank" className="cursor-default" />}
       {...props}
     >
       Open in <V0 className="size-5" />

@@ -49,7 +49,7 @@ export function RightPanel() {
         </Toggle.Group>
 
         <div className="flex items-center gap-1.5">
-          <OpenInV0Button size="sm" />
+          <OpenInV0Button size="sm" variant="outline" />
           <Button
             variant="ghost"
             size="icon-sm"
