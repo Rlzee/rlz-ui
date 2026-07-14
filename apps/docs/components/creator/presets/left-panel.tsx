@@ -2,15 +2,15 @@
 
 import * as React from "react";
 
-import { Input } from "@rlz/ui/components/ui/input";
-import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Toggle } from "@rlz/ui/components/ui/toggle";
-
 import { ColorSection } from "./color-section";
+import { BaseSection } from "./base-section";
+import { AnimationSection } from "./animation-section";
 
-import { Search } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import { Button } from "@rlz/ui/components/ui/button";
 
-const NAV_TABS = ["Colors", "Typography", "Animation"] as const;
+const NAV_TABS = ["Base", "Colors", "Animation"] as const;
 type NavTab = (typeof NAV_TABS)[number];
 
 export function LeftPanel() {
@@ -40,16 +40,16 @@ export function LeftPanel() {
         </Toggle.Group>
       </div>
 
-      <div className="py-3 px-4">
-        <InputGroup>
-          <InputGroup.Addon align="inline-start">
-            <Search />
-          </InputGroup.Addon>
-          <Input placeholder="Search colors..." unstyled />
-        </InputGroup>
-      </div>
+      {activeTab === "Base" && <BaseSection />}
+      {activeTab === "Colors" && <ColorSection />}
+      {activeTab === "Animation" && <AnimationSection />}
 
-      <ColorSection />
+      <div className="flex items-center px-4 py-2 border-t">
+        <Button variant="ghost">
+          <RefreshCw className="w-3 h-3" />
+          SYNC
+        </Button>
+      </div>
     </div>
   );
 }

@@ -5,15 +5,16 @@ import { useTheme } from "next-themes";
 import { COLOR_SECTIONS, ColorRow } from "@rlz/ui/styles/colors";
 
 import { Button } from "@rlz/ui/components/ui/button";
+import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
 
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight, ChevronDown, Search } from "lucide-react";
 
 export function ColorSection() {
   const { theme, setTheme } = useTheme();
   const [search, setSearch] = React.useState("");
   const [expanded, setExpanded] = React.useState<Set<string>>(
-    new Set(["primary-colors", "secondary-accent"])
+    new Set(["primary", "secondary-accent"])
   );
 
   const isDark = theme === "dark";
@@ -34,37 +35,48 @@ export function ColorSection() {
   );
 
   return (
-    <div className="flex-1 overflow-y-auto px-2 pb-4">
-      {filtered.map((section) => {
-        const isOpen = expanded.has(section.id);
+    <section id="editor-color" className="h-full">
+      <div className="py-3 px-4">
+        <InputGroup>
+          <InputGroup.Addon align="inline-start">
+            <Search />
+          </InputGroup.Addon>
+          <Input placeholder="Search colors..." unstyled />
+        </InputGroup>
+      </div>
 
-        return (
-          <div key={section.id} className="mb-0.5">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full transition-colors justify-start"
-              onClick={() => toggle(section.id)}
-            >
-              {isOpen ? (
-                <ChevronDown className="w-3 h-3" />
-              ) : (
-                <ChevronRight className="w-3 h-3" />
+      <div className="flex-1 overflow-y-auto px-2 pb-4">
+        {filtered.map((section) => {
+          const isOpen = expanded.has(section.id);
+
+          return (
+            <div key={section.id} className="mb-0.5">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full transition-colors justify-start"
+                onClick={() => toggle(section.id)}
+              >
+                {isOpen ? (
+                  <ChevronDown className="w-3 h-3" />
+                ) : (
+                  <ChevronRight className="w-3 h-3" />
+                )}
+                {section.name}
+              </Button>
+
+              {isOpen && (
+                <div className="ml-2 mt-0.5 space-y-0.5">
+                  {section.rows.map((row) => (
+                    <ColorRowItem key={row.cssVar} row={row} isDark={isDark} />
+                  ))}
+                </div>
               )}
-              {section.name}
-            </Button>
-
-            {isOpen && (
-              <div className="ml-2 mt-0.5 space-y-0.5">
-                {section.rows.map((row) => (
-                  <ColorRowItem key={row.cssVar} row={row} isDark={isDark} />
-                ))}
-              </div>
-            )}
-          </div>
-        );
-      })}
-    </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
   );
 }
 
