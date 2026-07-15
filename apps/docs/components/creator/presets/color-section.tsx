@@ -7,6 +7,7 @@ import { COLOR_SECTIONS, ColorRow } from "@rlz/ui/styles/colors";
 import { Button } from "@rlz/ui/components/ui/button";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
 import { ChevronRight, ChevronDown, Search } from "lucide-react";
 
@@ -35,7 +36,7 @@ export function ColorSection() {
   );
 
   return (
-    <section id="editor-color" className="h-full">
+    <section id="editor-color" className="flex h-full min-h-0 flex-col">
       <div className="py-3 px-4">
         <InputGroup>
           <InputGroup.Addon align="inline-start">
@@ -45,7 +46,7 @@ export function ColorSection() {
         </InputGroup>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-2 pb-4">
+      <ScrollArea className="min-h-0 flex-1 px-2">
         {filtered.map((section) => {
           const isOpen = expanded.has(section.id);
 
@@ -75,7 +76,7 @@ export function ColorSection() {
             </div>
           );
         })}
-      </div>
+      </ScrollArea>
     </section>
   );
 }

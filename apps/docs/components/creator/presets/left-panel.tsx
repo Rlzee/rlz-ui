@@ -7,22 +7,22 @@ import { ColorSection } from "./color-section";
 import { BaseSection } from "./base-section";
 import { AnimationSection } from "./animation-section";
 
-import { RefreshCw } from "lucide-react";
-import { Button } from "@rlz/ui/components/ui/button";
-
 const NAV_TABS = ["Base", "Colors", "Animation"] as const;
 type NavTab = (typeof NAV_TABS)[number];
+
+const SECTIONS: Record<NavTab, React.ReactNode> = {
+  Base: <BaseSection />,
+  Colors: <ColorSection />,
+  Animation: <AnimationSection />,
+};
 
 export function LeftPanel() {
   const [activeTab, setActiveTab] = React.useState<NavTab>("Colors");
 
   return (
     <div
-      className="flex flex-col h-full border-r"
-      style={{
-        width: 470,
-        minWidth: 470,
-      }}
+      className="flex h-full min-h-0 flex-col border-r"
+      style={{ width: 470, minWidth: 470 }}
     >
       <div className="flex items-center gap-1.5 py-2 border-b px-4">
         <Toggle.Group
@@ -40,16 +40,7 @@ export function LeftPanel() {
         </Toggle.Group>
       </div>
 
-      {activeTab === "Base" && <BaseSection />}
-      {activeTab === "Colors" && <ColorSection />}
-      {activeTab === "Animation" && <AnimationSection />}
-
-      <div className="flex items-center px-4 py-2 border-t">
-        <Button variant="ghost">
-          <RefreshCw className="w-3 h-3" />
-          SYNC
-        </Button>
-      </div>
+      <div className="flex-1 min-h-0">{SECTIONS[activeTab]}</div>
     </div>
   );
 }
