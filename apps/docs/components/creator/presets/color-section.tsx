@@ -4,78 +4,71 @@ import * as React from "react";
 import { useTheme } from "next-themes";
 import { COLOR_SECTIONS, ColorRow } from "@rlz/ui/styles/colors";
 
-import { Button } from "@rlz/ui/components/ui/button";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import { CollapsibleItem } from "./collapsible-item";
 
-import { ChevronRight, ChevronDown, Search } from "lucide-react";
+import { Search } from "lucide-react";
+
+const DEFAULT_OPEN = new Set(["primary", "secondary-accent"]);
 
 export function ColorSection() {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
+
+  const [mounted, setMounted] = React.useState(false);
   const [search, setSearch] = React.useState("");
-  const [expanded, setExpanded] = React.useState<Set<string>>(
-    new Set(["primary", "secondary-accent"])
-  );
 
-  const isDark = theme === "dark";
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const toggle = (id: string) => {
-    setExpanded((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  };
+  if (!mounted) {
+    return null;
+  }
+
+  const isDark = resolvedTheme === "dark";
 
   const filtered = COLOR_SECTIONS.filter(
-    (s) =>
-      s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.rows.some((r) => r.label.toLowerCase().includes(search.toLowerCase()))
+    (section) =>
+      section.name.toLowerCase().includes(search.toLowerCase()) ||
+      section.rows.some((row) =>
+        row.label.toLowerCase().includes(search.toLowerCase())
+      )
   );
 
   return (
-    <section id="editor-color" className="flex h-full min-h-0 flex-col">
-      <div className="py-3 px-4">
+    <section className="flex h-full min-h-0 flex-col">
+      <div className="px-4 py-3">
         <InputGroup>
           <InputGroup.Addon align="inline-start">
             <Search />
           </InputGroup.Addon>
-          <Input placeholder="Search colors..." unstyled />
+
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search colors..."
+            unstyled
+          />
         </InputGroup>
       </div>
 
-      <ScrollArea className="min-h-0 flex-1 px-2">
-        {filtered.map((section) => {
-          const isOpen = expanded.has(section.id);
-
-          return (
-            <div key={section.id} className="mb-0.5">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full transition-colors justify-start"
-                onClick={() => toggle(section.id)}
-              >
-                {isOpen ? (
-                  <ChevronDown className="w-3 h-3" />
-                ) : (
-                  <ChevronRight className="w-3 h-3" />
-                )}
-                {section.name}
-              </Button>
-
-              {isOpen && (
-                <div className="ml-2 mt-0.5 space-y-0.5">
-                  {section.rows.map((row) => (
-                    <ColorRowItem key={row.cssVar} row={row} isDark={isDark} />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })}
+      <ScrollArea className="min-h-0 flex-1 px-2 pb-4 **:data-[slot=scroll-area-scrollbar]:hidden">
+        {filtered.map((section) => (
+          <div key={section.id} className="mb-0.5">
+            <CollapsibleItem
+              triggerName={section.name}
+              defaultOpen={DEFAULT_OPEN.has(section.id)}
+            >
+              <div className="ml-2 mt-0.5 space-y-0.5">
+                {section.rows.map((row) => (
+                  <ColorRowItem key={row.cssVar} row={row} isDark={isDark} />
+                ))}
+              </div>
+            </CollapsibleItem>
+          </div>
+        ))}
       </ScrollArea>
     </section>
   );
@@ -85,15 +78,15 @@ function ColorRowItem({ row, isDark }: { row: ColorRow; isDark: boolean }) {
   const current = isDark ? row.dark : row.light;
 
   return (
-    <div className="flex items-center gap-2 px-2 py-1.5 rounded transition-colors group text-foreground">
+    <div className="group flex items-center gap-2 rounded px-2 py-1.5 text-foreground transition-colors">
       <div
-        className="w-6 h-6 rounded-sm flex shrink-0 border"
-        style={{
-          background: current.swatch,
-        }}
+        className="h-6 w-6 shrink-0 rounded-sm border"
+        style={{ background: current.swatch }}
       />
-      <span className="text-xs w-24 flex shrink-0">{row.label}</span>
-      <Input value={current.value} className="h-7 text-xs truncate font-mono" />
+
+      <span className="w-24 shrink-0 text-xs">{row.label}</span>
+
+      <Input value={current.value} className="h-7 truncate font-mono text-xs" />
     </div>
   );
 }
