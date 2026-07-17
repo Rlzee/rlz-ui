@@ -12,16 +12,17 @@ import FrameworkIcon from "./icons/framework";
 
 export const dialogHandle = DialogCreateHandle();
 
-const DEFAULT_HEADING_FONT = "Geist Mono";
-const DEFAULT_BODY_FONT = "Geist";
-const DEFAULT_ICON_LIB = "lucide";
+import { DEFAULT_PRESET } from "@rlz/ui/styles/preset";
+const BASE = DEFAULT_PRESET.base;
 
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
-  const [bodyFont, setBodyFont] = React.useState(DEFAULT_BODY_FONT);
-  const [headingFont, setHeadingFont] = React.useState(DEFAULT_HEADING_FONT);
-  const [iconLib, setIconLib] = React.useState(DEFAULT_ICON_LIB);
+  const [bodyFont, setBodyFont] = React.useState(BASE.typography.bodyFont);
+  const [headingFont, setHeadingFont] = React.useState(
+    BASE.typography.headingFont
+  );
+  const [iconLib, setIconLib] = React.useState(BASE.icons.library);
   const [template, setTemplate] = React.useState("next");
 
   const command = React.useMemo(() => {
@@ -101,7 +102,7 @@ export function ProjectDialog() {
             <Field.Label>Heading Font</Field.Label>
             <FontSelect
               value={headingFont}
-              defaultValue={DEFAULT_HEADING_FONT}
+              defaultValue={BASE.typography.headingFont}
               onValueChange={setHeadingFont}
             />
           </Field>
@@ -110,7 +111,7 @@ export function ProjectDialog() {
             <Field.Label>Body Font</Field.Label>
             <FontSelect
               value={bodyFont}
-              defaultValue={DEFAULT_BODY_FONT}
+              defaultValue={BASE.typography.bodyFont}
               onValueChange={setBodyFont}
             />
           </Field>
@@ -119,7 +120,7 @@ export function ProjectDialog() {
             <Field.Label>Icons Library</Field.Label>
             <IconLibSelect
               value={iconLib}
-              defaultValue={DEFAULT_ICON_LIB}
+              defaultValue={BASE.icons.library}
               onValueChange={setIconLib}
             />
           </Field>

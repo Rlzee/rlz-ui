@@ -20,7 +20,7 @@ const SECTIONS: Record<NavTab, React.ReactNode> = {
 };
 
 export function LeftPanel() {
-  const [activeTab, setActiveTab] = React.useState<NavTab>("Colors");
+  const [activeTab, setActiveTab] = React.useState<NavTab>("Base");
 
   return (
     <div
