@@ -88,6 +88,9 @@ importers:
       '@rlz/fonts':
         specifier: workspace:^
         version: link:../../packages/fonts
+      '@rlz/presets':
+        specifier: workspace:^
+        version: link:../../packages/presets
       '@rlz/registry':
         specifier: workspace:^
         version: link:../../packages/registry
@@ -318,6 +321,21 @@ importers:
         specifier: ^5.5.3
         version: 5.9.3
 
+  packages/presets:
+    devDependencies:
+      tsup:
+        specifier: ^6.6.3
+        version: 6.7.0(@swc/core@1.15.41(@swc/helpers@0.5.23))(postcss@8.5.15)(typescript@5.9.3)
+      tsx:
+        specifier: ^4.1.4
+        version: 4.22.4
+      type-fest:
+        specifier: ^3.8.0
+        version: 3.13.1
+      typescript:
+        specifier: ^5.5.3
+        version: 5.9.3
+
   packages/registry:
     devDependencies:
       tsup:
@@ -390,6 +408,9 @@ importers:
       '@base-ui/react':
         specifier: ^1.6.0
         version: 1.6.0(@types/react@19.2.2)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@rlz/presets':
+        specifier: workspace:^
+        version: link:../presets
       '@rlz/registry':
         specifier: workspace:^
         version: link:../registry
@@ -7142,7 +7163,7 @@ snapshots:
       debug: 4.4.3
       minimatch: 10.2.4
       semver: 7.7.4
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
       ts-api-utils: 2.4.0(typescript@5.9.3)
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -7877,7 +7898,7 @@ snapshots:
       get-tsconfig: 4.13.6
       is-bun-module: 2.0.0
       stable-hash: 0.0.5
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
       unrs-resolver: 1.11.1
     optionalDependencies:
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.2(jiti@2.7.0))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.7.0))
@@ -10282,7 +10303,7 @@ snapshots:
       lines-and-columns: 1.2.4
       mz: 2.7.0
       pirates: 4.0.7
-      tinyglobby: 0.2.15
+      tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
   supports-color@7.2.0:

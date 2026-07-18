@@ -15,17 +15,10 @@ import {
   Globe,
   RefreshCw,
   SquareArrowOutUpRight,
-  Scissors,
-  X,
+  Plus,
 } from "lucide-react";
 
-const PREVIEW_TABS = [
-  "Custom",
-  "Cards",
-  "Dashboard",
-  "Application",
-  "Marketing",
-];
+const PREVIEW_TABS = ["Custom", "dashboard"];
 type PreviewTabs = (typeof PREVIEW_TABS)[number];
 
 export function RightPanel() {
@@ -46,6 +39,10 @@ export function RightPanel() {
               {tab}
             </Toggle>
           ))}
+          <Button variant="outline">
+            <Plus />
+            Add
+          </Button>
         </Toggle.Group>
 
         <div className="flex items-center gap-1.5">

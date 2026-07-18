@@ -10,8 +10,8 @@ import { Slider } from "@rlz/ui/components/ui/slider";
 import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
-import { DEFAULT_PRESET } from "@rlz/ui/styles/preset";
-const BASE = DEFAULT_PRESET.base;
+import { defaultPreset } from "@rlz/ui/styles/presets";
+const BASE = defaultPreset.base;
 
 export function BaseSection() {
   return (

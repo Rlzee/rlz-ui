@@ -12,8 +12,8 @@ import FrameworkIcon from "./icons/framework";
 
 export const dialogHandle = DialogCreateHandle();
 
-import { DEFAULT_PRESET } from "@rlz/ui/styles/preset";
-const BASE = DEFAULT_PRESET.base;
+import { defaultPreset } from "@rlz/ui/styles/presets";
+const BASE = defaultPreset.base;
 
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");

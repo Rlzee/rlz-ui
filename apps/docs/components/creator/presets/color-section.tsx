@@ -2,7 +2,8 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { COLOR_SECTIONS, ColorRow } from "@rlz/ui/styles/colors";
+import { defaultPreset } from "@rlz/ui/styles/presets";
+import type { ColorToken as ColorRow } from "@rlz/presets";
 
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
@@ -10,6 +11,8 @@ import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { CollapsibleItem } from "./collapsible-item";
 
 import { Search } from "lucide-react";
+
+const COLOR_SECTIONS = defaultPreset.colors;
 
 const DEFAULT_OPEN = new Set(["primary", "secondary-accent"]);
 
@@ -32,7 +35,7 @@ export function ColorSection() {
   const filtered = COLOR_SECTIONS.filter(
     (section) =>
       section.name.toLowerCase().includes(search.toLowerCase()) ||
-      section.rows.some((row) =>
+      section.tokens.some((row) =>
         row.label.toLowerCase().includes(search.toLowerCase())
       )
   );
@@ -62,7 +65,7 @@ export function ColorSection() {
               defaultOpen={DEFAULT_OPEN.has(section.id)}
             >
               <div className="ml-2 mt-0.5 space-y-0.5">
-                {section.rows.map((row) => (
+                {section.tokens.map((row) => (
                   <ColorRowItem key={row.cssVar} row={row} isDark={isDark} />
                 ))}
               </div>
@@ -78,13 +81,15 @@ function ColorRowItem({ row, isDark }: { row: ColorRow; isDark: boolean }) {
   const current = isDark ? row.dark : row.light;
 
   return (
-    <div className="group flex items-center gap-2 rounded px-2 py-1.5 text-foreground transition-colors">
+    <div className="group flex items-center gap-2 rounded px-2 py-1.5 transition-colors">
       <div
         className="h-6 w-6 shrink-0 rounded-sm border"
         style={{ background: current.swatch }}
       />
 
-      <span className="w-24 shrink-0 text-xs">{row.label}</span>
+      <span className="w-24 shrink-0 text-xs text-muted-foreground">
+        {row.label}
+      </span>
 
       <Input value={current.value} className="h-7 truncate font-mono text-xs" />
     </div>
