@@ -15,7 +15,7 @@ const BASE = defaultPreset.base;
 
 export function BaseSection() {
   return (
-    <section id="editor-base" className="h-full py-3">
+    <section id="editor-base" className="h-full">
       <div className="px-4 py-3 flex flex-col gap-2">
         <CollapsibleItem triggerName="TYPOGRAPHY" defaultOpen>
           <div className="flex items-center gap-3 px-2 py-1.5">
