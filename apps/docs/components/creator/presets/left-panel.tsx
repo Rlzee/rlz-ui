@@ -2,12 +2,11 @@
 
 import * as React from "react";
 
-import { Toggle } from "@rlz/ui/components/ui/toggle";
+import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { ColorSection } from "./color-section";
 import { BaseSection } from "./base-section";
 import { AnimationSection } from "./animation-section";
 import { Button } from "@rlz/ui/components/ui/button";
-
 import { RefreshCw } from "lucide-react";
 
 const NAV_TABS = ["Base", "Colors", "Animation"] as const;
@@ -27,23 +26,26 @@ export function LeftPanel() {
       className="flex h-full min-h-0 flex-col border-r"
       style={{ width: 470, minWidth: 470 }}
     >
-      <div className="flex items-center gap-1.5 py-2 border-b px-4">
-        <Toggle.Group
-          value={[activeTab]}
-          onValueChange={(values) =>
-            setActiveTab((values[0] as NavTab) ?? "Colors")
-          }
-          className="gap-1.5"
-        >
+      <Tabs
+        value={activeTab}
+        onValueChange={(value) => setActiveTab(value as NavTab)}
+        className="flex h-full min-h-0 flex-col gap-0"
+      >
+        <Tabs.List className="border-b py-2 px-4">
           {NAV_TABS.map((tab) => (
-            <Toggle key={tab} value={tab}>
+            <Tabs.Tab key={tab} value={tab}>
               {tab}
-            </Toggle>
+            </Tabs.Tab>
           ))}
-        </Toggle.Group>
-      </div>
+          <Tabs.Indicator />
+        </Tabs.List>
 
-      <div className="flex-1 min-h-0">{SECTIONS[activeTab]}</div>
+        {NAV_TABS.map((tab) => (
+          <Tabs.Panel key={tab} value={tab} className="min-h-0">
+            {SECTIONS[tab]}
+          </Tabs.Panel>
+        ))}
+      </Tabs>
 
       <div className="items-center px-4 py-2 border-t flex shrink-0">
         <Button variant="ghost" size="sm">

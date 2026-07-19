@@ -32,7 +32,7 @@ export function Header() {
           Preset
         </Button>
         <Separator orientation="vertical" className="h-4 w-4" />
-        <Button className="ml-1" size="sm">
+        <Button variant="ghost" size="sm">
           <Heart />
           Save
         </Button>

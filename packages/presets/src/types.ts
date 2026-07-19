@@ -39,7 +39,7 @@ export type ColorsConfig = {
 };
 
 export type AnimationConfig = {
-  // plus tard
+  // soon
 };
 
 export type Preset = {

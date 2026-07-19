@@ -9,10 +9,10 @@ const CODE_TABS = ["Script Tag", "Next.js (App)", "Next.js (Pages)", "Vite"];
 type CodeTabs = (typeof CODE_TABS)[number];
 
 const CODE_SNIPPETS: Record<string, string> = {
-  "Script Tag": `<script src="https://tweakcn.com/live-preview.min.js"></script>`,
-  "Next.js (App)": `// app/layout.tsx\nimport Script from 'next/script'\n\nexport default function RootLayout({ children }) {\n  return (\n    <html>\n      <head>\n        <Script src="https://tweakcn.com/live-preview.min.js" />\n      </head>\n      <body>{children}</body>\n    </html>\n  )\n}`,
-  "Next.js (Pages)": `// pages/_document.tsx\nimport { Html, Head, Main, NextScript } from 'next/document'\n\nexport default function Document() {\n  return (\n    <Html>\n      <Head>\n        <script src="https://tweakcn.com/live-preview.min.js" />\n      </Head>\n      <body>\n        <Main />\n        <NextScript />\n      </body>\n    </Html>\n  )\n}`,
-  Vite: `<!-- index.html -->\n<head>\n  <script src="https://tweakcn.com/live-preview.min.js"></script>\n</head>`,
+  "Script Tag": `<script src="https://rlz-ui.com/live-preview.min.js"></script>`,
+  "Next.js (App)": `// app/layout.tsx\nimport Script from 'next/script'\n\nexport default function RootLayout({ children }) {\n  return (\n    <html>\n      <head>\n        <Script src="https://rlz-ui.com/live-preview.min.js" />\n      </head>\n      <body>{children}</body>\n    </html>\n  )\n}`,
+  "Next.js (Pages)": `// pages/_document.tsx\nimport { Html, Head, Main, NextScript } from 'next/document'\n\nexport default function Document() {\n  return (\n    <Html>\n      <Head>\n        <script src="https://rlz-ui.com/live-preview.min.js" />\n      </Head>\n      <body>\n        <Main />\n        <NextScript />\n      </body>\n    </Html>\n  )\n}`,
+  Vite: `<!-- index.html -->\n<head>\n  <script src="https://rlz-ui.com/live-preview.min.js"></script>\n</head>`,
 };
 
 export function CodeBox() {
