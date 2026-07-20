@@ -5,6 +5,7 @@ import * as React from "react";
 import { Dialog, DialogCreateHandle } from "@rlz/ui/components/ui/dialog";
 import { Field } from "@rlz/ui/components/ui/field";
 import { CommandTabs } from "./command-tabs";
+import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { FontSelect } from "./font-select";
 import { IconLibSelect } from "./icon-lib-select";
@@ -44,18 +45,20 @@ export function ProjectDialog() {
   return (
     <Dialog handle={dialogHandle} variant="bare-bottom">
       <Dialog.Popup>
-        <Dialog.Header>
-          <Toggle.Group
-            value={[activeTab]}
-            onValueChange={(values) =>
-              setActiveTab((values[0] as typeof activeTab) ?? "new-project")
+        <Dialog.Header className="pb-0">
+          <Tabs
+            value={activeTab}
+            onValueChange={(value) =>
+              setActiveTab((value as typeof activeTab) ?? "new-project")
             }
             aria-label="Project type"
-            className="gap-1.5"
           >
-            <Toggle value="new-project">New Project</Toggle>
-            <Toggle value="existing-project">Existing Project</Toggle>
-          </Toggle.Group>
+            <Tabs.List>
+              <Tabs.Tab value="new-project">New Project</Tabs.Tab>
+              <Tabs.Tab value="existing-project">Existing Project</Tabs.Tab>
+              <Tabs.Indicator variant="underline" />
+            </Tabs.List>
+          </Tabs>
         </Dialog.Header>
 
         <Dialog.Body>

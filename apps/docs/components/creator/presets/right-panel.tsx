@@ -25,9 +25,9 @@ export function RightPanel() {
           {PREVIEW_TABS.map((tab) => (
             <Tabs.Tab key={tab} value={tab}>
               {tab}
-              <Tabs.Indicator />
             </Tabs.Tab>
           ))}
+          <Tabs.Indicator />
           <Button variant="outline" className="ml-1">
             <Plus />
             Add

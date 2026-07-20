@@ -1,7 +1,7 @@
 import { defaultPreset } from "@rlz/ui/styles/presets";
-import { Label } from "@rlz/ui/components/ui/label";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Separator } from "@rlz/ui/components/ui/separator";
+import { Input } from "@rlz/ui/components/ui/input";
 
 import { Braces, FileDown, Share2, Heart } from "lucide-react";
 
@@ -12,7 +12,11 @@ export function Header() {
         <div className="h-4 w-4 shrink-0 rounded-sm border bg-foreground" />
         <div className="h-4 w-4 shrink-0 rounded-sm border bg-background" />
         <div className="h-4 w-4 shrink-0 rounded-sm border bg-secondary" />
-        <Label className="ml-1 text-md">{defaultPreset.name}</Label>
+        <Input
+          defaultValue={defaultPreset.name}
+          unstyled
+          className="ml-1 text-md"
+        />
       </div>
       <div className="flex gap-1.5 items-center justify-center">
         <Button variant="ghost" size="sm">
