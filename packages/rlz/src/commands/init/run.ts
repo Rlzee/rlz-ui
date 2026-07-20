@@ -1,5 +1,5 @@
 import { logger } from "@/utils/logger";
-import prompts from "prompts";
+import prompts, { type PromptObject } from "prompts";
 import { cssPathResponseSchema } from "@/schemas/init";
 import { safeParseWithError } from "@/utils/validation";
 import { createConfig } from "@/config/create";
@@ -12,21 +12,29 @@ import { installDependencies } from "@/utils/install-dependencies";
 import { ensureTsconfigPaths } from "@/utils/ensure-config-path";
 import { updateViteConfig } from "@/utils/update-vite-config";
 import { DEFAULT_CSS_BY_FRAMEWORK } from "@/utils/get-default-css-by-framework";
+import { addFonts } from "@/fonts/add";
 import { iconLibSchema } from "@/icons/schema";
 import { type IconLib, ICON_LIBS } from "@/icons/libs";
+import { GOOGLE_FONTS } from "@rlz/fonts";
+
 import path from "path";
 import fs from "fs-extra";
 
 import type { Framework } from "@/types/framework";
+
 type InitOptions = {
   cwd?: string;
   framework: Framework;
+  headingFont?: string;
+  bodyFont?: string;
   iconLib?: IconLib;
 };
 
 export async function runInit({
   cwd = process.cwd(),
   framework,
+  bodyFont,
+  headingFont,
   iconLib,
 }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
@@ -50,7 +58,7 @@ export async function runInit({
     },
   });
 
-  if (!cssPathResponse || !cssPathResponse.cssPath) {
+  if (!cssPathResponse?.cssPath) {
     logger.error("Initialization cancelled or no CSS path provided.");
     process.exit(1);
   }
@@ -60,13 +68,9 @@ export async function runInit({
     "CSS path validation failed"
   );
 
-  let selectedIconLib: IconLib;
-  if (iconLib) {
-    selectedIconLib = safeParseWithError(
-      () => iconLibSchema.parse(iconLib),
-      "Icon library selection failed"
-    );
-  } else {
+  let selectedIconLib = iconLib;
+
+  if (!selectedIconLib) {
     const iconLibraryResponse = await prompts({
       type: "select",
       name: "iconLibrary",
@@ -76,14 +80,63 @@ export async function runInit({
         value: lib as IconLib,
       })),
     });
-    if (!iconLibraryResponse || !iconLibraryResponse.iconLibrary) {
+
+    if (!iconLibraryResponse?.iconLibrary) {
       logger.error("Initialization cancelled or no icon library selected.");
       process.exit(1);
     }
-    selectedIconLib = safeParseWithError(
-      () => iconLibSchema.parse(iconLibraryResponse.iconLibrary),
-      "Icon library selection failed"
-    );
+
+    selectedIconLib = iconLibraryResponse.iconLibrary;
+  }
+
+  selectedIconLib = safeParseWithError(
+    () => iconLibSchema.parse(selectedIconLib),
+    "Icon library selection failed"
+  );
+
+  let selectedBodyFont = bodyFont;
+  let selectedHeadingFont = headingFont;
+
+  const fontChoices = GOOGLE_FONTS.map((font) => ({
+    title: font.family,
+    value: font.family,
+  }));
+
+  const fontQuestions: PromptObject[] = [];
+
+  if (!selectedBodyFont) {
+    fontQuestions.push({
+      type: "select",
+      name: "bodyFont",
+      message: "Select body font:",
+      choices: fontChoices,
+    });
+  }
+
+  if (!selectedHeadingFont) {
+    fontQuestions.push({
+      type: "select",
+      name: "headingFont",
+      message: "Select heading font:",
+      choices: fontChoices,
+    });
+  }
+
+  if (fontQuestions.length > 0) {
+    const fontsResponse = await prompts(fontQuestions);
+
+    if (!selectedBodyFont) {
+      selectedBodyFont = fontsResponse.bodyFont;
+    }
+
+    if (!selectedHeadingFont) {
+      selectedHeadingFont = fontsResponse.headingFont;
+    }
+  }
+
+  if (!selectedBodyFont || !selectedHeadingFont) {
+    logger.error("Body font and heading font are required.");
+    process.exit(1);
   }
 
   const rlzConfig: rlzConfig = {
@@ -104,7 +157,15 @@ export async function runInit({
     framework === "vite"
       ? `${UI_URL}/styles/globals.vite.css`
       : `${UI_URL}/styles/globals.css`;
+
   await getUiFile(cssUrl, cssPath);
+
+  await addFonts({
+    cwd,
+    framework,
+    bodyFont: selectedBodyFont,
+    headingFont: selectedHeadingFont,
+  });
 
   if (framework !== "next") {
     ensureTsconfigPaths({

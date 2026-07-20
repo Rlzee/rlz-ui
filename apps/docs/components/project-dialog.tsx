@@ -28,17 +28,17 @@ export function ProjectDialog() {
 
   const command = React.useMemo(() => {
     const action = activeTab === "existing-project" ? "init" : "create";
+
     const parts = [`rlz@latest ${action}`];
+
     if (activeTab === "new-project") {
       parts.push(`--framework ${template}`);
     }
-    if (bodyFont !== "Geist") {
-      parts.push(`--body-font "${bodyFont}"`);
-    }
-    if (headingFont !== "Geist Mono") {
-      parts.push(`--heading-font "${headingFont}"`);
-    }
+
+    parts.push(`--body-font "${bodyFont}"`);
+    parts.push(`--heading-font "${headingFont}"`);
     parts.push(`--icon-lib ${iconLib}`);
+
     return parts.join(" ");
   }, [activeTab, template, bodyFont, headingFont, iconLib]);
 

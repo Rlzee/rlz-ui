@@ -8,6 +8,3 @@ export const defaultDependencies: string[] = [
   "@base-ui/react",
   "tw-animate-css",
 ];
-
-export const defaultHeadingFont: string = "geist-mono";
-export const defaultBodyFont: string = "geist";

@@ -1,0 +1,92 @@
+---
+title: Tabs
+description: Organizes content into multiple sections, with only one section visible at a time.
+links:
+  doc: https://base-ui.com/react/components/tabs
+  api: https://base-ui.com/react/components/tabs#api-reference
+---
+
+<ComponentPreview name="tabs" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add tabs
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="tabs" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Tabs } from "@/components/ui/tabs";
+```
+
+```tsx
+<Tabs defaultValue="account">
+  <Tabs.List>
+    <Tabs.Tab value="account">Account</Tabs.Tab>
+    <Tabs.Tab value="password">Password</Tabs.Tab>
+    <Tabs.Indicator />
+  </Tabs.List>
+  <Tabs.Panel value="account">Account settings.</Tabs.Panel>
+  <Tabs.Panel value="password">Password settings.</Tabs.Panel>
+</Tabs>
+```
+
+## API Reference
+
+Each component extends its [Base UI](https://base-ui.com/react/components/tabs#api-reference) counterpart.
+Only additions and modifications are listed here.
+
+### Tabs Indicator
+
+| Prop      | Type                          | Default     |
+| --------- | ----------------------------- | ----------- |
+| `variant` | `"default" \| "underline"`    | `"default"` |
+
+## Examples
+
+### Underline
+
+Use `variant="underline"` on `<Tabs.Indicator>` for a minimal underline style.
+
+<ComponentPreview name="tabs-underline" />
+
+### Vertical
+
+Use `orientation="vertical"` on `<Tabs>` to stack tabs vertically.
+
+<ComponentPreview name="tabs-vertical" />
