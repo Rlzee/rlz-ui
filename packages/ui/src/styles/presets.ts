@@ -1,23 +1,19 @@
-import type { Preset } from "@rlz/presets";
+import { definePreset } from "@rlz/presets";
 
-export const defaultPreset: Preset = {
+export const defaultPreset = definePreset({
   id: "default",
   name: "Default",
 
   base: {
     typography: {
-      headingFont: "Geist Mono",
-      bodyFont: "Geist",
       letterSpacing: 0,
     },
     layout: {
       radius: 0.575,
       spacing: 0.25,
     },
-    icons: {
-      library: "lucide",
-    },
   },
+
   colors: [
     {
       id: "primary",
@@ -200,4 +196,16 @@ export const defaultPreset: Preset = {
       ],
     },
   ],
-};
+
+  animations: [],
+
+  recommendations: {
+    typography: {
+      headingFont: "Geist Mono",
+      bodyFont: "Geist",
+    },
+    icons: {
+      library: "lucide",
+    },
+  },
+});

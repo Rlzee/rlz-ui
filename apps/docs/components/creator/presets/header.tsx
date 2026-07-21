@@ -3,7 +3,7 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { Input } from "@rlz/ui/components/ui/input";
 
-import { Braces, FileDown, Share2, Heart } from "lucide-react";
+import { Braces, FileDown, Share2, CloudSync } from "lucide-react";
 
 export function Header() {
   return (
@@ -37,8 +37,8 @@ export function Header() {
         </Button>
         <Separator orientation="vertical" className="h-4 w-4" />
         <Button variant="ghost" size="sm">
-          <Heart />
-          Save
+          <CloudSync />
+          Publish
         </Button>
       </div>
     </div>

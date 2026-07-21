@@ -14,16 +14,18 @@ import FrameworkIcon from "./icons/framework";
 export const dialogHandle = DialogCreateHandle();
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
-const BASE = defaultPreset.base;
+const RECOMMENDATIONS = defaultPreset.recommendations;
 
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
-  const [bodyFont, setBodyFont] = React.useState(BASE.typography.bodyFont);
-  const [headingFont, setHeadingFont] = React.useState(
-    BASE.typography.headingFont
+  const [bodyFont, setBodyFont] = React.useState(
+    RECOMMENDATIONS?.typography?.bodyFont
   );
-  const [iconLib, setIconLib] = React.useState(BASE.icons.library);
+  const [headingFont, setHeadingFont] = React.useState(
+    RECOMMENDATIONS?.typography?.headingFont
+  );
+  const [iconLib, setIconLib] = React.useState(RECOMMENDATIONS?.icons?.library);
   const [template, setTemplate] = React.useState("next");
 
   const command = React.useMemo(() => {
@@ -105,7 +107,7 @@ export function ProjectDialog() {
             <Field.Label>Heading Font</Field.Label>
             <FontSelect
               value={headingFont}
-              defaultValue={BASE.typography.headingFont}
+              defaultValue={RECOMMENDATIONS?.typography?.headingFont}
               onValueChange={setHeadingFont}
             />
           </Field>
@@ -114,7 +116,7 @@ export function ProjectDialog() {
             <Field.Label>Body Font</Field.Label>
             <FontSelect
               value={bodyFont}
-              defaultValue={BASE.typography.bodyFont}
+              defaultValue={RECOMMENDATIONS?.typography?.bodyFont}
               onValueChange={setBodyFont}
             />
           </Field>
@@ -123,7 +125,7 @@ export function ProjectDialog() {
             <Field.Label>Icons Library</Field.Label>
             <IconLibSelect
               value={iconLib}
-              defaultValue={BASE.icons.library}
+              defaultValue={RECOMMENDATIONS?.icons?.library}
               onValueChange={setIconLib}
             />
           </Field>

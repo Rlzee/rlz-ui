@@ -1,6 +1,4 @@
 export type TypographyConfig = {
-  headingFont: string;
-  bodyFont: string;
   letterSpacing: number;
 };
 
@@ -9,14 +7,9 @@ export type LayoutConfig = {
   spacing: number;
 };
 
-export type IconsConfig = {
-  library: string;
-};
-
 export type BaseConfig = {
   typography: TypographyConfig;
   layout: LayoutConfig;
-  icons: IconsConfig;
 };
 
 export type ColorToken = {
@@ -39,7 +32,21 @@ export type ColorsConfig = {
 };
 
 export type AnimationConfig = {
-  // soon
+  // TODO
+};
+
+export type TypographyRecommendationConfig = {
+  headingFont: string;
+  bodyFont: string;
+};
+
+export type IconRecommendationConfig = {
+  library: string;
+};
+
+export type RecommendationsConfig = {
+  typography?: TypographyRecommendationConfig;
+  icons?: IconRecommendationConfig;
 };
 
 export type Preset = {
@@ -48,5 +55,7 @@ export type Preset = {
 
   base: BaseConfig;
   colors: ColorsConfig[];
-  animations?: AnimationConfig;
+  animations: AnimationConfig[];
+
+  recommendations?: RecommendationsConfig;
 };

@@ -12,35 +12,12 @@ import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
 const BASE = defaultPreset.base;
+const RECOMMENDATIONS = defaultPreset.recommendations;
 
 export function BaseSection() {
   return (
     <section id="editor-base" className="h-full">
-      <div className="px-4 py-3 flex flex-col gap-2">
-        <CollapsibleItem triggerName="TYPOGRAPHY" defaultOpen>
-          <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-              Heading
-            </Label>
-            <FontSelect defaultValue={BASE.typography.headingFont} />
-          </div>
-          <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-              Body
-            </Label>
-            <FontSelect defaultValue={BASE.typography.bodyFont} />
-          </div>
-        </CollapsibleItem>
-
-        <CollapsibleItem triggerName="ICON LIBRARY" defaultOpen>
-          <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-              Library
-            </Label>
-            <IconLibSelect defaultValue={BASE.icons.library} />
-          </div>
-        </CollapsibleItem>
-
+      <div className="px-2 py-3 flex flex-col gap-2 border-b border-dashed mx-2">
         <CollapsibleItem triggerName="LETTER SPACING" defaultOpen>
           <SliderRow
             label="Tracking"
@@ -72,6 +49,34 @@ export function BaseSection() {
             step={0.05}
             unit="rem"
           />
+        </CollapsibleItem>
+      </div>
+      <div className="px-4 py-3 flex flex-col gap-2">
+        <label className="text-center text-md">RECOMMENDATIONS</label>
+        <CollapsibleItem triggerName="TYPOGRAPHY" defaultOpen>
+          <div className="flex items-center gap-3 px-2 py-1.5">
+            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
+              Heading
+            </Label>
+            <FontSelect
+              defaultValue={RECOMMENDATIONS?.typography?.headingFont}
+            />
+          </div>
+          <div className="flex items-center gap-3 px-2 py-1.5">
+            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
+              Body
+            </Label>
+            <FontSelect defaultValue={RECOMMENDATIONS?.typography?.bodyFont} />
+          </div>
+        </CollapsibleItem>
+
+        <CollapsibleItem triggerName="ICON LIBRARY" defaultOpen>
+          <div className="flex items-center gap-3 px-2 py-1.5">
+            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
+              Library
+            </Label>
+            <IconLibSelect defaultValue={RECOMMENDATIONS?.icons?.library} />
+          </div>
         </CollapsibleItem>
       </div>
     </section>
