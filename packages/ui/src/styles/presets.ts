@@ -2,7 +2,7 @@ import { definePreset } from "@rlz/presets";
 
 export const defaultPreset = definePreset({
   id: "default",
-  name: "Default",
+  name: "Rlz/ui",
 
   base: {
     typography: {

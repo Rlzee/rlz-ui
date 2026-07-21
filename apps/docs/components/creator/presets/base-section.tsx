@@ -12,7 +12,7 @@ import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
 const BASE = defaultPreset.base;
-const RECOMMENDATIONS = defaultPreset.recommendations;
+const RECOMMENDATIONS = defaultPreset.recommendations ?? {};
 
 export function BaseSection() {
   return (
@@ -52,7 +52,13 @@ export function BaseSection() {
         </CollapsibleItem>
       </div>
       <div className="px-4 py-3 flex flex-col gap-2">
-        <label className="text-center text-md">RECOMMENDATIONS</label>
+        <div className="grid gap-0 text-left pb-2">
+          <label className="text-sm font-medium">RECOMMENDATIONS</label>
+          <p className="text-xs text-muted-foreground">
+            Optional defaults suggested when using this preset.
+          </p>
+        </div>
+
         <CollapsibleItem triggerName="TYPOGRAPHY" defaultOpen>
           <div className="flex items-center gap-3 px-2 py-1.5">
             <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">

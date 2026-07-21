@@ -19,13 +19,16 @@ const RECOMMENDATIONS = defaultPreset.recommendations;
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
-  const [bodyFont, setBodyFont] = React.useState(
+  const [bodyFont, setBodyFont] = React.useState<string | undefined>(
     RECOMMENDATIONS?.typography?.bodyFont
   );
-  const [headingFont, setHeadingFont] = React.useState(
+  const [headingFont, setHeadingFont] = React.useState<string | undefined>(
     RECOMMENDATIONS?.typography?.headingFont
   );
-  const [iconLib, setIconLib] = React.useState(RECOMMENDATIONS?.icons?.library);
+  const [iconLib, setIconLib] = React.useState<string | undefined>(
+    RECOMMENDATIONS?.icons?.library
+  );
+
   const [template, setTemplate] = React.useState("next");
 
   const command = React.useMemo(() => {
