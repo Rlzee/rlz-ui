@@ -1,26 +1,36 @@
 export const REGISTRY_ITEM_TYPES = ["component", "lib", "hook"] as const;
 
-/**
- * Runtime array of registry types (readonly tuple).
- * Use `REGISTRY_TYPES` at runtime so you don't need to duplicate allowed values.
- */
 export type RegistryItemType = (typeof REGISTRY_ITEM_TYPES)[number];
 
-/**
- * Type guard to validate a string at runtime as a RegistryType.
- */
 export function isRegistryItemType(value: string): value is RegistryItemType {
-  return (REGISTRY_ITEM_TYPES as readonly string[]).includes(value);
+  return REGISTRY_ITEM_TYPES.includes(value as RegistryItemType);
 }
 
-export type RegistryItem = {
+type BaseRegistryItem = {
   name: string;
-  type: RegistryItemType;
   description?: string;
-  path: string;
-  destPath?: string;
   version: string;
+  path: string;
   dependencies?: string[];
+};
+
+export type RegistryComponentItem = BaseRegistryItem & {
+  type: "component";
+  destPath?: string;
   registryDependencies?: string[];
   allowManualInstall?: boolean | "deprecated";
 };
+
+export type RegistryHookItem = BaseRegistryItem & {
+  type: "hook";
+  hookType?: "client" | "server";
+};
+
+export type RegistryLibItem = BaseRegistryItem & {
+  type: "lib";
+};
+
+export type RegistryItem =
+  | RegistryComponentItem
+  | RegistryHookItem
+  | RegistryLibItem;

@@ -34,6 +34,7 @@ export const addCommand = new Command()
       }
 
       const normalizedName = name.toLowerCase().replace(/\.(tsx?|ts?)$/, "");
+
       const item = registry[normalizedName] as RegistryItem | undefined;
 
       if (!item) {
@@ -42,25 +43,29 @@ export const addCommand = new Command()
 
       if (!isRegistryItemType(item.type)) {
         return logger.error(
-          `Registry item '${item.name}' has invalid type '${String(
+          `Invalid registry type '${String(
             item.type
-          )}'. Valid types are: ${REGISTRY_ITEM_TYPES.join(", ")}`
+          )}'. Allowed: ${REGISTRY_ITEM_TYPES.join(", ")}`
         );
       }
 
-      if (item.allowManualInstall === false) {
+      if ("allowManualInstall" in item && item.allowManualInstall === false) {
         return logger.error(
-          `Item ${name} cannot be installed directly via the CLI.`
+          `Item ${name} cannot be installed directly via CLI.`
         );
       }
 
-      if (item.allowManualInstall === "deprecated") {
-        return logger.error(
-          `Item ${name} is obsolete and can no longer be installed.`
-        );
+      if (
+        "allowManualInstall" in item &&
+        item.allowManualInstall === "deprecated"
+      ) {
+        return logger.error(`Item ${name} is deprecated.`);
       }
 
-      const dirs = resolveDirs({ dirs: config.dirs, cwd });
+      const dirs = resolveDirs({
+        dirs: config.dirs,
+        cwd,
+      });
 
       const typeToDir: Record<RegistryItemType, keyof typeof dirs> = {
         component: "components",
@@ -74,8 +79,9 @@ export const addCommand = new Command()
         const baseDirKey = typeToDir[item.type];
         const baseDir = dirs[baseDirKey];
 
-        if (!baseDir)
+        if (!baseDir) {
           throw new Error(`Target directory not found for type: ${item.type}`);
+        }
 
         let targetDir = baseDir;
 
@@ -98,13 +104,19 @@ export const addCommand = new Command()
         }
 
         const itemUrl = `${UI_URL}/${item.path}`;
+
         await fs.ensureDir(path.dirname(itemPath));
         await getUiFile(itemUrl, itemPath);
 
         const project = new Project();
         const sourceFile = project.addSourceFileAtPath(itemPath);
 
-        await UpdateComponent({ sourceFile, config });
+        if (item.type === "component") {
+          await UpdateComponent({
+            sourceFile,
+            config,
+          });
+        }
 
         if (item.dependencies?.length) {
           await installDependencies(item.dependencies, cwd, true);
@@ -114,26 +126,31 @@ export const addCommand = new Command()
       };
 
       const installItem = async (itemName: string) => {
-        if (installed.has(itemName)) return;
-
-        const regItem = registry[itemName] as RegistryItem | undefined;
-        if (!regItem) throw new Error(`Registry item not found: ${itemName}`);
-
-        if (!isRegistryItemType(regItem.type)) {
-          throw new Error(
-            `Registry item '${regItem.name}' has invalid type '${String(
-              regItem.type
-            )}'`
-          );
+        if (installed.has(itemName)) {
+          return;
         }
 
-        if (regItem.registryDependencies?.length) {
+        const regItem = registry[itemName] as RegistryItem | undefined;
+
+        if (!regItem) {
+          throw new Error(`Registry item not found: ${itemName}`);
+        }
+
+        if (!isRegistryItemType(regItem.type)) {
+          throw new Error(`Invalid registry type: ${String(regItem.type)}`);
+        }
+
+        if (
+          regItem.type === "component" &&
+          regItem.registryDependencies?.length
+        ) {
           for (const dep of regItem.registryDependencies) {
             await installItem(dep);
           }
         }
 
         await installSingleItem(regItem);
+
         installed.add(itemName);
       };
 
@@ -142,6 +159,7 @@ export const addCommand = new Command()
       logger.success(`Item "${normalizedName}" added successfully.`);
     } catch (error: any) {
       logger.error(`Error adding item: ${error?.message ?? String(error)}`);
+
       process.exit(1);
     }
   });

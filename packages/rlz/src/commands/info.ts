@@ -2,6 +2,7 @@ import { Command } from "commander";
 import { logger } from "@/utils/logger";
 import { readRegistry } from "@/utils/read-registry";
 import kleur from "kleur";
+import type { RegistryItem } from "@rlz/registry";
 
 export const infoCommand = new Command()
   .name("info")
@@ -16,28 +17,31 @@ export const infoCommand = new Command()
       }
 
       const registry = await readRegistry();
+
       if (!registry) {
         return logger.error("Registry not found");
       }
 
       const normalizedName = name.toLowerCase().replace(/\.(tsx?|ts?)$/, "");
-      const item = registry[normalizedName];
+
+      const item = registry[normalizedName] as RegistryItem | undefined;
+
       if (!item) {
         return logger.error(`Item not found in the registry: ${name}`);
       }
 
       logger.info(kleur.bold(`${item.name} (${item.type})`));
       logger.info(`Version: ${kleur.cyan(item.version)}`);
-      if (item.description) logger.info(`Description: ${item.description}`);
-      const allowManualInstallText = String(item.allowManualInstall ?? true);
-      logger.info(
-        `Manual Install Allowed: ${kleur.yellow(allowManualInstallText)}`
-      );
+
+      if (item.description) {
+        logger.info(`Description: ${item.description}`);
+      }
+
       logger.info(`Path in UI package: ${item.path}`);
-      if (item.destPath) logger.info(`Destination Path: ${item.destPath}`);
 
       if (item.dependencies?.length) {
         logger.info(kleur.green("\nDependencies:"));
+
         for (const dep of item.dependencies) {
           logger.info(`  - ${dep}`);
         }
@@ -45,28 +49,56 @@ export const infoCommand = new Command()
         logger.info(kleur.green("\nDependencies: None"));
       }
 
-      const printRegistryDeps = (
-        name: string,
-        level = 1,
-        visited = new Set<string>()
-      ) => {
-        if (visited.has(name)) return;
-        visited.add(name);
+      if (item.type === "component") {
+        const allowManualInstallText = String(item.allowManualInstall ?? true);
 
-        const depItem = registry[name];
-        if (!depItem || !depItem.registryDependencies?.length) return;
+        logger.info(
+          `Manual Install Allowed: ${kleur.yellow(allowManualInstallText)}`
+        );
 
-        for (const dep of depItem.registryDependencies) {
-          logger.info(`${"  ".repeat(level)}- ${kleur.magenta(dep)}`);
-          printRegistryDeps(dep, level + 1, visited);
+        if (item.destPath) {
+          logger.info(`Destination Path: ${item.destPath}`);
         }
-      };
 
-      if (item.registryDependencies?.length) {
-        logger.info(kleur.magenta("\nRegistry Dependencies:"));
-        printRegistryDeps(normalizedName);
-      } else {
-        logger.info(kleur.magenta("\nRegistry Dependencies: None"));
+        const printRegistryDeps = (
+          name: string,
+          level = 1,
+          visited = new Set<string>()
+        ) => {
+          if (visited.has(name)) {
+            return;
+          }
+
+          visited.add(name);
+
+          const depItem = registry[name] as RegistryItem | undefined;
+
+          if (
+            !depItem ||
+            depItem.type !== "component" ||
+            !depItem.registryDependencies?.length
+          ) {
+            return;
+          }
+
+          for (const dep of depItem.registryDependencies) {
+            logger.info(`${"  ".repeat(level)}- ${kleur.magenta(dep)}`);
+
+            printRegistryDeps(dep, level + 1, visited);
+          }
+        };
+
+        if (item.registryDependencies?.length) {
+          logger.info(kleur.magenta("\nRegistry Dependencies:"));
+
+          printRegistryDeps(normalizedName);
+        } else {
+          logger.info(kleur.magenta("\nRegistry Dependencies: None"));
+        }
+      }
+
+      if (item.type !== "component") {
+        logger.info(kleur.magenta("\nRegistry Dependencies: Not applicable"));
       }
 
       logger.break();
@@ -76,6 +108,7 @@ export const infoCommand = new Command()
           error?.message ?? String(error)
         }`
       );
+
       process.exit(1);
     }
   });

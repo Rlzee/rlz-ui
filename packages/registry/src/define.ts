@@ -2,23 +2,31 @@ import type { RegistryItem } from "./types";
 
 export function defineRegistry(
   items: Record<string, RegistryItem>
-): Record<string, RegistryItem> {
+): Readonly<Record<string, RegistryItem>> {
   const normalized: Record<string, RegistryItem> = {};
 
   for (const key in items) {
     const item = items[key];
+    const id = key.toLowerCase();
 
-    const name = (item.name ?? key).toLowerCase();
-
-    if (normalized[name]) {
-      throw new Error(`Duplicate registry item: ${name}`);
+    if (normalized[id]) {
+      throw new Error(`Duplicate registry item: ${id}`);
     }
 
-    normalized[name] = {
-      ...item,
-      name,
-    };
+    if (!item.name) {
+      throw new Error(`Registry item "${id}" is missing a name`);
+    }
+
+    if (!item.version) {
+      throw new Error(`Registry item "${id}" is missing a version`);
+    }
+
+    if (!item.path) {
+      throw new Error(`Registry item "${id}" is missing a path`);
+    }
+
+    normalized[id] = item;
   }
 
-  return normalized;
+  return Object.freeze(normalized);
 }

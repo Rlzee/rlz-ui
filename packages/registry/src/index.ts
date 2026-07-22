@@ -1,3 +1,3 @@
 export * from "./types";
 export * from "./define";
-export * from "./fetch";
+export * from "./read";
