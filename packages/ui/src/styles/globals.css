@@ -134,7 +134,7 @@
 
   /* Ui Component Colors */
   --color-card: var(--card);
-  --card-foreground: var(--card-foreground);
+  --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-muted: var(--muted);
