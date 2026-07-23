@@ -29,8 +29,8 @@ export async function addFonts({
 
   if (framework === "vite" || framework === "react") {
     await addViteFonts({
-      bodyFont: body.family,
-      headingFont: heading.family,
+      bodyFont: body,
+      headingFont: heading,
       cwd,
     });
   } else if (framework === "next") {

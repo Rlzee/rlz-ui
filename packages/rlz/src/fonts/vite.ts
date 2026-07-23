@@ -1,10 +1,11 @@
 import { readConfig } from "@/config/read";
 import fs from "fs-extra";
+import type { FontInfo } from "@rlz/fonts";
 import { buildGoogleFontImport } from "./utils";
 
 type AddViteFontsOptions = {
-  bodyFont: string;
-  headingFont: string;
+  bodyFont: FontInfo;
+  headingFont: FontInfo;
   cwd: string;
 };
 
@@ -19,21 +20,24 @@ export async function addViteFonts({
   let css = await fs.readFile(cssPath, "utf8");
 
   const imports = [
-    buildGoogleFontImport(bodyFont),
-    buildGoogleFontImport(headingFont),
+    buildGoogleFontImport(bodyFont.family),
+    buildGoogleFontImport(headingFont.family),
   ]
     .filter((v, i, arr) => arr.indexOf(v) === i)
     .join("\n");
 
   css = css
     .replace(
-      /(@import url\("https:\/\/fonts\.googleapis\.com\/css2[^;]+;\s*)+/g,
+      /@import\s+url\(["']https:\/\/fonts\.googleapis\.com\/css2[^"']+["']\);?\s*/g,
       ""
     )
-    .replace(/--body-font:\s*[^;]+;/, `--body-font: "${bodyFont}", sans-serif;`)
     .replace(
-      /--heading-font:\s*[^;]+;/,
-      `--heading-font: "${headingFont}", sans-serif;`
+      /--font-body:\s*[^;]+;/,
+      `--font-body: "${bodyFont.family}", ${bodyFont.category};`
+    )
+    .replace(
+      /--font-heading:\s*[^;]+;/,
+      `--font-heading: "${headingFont.family}", ${headingFont.category};`
     );
 
   css = `${imports}\n\n${css}`;

@@ -3,7 +3,7 @@ export function getNextImportName(family: string) {
 }
 
 export function buildGoogleFontImport(family: string) {
-  return `@import url("https://fonts.googleapis.com/css2?family=${encodeURIComponent(
-    family
-  )}:wght@400;500;600;700&display=swap");`;
+  const googleFamily = family.trim().replace(/\s+/g, "+");
+
+  return `@import url("https://fonts.googleapis.com/css2?family=${googleFamily}:wght@400;500;600;700&display=swap");`;
 }

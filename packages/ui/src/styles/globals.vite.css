@@ -1,7 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/geist";
-@import "@fontsource-variable/geist-mono";
 
 .root {
   isolation: isolate;
@@ -118,8 +116,8 @@
 
 @theme inline {
   /* Font */
-  --body-font: "Geist Variable", sans-serif;
-  --heading-font: "Geist Mono Variable";
+  --font-body: "Font Name";
+  --font-heading: "Font Name";
 
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px);
