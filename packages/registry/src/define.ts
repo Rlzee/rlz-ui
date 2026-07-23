@@ -7,7 +7,7 @@ export function defineRegistry(
 
   for (const key in items) {
     const item = items[key];
-    const id = key.toLowerCase();
+    const id = item.id.toLowerCase();
 
     if (normalized[id]) {
       throw new Error(`Duplicate registry item: ${id}`);
@@ -25,7 +25,10 @@ export function defineRegistry(
       throw new Error(`Registry item "${id}" is missing a path`);
     }
 
-    normalized[id] = item;
+    normalized[id] = {
+      ...item,
+      id,
+    };
   }
 
   return Object.freeze(normalized);

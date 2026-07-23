@@ -1,9 +1,8 @@
-import { defineRegistry } from "@rlz/registry";
+import { defineRegistryGroup } from "@rlz/registry";
 
-export const registryBaseComponents = defineRegistry({
+export const registryBaseComponents = defineRegistryGroup("component", {
   backdrop: {
-    name: "backdrop",
-    type: "component",
+    name: "Backdrop",
     description: "A component that provides a backdrop effect.",
     path: "components/base/backdrop.tsx",
     destPath: "base",
@@ -13,8 +12,7 @@ export const registryBaseComponents = defineRegistry({
     allowManualInstall: false,
   },
   "menu-base": {
-    name: "menu-base",
-    type: "component",
+    name: "Menu Base",
     description: "A component that provides a menu base.",
     path: "components/base/menu-base.tsx",
     destPath: "base",
@@ -24,8 +22,7 @@ export const registryBaseComponents = defineRegistry({
     allowManualInstall: false,
   },
   "popup-arrow": {
-    name: "popup-arrow",
-    type: "component",
+    name: "Popup Arrow",
     description: "A component that provides a popup arrow.",
     path: "components/base/popup-arrow.tsx",
     destPath: "base",
@@ -35,8 +32,7 @@ export const registryBaseComponents = defineRegistry({
     allowManualInstall: false,
   },
   shortcut: {
-    name: "shortcut",
-    type: "component",
+    name: "Shortcut",
     description: "A component that provides a shortcut.",
     path: "components/base/shortcut.tsx",
     destPath: "base",
@@ -46,8 +42,7 @@ export const registryBaseComponents = defineRegistry({
     allowManualInstall: false,
   },
   "x-close": {
-    name: "x-close",
-    type: "component",
+    name: "X Close",
     description: "A component that provides a close button.",
     path: "components/base/x-close.tsx",
     destPath: "base",

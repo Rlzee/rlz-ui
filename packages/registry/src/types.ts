@@ -1,4 +1,9 @@
-export const REGISTRY_ITEM_TYPES = ["component", "lib", "hook"] as const;
+export const REGISTRY_ITEM_TYPES = [
+  "component",
+  "lib",
+  "hook",
+  "preset",
+] as const;
 
 export type RegistryItemType = (typeof REGISTRY_ITEM_TYPES)[number];
 
@@ -7,10 +12,11 @@ export function isRegistryItemType(value: string): value is RegistryItemType {
 }
 
 type BaseRegistryItem = {
+  id: string;
   name: string;
-  description?: string;
   version: string;
   path: string;
+  description?: string;
   dependencies?: string[];
 };
 
@@ -30,7 +36,58 @@ export type RegistryLibItem = BaseRegistryItem & {
   type: "lib";
 };
 
+export type PresetBaseConfig = {
+  typography: {
+    letterSpacing: number;
+  };
+  layout: {
+    radius: number;
+    spacing: number;
+  };
+};
+
+export type PresetColorToken = {
+  label: string;
+  cssVar: string;
+  dark: {
+    value: string;
+    swatch: string;
+  };
+  light: {
+    value: string;
+    swatch: string;
+  };
+};
+
+export type PresetColorConfig = {
+  id: string;
+  name: string;
+  tokens: PresetColorToken[];
+};
+
+export type PresetRecommendations = {
+  typography?: {
+    headingFont: string;
+    bodyFont: string;
+  };
+  icons?: {
+    library: string;
+  };
+};
+
+export type RegistryPresetItem = BaseRegistryItem & {
+  type: "preset";
+
+  base: PresetBaseConfig;
+  colors: PresetColorConfig[];
+
+  animations?: Record<string, unknown>;
+
+  recommendations?: PresetRecommendations;
+};
+
 export type RegistryItem =
   | RegistryComponentItem
   | RegistryHookItem
-  | RegistryLibItem;
+  | RegistryLibItem
+  | RegistryPresetItem;

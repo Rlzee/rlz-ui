@@ -1,9 +1,8 @@
-import { defineRegistry } from "@rlz/registry";
+import { defineRegistryGroup } from "@rlz/registry";
 
-export const registryLibs = defineRegistry({
+export const registryLibs = defineRegistryGroup("lib", {
   cn: {
     name: "cn",
-    type: "lib",
     description: "",
     path: "lib/cn.ts",
     version: "1.0.0",

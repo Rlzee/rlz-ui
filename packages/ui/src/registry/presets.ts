@@ -1,8 +1,13 @@
-import { definePreset } from "@rlz/presets";
+import type { RegistryPresetItem } from "@rlz/registry";
 
-export const defaultPreset = definePreset({
+export const defaultPreset: RegistryPresetItem = {
+  type: "preset",
   id: "default",
   name: "Rlz/ui",
+  version: "1.0.0",
+  path: "registry/presets.ts",
+  description: "default rlz-ui preset",
+  dependencies: [],
 
   base: {
     typography: {
@@ -197,7 +202,7 @@ export const defaultPreset = definePreset({
     },
   ],
 
-  animations: [],
+  animations: {},
 
   recommendations: {
     typography: {
@@ -208,4 +213,4 @@ export const defaultPreset = definePreset({
       library: "lucide",
     },
   },
-});
+};

@@ -1,9 +1,8 @@
-import { defineRegistry } from "@rlz/registry";
+import { defineRegistryGroup } from "@rlz/registry";
 
-export const registryComponents = defineRegistry({
+export const registryComponents = defineRegistryGroup("component", {
   accordion: {
     name: "accordion",
-    type: "component",
     description: "A collapsible panel that can be expanded or collapsed",
     path: "components/ui/accordion.tsx",
     version: "1.0.0",
@@ -12,7 +11,6 @@ export const registryComponents = defineRegistry({
   },
   "alert-dialog": {
     name: "alert-dialog",
-    type: "component",
     description: "A modal dialog for important alerts and confirmations",
     path: "components/ui/alert-dialog.tsx",
     version: "1.0.0",
@@ -21,7 +19,6 @@ export const registryComponents = defineRegistry({
   },
   alert: {
     name: "alert",
-    type: "component",
     description: "An inline alert message component",
     path: "components/ui/alert.tsx",
     version: "1.0.0",
@@ -30,7 +27,6 @@ export const registryComponents = defineRegistry({
   },
   autocomplete: {
     name: "autocomplete",
-    type: "component",
     description: "An input with suggestion and autocompletion capabilities",
     path: "components/ui/autocomplete.tsx",
     version: "1.0.0",
@@ -39,7 +35,6 @@ export const registryComponents = defineRegistry({
   },
   avatar: {
     name: "avatar",
-    type: "component",
     description: "A user avatar image or fallback initials component",
     path: "components/ui/avatar.tsx",
     version: "1.0.0",
@@ -48,7 +43,6 @@ export const registryComponents = defineRegistry({
   },
   badge: {
     name: "badge",
-    type: "component",
     description: "A small badge used to display counts or statuses",
     path: "components/ui/badge.tsx",
     version: "1.0.0",
@@ -57,7 +51,6 @@ export const registryComponents = defineRegistry({
   },
   breadcrumb: {
     name: "breadcrumb",
-    type: "component",
     description: "A breadcrumb navigation component",
     path: "components/ui/breadcrumb.tsx",
     version: "1.0.0",
@@ -66,7 +59,6 @@ export const registryComponents = defineRegistry({
   },
   button: {
     name: "button",
-    type: "component",
     description: "A styled button component",
     path: "components/ui/button.tsx",
     version: "1.0.0",
@@ -75,7 +67,6 @@ export const registryComponents = defineRegistry({
   },
   card: {
     name: "card",
-    type: "component",
     description: "A container card for grouping related content",
     path: "components/ui/card.tsx",
     version: "1.0.0",
@@ -84,7 +75,6 @@ export const registryComponents = defineRegistry({
   },
   checkbox: {
     name: "checkbox",
-    type: "component",
     description: "A checkbox input component",
     path: "components/ui/checkbox.tsx",
     version: "1.0.0",
@@ -93,7 +83,6 @@ export const registryComponents = defineRegistry({
   },
   collapsible: {
     name: "collapsible",
-    type: "component",
     description: "A generic collapsible container component",
     path: "components/ui/collapsible.tsx",
     version: "1.0.0",
@@ -102,7 +91,6 @@ export const registryComponents = defineRegistry({
   },
   combobox: {
     name: "combobox",
-    type: "component",
     description: "A combobox input with dropdown selection",
     path: "components/ui/combobox.tsx",
     version: "1.0.0",
@@ -117,7 +105,6 @@ export const registryComponents = defineRegistry({
   },
   command: {
     name: "command",
-    type: "component",
     description: "A command palette or searchable action list",
     path: "components/ui/command.tsx",
     version: "1.0.0",
@@ -126,7 +113,6 @@ export const registryComponents = defineRegistry({
   },
   "context-menu": {
     name: "context-menu",
-    type: "component",
     description: "A right-click context menu component",
     path: "components/ui/context-menu.tsx",
     version: "1.0.0",
@@ -135,7 +121,6 @@ export const registryComponents = defineRegistry({
   },
   dialog: {
     name: "dialog",
-    type: "component",
     description: "A generic modal dialog component",
     path: "components/ui/dialog.tsx",
     version: "1.0.0",
@@ -144,7 +129,6 @@ export const registryComponents = defineRegistry({
   },
   drawer: {
     name: "drawer",
-    type: "component",
     description: "A slide-over drawer component",
     path: "components/ui/drawer.tsx",
     version: "1.0.0",
@@ -153,7 +137,6 @@ export const registryComponents = defineRegistry({
   },
   empty: {
     name: "empty",
-    type: "component",
     description: "A placeholder component for empty states",
     path: "components/ui/empty.tsx",
     version: "1.0.0",
@@ -162,7 +145,6 @@ export const registryComponents = defineRegistry({
   },
   field: {
     name: "field",
-    type: "component",
     description: "A form field wrapper component",
     path: "components/ui/field.tsx",
     version: "1.0.0",
@@ -171,7 +153,6 @@ export const registryComponents = defineRegistry({
   },
   fieldset: {
     name: "fieldset",
-    type: "component",
     description: "A fieldset grouping component for forms",
     path: "components/ui/fieldset.tsx",
     version: "1.0.0",
@@ -180,7 +161,6 @@ export const registryComponents = defineRegistry({
   },
   form: {
     name: "form",
-    type: "component",
     description: "Form utilities and wrapper component",
     path: "components/ui/form.tsx",
     version: "1.0.0",
@@ -189,7 +169,6 @@ export const registryComponents = defineRegistry({
   },
   group: {
     name: "group",
-    type: "component",
     description: "A simple grouping/layout component",
     path: "components/ui/group.tsx",
     version: "1.0.0",
@@ -198,7 +177,6 @@ export const registryComponents = defineRegistry({
   },
   "input-group": {
     name: "input-group",
-    type: "component",
     description: "A wrapper for grouping input-related elements",
     path: "components/ui/input-group.tsx",
     version: "1.0.0",
@@ -207,7 +185,6 @@ export const registryComponents = defineRegistry({
   },
   input: {
     name: "input",
-    type: "component",
     description: "A text input component",
     path: "components/ui/input.tsx",
     version: "1.0.0",
@@ -216,7 +193,6 @@ export const registryComponents = defineRegistry({
   },
   kbd: {
     name: "kbd",
-    type: "component",
     description: "A keyboard key visual component",
     path: "components/ui/kbd.tsx",
     version: "1.0.0",
@@ -225,7 +201,6 @@ export const registryComponents = defineRegistry({
   },
   label: {
     name: "label",
-    type: "component",
     description: "A label component for form inputs",
     path: "components/ui/label.tsx",
     version: "1.0.0",
@@ -234,7 +209,6 @@ export const registryComponents = defineRegistry({
   },
   menu: {
     name: "menu",
-    type: "component",
     description: "A dropdown or contextual menu component",
     path: "components/ui/menu.tsx",
     version: "1.0.0",
@@ -243,7 +217,6 @@ export const registryComponents = defineRegistry({
   },
   menubar: {
     name: "menubar",
-    type: "component",
     description: "A menubar/navigation menu component",
     path: "components/ui/menubar.tsx",
     version: "1.0.0",
@@ -252,7 +225,6 @@ export const registryComponents = defineRegistry({
   },
   meter: {
     name: "meter",
-    type: "component",
     description: "A visual meter/progress indicator",
     path: "components/ui/meter.tsx",
     version: "1.0.0",
@@ -261,7 +233,6 @@ export const registryComponents = defineRegistry({
   },
   "number-field": {
     name: "number-field",
-    type: "component",
     description: "A numeric input field component",
     path: "components/ui/number-field.tsx",
     version: "1.0.0",
@@ -270,7 +241,6 @@ export const registryComponents = defineRegistry({
   },
   "otp-field": {
     name: "otp-field",
-    type: "component",
     description: "A otp input field component",
     path: "components/ui/otp-field",
     version: "1.0.0",
@@ -279,7 +249,6 @@ export const registryComponents = defineRegistry({
   },
   popover: {
     name: "popover",
-    type: "component",
     description: "A contextual popover component",
     path: "components/ui/popover.tsx",
     version: "1.0.0",
@@ -288,7 +257,6 @@ export const registryComponents = defineRegistry({
   },
   "preview-card": {
     name: "preview-card",
-    type: "component",
     description: "A card component for previewing content",
     path: "components/ui/preview-card.tsx",
     version: "1.0.0",
@@ -297,7 +265,6 @@ export const registryComponents = defineRegistry({
   },
   progress: {
     name: "progress",
-    type: "component",
     description: "A progress bar component",
     path: "components/ui/progress.tsx",
     version: "1.0.0",
@@ -306,7 +273,6 @@ export const registryComponents = defineRegistry({
   },
   "radio-group": {
     name: "radio-group",
-    type: "component",
     description: "A group of radio inputs",
     path: "components/ui/radio-group.tsx",
     version: "1.0.0",
@@ -315,7 +281,6 @@ export const registryComponents = defineRegistry({
   },
   "scroll-area": {
     name: "scroll-area",
-    type: "component",
     description: "A scrollable container with custom scrollbars",
     path: "components/ui/scroll-area.tsx",
     version: "1.0.0",
@@ -324,7 +289,6 @@ export const registryComponents = defineRegistry({
   },
   select: {
     name: "select",
-    type: "component",
     description: "A select dropdown component",
     path: "components/ui/select.tsx",
     version: "1.0.0",
@@ -333,7 +297,6 @@ export const registryComponents = defineRegistry({
   },
   separator: {
     name: "separator",
-    type: "component",
     description: "A visual separator/divider component",
     path: "components/ui/separator.tsx",
     version: "1.0.0",
@@ -342,7 +305,6 @@ export const registryComponents = defineRegistry({
   },
   skeleton: {
     name: "skeleton",
-    type: "component",
     description: "A skeleton loader placeholder component",
     path: "components/ui/skeleton.tsx",
     version: "1.0.0",
@@ -351,7 +313,6 @@ export const registryComponents = defineRegistry({
   },
   slider: {
     name: "slider",
-    type: "component",
     description: "A range slider input component",
     path: "components/ui/slider.tsx",
     version: "1.0.0",
@@ -360,7 +321,6 @@ export const registryComponents = defineRegistry({
   },
   switch: {
     name: "switch",
-    type: "component",
     description: "A toggle switch input component",
     path: "components/ui/switch.tsx",
     version: "1.0.0",
@@ -369,7 +329,6 @@ export const registryComponents = defineRegistry({
   },
   table: {
     name: "table",
-    type: "component",
     description: "A table component for tabular data",
     path: "components/ui/table.tsx",
     version: "1.0.0",
@@ -378,7 +337,6 @@ export const registryComponents = defineRegistry({
   },
   tabs: {
     name: "tabs",
-    type: "component",
     description: "A tabs navigation component",
     path: "components/ui/tabs.tsx",
     version: "1.0.0",
@@ -387,7 +345,6 @@ export const registryComponents = defineRegistry({
   },
   textarea: {
     name: "textarea",
-    type: "component",
     description: "A multi-line text input component",
     path: "components/ui/textarea.tsx",
     version: "1.0.0",
@@ -396,7 +353,6 @@ export const registryComponents = defineRegistry({
   },
   toast: {
     name: "toast",
-    type: "component",
     description: "A transient notification/toast component",
     path: "components/ui/toast.tsx",
     version: "1.0.0",
@@ -405,7 +361,6 @@ export const registryComponents = defineRegistry({
   },
   toggle: {
     name: "toggle",
-    type: "component",
     description: "A toggle button component",
     path: "components/ui/toggle.tsx",
     version: "1.0.0",
@@ -414,7 +369,6 @@ export const registryComponents = defineRegistry({
   },
   toolbar: {
     name: "toolbar",
-    type: "component",
     description: "A toolbar container for action buttons and controls",
     path: "components/ui/toolbar.tsx",
     version: "1.0.0",
@@ -423,29 +377,10 @@ export const registryComponents = defineRegistry({
   },
   tooltip: {
     name: "tooltip",
-    type: "component",
     description: "A tooltip component for contextual hints",
     path: "components/ui/tooltip.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
     registryDependencies: ["cn", "popup-arrow"],
   },
-  "separator-border": {
-    name: "separator-border",
-    type: "component",
-    description: "A separator border component",
-    path: "components/ui/separator-border.tsx",
-    version: "1.0.0",
-    dependencies: [],
-    registryDependencies: ["cn"],
-  },
-  // "border-flash": {
-  //   name: "border-flash",
-  //   type: "component",
-  //   description: "A component that flashes the border of an element",
-  //   path: "components/ui/border-flash.tsx",
-  //   version: "1.0.0",
-  //   dependencies: ["framer-motion"],
-  //   registryDependencies: ["cn"],
-  // },
 });
