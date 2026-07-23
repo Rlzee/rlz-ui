@@ -1,5 +1,5 @@
 import { Command } from "commander";
-import prompts from "prompts";
+import { input, select } from "@inquirer/prompts";
 import { logger } from "../../utils/logger";
 import { runCreateCommand } from "./run";
 
@@ -7,38 +7,41 @@ export const createCommand = new Command("create")
   .description("Create a new project")
   .option("-f, --framework <framework>", "Framework (next, vite, react)")
   .action(async (options) => {
-    const response = await prompts(
-      [
-        {
-          type: "text",
-          name: "projectName",
-          message: "Project name",
-          initial: "my-app",
-        },
-        {
-          type: options.framework ? null : "select",
-          name: "framework",
-          message: "Framework",
-          choices: [
-            { title: "Next.js", value: "next" },
-            { title: "React + Vite", value: "vite" },
-            { title: "React", value: "react" },
-          ],
-        },
-      ],
-      {
-        onCancel: () => {
-          logger.error("Project creation cancelled.");
-          process.exit(1);
-        },
-      }
-    );
+    try {
+      const projectName = await input({
+        message: "Project name:",
+        default: "my-app",
+      });
 
-    await runCreateCommand({
-      cwd: process.cwd(),
-      project: {
-        name: response.projectName,
-        framework: options.framework ?? response.framework,
-      },
-    });
+      const framework =
+        options.framework ??
+        (await select({
+          message: "Framework:",
+          choices: [
+            {
+              name: "Next.js",
+              value: "next",
+            },
+            {
+              name: "React + Vite",
+              value: "vite",
+            },
+            {
+              name: "React",
+              value: "react",
+            },
+          ],
+        }));
+
+      await runCreateCommand({
+        cwd: process.cwd(),
+        project: {
+          name: projectName,
+          framework,
+        },
+      });
+    } catch {
+      logger.error("Project creation cancelled.");
+      process.exit(1);
+    }
   });

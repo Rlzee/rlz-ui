@@ -1,5 +1,4 @@
 import { getPackageManager } from "@/utils/get-package-manager";
-import { installDependencies } from "@/utils/install-dependencies";
 import { execa } from "execa";
 
 import type { Framework } from "@/types/framework";

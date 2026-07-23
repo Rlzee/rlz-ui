@@ -8,12 +8,18 @@ import { infoCommand } from "./commands/info";
 
 async function main() {
   const program = new Command();
+
   program.name("rlz").description("A CLI for rlz-ui").version("1.0.0");
+
   program.addCommand(initCommand);
   program.addCommand(addCommand);
   program.addCommand(listCommand);
   program.addCommand(infoCommand);
-  program.parse();
+
+  await program.parseAsync();
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});

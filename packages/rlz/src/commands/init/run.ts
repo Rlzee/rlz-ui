@@ -1,5 +1,5 @@
 import { logger } from "@/utils/logger";
-import prompts, { type PromptObject } from "prompts";
+import { input, select, search } from "@inquirer/prompts";
 import { cssPathResponseSchema } from "@/schemas/init";
 import { safeParseWithError } from "@/utils/validation";
 import { createConfig } from "@/config/create";
@@ -43,12 +43,10 @@ export async function runInit({
   const defaultCssPath =
     DEFAULT_CSS_BY_FRAMEWORK[framework]?.(rootDir) ?? "src/index.css";
 
-  const cssPathResponse = await prompts({
-    type: "text",
-    name: "cssPath",
+  const cssPath = await input({
     message: "Enter the path to your CSS file:",
-    initial: defaultCssPath,
-    validate: (value: string) => {
+    default: defaultCssPath,
+    validate: (value) => {
       try {
         cssPathResponseSchema.parse({ cssPath: value });
         return true;
@@ -58,35 +56,21 @@ export async function runInit({
     },
   });
 
-  if (!cssPathResponse?.cssPath) {
-    logger.error("Initialization cancelled or no CSS path provided.");
-    process.exit(1);
-  }
-
-  const { cssPath } = safeParseWithError(
-    () => cssPathResponseSchema.parse(cssPathResponse),
+  const validatedCssPath = safeParseWithError(
+    () => cssPathResponseSchema.parse({ cssPath }),
     "CSS path validation failed"
-  );
+  ).cssPath;
 
   let selectedIconLib = iconLib;
 
   if (!selectedIconLib) {
-    const iconLibraryResponse = await prompts({
-      type: "select",
-      name: "iconLibrary",
+    selectedIconLib = await select<IconLib>({
       message: "Select an icon library:",
       choices: Object.keys(ICON_LIBS).map((lib) => ({
-        title: lib,
+        name: lib,
         value: lib as IconLib,
       })),
     });
-
-    if (!iconLibraryResponse?.iconLibrary) {
-      logger.error("Initialization cancelled or no icon library selected.");
-      process.exit(1);
-    }
-
-    selectedIconLib = iconLibraryResponse.iconLibrary;
   }
 
   selectedIconLib = safeParseWithError(
@@ -95,43 +79,43 @@ export async function runInit({
   );
 
   let selectedBodyFont = bodyFont;
-  let selectedHeadingFont = headingFont;
-
-  const fontChoices = GOOGLE_FONTS.map((font) => ({
-    title: font.family,
-    value: font.family,
-  }));
-
-  const fontQuestions: PromptObject[] = [];
 
   if (!selectedBodyFont) {
-    fontQuestions.push({
-      type: "select",
-      name: "bodyFont",
+    selectedBodyFont = await search({
       message: "Select body font:",
-      choices: fontChoices,
+      source: async (term) => {
+        const query = term?.toLowerCase() ?? "";
+
+        return GOOGLE_FONTS.filter((font) =>
+          font.family.toLowerCase().includes(query)
+        )
+          .slice(0, 20)
+          .map((font) => ({
+            name: font.family,
+            value: font.family,
+          }));
+      },
     });
   }
+
+  let selectedHeadingFont = headingFont;
 
   if (!selectedHeadingFont) {
-    fontQuestions.push({
-      type: "select",
-      name: "headingFont",
+    selectedHeadingFont = await search({
       message: "Select heading font:",
-      choices: fontChoices,
+      source: async (term) => {
+        const query = term?.toLowerCase() ?? "";
+
+        return GOOGLE_FONTS.filter((font) =>
+          font.family.toLowerCase().includes(query)
+        )
+          .slice(0, 20)
+          .map((font) => ({
+            name: font.family,
+            value: font.family,
+          }));
+      },
     });
-  }
-
-  if (fontQuestions.length > 0) {
-    const fontsResponse = await prompts(fontQuestions);
-
-    if (!selectedBodyFont) {
-      selectedBodyFont = fontsResponse.bodyFont;
-    }
-
-    if (!selectedHeadingFont) {
-      selectedHeadingFont = fontsResponse.headingFont;
-    }
   }
 
   if (!selectedBodyFont || !selectedHeadingFont) {
@@ -144,7 +128,7 @@ export async function runInit({
     dirs: {
       root: rootDir,
     },
-    css: cssPath,
+    css: validatedCssPath,
     aliases: defaultAliasesRlzConfig,
     icons: selectedIconLib,
   };
@@ -158,7 +142,7 @@ export async function runInit({
       ? `${UI_URL}/styles/globals.vite.css`
       : `${UI_URL}/styles/globals.css`;
 
-  await getUiFile(cssUrl, cssPath);
+  await getUiFile(cssUrl, validatedCssPath);
 
   await addFonts({
     cwd,
