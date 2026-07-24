@@ -1,11 +1,13 @@
-import type { Registry, RegistryItem, RegistryPresetItem } from "./types";
+import type { Registry } from "./types";
+import type { RegistryItem } from "./items/types";
+import type { RegistryPreset } from "./presets/types";
 
 export function defineRegistry({
   items,
   presets = {},
 }: {
   items: Record<string, RegistryItem>;
-  presets?: Record<string, RegistryPresetItem>;
+  presets?: Record<string, RegistryPreset>;
 }): Readonly<Registry> {
   const normalizedItems: Record<string, RegistryItem> = {};
 
@@ -23,7 +25,7 @@ export function defineRegistry({
     };
   }
 
-  const normalizedPresets: Record<string, RegistryPresetItem> = {};
+  const normalizedPresets: Record<string, RegistryPreset> = {};
 
   for (const key in presets) {
     const preset = presets[key];

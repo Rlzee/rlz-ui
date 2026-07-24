@@ -1,10 +1,12 @@
 import { fetchRegistry } from "./fetch";
-import type { RegistryItem } from "./types";
+import type { Registry } from "./types";
 
-let cachedRegistry: Record<string, RegistryItem> | null = null;
+let cachedRegistry: Registry | null = null;
 
 export async function readRegistry(url: string) {
   if (cachedRegistry) return cachedRegistry;
+
   cachedRegistry = await fetchRegistry(url);
-  return cachedRegistry!;
+
+  return cachedRegistry;
 }

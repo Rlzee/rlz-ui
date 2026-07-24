@@ -1,10 +1,9 @@
 import type {
-  RegistryItem,
   RegistryItemType,
   RegistryComponentItem,
   RegistryHookItem,
   RegistryLibItem,
-  RegistryPresetItem,
+  RegistryItem,
 } from "./types";
 
 type RegistryItemsInput<T extends RegistryItem> = {
@@ -37,25 +36,6 @@ export function defineRegistryItems(
         ...item,
         id,
         type,
-      },
-    ])
-  );
-}
-
-type RegistryPresetsInput = {
-  [key: string]: Omit<RegistryPresetItem, "id" | "type">;
-};
-
-export function defineRegistryPresets(
-  presets: RegistryPresetsInput
-): Record<string, RegistryPresetItem> {
-  return Object.fromEntries(
-    Object.entries(presets).map(([id, preset]) => [
-      id,
-      {
-        ...preset,
-        id,
-        type: "preset",
       },
     ])
   );
