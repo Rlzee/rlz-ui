@@ -7,34 +7,29 @@ import type {
   RegistryPresetItem,
 } from "./types";
 
-type RegistryGroupInput<T extends RegistryItem> = {
+type RegistryItemsInput<T extends RegistryItem> = {
   [key: string]: Omit<T, "id" | "type">;
 };
 
-export function defineRegistryGroup(
+export function defineRegistryItems(
   type: "component",
-  items: RegistryGroupInput<RegistryComponentItem>
+  items: RegistryItemsInput<RegistryComponentItem>
 ): Record<string, RegistryComponentItem>;
 
-export function defineRegistryGroup(
+export function defineRegistryItems(
   type: "hook",
-  items: RegistryGroupInput<RegistryHookItem>
+  items: RegistryItemsInput<RegistryHookItem>
 ): Record<string, RegistryHookItem>;
 
-export function defineRegistryGroup(
+export function defineRegistryItems(
   type: "lib",
-  items: RegistryGroupInput<RegistryLibItem>
+  items: RegistryItemsInput<RegistryLibItem>
 ): Record<string, RegistryLibItem>;
 
-export function defineRegistryGroup(
-  type: "preset",
-  items: RegistryGroupInput<RegistryPresetItem>
-): Record<string, RegistryPresetItem>;
-
-export function defineRegistryGroup(
-  type: RegistryItemType,
+export function defineRegistryItems(
+  type: Exclude<RegistryItemType, "preset">,
   items: Record<string, Omit<RegistryItem, "id" | "type">>
-) {
+): Record<string, RegistryItem> {
   return Object.fromEntries(
     Object.entries(items).map(([id, item]) => [
       id,
@@ -42,6 +37,25 @@ export function defineRegistryGroup(
         ...item,
         id,
         type,
+      },
+    ])
+  );
+}
+
+type RegistryPresetsInput = {
+  [key: string]: Omit<RegistryPresetItem, "id" | "type">;
+};
+
+export function defineRegistryPresets(
+  presets: RegistryPresetsInput
+): Record<string, RegistryPresetItem> {
+  return Object.fromEntries(
+    Object.entries(presets).map(([id, preset]) => [
+      id,
+      {
+        ...preset,
+        id,
+        type: "preset",
       },
     ])
   );

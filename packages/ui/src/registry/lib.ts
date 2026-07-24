@@ -1,6 +1,6 @@
-import { defineRegistryGroup } from "@rlz/registry";
+import { defineRegistryItems } from "@rlz/registry";
 
-export const registryLibs = defineRegistryGroup("lib", {
+export const registryLibs = defineRegistryItems("lib", {
   cn: {
     name: "cn",
     description: "",

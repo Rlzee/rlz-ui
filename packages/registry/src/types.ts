@@ -89,5 +89,11 @@ export type RegistryPresetItem = BaseRegistryItem & {
 export type RegistryItem =
   | RegistryComponentItem
   | RegistryHookItem
-  | RegistryLibItem
-  | RegistryPresetItem;
+  | RegistryLibItem;
+
+export type Registry = {
+  schemaVersion: 1;
+
+  items: Record<string, RegistryItem>;
+  presets: Record<string, RegistryPresetItem>;
+};

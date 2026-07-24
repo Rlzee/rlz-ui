@@ -1,6 +1,6 @@
-import { defineRegistryGroup } from "@rlz/registry";
+import { defineRegistryItems } from "@rlz/registry";
 
-export const registryComponents = defineRegistryGroup("component", {
+export const registryComponents = defineRegistryItems("component", {
   accordion: {
     name: "accordion",
     description: "A collapsible panel that can be expanded or collapsed",

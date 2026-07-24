@@ -1,6 +1,6 @@
-import { defineRegistryGroup } from "@rlz/registry";
+import { defineRegistryItems } from "@rlz/registry";
 
-export const registryHooks = defineRegistryGroup("hook", {
+export const registryHooks = defineRegistryItems("hook", {
   "use-copy-to-clipboard": {
     name: "Use Copy To Clipboard",
     description: "A hook that copies text to the clipboard",

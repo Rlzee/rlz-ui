@@ -7,9 +7,13 @@ import { registryHooks } from "./hooks";
 import { defaultPreset } from "./presets";
 
 export const REGISTRY = defineRegistry({
-  ...registryBaseComponents,
-  ...registryComponents,
-  ...registryLibs,
-  ...registryHooks,
-  defaultPreset,
+  items: {
+    ...registryBaseComponents,
+    ...registryComponents,
+    ...registryLibs,
+    ...registryHooks,
+  },
+  presets: {
+    default: defaultPreset,
+  },
 });

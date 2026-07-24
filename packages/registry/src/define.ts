@@ -1,35 +1,47 @@
-import type { RegistryItem } from "./types";
+import type { Registry, RegistryItem, RegistryPresetItem } from "./types";
 
-export function defineRegistry(
-  items: Record<string, RegistryItem>
-): Readonly<Record<string, RegistryItem>> {
-  const normalized: Record<string, RegistryItem> = {};
+export function defineRegistry({
+  items,
+  presets = {},
+}: {
+  items: Record<string, RegistryItem>;
+  presets?: Record<string, RegistryPresetItem>;
+}): Readonly<Registry> {
+  const normalizedItems: Record<string, RegistryItem> = {};
 
   for (const key in items) {
     const item = items[key];
     const id = item.id.toLowerCase();
 
-    if (normalized[id]) {
+    if (normalizedItems[id]) {
       throw new Error(`Duplicate registry item: ${id}`);
     }
 
-    if (!item.name) {
-      throw new Error(`Registry item "${id}" is missing a name`);
-    }
-
-    if (!item.version) {
-      throw new Error(`Registry item "${id}" is missing a version`);
-    }
-
-    if (!item.path) {
-      throw new Error(`Registry item "${id}" is missing a path`);
-    }
-
-    normalized[id] = {
+    normalizedItems[id] = {
       ...item,
       id,
     };
   }
 
-  return Object.freeze(normalized);
+  const normalizedPresets: Record<string, RegistryPresetItem> = {};
+
+  for (const key in presets) {
+    const preset = presets[key];
+    const id = preset.id.toLowerCase();
+
+    if (normalizedPresets[id]) {
+      throw new Error(`Duplicate registry preset: ${id}`);
+    }
+
+    normalizedPresets[id] = {
+      ...preset,
+      id,
+    };
+  }
+
+  return Object.freeze({
+    schemaVersion: 1 as const,
+    items: Object.freeze(normalizedItems),
+    presets: Object.freeze(normalizedPresets),
+  });
 }

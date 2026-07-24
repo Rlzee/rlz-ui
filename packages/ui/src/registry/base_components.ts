@@ -1,6 +1,6 @@
-import { defineRegistryGroup } from "@rlz/registry";
+import { defineRegistryItems } from "@rlz/registry";
 
-export const registryBaseComponents = defineRegistryGroup("component", {
+export const registryBaseComponents = defineRegistryItems("component", {
   backdrop: {
     name: "Backdrop",
     description: "A component that provides a backdrop effect.",

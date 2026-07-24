@@ -1,1069 +1,1074 @@
 {
-  "backdrop": {
-    "name": "Backdrop",
-    "description": "A component that provides a backdrop effect.",
-    "path": "components/base/backdrop.tsx",
-    "destPath": "base",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "allowManualInstall": false,
-    "id": "backdrop",
-    "type": "component"
-  },
-  "menu-base": {
-    "name": "Menu Base",
-    "description": "A component that provides a menu base.",
-    "path": "components/base/menu-base.tsx",
-    "destPath": "base",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "allowManualInstall": false,
-    "id": "menu-base",
-    "type": "component"
-  },
-  "popup-arrow": {
-    "name": "Popup Arrow",
-    "description": "A component that provides a popup arrow.",
-    "path": "components/base/popup-arrow.tsx",
-    "destPath": "base",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "allowManualInstall": false,
-    "id": "popup-arrow",
-    "type": "component"
-  },
-  "shortcut": {
-    "name": "Shortcut",
-    "description": "A component that provides a shortcut.",
-    "path": "components/base/shortcut.tsx",
-    "destPath": "base",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "allowManualInstall": false,
-    "id": "shortcut",
-    "type": "component"
-  },
-  "x-close": {
-    "name": "X Close",
-    "description": "A component that provides a close button.",
-    "path": "components/base/x-close.tsx",
-    "destPath": "base",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "allowManualInstall": false,
-    "id": "x-close",
-    "type": "component"
-  },
-  "accordion": {
-    "name": "accordion",
-    "description": "A collapsible panel that can be expanded or collapsed",
-    "path": "components/ui/accordion.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "accordion",
-    "type": "component"
-  },
-  "alert-dialog": {
-    "name": "alert-dialog",
-    "description": "A modal dialog for important alerts and confirmations",
-    "path": "components/ui/alert-dialog.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop"
-    ],
-    "id": "alert-dialog",
-    "type": "component"
-  },
-  "alert": {
-    "name": "alert",
-    "description": "An inline alert message component",
-    "path": "components/ui/alert.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "alert",
-    "type": "component"
-  },
-  "autocomplete": {
-    "name": "autocomplete",
-    "description": "An input with suggestion and autocompletion capabilities",
-    "path": "components/ui/autocomplete.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "input",
-      "scroll-area",
-      "popup-arrow"
-    ],
-    "id": "autocomplete",
-    "type": "component"
-  },
-  "avatar": {
-    "name": "avatar",
-    "description": "A user avatar image or fallback initials component",
-    "path": "components/ui/avatar.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "avatar",
-    "type": "component"
-  },
-  "badge": {
-    "name": "badge",
-    "description": "A small badge used to display counts or statuses",
-    "path": "components/ui/badge.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "badge",
-    "type": "component"
-  },
-  "breadcrumb": {
-    "name": "breadcrumb",
-    "description": "A breadcrumb navigation component",
-    "path": "components/ui/breadcrumb.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "breadcrumb",
-    "type": "component"
-  },
-  "button": {
-    "name": "button",
-    "description": "A styled button component",
-    "path": "components/ui/button.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "button",
-    "type": "component"
-  },
-  "card": {
-    "name": "card",
-    "description": "A container card for grouping related content",
-    "path": "components/ui/card.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "card",
-    "type": "component"
-  },
-  "checkbox": {
-    "name": "checkbox",
-    "description": "A checkbox input component",
-    "path": "components/ui/checkbox.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "checkbox",
-    "type": "component"
-  },
-  "collapsible": {
-    "name": "collapsible",
-    "description": "A generic collapsible container component",
-    "path": "components/ui/collapsible.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "collapsible",
-    "type": "component"
-  },
-  "combobox": {
-    "name": "combobox",
-    "description": "A combobox input with dropdown selection",
-    "path": "components/ui/combobox.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "scroll-area",
-      "input",
-      "popup-arrow",
-      "button"
-    ],
-    "id": "combobox",
-    "type": "component"
-  },
-  "command": {
-    "name": "command",
-    "description": "A command palette or searchable action list",
-    "path": "components/ui/command.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "autocomplete",
-      "backdrop",
-      "shortcut"
-    ],
-    "id": "command",
-    "type": "component"
-  },
-  "context-menu": {
-    "name": "context-menu",
-    "description": "A right-click context menu component",
-    "path": "components/ui/context-menu.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "menu-base",
-      "shortcut"
-    ],
-    "id": "context-menu",
-    "type": "component"
-  },
-  "dialog": {
-    "name": "dialog",
-    "description": "A generic modal dialog component",
-    "path": "components/ui/dialog.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop",
-      "scroll-area",
-      "x-close"
-    ],
-    "id": "dialog",
-    "type": "component"
-  },
-  "drawer": {
-    "name": "drawer",
-    "description": "A slide-over drawer component",
-    "path": "components/ui/drawer.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "backdrop",
-      "scroll-area",
-      "x-close"
-    ],
-    "id": "drawer",
-    "type": "component"
-  },
-  "empty": {
-    "name": "empty",
-    "description": "A placeholder component for empty states",
-    "path": "components/ui/empty.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "empty",
-    "type": "component"
-  },
-  "field": {
-    "name": "field",
-    "description": "A form field wrapper component",
-    "path": "components/ui/field.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "field",
-    "type": "component"
-  },
-  "fieldset": {
-    "name": "fieldset",
-    "description": "A fieldset grouping component for forms",
-    "path": "components/ui/fieldset.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "fieldset",
-    "type": "component"
-  },
-  "form": {
-    "name": "form",
-    "description": "Form utilities and wrapper component",
-    "path": "components/ui/form.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "form",
-    "type": "component"
-  },
-  "group": {
-    "name": "group",
-    "description": "A simple grouping/layout component",
-    "path": "components/ui/group.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "separator"
-    ],
-    "id": "group",
-    "type": "component"
-  },
-  "input-group": {
-    "name": "input-group",
-    "description": "A wrapper for grouping input-related elements",
-    "path": "components/ui/input-group.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "input",
-      "textarea"
-    ],
-    "id": "input-group",
-    "type": "component"
-  },
-  "input": {
-    "name": "input",
-    "description": "A text input component",
-    "path": "components/ui/input.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "input",
-    "type": "component"
-  },
-  "kbd": {
-    "name": "kbd",
-    "description": "A keyboard key visual component",
-    "path": "components/ui/kbd.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "kbd",
-    "type": "component"
-  },
-  "label": {
-    "name": "label",
-    "description": "A label component for form inputs",
-    "path": "components/ui/label.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "label",
-    "type": "component"
-  },
-  "menu": {
-    "name": "menu",
-    "description": "A dropdown or contextual menu component",
-    "path": "components/ui/menu.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow",
-      "menu-base",
-      "shortcut"
-    ],
-    "id": "menu",
-    "type": "component"
-  },
-  "menubar": {
-    "name": "menubar",
-    "description": "A menubar/navigation menu component",
-    "path": "components/ui/menubar.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "menubar",
-    "type": "component"
-  },
-  "meter": {
-    "name": "meter",
-    "description": "A visual meter/progress indicator",
-    "path": "components/ui/meter.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "meter",
-    "type": "component"
-  },
-  "number-field": {
-    "name": "number-field",
-    "description": "A numeric input field component",
-    "path": "components/ui/number-field.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "label"
-    ],
-    "id": "number-field",
-    "type": "component"
-  },
-  "otp-field": {
-    "name": "otp-field",
-    "description": "A otp input field component",
-    "path": "components/ui/otp-field",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "separator"
-    ],
-    "id": "otp-field",
-    "type": "component"
-  },
-  "popover": {
-    "name": "popover",
-    "description": "A contextual popover component",
-    "path": "components/ui/popover.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ],
-    "id": "popover",
-    "type": "component"
-  },
-  "preview-card": {
-    "name": "preview-card",
-    "description": "A card component for previewing content",
-    "path": "components/ui/preview-card.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ],
-    "id": "preview-card",
-    "type": "component"
-  },
-  "progress": {
-    "name": "progress",
-    "description": "A progress bar component",
-    "path": "components/ui/progress.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "progress",
-    "type": "component"
-  },
-  "radio-group": {
-    "name": "radio-group",
-    "description": "A group of radio inputs",
-    "path": "components/ui/radio-group.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "radio-group",
-    "type": "component"
-  },
-  "scroll-area": {
-    "name": "scroll-area",
-    "description": "A scrollable container with custom scrollbars",
-    "path": "components/ui/scroll-area.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "scroll-area",
-    "type": "component"
-  },
-  "select": {
-    "name": "select",
-    "description": "A select dropdown component",
-    "path": "components/ui/select.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "button"
-    ],
-    "id": "select",
-    "type": "component"
-  },
-  "separator": {
-    "name": "separator",
-    "description": "A visual separator/divider component",
-    "path": "components/ui/separator.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "separator",
-    "type": "component"
-  },
-  "skeleton": {
-    "name": "skeleton",
-    "description": "A skeleton loader placeholder component",
-    "path": "components/ui/skeleton.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "skeleton",
-    "type": "component"
-  },
-  "slider": {
-    "name": "slider",
-    "description": "A range slider input component",
-    "path": "components/ui/slider.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "slider",
-    "type": "component"
-  },
-  "switch": {
-    "name": "switch",
-    "description": "A toggle switch input component",
-    "path": "components/ui/switch.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "switch",
-    "type": "component"
-  },
-  "table": {
-    "name": "table",
-    "description": "A table component for tabular data",
-    "path": "components/ui/table.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "table",
-    "type": "component"
-  },
-  "tabs": {
-    "name": "tabs",
-    "description": "A tabs navigation component",
-    "path": "components/ui/tabs.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "tabs",
-    "type": "component"
-  },
-  "textarea": {
-    "name": "textarea",
-    "description": "A multi-line text input component",
-    "path": "components/ui/textarea.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "textarea",
-    "type": "component"
-  },
-  "toast": {
-    "name": "toast",
-    "description": "A transient notification/toast component",
-    "path": "components/ui/toast.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn",
-      "button"
-    ],
-    "id": "toast",
-    "type": "component"
-  },
-  "toggle": {
-    "name": "toggle",
-    "description": "A toggle button component",
-    "path": "components/ui/toggle.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "toggle",
-    "type": "component"
-  },
-  "toolbar": {
-    "name": "toolbar",
-    "description": "A toolbar container for action buttons and controls",
-    "path": "components/ui/toolbar.tsx",
-    "version": "1.0.0",
-    "dependencies": [],
-    "registryDependencies": [
-      "cn"
-    ],
-    "id": "toolbar",
-    "type": "component"
-  },
-  "tooltip": {
-    "name": "tooltip",
-    "description": "A tooltip component for contextual hints",
-    "path": "components/ui/tooltip.tsx",
-    "version": "1.0.0",
-    "dependencies": [
-      "class-variance-authority"
-    ],
-    "registryDependencies": [
-      "cn",
-      "popup-arrow"
-    ],
-    "id": "tooltip",
-    "type": "component"
-  },
-  "cn": {
-    "name": "cn",
-    "description": "",
-    "path": "lib/cn.ts",
-    "version": "1.0.0",
-    "id": "cn",
-    "type": "lib"
-  },
-  "use-copy-to-clipboard": {
-    "name": "Use Copy To Clipboard",
-    "description": "A hook that copies text to the clipboard",
-    "path": "hooks/use-copy-to-clipboard.ts",
-    "version": "1.0.0",
-    "hookType": "server",
-    "id": "use-copy-to-clipboard",
-    "type": "hook"
-  },
-  "use-mobile": {
-    "name": "use-mobile",
-    "description": "A hook that detects if the user is on a mobile device",
-    "path": "hooks/use-mobile.ts",
-    "version": "1.0.0",
-    "hookType": "client",
-    "id": "use-mobile",
-    "type": "hook"
-  },
-  "default": {
-    "type": "preset",
-    "id": "default",
-    "name": "Rlz/ui",
-    "version": "1.0.0",
-    "path": "registry/presets.ts",
-    "description": "default rlz-ui preset",
-    "dependencies": [],
-    "base": {
-      "typography": {
-        "letterSpacing": 0
-      },
-      "layout": {
-        "radius": 0.575,
-        "spacing": 0.25
-      }
+  "schemaVersion": 1,
+  "items": {
+    "backdrop": {
+      "name": "Backdrop",
+      "description": "A component that provides a backdrop effect.",
+      "path": "components/base/backdrop.tsx",
+      "destPath": "base",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "allowManualInstall": false,
+      "id": "backdrop",
+      "type": "component"
     },
-    "colors": [
-      {
-        "id": "primary",
-        "name": "PRIMARY",
-        "tokens": [
-          {
-            "label": "Background",
-            "cssVar": "--background",
-            "dark": {
-              "value": "hsl(0, 0%, 0%)",
-              "swatch": "#000000"
-            },
-            "light": {
-              "value": "hsl(0, 0%, 98%)",
-              "swatch": "#fafafa"
-            }
-          },
-          {
-            "label": "Foreground",
-            "cssVar": "--foreground",
-            "dark": {
-              "value": "oklch(0.985 0 0)",
-              "swatch": "#fafafa"
-            },
-            "light": {
-              "value": "oklch(0.145 0 0)",
-              "swatch": "#1a1a1a"
-            }
-          },
-          {
-            "label": "Primary",
-            "cssVar": "--primary",
-            "dark": {
-              "value": "hsl(0, 0%, 100%)",
-              "swatch": "#ffffff"
-            },
-            "light": {
-              "value": "hsl(0, 0%, 9%)",
-              "swatch": "#171717"
-            }
-          },
-          {
-            "label": "Primary FG",
-            "cssVar": "--primary-foreground",
-            "dark": {
-              "value": "oklch(0.205 0 0)",
-              "swatch": "#2e2e2e"
-            },
-            "light": {
-              "value": "oklch(0.985 0 0)",
-              "swatch": "#fafafa"
-            }
-          }
-        ]
+    "menu-base": {
+      "name": "Menu Base",
+      "description": "A component that provides a menu base.",
+      "path": "components/base/menu-base.tsx",
+      "destPath": "base",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "allowManualInstall": false,
+      "id": "menu-base",
+      "type": "component"
+    },
+    "popup-arrow": {
+      "name": "Popup Arrow",
+      "description": "A component that provides a popup arrow.",
+      "path": "components/base/popup-arrow.tsx",
+      "destPath": "base",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "allowManualInstall": false,
+      "id": "popup-arrow",
+      "type": "component"
+    },
+    "shortcut": {
+      "name": "Shortcut",
+      "description": "A component that provides a shortcut.",
+      "path": "components/base/shortcut.tsx",
+      "destPath": "base",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "allowManualInstall": false,
+      "id": "shortcut",
+      "type": "component"
+    },
+    "x-close": {
+      "name": "X Close",
+      "description": "A component that provides a close button.",
+      "path": "components/base/x-close.tsx",
+      "destPath": "base",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "allowManualInstall": false,
+      "id": "x-close",
+      "type": "component"
+    },
+    "accordion": {
+      "name": "accordion",
+      "description": "A collapsible panel that can be expanded or collapsed",
+      "path": "components/ui/accordion.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "accordion",
+      "type": "component"
+    },
+    "alert-dialog": {
+      "name": "alert-dialog",
+      "description": "A modal dialog for important alerts and confirmations",
+      "path": "components/ui/alert-dialog.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "backdrop"
+      ],
+      "id": "alert-dialog",
+      "type": "component"
+    },
+    "alert": {
+      "name": "alert",
+      "description": "An inline alert message component",
+      "path": "components/ui/alert.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "alert",
+      "type": "component"
+    },
+    "autocomplete": {
+      "name": "autocomplete",
+      "description": "An input with suggestion and autocompletion capabilities",
+      "path": "components/ui/autocomplete.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "input",
+        "scroll-area",
+        "popup-arrow"
+      ],
+      "id": "autocomplete",
+      "type": "component"
+    },
+    "avatar": {
+      "name": "avatar",
+      "description": "A user avatar image or fallback initials component",
+      "path": "components/ui/avatar.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "avatar",
+      "type": "component"
+    },
+    "badge": {
+      "name": "badge",
+      "description": "A small badge used to display counts or statuses",
+      "path": "components/ui/badge.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "badge",
+      "type": "component"
+    },
+    "breadcrumb": {
+      "name": "breadcrumb",
+      "description": "A breadcrumb navigation component",
+      "path": "components/ui/breadcrumb.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "breadcrumb",
+      "type": "component"
+    },
+    "button": {
+      "name": "button",
+      "description": "A styled button component",
+      "path": "components/ui/button.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "button",
+      "type": "component"
+    },
+    "card": {
+      "name": "card",
+      "description": "A container card for grouping related content",
+      "path": "components/ui/card.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "card",
+      "type": "component"
+    },
+    "checkbox": {
+      "name": "checkbox",
+      "description": "A checkbox input component",
+      "path": "components/ui/checkbox.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "checkbox",
+      "type": "component"
+    },
+    "collapsible": {
+      "name": "collapsible",
+      "description": "A generic collapsible container component",
+      "path": "components/ui/collapsible.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "collapsible",
+      "type": "component"
+    },
+    "combobox": {
+      "name": "combobox",
+      "description": "A combobox input with dropdown selection",
+      "path": "components/ui/combobox.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "scroll-area",
+        "input",
+        "popup-arrow",
+        "button"
+      ],
+      "id": "combobox",
+      "type": "component"
+    },
+    "command": {
+      "name": "command",
+      "description": "A command palette or searchable action list",
+      "path": "components/ui/command.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "autocomplete",
+        "backdrop",
+        "shortcut"
+      ],
+      "id": "command",
+      "type": "component"
+    },
+    "context-menu": {
+      "name": "context-menu",
+      "description": "A right-click context menu component",
+      "path": "components/ui/context-menu.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "menu-base",
+        "shortcut"
+      ],
+      "id": "context-menu",
+      "type": "component"
+    },
+    "dialog": {
+      "name": "dialog",
+      "description": "A generic modal dialog component",
+      "path": "components/ui/dialog.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "backdrop",
+        "scroll-area",
+        "x-close"
+      ],
+      "id": "dialog",
+      "type": "component"
+    },
+    "drawer": {
+      "name": "drawer",
+      "description": "A slide-over drawer component",
+      "path": "components/ui/drawer.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "backdrop",
+        "scroll-area",
+        "x-close"
+      ],
+      "id": "drawer",
+      "type": "component"
+    },
+    "empty": {
+      "name": "empty",
+      "description": "A placeholder component for empty states",
+      "path": "components/ui/empty.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "empty",
+      "type": "component"
+    },
+    "field": {
+      "name": "field",
+      "description": "A form field wrapper component",
+      "path": "components/ui/field.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "field",
+      "type": "component"
+    },
+    "fieldset": {
+      "name": "fieldset",
+      "description": "A fieldset grouping component for forms",
+      "path": "components/ui/fieldset.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "fieldset",
+      "type": "component"
+    },
+    "form": {
+      "name": "form",
+      "description": "Form utilities and wrapper component",
+      "path": "components/ui/form.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "form",
+      "type": "component"
+    },
+    "group": {
+      "name": "group",
+      "description": "A simple grouping/layout component",
+      "path": "components/ui/group.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn",
+        "separator"
+      ],
+      "id": "group",
+      "type": "component"
+    },
+    "input-group": {
+      "name": "input-group",
+      "description": "A wrapper for grouping input-related elements",
+      "path": "components/ui/input-group.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn",
+        "input",
+        "textarea"
+      ],
+      "id": "input-group",
+      "type": "component"
+    },
+    "input": {
+      "name": "input",
+      "description": "A text input component",
+      "path": "components/ui/input.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "input",
+      "type": "component"
+    },
+    "kbd": {
+      "name": "kbd",
+      "description": "A keyboard key visual component",
+      "path": "components/ui/kbd.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "kbd",
+      "type": "component"
+    },
+    "label": {
+      "name": "label",
+      "description": "A label component for form inputs",
+      "path": "components/ui/label.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "label",
+      "type": "component"
+    },
+    "menu": {
+      "name": "menu",
+      "description": "A dropdown or contextual menu component",
+      "path": "components/ui/menu.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "popup-arrow",
+        "menu-base",
+        "shortcut"
+      ],
+      "id": "menu",
+      "type": "component"
+    },
+    "menubar": {
+      "name": "menubar",
+      "description": "A menubar/navigation menu component",
+      "path": "components/ui/menubar.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "menubar",
+      "type": "component"
+    },
+    "meter": {
+      "name": "meter",
+      "description": "A visual meter/progress indicator",
+      "path": "components/ui/meter.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "meter",
+      "type": "component"
+    },
+    "number-field": {
+      "name": "number-field",
+      "description": "A numeric input field component",
+      "path": "components/ui/number-field.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "label"
+      ],
+      "id": "number-field",
+      "type": "component"
+    },
+    "otp-field": {
+      "name": "otp-field",
+      "description": "A otp input field component",
+      "path": "components/ui/otp-field",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "separator"
+      ],
+      "id": "otp-field",
+      "type": "component"
+    },
+    "popover": {
+      "name": "popover",
+      "description": "A contextual popover component",
+      "path": "components/ui/popover.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "popup-arrow"
+      ],
+      "id": "popover",
+      "type": "component"
+    },
+    "preview-card": {
+      "name": "preview-card",
+      "description": "A card component for previewing content",
+      "path": "components/ui/preview-card.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "popup-arrow"
+      ],
+      "id": "preview-card",
+      "type": "component"
+    },
+    "progress": {
+      "name": "progress",
+      "description": "A progress bar component",
+      "path": "components/ui/progress.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "progress",
+      "type": "component"
+    },
+    "radio-group": {
+      "name": "radio-group",
+      "description": "A group of radio inputs",
+      "path": "components/ui/radio-group.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "radio-group",
+      "type": "component"
+    },
+    "scroll-area": {
+      "name": "scroll-area",
+      "description": "A scrollable container with custom scrollbars",
+      "path": "components/ui/scroll-area.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "scroll-area",
+      "type": "component"
+    },
+    "select": {
+      "name": "select",
+      "description": "A select dropdown component",
+      "path": "components/ui/select.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "button"
+      ],
+      "id": "select",
+      "type": "component"
+    },
+    "separator": {
+      "name": "separator",
+      "description": "A visual separator/divider component",
+      "path": "components/ui/separator.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "separator",
+      "type": "component"
+    },
+    "skeleton": {
+      "name": "skeleton",
+      "description": "A skeleton loader placeholder component",
+      "path": "components/ui/skeleton.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "skeleton",
+      "type": "component"
+    },
+    "slider": {
+      "name": "slider",
+      "description": "A range slider input component",
+      "path": "components/ui/slider.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "slider",
+      "type": "component"
+    },
+    "switch": {
+      "name": "switch",
+      "description": "A toggle switch input component",
+      "path": "components/ui/switch.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "switch",
+      "type": "component"
+    },
+    "table": {
+      "name": "table",
+      "description": "A table component for tabular data",
+      "path": "components/ui/table.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "table",
+      "type": "component"
+    },
+    "tabs": {
+      "name": "tabs",
+      "description": "A tabs navigation component",
+      "path": "components/ui/tabs.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "tabs",
+      "type": "component"
+    },
+    "textarea": {
+      "name": "textarea",
+      "description": "A multi-line text input component",
+      "path": "components/ui/textarea.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "textarea",
+      "type": "component"
+    },
+    "toast": {
+      "name": "toast",
+      "description": "A transient notification/toast component",
+      "path": "components/ui/toast.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn",
+        "button"
+      ],
+      "id": "toast",
+      "type": "component"
+    },
+    "toggle": {
+      "name": "toggle",
+      "description": "A toggle button component",
+      "path": "components/ui/toggle.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "toggle",
+      "type": "component"
+    },
+    "toolbar": {
+      "name": "toolbar",
+      "description": "A toolbar container for action buttons and controls",
+      "path": "components/ui/toolbar.tsx",
+      "version": "1.0.0",
+      "dependencies": [],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "toolbar",
+      "type": "component"
+    },
+    "tooltip": {
+      "name": "tooltip",
+      "description": "A tooltip component for contextual hints",
+      "path": "components/ui/tooltip.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn",
+        "popup-arrow"
+      ],
+      "id": "tooltip",
+      "type": "component"
+    },
+    "cn": {
+      "name": "cn",
+      "description": "",
+      "path": "lib/cn.ts",
+      "version": "1.0.0",
+      "id": "cn",
+      "type": "lib"
+    },
+    "use-copy-to-clipboard": {
+      "name": "Use Copy To Clipboard",
+      "description": "A hook that copies text to the clipboard",
+      "path": "hooks/use-copy-to-clipboard.ts",
+      "version": "1.0.0",
+      "hookType": "server",
+      "id": "use-copy-to-clipboard",
+      "type": "hook"
+    },
+    "use-mobile": {
+      "name": "use-mobile",
+      "description": "A hook that detects if the user is on a mobile device",
+      "path": "hooks/use-mobile.ts",
+      "version": "1.0.0",
+      "hookType": "client",
+      "id": "use-mobile",
+      "type": "hook"
+    }
+  },
+  "presets": {
+    "default": {
+      "type": "preset",
+      "id": "default",
+      "name": "Rlz/ui",
+      "version": "1.0.0",
+      "path": "registry/presets.ts",
+      "description": "default rlz-ui preset",
+      "dependencies": [],
+      "base": {
+        "typography": {
+          "letterSpacing": 0
+        },
+        "layout": {
+          "radius": 0.575,
+          "spacing": 0.25
+        }
       },
-      {
-        "id": "secondary-accent",
-        "name": "SECONDARY & ACCENT",
-        "tokens": [
-          {
-            "label": "Secondary",
-            "cssVar": "--secondary",
-            "dark": {
-              "value": "hsl(0, 0%, 4%)",
-              "swatch": "#0a0a0a"
+      "colors": [
+        {
+          "id": "primary",
+          "name": "PRIMARY",
+          "tokens": [
+            {
+              "label": "Background",
+              "cssVar": "--background",
+              "dark": {
+                "value": "hsl(0, 0%, 0%)",
+                "swatch": "#000000"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 98%)",
+                "swatch": "#fafafa"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 100%)",
-              "swatch": "#ffffff"
-            }
-          },
-          {
-            "label": "Secondary FG",
-            "cssVar": "--secondary-foreground",
-            "dark": {
-              "value": "oklch(0.985 0 0)",
-              "swatch": "#fafafa"
+            {
+              "label": "Foreground",
+              "cssVar": "--foreground",
+              "dark": {
+                "value": "oklch(0.985 0 0)",
+                "swatch": "#fafafa"
+              },
+              "light": {
+                "value": "oklch(0.145 0 0)",
+                "swatch": "#1a1a1a"
+              }
             },
-            "light": {
-              "value": "oklch(0.205 0 0)",
-              "swatch": "#2e2e2e"
-            }
-          },
-          {
-            "label": "Accent",
-            "cssVar": "--accent",
-            "dark": {
-              "value": "hsl(0, 0%, 9%)",
-              "swatch": "#171717"
+            {
+              "label": "Primary",
+              "cssVar": "--primary",
+              "dark": {
+                "value": "hsl(0, 0%, 100%)",
+                "swatch": "#ffffff"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 9%)",
+                "swatch": "#171717"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 95%)",
-              "swatch": "#f2f2f2"
+            {
+              "label": "Primary FG",
+              "cssVar": "--primary-foreground",
+              "dark": {
+                "value": "oklch(0.205 0 0)",
+                "swatch": "#2e2e2e"
+              },
+              "light": {
+                "value": "oklch(0.985 0 0)",
+                "swatch": "#fafafa"
+              }
             }
-          },
-          {
-            "label": "Accent FG",
-            "cssVar": "--accent-foreground",
-            "dark": {
-              "value": "oklch(0.985 0 0)",
-              "swatch": "#fafafa"
+          ]
+        },
+        {
+          "id": "secondary-accent",
+          "name": "SECONDARY & ACCENT",
+          "tokens": [
+            {
+              "label": "Secondary",
+              "cssVar": "--secondary",
+              "dark": {
+                "value": "hsl(0, 0%, 4%)",
+                "swatch": "#0a0a0a"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 100%)",
+                "swatch": "#ffffff"
+              }
             },
-            "light": {
-              "value": "oklch(0.205 0 0)",
-              "swatch": "#2e2e2e"
-            }
-          }
-        ]
-      },
-      {
-        "id": "ui-component",
-        "name": "UI COMPONENT",
-        "tokens": [
-          {
-            "label": "Card",
-            "cssVar": "--card",
-            "dark": {
-              "value": "hsl(0, 0%, 4%)",
-              "swatch": "#0a0a0a"
+            {
+              "label": "Secondary FG",
+              "cssVar": "--secondary-foreground",
+              "dark": {
+                "value": "oklch(0.985 0 0)",
+                "swatch": "#fafafa"
+              },
+              "light": {
+                "value": "oklch(0.205 0 0)",
+                "swatch": "#2e2e2e"
+              }
             },
-            "light": {
-              "value": "oklch(1 0 0)",
-              "swatch": "#ffffff"
-            }
-          },
-          {
-            "label": "Card FG",
-            "cssVar": "--card-foreground",
-            "dark": {
-              "value": "oklch(0.145 0 0)",
-              "swatch": "#1a1a1a"
+            {
+              "label": "Accent",
+              "cssVar": "--accent",
+              "dark": {
+                "value": "hsl(0, 0%, 9%)",
+                "swatch": "#171717"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 95%)",
+                "swatch": "#f2f2f2"
+              }
             },
-            "light": {
-              "value": "oklch(0.145 0 0)",
-              "swatch": "#1a1a1a"
+            {
+              "label": "Accent FG",
+              "cssVar": "--accent-foreground",
+              "dark": {
+                "value": "oklch(0.985 0 0)",
+                "swatch": "#fafafa"
+              },
+              "light": {
+                "value": "oklch(0.205 0 0)",
+                "swatch": "#2e2e2e"
+              }
             }
-          },
-          {
-            "label": "Popover",
-            "cssVar": "--popover",
-            "dark": {
-              "value": "hsl(0, 0%, 4%)",
-              "swatch": "#0a0a0a"
+          ]
+        },
+        {
+          "id": "ui-component",
+          "name": "UI COMPONENT",
+          "tokens": [
+            {
+              "label": "Card",
+              "cssVar": "--card",
+              "dark": {
+                "value": "hsl(0, 0%, 4%)",
+                "swatch": "#0a0a0a"
+              },
+              "light": {
+                "value": "oklch(1 0 0)",
+                "swatch": "#ffffff"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 100%)",
-              "swatch": "#ffffff"
-            }
-          },
-          {
-            "label": "Popover FG",
-            "cssVar": "--popover-foreground",
-            "dark": {
-              "value": "oklch(0.985 0 0)",
-              "swatch": "#fafafa"
+            {
+              "label": "Card FG",
+              "cssVar": "--card-foreground",
+              "dark": {
+                "value": "oklch(0.145 0 0)",
+                "swatch": "#1a1a1a"
+              },
+              "light": {
+                "value": "oklch(0.145 0 0)",
+                "swatch": "#1a1a1a"
+              }
             },
-            "light": {
-              "value": "oklch(0.145 0 0)",
-              "swatch": "#1a1a1a"
-            }
-          },
-          {
-            "label": "Muted",
-            "cssVar": "--muted",
-            "dark": {
-              "value": "hsl(0, 0%, 63%)",
-              "swatch": "#a1a1a1"
+            {
+              "label": "Popover",
+              "cssVar": "--popover",
+              "dark": {
+                "value": "hsl(0, 0%, 4%)",
+                "swatch": "#0a0a0a"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 100%)",
+                "swatch": "#ffffff"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 40%)",
-              "swatch": "#666666"
-            }
-          },
-          {
-            "label": "Muted FG",
-            "cssVar": "--muted-foreground",
-            "dark": {
-              "value": "oklch(0.708 0 0)",
-              "swatch": "#a3a3a3"
+            {
+              "label": "Popover FG",
+              "cssVar": "--popover-foreground",
+              "dark": {
+                "value": "oklch(0.985 0 0)",
+                "swatch": "#fafafa"
+              },
+              "light": {
+                "value": "oklch(0.145 0 0)",
+                "swatch": "#1a1a1a"
+              }
             },
-            "light": {
-              "value": "oklch(0.556 0 0)",
-              "swatch": "#757575"
-            }
-          }
-        ]
-      },
-      {
-        "id": "utility-form",
-        "name": "UTILITY & FORM",
-        "tokens": [
-          {
-            "label": "Border",
-            "cssVar": "--border",
-            "dark": {
-              "value": "hsl(0, 0%, 16%)",
-              "swatch": "#292929"
+            {
+              "label": "Muted",
+              "cssVar": "--muted",
+              "dark": {
+                "value": "hsl(0, 0%, 63%)",
+                "swatch": "#a1a1a1"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 40%)",
+                "swatch": "#666666"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 88%)",
-              "swatch": "#e0e0e0"
+            {
+              "label": "Muted FG",
+              "cssVar": "--muted-foreground",
+              "dark": {
+                "value": "oklch(0.708 0 0)",
+                "swatch": "#a3a3a3"
+              },
+              "light": {
+                "value": "oklch(0.556 0 0)",
+                "swatch": "#757575"
+              }
             }
-          },
-          {
-            "label": "Input",
-            "cssVar": "--input",
-            "dark": {
-              "value": "hsl(0, 0%, 4%)",
-              "swatch": "#0a0a0a"
+          ]
+        },
+        {
+          "id": "utility-form",
+          "name": "UTILITY & FORM",
+          "tokens": [
+            {
+              "label": "Border",
+              "cssVar": "--border",
+              "dark": {
+                "value": "hsl(0, 0%, 16%)",
+                "swatch": "#292929"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 88%)",
+                "swatch": "#e0e0e0"
+              }
             },
-            "light": {
-              "value": "hsl(0, 0%, 100%)",
-              "swatch": "#ffffff"
-            }
-          },
-          {
-            "label": "Ring",
-            "cssVar": "--ring",
-            "dark": {
-              "value": "oklch(0.556 0 0)",
-              "swatch": "#757575"
+            {
+              "label": "Input",
+              "cssVar": "--input",
+              "dark": {
+                "value": "hsl(0, 0%, 4%)",
+                "swatch": "#0a0a0a"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 100%)",
+                "swatch": "#ffffff"
+              }
             },
-            "light": {
-              "value": "oklch(0.708 0 0)",
-              "swatch": "#a3a3a3"
+            {
+              "label": "Ring",
+              "cssVar": "--ring",
+              "dark": {
+                "value": "oklch(0.556 0 0)",
+                "swatch": "#757575"
+              },
+              "light": {
+                "value": "oklch(0.708 0 0)",
+                "swatch": "#a3a3a3"
+              }
             }
-          }
-        ]
-      },
-      {
-        "id": "status-feedback",
-        "name": "STATUS & FEEDBACK",
-        "tokens": [
-          {
-            "label": "Destructive",
-            "cssVar": "--destructive",
-            "dark": {
-              "value": "oklch(0.396 0.141 25.72)",
-              "swatch": "#7f1d1d"
+          ]
+        },
+        {
+          "id": "status-feedback",
+          "name": "STATUS & FEEDBACK",
+          "tokens": [
+            {
+              "label": "Destructive",
+              "cssVar": "--destructive",
+              "dark": {
+                "value": "oklch(0.396 0.141 25.72)",
+                "swatch": "#7f1d1d"
+              },
+              "light": {
+                "value": "oklch(0.577 0.245 27.33)",
+                "swatch": "#dc2626"
+              }
             },
-            "light": {
-              "value": "oklch(0.577 0.245 27.33)",
-              "swatch": "#dc2626"
-            }
-          },
-          {
-            "label": "Destructive FG",
-            "cssVar": "--destructive-foreground",
-            "dark": {
-              "value": "oklch(0.637 0.237 25.33)",
-              "swatch": "#ef4444"
+            {
+              "label": "Destructive FG",
+              "cssVar": "--destructive-foreground",
+              "dark": {
+                "value": "oklch(0.637 0.237 25.33)",
+                "swatch": "#ef4444"
+              },
+              "light": {
+                "value": "oklch(0.577 0.245 27.33)",
+                "swatch": "#dc2626"
+              }
             },
-            "light": {
-              "value": "oklch(0.577 0.245 27.33)",
-              "swatch": "#dc2626"
-            }
-          },
-          {
-            "label": "Success",
-            "cssVar": "--success",
-            "dark": {
-              "value": "oklch(0.7262 0.1805 148.55)",
-              "swatch": "#16a34a"
+            {
+              "label": "Success",
+              "cssVar": "--success",
+              "dark": {
+                "value": "oklch(0.7262 0.1805 148.55)",
+                "swatch": "#16a34a"
+              },
+              "light": {
+                "value": "oklch(0.7262 0.1805 148.55)",
+                "swatch": "#16a34a"
+              }
             },
-            "light": {
-              "value": "oklch(0.7262 0.1805 148.55)",
-              "swatch": "#16a34a"
-            }
-          },
-          {
-            "label": "Info",
-            "cssVar": "--info",
-            "dark": {
-              "value": "oklch(0.627 0.2 264.4)",
-              "swatch": "#2563eb"
+            {
+              "label": "Info",
+              "cssVar": "--info",
+              "dark": {
+                "value": "oklch(0.627 0.2 264.4)",
+                "swatch": "#2563eb"
+              },
+              "light": {
+                "value": "oklch(0.627 0.2 264.4)",
+                "swatch": "#2563eb"
+              }
             },
-            "light": {
-              "value": "oklch(0.627 0.2 264.4)",
-              "swatch": "#2563eb"
+            {
+              "label": "Warning",
+              "cssVar": "--warning",
+              "dark": {
+                "value": "oklch(0.7924 0.2066 101.27)",
+                "swatch": "#ca8a04"
+              },
+              "light": {
+                "value": "oklch(0.7924 0.2066 101.27)",
+                "swatch": "#ca8a04"
+              }
             }
-          },
-          {
-            "label": "Warning",
-            "cssVar": "--warning",
-            "dark": {
-              "value": "oklch(0.7924 0.2066 101.27)",
-              "swatch": "#ca8a04"
+          ]
+        },
+        {
+          "id": "sidebar",
+          "name": "SIDEBAR",
+          "tokens": [
+            {
+              "label": "Background",
+              "cssVar": "--sidebar-background",
+              "dark": {
+                "value": "hsl(0, 0%, 4%)",
+                "swatch": "#0a0a0a"
+              },
+              "light": {
+                "value": "oklch(1 0 0)",
+                "swatch": "#ffffff"
+              }
             },
-            "light": {
-              "value": "oklch(0.7924 0.2066 101.27)",
-              "swatch": "#ca8a04"
+            {
+              "label": "Border",
+              "cssVar": "--sidebar-border",
+              "dark": {
+                "value": "hsl(0, 0%, 10%)",
+                "swatch": "#1a1a1a"
+              },
+              "light": {
+                "value": "hsl(0, 0%, 95%)",
+                "swatch": "#f2f2f2"
+              }
             }
-          }
-        ]
-      },
-      {
-        "id": "sidebar",
-        "name": "SIDEBAR",
-        "tokens": [
-          {
-            "label": "Background",
-            "cssVar": "--sidebar-background",
-            "dark": {
-              "value": "hsl(0, 0%, 4%)",
-              "swatch": "#0a0a0a"
-            },
-            "light": {
-              "value": "oklch(1 0 0)",
-              "swatch": "#ffffff"
-            }
-          },
-          {
-            "label": "Border",
-            "cssVar": "--sidebar-border",
-            "dark": {
-              "value": "hsl(0, 0%, 10%)",
-              "swatch": "#1a1a1a"
-            },
-            "light": {
-              "value": "hsl(0, 0%, 95%)",
-              "swatch": "#f2f2f2"
-            }
-          }
-        ]
-      }
-    ],
-    "animations": {},
-    "recommendations": {
-      "typography": {
-        "headingFont": "Geist Mono",
-        "bodyFont": "Geist"
-      },
-      "icons": {
-        "library": "lucide"
+          ]
+        }
+      ],
+      "animations": {},
+      "recommendations": {
+        "typography": {
+          "headingFont": "Geist Mono",
+          "bodyFont": "Geist"
+        },
+        "icons": {
+          "library": "lucide"
+        }
       }
     }
   }
