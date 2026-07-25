@@ -10,7 +10,7 @@ import { Slider } from "@rlz/ui/components/ui/slider";
 import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
-import { defaultPreset } from "@rlz/ui/styles/presets";
+import { defaultPreset } from "@rlz/ui/registry/presets";
 const BASE = defaultPreset.base;
 const RECOMMENDATIONS = defaultPreset.recommendations ?? {};
 

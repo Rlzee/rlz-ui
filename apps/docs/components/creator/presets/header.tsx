@@ -1,4 +1,4 @@
-import { defaultPreset } from "@rlz/ui/styles/presets";
+import { defaultPreset } from "@rlz/ui/registry/presets";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { Input } from "@rlz/ui/components/ui/input";

@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { useTheme } from "next-themes";
-import { defaultPreset } from "@rlz/ui/styles/presets";
-import type { ColorToken as ColorRow } from "@rlz/presets";
+import { defaultPreset } from "@rlz/ui/registry/presets";
+import type { PresetColorToken as ColorRow } from "@rlz/registry";
 
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
@@ -13,7 +13,6 @@ import { CollapsibleItem } from "./collapsible-item";
 import { Search } from "lucide-react";
 
 const COLOR_SECTIONS = defaultPreset.colors;
-
 const DEFAULT_OPEN = new Set(["primary", "secondary-accent"]);
 
 export function ColorSection() {

@@ -1,6 +1,6 @@
-import type { RegistryPresetItem } from "@rlz/registry";
+import type { RegistryPreset } from "@rlz/registry";
 
-export const defaultPreset: RegistryPresetItem = {
+export const defaultPreset: RegistryPreset = {
   type: "preset",
   id: "default",
   name: "Rlz/ui",
