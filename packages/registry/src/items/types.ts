@@ -12,7 +12,6 @@ export type RegistryComponentItem = BaseRegistryItem & {
   type: "component";
   destPath?: string;
   registryDependencies?: string[];
-  allowManualInstall?: boolean | "deprecated";
 };
 
 export type RegistryHookItem = BaseRegistryItem & {

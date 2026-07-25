@@ -3,8 +3,8 @@
 import { Command } from "commander";
 import { initCommand } from "./commands/init/index";
 import { addCommand } from "./commands/add";
-import { listCommand } from "./commands/list";
-import { infoCommand } from "./commands/info";
+// import { listCommand } from "./commands/list";
+// import { infoCommand } from "./commands/info";
 
 async function main() {
   const program = new Command();
@@ -13,8 +13,8 @@ async function main() {
 
   program.addCommand(initCommand);
   program.addCommand(addCommand);
-  program.addCommand(listCommand);
-  program.addCommand(infoCommand);
+  // program.addCommand(listCommand);
+  // program.addCommand(infoCommand);
 
   await program.parseAsync();
 }

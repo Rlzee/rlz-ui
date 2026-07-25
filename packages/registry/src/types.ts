@@ -16,6 +16,7 @@ export type BaseRegistryItem = {
   path: string;
   description?: string;
   dependencies?: string[];
+  allowManualInstall?: boolean | "deprecated";
 };
 
 export type Registry = {

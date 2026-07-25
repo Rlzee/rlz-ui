@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { BaseRegistryItemSchema } from "../schema";
+import { BaseRegistryItemSchema } from "../base-schema";
 
 export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
   type: z.literal("preset"),
+
   base: z.object({
     typography: z.object({
       letterSpacing: z.number(),
@@ -12,6 +13,7 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
       spacing: z.number(),
     }),
   }),
+
   colors: z.array(
     z.object({
       id: z.string(),
@@ -32,7 +34,9 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
       ),
     })
   ),
+
   animations: z.record(z.string(), z.unknown()).optional(),
+
   recommendations: z
     .object({
       typography: z
@@ -41,6 +45,7 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
           bodyFont: z.string(),
         })
         .optional(),
+
       icons: z
         .object({
           library: z.string(),

@@ -318,21 +318,6 @@ importers:
         specifier: ^5.5.3
         version: 5.9.3
 
-  packages/presets:
-    devDependencies:
-      tsup:
-        specifier: ^6.6.3
-        version: 6.7.0(@swc/core@1.15.41(@swc/helpers@0.5.23))(postcss@8.5.15)(typescript@5.9.3)
-      tsx:
-        specifier: ^4.1.4
-        version: 4.22.4
-      type-fest:
-        specifier: ^3.8.0
-        version: 3.13.1
-      typescript:
-        specifier: ^5.5.3
-        version: 5.9.3
-
   packages/registry:
     dependencies:
       zod:
@@ -8183,7 +8168,7 @@ snapshots:
       tinyglobby: 0.2.17
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@9.39.2(jiti@2.7.0))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.7.0))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.57.1(eslint@9.39.2(jiti@2.7.0))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.7.0))
     transitivePeerDependencies:
       - supports-color
 

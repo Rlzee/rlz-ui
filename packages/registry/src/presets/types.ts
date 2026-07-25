@@ -39,7 +39,7 @@ export type PresetRecommendations = {
   };
 };
 
-export type RegistryPreset = BaseRegistryItem & {
+export type RegistryPreset = Omit<BaseRegistryItem, "allowManualInstall"> & {
   type: "preset";
 
   base: PresetBaseConfig;

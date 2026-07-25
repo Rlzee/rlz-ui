@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { BaseRegistryItemSchema } from "../schema";
+import { BaseRegistryItemSchema } from "../base-schema";
 
 export const RegistryComponentItemSchema = BaseRegistryItemSchema.extend({
   type: z.literal("component"),
