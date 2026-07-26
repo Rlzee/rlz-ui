@@ -2,7 +2,7 @@ import { Command } from "commander";
 import { logger } from "@/utils/logger";
 import { readRegistry } from "@/utils/read-registry";
 import { REGISTRY_ITEM_TYPES, isRegistryItemType } from "@rlz/registry";
-import type { RegistryItemType, RegistryItem } from "@rlz/registry";
+import type { RegistryItemType } from "@rlz/registry";
 
 export const listCommand = new Command()
   .name("list")
@@ -44,10 +44,9 @@ export const listCommand = new Command()
 
       const grouped: Partial<Record<RegistryItemType, string[]>> = {};
 
-      for (const key in registry) {
-        const item = registry[key] as RegistryItem;
+      for (const key in registry.items) {
+        const item = registry.items[key];
 
-        // Only components can define manual installation rules
         if (
           item.type === "component" &&
           (item.allowManualInstall === false ||
