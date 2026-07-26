@@ -91,7 +91,7 @@
 
   /* Ui Component Colors */
   --card: hsl(0, 0%, 4%);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: hsl(0, 0%, 100%);
   --popover: hsl(0, 0%, 4%);
   --popover-foreground: oklch(0.985 0 0);
   --muted: hsl(0, 0%, 63%);

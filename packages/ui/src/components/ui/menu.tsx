@@ -10,7 +10,7 @@ import { cn } from "@rlz/ui/lib/cn";
 import { MenuBase } from "@rlz/ui/components/base/menu-base";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
 
-export const menuCreateHandle = MenuPrimitive.createHandle;
+const MenuCreateHandle = MenuPrimitive.createHandle;
 
 function MenuRoot(props: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="menu-root" {...props} />;
@@ -208,6 +208,7 @@ const MenuExports = Object.assign(MenuRoot, {
 });
 
 export {
+  MenuCreateHandle,
   MenuExports as Menu,
   MenuTrigger,
   MenuPopup,

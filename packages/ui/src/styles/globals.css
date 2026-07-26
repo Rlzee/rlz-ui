@@ -90,14 +90,14 @@
 
   /* Ui Component Colors */
   --card: hsl(0, 0%, 4%);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: hsl(0, 0%, 100%);
   --popover: hsl(0, 0%, 4%);
   --popover-foreground: oklch(0.985 0 0);
   --muted: hsl(0, 0%, 63%);
   --muted-foreground: oklch(0.708 0 0);
 
   /* Utility & Form Colors */
-  --border: hsl(0, 0%, 16%);
+  --border: hsl(0, 0%, 15%);
   --input: hsl(0, 0%, 4%);
   --ring: oklch(0.556 0 0);
 

@@ -2,6 +2,8 @@ import { Command } from "commander";
 import { logger } from "@/utils/logger";
 import { readConfig } from "@/config/read";
 import { readRegistry } from "@/utils/read-registry";
+import { resolveDirs } from "@/config/utils";
+import { installItem } from "@/utils/install-item";
 
 export const addCommand = new Command()
   .name("add")
@@ -35,7 +37,20 @@ export const addCommand = new Command()
         );
       }
 
-      // logger.success(`Item "${normalizedName}" added successfully.`);
+      const dirs = resolveDirs({
+        dirs: config.dirs,
+        cwd,
+      });
+
+      await installItem({
+        item,
+        registry,
+        dirs,
+        config,
+        cwd,
+      });
+
+      logger.success(`Item "${normalizedName}" added successfully.`);
     } catch (error: any) {
       logger.error(`Error adding item: ${error?.message ?? String(error)}`);
       process.exit(1);
