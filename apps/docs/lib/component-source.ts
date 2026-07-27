@@ -13,7 +13,7 @@ export type ComponentSourceResult = {
 export async function getComponentSource(
   name: string
 ): Promise<ComponentSourceResult | null> {
-  const item = (registry as Record<string, RegistryItem>)[name];
+  const item = (registry.items as Record<string, RegistryItem>)[name];
   if (!item) return null;
 
   const filePath = path.join(UI_ROOT, item.path);

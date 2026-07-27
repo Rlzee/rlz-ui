@@ -8,7 +8,7 @@ import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { Fullscreen, Plus } from "lucide-react";
 import { CustomPreview } from "./custom-preview";
 
-const PREVIEW_TABS = ["Custom", "Dashboard"];
+const PREVIEW_TABS = ["Custom", "Colors", "Dashboard"];
 type PreviewTabs = (typeof PREVIEW_TABS)[number];
 
 export function RightPanel() {
@@ -48,7 +48,7 @@ export function RightPanel() {
       <Tabs.Panel value="Custom" className="flex flex-col flex-1 min-h-0 gap-0">
         <CustomPreview />
       </Tabs.Panel>
-
+      <Tabs.Panel value="Colors" className="flex-1 min-h-0"></Tabs.Panel>
       <Tabs.Panel value="Dashboard" className="flex-1 min-h-0"></Tabs.Panel>
     </Tabs>
   );

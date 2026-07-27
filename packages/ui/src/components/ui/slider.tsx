@@ -74,27 +74,40 @@ function Slider({
   min = 0,
   max = 100,
   children,
+  onValueChange,
   ...props
-}: SliderPrimitive.Root.Props) {
+}: Omit<
+  SliderPrimitive.Root.Props,
+  "value" | "defaultValue" | "onValueChange"
+> & {
+  value?: number[];
+  defaultValue?: number[];
+  onValueChange?: (value: number[]) => void;
+}) {
   const values = React.useMemo(() => {
-    if (value !== undefined) return Array.isArray(value) ? value : [value];
-    if (defaultValue !== undefined)
-      return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
+    if (value !== undefined) return value;
+    if (defaultValue !== undefined) return defaultValue;
+
     return [min];
   }, [value, defaultValue, min]);
 
   return (
     <SliderRoot
-      value={value}
+      value={values}
       defaultValue={defaultValue}
       min={min}
       max={max}
+      onValueChange={(value) => {
+        onValueChange?.(Array.isArray(value) ? [...value] : [value]);
+      }}
       {...props}
     >
       {children}
+
       <SliderControl>
         <SliderTrack>
           <SliderIndicator />
+
           {values.map((_, index) => (
             <SliderThumb key={index} index={index} />
           ))}

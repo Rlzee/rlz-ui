@@ -13,7 +13,7 @@ import FrameworkIcon from "./icons/framework";
 
 export const dialogHandle = DialogCreateHandle();
 
-import { defaultPreset } from "@rlz/ui/registry/presets";
+import { defaultPreset } from "@rlz/ui/styles/presets";
 const RECOMMENDATIONS = defaultPreset.recommendations;
 
 export function ProjectDialog() {

@@ -1,6 +1,6 @@
-import { Header } from "@/components/creator/presets/header";
-import { LeftPanel } from "@/components/creator/presets/left-panel";
-import { RightPanel } from "@/components/creator/presets/right-panel";
+import { Header } from "@/app/(creator)/presets/components/header";
+import { LeftPanel } from "@/app/(creator)/presets/components/left-panel";
+import { RightPanel } from "@/app/(creator)/presets/components/right-panel";
 
 export default function Page() {
   return (

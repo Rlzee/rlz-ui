@@ -4,7 +4,6 @@ import { registryBaseComponents } from "./base_components";
 import { registryComponents } from "./components";
 import { registryLibs } from "./lib";
 import { registryHooks } from "./hooks";
-import { defaultPreset } from "./presets";
 
 export const REGISTRY = defineRegistry({
   items: {
@@ -12,8 +11,5 @@ export const REGISTRY = defineRegistry({
     ...registryComponents,
     ...registryLibs,
     ...registryHooks,
-  },
-  presets: {
-    default: defaultPreset,
   },
 });

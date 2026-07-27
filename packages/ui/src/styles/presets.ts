@@ -5,7 +5,7 @@ export const defaultPreset: RegistryPreset = {
   id: "default",
   name: "Rlz/ui",
   version: "1.0.0",
-  path: "registry/presets.ts",
+  path: "styles/presets.ts",
   description: "default rlz-ui preset",
   dependencies: [],
 

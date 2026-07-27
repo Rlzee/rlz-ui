@@ -1,59 +1,86 @@
 "use client";
 
-import * as React from "react";
+import { useAtom } from "jotai";
 
 import { CollapsibleItem } from "./collapsible-item";
 import { FontSelect } from "@/components/font-select";
 import { IconLibSelect } from "@/components/icon-lib-select";
+
 import { Label } from "@rlz/ui/components/ui/label";
 import { Slider } from "@rlz/ui/components/ui/slider";
 import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
-import { defaultPreset } from "@rlz/ui/registry/presets";
-const BASE = defaultPreset.base;
-const RECOMMENDATIONS = defaultPreset.recommendations ?? {};
+import { presetBuilderAtom } from "../preset-builder";
 
 export function BaseSection() {
+  const [preset, setPreset] = useAtom(presetBuilderAtom);
+
+  const updateBase = (
+    section: "typography" | "layout",
+    key: string,
+    value: number
+  ) => {
+    setPreset((prev) => ({
+      ...prev,
+      base: {
+        ...prev.base,
+        [section]: {
+          ...prev.base[section],
+          [key]: value,
+        },
+      },
+    }));
+  };
+
+  const recommendations = preset.recommendations ?? {};
+
   return (
     <section id="editor-base" className="h-full">
       <div className="px-2 py-3 flex flex-col gap-2 border-b border-dashed mx-2">
         <CollapsibleItem triggerName="LETTER SPACING" defaultOpen>
           <SliderRow
             label="Tracking"
-            value={BASE.typography.letterSpacing}
+            value={preset.base.typography.letterSpacing}
             min={-0.1}
             max={0.5}
             step={0.01}
             unit="em"
+            onChange={(value) =>
+              updateBase("typography", "letterSpacing", value)
+            }
           />
         </CollapsibleItem>
 
         <CollapsibleItem triggerName="RADIUS" defaultOpen>
           <SliderRow
             label="Radius"
-            value={BASE.layout.radius}
+            value={preset.base.layout.radius}
             min={0}
             max={2}
             step={0.05}
             unit="rem"
+            onChange={(value) => updateBase("layout", "radius", value)}
           />
         </CollapsibleItem>
 
         <CollapsibleItem triggerName="SPACING" defaultOpen>
           <SliderRow
             label="Spacing"
-            value={BASE.layout.spacing}
+            value={preset.base.layout.spacing}
             min={0}
             max={1}
             step={0.05}
             unit="rem"
+            onChange={(value) => updateBase("layout", "spacing", value)}
           />
         </CollapsibleItem>
       </div>
+
       <div className="px-4 py-3 flex flex-col gap-2">
         <div className="grid gap-0 text-left pb-2">
           <label className="text-sm font-medium">RECOMMENDATIONS</label>
+
           <p className="text-xs text-muted-foreground">
             Optional defaults suggested when using this preset.
           </p>
@@ -64,15 +91,18 @@ export function BaseSection() {
             <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
               Heading
             </Label>
+
             <FontSelect
-              defaultValue={RECOMMENDATIONS?.typography?.headingFont}
+              defaultValue={recommendations.typography?.headingFont}
             />
           </div>
+
           <div className="flex items-center gap-3 px-2 py-1.5">
             <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
               Body
             </Label>
-            <FontSelect defaultValue={RECOMMENDATIONS?.typography?.bodyFont} />
+
+            <FontSelect defaultValue={recommendations.typography?.bodyFont} />
           </div>
         </CollapsibleItem>
 
@@ -81,7 +111,8 @@ export function BaseSection() {
             <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
               Library
             </Label>
-            <IconLibSelect defaultValue={RECOMMENDATIONS?.icons?.library} />
+
+            <IconLibSelect defaultValue={recommendations.icons?.library} />
           </div>
         </CollapsibleItem>
       </div>
@@ -96,6 +127,7 @@ function SliderRow({
   max,
   step,
   unit,
+  onChange,
 }: {
   label: string;
   value: number;
@@ -103,22 +135,33 @@ function SliderRow({
   max: number;
   step: number;
   unit: string;
+  onChange: (value: number) => void;
 }) {
   return (
     <div className="flex items-center gap-3 px-2 py-2">
       <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
         {label}
       </Label>
-      <Slider min={min} max={max} step={step} value={value} />
+
+      <Slider
+        min={min}
+        max={max}
+        step={step}
+        value={[value]}
+        onValueChange={(value) => onChange(value[0])}
+      />
+
       <InputGroup className="w-38 h-7">
         <Input
           value={value}
           step={step}
           min={min}
           max={max}
+          onChange={(e) => onChange(Number(e.target.value))}
           unstyled
           className="truncate font-mono text-xs"
         />
+
         <InputGroup.Addon align="inline-end">
           <InputGroup.Text>{unit}</InputGroup.Text>
         </InputGroup.Addon>
