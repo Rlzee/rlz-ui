@@ -343,7 +343,7 @@ function SidebarSeparator({
     <Separator
       data-slot="sidebar-separator"
       data-sidebar="separator"
-      className={cn("mx-1 my-2 w-auto bg-sidebar-border", className)}
+      className={cn("my-2 w-auto bg-sidebar-border", className)}
       {...props}
     />
   );
