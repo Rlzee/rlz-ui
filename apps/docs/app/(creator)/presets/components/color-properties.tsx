@@ -11,13 +11,14 @@ import { Input } from "@rlz/ui/components/ui/input";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
 import { CollapsibleItem } from "./collapsible-item";
+import { TailwindColorsSelector } from "@/components/tailwind-colors-selector";
 import { presetBuilderAtom } from "../preset-builder";
 
 import { Search } from "lucide-react";
 
 const DEFAULT_OPEN = new Set(["primary", "secondary-accent"]);
 
-export function ColorSection() {
+export function ColorProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
 
   const { resolvedTheme } = useTheme();
@@ -126,7 +127,7 @@ function ColorRowItem({
     <div className="group flex items-center gap-2 rounded px-2 py-1.5 transition-colors">
       <div
         className="h-6 w-6 shrink-0 rounded-sm border"
-        style={{ background: current.swatch }}
+        style={{ background: current.value }}
       />
 
       <span className="w-24 shrink-0 text-xs text-muted-foreground">
@@ -137,6 +138,11 @@ function ColorRowItem({
         value={current.value}
         onChange={(e) => onChange(e.target.value)}
         className="h-7 truncate font-mono text-xs"
+      />
+
+      <TailwindColorsSelector
+        value={current.value}
+        onChange={(value) => onChange(value)}
       />
     </div>
   );

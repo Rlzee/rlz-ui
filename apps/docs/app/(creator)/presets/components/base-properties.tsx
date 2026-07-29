@@ -13,7 +13,7 @@ import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
 import { presetBuilderAtom } from "../preset-builder";
 
-export function BaseSection() {
+export function BaseProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
 
   const updateBase = (

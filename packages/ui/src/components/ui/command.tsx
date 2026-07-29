@@ -4,7 +4,10 @@ import * as React from "react";
 
 import { Dialog as CommandDialogPrimitive } from "@base-ui/react/dialog";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
-import { Autocomplete } from "@rlz/ui/components/ui/autocomplete";
+import {
+  Autocomplete,
+  useAutocompleteFilter,
+} from "@rlz/ui/components/ui/autocomplete";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
 import { cn } from "@rlz/ui/lib/cn";
 
@@ -228,6 +231,8 @@ function CommandFooter({ className, ...props }: React.ComponentProps<"div">) {
     />
   );
 }
+
+export const useCommandFilter = useAutocompleteFilter;
 
 const CommandDialogExports = Object.assign(CommandDialogRoot, {
   Portal: CommandDialogPortal,

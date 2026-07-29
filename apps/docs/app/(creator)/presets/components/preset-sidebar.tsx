@@ -1,5 +1,8 @@
 "use client";
 
+import { useSetAtom } from "jotai";
+import { resetPresetAtom } from "../preset-builder";
+
 import { Sidebar, SidebarGroupContent } from "@rlz/ui/components/ui/sidebar";
 import { Menu } from "@rlz/ui/components/ui/menu";
 import { Button } from "@rlz/ui/components/ui/button";
@@ -17,29 +20,40 @@ import {
   RotateCcw,
 } from "lucide-react";
 
-type NavTabs = {
+import type { PresetTab } from "../create/layout";
+
+type NavTab = {
   icon: React.ReactNode;
   name: string;
-  isActive?: boolean;
+  value: PresetTab;
 };
 
-const NAV_TABS: NavTabs[] = [
+const NAV_TABS: NavTab[] = [
   {
     icon: <Baseline />,
     name: "Base",
-    isActive: true,
+    value: "base",
   },
   {
     icon: <Palette />,
     name: "Colors",
+    value: "colors",
   },
   {
     icon: <Layers />,
     name: "Animations",
+    value: "animations",
   },
 ];
 
-export function PresetSidebar() {
+type Props = {
+  tab: PresetTab;
+  onTabChange: (tab: PresetTab) => void;
+};
+
+export function PresetSidebar({ tab, onTabChange }: Props) {
+  const resetPreset = useSetAtom(resetPresetAtom);
+
   return (
     <Sidebar>
       <Sidebar.Header className="pt-2 px-2 pb-1">
@@ -86,7 +100,7 @@ export function PresetSidebar() {
                       <FileDown />
                       Import
                     </Menu.Item>
-                    <Menu.Item>
+                    <Menu.Item onClick={() => resetPreset()}>
                       <RotateCcw />
                       Reset
                     </Menu.Item>
@@ -103,11 +117,15 @@ export function PresetSidebar() {
           <Sidebar.GroupLabel>Collection</Sidebar.GroupLabel>
           <SidebarGroupContent>
             <Sidebar.Menu>
-              {NAV_TABS.map((tab) => (
-                <Sidebar.MenuItem key={tab.name}>
-                  <Sidebar.MenuButton size="sm" isActive={tab.isActive}>
-                    {tab.icon}
-                    {tab.name}
+              {NAV_TABS.map((item) => (
+                <Sidebar.MenuItem key={item.value}>
+                  <Sidebar.MenuButton
+                    size="sm"
+                    isActive={tab === item.value}
+                    onClick={() => onTabChange(item.value)}
+                  >
+                    {item.icon}
+                    {item.name}
                   </Sidebar.MenuButton>
                 </Sidebar.MenuItem>
               ))}
