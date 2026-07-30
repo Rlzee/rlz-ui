@@ -19,7 +19,7 @@ export default function CreateLayout({
       <PresetSidebar tab={tab} onTabChange={setTab} />
 
       <SidebarInset className="bg-secondary">
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
       </SidebarInset>
 
       <PresetProperties tab={tab} />

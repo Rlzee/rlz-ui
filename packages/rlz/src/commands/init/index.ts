@@ -11,16 +11,18 @@ import { runInit } from "./run";
 export const initCommand = new Command()
   .name("init")
   .description("Initialize rlz-ui")
-  .option("--heading-font <font>", "Heading font")
-  .option("--body-font <font>", "Body font")
+  .option("--font-sans <font>", "Main UI font")
+  .option("--font-heading <font>", "Heading font")
+  .option("--font-mono <font>", "Monospace font")
   .option(
     "--icon-lib <lib>",
     `Icon library (${Object.keys(ICON_LIBS).join(", ")})`
   )
   .action(
     async (options: {
-      headingFont?: string;
-      bodyFont?: string;
+      fontSans?: string;
+      fontHeading?: string;
+      fontMono?: string;
       iconLib?: IconLib;
     }) => {
       try {
@@ -66,13 +68,18 @@ export const initCommand = new Command()
           process.exit(1);
         }
 
-        if (options.headingFont && !getFontByFamily(options.headingFont)) {
-          logger.error(`Unknown heading font: ${options.headingFont}`);
+        if (options.fontSans && !getFontByFamily(options.fontSans)) {
+          logger.error(`Unknown sans font: ${options.fontSans}`);
           process.exit(1);
         }
 
-        if (options.bodyFont && !getFontByFamily(options.bodyFont)) {
-          logger.error(`Unknown body font: ${options.bodyFont}`);
+        if (options.fontHeading && !getFontByFamily(options.fontHeading)) {
+          logger.error(`Unknown heading font: ${options.fontHeading}`);
+          process.exit(1);
+        }
+
+        if (options.fontMono && !getFontByFamily(options.fontMono)) {
+          logger.error(`Unknown mono font: ${options.fontMono}`);
           process.exit(1);
         }
 
@@ -92,12 +99,16 @@ export const initCommand = new Command()
         logger.info(`TypeScript v${ts.rawVersion}`);
         logger.info(`Tailwind CSS v${tailwind.rawVersion} detected.`);
 
-        if (options.headingFont) {
-          logger.info(`Heading font: ${options.headingFont}`);
+        if (options.fontSans) {
+          logger.info(`Sans font: ${options.fontSans}`);
         }
 
-        if (options.bodyFont) {
-          logger.info(`Body font: ${options.bodyFont}`);
+        if (options.fontHeading) {
+          logger.info(`Heading font: ${options.fontHeading}`);
+        }
+
+        if (options.fontMono) {
+          logger.info(`Mono font: ${options.fontMono}`);
         }
 
         if (options.iconLib) {
@@ -106,8 +117,9 @@ export const initCommand = new Command()
 
         await runInit({
           framework: frameworkInfo.framework,
-          headingFont: options.headingFont,
-          bodyFont: options.bodyFont,
+          fontSans: options.fontSans,
+          fontHeading: options.fontHeading,
+          fontMono: options.fontMono,
           iconLib: options.iconLib as IconLib | undefined,
         });
       } catch (error) {

@@ -25,16 +25,18 @@ import type { Framework } from "@/types/framework";
 type InitOptions = {
   cwd?: string;
   framework: Framework;
-  headingFont?: string;
-  bodyFont?: string;
+  fontSans?: string;
+  fontHeading?: string;
+  fontMono?: string;
   iconLib?: IconLib;
 };
 
 export async function runInit({
   cwd = process.cwd(),
   framework,
-  bodyFont,
-  headingFont,
+  fontSans,
+  fontHeading,
+  fontMono,
   iconLib,
 }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
@@ -78,11 +80,12 @@ export async function runInit({
     "Icon library selection failed"
   );
 
-  let selectedBodyFont = bodyFont;
+  // Sans font
+  let selectedFontSans = fontSans;
 
-  if (!selectedBodyFont) {
-    selectedBodyFont = await search({
-      message: "Select body font:",
+  if (!selectedFontSans) {
+    selectedFontSans = await search({
+      message: "Select main font:",
       source: async (term) => {
         const query = term?.toLowerCase() ?? "";
 
@@ -98,11 +101,12 @@ export async function runInit({
     });
   }
 
-  let selectedHeadingFont = headingFont;
+  // Heading font
+  let selectedFontHeading = fontHeading;
 
-  if (!selectedHeadingFont) {
-    selectedHeadingFont = await search({
-      message: "Select heading font:",
+  if (!selectedFontHeading) {
+    selectedFontHeading = await search({
+      message: "Select heading font (optional):",
       source: async (term) => {
         const query = term?.toLowerCase() ?? "";
 
@@ -118,8 +122,34 @@ export async function runInit({
     });
   }
 
-  if (!selectedBodyFont || !selectedHeadingFont) {
-    logger.error("Body font and heading font are required.");
+  // Fallback heading = body
+  if (!selectedFontHeading) {
+    selectedFontHeading = selectedFontSans;
+  }
+
+  // Mono font
+  let selectedFontMono = fontMono;
+
+  if (!selectedFontMono) {
+    selectedFontMono = await search({
+      message: "Select mono font:",
+      source: async (term) => {
+        const query = term?.toLowerCase() ?? "";
+
+        return GOOGLE_FONTS.filter((font) =>
+          font.family.toLowerCase().includes(query)
+        )
+          .slice(0, 20)
+          .map((font) => ({
+            name: font.family,
+            value: font.family,
+          }));
+      },
+    });
+  }
+
+  if (!selectedFontSans) {
+    logger.error("Main font is required.");
     process.exit(1);
   }
 
@@ -147,8 +177,9 @@ export async function runInit({
   await addFonts({
     cwd,
     framework,
-    bodyFont: selectedBodyFont,
-    headingFont: selectedHeadingFont,
+    fontSans: selectedFontSans,
+    fontHeading: selectedFontHeading,
+    fontMono: selectedFontMono,
   });
 
   if (framework !== "next") {

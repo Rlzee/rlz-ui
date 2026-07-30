@@ -5,14 +5,16 @@ import { updateNextRootLayout } from "@/utils/update-next-layout";
 import { getNextImportName } from "./utils";
 
 type AddNextFontsOptions = {
-  bodyFont: string;
-  headingFont: string;
+  fontSans: string;
+  fontHeading: string;
+  fontMono?: string;
   cwd: string;
 };
 
 export async function addNextFonts({
-  bodyFont,
-  headingFont,
+  fontSans,
+  fontHeading,
+  fontMono,
   cwd,
 }: AddNextFontsOptions) {
   const config = readConfig(cwd);
@@ -27,15 +29,20 @@ export async function addNextFonts({
 
   const fontsPath = path.join(fontsDir, "fonts.ts");
 
-  const bodyImport = getNextImportName(bodyFont);
-  const headingImport = getNextImportName(headingFont);
+  const sansImport = getNextImportName(fontSans);
+  const headingImport = getNextImportName(fontHeading);
+  const monoImport = fontMono ? getNextImportName(fontMono) : null;
 
-  const imports = [...new Set([bodyImport, headingImport])];
+  const imports = [sansImport, headingImport, monoImport].filter(Boolean);
 
-  const content = `import { ${imports.join(", ")} } from "next/font/google";
+  const uniqueImports = [...new Set(imports)];
 
-export const bodyFont = ${bodyImport}({
-  variable: "--font-body",
+  const content = `import { ${uniqueImports.join(
+    ", "
+  )} } from "next/font/google";
+
+export const sansFont = ${sansImport}({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
@@ -43,6 +50,15 @@ export const headingFont = ${headingImport}({
   variable: "--font-heading",
   subsets: ["latin"],
 });
+
+${
+  monoImport
+    ? `export const monoFont = ${monoImport}({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});`
+    : ""
+}
 `;
 
   await fs.writeFile(fontsPath, content, "utf8");
@@ -50,7 +66,8 @@ export const headingFont = ${headingImport}({
   await updateNextRootLayout({
     cwd,
     rootDir,
-    fontBodyExport: "bodyFont",
+    fontSansExport: "sansFont",
     fontHeadingExport: "headingFont",
+    fontMonoExport: monoImport ? "monoFont" : undefined,
   });
 }

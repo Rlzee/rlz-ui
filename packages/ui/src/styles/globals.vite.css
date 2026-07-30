@@ -9,11 +9,20 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
-    @apply font-body;
+    font-family: var(--font-sans);
   }
+
   body {
     @apply bg-background text-foreground relative tracking-normal;
+  }
+
+  code,
+  pre,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
   }
 }
 
@@ -116,8 +125,9 @@
 
 @theme inline {
   /* Font */
-  --font-body: "Font Name";
+  --font-sans: "Font Name";
   --font-heading: "Font Name";
+  --font-mono: "Font Name";
 
   /* Radius */
   --radius-sm: calc(var(--radius) - 4px);

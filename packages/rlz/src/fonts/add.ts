@@ -4,39 +4,48 @@ import { addViteFonts } from "./vite";
 import { addNextFonts } from "./next";
 
 type AddFontsOptions = {
-  bodyFont: string;
-  headingFont: string;
+  fontSans: string;
+  fontHeading: string;
+  fontMono?: string;
   cwd: string;
   framework: Framework;
 };
 
 export async function addFonts({
-  bodyFont,
-  headingFont,
+  fontSans,
+  fontHeading,
+  fontMono,
   framework,
   cwd,
 }: AddFontsOptions) {
-  const body = getFontByFamily(bodyFont);
-  const heading = getFontByFamily(headingFont);
+  const sans = getFontByFamily(fontSans);
+  const heading = getFontByFamily(fontHeading);
+  const mono = fontMono ? getFontByFamily(fontMono) : undefined;
 
-  if (!body) {
-    throw new Error(`Unknown body font: ${bodyFont}`);
+  if (!sans) {
+    throw new Error(`Unknown sans font: ${fontSans}`);
   }
 
   if (!heading) {
-    throw new Error(`Unknown heading font: ${headingFont}`);
+    throw new Error(`Unknown heading font: ${fontHeading}`);
+  }
+
+  if (fontMono && !mono) {
+    throw new Error(`Unknown mono font: ${fontMono}`);
   }
 
   if (framework === "vite" || framework === "react") {
     await addViteFonts({
-      bodyFont: body,
-      headingFont: heading,
+      fontSans: sans,
+      fontHeading: heading,
+      fontMono: mono,
       cwd,
     });
   } else if (framework === "next") {
     await addNextFonts({
-      bodyFont: body.family,
-      headingFont: heading.family,
+      fontSans: sans.family,
+      fontHeading: heading.family,
+      fontMono: mono?.family,
       cwd,
     });
   } else {

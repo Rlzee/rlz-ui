@@ -5,97 +5,103 @@ type UpdateLayoutOptions = {
   cwd: string;
   rootDir: string;
 
-  fontBodyExport: string;
+  fontSansExport: string;
   fontHeadingExport: string;
+  fontMonoExport?: string;
 
   fontsImportPath?: string;
   force?: boolean;
 };
 
-/**
- * Create the default RootLayout content using the provided export/import names.
- */
 function buildLayoutContent(
-  fontBodyExport: string,
+  fontSansExport: string,
   fontHeadingExport: string,
+  fontMonoExport: string | undefined,
   fontsImportPath: string
 ) {
+  const imports = [fontSansExport, fontHeadingExport, fontMonoExport].filter(
+    Boolean
+  );
+
+  const variables = [
+    `${fontSansExport}.variable`,
+    `${fontHeadingExport}.variable`,
+    fontMonoExport ? `${fontMonoExport}.variable` : null,
+  ]
+    .filter(Boolean)
+    .map((v) => `\${${v}}`)
+    .join(" ");
+
   return `import type { Metadata } from "next";
- import { ${fontBodyExport}, ${fontHeadingExport} } from "${fontsImportPath}";
- import "./globals.css";
+import { ${imports.join(", ")} } from "${fontsImportPath}";
+import "./globals.css";
 
- export const metadata: Metadata = {
-   title: "rlz ui",
-   description: "Best UI",
- };
+export const metadata: Metadata = {
+  title: "rlz ui",
+  description: "Best UI",
+};
 
- export default function RootLayout({
-   children,
- }: Readonly<{ children: React.ReactNode }>) {
-   return (
-     <html
-       lang="en"
-       suppressHydrationWarning
-       className={\`\${${fontBodyExport}.variable} \${${fontHeadingExport}.variable} antialiased\`}
-     >
-       <body className="min-h-screen bg-background">{children}</body>
-     </html>
-   );
- }
- `;
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={\`${variables} antialiased\`}
+    >
+      <body className="min-h-screen bg-background">{children}</body>
+    </html>
+  );
+}
+`;
 }
 
-/**
- * Check if the current file content already imports the fonts and uses their variables on <html>.
- * Very permissive / heuristic-based to avoid heavy parsing.
- */
 function layoutAlreadyHasFonts(
   content: string,
-  fontBodyExport: string,
+  fontSansExport: string,
   fontHeadingExport: string,
+  fontMonoExport: string | undefined,
   fontsImportPath: string
 ): boolean {
+  const requiredFonts = [
+    fontSansExport,
+    fontHeadingExport,
+    fontMonoExport,
+  ].filter(Boolean);
+
   const importRegex = new RegExp(
-    `import\\s+\\{[^}]*\\b${escapeRegExp(
-      fontBodyExport
-    )}\\b[^}]*\\b${escapeRegExp(
-      fontHeadingExport
-    )}\\b[^}]*\\}\\s+from\\s+['"]${escapeRegExp(fontsImportPath)}['"]`
+    `import\\s+\\{[^}]*${requiredFonts
+      .map((font) => `\\b${escapeRegExp(font!)}\\b`)
+      .join("[^}]*")}\\s+from\\s+['"]${escapeRegExp(fontsImportPath)}['"]`
   );
 
   if (!importRegex.test(content)) return false;
 
+  const variables = requiredFonts
+    .map((font) => `\\b${escapeRegExp(font!)}\\.variable\\b`)
+    .join("[^}]*");
+
   const htmlRegex = new RegExp(
-    `<html[^>]*className=\\{[^}]*\\b${escapeRegExp(
-      fontBodyExport
-    )}\\.variable\\b[^}]*\\b${escapeRegExp(
-      fontHeadingExport
-    )}\\.variable\\b[^}]*\\}`
+    `<html[^>]*className=\\{[^}]*${variables}[^}]*\\}`
   );
 
   return htmlRegex.test(content);
 }
 
 function escapeRegExp(s: string) {
-  return s.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\$&");
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
-/**
- * Updates or creates the Next.js app root layout.tsx file to import the fonts and use them.
- *
- * This function will:
- * - Resolve the layout path as <cwd>/<rootDir>/app/layout.tsx
- * - If file exists and `force` is false, it will try to patch the file only if necessary.
- * - If file does not exist or `force` is true, it will write a new layout.tsx with the expected content.
- */
 export async function updateNextRootLayout(
   options: UpdateLayoutOptions
 ): Promise<void> {
   const {
     cwd,
     rootDir,
-    fontBodyExport,
+    fontSansExport,
     fontHeadingExport,
+    fontMonoExport,
     fontsImportPath = "@/app/fonts/fonts",
     force = false,
   } = options;
@@ -103,14 +109,19 @@ export async function updateNextRootLayout(
   const layoutPath = path.join(cwd, rootDir, "app", "layout.tsx");
 
   const desiredContent = buildLayoutContent(
-    fontBodyExport,
+    fontSansExport,
     fontHeadingExport,
+    fontMonoExport,
     fontsImportPath
   );
 
   if (!fs.existsSync(layoutPath)) {
-    await fs.promises.mkdir(path.dirname(layoutPath), { recursive: true });
+    await fs.promises.mkdir(path.dirname(layoutPath), {
+      recursive: true,
+    });
+
     await fs.promises.writeFile(layoutPath, desiredContent, "utf8");
+
     return;
   }
 
@@ -120,8 +131,9 @@ export async function updateNextRootLayout(
     !force &&
     layoutAlreadyHasFonts(
       existing,
-      fontBodyExport,
+      fontSansExport,
       fontHeadingExport,
+      fontMonoExport,
       fontsImportPath
     )
   ) {
@@ -130,7 +142,13 @@ export async function updateNextRootLayout(
 
   let modified = existing;
 
-  const fontsImportLine = `import { ${fontBodyExport}, ${fontHeadingExport} } from "${fontsImportPath}";`;
+  const imports = [fontSansExport, fontHeadingExport, fontMonoExport].filter(
+    Boolean
+  );
+
+  const fontsImportLine = `import { ${imports.join(
+    ", "
+  )} } from "${fontsImportPath}";`;
 
   const importRegex = new RegExp(
     `import\\s+\\{[^}]*\\}\\s+from\\s+['"]${escapeRegExp(
@@ -144,17 +162,25 @@ export async function updateNextRootLayout(
     modified = fontsImportLine + "\n" + modified;
   }
 
-  // ensure globals.css exists
   if (!/import\s+["']\.\/globals\.css["'];?/.test(modified)) {
     modified = `import "./globals.css";\n` + modified;
   }
+
+  const variables = [
+    `${fontSansExport}.variable`,
+    `${fontHeadingExport}.variable`,
+    fontMonoExport ? `${fontMonoExport}.variable` : null,
+  ]
+    .filter(Boolean)
+    .map((v) => `\${${v}}`)
+    .join(" ");
 
   const htmlRegex = /<html([^>]*)className=\{([^}]*)\}([^>]*)>/;
 
   if (htmlRegex.test(modified)) {
     modified = modified.replace(
       htmlRegex,
-      `<html$1className={\`\${${fontBodyExport}.variable} \${${fontHeadingExport}.variable}\`}$2$3>`
+      `<html$1className={\`${variables} \${$2}\`}$3>`
     );
   } else {
     modified = desiredContent;

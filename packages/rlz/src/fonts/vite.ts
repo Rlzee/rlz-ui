@@ -4,14 +4,16 @@ import type { FontInfo } from "@rlz/fonts";
 import { buildGoogleFontImport } from "./utils";
 
 type AddViteFontsOptions = {
-  bodyFont: FontInfo;
-  headingFont: FontInfo;
+  fontSans: FontInfo;
+  fontHeading: FontInfo;
+  fontMono?: FontInfo;
   cwd: string;
 };
 
 export async function addViteFonts({
-  bodyFont,
-  headingFont,
+  fontSans,
+  fontHeading,
+  fontMono,
   cwd,
 }: AddViteFontsOptions) {
   const config = readConfig(cwd);
@@ -20,9 +22,11 @@ export async function addViteFonts({
   let css = await fs.readFile(cssPath, "utf8");
 
   const imports = [
-    buildGoogleFontImport(bodyFont.family),
-    buildGoogleFontImport(headingFont.family),
+    buildGoogleFontImport(fontSans.family),
+    buildGoogleFontImport(fontHeading.family),
+    fontMono ? buildGoogleFontImport(fontMono.family) : null,
   ]
+    .filter(Boolean)
     .filter((v, i, arr) => arr.indexOf(v) === i)
     .join("\n");
 
@@ -32,13 +36,20 @@ export async function addViteFonts({
       ""
     )
     .replace(
-      /--font-body:\s*[^;]+;/,
-      `--font-body: "${bodyFont.family}", ${bodyFont.category};`
+      /--font-sans:\s*[^;]+;/,
+      `--font-sans: "${fontSans.family}", ${fontSans.category};`
     )
     .replace(
       /--font-heading:\s*[^;]+;/,
-      `--font-heading: "${headingFont.family}", ${headingFont.category};`
+      `--font-heading: "${fontHeading.family}", ${fontHeading.category};`
     );
+
+  if (fontMono) {
+    css = css.replace(
+      /--font-mono:\s*[^;]+;/,
+      `--font-mono: "${fontMono.family}", ${fontMono.category};`
+    );
+  }
 
   css = `${imports}\n\n${css}`;
 
