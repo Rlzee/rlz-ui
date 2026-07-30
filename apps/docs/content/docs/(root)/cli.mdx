@@ -19,11 +19,12 @@ Initialize rlz-ui in an existing project. Detects your framework, TypeScript, an
 npx rlz@latest init
 ```
 
-| Flag              | Description               |
-| ----------------- | ------------------------- |
-| `--body-font`     | Body font family          |
-| `--heading-font`  | Heading font family       |
-| `--icon-lib`      | Icon library to use       |
+| Flag             | Description           |
+| ---------------- | --------------------- |
+| `--font-sans`    | Sans font family      |
+| `--font-heading` | Heading font family   |
+| `--font-mono`    | Monospace font family |
+| `--icon-lib`     | Icon library to use   |
 
 ### add
 
@@ -33,25 +34,17 @@ Add a component, hook, or lib to your project. Dependencies are resolved and ins
 npx rlz@latest add <name>
 ```
 
-```bash
-npx rlz@latest add button
-npx rlz@latest add accordion
-```
-
 ### list
 
 List all items available in the registry. Use `--type` to filter by category.
 
 ```bash
 npx rlz@latest list
-npx rlz@latest list --type component
-npx rlz@latest list --type hook
-npx rlz@latest list --type lib
 ```
 
-| Flag             | Description                                     |
-| ---------------- | ----------------------------------------------- |
-| `--type`, `-t`   | Filter by type: `component`, `hook`, or `lib`   |
+| Flag           | Description                                   |
+| -------------- | --------------------------------------------- |
+| `--type`, `-t` | Filter by type: `component`, `hook`, or `lib` |
 
 ### info
 
@@ -59,8 +52,4 @@ Show detailed information about a registry item, including its dependencies and 
 
 ```bash
 npx rlz@latest info <name>
-```
-
-```bash
-npx rlz@latest info accordion
 ```
