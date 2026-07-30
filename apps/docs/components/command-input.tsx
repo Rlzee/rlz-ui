@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useIsMac } from "@/hooks/use-is-mac";
+
 import { CommandDialogTrigger } from "@rlz/ui/components/ui/command";
 import { commandHandle } from "./command-menu";
 
@@ -10,6 +12,8 @@ import { Kbd } from "@rlz/ui/components/ui/kbd";
 import { cn } from "@rlz/ui/lib/cn";
 
 export function CommandInput({ className }: { className?: string }) {
+  const isMac = useIsMac();
+
   React.useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.key === "k" && (e.metaKey || e.ctrlKey)) || e.key === "/") {
@@ -43,7 +47,9 @@ export function CommandInput({ className }: { className?: string }) {
       }
     >
       <span className="text-muted-foreground pr-1.5">Search...</span>
-      <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">Ctrl K</Kbd>
+      <Kbd className="dark:bg-muted/7 bg-secondary dark:border-0">
+        {isMac ? "⌘ K" : "Ctrl K"}
+      </Kbd>
     </CommandDialogTrigger>
   );
 }

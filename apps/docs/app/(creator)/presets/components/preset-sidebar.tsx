@@ -55,7 +55,7 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
   const resetPreset = useSetAtom(resetPresetAtom);
 
   return (
-    <Sidebar>
+    <Sidebar className="border-border">
       <Sidebar.Header className="pt-2 px-2 pb-1">
         <Sidebar.Menu>
           <Sidebar.MenuItem className="pt-2 px-2">
@@ -108,7 +108,7 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                 </Menu.Popup>
               </Menu>
             </div>
-            <Sidebar.Separator className="mt-3" />
+            <Sidebar.Separator className="mt-3 bg-border" />
           </Sidebar.MenuItem>
         </Sidebar.Menu>
       </Sidebar.Header>
