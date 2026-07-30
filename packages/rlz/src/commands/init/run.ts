@@ -105,20 +105,18 @@ export async function runInit({
   let selectedFontHeading = fontHeading;
 
   if (!selectedFontHeading) {
-    selectedFontHeading = await search({
-      message: "Select heading font (optional):",
-      source: async (term) => {
-        const query = term?.toLowerCase() ?? "";
-
-        return GOOGLE_FONTS.filter((font) =>
-          font.family.toLowerCase().includes(query)
-        )
-          .slice(0, 20)
-          .map((font) => ({
-            name: font.family,
-            value: font.family,
-          }));
-      },
+    selectedFontHeading = await select({
+      message: "Select heading font:",
+      choices: [
+        {
+          name: `Use sans font (${selectedFontSans})`,
+          value: selectedFontSans,
+        },
+        ...GOOGLE_FONTS.map((font) => ({
+          name: font.family,
+          value: font.family,
+        })),
+      ],
     });
   }
 

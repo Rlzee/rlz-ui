@@ -33,7 +33,31 @@ export function BaseProperties() {
     }));
   };
 
-  const recommendations = preset.recommendations ?? {};
+  const updateTypography = (
+    key: "fontSans" | "fontHeading" | "fontMono",
+    value: string
+  ) => {
+    setPreset((prev) => ({
+      ...prev,
+      recommendations: {
+        ...prev.recommendations,
+        typography: {
+          fontSans: prev.recommendations?.typography?.fontSans ?? "",
+          fontHeading: prev.recommendations?.typography?.fontHeading ?? "",
+          fontMono: prev.recommendations?.typography?.fontMono ?? "",
+          [key]: value,
+        },
+      },
+    }));
+  };
+
+  const typography = {
+    fontSans: preset.recommendations?.typography?.fontSans ?? "",
+    fontHeading: preset.recommendations?.typography?.fontHeading ?? "",
+    fontMono: preset.recommendations?.typography?.fontMono ?? "",
+  };
+
+  const iconLibrary = preset.recommendations?.icons?.library ?? "";
 
   return (
     <section id="editor-base" className="h-full">
@@ -88,31 +112,46 @@ export function BaseProperties() {
 
         <CollapsibleItem triggerName="TYPOGRAPHY" defaultOpen>
           <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-              Heading
+            <Label className="text-xs w-16 shrink-0 text-muted-foreground">
+              Sans
             </Label>
 
             <FontSelect
-              defaultValue={recommendations.typography?.headingFont}
+              value={typography.fontSans}
+              onValueChange={(value) => updateTypography("fontSans", value)}
             />
           </div>
 
           <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-              Body
+            <Label className="text-xs w-16 shrink-0 text-muted-foreground">
+              Heading
             </Label>
 
-            <FontSelect defaultValue={recommendations.typography?.bodyFont} />
+            <FontSelect
+              value={typography.fontHeading}
+              onValueChange={(value) => updateTypography("fontHeading", value)}
+            />
+          </div>
+
+          <div className="flex items-center gap-3 px-2 py-1.5">
+            <Label className="text-xs w-16 shrink-0 text-muted-foreground">
+              Mono
+            </Label>
+
+            <FontSelect
+              value={typography.fontMono}
+              onValueChange={(value) => updateTypography("fontMono", value)}
+            />
           </div>
         </CollapsibleItem>
 
         <CollapsibleItem triggerName="ICON LIBRARY" defaultOpen>
           <div className="flex items-center gap-3 px-2 py-1.5">
-            <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
+            <Label className="text-xs w-16 shrink-0 text-muted-foreground">
               Library
             </Label>
 
-            <IconLibSelect defaultValue={recommendations.icons?.library} />
+            <IconLibSelect value={iconLibrary} onValueChange={() => {}} />
           </div>
         </CollapsibleItem>
       </div>
@@ -148,7 +187,7 @@ function SliderRow({
         max={max}
         step={step}
         value={[value]}
-        onValueChange={(value) => onChange(value[0])}
+        onValueChange={(values) => onChange(values[0] ?? value)}
       />
 
       <InputGroup className="w-38 h-7">

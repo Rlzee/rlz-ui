@@ -14,17 +14,24 @@ import FrameworkIcon from "./icons/framework";
 export const dialogHandle = DialogCreateHandle();
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
+
 const RECOMMENDATIONS = defaultPreset.recommendations;
 
 export function ProjectDialog() {
   const [activeTab, setActiveTab] = React.useState("new-project");
 
-  const [bodyFont, setBodyFont] = React.useState<string | undefined>(
-    RECOMMENDATIONS?.typography?.bodyFont
+  const [fontSans, setFontSans] = React.useState<string | undefined>(
+    RECOMMENDATIONS?.typography?.fontSans
   );
+
   const [headingFont, setHeadingFont] = React.useState<string | undefined>(
-    RECOMMENDATIONS?.typography?.headingFont
+    RECOMMENDATIONS?.typography?.fontHeading
   );
+
+  const [monoFont, setMonoFont] = React.useState<string | undefined>(
+    RECOMMENDATIONS?.typography?.fontMono
+  );
+
   const [iconLib, setIconLib] = React.useState<string | undefined>(
     RECOMMENDATIONS?.icons?.library
   );
@@ -40,12 +47,24 @@ export function ProjectDialog() {
       parts.push(`--framework ${template}`);
     }
 
-    parts.push(`--body-font "${bodyFont}"`);
-    parts.push(`--heading-font "${headingFont}"`);
-    parts.push(`--icon-lib ${iconLib}`);
+    if (fontSans) {
+      parts.push(`--font-sans "${fontSans}"`);
+    }
+
+    if (headingFont) {
+      parts.push(`--font-heading "${headingFont}"`);
+    }
+
+    if (monoFont) {
+      parts.push(`--font-mono "${monoFont}"`);
+    }
+
+    if (iconLib) {
+      parts.push(`--icon-lib ${iconLib}`);
+    }
 
     return parts.join(" ");
-  }, [activeTab, template, bodyFont, headingFont, iconLib]);
+  }, [activeTab, template, fontSans, headingFont, monoFont, iconLib]);
 
   return (
     <Dialog handle={dialogHandle} variant="bare-bottom">
@@ -70,6 +89,7 @@ export function ProjectDialog() {
           {activeTab === "new-project" && (
             <Field>
               <Field.Label>Template</Field.Label>
+
               <Toggle.Group
                 value={[template]}
                 onValueChange={(values) => setTemplate(values[0] ?? "next")}
@@ -83,6 +103,7 @@ export function ProjectDialog() {
                   <FrameworkIcon.NextJs />
                   Next.js
                 </Toggle>
+
                 <Toggle
                   value="vite"
                   className="w-full rounded-lg border p-3 bg-card justify-start"
@@ -90,6 +111,7 @@ export function ProjectDialog() {
                   <FrameworkIcon.Vite />
                   Vite
                 </Toggle>
+
                 <Toggle
                   value="react"
                   className="w-full rounded-lg border p-3 bg-card justify-start"
@@ -101,31 +123,39 @@ export function ProjectDialog() {
             </Field>
           )}
 
-          {/*<Field>
-            <Field.Label>Theme</Field.Label>
-            <Button variant="outline">Add a Theme</Button>
-          </Field>*/}
+          <Field>
+            <Field.Label>Sans Font</Field.Label>
+
+            <FontSelect
+              value={fontSans}
+              defaultValue={RECOMMENDATIONS?.typography?.fontSans}
+              onValueChange={setFontSans}
+            />
+          </Field>
 
           <Field>
             <Field.Label>Heading Font</Field.Label>
+
             <FontSelect
               value={headingFont}
-              defaultValue={RECOMMENDATIONS?.typography?.headingFont}
+              defaultValue={RECOMMENDATIONS?.typography?.fontHeading}
               onValueChange={setHeadingFont}
             />
           </Field>
 
           <Field>
-            <Field.Label>Body Font</Field.Label>
+            <Field.Label>Mono Font</Field.Label>
+
             <FontSelect
-              value={bodyFont}
-              defaultValue={RECOMMENDATIONS?.typography?.bodyFont}
-              onValueChange={setBodyFont}
+              value={monoFont}
+              defaultValue={RECOMMENDATIONS?.typography?.fontMono}
+              onValueChange={setMonoFont}
             />
           </Field>
 
           <Field>
             <Field.Label>Icons Library</Field.Label>
+
             <IconLibSelect
               value={iconLib}
               defaultValue={RECOMMENDATIONS?.icons?.library}

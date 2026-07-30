@@ -41,8 +41,9 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
     .object({
       typography: z
         .object({
-          headingFont: z.string(),
-          bodyFont: z.string(),
+          fontSans: z.string(),
+          fontHeading: z.string(),
+          fontMono: z.string().optional(),
         })
         .optional(),
 

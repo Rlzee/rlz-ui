@@ -31,8 +31,9 @@ export type PresetColorConfig = {
 
 export type PresetRecommendations = {
   typography?: {
-    headingFont: string;
-    bodyFont: string;
+    fontSans: string;
+    fontHeading: string;
+    fontMono?: string;
   };
   icons?: {
     library: string;

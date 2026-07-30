@@ -206,8 +206,9 @@ export const defaultPreset: RegistryPreset = {
 
   recommendations: {
     typography: {
-      headingFont: "Geist",
-      bodyFont: "Geist",
+      fontSans: "Geist",
+      fontHeading: "Geist",
+      fontMono: "Geist Mono",
     },
     icons: {
       library: "lucide",
