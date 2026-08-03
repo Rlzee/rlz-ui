@@ -1,5 +1,3 @@
-import { CodeBlock } from "@/components/code-block";
-
 export default function Page() {
   return (
     <div className="flex justify-center items-center h-full">
@@ -17,6 +15,10 @@ export default function Page() {
         <p className="leading-relaxed text-muted-foreground font-sans">
           Body font used for paragraphs, descriptions, and longer content. It
           should remain comfortable to read at any size.
+        </p>
+
+        <p className="relative w-fit rounded-md bg-accent px-1.5 py-0.5 font-mono text-[.8125rem] text-muted-foreground outline-none">
+          npm install @rlz/ui
         </p>
       </div>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import * as React from "react";
 import { SidebarProvider, SidebarInset } from "@rlz/ui/components/ui/sidebar";
 import { PresetSidebar } from "../components/preset-sidebar";
 import { PresetProperties } from "../components/preset-properties";
@@ -12,7 +12,7 @@ export default function CreateLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [tab, setTab] = useState<PresetTab>("base");
+  const [tab, setTab] = React.useState<PresetTab>("base");
 
   return (
     <SidebarProvider>
