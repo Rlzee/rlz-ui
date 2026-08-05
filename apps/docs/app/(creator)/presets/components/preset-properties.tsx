@@ -1,14 +1,12 @@
+import { usePreset } from "../use-preset";
+
 import { BaseProperties } from "./base-properties";
 import { ColorProperties } from "./color-properties";
 import { AnimationProperties } from "./animation-properties";
 
-import type { PresetTab } from "../create/layout";
+export function PresetProperties() {
+  const { tab } = usePreset();
 
-type Props = {
-  tab: PresetTab;
-};
-
-export function PresetProperties({ tab }: Props) {
   return (
     <div
       className="flex h-screen min-h-0 flex-col border-l border-border"

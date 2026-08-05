@@ -2,6 +2,7 @@
 
 import { useSetAtom } from "jotai";
 import { resetPresetAtom } from "../preset-builder";
+import { usePreset, type PresetTab } from "../use-preset";
 
 import { Sidebar, SidebarGroupContent } from "@rlz/ui/components/ui/sidebar";
 import { Menu } from "@rlz/ui/components/ui/menu";
@@ -18,9 +19,8 @@ import {
   Share2,
   CloudSync,
   RotateCcw,
+  Target,
 } from "lucide-react";
-
-import type { PresetTab } from "../create/layout";
 
 type NavTab = {
   icon: React.ReactNode;
@@ -44,15 +44,21 @@ const NAV_TABS: NavTab[] = [
     name: "Animations",
     value: "animations",
   },
+  // {
+  //   icon: <Target />,
+  //   name: "Components",
+  //   value: "components",
+  // },
+  {
+    icon: <Sparkles />,
+    name: "Generate",
+    value: "generate",
+  },
 ];
 
-type Props = {
-  tab: PresetTab;
-  onTabChange: (tab: PresetTab) => void;
-};
-
-export function PresetSidebar({ tab, onTabChange }: Props) {
+export function PresetSidebar() {
   const resetPreset = useSetAtom(resetPresetAtom);
+  const { tab, setTab } = usePreset();
 
   return (
     <Sidebar className="border-border">
@@ -64,12 +70,14 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                 <div className="grid h-8 w-10 place-items-center rounded-md bg-accent text-foreground border">
                   <Sparkles className="h-4 w-4" />
                 </div>
+
                 <Input
                   unstyled
                   defaultValue="United Preset"
                   className="text-md h-7"
                 />
               </div>
+
               <Menu>
                 <Menu.Trigger
                   render={
@@ -82,6 +90,7 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                 >
                   <Ellipsis />
                 </Menu.Trigger>
+
                 <Menu.Popup
                   positionerProps={{
                     align: "start",
@@ -92,15 +101,18 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                       <CloudSync />
                       Publish
                     </Menu.Item>
+
                     <Menu.Item>
                       <Share2 />
                       Share
                     </Menu.Item>
+
                     <Menu.Item>
                       <FileDown />
                       Import
                     </Menu.Item>
-                    <Menu.Item onClick={() => resetPreset()}>
+
+                    <Menu.Item onClick={resetPreset}>
                       <RotateCcw />
                       Reset
                     </Menu.Item>
@@ -108,13 +120,16 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                 </Menu.Popup>
               </Menu>
             </div>
+
             <Sidebar.Separator className="mt-3 bg-border" />
           </Sidebar.MenuItem>
         </Sidebar.Menu>
       </Sidebar.Header>
+
       <Sidebar.Body>
         <Sidebar.Group className="pt-0 px-2">
           <Sidebar.GroupLabel>Collection</Sidebar.GroupLabel>
+
           <SidebarGroupContent>
             <Sidebar.Menu>
               {NAV_TABS.map((item) => (
@@ -122,7 +137,7 @@ export function PresetSidebar({ tab, onTabChange }: Props) {
                   <Sidebar.MenuButton
                     size="sm"
                     isActive={tab === item.value}
-                    onClick={() => onTabChange(item.value)}
+                    onClick={() => setTab(item.value)}
                   >
                     {item.icon}
                     {item.name}
