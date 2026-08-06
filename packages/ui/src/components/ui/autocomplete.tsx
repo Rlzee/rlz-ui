@@ -265,7 +265,7 @@ function AutocompleteSeparator({
   return (
     <AutocompletePrimitive.Separator
       data-slot="autocomplete-separator"
-      className={cn("my-1 h-px bg-border mx-2 last:hiddens", className)}
+      className={cn("my-1 h-px bg-border mx-2 last:hidden", className)}
       {...props}
     />
   );
