@@ -1,0 +1,215 @@
+---
+title: Sidebar
+description: A composable, collapsible sidebar with support for mobile drawers, icon mode, and nested navigation.
+---
+
+<ComponentPreview name="sidebar" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add sidebar
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="sidebar" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Sidebar } from "@/components/ui/sidebar";
+```
+
+```tsx
+<Sidebar.Provider>
+  <Sidebar>
+    <Sidebar.Header />
+    <Sidebar.Body>
+      <Sidebar.Group>
+        <Sidebar.GroupLabel>Navigation</Sidebar.GroupLabel>
+        <Sidebar.GroupContent>
+          <Sidebar.Menu>
+            <Sidebar.MenuItem>
+              <Sidebar.MenuButton>
+                <Home />
+                <span>Home</span>
+              </Sidebar.MenuButton>
+            </Sidebar.MenuItem>
+          </Sidebar.Menu>
+        </Sidebar.GroupContent>
+      </Sidebar.Group>
+    </Sidebar.Body>
+    <Sidebar.Footer />
+  </Sidebar>
+  <Sidebar.Inset>
+    <main>{/* page content */}</main>
+  </Sidebar.Inset>
+</Sidebar.Provider>
+```
+
+## API Reference
+
+### Sidebar Provider
+
+Wrap your layout with `<Sidebar.Provider>` to provide sidebar context to all child components.
+
+| Prop           | Type                      | Default |
+| -------------- | ------------------------- | ------- |
+| `defaultOpen`  | `boolean`                 | `true`  |
+| `open`         | `boolean`                 | -       |
+| `onOpenChange` | `(open: boolean) => void` | -       |
+
+### Sidebar
+
+| Prop          | Type                                 | Default       |
+| ------------- | ------------------------------------ | ------------- |
+| `side`        | `"left" \| "right"`                  | `"left"`      |
+| `variant`     | `"sidebar" \| "floating" \| "inset"` | `"sidebar"`   |
+| `collapsible` | `"offcanvas" \| "icon" \| "none"`    | `"offcanvas"` |
+
+`collapsible` controls how the sidebar collapses:
+
+- `"offcanvas"` — slides out of view completely
+- `"icon"` — collapses to show only icons
+- `"none"` — always visible, cannot be collapsed
+
+On mobile, the sidebar automatically renders as a `<Drawer>` regardless of the `collapsible` prop.
+
+### Sidebar Trigger
+
+Toggles the sidebar open and closed. Renders as a `<Button>`.
+
+| Prop      | Type                     | Default     |
+| --------- | ------------------------ | ----------- |
+| `variant` | `ButtonProps["variant"]` | `"ghost"`   |
+| `size`    | `ButtonProps["size"]`    | `"icon-md"` |
+
+### Sidebar Menu Button
+
+The main interactive element inside a menu item.
+
+| Prop       | Type                            | Default   |
+| ---------- | ------------------------------- | --------- |
+| `variant`  | `"ghost" \| "primary"`          | `"ghost"` |
+| `size`     | `"sm" \| "md" \| "lg"`          | `"md"`    |
+| `isActive` | `boolean`                       | `false`   |
+| `tooltip`  | `string \| Tooltip.Popup props` | -         |
+
+When `collapsible="icon"` and a `tooltip` is provided, the tooltip is shown automatically when the sidebar is collapsed.
+Supports the `render` prop for custom element rendering (e.g. a `<Link>`).
+
+### Sidebar Menu Sub Button
+
+Button used inside `<Sidebar.MenuSub>` for nested navigation items.
+
+| Prop       | Type                   | Default   |
+| ---------- | ---------------------- | --------- |
+| `variant`  | `"ghost" \| "primary"` | `"ghost"` |
+| `size`     | `"sm" \| "md"`         | `"md"`    |
+| `isActive` | `boolean`              | `false`   |
+
+Supports the `render` prop for custom element rendering.
+
+### Sidebar Menu Action
+
+An action button rendered on the right side of a menu item (e.g. a context menu trigger).
+
+| Prop          | Type      | Default |
+| ------------- | --------- | ------- |
+| `showOnHover` | `boolean` | `false` |
+
+When `showOnHover` is `true`, the action is hidden until the menu item is hovered or focused.
+Supports the `render` prop for custom element rendering.
+
+### Sidebar Group Label
+
+Supports the `render` prop for custom element rendering.
+
+### Sidebar Inset
+
+Wrapper for the main content area. When `variant="inset"` is used on `<Sidebar>`, `<Sidebar.Inset>` adds the matching rounded style to the content area.
+
+### useSidebar
+
+Hook that exposes the sidebar context. Must be used inside `<Sidebar.Provider>`.
+
+```tsx
+const {
+  state, // "expanded" | "collapsed"
+  open, // boolean
+  setOpen, // (open: boolean) => void
+  isMobile, // boolean
+  openMobile, // boolean
+  setOpenMobile, // (open: boolean) => void
+  toggleSidebar, // () => void
+} = useSidebar();
+```
+
+## Examples
+
+### Collapsible Icon
+
+Use `collapsible="icon"` to collapse the sidebar to icon-only mode. Add a `tooltip` to `<Sidebar.MenuButton>` to show labels when collapsed.
+
+<ComponentPreview name="sidebar-icon" />
+
+### Floating
+
+Use `variant="floating"` for a sidebar that floats above the content with rounded corners.
+
+<ComponentPreview name="sidebar-floating" />
+
+### Inset
+
+Use `variant="inset"` to render the sidebar with an inset layout where the main content is visually framed.
+
+<ComponentPreview name="sidebar-inset" />
+
+### Right Side
+
+Use `side="right"` to render the sidebar on the right.
+
+<ComponentPreview name="sidebar-right" />
+
+### With Submenu
+
+Use `<Sidebar.MenuSub>` and `<Sidebar.MenuSubItem>` to add nested navigation.
+
+<ComponentPreview name="sidebar-submenu" />
+
+### With Badge
+
+Use `<Sidebar.MenuBadge>` to display a count or status indicator inside a menu item.
+
+<ComponentPreview name="sidebar-badge" />
