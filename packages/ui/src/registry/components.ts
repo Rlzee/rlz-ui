@@ -383,4 +383,21 @@ export const registryComponents = defineRegistryItems("component", {
     dependencies: ["class-variance-authority"],
     registryDependencies: ["cn", "popup-arrow"],
   },
+  sidebar: {
+    name: "sidebar",
+    description:
+      "A composable, collapsible sidebar with support for mobile drawers, icon mode, and nested navigation.",
+    path: "components/ui/sidebar.tsx",
+    version: "1.0.0",
+    dependencies: ["class-variance-authority"],
+    registryDependencies: [
+      "cn",
+      "use-mobile",
+      "button",
+      "drawer",
+      "scroll-area",
+      "tooltip",
+      "separator",
+    ],
+  },
 });
