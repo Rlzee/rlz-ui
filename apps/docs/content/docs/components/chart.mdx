@@ -1,0 +1,182 @@
+---
+title: Chart
+description: A composable chart component built on top of Recharts with automatic color management and styled tooltips.
+---
+
+<ComponentPreview name="chart" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add chart
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install recharts
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="chart" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+```tsx
+import { Chart, Recharts } from "@/components/ui/chart";
+import type { ChartConfig } from "@/components/ui/chart";
+```
+
+```tsx
+const config: ChartConfig = {
+  revenue: {
+    label: "Revenue",
+    color: "var(--chart-1)",
+  },
+  expenses: {
+    label: "Expenses",
+    color: "var(--chart-2)",
+  },
+};
+
+const data = [
+  { month: "Jan", revenue: 4000, expenses: 2400 },
+  { month: "Feb", revenue: 3000, expenses: 1398 },
+  { month: "Mar", revenue: 5000, expenses: 3200 },
+];
+
+<Chart config={config} className="h-64">
+  <Recharts.BarChart data={data}>
+    <Recharts.CartesianGrid vertical={false} />
+    <Recharts.XAxis dataKey="month" />
+    <Chart.Tooltip content={<Chart.TooltipContent />} />
+    <Chart.Legend content={<Chart.LegendContent />} />
+    <Recharts.Bar dataKey="revenue" fill="var(--color-revenue)" radius={4} />
+    <Recharts.Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
+  </Recharts.BarChart>
+</Chart>;
+```
+
+Colors defined in `config` are automatically injected as `--color-<key>` CSS variables scoped to each chart instance. You can reference them with `var(--color-<key>)` directly on any Recharts element.
+
+If no `color` is provided for a series, colors are auto-assigned from the theme palette (`--chart-1` through `--chart-5`) in order.
+
+## API Reference
+
+### Chart
+
+| Prop               | Type                                | Default                       |
+| ------------------ | ----------------------------------- | ----------------------------- |
+| `config`           | `ChartConfig`                       | -                             |
+| `initialDimension` | `{ width: number; height: number }` | `{ width: 320, height: 200 }` |
+
+`config` is required. Each key maps a data series to its label, color, and optional icon.
+
+### ChartConfig
+
+```tsx
+type ChartConfig = Record
+  string,
+  {
+    label?: React.ReactNode;
+    icon?: React.ComponentType;
+    color?: string;
+  }
+>;
+```
+
+### Chart Tooltip Content
+
+Passed as the `content` prop to `<Chart.Tooltip>`.
+
+| Prop             | Type                                  | Default |
+| ---------------- | ------------------------------------- | ------- |
+| `hideLabel`      | `boolean`                             | `false` |
+| `hideIndicator`  | `boolean`                             | `false` |
+| `labelFormatter` | `(label, payload) => React.ReactNode` | -       |
+| `nameKey`        | `string`                              | -       |
+| `labelKey`       | `string`                              | -       |
+
+`nameKey` and `labelKey` are useful for chart types like Pie or RadialBar where the identifying key doesn't directly match `dataKey`.
+
+### Chart Legend Content
+
+Passed as the `content` prop to `<Chart.Legend>`.
+
+| Prop            | Type                | Default    |
+| --------------- | ------------------- | ---------- |
+| `hideIcon`      | `boolean`           | `false`    |
+| `nameKey`       | `string`            | -          |
+| `verticalAlign` | `"top" \| "bottom"` | `"bottom"` |
+
+### Recharts
+
+All Recharts primitives are re-exported under the `Recharts` namespace so you don't need a separate import.
+
+```tsx
+import { Recharts } from "@/components/ui/chart";
+
+<Recharts.BarChart />
+<Recharts.LineChart />
+<Recharts.XAxis />
+<Recharts.CartesianGrid />
+```
+
+### useChart
+
+Hook that exposes the resolved `config` from the nearest `<Chart>`. Must be used inside a `<Chart>`.
+
+```tsx
+const { config } = useChart();
+```
+
+## Examples
+
+### Line Chart
+
+<ComponentPreview name="chart-line" />
+
+### Area Chart
+
+<ComponentPreview name="chart-area" />
+
+### Pie Chart
+
+<ComponentPreview name="chart-pie" />
+
+### Radial Chart
+
+<ComponentPreview name="chart-radial" />
+
+### With Legend
+
+<ComponentPreview name="chart-legend" />
+
+### With Custom Tooltip
+
+<ComponentPreview name="chart-tooltip" />
