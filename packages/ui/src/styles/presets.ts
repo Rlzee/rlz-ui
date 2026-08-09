@@ -200,6 +200,72 @@ export const defaultPreset: RegistryPreset = {
         },
       ],
     },
+    {
+      id: "charts",
+      name: "CHARTS",
+      tokens: [
+        {
+          label: "Chart 1",
+          cssVar: "--chart-1",
+          dark: {
+            value: "oklch(0.488 0.243 264.376)",
+            swatch: "#6366f1",
+          },
+          light: {
+            value: "oklch(0.646 0.222 41.116)",
+            swatch: "#f08c46",
+          },
+        },
+        {
+          label: "Chart 2",
+          cssVar: "--chart-2",
+          dark: {
+            value: "oklch(0.696 0.17 162.48)",
+            swatch: "#35b78a",
+          },
+          light: {
+            value: "oklch(0.6 0.118 184.704)",
+            swatch: "#429ca8",
+          },
+        },
+        {
+          label: "Chart 3",
+          cssVar: "--chart-3",
+          dark: {
+            value: "oklch(0.769 0.188 70.08)",
+            swatch: "#e8b84d",
+          },
+          light: {
+            value: "oklch(0.398 0.07 227.392)",
+            swatch: "#24536b",
+          },
+        },
+        {
+          label: "Chart 4",
+          cssVar: "--chart-4",
+          dark: {
+            value: "oklch(0.627 0.265 303.9)",
+            swatch: "#a855d8",
+          },
+          light: {
+            value: "oklch(0.828 0.189 84.429)",
+            swatch: "#e6b94f",
+          },
+        },
+        {
+          label: "Chart 5",
+          cssVar: "--chart-5",
+          dark: {
+            value: "oklch(0.645 0.246 16.439)",
+            swatch: "#e85b4f",
+          },
+          light: {
+            value: "oklch(0.769 0.188 70.08)",
+            swatch: "#e6b94f",
+          },
+        },
+      ],
+    },
   ],
 
   animations: {},
