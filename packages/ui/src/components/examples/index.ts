@@ -42,6 +42,8 @@ export const demoPaths: Record<string, string> = {
   "button-group": "button/button-group",
   // Card
   card: "card/default",
+  // Chart
+  chart: "chart/default",
   // Checkbox
   checkbox: "checkbox/default",
   "checkbox-disabled": "checkbox/disabled",

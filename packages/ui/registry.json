@@ -191,6 +191,20 @@
       "id": "card",
       "type": "component"
     },
+    "chart": {
+      "name": "chart",
+      "description": "A composable chart component built on top of Recharts with automatic color management and styled tooltips.",
+      "path": "components/ui/chart.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "recharts"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
+      "id": "chart",
+      "type": "component"
+    },
     "checkbox": {
       "name": "checkbox",
       "description": "A checkbox input component",
@@ -687,6 +701,26 @@
         "popup-arrow"
       ],
       "id": "tooltip",
+      "type": "component"
+    },
+    "sidebar": {
+      "name": "sidebar",
+      "description": "A composable, collapsible sidebar with support for mobile drawers, icon mode, and nested navigation.",
+      "path": "components/ui/sidebar.tsx",
+      "version": "1.0.0",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "cn",
+        "use-mobile",
+        "button",
+        "drawer",
+        "scroll-area",
+        "tooltip",
+        "separator"
+      ],
+      "id": "sidebar",
       "type": "component"
     },
     "cn": {

@@ -73,6 +73,15 @@ export const registryComponents = defineRegistryItems("component", {
     dependencies: [],
     registryDependencies: ["cn"],
   },
+  chart: {
+    name: "chart",
+    description:
+      "A composable chart component built on top of Recharts with automatic color management and styled tooltips.",
+    path: "components/ui/chart.tsx",
+    version: "1.0.0",
+    dependencies: ["recharts"],
+    registryDependencies: ["cn"],
+  },
   checkbox: {
     name: "checkbox",
     description: "A checkbox input component",
