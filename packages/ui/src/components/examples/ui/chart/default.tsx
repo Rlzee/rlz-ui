@@ -4,11 +4,9 @@ import type { ChartConfig } from "@rlz/ui/components/ui/chart";
 const config: ChartConfig = {
   revenue: {
     label: "Revenue",
-    color: "var(--chart-1)",
   },
   expenses: {
     label: "Expenses",
-    color: "var(--chart-2)",
   },
 };
 

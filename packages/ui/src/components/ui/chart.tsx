@@ -287,25 +287,18 @@ function ChartTooltipContent({
 
 const ChartLegend = RechartsPrimitive.Legend;
 
-// LegendPayload is the type Recharts exports for a legend payload item —
-// different from LegendProps (the props passed to <Legend>).
-type ChartLegendContentProps = React.ComponentProps<"div"> &
-  Omit<RechartsPrimitive.DefaultLegendContentProps, "payload"> & {
-    // Retyped: Recharts doesn't allow `undefined` here, but it's legitimate
-    // before the chart's first render.
-    payload?: readonly RechartsPrimitive.LegendPayload[];
-    hideIcon?: boolean;
-    nameKey?: string;
-  };
-
 function ChartLegendContent({
   className,
   hideIcon = false,
   payload,
   verticalAlign = "bottom",
   nameKey,
-  ...props
-}: ChartLegendContentProps) {
+}: React.ComponentProps<"div"> & {
+  payload?: readonly RechartsPrimitive.LegendPayload[];
+  verticalAlign?: "top" | "middle" | "bottom";
+  hideIcon?: boolean;
+  nameKey?: string;
+}) {
   const { config } = useChart();
 
   if (!payload?.length) {
@@ -320,7 +313,6 @@ function ChartLegendContent({
         verticalAlign === "top" ? "pb-3" : "pt-3",
         className
       )}
-      {...props}
     >
       {payload
         .filter((item) => item.type !== "none")
@@ -344,6 +336,7 @@ function ChartLegendContent({
                   style={{ backgroundColor: item.color }}
                 />
               )}
+
               <span className="text-muted-foreground">
                 {itemConfig?.label ?? item.value}
               </span>
@@ -354,7 +347,6 @@ function ChartLegendContent({
   );
 }
 
-/* eslint-disable react-refresh/only-export-components */
 const ChartExports = Object.assign(ChartRoot, {
   Style: ChartStyle,
   Tooltip: ChartTooltip,
