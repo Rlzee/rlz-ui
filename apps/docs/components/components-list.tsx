@@ -1,25 +1,12 @@
 import Link from "next/link";
-import { PAGES_NEW } from "@/lib/docs";
-import { source } from "@/lib/source";
+import { PAGES_NEW, getDocsComponents } from "@/lib/docs";
 
 export function ComponentsList() {
-  const componentsSection = (
-    Array.isArray((source.pageTree as any).children)
-      ? (source.pageTree as any).children
-      : []
-  ).find(
-    (section: any) =>
-      section.name?.toLowerCase() === "components" ||
-      section.url?.includes("/components")
-  );
-
-  const list = Array.isArray(componentsSection?.children)
-    ? componentsSection.children.filter((component: any) => !!component.url)
-    : [];
+  const components = getDocsComponents();
 
   return (
     <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-x-8 lg:gap-x-16 lg:gap-y-6 xl:gap-x-20">
-      {list.map((component: any) => (
+      {components.map((component: any) => (
         <Link
           key={component.$id}
           href={component.url}
