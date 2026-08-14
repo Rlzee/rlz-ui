@@ -61,73 +61,9 @@ export function PresetSidebar() {
   const { tab, setTab } = usePreset();
 
   return (
-    <Sidebar className="border-border">
-      <Sidebar.Header className="pt-2 px-2 pb-1">
-        <Sidebar.Menu>
-          <Sidebar.MenuItem className="pt-2 px-2">
-            <div className="flex justify-between items-center gap-2">
-              <div className="flex items-center gap-2">
-                <div className="grid h-8 w-10 place-items-center rounded-md bg-accent text-foreground border">
-                  <Sparkles className="h-4 w-4" />
-                </div>
-
-                <Input
-                  unstyled
-                  defaultValue="United Preset"
-                  className="text-md h-7"
-                />
-              </div>
-
-              <Menu>
-                <Menu.Trigger
-                  render={
-                    <Button
-                      size="icon-sm"
-                      variant="ghost"
-                      className="data-popup-open:bg-accent"
-                    />
-                  }
-                >
-                  <Ellipsis />
-                </Menu.Trigger>
-
-                <Menu.Popup
-                  positionerProps={{
-                    align: "start",
-                  }}
-                >
-                  <Menu.Group>
-                    <Menu.Item>
-                      <CloudSync />
-                      Publish
-                    </Menu.Item>
-
-                    <Menu.Item>
-                      <Share2 />
-                      Share
-                    </Menu.Item>
-
-                    <Menu.Item>
-                      <FileDown />
-                      Import
-                    </Menu.Item>
-
-                    <Menu.Item onClick={resetPreset}>
-                      <RotateCcw />
-                      Reset
-                    </Menu.Item>
-                  </Menu.Group>
-                </Menu.Popup>
-              </Menu>
-            </div>
-
-            <Sidebar.Separator className="mt-3 bg-border" />
-          </Sidebar.MenuItem>
-        </Sidebar.Menu>
-      </Sidebar.Header>
-
+    <Sidebar className="border-border h-[calc(100svh-var(--header-height))] top-(--header-height)">
       <Sidebar.Body>
-        <Sidebar.Group className="pt-0 px-2">
+        <Sidebar.Group className="pt-2 px-2">
           <Sidebar.GroupLabel>Collection</Sidebar.GroupLabel>
 
           <SidebarGroupContent>

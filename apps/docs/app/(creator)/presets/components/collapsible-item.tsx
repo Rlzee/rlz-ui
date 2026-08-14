@@ -32,33 +32,39 @@ export function CollapsibleItem({
           {triggerName}
         </Collapsible.Trigger>
 
-        <div className="flex items-center gap-0">
-          <Button
-            type="button"
-            variant="ghost"
-            className="!px-0 opacity-0 transition-opacity group-hover:opacity-100 hover:[&_svg]:text-foreground"
-            onClick={(event) => {
-              event.stopPropagation();
-              onEdit?.();
-            }}
-          >
-            <Edit />
-            <span className="sr-only">Edit {triggerName}</span>
-          </Button>
+        {(onEdit || onDelete) && (
+          <div className="flex items-center gap-0">
+            {onEdit && (
+              <Button
+                type="button"
+                variant="ghost"
+                className="!px-0 opacity-0 transition-opacity group-hover:opacity-100 hover:[&_svg]:text-foreground"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onEdit();
+                }}
+              >
+                <Edit />
+                <span className="sr-only">Edit {triggerName}</span>
+              </Button>
+            )}
 
-          <Button
-            type="button"
-            variant="ghost"
-            className="opacity-0 transition-opacity group-hover:opacity-100 hover:[&_svg]:text-destructive"
-            onClick={(event) => {
-              event.stopPropagation();
-              onDelete?.();
-            }}
-          >
-            <Trash2 />
-            <span className="sr-only">Delete {triggerName}</span>
-          </Button>
-        </div>
+            {onDelete && (
+              <Button
+                type="button"
+                variant="ghost"
+                className="opacity-0 transition-opacity group-hover:opacity-100 hover:[&_svg]:text-destructive"
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onDelete();
+                }}
+              >
+                <Trash2 />
+                <span className="sr-only">Delete {triggerName}</span>
+              </Button>
+            )}
+          </div>
+        )}
       </div>
 
       <Collapsible.Panel>{children}</Collapsible.Panel>

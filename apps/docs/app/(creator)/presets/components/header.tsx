@@ -16,7 +16,7 @@ export function Header() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
 
   return (
-    <div className="h-14 border-b w-full flex items-center px-4 sm:px-6 justify-between">
+    <div className="sticky top-0 z-40 w-full h-14 border-b flex items-center px-4 sm:px-6 justify-between">
       <div className="flex gap-0.5 items-center">
         <div className="h-4 w-4 shrink-0 rounded-sm border bg-foreground" />
         <div className="h-4 w-4 shrink-0 rounded-sm border bg-background" />
