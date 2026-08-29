@@ -22,11 +22,7 @@ export function PresetDialog({
         <Dialog.Header>
           <Dialog.Title>{name}</Dialog.Title>
         </Dialog.Header>
-        <Dialog.Body>
-          <CodeBlock>
-            <Pre>{children}</Pre>
-          </CodeBlock>
-        </Dialog.Body>
+        <Dialog.Body>{children}</Dialog.Body>
       </Dialog.Popup>
     </Dialog>
   );

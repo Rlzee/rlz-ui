@@ -61,25 +61,16 @@ This is a custom component, using Base UI's `useRender` hook, not a direct Base 
 
 ### Button
 
-| Prop      | Type                                                                                                    | Default     |
-| --------- | ------------------------------------------------------------------------------------------------------- | ----------- |
-| `variant` | `"primary" \| "secondary" \| "outline" \| "ghost" \| "link" \| "destructive"`                           | `"primary"` |
+| Prop      | Type                                                                                                      | Default     |
+| --------- | --------------------------------------------------------------------------------------------------------- | ----------- |
+| `variant` | `"primary" \| "secondary" \| "outline" \| "ghost" \| "link" \| "destructive"`                            | `"primary"` |
 | `size`    | `"xs" \| "sm" \| "md" \| "lg" \| "xl" \| "icon-xs" \| "icon-sm" \| "icon-md" \| "icon-lg" \| "icon-xl"` | `"md"`      |
-| `render`  | `React.ReactElement`                                                                                    | -           |
+| `loading` | `boolean`                                                                                                 | `false`     |
+| `render`  | `React.ReactElement`                                                                                      | -           |
+
+When `loading` is `true`, a spinner is appended automatically and the button is disabled.
 
 ## Examples
-
-### Different Sizes
-
-Use the `size` prop to change the size of the button.
-
-<ComponentPreview name="button-size" />
-
-### Disabled
-
-Use the `disabled` prop on `<Button>` to disable buttons.
-
-<ComponentPreview name="button-disabled" />
 
 ### Variants
 
@@ -87,11 +78,23 @@ Use the `variant` prop to change the appearance of the button.
 
 <ComponentPreview name="button-variants" />
 
-### Spinner
+### Different Sizes
 
-Use the `<Spinner />` component to add a loading spinner to the button.
+Use the `size` prop to change the size of the button.
 
-<ComponentPreview name="button-spinner" />
+<ComponentPreview name="button-size" />
+
+### Loading
+
+Use the `loading` prop to show a spinner and disable the button during async operations.
+
+<ComponentPreview name="button-loading" />
+
+### Disabled
+
+Use the `disabled` prop on `<Button>` to disable buttons.
+
+<ComponentPreview name="button-disabled" />
 
 ### Group
 

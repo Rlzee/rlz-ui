@@ -6,6 +6,8 @@ import { useRender } from "@base-ui/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@rlz/ui/lib/cn";
 
+import { LoaderCircle } from "lucide-react";
+
 const defaultClass = cn(
   "px-3 inline-flex items-center justify-center gap-1.5 whitespace-nowrap outline-none rounded-md font-medium transition-[color,box-shadow]",
   "disabled:pointer-events-none disabled:opacity-50",
@@ -34,7 +36,6 @@ const buttonVariants = cva(defaultClass, {
       md: "h-9 has-[>svg]:px-3 text-sm",
       lg: "h-10 px-4 has-[>svg]:px-4 text-base",
       xl: "h-11 px-4 has-[>svg]:px-6 text-lg",
-
       "icon-xs": "size-7 [&>svg:not([class*='size-'])]:size-3.5",
       "icon-sm": "size-8 [&>svg:not([class*='size-'])]:size-4",
       "icon-md": "size-9 [&>svg:not([class*='size-'])]:size-4",
@@ -45,16 +46,42 @@ const buttonVariants = cva(defaultClass, {
 });
 
 type ButtonProps = useRender.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants>;
+  VariantProps<typeof buttonVariants> & { loading?: boolean };
 
-function Button({ className, variant, size, render, ...props }: ButtonProps) {
+function Button({
+  className,
+  variant,
+  size,
+  render,
+  children,
+  loading = false,
+  disabled,
+  ...props
+}: ButtonProps) {
+  const isDisabled: boolean = Boolean(loading || disabled);
+
   const typeValue: React.ButtonHTMLAttributes<HTMLButtonElement>["type"] =
     render ? undefined : "button";
 
   const defaultProps = {
     "data-slot": "button",
-    className: cn(buttonVariants({ className, size, variant })),
+    "aria-disabled": loading || undefined,
+    "data-loading": loading ? "" : undefined,
     type: typeValue,
+    disabled: isDisabled,
+    className: cn(buttonVariants({ className, size, variant })),
+    children: (
+      <>
+        {children}
+        {loading && (
+          <LoaderCircle
+            aria-label="Loading"
+            className="animate-spin"
+            role="status"
+          />
+        )}
+      </>
+    ),
   };
 
   return useRender({
