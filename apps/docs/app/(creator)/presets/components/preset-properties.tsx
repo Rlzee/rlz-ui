@@ -9,7 +9,7 @@ export function PresetProperties() {
 
   return (
     <div
-      className="flex h-full min-h-0 flex-col border-l border-border"
+      className="flex flex-col border border-border bg-sidebar-background rounded-lg m-2"
       style={{ width: 470, minWidth: 470 }}
     >
       <div className="min-h-0">

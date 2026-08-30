@@ -15,14 +15,12 @@ export default function CreateLayout({
   return (
     <PresetProvider>
       <main className="flex h-screen w-screen flex-col overflow-hidden">
-        <Header />
+        {/*<Header />*/}
 
         <SidebarProvider className="flex min-h-0 flex-1">
           <PresetSidebar />
 
-          <SidebarInset className="min-h-0 flex-1 bg-secondary">
-            {children}
-          </SidebarInset>
+          <SidebarInset className="min-h-0 flex-1">{children}</SidebarInset>
 
           <PresetProperties />
         </SidebarProvider>

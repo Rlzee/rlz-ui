@@ -1,26 +1,10 @@
 "use client";
 
-import { useSetAtom } from "jotai";
-import { resetPresetAtom } from "../preset-builder";
 import { usePreset, type PresetTab } from "../use-preset";
 
 import { Sidebar, SidebarGroupContent } from "@rlz/ui/components/ui/sidebar";
-import { Menu } from "@rlz/ui/components/ui/menu";
-import { Button } from "@rlz/ui/components/ui/button";
-import { Input } from "@rlz/ui/components/ui/input";
 
-import {
-  Baseline,
-  Palette,
-  Layers,
-  Sparkles,
-  Ellipsis,
-  FileDown,
-  Share2,
-  CloudSync,
-  RotateCcw,
-  Target,
-} from "lucide-react";
+import { Baseline, Palette, Layers, Sparkles } from "lucide-react";
 
 type NavTab = {
   icon: React.ReactNode;
@@ -57,11 +41,10 @@ const NAV_TABS: NavTab[] = [
 ];
 
 export function PresetSidebar() {
-  const resetPreset = useSetAtom(resetPresetAtom);
   const { tab, setTab } = usePreset();
 
   return (
-    <Sidebar className="border-border h-[calc(100svh-var(--header-height))] top-(--header-height)">
+    <Sidebar variant="floating">
       <Sidebar.Body>
         <Sidebar.Group className="pt-2 px-2">
           <Sidebar.GroupLabel>Collection</Sidebar.GroupLabel>
