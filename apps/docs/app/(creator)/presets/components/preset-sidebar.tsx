@@ -44,7 +44,7 @@ export function PresetSidebar() {
   const { tab, setTab } = usePreset();
 
   return (
-    <Sidebar variant="floating">
+    <Sidebar className="border-border h-[calc(100svh-var(--header-height))] top-(--header-height)">
       <Sidebar.Body>
         <Sidebar.Group className="pt-2 px-2">
           <Sidebar.GroupLabel>Collection</Sidebar.GroupLabel>

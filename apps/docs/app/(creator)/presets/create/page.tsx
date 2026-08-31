@@ -13,7 +13,7 @@ export default function Page() {
   const { resolvedTheme } = useTheme();
 
   return (
-    <div className="h-full">
+    <div className="h-full z-5">
       {tab === "base" && (
         <div className="flex h-full items-center justify-center">
           <div className="flex max-w-xl flex-col gap-3">
