@@ -6,6 +6,7 @@ import { getTailwindInfo } from "@/utils/get-tailwind-info";
 import { getTypeScriptInfo } from "@/utils/get-typescript-info";
 import { getFontByFamily } from "@rlz/fonts";
 import { ICON_LIBS, type IconLib } from "@/icons/libs";
+import { readRegistry } from "@/utils/read-registry";
 import { runInit } from "./run";
 
 export const initCommand = new Command()
@@ -18,24 +19,31 @@ export const initCommand = new Command()
     "--icon-lib <lib>",
     `Icon library (${Object.keys(ICON_LIBS).join(", ")})`
   )
-  .option("--preset", "Initialize with preset support")
+  .option("--preset [preset]", "Preset to use")
   .action(
     async (options: {
       fontSans?: string;
       fontHeading?: string;
       fontMono?: string;
       iconLib?: IconLib;
+      preset?: string;
     }) => {
       try {
         const cwd = process.cwd();
 
+        // --------------------------------
+        // Project checks
+        // --------------------------------
+
         const packageInfo = getPackageInfo(cwd, false);
+
         if (!packageInfo) {
           logger.error("No package.json found. Run this inside a project.");
           process.exit(1);
         }
 
         const frameworkInfo = getFramework(packageInfo);
+
         if (frameworkInfo.framework === "invalid") {
           logger.error(
             "Unsupported framework. rlz-ui supports Next.js, Vite, and React projects."
@@ -44,6 +52,7 @@ export const initCommand = new Command()
         }
 
         const ts = getTypeScriptInfo(cwd, packageInfo);
+
         if (!ts.installed) {
           logger.error("TypeScript is required to use rlz-ui.");
           process.exit(1);
@@ -57,6 +66,7 @@ export const initCommand = new Command()
         }
 
         const tailwind = getTailwindInfo(cwd, packageInfo);
+
         if (!tailwind.installed) {
           logger.error("Tailwind CSS is required (v4+).");
           process.exit(1);
@@ -68,6 +78,10 @@ export const initCommand = new Command()
           );
           process.exit(1);
         }
+
+        // --------------------------------
+        // Fonts
+        // --------------------------------
 
         if (options.fontSans && !getFontByFamily(options.fontSans)) {
           logger.error(`Unknown sans font: ${options.fontSans}`);
@@ -84,6 +98,10 @@ export const initCommand = new Command()
           process.exit(1);
         }
 
+        // --------------------------------
+        // Icons
+        // --------------------------------
+
         if (
           options.iconLib &&
           !Object.keys(ICON_LIBS).includes(options.iconLib)
@@ -95,6 +113,40 @@ export const initCommand = new Command()
           );
           process.exit(1);
         }
+
+        // --------------------------------
+        // Preset
+        // --------------------------------
+
+        // --------------------------------
+        // Preset
+        // --------------------------------
+
+        let presetName: string | undefined;
+
+        if (options.preset !== undefined) {
+          presetName = options.preset || "default";
+
+          if (presetName !== "default") {
+            const registry = await readRegistry();
+
+            if (!registry) {
+              logger.error("Registry not found.");
+              process.exit(1);
+            }
+
+            const preset = registry.presets[presetName];
+
+            if (!preset) {
+              logger.error(`Preset not found in registry: ${presetName}`);
+              process.exit(1);
+            }
+          }
+        }
+
+        // --------------------------------
+        // Logs
+        // --------------------------------
 
         logger.info(`Framework detected: ${frameworkInfo.framework}`);
         logger.info(`TypeScript v${ts.rawVersion}`);
@@ -116,12 +168,21 @@ export const initCommand = new Command()
           logger.info(`Icon library: ${options.iconLib}`);
         }
 
+        if (presetName !== undefined) {
+          logger.info(`Preset: ${presetName}`);
+        }
+
+        // --------------------------------
+        // Init
+        // --------------------------------
+
         await runInit({
           framework: frameworkInfo.framework,
           fontSans: options.fontSans,
           fontHeading: options.fontHeading,
           fontMono: options.fontMono,
-          iconLib: options.iconLib as IconLib | undefined,
+          iconLib: options.iconLib,
+          preset: presetName,
         });
       } catch (error) {
         logger.error("Initialization failed.");

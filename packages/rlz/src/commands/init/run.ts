@@ -29,6 +29,7 @@ type InitOptions = {
   fontHeading?: string;
   fontMono?: string;
   iconLib?: IconLib;
+  preset?: string;
 };
 
 export async function runInit({
@@ -38,6 +39,7 @@ export async function runInit({
   fontHeading,
   fontMono,
   iconLib,
+  preset,
 }: InitOptions): Promise<void> {
   const hasSrc = await fs.pathExists(path.join(cwd, "src"));
   const rootDir = hasSrc ? "src" : ".";
