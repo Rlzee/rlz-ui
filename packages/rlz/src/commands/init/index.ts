@@ -18,6 +18,7 @@ export const initCommand = new Command()
     "--icon-lib <lib>",
     `Icon library (${Object.keys(ICON_LIBS).join(", ")})`
   )
+  .option("--preset", "Initialize with preset support")
   .action(
     async (options: {
       fontSans?: string;

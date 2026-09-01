@@ -28,4 +28,5 @@ export const rlzConfigSchema = z.object({
   css: z.string(),
   aliases: aliasesSchema,
   icons: iconLibSchema,
+  preset: z.string().optional(),
 });

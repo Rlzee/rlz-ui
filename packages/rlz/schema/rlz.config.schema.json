@@ -59,6 +59,9 @@
         "lucide",
         "tabler"
       ]
+    },
+    "preset": {
+      "type": "string"
     }
   },
   "required": [

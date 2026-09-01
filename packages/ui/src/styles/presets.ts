@@ -3,7 +3,7 @@ import type { RegistryPreset } from "@rlz/registry";
 export const defaultPreset: RegistryPreset = {
   type: "preset",
   id: "default",
-  name: "United State",
+  name: "default",
   version: "1.0.0",
   path: "styles/presets.ts",
   description: "default rlz-ui preset",

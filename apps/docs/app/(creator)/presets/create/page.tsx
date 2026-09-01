@@ -16,7 +16,7 @@ export default function Page() {
     <div className="h-full z-5">
       {tab === "base" && (
         <div className="flex h-full items-center justify-center">
-          <div className="flex max-w-xl flex-col gap-3">
+          <div className="flex max-w-xl flex-col gap-3  bg-background ring-sidebar-border ring-2 p-6 rounded-lg">
             <h1 className="text-3xl font-semibold tracking-tight xl:text-4xl">
               Heading Font
             </h1>
