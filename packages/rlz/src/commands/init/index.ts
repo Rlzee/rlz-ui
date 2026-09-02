@@ -9,6 +9,9 @@ import { ICON_LIBS, type IconLib } from "@/icons/libs";
 import { readRegistry } from "@/utils/read-registry";
 import { runInit } from "./run";
 
+import path from "path";
+import fs from "fs-extra";
+
 export const initCommand = new Command()
   .name("init")
   .description("Initialize rlz-ui")
@@ -19,7 +22,10 @@ export const initCommand = new Command()
     "--icon-lib <lib>",
     `Icon library (${Object.keys(ICON_LIBS).join(", ")})`
   )
-  .option("--preset [preset]", "Preset to use")
+  .option(
+    "--preset <preset>",
+    "Preset name from registry or path to a JSON preset"
+  )
   .action(
     async (options: {
       fontSans?: string;
@@ -118,16 +124,51 @@ export const initCommand = new Command()
         // Preset
         // --------------------------------
 
-        // --------------------------------
-        // Preset
-        // --------------------------------
-
-        let presetName: string | undefined;
+        let preset:
+          | {
+              type: "registry" | "file";
+              value: string;
+            }
+          | undefined;
 
         if (options.preset !== undefined) {
-          presetName = options.preset || "default";
+          const presetInput = options.preset;
 
-          if (presetName !== "default") {
+          const isFile =
+            presetInput.startsWith("./") ||
+            presetInput.startsWith("../") ||
+            presetInput.startsWith("/") ||
+            presetInput.endsWith(".json");
+
+          // --------------------------------
+          // Local JSON preset
+          // --------------------------------
+
+          if (isFile) {
+            const presetPath = path.resolve(cwd, presetInput);
+
+            if (!(await fs.pathExists(presetPath))) {
+              logger.error(`Preset file not found: ${presetInput}`);
+              process.exit(1);
+            }
+
+            if (path.extname(presetPath).toLowerCase() !== ".json") {
+              logger.error(`Preset file must be a JSON file: ${presetInput}`);
+              process.exit(1);
+            }
+
+            preset = {
+              type: "file",
+              value: presetPath,
+            };
+
+            logger.info(`Preset file: ${presetInput}`);
+          }
+
+          // --------------------------------
+          // Registry preset
+          // --------------------------------
+          else {
             const registry = await readRegistry();
 
             if (!registry) {
@@ -135,12 +176,19 @@ export const initCommand = new Command()
               process.exit(1);
             }
 
-            const preset = registry.presets[presetName];
+            const registryPreset = registry.presets[presetInput];
 
-            if (!preset) {
-              logger.error(`Preset not found in registry: ${presetName}`);
+            if (!registryPreset) {
+              logger.error(`Preset not found in registry: ${presetInput}`);
               process.exit(1);
             }
+
+            preset = {
+              type: "registry",
+              value: presetInput,
+            };
+
+            logger.info(`Preset: ${presetInput}`);
           }
         }
 
@@ -168,10 +216,6 @@ export const initCommand = new Command()
           logger.info(`Icon library: ${options.iconLib}`);
         }
 
-        if (presetName !== undefined) {
-          logger.info(`Preset: ${presetName}`);
-        }
-
         // --------------------------------
         // Init
         // --------------------------------
@@ -182,7 +226,7 @@ export const initCommand = new Command()
           fontHeading: options.fontHeading,
           fontMono: options.fontMono,
           iconLib: options.iconLib,
-          preset: presetName,
+          preset,
         });
       } catch (error) {
         logger.error("Initialization failed.");

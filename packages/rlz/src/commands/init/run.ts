@@ -29,7 +29,10 @@ type InitOptions = {
   fontHeading?: string;
   fontMono?: string;
   iconLib?: IconLib;
-  preset?: string;
+  preset?: {
+    type: "registry" | "file";
+    value: string;
+  };
 };
 
 export async function runInit({
@@ -161,6 +164,9 @@ export async function runInit({
     css: validatedCssPath,
     aliases: defaultAliasesRlzConfig,
     icons: selectedIconLib,
+    ...(preset && {
+      preset: preset.value,
+    }),
   };
 
   createConfig(cwd, rlzConfig);
