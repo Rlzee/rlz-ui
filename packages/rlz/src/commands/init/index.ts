@@ -1,4 +1,7 @@
 import { Command } from "commander";
+import path from "node:path";
+import fs from "fs-extra";
+
 import { logger } from "@/utils/logger";
 import { getPackageInfo } from "@/utils/get-package-info";
 import { getFramework } from "@/utils/get-framework";
@@ -9,8 +12,8 @@ import { ICON_LIBS, type IconLib } from "@/icons/libs";
 import { readRegistry } from "@/utils/read-registry";
 import { runInit } from "./run";
 
-import path from "path";
-import fs from "fs-extra";
+import type { RegistryPreset } from "@rlz/registry";
+import type { PresetConfig } from "@/config/types";
 
 export const initCommand = new Command()
   .name("init")
@@ -86,7 +89,7 @@ export const initCommand = new Command()
         }
 
         // --------------------------------
-        // Fonts
+        // CLI options validation
         // --------------------------------
 
         if (options.fontSans && !getFontByFamily(options.fontSans)) {
@@ -104,10 +107,6 @@ export const initCommand = new Command()
           process.exit(1);
         }
 
-        // --------------------------------
-        // Icons
-        // --------------------------------
-
         if (
           options.iconLib &&
           !Object.keys(ICON_LIBS).includes(options.iconLib)
@@ -121,15 +120,11 @@ export const initCommand = new Command()
         }
 
         // --------------------------------
-        // Preset
+        // Preset resolution
         // --------------------------------
 
-        let preset:
-          | {
-              type: "registry" | "file";
-              value: string;
-            }
-          | undefined;
+        let preset: RegistryPreset | undefined;
+        let presetConfig: PresetConfig | undefined;
 
         if (options.preset !== undefined) {
           const presetInput = options.preset;
@@ -137,7 +132,7 @@ export const initCommand = new Command()
           const isFile =
             presetInput.startsWith("./") ||
             presetInput.startsWith("../") ||
-            presetInput.startsWith("/") ||
+            path.isAbsolute(presetInput) ||
             presetInput.endsWith(".json");
 
           // --------------------------------
@@ -157,12 +152,20 @@ export const initCommand = new Command()
               process.exit(1);
             }
 
-            preset = {
-              type: "file",
-              value: presetPath,
-            };
+            try {
+              preset = (await fs.readJson(presetPath)) as RegistryPreset;
+            } catch (error) {
+              logger.error(`Invalid preset JSON: ${presetInput}`);
+              logger.error(error);
+              process.exit(1);
+            }
 
-            logger.info(`Preset file: ${presetInput}`);
+            presetConfig = {
+              id: preset.id,
+              name: preset.name,
+              source: "path",
+              path: path.relative(cwd, presetPath) || "./",
+            };
           }
 
           // --------------------------------
@@ -183,12 +186,13 @@ export const initCommand = new Command()
               process.exit(1);
             }
 
-            preset = {
-              type: "registry",
-              value: presetInput,
-            };
+            preset = registryPreset;
 
-            logger.info(`Preset: ${presetInput}`);
+            presetConfig = {
+              id: preset.id,
+              name: preset.name,
+              source: "registry",
+            };
           }
         }
 
@@ -216,17 +220,23 @@ export const initCommand = new Command()
           logger.info(`Icon library: ${options.iconLib}`);
         }
 
+        if (presetConfig) {
+          logger.info(`Preset: ${presetConfig.name} (${presetConfig.source})`);
+        }
+
         // --------------------------------
         // Init
         // --------------------------------
 
         await runInit({
+          cwd,
           framework: frameworkInfo.framework,
           fontSans: options.fontSans,
           fontHeading: options.fontHeading,
           fontMono: options.fontMono,
           iconLib: options.iconLib,
           preset,
+          presetConfig,
         });
       } catch (error) {
         logger.error("Initialization failed.");

@@ -22,11 +22,25 @@ export const dirsSchema = z
     ) as Record<string, z.ZodOptional<z.ZodString>>
   );
 
+export const presetConfigSchema = z.discriminatedUnion("source", [
+  z.object({
+    id: z.string(),
+    name: z.string(),
+    source: z.literal("registry"),
+  }),
+  z.object({
+    id: z.string(),
+    name: z.string(),
+    source: z.literal("path"),
+    path: z.string(),
+  }),
+]);
+
 export const rlzConfigSchema = z.object({
   framework: frameworkSchema,
   dirs: dirsSchema,
   css: z.string(),
   aliases: aliasesSchema,
   icons: iconLibSchema,
-  preset: z.string().optional(),
+  preset: presetConfigSchema.optional(),
 });

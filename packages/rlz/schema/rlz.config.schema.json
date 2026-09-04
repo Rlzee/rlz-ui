@@ -61,7 +61,54 @@
       ]
     },
     "preset": {
-      "type": "string"
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "const": "registry"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "source"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string",
+              "const": "path"
+            },
+            "path": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "source",
+            "path"
+          ],
+          "additionalProperties": false
+        }
+      ]
     }
   },
   "required": [
