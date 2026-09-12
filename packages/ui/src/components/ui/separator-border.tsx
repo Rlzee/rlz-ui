@@ -1,5 +1,5 @@
 import { ComponentProps } from "react";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 type Orientation = "horizontal" | "vertical";
 

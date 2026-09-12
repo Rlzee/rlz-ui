@@ -8,9 +8,7 @@
       "destPath": "base",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false,
       "id": "backdrop",
       "type": "component"
@@ -22,9 +20,7 @@
       "destPath": "base",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false,
       "id": "menu-base",
       "type": "component"
@@ -36,9 +32,7 @@
       "destPath": "base",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false,
       "id": "popup-arrow",
       "type": "component"
@@ -50,9 +44,7 @@
       "destPath": "base",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false,
       "id": "shortcut",
       "type": "component"
@@ -64,9 +56,7 @@
       "destPath": "base",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false,
       "id": "x-close",
       "type": "component"
@@ -77,9 +67,7 @@
       "path": "components/ui/accordion.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "accordion",
       "type": "component"
     },
@@ -90,7 +78,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "backdrop"
       ],
       "id": "alert-dialog",
@@ -104,9 +91,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "alert",
       "type": "component"
     },
@@ -117,7 +102,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "input",
         "scroll-area",
         "popup-arrow"
@@ -133,9 +117,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "avatar",
       "type": "component"
     },
@@ -147,9 +129,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "badge",
       "type": "component"
     },
@@ -159,9 +139,7 @@
       "path": "components/ui/breadcrumb.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "breadcrumb",
       "type": "component"
     },
@@ -173,9 +151,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "button",
       "type": "component"
     },
@@ -185,9 +161,7 @@
       "path": "components/ui/card.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "card",
       "type": "component"
     },
@@ -199,9 +173,7 @@
       "dependencies": [
         "recharts"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "chart",
       "type": "component"
     },
@@ -211,9 +183,7 @@
       "path": "components/ui/checkbox.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "checkbox",
       "type": "component"
     },
@@ -223,9 +193,7 @@
       "path": "components/ui/collapsible.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "collapsible",
       "type": "component"
     },
@@ -236,7 +204,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "scroll-area",
         "input",
         "popup-arrow",
@@ -252,7 +219,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "autocomplete",
         "backdrop",
         "shortcut"
@@ -267,7 +233,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "menu-base",
         "shortcut"
       ],
@@ -281,7 +246,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "backdrop",
         "scroll-area",
         "x-close"
@@ -296,7 +260,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "backdrop",
         "scroll-area",
         "x-close"
@@ -312,9 +275,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "empty",
       "type": "component"
     },
@@ -326,9 +287,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "field",
       "type": "component"
     },
@@ -338,9 +297,7 @@
       "path": "components/ui/fieldset.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "fieldset",
       "type": "component"
     },
@@ -350,9 +307,7 @@
       "path": "components/ui/form.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "form",
       "type": "component"
     },
@@ -365,7 +320,6 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "cn",
         "separator"
       ],
       "id": "group",
@@ -380,7 +334,6 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "cn",
         "input",
         "textarea"
       ],
@@ -393,9 +346,7 @@
       "path": "components/ui/input.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "input",
       "type": "component"
     },
@@ -405,9 +356,7 @@
       "path": "components/ui/kbd.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "kbd",
       "type": "component"
     },
@@ -417,9 +366,7 @@
       "path": "components/ui/label.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "label",
       "type": "component"
     },
@@ -430,7 +377,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "popup-arrow",
         "menu-base",
         "shortcut"
@@ -444,9 +390,7 @@
       "path": "components/ui/menubar.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "menubar",
       "type": "component"
     },
@@ -456,9 +400,7 @@
       "path": "components/ui/meter.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "meter",
       "type": "component"
     },
@@ -469,7 +411,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "label"
       ],
       "id": "number-field",
@@ -482,7 +423,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "separator"
       ],
       "id": "otp-field",
@@ -495,7 +435,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "popup-arrow"
       ],
       "id": "popover",
@@ -508,7 +447,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "popup-arrow"
       ],
       "id": "preview-card",
@@ -520,9 +458,7 @@
       "path": "components/ui/progress.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "progress",
       "type": "component"
     },
@@ -532,9 +468,7 @@
       "path": "components/ui/radio-group.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "radio-group",
       "type": "component"
     },
@@ -544,9 +478,7 @@
       "path": "components/ui/scroll-area.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "scroll-area",
       "type": "component"
     },
@@ -557,7 +489,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "button"
       ],
       "id": "select",
@@ -569,9 +500,7 @@
       "path": "components/ui/separator.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "separator",
       "type": "component"
     },
@@ -581,9 +510,7 @@
       "path": "components/ui/skeleton.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "skeleton",
       "type": "component"
     },
@@ -593,9 +520,7 @@
       "path": "components/ui/slider.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "slider",
       "type": "component"
     },
@@ -605,9 +530,7 @@
       "path": "components/ui/switch.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "switch",
       "type": "component"
     },
@@ -617,9 +540,7 @@
       "path": "components/ui/table.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "table",
       "type": "component"
     },
@@ -631,9 +552,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "tabs",
       "type": "component"
     },
@@ -643,9 +562,7 @@
       "path": "components/ui/textarea.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "textarea",
       "type": "component"
     },
@@ -656,7 +573,6 @@
       "version": "1.0.0",
       "dependencies": [],
       "registryDependencies": [
-        "cn",
         "button"
       ],
       "id": "toast",
@@ -670,9 +586,7 @@
       "dependencies": [
         "class-variance-authority"
       ],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "toggle",
       "type": "component"
     },
@@ -682,9 +596,7 @@
       "path": "components/ui/toolbar.tsx",
       "version": "1.0.0",
       "dependencies": [],
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "id": "toolbar",
       "type": "component"
     },
@@ -697,7 +609,6 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "cn",
         "popup-arrow"
       ],
       "id": "tooltip",
@@ -712,7 +623,6 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "cn",
         "use-mobile",
         "button",
         "drawer",
@@ -722,14 +632,6 @@
       ],
       "id": "sidebar",
       "type": "component"
-    },
-    "cn": {
-      "name": "cn",
-      "description": "",
-      "path": "lib/cn.ts",
-      "version": "1.0.0",
-      "id": "cn",
-      "type": "lib"
     },
     "use-copy-to-clipboard": {
       "name": "Use Copy To Clipboard",

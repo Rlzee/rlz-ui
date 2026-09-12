@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { OTPField as OTPFieldPrimitive } from "@base-ui/react/otp-field";
 import { Separator } from "@rlz/ui/components/ui/separator";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function OTPFieldRoot({
   className,

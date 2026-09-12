@@ -8,8 +8,7 @@ import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
-import { cn } from "@rlz/ui/lib/cn";
-import { de } from "zod/v4/locales";
+import { cn } from "cn";
 
 export const PopoverCreateHandle = PopoverPrimitive.createHandle;
 

@@ -7,7 +7,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/accordion.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   "alert-dialog": {
     name: "alert-dialog",
@@ -15,7 +15,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/alert-dialog.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "backdrop"],
+    registryDependencies: ["backdrop"],
   },
   alert: {
     name: "alert",
@@ -23,7 +23,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/alert.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   autocomplete: {
     name: "autocomplete",
@@ -31,7 +31,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/autocomplete.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "input", "scroll-area", "popup-arrow"],
+    registryDependencies: ["input", "scroll-area", "popup-arrow"],
   },
   avatar: {
     name: "avatar",
@@ -39,7 +39,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/avatar.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   badge: {
     name: "badge",
@@ -47,7 +47,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/badge.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   breadcrumb: {
     name: "breadcrumb",
@@ -55,7 +55,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/breadcrumb.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   button: {
     name: "button",
@@ -63,7 +63,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/button.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   card: {
     name: "card",
@@ -71,7 +71,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/card.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   chart: {
     name: "chart",
@@ -80,7 +80,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/chart.tsx",
     version: "1.0.0",
     dependencies: ["recharts"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   checkbox: {
     name: "checkbox",
@@ -88,7 +88,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/checkbox.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   collapsible: {
     name: "collapsible",
@@ -96,7 +96,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/collapsible.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   combobox: {
     name: "combobox",
@@ -104,13 +104,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/combobox.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: [
-      "cn",
-      "scroll-area",
-      "input",
-      "popup-arrow",
-      "button",
-    ],
+    registryDependencies: ["scroll-area", "input", "popup-arrow", "button"],
   },
   command: {
     name: "command",
@@ -118,7 +112,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/command.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "autocomplete", "backdrop", "shortcut"],
+    registryDependencies: ["autocomplete", "backdrop", "shortcut"],
   },
   "context-menu": {
     name: "context-menu",
@@ -126,7 +120,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/context-menu.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "menu-base", "shortcut"],
+    registryDependencies: ["menu-base", "shortcut"],
   },
   dialog: {
     name: "dialog",
@@ -134,7 +128,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/dialog.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "backdrop", "scroll-area", "x-close"],
+    registryDependencies: ["backdrop", "scroll-area", "x-close"],
   },
   drawer: {
     name: "drawer",
@@ -142,7 +136,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/drawer.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "backdrop", "scroll-area", "x-close"],
+    registryDependencies: ["backdrop", "scroll-area", "x-close"],
   },
   empty: {
     name: "empty",
@@ -150,7 +144,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/empty.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   field: {
     name: "field",
@@ -158,7 +152,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/field.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   fieldset: {
     name: "fieldset",
@@ -166,7 +160,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/fieldset.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   form: {
     name: "form",
@@ -174,7 +168,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/form.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   group: {
     name: "group",
@@ -182,7 +176,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/group.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn", "separator"],
+    registryDependencies: ["separator"],
   },
   "input-group": {
     name: "input-group",
@@ -190,7 +184,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/input-group.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn", "input", "textarea"],
+    registryDependencies: ["input", "textarea"],
   },
   input: {
     name: "input",
@@ -198,7 +192,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/input.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   kbd: {
     name: "kbd",
@@ -206,7 +200,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/kbd.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   label: {
     name: "label",
@@ -214,7 +208,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/label.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   menu: {
     name: "menu",
@@ -222,7 +216,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/menu.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "popup-arrow", "menu-base", "shortcut"],
+    registryDependencies: ["popup-arrow", "menu-base", "shortcut"],
   },
   menubar: {
     name: "menubar",
@@ -230,7 +224,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/menubar.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   meter: {
     name: "meter",
@@ -238,7 +232,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/meter.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   "number-field": {
     name: "number-field",
@@ -246,7 +240,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/number-field.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "label"],
+    registryDependencies: ["label"],
   },
   "otp-field": {
     name: "otp-field",
@@ -254,7 +248,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/otp-field",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "separator"],
+    registryDependencies: ["separator"],
   },
   popover: {
     name: "popover",
@@ -262,7 +256,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/popover.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "popup-arrow"],
+    registryDependencies: ["popup-arrow"],
   },
   "preview-card": {
     name: "preview-card",
@@ -270,7 +264,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/preview-card.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "popup-arrow"],
+    registryDependencies: ["popup-arrow"],
   },
   progress: {
     name: "progress",
@@ -278,7 +272,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/progress.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   "radio-group": {
     name: "radio-group",
@@ -286,7 +280,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/radio-group.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   "scroll-area": {
     name: "scroll-area",
@@ -294,7 +288,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/scroll-area.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   select: {
     name: "select",
@@ -302,7 +296,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/select.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "button"],
+    registryDependencies: ["button"],
   },
   separator: {
     name: "separator",
@@ -310,7 +304,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/separator.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   skeleton: {
     name: "skeleton",
@@ -318,7 +312,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/skeleton.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   slider: {
     name: "slider",
@@ -326,7 +320,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/slider.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   switch: {
     name: "switch",
@@ -334,7 +328,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/switch.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   table: {
     name: "table",
@@ -342,7 +336,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/table.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   tabs: {
     name: "tabs",
@@ -350,7 +344,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/tabs.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   textarea: {
     name: "textarea",
@@ -358,7 +352,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/textarea.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   toast: {
     name: "toast",
@@ -366,7 +360,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/toast.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn", "button"],
+    registryDependencies: ["button"],
   },
   toggle: {
     name: "toggle",
@@ -374,7 +368,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/toggle.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   toolbar: {
     name: "toolbar",
@@ -382,7 +376,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/toolbar.tsx",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
   },
   tooltip: {
     name: "tooltip",
@@ -390,7 +384,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/tooltip.tsx",
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
-    registryDependencies: ["cn", "popup-arrow"],
+    registryDependencies: ["popup-arrow"],
   },
   sidebar: {
     name: "sidebar",
@@ -400,7 +394,6 @@ export const registryComponents = defineRegistryItems("component", {
     version: "1.0.0",
     dependencies: ["class-variance-authority"],
     registryDependencies: [
-      "cn",
       "use-mobile",
       "button",
       "drawer",

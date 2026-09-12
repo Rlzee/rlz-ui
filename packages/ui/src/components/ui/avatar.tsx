@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 const avatarVariants = cva(
   "relative flex shrink-0 overflow-hidden rounded-full",

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y";
 type Animation = "bottom" | "top" | "left" | "right";

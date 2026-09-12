@@ -9,7 +9,7 @@ import {
   useAutocompleteFilter,
 } from "@rlz/ui/components/ui/autocomplete";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 export const CommandCreateHandle = CommandDialogPrimitive.createHandle;
 

@@ -7,7 +7,7 @@ import {
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 const TooltipCreateHandle = TooltipPrimitive.createHandle;
 

@@ -4,7 +4,7 @@ import type * as React from "react";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { type ButtonProps, buttonVariants } from "@rlz/ui/components/ui/button";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { ChevronDown, Check } from "lucide-react";
 
 const SelectRoot = SelectPrimitive.Root;

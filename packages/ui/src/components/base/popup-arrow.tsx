@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 export type PopupArrowPublicProps = Omit<
   PopupArrowProps<React.ElementType>,

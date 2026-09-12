@@ -1,7 +1,7 @@
 "use client";
 
 import { Meter as MeterPrimitive } from "@base-ui/react/meter";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function MeterRoot({ className, ...props }: MeterPrimitive.Root.Props) {
   return (

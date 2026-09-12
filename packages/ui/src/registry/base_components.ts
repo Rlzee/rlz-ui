@@ -8,7 +8,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
   "menu-base": {
@@ -18,7 +18,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
   "popup-arrow": {
@@ -28,7 +28,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
   shortcut: {
@@ -38,7 +38,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
   "x-close": {
@@ -48,7 +48,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: [],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
 });

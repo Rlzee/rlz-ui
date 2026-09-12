@@ -3,7 +3,7 @@
 import type * as React from "react";
 import { Checkbox as CheckboxPrimitive } from "@base-ui/react/checkbox";
 import { CheckboxGroup as CheckboxGroupPrimitive } from "@base-ui/react/checkbox-group";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { Check, Minus } from "lucide-react";
 
 function CheckboxRoot({ className, ...props }: CheckboxPrimitive.Root.Props) {

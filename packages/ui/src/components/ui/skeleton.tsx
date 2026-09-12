@@ -1,4 +1,4 @@
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 export function Skeleton({ className, ...props }: React.ComponentProps<"div">) {
   return (

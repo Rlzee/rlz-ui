@@ -1,7 +1,7 @@
 "use client";
 
 import { Field as FieldPrimitive } from "@base-ui/react/field";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function FieldGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (

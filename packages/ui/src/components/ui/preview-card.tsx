@@ -6,7 +6,7 @@ import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function PreviewCardRoot(props: PreviewCardPrimitive.Root.Props) {
   return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />;

@@ -8,7 +8,7 @@ import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { ChevronDown, X } from "lucide-react";
 
 const AutocompleteRoot: typeof AutocompletePrimitive.Root =

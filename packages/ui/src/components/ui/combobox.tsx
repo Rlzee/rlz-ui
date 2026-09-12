@@ -9,7 +9,7 @@ import {
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
 import { Check, ChevronDown, X } from "lucide-react";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 export const ComboboxContext = React.createContext<{
   chipsRef: React.RefObject<Element | null> | null;

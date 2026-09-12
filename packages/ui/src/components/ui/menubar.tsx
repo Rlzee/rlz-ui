@@ -1,6 +1,6 @@
 import { Menubar as MenubarPrimitive } from "@base-ui/react/menubar";
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function Menubar({ className, ...props }: MenubarPrimitive.Props) {
   return (

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 const AlertDialogCreateHandle: typeof AlertDialogPrimitive.createHandle =
   AlertDialogPrimitive.createHandle;

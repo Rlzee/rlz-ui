@@ -6,7 +6,7 @@ import {
   PopupArrow,
   type PopupArrowPublicProps as ArrowType,
 } from "@rlz/ui/components/base/popup-arrow";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { MenuBase } from "@rlz/ui/components/base/menu-base";
 import { Shortcut } from "@rlz/ui/components/base/shortcut";
 

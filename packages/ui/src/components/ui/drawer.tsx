@@ -4,7 +4,7 @@ import * as React from "react";
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";

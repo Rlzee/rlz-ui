@@ -4,7 +4,7 @@ import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 import type { TooltipValueType } from "recharts";
 
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 export type ChartConfig = Record<
   string,

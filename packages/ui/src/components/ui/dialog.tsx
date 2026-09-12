@@ -7,7 +7,7 @@ import { useRender } from "@base-ui/react/use-render";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 type DialogVariant = "default" | "bare" | "bare-bottom" | "bare-top";
 const DialogVariantContext = React.createContext<DialogVariant>("default");

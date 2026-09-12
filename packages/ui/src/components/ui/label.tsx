@@ -2,7 +2,7 @@
 
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 
 function Label({
   className,

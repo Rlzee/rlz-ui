@@ -1,5 +1,5 @@
 import * as React from "react";
-import { cn } from "@rlz/ui/lib/cn";
+import { cn } from "cn";
 import { cva, type VariantProps } from "class-variance-authority";
 import { Check, ChevronRight, Circle } from "lucide-react";
 
