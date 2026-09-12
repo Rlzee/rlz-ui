@@ -7,7 +7,9 @@
       "path": "components/base/backdrop.tsx",
       "destPath": "base",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "allowManualInstall": false,
       "id": "backdrop",
@@ -19,7 +21,9 @@
       "path": "components/base/menu-base.tsx",
       "destPath": "base",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "allowManualInstall": false,
       "id": "menu-base",
@@ -31,8 +35,12 @@
       "path": "components/base/popup-arrow.tsx",
       "destPath": "base",
       "version": "1.0.0",
-      "dependencies": [],
-      "registryDependencies": [],
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "cn"
+      ],
       "allowManualInstall": false,
       "id": "popup-arrow",
       "type": "component"
@@ -43,7 +51,9 @@
       "path": "components/base/shortcut.tsx",
       "destPath": "base",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "allowManualInstall": false,
       "id": "shortcut",
@@ -55,7 +65,9 @@
       "path": "components/base/x-close.tsx",
       "destPath": "base",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "allowManualInstall": false,
       "id": "x-close",
@@ -66,7 +78,9 @@
       "description": "A collapsible panel that can be expanded or collapsed",
       "path": "components/ui/accordion.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "accordion",
       "type": "component"
@@ -76,7 +90,9 @@
       "description": "A modal dialog for important alerts and confirmations",
       "path": "components/ui/alert-dialog.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "backdrop"
       ],
@@ -89,6 +105,7 @@
       "path": "components/ui/alert.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -100,7 +117,9 @@
       "description": "An input with suggestion and autocompletion capabilities",
       "path": "components/ui/autocomplete.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "input",
         "scroll-area",
@@ -115,6 +134,7 @@
       "path": "components/ui/avatar.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -127,6 +147,7 @@
       "path": "components/ui/badge.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -138,7 +159,9 @@
       "description": "A breadcrumb navigation component",
       "path": "components/ui/breadcrumb.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "breadcrumb",
       "type": "component"
@@ -149,6 +172,7 @@
       "path": "components/ui/button.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -160,7 +184,9 @@
       "description": "A container card for grouping related content",
       "path": "components/ui/card.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "card",
       "type": "component"
@@ -171,6 +197,7 @@
       "path": "components/ui/chart.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "recharts"
       ],
       "registryDependencies": [],
@@ -182,7 +209,9 @@
       "description": "A checkbox input component",
       "path": "components/ui/checkbox.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "checkbox",
       "type": "component"
@@ -192,7 +221,9 @@
       "description": "A generic collapsible container component",
       "path": "components/ui/collapsible.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "collapsible",
       "type": "component"
@@ -202,7 +233,9 @@
       "description": "A combobox input with dropdown selection",
       "path": "components/ui/combobox.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "scroll-area",
         "input",
@@ -217,7 +250,9 @@
       "description": "A command palette or searchable action list",
       "path": "components/ui/command.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "autocomplete",
         "backdrop",
@@ -231,7 +266,9 @@
       "description": "A right-click context menu component",
       "path": "components/ui/context-menu.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "menu-base",
         "shortcut"
@@ -244,7 +281,9 @@
       "description": "A generic modal dialog component",
       "path": "components/ui/dialog.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "backdrop",
         "scroll-area",
@@ -258,7 +297,9 @@
       "description": "A slide-over drawer component",
       "path": "components/ui/drawer.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "backdrop",
         "scroll-area",
@@ -273,6 +314,7 @@
       "path": "components/ui/empty.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -285,6 +327,7 @@
       "path": "components/ui/field.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -306,7 +349,9 @@
       "description": "Form utilities and wrapper component",
       "path": "components/ui/form.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "form",
       "type": "component"
@@ -317,6 +362,7 @@
       "path": "components/ui/group.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [
@@ -331,6 +377,7 @@
       "path": "components/ui/input-group.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [
@@ -345,7 +392,9 @@
       "description": "A text input component",
       "path": "components/ui/input.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "input",
       "type": "component"
@@ -355,7 +404,9 @@
       "description": "A keyboard key visual component",
       "path": "components/ui/kbd.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "kbd",
       "type": "component"
@@ -365,7 +416,9 @@
       "description": "A label component for form inputs",
       "path": "components/ui/label.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "label",
       "type": "component"
@@ -375,7 +428,9 @@
       "description": "A dropdown or contextual menu component",
       "path": "components/ui/menu.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "popup-arrow",
         "menu-base",
@@ -389,7 +444,9 @@
       "description": "A menubar/navigation menu component",
       "path": "components/ui/menubar.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "menubar",
       "type": "component"
@@ -399,7 +456,9 @@
       "description": "A visual meter/progress indicator",
       "path": "components/ui/meter.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "meter",
       "type": "component"
@@ -409,7 +468,9 @@
       "description": "A numeric input field component",
       "path": "components/ui/number-field.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "label"
       ],
@@ -421,7 +482,9 @@
       "description": "A otp input field component",
       "path": "components/ui/otp-field",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "separator"
       ],
@@ -433,7 +496,9 @@
       "description": "A contextual popover component",
       "path": "components/ui/popover.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "popup-arrow"
       ],
@@ -445,7 +510,9 @@
       "description": "A card component for previewing content",
       "path": "components/ui/preview-card.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "popup-arrow"
       ],
@@ -457,7 +524,9 @@
       "description": "A progress bar component",
       "path": "components/ui/progress.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "progress",
       "type": "component"
@@ -467,7 +536,9 @@
       "description": "A group of radio inputs",
       "path": "components/ui/radio-group.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "radio-group",
       "type": "component"
@@ -477,7 +548,9 @@
       "description": "A scrollable container with custom scrollbars",
       "path": "components/ui/scroll-area.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "scroll-area",
       "type": "component"
@@ -487,7 +560,9 @@
       "description": "A select dropdown component",
       "path": "components/ui/select.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "button"
       ],
@@ -499,7 +574,9 @@
       "description": "A visual separator/divider component",
       "path": "components/ui/separator.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "separator",
       "type": "component"
@@ -509,7 +586,9 @@
       "description": "A skeleton loader placeholder component",
       "path": "components/ui/skeleton.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "skeleton",
       "type": "component"
@@ -519,7 +598,9 @@
       "description": "A range slider input component",
       "path": "components/ui/slider.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "slider",
       "type": "component"
@@ -529,7 +610,9 @@
       "description": "A toggle switch input component",
       "path": "components/ui/switch.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "switch",
       "type": "component"
@@ -539,7 +622,9 @@
       "description": "A table component for tabular data",
       "path": "components/ui/table.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "table",
       "type": "component"
@@ -550,6 +635,7 @@
       "path": "components/ui/tabs.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -561,7 +647,9 @@
       "description": "A multi-line text input component",
       "path": "components/ui/textarea.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "textarea",
       "type": "component"
@@ -571,7 +659,9 @@
       "description": "A transient notification/toast component",
       "path": "components/ui/toast.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [
         "button"
       ],
@@ -584,6 +674,7 @@
       "path": "components/ui/toggle.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [],
@@ -595,7 +686,9 @@
       "description": "A toolbar container for action buttons and controls",
       "path": "components/ui/toolbar.tsx",
       "version": "1.0.0",
-      "dependencies": [],
+      "dependencies": [
+        "cn"
+      ],
       "registryDependencies": [],
       "id": "toolbar",
       "type": "component"
@@ -606,6 +699,7 @@
       "path": "components/ui/tooltip.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [
@@ -620,6 +714,7 @@
       "path": "components/ui/sidebar.tsx",
       "version": "1.0.0",
       "dependencies": [
+        "cn",
         "class-variance-authority"
       ],
       "registryDependencies": [
