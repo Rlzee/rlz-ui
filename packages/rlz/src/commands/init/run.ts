@@ -4,7 +4,7 @@ import fs from "fs-extra";
 import { logger } from "@/utils/logger";
 import { confirm, input, select, search } from "@inquirer/prompts";
 import { cssPathResponseSchema } from "@/schemas/init";
-import { updateCssColors } from "@/utils/update-css-colors";
+import { updateCssPreset } from "@/utils/update-css-preset";
 import { safeParseWithError } from "@/utils/validation";
 import { createConfig } from "@/config/create";
 import type { rlzConfig, PresetConfig } from "@/config/types";
@@ -304,11 +304,11 @@ export async function runInit({
   await getUiFile(cssUrl, validatedCssPath);
 
   // --------------------------------
-  // Preset colors
+  // Preset Css
   // --------------------------------
 
   if (preset?.colors?.length) {
-    await updateCssColors(path.resolve(cwd, validatedCssPath), preset.colors);
+    await updateCssPreset(path.resolve(cwd, validatedCssPath), preset);
   }
 
   // --------------------------------

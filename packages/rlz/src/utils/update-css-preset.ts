@@ -1,5 +1,9 @@
 import fs from "fs-extra";
-import type { PresetColorToken, PresetColorConfig } from "@rlz/registry";
+import type {
+  PresetColorToken,
+  PresetColorConfig,
+  PresetBaseConfig,
+} from "@rlz/registry";
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -37,16 +41,37 @@ function updateBlock(
   });
 }
 
-export async function updateCssColors(
+export async function updateCssPreset(
   cssPath: string,
-  colors: PresetColorConfig[]
+  preset: {
+    base?: PresetBaseConfig;
+    colors?: PresetColorConfig[];
+  }
 ): Promise<void> {
   let css = await fs.readFile(cssPath, "utf8");
 
-  const tokens = colors.flatMap((section) => section.tokens);
+  if (preset.colors?.length) {
+    const tokens = preset.colors.flatMap((section) => section.tokens);
 
-  css = updateBlock(css, ":root", tokens, "light");
-  css = updateBlock(css, ".dark", tokens, "dark");
+    css = updateBlock(css, ":root", tokens, "light");
+    css = updateBlock(css, ".dark", tokens, "dark");
+  }
+
+  if (preset.base?.layout?.radius !== undefined) {
+    css = replaceVariable(css, "--radius", `${preset.base.layout.radius}rem`);
+  }
+
+  if (preset.base?.layout?.spacing !== undefined) {
+    css = replaceVariable(css, "--spacing", `${preset.base.layout.spacing}rem`);
+  }
+
+  if (preset.base?.typography?.letterSpacing !== undefined) {
+    css = replaceVariable(
+      css,
+      "--tracking-normal",
+      `${preset.base.typography.letterSpacing}em`
+    );
+  }
 
   await fs.writeFile(cssPath, css, "utf8");
 }
