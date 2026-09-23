@@ -2,7 +2,6 @@ import { usePreset } from "../use-preset";
 
 import { BaseProperties } from "./base-properties";
 import { ColorProperties } from "./color-properties";
-import { AnimationProperties } from "./animation-properties";
 
 export function PresetProperties() {
   const { tab } = usePreset();
@@ -15,7 +14,6 @@ export function PresetProperties() {
       <div className="min-h-0">
         {tab === "base" && <BaseProperties />}
         {tab === "colors" && <ColorProperties />}
-        {tab === "animations" && <AnimationProperties />}
       </div>
     </div>
   );

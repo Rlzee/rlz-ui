@@ -268,8 +268,6 @@ export const defaultPreset: RegistryPreset = {
     },
   ],
 
-  animations: {},
-
   recommendations: {
     typography: {
       fontSans: "Geist",

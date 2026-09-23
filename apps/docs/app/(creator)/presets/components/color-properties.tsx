@@ -9,7 +9,6 @@ import type { PresetColorToken as ColorRow } from "@rlz/registry";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
-import { Button } from "@rlz/ui/components/ui/button";
 
 import { CollapsibleItem } from "./collapsible-item";
 import { TailwindColorsSelector } from "@/components/tailwind-colors-selector";
@@ -71,7 +70,7 @@ export function ColorProperties() {
 
   return (
     <section className="flex h-full min-h-0 flex-col">
-      <div className="px-4 py-3 flex gap-1.5">
+      <div className="px-4 py-3">
         <InputGroup>
           <InputGroup.Addon align="inline-start">
             <Search />
@@ -84,11 +83,6 @@ export function ColorProperties() {
             unstyled
           />
         </InputGroup>
-
-        <Button>
-          <Plus />
-          Add
-        </Button>
       </div>
 
       <ScrollArea className="min-h-0 flex-1 px-2 pb-4 **:data-[slot=scroll-area-scrollbar]:hidden">

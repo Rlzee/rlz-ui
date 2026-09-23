@@ -4,7 +4,7 @@ import { usePreset, type PresetTab } from "../use-preset";
 
 import { Sidebar, SidebarGroupContent } from "@rlz/ui/components/ui/sidebar";
 
-import { Baseline, Palette, Layers, Sparkles } from "lucide-react";
+import { Baseline, Palette, Target, Sparkles } from "lucide-react";
 
 type NavTab = {
   icon: React.ReactNode;
@@ -23,16 +23,6 @@ const NAV_TABS: NavTab[] = [
     name: "Colors",
     value: "colors",
   },
-  {
-    icon: <Layers />,
-    name: "Animations",
-    value: "animations",
-  },
-  // {
-  //   icon: <Target />,
-  //   name: "Components",
-  //   value: "components",
-  // },
   {
     icon: <Sparkles />,
     name: "Generate",

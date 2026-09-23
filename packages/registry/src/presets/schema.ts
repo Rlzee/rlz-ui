@@ -35,8 +35,6 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
     })
   ),
 
-  animations: z.record(z.string(), z.unknown()).optional(),
-
   recommendations: z
     .object({
       typography: z

@@ -46,7 +46,5 @@ export type RegistryPreset = Omit<BaseRegistryItem, "allowManualInstall"> & {
   base: PresetBaseConfig;
   colors: PresetColorConfig[];
 
-  animations?: Record<string, unknown>;
-
   recommendations?: PresetRecommendations;
 };

@@ -425,8 +425,6 @@ export const testPreset: RegistryPreset = {
     },
   ],
 
-  animations: {},
-
   recommendations: {
     typography: {
       fontSans: "Geist",
