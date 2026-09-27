@@ -1,4 +1,10 @@
-import type { BaseRegistryItem } from "../types";
+import type { z } from "zod";
+import type {
+  RegistryComponentItemSchema,
+  RegistryHookItemSchema,
+  RegistryItemSchema,
+  RegistryLibItemSchema,
+} from "./schema";
 
 export const REGISTRY_ITEM_TYPES = ["component", "lib", "hook"] as const;
 
@@ -8,22 +14,12 @@ export function isRegistryItemType(value: string): value is RegistryItemType {
   return REGISTRY_ITEM_TYPES.includes(value as RegistryItemType);
 }
 
-export type RegistryComponentItem = BaseRegistryItem & {
-  type: "component";
-  destPath?: string;
-  registryDependencies?: string[];
-};
+export type RegistryComponentItem = z.infer<
+  typeof RegistryComponentItemSchema
+>;
 
-export type RegistryHookItem = BaseRegistryItem & {
-  type: "hook";
-  hookType?: "client" | "server";
-};
+export type RegistryHookItem = z.infer<typeof RegistryHookItemSchema>;
 
-export type RegistryLibItem = BaseRegistryItem & {
-  type: "lib";
-};
+export type RegistryLibItem = z.infer<typeof RegistryLibItemSchema>;
 
-export type RegistryItem =
-  | RegistryComponentItem
-  | RegistryHookItem
-  | RegistryLibItem;
+export type RegistryItem = z.infer<typeof RegistryItemSchema>;

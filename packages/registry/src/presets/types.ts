@@ -1,50 +1,38 @@
-import type { BaseRegistryItem } from "../types";
+import type { z } from "zod";
+import type {
+  ComponentStyleConfigSchema,
+  PresetComponentsSchema,
+  PresetComponentsStyleValueSchema,
+  PresetComponentsStylesSchema,
+  PresetBaseConfigSchema,
+  PresetColorConfigSchema,
+  PresetColorTokenSchema,
+  PresetRecommendationsSchema,
+  RegistryPresetSchema,
+} from "./schema";
 
-export type PresetBaseConfig = {
-  typography: {
-    letterSpacing: number;
-  };
-  layout: {
-    radius: number;
-    spacing: number;
-  };
-};
+// Base
 
-export type PresetColorToken = {
-  label: string;
-  cssVar: string;
-  dark: {
-    value: string;
-    swatch: string;
-  };
-  light: {
-    value: string;
-    swatch: string;
-  };
-};
+export type PresetBaseConfig = z.infer<typeof PresetBaseConfigSchema>;
 
-export type PresetColorConfig = {
-  id: string;
-  name: string;
-  tokens: PresetColorToken[];
-};
+// Colors
 
-export type PresetRecommendations = {
-  typography?: {
-    fontSans: string;
-    fontHeading: string;
-    fontMono?: string;
-  };
-  icons?: {
-    library: string;
-  };
-};
+export type PresetColorToken = z.infer<typeof PresetColorTokenSchema>;
+export type PresetColorConfig = z.infer<typeof PresetColorConfigSchema>;
 
-export type RegistryPreset = Omit<BaseRegistryItem, "allowManualInstall"> & {
-  type: "preset";
+// Recommendations
 
-  base: PresetBaseConfig;
-  colors: PresetColorConfig[];
+export type PresetRecommendations = z.infer<typeof PresetRecommendationsSchema>;
 
-  recommendations?: PresetRecommendations;
-};
+// Components
+
+export type PresetComponentsStyleValue = z.infer<
+  typeof PresetComponentsStyleValueSchema
+>;
+export type PresetComponentsStyles = z.infer<typeof PresetComponentsStylesSchema>;
+export type ComponentStyleConfig = z.infer<typeof ComponentStyleConfigSchema>;
+export type PresetComponents = z.infer<typeof PresetComponentsSchema>;
+
+// Preset
+
+export type RegistryPreset = z.infer<typeof RegistryPresetSchema>;
