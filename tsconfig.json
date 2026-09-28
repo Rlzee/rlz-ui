@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "inlineSources": false,
-    "ignoreDeprecations": "6.0",
+    "ignoreDeprecations": "5.0",
     "isolatedModules": true,
     "moduleResolution": "node",
     "noUnusedLocals": false,
