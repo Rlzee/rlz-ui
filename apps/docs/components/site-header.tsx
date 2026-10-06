@@ -13,6 +13,7 @@ import { Plus } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { MobileNav } from "./mobile-nav";
+import { useScroll } from "@rlz/ui/hooks/use-scroll";
 
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/config";
@@ -21,9 +22,14 @@ import { dialogHandle } from "./project-dialog";
 
 export function SiteHeader({ container }: { container?: boolean }) {
   const pathname = usePathname();
+  const scrolled = useScroll(0);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-sidebar-background">
+    <header
+      className={cn("sticky top-0 z-40 w-full bg-sidebar-background", {
+        "bg-sidebar-background/70 backdrop-blur-2xl border-b": scrolled,
+      })}
+    >
       <div
         className={cn(
           "relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6",
@@ -77,13 +83,6 @@ export function SiteHeader({ container }: { container?: boolean }) {
             New
           </DialogTrigger>
         </div>
-      </div>
-      <div className="absolute inset-x-0 bottom-0 pointer-events-none">
-        <BorderFlash
-          border="bottom"
-          animation="left"
-          className="border-border/70"
-        />
       </div>
     </header>
   );

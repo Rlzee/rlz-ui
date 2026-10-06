@@ -26,7 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <meta name="theme-color" content={META_THEME_COLORS.light} />
       </head>
       <body
-        className="relative bg-background antialiased"
+        className="relative bg-secondary antialiased"
         suppressHydrationWarning
       >
         <ThemeProvider>
