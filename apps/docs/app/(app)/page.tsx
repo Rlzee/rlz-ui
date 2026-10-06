@@ -7,7 +7,7 @@ import {
 
 export default function IndexPage() {
   return (
-    <div className="min-h-[calc(100vh-var(--header-height)-8px)] flex flex-col">
+    <div className="min-h-[calc(100vh-var(--header-height)-(--header-height))] flex flex-col">
       <main className="flex-1 relative w-full">
         <section
           id="header"
