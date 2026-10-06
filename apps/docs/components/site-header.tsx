@@ -1,7 +1,11 @@
 "use client";
 
 import type * as React from "react";
-import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
+import {
+  BorderFlash,
+  BorderFlashBox,
+  BorderFlashBoxContent,
+} from "@rlz/ui/components/animations/border-flash";
 import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
 import { CommandInput } from "./command-input";
 import { DialogTrigger } from "@rlz/ui/components/ui/dialog";
@@ -23,69 +27,100 @@ export function SiteHeader({ container }: { container?: boolean }) {
   const pathname = usePathname();
 
   return (
-    <header
-      className="sticky top-0 z-40 w-full bg-sidebar-background/70 backdrop-blur-2xl"
-    >
+    <>
       <div
-        className={cn(
-          "relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6",
-          container && "container"
-        )}
+        aria-hidden="true"
+        className="container pointer-events-none absolute inset-0 z-45"
       >
-        {/* left side nav & Mobile */}
-        <MobileNav
-          items={siteConfig.navItems}
-          tree={source.pageTree}
-          className="lg:hidden"
+        <BorderFlash
+          border="left"
+          animation="top"
+          className="absolute inset-y-0 -left-3 h-full"
+          dashed
         />
+        <BorderFlash
+          border="right"
+          animation="bottom"
+          className="absolute inset-y-0 -right-3 h-full"
+          dashed
+        />
+      </div>
 
-        <nav className="items-center gap-0.5 hidden lg:flex">
-          <Badge variant="info">Beta v1.0</Badge>
-          {siteConfig.navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              href={item.href}
-              isActive={
-                pathname === item.href ||
-                (pathname.startsWith(item.href + "/") && item.href !== "/docs")
+      <div
+        aria-hidden="true"
+        className="container pointer-events-none fixed inset-0 z-45"
+      >
+        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
+          <BorderFlashBoxContent className="p-0" />
+        </BorderFlashBox>
+        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
+          <BorderFlashBoxContent className="p-0" />
+        </BorderFlashBox>
+      </div>
+
+      <header className="sticky top-0 z-40 w-full bg-sidebar-background/70 backdrop-blur-2xl">
+        <div
+          className={cn(
+            "relative flex h-(--header-height) w-full items-center justify-between gap-2 px-4 sm:px-6",
+            container && "container"
+          )}
+        >
+          {/* left side nav & Mobile */}
+          <MobileNav
+            items={siteConfig.navItems}
+            tree={source.pageTree}
+            className="lg:hidden"
+          />
+
+          <nav className="items-center gap-0.5 hidden lg:flex">
+            <Badge variant="info">Beta v1.0</Badge>
+            {siteConfig.navItems.map((item) => (
+              <NavLink
+                key={item.label}
+                href={item.href}
+                isActive={
+                  pathname === item.href ||
+                  (pathname.startsWith(item.href + "/") &&
+                    item.href !== "/docs")
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* right side */}
+          <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
+            <CommandInput className="mr-1" />
+            <Separator orientation="vertical" className="h-5" />
+            <Button variant="ghost" size="icon-sm" render={<Link href="" />}>
+              <GithubIcon />
+            </Button>
+            <Separator orientation="vertical" className="h-5" />
+            <ModeSwitcher />
+            <Separator orientation="vertical" className="h-5" />
+            <DialogTrigger
+              handle={dialogHandle}
+              render={
+                <Button
+                  aria-label="Open new project"
+                  size="sm"
+                  className="ml-1"
+                />
               }
             >
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
-
-        {/* right side */}
-        <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-          <CommandInput className="mr-1" />
-          <Separator orientation="vertical" className="h-5" />
-          <Button variant="ghost" size="icon-sm" render={<Link href="" />}>
-            <GithubIcon />
-          </Button>
-          <Separator orientation="vertical" className="h-5" />
-          <ModeSwitcher />
-          <Separator orientation="vertical" className="h-5" />
-          <DialogTrigger
-            handle={dialogHandle}
-            render={
-              <Button
-                aria-label="Open new project"
-                size="sm"
-                className="ml-1"
-              />
-            }
-          >
-            <Plus />
-            New
-          </DialogTrigger>
+              <Plus />
+              New
+            </DialogTrigger>
+          </div>
         </div>
-      </div>
-      <BorderFlash
-        border="bottom"
-        animation="right"
-        className="absolute inset-x-0 bottom-0"
-      />
-    </header>
+        <BorderFlash
+          border="bottom"
+          animation="right"
+          className="absolute inset-x-0 bottom-0"
+        />
+      </header>
+    </>
   );
 }
 

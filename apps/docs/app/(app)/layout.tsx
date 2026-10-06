@@ -1,9 +1,6 @@
-import {
-  BorderFlash,
-  BorderFlashBox,
-  BorderFlashBoxContent,
-} from "@rlz/ui/components/animations/border-flash";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
 import { GlobalDialogs } from "@/components/global-dialogs";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
@@ -12,37 +9,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       data-slot="layout"
       className="relative isolate flex min-h-svh flex-col overflow-x-clip mx-2"
     >
-      <div
-        aria-hidden="true"
-        className="container pointer-events-none absolute inset-0 z-45"
-      >
-        <BorderFlash
-          border="left"
-          animation="top"
-          className="absolute inset-y-0 -left-3 h-full"
-          dashed
-        />
-        <BorderFlash
-          border="right"
-          animation="bottom"
-          className="absolute inset-y-0 -right-3 h-full"
-          dashed
-        />
-      </div>
-
-      <div
-        aria-hidden="true"
-        className="container pointer-events-none fixed inset-0 z-45"
-      >
-        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-      </div>
       <SiteHeader container />
-
       <main className="relative flex flex-1 flex-col bg-background">
         <div
           aria-hidden="true"
@@ -61,26 +28,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         </div>
         {children}
       </main>
-
-      <div
-        aria-hidden="true"
-        className="container pointer-events-none fixed inset-0 z-45"
-      >
-        <BorderFlashBox className="absolute bottom-[5.5px] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-        <BorderFlashBox className="absolute bottom-[5.5px] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-      </div>
-      <footer className="fixed inset-x-2 bottom-0 z-40 h-2 bg-sidebar-background">
-        <BorderFlash
-          border="top"
-          animation="left"
-          className="absolute inset-x-0 top-0"
-        />
-      </footer>
-
+      <SiteFooter />
       <GlobalDialogs />
     </div>
   );
