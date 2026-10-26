@@ -7,6 +7,7 @@ const COMPONENTS_URL = "/docs/components";
 export type DocsNavItem = {
   name: string;
   url: string;
+  description?: string;
 };
 
 export type DocsNavSection = {
@@ -51,9 +52,13 @@ function collectDocsPages(node: any, pages: DocsNavItem[] = []): DocsNavItem[] {
  * placeholder until its own data source is defined.
  */
 export function getDocsExplorerSections(): DocsNavSection[] {
-  const components = collectDocsPages(source.pageTree).filter((page) =>
-    page.url.startsWith(`${COMPONENTS_URL}/`)
+  const descriptions = new Map(
+    source.getPages().map((page) => [page.url, page.data.description])
   );
+
+  const components = collectDocsPages(source.pageTree)
+    .filter((page) => page.url.startsWith(`${COMPONENTS_URL}/`))
+    .map((page) => ({ ...page, description: descriptions.get(page.url) }));
 
   return [
     { title: "Foundation", items: [] },

@@ -3,6 +3,7 @@
 import * as React from "react";
 
 import type { DocsNavSection } from "@/lib/docs";
+import { useSelectedComponent } from "@/hooks/use-selected-component";
 
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
@@ -16,7 +17,7 @@ type ExplorerProps = React.ComponentProps<typeof Sidebar> & {
 
 export function Explorer({ sections, ...props }: ExplorerProps) {
   const [query, setQuery] = React.useState("");
-  const [activeUrl, setActiveUrl] = React.useState<string>();
+  const [selected, setSelected] = useSelectedComponent();
 
   const visibleSections = React.useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -62,8 +63,8 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
                   <Sidebar.MenuItem key={item.url}>
                     <Sidebar.MenuButton
                       size="sm"
-                      isActive={activeUrl === item.url}
-                      onClick={() => setActiveUrl(item.url)}
+                      isActive={selected?.url === item.url}
+                      onClick={() => setSelected(item)}
                     >
                       {item.name}
                     </Sidebar.MenuButton>
