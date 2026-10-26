@@ -1,0 +1,25 @@
+import { SidebarProvider, SidebarInset } from "@rlz/ui/components/ui/sidebar";
+import { getDocsExplorerSections } from "@/lib/docs";
+import { Navbar } from "../components/navbar";
+import { Explorer } from "../components/explorer";
+import { PropertiesPanel } from "../components/properties-panel";
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  const sections = getDocsExplorerSections();
+
+  return (
+    <SidebarProvider className="flex-col">
+      <Navbar />
+      <div className="flex w-full flex-1">
+        <Explorer sections={sections} />
+        <PropertiesPanel />
+        <SidebarInset
+          id="playground"
+          className="flex-1 border border-sidebar-border rounded-md mx-2 mb-2"
+        >
+          {children}
+        </SidebarInset>
+      </div>
+    </SidebarProvider>
+  );
+}

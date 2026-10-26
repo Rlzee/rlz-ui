@@ -1,22 +1,22 @@
 "use client";
 
-import type * as React from "react";
 import {
   BorderFlash,
   BorderFlashBox,
   BorderFlashBoxContent,
 } from "@rlz/ui/components/animations/border-flash";
-import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
+import { Button } from "@rlz/ui/components/ui/button";
 import { CommandInput } from "./command-input";
 import { DialogTrigger } from "@rlz/ui/components/ui/dialog";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { ModeSwitcher } from "./mode-switcher";
 import GithubIcon from "./icons/Github";
-import Link from "next/link";
 import { Plus } from "lucide-react";
 import { cn } from "@rlz/ui/lib/cn";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { MobileNav } from "./mobile-nav";
+import { NavLink } from "./nav-link";
+import Link from "next/link";
 
 import { usePathname } from "next/navigation";
 import { siteConfig } from "@/lib/config";
@@ -121,32 +121,5 @@ export function SiteHeader({ container }: { container?: boolean }) {
         />
       </header>
     </>
-  );
-}
-
-function NavLink({
-  href,
-  isActive,
-  children,
-  variant = "link",
-}: {
-  href: string;
-  children: React.ReactNode;
-  isActive?: boolean;
-  variant?: ButtonProps["variant"];
-}) {
-  return (
-    <Button
-      variant={variant}
-      size="sm"
-      className={
-        variant === "link"
-          ? "px-2 hover:no-underline text-muted-foreground"
-          : ""
-      }
-      render={<Link href={href} className={cn(isActive && "text-primary")} />}
-    >
-      {children}
-    </Button>
   );
 }

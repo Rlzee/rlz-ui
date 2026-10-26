@@ -19,7 +19,7 @@ export default function SearchField() {
           </InputGroup.Addon>
           <Autocomplete.Input unstyled className="text-base ps-1 pe-1" />
           <InputGroup.Addon align="inline-end" className="mr-[-0.50rem] ">
-            <Button size="sm" render={<Link href={"/presets/create"} />}>
+            <Button size="sm" render={<Link href={"/preset/create"} />}>
               Create
             </Button>
           </InputGroup.Addon>
