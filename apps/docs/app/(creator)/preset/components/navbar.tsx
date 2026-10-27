@@ -1,51 +1,34 @@
-import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
-import { RefreshCw, CloudBackup, Braces, type LucideIcon } from "lucide-react";
+"use client";
 
-type NavButtonType = {
-  name: string;
-  icon: LucideIcon;
-  variant?: ButtonProps["variant"];
-  size?: ButtonProps["size"];
-};
+import { useAtom, useSetAtom } from "jotai";
+import { presetBuilderAtom, resetPresetAtom } from "../preset-builder";
 
-const NavButtons: NavButtonType[] = [
-  {
-    name: "Reset",
-    icon: RefreshCw,
-  },
-  {
-    name: "Export",
-    icon: Braces,
-  },
-  {
-    name: "Publish",
-    icon: CloudBackup,
-    variant: "primary",
-  },
-];
+import { PresetDialog } from "./preset-dialog";
+import { Button } from "@rlz/ui/components/ui/button";
+import { RefreshCw, CloudSync, type LucideIcon } from "lucide-react";
 
 export function Navbar() {
+  const resetPreset = useSetAtom(resetPresetAtom);
+  const [preset, setPreset] = useAtom(presetBuilderAtom);
+
   return (
     <header className="sticky top-0 z-40 w-full bg-transparent px-4 sm:px-6">
       <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2">
         <div>
-          <span className="text-lg">United</span>
+          <span className="text-lg">{preset.name}</span>
         </div>
         <nav className="hidden items-center gap-1.5 lg:flex">
-          {NavButtons.map((b) => {
-            const Icon = b.icon;
+          <Button variant="ghost" size="sm" onClick={() => resetPreset()}>
+            <RefreshCw />
+            Reset
+          </Button>
 
-            return (
-              <Button
-                key={b.name}
-                variant={b.variant ?? "ghost"}
-                size={b.size || "sm"}
-              >
-                <Icon />
-                {b.name}
-              </Button>
-            );
-          })}
+          <PresetDialog name={preset.name} preset={preset} />
+
+          <Button size="sm">
+            <CloudSync />
+            Publish
+          </Button>
         </nav>
       </div>
     </header>

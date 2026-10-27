@@ -62,7 +62,7 @@ function DialogBackdrop({
       data-slot="dialog-backdrop"
       baseComponent={DialogPrimitive.Backdrop}
       blur={blur}
-      className={className}
+      className={cn("z-50", className)}
       {...props}
     />
   );
