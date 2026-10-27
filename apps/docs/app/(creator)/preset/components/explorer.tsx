@@ -22,15 +22,17 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
   const visibleSections = React.useMemo(() => {
     const q = query.trim().toLowerCase();
 
-    return sections
-      .map((section) => ({
-        ...section,
-        items: section.items.filter((item) =>
-          item.name.toLowerCase().includes(q)
-        ),
-      }))
-      // Placeholder sections (e.g. Foundation) stay visible until a search runs.
-      .filter((section) => section.items.length > 0 || !q);
+    return (
+      sections
+        .map((section) => ({
+          ...section,
+          items: section.items.filter((item) =>
+            item.name.toLowerCase().includes(q)
+          ),
+        }))
+        // Empty sections only stay visible while no search is running.
+        .filter((section) => section.items.length > 0 || !q)
+    );
   }, [sections, query]);
 
   return (
@@ -60,10 +62,10 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
             <Sidebar.GroupContent>
               <Sidebar.Menu>
                 {section.items.map((item) => (
-                  <Sidebar.MenuItem key={item.url}>
+                  <Sidebar.MenuItem key={item.id}>
                     <Sidebar.MenuButton
                       size="sm"
-                      isActive={selected?.url === item.url}
+                      isActive={selected?.id === item.id}
                       onClick={() => setSelected(item)}
                     >
                       {item.name}
