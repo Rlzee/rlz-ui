@@ -15,9 +15,24 @@ type ExplorerProps = React.ComponentProps<typeof Sidebar> & {
   sections: DocsNavSection[];
 };
 
+// Entry selected when the creator opens with nothing chosen yet.
+const DEFAULT_SELECTED_ID = "colors";
+
 export function Explorer({ sections, ...props }: ExplorerProps) {
   const [query, setQuery] = React.useState("");
   const [selected, setSelected] = useSelectedComponent();
+
+  React.useEffect(() => {
+    if (selected) return;
+
+    const fallback = sections
+      .flatMap((section) => section.items)
+      .find((item) => item.id === DEFAULT_SELECTED_ID);
+
+    if (fallback) {
+      setSelected(fallback);
+    }
+  }, [sections, selected, setSelected]);
 
   const visibleSections = React.useMemo(() => {
     const q = query.trim().toLowerCase();

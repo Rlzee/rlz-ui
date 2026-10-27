@@ -5,11 +5,17 @@ import { GOOGLE_FONTS } from "@rlz/fonts";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 
 type FontSelectProps = {
-  value: string;
-  onValueChange: (font: string) => void;
+  value?: string;
+  defaultValue?: string;
+  onValueChange?: (font: string) => void;
 };
 
-export function FontSelect({ value, onValueChange }: FontSelectProps) {
+export function FontSelect({
+  value,
+  defaultValue,
+  onValueChange,
+  ...props
+}: FontSelectProps) {
   const [query, setQuery] = React.useState("");
 
   const filteredFonts = React.useMemo(() => {
@@ -31,11 +37,13 @@ export function FontSelect({ value, onValueChange }: FontSelectProps) {
     <Combobox
       items={items}
       value={value}
+      defaultValue={defaultValue}
       onValueChange={(font) => {
         if (font) {
-          onValueChange(font);
+          onValueChange?.(font);
         }
       }}
+      {...props}
     >
       <Combobox.Field
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

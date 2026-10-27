@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider className="flex-col">
       <Navbar />
-      <div className="flex w-full flex-1">
+      <div className="flex w-full min-h-0 flex-1">
         <Explorer sections={sections} />
         <PropertiesPanel />
         <SidebarInset

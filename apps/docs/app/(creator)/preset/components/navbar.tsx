@@ -1,5 +1,5 @@
 import { Button, type ButtonProps } from "@rlz/ui/components/ui/button";
-import { RefreshCw, Eye, Save, Braces, type LucideIcon } from "lucide-react";
+import { RefreshCw, CloudBackup, Braces, type LucideIcon } from "lucide-react";
 
 type NavButtonType = {
   name: string;
@@ -14,16 +14,12 @@ const NavButtons: NavButtonType[] = [
     icon: RefreshCw,
   },
   {
-    name: "Preview",
-    icon: Eye,
-  },
-  {
     name: "Export",
     icon: Braces,
   },
   {
-    name: "Save",
-    icon: Save,
+    name: "Publish",
+    icon: CloudBackup,
     variant: "primary",
   },
 ];

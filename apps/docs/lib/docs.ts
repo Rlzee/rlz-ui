@@ -57,7 +57,7 @@ function collectDocsPages(
   return pages;
 }
 
-type PresetSection = keyof Pick<
+export type PresetSection = keyof Pick<
   RegistryPreset,
   "base" | "colors" | "recommendations"
 >;
