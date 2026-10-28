@@ -127,11 +127,15 @@ type TooltipProps = TooltipPrimitive.Root.Props & {
   popupContent: React.ReactNode;
   popupProps?: React.ComponentProps<typeof TooltipPopup>;
   triggerRender?: TooltipPrimitive.Trigger.Props["render"];
+  delay?: TooltipPrimitive.Trigger.Props["delay"];
+  closeDelay?: TooltipPrimitive.Trigger.Props["closeDelay"];
 };
 
 function Tooltip({
   children: childrenTrigger,
   triggerRender,
+  delay = 0,
+  closeDelay = 0,
   popupContent,
   popupProps,
   arrow = true,
@@ -140,7 +144,13 @@ function Tooltip({
 }: TooltipProps) {
   return (
     <TooltipRoot {...props}>
-      <TooltipTrigger render={triggerRender}>{childrenTrigger}</TooltipTrigger>
+      <TooltipTrigger
+        delay={delay}
+        closeDelay={closeDelay}
+        render={triggerRender}
+      >
+        {childrenTrigger}
+      </TooltipTrigger>
       <TooltipPopup {...popupProps}>
         {arrow && <TooltipArrow {...arrowProps} />}
         {popupContent}

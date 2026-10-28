@@ -1,7 +1,57 @@
+"use client";
+
+import { Button } from "@rlz/ui/components/ui/button";
+import { Tooltip } from "@rlz/ui/components/ui/tooltip";
+import { Tabs } from "@rlz/ui/components/ui/tabs";
+import { OpenInV0Button } from "@/components/open-in-v0-button";
+import { Maximize, SquareMousePointer, Plus } from "lucide-react";
+
 export default function Page() {
   return (
-    <div className="flex flex-1 flex-col p-4">
-      {/* Main content area */}
-    </div>
+    <Tabs className="flex-1" defaultValue="selected">
+      <header className="border-b border-border flex items-center justify-between py-2 px-3">
+        <Tabs.List className="bg-secondary rounded-md items-center">
+          <Button size="sm" className="ml-0.5" variant="outline">
+            <Plus />
+            Add
+          </Button>
+          <Tabs.Tab value="selected">Selected</Tabs.Tab>
+          <Tabs.Tab value="dashboard">Dashboard</Tabs.Tab>
+          <Tabs.Indicator className="h-8 mx-0.5" />
+        </Tabs.List>
+        <div className="flex gap-1.5 items-center">
+          <OpenInV0Button size="sm" variant="outline" />
+          <Tooltip.Provider delay={0} closeDelay={0}>
+            <Tooltip
+              triggerRender={
+                <Button variant="ghost" size="sm">
+                  <SquareMousePointer />
+                </Button>
+              }
+              popupContent="Inspector"
+              popupProps={{
+                positionerProps: {
+                  side: "bottom",
+                },
+              }}
+            />
+            <Tooltip
+              triggerRender={
+                <Button variant="ghost" size="sm">
+                  <Maximize />
+                </Button>
+              }
+              popupContent="Full screen"
+              popupProps={{
+                positionerProps: {
+                  side: "bottom",
+                },
+              }}
+            />
+          </Tooltip.Provider>
+        </div>
+      </header>
+      <Tabs.Panel value="Selected"></Tabs.Panel>
+    </Tabs>
   );
 }
