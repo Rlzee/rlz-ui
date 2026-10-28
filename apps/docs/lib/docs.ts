@@ -1,5 +1,6 @@
 import { source } from "@/lib/source";
 import { defaultPreset } from "@rlz/ui/styles/presets";
+import { registryBaseComponents } from "@rlz/ui/registry/base_components";
 import type { RegistryPreset } from "@rlz/registry";
 
 export const PAGES_NEW = [""];
@@ -7,6 +8,8 @@ export const PAGES_NEW = [""];
 const COMPONENTS_URL = "/docs/components";
 
 const FOUNDATION_TITLE = "Foundation";
+const BASE_COMPONENTS_TITLE = "Base Components";
+const FOUNDATION_COMPONENTS_TITLE = "Foundation Components";
 const COMPONENTS_TITLE = "Components";
 
 export type DocsNavItem = {
@@ -95,9 +98,19 @@ export function getPresetFoundationItems(
     }));
 }
 
+/** Explorer entries built from the base primitives of the registry. */
+export function getBaseComponentItems(): DocsNavItem[] {
+  return Object.entries(registryBaseComponents).map(([id, item]) => ({
+    id,
+    name: item.name,
+    description: item.description,
+    section: BASE_COMPONENTS_TITLE,
+  }));
+}
+
 /**
  * Entries of the preset explorer.
- * Foundation comes from the preset registry, Components from the MDX docs.
+ * Foundation and Base Components come from the registry, Components from the MDX docs.
  */
 export function getDocsExplorerSections(
   preset: RegistryPreset = defaultPreset
@@ -116,6 +129,8 @@ export function getDocsExplorerSections(
 
   return [
     { title: FOUNDATION_TITLE, items: getPresetFoundationItems(preset) },
+    { title: BASE_COMPONENTS_TITLE, items: getBaseComponentItems() },
+    // { title: FOUNDATION_COMPONENTS_TITLE, items: [] },
     { title: COMPONENTS_TITLE, items: components },
   ];
 }
