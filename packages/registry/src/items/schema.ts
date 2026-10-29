@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseRegistryItemSchema } from "../base-schema";
+import { ComponentCapabilitiesSchema } from "../capabilities/schema";
 
 export const RegistryComponentItemSchema = BaseRegistryItemSchema.extend({
   type: z.literal("component"),
@@ -8,6 +9,8 @@ export const RegistryComponentItemSchema = BaseRegistryItemSchema.extend({
   allowManualInstall: z
     .union([z.boolean(), z.literal("deprecated")])
     .optional(),
+  // What the component exposes so the Creator can generate its panel.
+  capabilities: ComponentCapabilitiesSchema.optional(),
 });
 
 export const RegistryHookItemSchema = BaseRegistryItemSchema.extend({

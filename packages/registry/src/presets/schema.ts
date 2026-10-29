@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseRegistryItemSchema } from "../base-schema";
+import { PresetComponentCustomizationSchema } from "../capabilities/schema";
 
 export const PresetBaseConfigSchema = z.object({
   typography: z.object({
@@ -57,4 +58,10 @@ export const RegistryPresetSchema = BaseRegistryItemSchema.extend({
   colors: z.array(PresetColorConfigSchema),
 
   recommendations: PresetRecommendationsSchema.optional(),
+
+  // Per-component Creator edits (chosen variants, style overrides), keyed by
+  // registry component id. Serialized into the preset output when present.
+  components: z
+    .record(z.string(), PresetComponentCustomizationSchema)
+    .optional(),
 });

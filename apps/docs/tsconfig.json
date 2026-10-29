@@ -19,6 +19,7 @@
     "paths": {
       "@/*": ["./*"],
       "@rlz/ui/*": ["../../packages/ui/src/*"],
+      "@rlz/registry": ["../../packages/registry/src/index.ts"],
       "collections/*": [".source/*"]
     },
     "plugins": [

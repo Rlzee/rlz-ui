@@ -33,7 +33,7 @@ export function ComponentPreviewClient({
     <div className={cn("flex flex-col", className)}>
       <div
         className={cn(
-          "relative h-[350px] bg-card flex items-center justify-center p-6 border border-b-0 rounded-t-md",
+          "relative h-87.5 bg-card flex items-center justify-center p-6 border border-b-0 rounded-t-md",
           demoClassName
         )}
       >

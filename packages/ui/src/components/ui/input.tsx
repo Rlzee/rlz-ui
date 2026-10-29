@@ -40,7 +40,7 @@ function Input({
           "relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow",
           "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
-          "has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring",
+          "has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring",
         ],
         className
       )}

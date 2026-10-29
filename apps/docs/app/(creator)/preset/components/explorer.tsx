@@ -53,7 +53,7 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
   return (
     <Sidebar
       variant="floating"
-      className="top-(--header-height)! h-auto! mb-2 p-0! [&_[data-slot=sidebar-inner]]:bg-background! ml-2"
+      className="top-(--header-height)! h-auto! mb-2 p-0! **:data-[slot=sidebar-inner]:bg-background! ml-2"
       {...props}
     >
       <Sidebar.Header>

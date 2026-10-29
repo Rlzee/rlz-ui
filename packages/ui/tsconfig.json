@@ -3,7 +3,8 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "paths": {
-      "@rlz/ui/*": ["./src/*"]
+      "@rlz/ui/*": ["./src/*"],
+      "@rlz/registry": ["../registry/src/index.ts"]
     }
   },
   "include": ["src"],

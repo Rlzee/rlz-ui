@@ -2,15 +2,21 @@
 
 import * as React from "react";
 import dynamic from "next/dynamic";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "next-themes";
+
+import type { PresetComponentCustomization } from "@rlz/registry";
 
 import { demoPaths } from "@rlz/ui/components/examples";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { cn } from "@rlz/ui/lib/cn";
 
 import { useSelectedComponent } from "@/hooks/use-selected-component";
-import { presetBuilderAtom } from "../preset-builder";
+import { getCapabilities } from "@/lib/component-capabilities";
+import { componentEditsAtom, presetBuilderAtom } from "../preset-builder";
+import { slugFromId } from "../lib/slug";
+import { describeEdits } from "../lib/component-edits";
+import { LiveDemo } from "./live-demo";
 
 /**
  * First preview of the playground: reflects whatever is selected in the
@@ -62,10 +68,8 @@ function PreviewContent({
 }
 
 // Last URL segment of a docs page (or the registry key itself) is the demo
-// folder name used as a prefix when filtering `demoPaths`.
-function slugFromId(id: string) {
-  return id.split("/").filter(Boolean).pop() ?? id;
-}
+// folder name used as a prefix when filtering `demoPaths`. (slugFromId lives in
+// ../lib/slug so the properties panel shares the exact same lookup.)
 
 function EmptyState({ children }: { children: React.ReactNode }) {
   return (
@@ -294,6 +298,10 @@ function ComponentExamplesPreview({
   slug: string;
   name: string;
 }) {
+  const edits = useAtomValue(componentEditsAtom);
+  const capabilities = getCapabilities(slug);
+  const edit = edits[slug];
+
   const entries = React.useMemo(() => {
     const prefix = `${slug}/`;
 
@@ -303,15 +311,47 @@ function ComponentExamplesPreview({
       .map(([key, path]) => ({ key, path }));
   }, [slug]);
 
-  if (entries.length === 0) {
+  const hasPlayground = !!capabilities;
+
+  if (entries.length === 0 && !hasPlayground) {
     return <EmptyState>No examples for {name}.</EmptyState>;
   }
 
   return (
     <div className="flex flex-col divide-y divide-border p-4">
+      {hasPlayground && (
+        <PlaygroundBlock
+          slug={slug}
+          capabilities={capabilities}
+          edit={edit}
+        />
+      )}
       {entries.map(({ key, path }) => (
         <DemoBlock key={key} entry={path} label={variantLabel(path)} />
       ))}
+    </div>
+  );
+}
+
+// Live, prop-driven instance of the component reacting to the properties panel,
+// with the applied-edits summary beneath it (mirrors the prototype footer).
+function PlaygroundBlock({
+  slug,
+  capabilities,
+  edit,
+}: {
+  slug: string;
+  capabilities: NonNullable<ReturnType<typeof getCapabilities>>;
+  edit?: PresetComponentCustomization;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-4 py-8">
+      <div className="flex items-center justify-center">
+        <LiveDemo slug={slug} capabilities={capabilities} edit={edit} />
+      </div>
+      <span className="text-muted-foreground font-mono text-xs">
+        {describeEdits(capabilities, edit)}
+      </span>
     </div>
   );
 }

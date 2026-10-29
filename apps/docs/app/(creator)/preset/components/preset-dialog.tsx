@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import type { RegistryPreset } from "@rlz/registry";
 
 import { Dialog } from "@rlz/ui/components/ui/dialog";
@@ -10,7 +10,7 @@ import { Braces, Check, Pencil, Upload, X } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
 import { Pre } from "@/components/Pre";
 
-import { presetBuilderAtom } from "../preset-builder";
+import { presetBuilderAtom, componentEditsAtom } from "../preset-builder";
 
 const PRE_CLASS = "font-mono text-xs wrap-break-word";
 
@@ -61,8 +61,15 @@ export function PresetDialog({
   name: string;
   preset: RegistryPreset;
 }) {
+  // Merge the live per-component edits into the exported preset so the JSON
+  // carries Creator customizations (only when present, to avoid empty noise).
+  const edits = useAtomValue(componentEditsAtom);
+  const exported: RegistryPreset = Object.keys(edits).length
+    ? { ...preset, components: edits }
+    : preset;
+
   // Single formatted source, used for both the display and the copy button.
-  const code = JSON.stringify(preset, null, 2);
+  const code = JSON.stringify(exported, null, 2);
 
   const setPreset = useSetAtom(presetBuilderAtom);
 
@@ -140,7 +147,7 @@ export function PresetDialog({
                 onChange={(event) => setDraft(event.target.value)}
                 spellCheck={false}
                 rows={18}
-                className="min-h-[320px] w-full resize-y font-mono text-xs outline-none"
+                className="min-h-80 w-full resize-y font-mono text-xs outline-none"
               />
               {error && (
                 <span className="text-destructive text-xs">{error}</span>

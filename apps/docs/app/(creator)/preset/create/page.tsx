@@ -41,8 +41,6 @@ export default function Page() {
             <Plus />
             Add
           </Button>
-          <Tabs.Tab value="dashboard">Dashboard</Tabs.Tab>
-          <Tabs.Tab value="Components">Components</Tabs.Tab>
           <Tabs.Tab value="selected" className="mr-0.5">Selected</Tabs.Tab>
           <Tabs.Indicator className="h-8" />
         </Tabs.List>

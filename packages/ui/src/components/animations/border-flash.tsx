@@ -100,7 +100,7 @@ const BorderFlash = ({
                 "opacity-0",
                 "transition-[border-color,opacity]",
                 "duration-600 ease-in-out",
-                "border-[color:var(--border)]",
+                "border-border",
               ]
             : [
                 "opacity-100",

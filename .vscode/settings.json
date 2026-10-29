@@ -1,4 +1,5 @@
 {
+  "css.lint.unknownAtRules": "ignore",
   "eslint.workingDirectories": [
     {
       "mode": "auto"

@@ -2,721 +2,867 @@
   "schemaVersion": 1,
   "items": {
     "backdrop": {
+      "id": "backdrop",
       "name": "Backdrop",
-      "description": "A component that provides a backdrop effect.",
-      "path": "components/base/backdrop.tsx",
-      "destPath": "base",
       "version": "1.0.0",
+      "path": "components/base/backdrop.tsx",
+      "description": "A component that provides a backdrop effect.",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
+      "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false,
-      "id": "backdrop",
-      "type": "component"
+      "allowManualInstall": false
     },
     "menu-base": {
+      "id": "menu-base",
       "name": "Menu Base",
-      "description": "A component that provides a menu base.",
-      "path": "components/base/menu-base.tsx",
-      "destPath": "base",
       "version": "1.0.0",
+      "path": "components/base/menu-base.tsx",
+      "description": "A component that provides a menu base.",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
+      "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false,
-      "id": "menu-base",
-      "type": "component"
+      "allowManualInstall": false
     },
     "popup-arrow": {
+      "id": "popup-arrow",
       "name": "Popup Arrow",
-      "description": "A component that provides a popup arrow.",
-      "path": "components/base/popup-arrow.tsx",
-      "destPath": "base",
       "version": "1.0.0",
+      "path": "components/base/popup-arrow.tsx",
+      "description": "A component that provides a popup arrow.",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
+      "destPath": "base",
       "registryDependencies": [
         "cn"
       ],
-      "allowManualInstall": false,
-      "id": "popup-arrow",
-      "type": "component"
+      "allowManualInstall": false
     },
     "shortcut": {
+      "id": "shortcut",
       "name": "Shortcut",
-      "description": "A component that provides a shortcut.",
-      "path": "components/base/shortcut.tsx",
-      "destPath": "base",
       "version": "1.0.0",
+      "path": "components/base/shortcut.tsx",
+      "description": "A component that provides a shortcut.",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
+      "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false,
-      "id": "shortcut",
-      "type": "component"
+      "allowManualInstall": false
     },
     "x-close": {
+      "id": "x-close",
       "name": "X Close",
-      "description": "A component that provides a close button.",
-      "path": "components/base/x-close.tsx",
-      "destPath": "base",
       "version": "1.0.0",
+      "path": "components/base/x-close.tsx",
+      "description": "A component that provides a close button.",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
+      "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false,
-      "id": "x-close",
-      "type": "component"
+      "allowManualInstall": false
     },
     "accordion": {
+      "id": "accordion",
       "name": "accordion",
-      "description": "A collapsible panel that can be expanded or collapsed",
-      "path": "components/ui/accordion.tsx",
       "version": "1.0.0",
+      "path": "components/ui/accordion.tsx",
+      "description": "A collapsible panel that can be expanded or collapsed",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "accordion",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "alert-dialog": {
+      "id": "alert-dialog",
       "name": "alert-dialog",
-      "description": "A modal dialog for important alerts and confirmations",
-      "path": "components/ui/alert-dialog.tsx",
       "version": "1.0.0",
+      "path": "components/ui/alert-dialog.tsx",
+      "description": "A modal dialog for important alerts and confirmations",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "backdrop"
-      ],
-      "id": "alert-dialog",
-      "type": "component"
+      ]
     },
     "alert": {
+      "id": "alert",
       "name": "alert",
-      "description": "An inline alert message component",
-      "path": "components/ui/alert.tsx",
       "version": "1.0.0",
+      "path": "components/ui/alert.tsx",
+      "description": "An inline alert message component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "alert",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "autocomplete": {
+      "id": "autocomplete",
       "name": "autocomplete",
-      "description": "An input with suggestion and autocompletion capabilities",
-      "path": "components/ui/autocomplete.tsx",
       "version": "1.0.0",
+      "path": "components/ui/autocomplete.tsx",
+      "description": "An input with suggestion and autocompletion capabilities",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "input",
         "scroll-area",
         "popup-arrow"
-      ],
-      "id": "autocomplete",
-      "type": "component"
+      ]
     },
     "avatar": {
+      "id": "avatar",
       "name": "avatar",
-      "description": "A user avatar image or fallback initials component",
-      "path": "components/ui/avatar.tsx",
       "version": "1.0.0",
+      "path": "components/ui/avatar.tsx",
+      "description": "A user avatar image or fallback initials component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "avatar",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "badge": {
+      "id": "badge",
       "name": "badge",
-      "description": "A small badge used to display counts or statuses",
-      "path": "components/ui/badge.tsx",
       "version": "1.0.0",
+      "path": "components/ui/badge.tsx",
+      "description": "A small badge used to display counts or statuses",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "badge",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "breadcrumb": {
+      "id": "breadcrumb",
       "name": "breadcrumb",
-      "description": "A breadcrumb navigation component",
-      "path": "components/ui/breadcrumb.tsx",
       "version": "1.0.0",
+      "path": "components/ui/breadcrumb.tsx",
+      "description": "A breadcrumb navigation component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "breadcrumb",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "button": {
+      "id": "button",
       "name": "button",
-      "description": "A styled button component",
-      "path": "components/ui/button.tsx",
       "version": "1.0.0",
+      "path": "components/ui/button.tsx",
+      "description": "A styled button component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
+      "type": "component",
       "registryDependencies": [],
-      "id": "button",
-      "type": "component"
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "primary",
+              "outline",
+              "secondary",
+              "ghost",
+              "link",
+              "destructive"
+            ],
+            "default": "primary",
+            "customizable": true
+          },
+          {
+            "name": "size",
+            "values": [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+              "icon-xs",
+              "icon-sm",
+              "icon-md",
+              "icon-lg",
+              "icon-xl"
+            ],
+            "default": "md"
+          }
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.375
+          }
+        ]
+      }
     },
     "card": {
+      "id": "card",
       "name": "card",
-      "description": "A container card for grouping related content",
-      "path": "components/ui/card.tsx",
       "version": "1.0.0",
+      "path": "components/ui/card.tsx",
+      "description": "A container card for grouping related content",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [],
-      "id": "card",
-      "type": "component"
+      "capabilities": {
+        "parts": [
+          "Header",
+          "Title",
+          "Description",
+          "Body",
+          "Footer"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.5
+          },
+          {
+            "key": "gap",
+            "label": "Gap",
+            "kind": "slider",
+            "min": 0,
+            "max": 3,
+            "step": 0.25,
+            "unit": "rem",
+            "default": 1.5
+          },
+          {
+            "key": "padding",
+            "label": "Padding",
+            "kind": "slider",
+            "min": 0,
+            "max": 3,
+            "step": 0.25,
+            "unit": "rem",
+            "default": 1.5
+          }
+        ]
+      }
     },
     "chart": {
+      "id": "chart",
       "name": "chart",
-      "description": "A composable chart component built on top of Recharts with automatic color management and styled tooltips.",
-      "path": "components/ui/chart.tsx",
       "version": "1.0.0",
+      "path": "components/ui/chart.tsx",
+      "description": "A composable chart component built on top of Recharts with automatic color management and styled tooltips.",
       "dependencies": [
         "cn",
         "recharts"
       ],
-      "registryDependencies": [],
-      "id": "chart",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "checkbox": {
+      "id": "checkbox",
       "name": "checkbox",
-      "description": "A checkbox input component",
-      "path": "components/ui/checkbox.tsx",
       "version": "1.0.0",
+      "path": "components/ui/checkbox.tsx",
+      "description": "A checkbox input component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "checkbox",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "collapsible": {
+      "id": "collapsible",
       "name": "collapsible",
-      "description": "A generic collapsible container component",
-      "path": "components/ui/collapsible.tsx",
       "version": "1.0.0",
+      "path": "components/ui/collapsible.tsx",
+      "description": "A generic collapsible container component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "collapsible",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "combobox": {
+      "id": "combobox",
       "name": "combobox",
-      "description": "A combobox input with dropdown selection",
-      "path": "components/ui/combobox.tsx",
       "version": "1.0.0",
+      "path": "components/ui/combobox.tsx",
+      "description": "A combobox input with dropdown selection",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "scroll-area",
         "input",
         "popup-arrow",
         "button"
-      ],
-      "id": "combobox",
-      "type": "component"
+      ]
     },
     "command": {
+      "id": "command",
       "name": "command",
-      "description": "A command palette or searchable action list",
-      "path": "components/ui/command.tsx",
       "version": "1.0.0",
+      "path": "components/ui/command.tsx",
+      "description": "A command palette or searchable action list",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "autocomplete",
         "backdrop",
         "shortcut"
-      ],
-      "id": "command",
-      "type": "component"
+      ]
     },
     "context-menu": {
+      "id": "context-menu",
       "name": "context-menu",
-      "description": "A right-click context menu component",
-      "path": "components/ui/context-menu.tsx",
       "version": "1.0.0",
+      "path": "components/ui/context-menu.tsx",
+      "description": "A right-click context menu component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "menu-base",
         "shortcut"
-      ],
-      "id": "context-menu",
-      "type": "component"
+      ]
     },
     "dialog": {
+      "id": "dialog",
       "name": "dialog",
-      "description": "A generic modal dialog component",
-      "path": "components/ui/dialog.tsx",
       "version": "1.0.0",
+      "path": "components/ui/dialog.tsx",
+      "description": "A generic modal dialog component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "backdrop",
         "scroll-area",
         "x-close"
       ],
-      "id": "dialog",
-      "type": "component"
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "bare",
+              "bare-top",
+              "bare-bottom"
+            ],
+            "default": "default"
+          }
+        ],
+        "parts": [
+          "Trigger",
+          "Popup",
+          "Header",
+          "Title",
+          "Description",
+          "Body",
+          "Footer",
+          "Backdrop"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.5
+          }
+        ],
+        "editableProperties": [
+          "backdrop",
+          "backdropBlur",
+          "showCloseButton"
+        ]
+      }
     },
     "drawer": {
+      "id": "drawer",
       "name": "drawer",
-      "description": "A slide-over drawer component",
-      "path": "components/ui/drawer.tsx",
       "version": "1.0.0",
+      "path": "components/ui/drawer.tsx",
+      "description": "A slide-over drawer component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "backdrop",
         "scroll-area",
         "x-close"
-      ],
-      "id": "drawer",
-      "type": "component"
+      ]
     },
     "empty": {
+      "id": "empty",
       "name": "empty",
-      "description": "A placeholder component for empty states",
-      "path": "components/ui/empty.tsx",
       "version": "1.0.0",
+      "path": "components/ui/empty.tsx",
+      "description": "A placeholder component for empty states",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "empty",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "field": {
+      "id": "field",
       "name": "field",
-      "description": "A form field wrapper component",
-      "path": "components/ui/field.tsx",
       "version": "1.0.0",
+      "path": "components/ui/field.tsx",
+      "description": "A form field wrapper component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "field",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "fieldset": {
-      "name": "fieldset",
-      "description": "A fieldset grouping component for forms",
-      "path": "components/ui/fieldset.tsx",
-      "version": "1.0.0",
-      "dependencies": [],
-      "registryDependencies": [],
       "id": "fieldset",
-      "type": "component"
+      "name": "fieldset",
+      "version": "1.0.0",
+      "path": "components/ui/fieldset.tsx",
+      "description": "A fieldset grouping component for forms",
+      "dependencies": [],
+      "type": "component",
+      "registryDependencies": []
     },
     "form": {
+      "id": "form",
       "name": "form",
-      "description": "Form utilities and wrapper component",
-      "path": "components/ui/form.tsx",
       "version": "1.0.0",
+      "path": "components/ui/form.tsx",
+      "description": "Form utilities and wrapper component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "form",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "group": {
+      "id": "group",
       "name": "group",
-      "description": "A simple grouping/layout component",
-      "path": "components/ui/group.tsx",
       "version": "1.0.0",
+      "path": "components/ui/group.tsx",
+      "description": "A simple grouping/layout component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
+      "type": "component",
       "registryDependencies": [
         "separator"
-      ],
-      "id": "group",
-      "type": "component"
+      ]
     },
     "input-group": {
+      "id": "input-group",
       "name": "input-group",
-      "description": "A wrapper for grouping input-related elements",
-      "path": "components/ui/input-group.tsx",
       "version": "1.0.0",
+      "path": "components/ui/input-group.tsx",
+      "description": "A wrapper for grouping input-related elements",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
+      "type": "component",
       "registryDependencies": [
         "input",
         "textarea"
-      ],
-      "id": "input-group",
-      "type": "component"
+      ]
     },
     "input": {
+      "id": "input",
       "name": "input",
-      "description": "A text input component",
-      "path": "components/ui/input.tsx",
       "version": "1.0.0",
+      "path": "components/ui/input.tsx",
+      "description": "A text input component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [],
-      "id": "input",
-      "type": "component"
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "primary",
+              "secondary"
+            ],
+            "default": "primary"
+          }
+        ],
+        "states": [
+          "focus",
+          "disabled",
+          "invalid"
+        ]
+      }
     },
     "kbd": {
+      "id": "kbd",
       "name": "kbd",
-      "description": "A keyboard key visual component",
-      "path": "components/ui/kbd.tsx",
       "version": "1.0.0",
+      "path": "components/ui/kbd.tsx",
+      "description": "A keyboard key visual component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "kbd",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "label": {
+      "id": "label",
       "name": "label",
-      "description": "A label component for form inputs",
-      "path": "components/ui/label.tsx",
       "version": "1.0.0",
+      "path": "components/ui/label.tsx",
+      "description": "A label component for form inputs",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "label",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "menu": {
+      "id": "menu",
       "name": "menu",
-      "description": "A dropdown or contextual menu component",
-      "path": "components/ui/menu.tsx",
       "version": "1.0.0",
+      "path": "components/ui/menu.tsx",
+      "description": "A dropdown or contextual menu component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "popup-arrow",
         "menu-base",
         "shortcut"
-      ],
-      "id": "menu",
-      "type": "component"
+      ]
     },
     "menubar": {
+      "id": "menubar",
       "name": "menubar",
-      "description": "A menubar/navigation menu component",
-      "path": "components/ui/menubar.tsx",
       "version": "1.0.0",
+      "path": "components/ui/menubar.tsx",
+      "description": "A menubar/navigation menu component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "menubar",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "meter": {
+      "id": "meter",
       "name": "meter",
-      "description": "A visual meter/progress indicator",
-      "path": "components/ui/meter.tsx",
       "version": "1.0.0",
+      "path": "components/ui/meter.tsx",
+      "description": "A visual meter/progress indicator",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "meter",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "number-field": {
+      "id": "number-field",
       "name": "number-field",
-      "description": "A numeric input field component",
-      "path": "components/ui/number-field.tsx",
       "version": "1.0.0",
+      "path": "components/ui/number-field.tsx",
+      "description": "A numeric input field component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "label"
-      ],
-      "id": "number-field",
-      "type": "component"
+      ]
     },
     "otp-field": {
+      "id": "otp-field",
       "name": "otp-field",
-      "description": "A otp input field component",
-      "path": "components/ui/otp-field",
       "version": "1.0.0",
+      "path": "components/ui/otp-field",
+      "description": "A otp input field component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "separator"
-      ],
-      "id": "otp-field",
-      "type": "component"
+      ]
     },
     "popover": {
+      "id": "popover",
       "name": "popover",
-      "description": "A contextual popover component",
-      "path": "components/ui/popover.tsx",
       "version": "1.0.0",
+      "path": "components/ui/popover.tsx",
+      "description": "A contextual popover component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ],
-      "id": "popover",
-      "type": "component"
+      ]
     },
     "preview-card": {
+      "id": "preview-card",
       "name": "preview-card",
-      "description": "A card component for previewing content",
-      "path": "components/ui/preview-card.tsx",
       "version": "1.0.0",
+      "path": "components/ui/preview-card.tsx",
+      "description": "A card component for previewing content",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ],
-      "id": "preview-card",
-      "type": "component"
+      ]
     },
     "progress": {
+      "id": "progress",
       "name": "progress",
-      "description": "A progress bar component",
-      "path": "components/ui/progress.tsx",
       "version": "1.0.0",
+      "path": "components/ui/progress.tsx",
+      "description": "A progress bar component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "progress",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "radio-group": {
+      "id": "radio-group",
       "name": "radio-group",
-      "description": "A group of radio inputs",
-      "path": "components/ui/radio-group.tsx",
       "version": "1.0.0",
+      "path": "components/ui/radio-group.tsx",
+      "description": "A group of radio inputs",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "radio-group",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "scroll-area": {
+      "id": "scroll-area",
       "name": "scroll-area",
-      "description": "A scrollable container with custom scrollbars",
-      "path": "components/ui/scroll-area.tsx",
       "version": "1.0.0",
+      "path": "components/ui/scroll-area.tsx",
+      "description": "A scrollable container with custom scrollbars",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "scroll-area",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "select": {
+      "id": "select",
       "name": "select",
-      "description": "A select dropdown component",
-      "path": "components/ui/select.tsx",
       "version": "1.0.0",
+      "path": "components/ui/select.tsx",
+      "description": "A select dropdown component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "button"
-      ],
-      "id": "select",
-      "type": "component"
+      ]
     },
     "separator": {
+      "id": "separator",
       "name": "separator",
-      "description": "A visual separator/divider component",
-      "path": "components/ui/separator.tsx",
       "version": "1.0.0",
+      "path": "components/ui/separator.tsx",
+      "description": "A visual separator/divider component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "separator",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "skeleton": {
+      "id": "skeleton",
       "name": "skeleton",
-      "description": "A skeleton loader placeholder component",
-      "path": "components/ui/skeleton.tsx",
       "version": "1.0.0",
+      "path": "components/ui/skeleton.tsx",
+      "description": "A skeleton loader placeholder component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "skeleton",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "slider": {
+      "id": "slider",
       "name": "slider",
-      "description": "A range slider input component",
-      "path": "components/ui/slider.tsx",
       "version": "1.0.0",
+      "path": "components/ui/slider.tsx",
+      "description": "A range slider input component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "slider",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "switch": {
+      "id": "switch",
       "name": "switch",
-      "description": "A toggle switch input component",
-      "path": "components/ui/switch.tsx",
       "version": "1.0.0",
+      "path": "components/ui/switch.tsx",
+      "description": "A toggle switch input component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "switch",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "table": {
+      "id": "table",
       "name": "table",
-      "description": "A table component for tabular data",
-      "path": "components/ui/table.tsx",
       "version": "1.0.0",
+      "path": "components/ui/table.tsx",
+      "description": "A table component for tabular data",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "table",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "tabs": {
+      "id": "tabs",
       "name": "tabs",
-      "description": "A tabs navigation component",
-      "path": "components/ui/tabs.tsx",
       "version": "1.0.0",
+      "path": "components/ui/tabs.tsx",
+      "description": "A tabs navigation component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "tabs",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "textarea": {
+      "id": "textarea",
       "name": "textarea",
-      "description": "A multi-line text input component",
-      "path": "components/ui/textarea.tsx",
       "version": "1.0.0",
+      "path": "components/ui/textarea.tsx",
+      "description": "A multi-line text input component",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "textarea",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "toast": {
+      "id": "toast",
       "name": "toast",
-      "description": "A transient notification/toast component",
-      "path": "components/ui/toast.tsx",
       "version": "1.0.0",
+      "path": "components/ui/toast.tsx",
+      "description": "A transient notification/toast component",
       "dependencies": [
         "cn"
       ],
+      "type": "component",
       "registryDependencies": [
         "button"
-      ],
-      "id": "toast",
-      "type": "component"
+      ]
     },
     "toggle": {
+      "id": "toggle",
       "name": "toggle",
-      "description": "A toggle button component",
-      "path": "components/ui/toggle.tsx",
       "version": "1.0.0",
+      "path": "components/ui/toggle.tsx",
+      "description": "A toggle button component",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
-      "registryDependencies": [],
-      "id": "toggle",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "toolbar": {
+      "id": "toolbar",
       "name": "toolbar",
-      "description": "A toolbar container for action buttons and controls",
-      "path": "components/ui/toolbar.tsx",
       "version": "1.0.0",
+      "path": "components/ui/toolbar.tsx",
+      "description": "A toolbar container for action buttons and controls",
       "dependencies": [
         "cn"
       ],
-      "registryDependencies": [],
-      "id": "toolbar",
-      "type": "component"
+      "type": "component",
+      "registryDependencies": []
     },
     "tooltip": {
+      "id": "tooltip",
       "name": "tooltip",
-      "description": "A tooltip component for contextual hints",
-      "path": "components/ui/tooltip.tsx",
       "version": "1.0.0",
+      "path": "components/ui/tooltip.tsx",
+      "description": "A tooltip component for contextual hints",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
+      "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ],
-      "id": "tooltip",
-      "type": "component"
+      ]
     },
     "sidebar": {
+      "id": "sidebar",
       "name": "sidebar",
-      "description": "A composable, collapsible sidebar with support for mobile drawers, icon mode, and nested navigation.",
-      "path": "components/ui/sidebar.tsx",
       "version": "1.0.0",
+      "path": "components/ui/sidebar.tsx",
+      "description": "A composable, collapsible sidebar with support for mobile drawers, icon mode, and nested navigation.",
       "dependencies": [
         "cn",
         "class-variance-authority"
       ],
+      "type": "component",
       "registryDependencies": [
         "use-mobile",
         "button",
@@ -724,38 +870,36 @@
         "scroll-area",
         "tooltip",
         "separator"
-      ],
-      "id": "sidebar",
-      "type": "component"
+      ]
     },
     "use-copy-to-clipboard": {
-      "name": "Use Copy To Clipboard",
-      "description": "A hook that copies text to the clipboard",
-      "path": "hooks/use-copy-to-clipboard.ts",
-      "version": "1.0.0",
-      "hookType": "server",
       "id": "use-copy-to-clipboard",
-      "type": "hook"
+      "name": "Use Copy To Clipboard",
+      "version": "1.0.0",
+      "path": "hooks/use-copy-to-clipboard.ts",
+      "description": "A hook that copies text to the clipboard",
+      "type": "hook",
+      "hookType": "server"
     },
     "use-mobile": {
-      "name": "use-mobile",
-      "description": "A hook that detects if the user is on a mobile device",
-      "path": "hooks/use-mobile.ts",
-      "version": "1.0.0",
-      "hookType": "client",
       "id": "use-mobile",
-      "type": "hook"
+      "name": "use-mobile",
+      "version": "1.0.0",
+      "path": "hooks/use-mobile.ts",
+      "description": "A hook that detects if the user is on a mobile device",
+      "type": "hook",
+      "hookType": "client"
     }
   },
   "presets": {
     "test": {
-      "type": "preset",
       "id": "test",
       "name": "test",
       "version": "1.0.0",
       "path": "registry/test/preset.test.ts",
       "description": "test rlz preset",
       "dependencies": [],
+      "type": "preset",
       "base": {
         "typography": {
           "letterSpacing": 0
