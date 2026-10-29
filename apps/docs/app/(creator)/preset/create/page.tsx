@@ -7,6 +7,7 @@ import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "../components/selected-preview";
+import { OpenDocsButton } from "../components/open-docs-button";
 import { Maximize, Minimize, SquareMousePointer, Plus } from "lucide-react";
 
 export default function Page() {
@@ -48,6 +49,7 @@ export default function Page() {
         <div className="flex gap-1.5 items-center">
           <OpenInV0Button size="sm" variant="outline" />
           <Tooltip.Provider delay={0} closeDelay={0}>
+            <OpenDocsButton />
             <Tooltip
               triggerRender={
                 <Button variant="ghost" size="sm">
