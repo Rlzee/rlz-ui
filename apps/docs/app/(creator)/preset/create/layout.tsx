@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <PropertiesPanel />
         <SidebarInset
           id="playground"
-          className="flex-1 border border-sidebar-border rounded-md mx-2 mb-2"
+          className="h-[calc(100svh-var(--header-height)-0.5rem)] min-h-0 flex-1 overflow-hidden border border-sidebar-border rounded-md mx-2 mb-2"
         >
           {children}
         </SidebarInset>

@@ -80,13 +80,14 @@ function Slider({
   SliderPrimitive.Root.Props,
   "value" | "defaultValue" | "onValueChange"
 > & {
-  value?: number[];
-  defaultValue?: number[];
+  value?: number | number[];
+  defaultValue?: number | number[];
   onValueChange?: (value: number[]) => void;
 }) {
   const values = React.useMemo(() => {
-    if (value !== undefined) return value;
-    if (defaultValue !== undefined) return defaultValue;
+    if (value !== undefined) return Array.isArray(value) ? value : [value];
+    if (defaultValue !== undefined)
+      return Array.isArray(defaultValue) ? defaultValue : [defaultValue];
 
     return [min];
   }, [value, defaultValue, min]);

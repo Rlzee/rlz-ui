@@ -12,7 +12,7 @@ import { Input } from "@rlz/ui/components/ui/input";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { PresetDialog } from "./preset-dialog";
 import { Button } from "@rlz/ui/components/ui/button";
-import { RefreshCw, CloudSync, type LucideIcon } from "lucide-react";
+import { RefreshCw, CloudSync, Share2 } from "lucide-react";
 
 export function Navbar() {
   const resetPreset = useSetAtom(resetPresetAtom);
@@ -46,6 +46,11 @@ export function Navbar() {
           </Button>
 
           <PresetDialog name={preset.name.trim()} preset={preset} />
+
+          <Button size="sm" variant="ghost">
+            <Share2 />
+            Share
+          </Button>
 
           <Button size="sm">
             <CloudSync />

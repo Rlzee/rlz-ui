@@ -4,12 +4,13 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
+import { SelectedPreview } from "../components/selected-preview";
 import { Maximize, SquareMousePointer, Plus } from "lucide-react";
 
 export default function Page() {
   return (
-    <Tabs className="flex-1" defaultValue="dashboard">
-      <header className="border-b border-border flex items-center justify-between py-2 px-3">
+    <Tabs className="min-h-0 flex-1" defaultValue="selected">
+      <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
         {/* <h2 className="font-semibold text-lg">Playground</h2> */}
         <Tabs.List className="bg-secondary rounded-md items-center">
           <Button size="sm" className="ml-0.5" variant="outline">
@@ -53,7 +54,12 @@ export default function Page() {
           </Tooltip.Provider>
         </div>
       </header>
-      <Tabs.Panel value="Selected"></Tabs.Panel>
+      <Tabs.Panel
+        value="selected"
+        className="flex min-h-0 flex-1 flex-col overflow-hidden"
+      >
+        <SelectedPreview />
+      </Tabs.Panel>
     </Tabs>
   );
 }
