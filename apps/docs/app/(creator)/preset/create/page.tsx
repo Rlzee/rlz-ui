@@ -1,13 +1,36 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
+
 import { Button } from "@rlz/ui/components/ui/button";
 import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "../components/selected-preview";
-import { Maximize, SquareMousePointer, Plus } from "lucide-react";
+import { Maximize, Minimize, SquareMousePointer, Plus } from "lucide-react";
 
 export default function Page() {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  // Keep the icon in sync even when the user leaves fullscreen with Esc.
+  useEffect(() => {
+    const onChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
+
+    document.addEventListener("fullscreenchange", onChange);
+    return () => document.removeEventListener("fullscreenchange", onChange);
+  }, []);
+
+  const toggleFullscreen = useCallback(() => {
+    const playground = document.getElementById("playground");
+    if (!playground) return;
+
+    if (document.fullscreenElement) {
+      void document.exitFullscreen();
+    } else {
+      void playground.requestFullscreen();
+    }
+  }, []);
+
   return (
     <Tabs className="min-h-0 flex-1" defaultValue="selected">
       <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
@@ -19,8 +42,8 @@ export default function Page() {
           </Button>
           <Tabs.Tab value="dashboard">Dashboard</Tabs.Tab>
           <Tabs.Tab value="Components">Components</Tabs.Tab>
-          <Tabs.Tab value="selected">Selected</Tabs.Tab>
-          <Tabs.Indicator className="h-8 mx-0.5" />
+          <Tabs.Tab value="selected" className="mr-0.5">Selected</Tabs.Tab>
+          <Tabs.Indicator className="h-8" />
         </Tabs.List>
         <div className="flex gap-1.5 items-center">
           <OpenInV0Button size="sm" variant="outline" />
@@ -40,11 +63,16 @@ export default function Page() {
             />
             <Tooltip
               triggerRender={
-                <Button variant="ghost" size="sm">
-                  <Maximize />
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleFullscreen}
+                  aria-label="Toggle full screen"
+                >
+                  {isFullscreen ? <Minimize /> : <Maximize />}
                 </Button>
               }
-              popupContent="Full screen"
+              popupContent={isFullscreen ? "Exit full screen" : "Full screen"}
               popupProps={{
                 positionerProps: {
                   side: "bottom",
