@@ -30,7 +30,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         suppressHydrationWarning
       >
         <ThemeProvider>
-          <RootProvider>{children}</RootProvider>
+          {/* Built-in fumadocs search is disabled: it mounts a lazy SearchDialog
+              whose Suspense/lazy render makes useId() call counts differ between
+              SSR and hydration, shifting Base UI auto-ids and causing hydration
+              mismatches. This app uses its own CommandMenu/CommandInput search. */}
+          <RootProvider search={{ enabled: false }}>{children}</RootProvider>
         </ThemeProvider>
       </body>
     </html>

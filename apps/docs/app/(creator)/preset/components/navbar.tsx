@@ -9,6 +9,7 @@ import {
 } from "../preset-builder";
 
 import { Input } from "@rlz/ui/components/ui/input";
+import { Badge } from "@rlz/ui/components/ui/badge";
 import { PresetDialog } from "./preset-dialog";
 import { Button } from "@rlz/ui/components/ui/button";
 import { RefreshCw, CloudSync, type LucideIcon } from "lucide-react";
@@ -26,7 +27,8 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full bg-transparent px-4 sm:px-6">
       <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2">
-        <div>
+        <div className="flex items-center gap-1.5">
+          <Badge variant="info">Beta v1.0.0</Badge>
           <Input
             unstyled
             aria-label="Preset name"
@@ -43,10 +45,7 @@ export function Navbar() {
             Reset
           </Button>
 
-          <PresetDialog
-            name={preset.name.trim()}
-            preset={preset}
-          />
+          <PresetDialog name={preset.name.trim()} preset={preset} />
 
           <Button size="sm">
             <CloudSync />

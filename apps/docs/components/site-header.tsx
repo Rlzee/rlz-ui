@@ -73,7 +73,7 @@ export function SiteHeader({ container }: { container?: boolean }) {
           />
 
           <nav className="items-center gap-0.5 hidden lg:flex">
-            <Badge variant="info">Beta v1.0</Badge>
+            <Badge variant="info">Beta v1.0.0</Badge>
             {siteConfig.navItems.map((item) => (
               <NavLink
                 key={item.label}
