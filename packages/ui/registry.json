@@ -13,7 +13,12 @@
       "type": "component",
       "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false
+      "allowManualInstall": false,
+      "capabilities": {
+        "editableProperties": [
+          "blur"
+        ]
+      }
     },
     "menu-base": {
       "id": "menu-base",
@@ -83,7 +88,16 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Item",
+          "Trigger",
+          "Icon",
+          "Panel",
+          "Header"
+        ]
+      }
     },
     "alert-dialog": {
       "id": "alert-dialog",
@@ -110,7 +124,39 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "error",
+              "info",
+              "success",
+              "warning"
+            ],
+            "default": "default"
+          }
+        ],
+        "parts": [
+          "Title",
+          "Description",
+          "Action"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "autocomplete": {
       "id": "autocomplete",
@@ -126,7 +172,49 @@
         "input",
         "scroll-area",
         "popup-arrow"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "hover",
+          "focus",
+          "disabled",
+          "open"
+        ],
+        "parts": [
+          "Trigger",
+          "Input",
+          "Value",
+          "Clear",
+          "Icon",
+          "Popup",
+          "Arrow",
+          "Status",
+          "Empty",
+          "List",
+          "Item",
+          "Separator",
+          "Group",
+          "GroupLabel",
+          "Row",
+          "Collection"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "clearable",
+          "backdrop"
+        ]
+      }
     },
     "avatar": {
       "id": "avatar",
@@ -139,7 +227,38 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "size",
+            "values": [
+              "sm",
+              "md",
+              "lg",
+              "xl"
+            ],
+            "default": "md"
+          },
+          {
+            "name": "space",
+            "values": [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl"
+            ],
+            "default": "md"
+          }
+        ],
+        "parts": [
+          "Root",
+          "Image",
+          "Fallback",
+          "Stack"
+        ]
+      }
     },
     "badge": {
       "id": "badge",
@@ -152,7 +271,40 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "primary",
+              "secondary",
+              "outline",
+              "error",
+              "info",
+              "success",
+              "warning"
+            ],
+            "default": "primary"
+          }
+        ],
+        "states": [
+          "focus",
+          "invalid"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "breadcrumb": {
       "id": "breadcrumb",
@@ -164,7 +316,21 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "hover"
+        ],
+        "parts": [
+          "List",
+          "Item",
+          "Link",
+          "Separator"
+        ],
+        "editableProperties": [
+          "isActive"
+        ]
+      }
     },
     "button": {
       "id": "button",
@@ -210,6 +376,12 @@
             "default": "md"
           }
         ],
+        "states": [
+          "hover",
+          "focus",
+          "disabled",
+          "invalid"
+        ],
         "styles": [
           {
             "key": "radius",
@@ -221,6 +393,9 @@
             "unit": "rem",
             "default": 0.575
           }
+        ],
+        "editableProperties": [
+          "loading"
         ]
       }
     },
@@ -288,7 +463,25 @@
         "recharts"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Tooltip",
+          "Legend"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "checkbox": {
       "id": "checkbox",
@@ -300,7 +493,32 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "focus",
+          "disabled",
+          "invalid"
+        ],
+        "parts": [
+          "Root",
+          "Indicator",
+          "Icon",
+          "Group"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "collapsible": {
       "id": "collapsible",
@@ -312,7 +530,13 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Trigger",
+          "Panel"
+        ]
+      }
     },
     "combobox": {
       "id": "combobox",
@@ -329,7 +553,56 @@
         "input",
         "popup-arrow",
         "button"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "hover",
+          "disabled",
+          "invalid",
+          "open"
+        ],
+        "parts": [
+          "Value",
+          "Input",
+          "Clear",
+          "Trigger",
+          "Field",
+          "Icon",
+          "Popup",
+          "Arrow",
+          "Empty",
+          "Status",
+          "List",
+          "Item",
+          "ItemText",
+          "ItemIndicator",
+          "Separator",
+          "Group",
+          "GroupLabel",
+          "Collection",
+          "Row",
+          "Chips",
+          "ChipsInput",
+          "Chip",
+          "ChipRemove"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "clearable",
+          "backdrop"
+        ]
+      }
     },
     "command": {
       "id": "command",
@@ -345,7 +618,44 @@
         "autocomplete",
         "backdrop",
         "shortcut"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "open"
+        ],
+        "parts": [
+          "Trigger",
+          "Backdrop",
+          "Viewport",
+          "Popup",
+          "Input",
+          "List",
+          "Empty",
+          "Group",
+          "GroupLabel",
+          "Collection",
+          "Item",
+          "Separator",
+          "Shortcut",
+          "Footer"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop",
+          "backdropBlur"
+        ]
+      }
     },
     "context-menu": {
       "id": "context-menu",
@@ -385,8 +695,8 @@
             "values": [
               "default",
               "bare",
-              "bare-top",
-              "bare-bottom"
+              "bare-bottom",
+              "bare-top"
             ],
             "default": "default",
             "parts": [
@@ -396,14 +706,17 @@
             ]
           }
         ],
+        "states": [
+          "open"
+        ],
         "parts": [
           "Trigger",
           "Popup",
-          "Header",
           "Title",
           "Description",
-          "Body",
           "Footer",
+          "Header",
+          "Body",
           "Backdrop"
         ],
         "styles": [
@@ -420,8 +733,8 @@
         ],
         "editableProperties": [
           "backdrop",
-          "backdropBlur",
-          "showCloseButton"
+          "showCloseButton",
+          "backdropBlur"
         ]
       }
     },
@@ -439,7 +752,37 @@
         "backdrop",
         "scroll-area",
         "x-close"
-      ]
+      ],
+      "capabilities": {
+        "parts": [
+          "Trigger",
+          "Header",
+          "Title",
+          "Description",
+          "Body",
+          "Footer",
+          "Popup",
+          "Backdrop",
+          "Content"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop",
+          "showCloseButton",
+          "backdropBlur"
+        ]
+      }
     },
     "empty": {
       "id": "empty",
@@ -452,7 +795,47 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "secondary"
+            ],
+            "default": "default"
+          },
+          {
+            "name": "size",
+            "values": [
+              "sm",
+              "md",
+              "lg"
+            ],
+            "default": "md"
+          }
+        ],
+        "parts": [
+          "Media",
+          "Header",
+          "Title",
+          "Description",
+          "Actions"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "field": {
       "id": "field",
@@ -465,7 +848,18 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Group",
+          "Label",
+          "Control",
+          "Description",
+          "Item",
+          "Error",
+          "Validity"
+        ]
+      }
     },
     "fieldset": {
       "id": "fieldset",
@@ -475,7 +869,14 @@
       "description": "A fieldset grouping component for forms",
       "dependencies": [],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Header",
+          "Legend",
+          "Description"
+        ]
+      }
     },
     "form": {
       "id": "form",
@@ -502,7 +903,35 @@
       "type": "component",
       "registryDependencies": [
         "separator"
-      ]
+      ],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "orientation",
+            "values": [
+              "horizontal",
+              "vertical"
+            ],
+            "default": "horizontal"
+          }
+        ],
+        "parts": [
+          "Separator",
+          "Text"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "input-group": {
       "id": "input-group",
@@ -547,6 +976,21 @@
           "focus",
           "disabled",
           "invalid"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "nativeInput"
         ]
       }
     },
@@ -560,7 +1004,24 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Group"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "label": {
       "id": "label",
@@ -588,7 +1049,28 @@
         "popup-arrow",
         "menu-base",
         "shortcut"
-      ]
+      ],
+      "capabilities": {
+        "parts": [
+          "Trigger",
+          "Popup",
+          "Arrow",
+          "Group",
+          "GroupLabel",
+          "Item",
+          "Separator",
+          "CheckboxItem",
+          "SwitchItem",
+          "Submenu",
+          "SubmenuTrigger",
+          "RadioGroup",
+          "RadioItem",
+          "Shortcut"
+        ],
+        "editableProperties": [
+          "backdrop"
+        ]
+      }
     },
     "menubar": {
       "id": "menubar",
@@ -600,7 +1082,28 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "hover",
+          "focus"
+        ],
+        "parts": [
+          "Trigger"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "meter": {
       "id": "meter",
@@ -612,7 +1115,16 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Root",
+          "Label",
+          "Value",
+          "Track",
+          "Indicator"
+        ]
+      }
     },
     "number-field": {
       "id": "number-field",
@@ -654,7 +1166,37 @@
       "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "open"
+        ],
+        "parts": [
+          "Trigger",
+          "Popup",
+          "Arrow",
+          "Viewport",
+          "Header",
+          "Title",
+          "Description",
+          "Close"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop"
+        ]
+      }
     },
     "preview-card": {
       "id": "preview-card",
@@ -680,7 +1222,28 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Root",
+          "Label",
+          "Value",
+          "Track",
+          "Indicator"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "radio-group": {
       "id": "radio-group",
@@ -718,7 +1281,46 @@
       "type": "component",
       "registryDependencies": [
         "button"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "hover",
+          "focus"
+        ],
+        "parts": [
+          "Trigger",
+          "Value",
+          "Icon",
+          "Backdrop",
+          "ScrollUp",
+          "ScrollDown",
+          "Popup",
+          "List",
+          "Item",
+          "ItemText",
+          "ItemIndicator",
+          "Separator",
+          "Group",
+          "GroupLabel"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop",
+          "scrollUp",
+          "scrollDown"
+        ]
+      }
     },
     "separator": {
       "id": "separator",
@@ -742,7 +1344,21 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "slider": {
       "id": "slider",
@@ -754,7 +1370,29 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Root",
+          "Value",
+          "Control",
+          "Track",
+          "Indicator",
+          "Thumb"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "switch": {
       "id": "switch",
@@ -766,7 +1404,17 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "focus",
+          "disabled"
+        ],
+        "parts": [
+          "Root",
+          "Thumb"
+        ]
+      }
     },
     "table": {
       "id": "table",
@@ -778,7 +1426,21 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "hover"
+        ],
+        "parts": [
+          "Header",
+          "Body",
+          "Footer",
+          "Head",
+          "Row",
+          "Cell",
+          "Caption"
+        ]
+      }
     },
     "tabs": {
       "id": "tabs",
@@ -791,7 +1453,41 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "underline"
+            ],
+            "default": "default"
+          }
+        ],
+        "states": [
+          "hover",
+          "focus"
+        ],
+        "parts": [
+          "List",
+          "Tab",
+          "Indicator",
+          "Panel"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "textarea": {
       "id": "textarea",
@@ -803,7 +1499,25 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "focus",
+          "invalid"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "toast": {
       "id": "toast",
@@ -817,7 +1531,24 @@
       "type": "component",
       "registryDependencies": [
         "button"
-      ]
+      ],
+      "capabilities": {
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "tooltipStyle"
+        ]
+      }
     },
     "toggle": {
       "id": "toggle",
@@ -830,7 +1561,58 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "outline"
+            ],
+            "default": "default"
+          },
+          {
+            "name": "size",
+            "values": [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+              "icon-xs",
+              "icon-sm",
+              "icon-md",
+              "icon-lg",
+              "icon-xl"
+            ],
+            "default": "md"
+          }
+        ],
+        "states": [
+          "hover",
+          "focus",
+          "disabled",
+          "invalid",
+          "pressed"
+        ],
+        "parts": [
+          "Group",
+          "GroupSeparator"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "toolbar": {
       "id": "toolbar",
@@ -842,7 +1624,29 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "parts": [
+          "Group",
+          "Button",
+          "Separator",
+          "Link",
+          "Input",
+          "Text"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "tooltip": {
       "id": "tooltip",
@@ -857,7 +1661,37 @@
       "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ]
+      ],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "primary",
+              "outline"
+            ],
+            "default": "primary"
+          }
+        ],
+        "parts": [
+          "Root",
+          "Trigger",
+          "Popup",
+          "Arrow"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "sidebar": {
       "id": "sidebar",
@@ -877,7 +1711,76 @@
         "scroll-area",
         "tooltip",
         "separator"
-      ]
+      ],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "primary",
+              "ghost"
+            ],
+            "default": "ghost",
+            "parts": [
+              "MenuButton",
+              "MenuSubButton"
+            ]
+          },
+          {
+            "name": "size",
+            "values": [
+              "sm",
+              "md",
+              "lg"
+            ],
+            "default": "md",
+            "parts": [
+              "MenuButton",
+              "MenuSubButton"
+            ]
+          }
+        ],
+        "states": [
+          "hover",
+          "focus",
+          "active",
+          "disabled",
+          "expanded",
+          "open"
+        ],
+        "parts": [
+          "Inset",
+          "Trigger",
+          "Rail",
+          "Header",
+          "Footer",
+          "Separator",
+          "Body",
+          "Group",
+          "GroupLabel",
+          "GroupContent",
+          "Menu",
+          "MenuItem",
+          "MenuButton",
+          "MenuAction",
+          "MenuBadge",
+          "MenuSub",
+          "MenuSubItem",
+          "MenuSubButton"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "use-copy-to-clipboard": {
       "id": "use-copy-to-clipboard",

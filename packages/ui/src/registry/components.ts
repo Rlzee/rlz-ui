@@ -1,5 +1,4 @@
 import { defineRegistryItems } from "@rlz/registry";
-import { componentCapabilities } from "./capabilities";
 
 export const registryComponents = defineRegistryItems("component", {
   accordion: {
@@ -65,7 +64,6 @@ export const registryComponents = defineRegistryItems("component", {
     version: "1.0.0",
     dependencies: ["cn", "class-variance-authority"],
     registryDependencies: [],
-    capabilities: componentCapabilities.button,
   },
   card: {
     name: "card",
@@ -74,7 +72,6 @@ export const registryComponents = defineRegistryItems("component", {
     version: "1.0.0",
     dependencies: ["cn"],
     registryDependencies: [],
-    capabilities: componentCapabilities.card,
   },
   chart: {
     name: "chart",
@@ -132,7 +129,6 @@ export const registryComponents = defineRegistryItems("component", {
     version: "1.0.0",
     dependencies: ["cn", "class-variance-authority"],
     registryDependencies: ["backdrop", "scroll-area", "x-close"],
-    capabilities: componentCapabilities.dialog,
   },
   drawer: {
     name: "drawer",
@@ -197,7 +193,6 @@ export const registryComponents = defineRegistryItems("component", {
     version: "1.0.0",
     dependencies: ["cn", "class-variance-authority"],
     registryDependencies: [],
-    capabilities: componentCapabilities.input,
   },
   kbd: {
     name: "kbd",

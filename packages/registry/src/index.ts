@@ -21,3 +21,4 @@ export * from "./presets/schema";
 
 export * from "./capabilities/types";
 export * from "./capabilities/schema";
+export * from "./capabilities/resolve";

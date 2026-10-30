@@ -1,0 +1,210 @@
+import fs from "fs/promises";
+import path from "path";
+import ts from "typescript";
+import type { ComponentCapabilities, ComponentVariantClasses } from "@rlz/registry";
+import {
+  analyzeComponentSource,
+  readRadiusDefault,
+  type DetectedComponent,
+} from "./capability-analyzer";
+
+/**
+ * Refreshes `src/registry/capabilities.detected.ts`: every registered component
+ * is read from its own source, so the Creator knows what it can customize on it
+ * without anyone declaring it. Run with `pnpm --filter @rlz/ui detect:capabilities`
+ * (and by `build:registry`, which serializes the result into `registry.json`).
+ */
+
+const OUTPUT_RELATIVE = path.join("registry", "capabilities.detected.ts");
+
+// The registry files are read as text on purpose: importing them here would mean
+// importing the very file this script writes.
+const REGISTRY_SOURCES = ["registry/components.ts", "registry/base_components.ts"];
+
+export async function detectCapabilities(srcDir: string) {
+  const radiusDefault = readRadiusDefault(
+    await fs.readFile(path.join(srcDir, "styles", "globals.css"), "utf8")
+  );
+
+  const items = await registryItemPaths(srcDir);
+  const detected: Record<string, DetectedComponent> = {};
+
+  for (const [id, itemPath] of Object.entries(items).sort(([a], [b]) => a.localeCompare(b))) {
+    try {
+      const file = await componentSource(srcDir, itemPath);
+      const text = await fs.readFile(file, "utf8");
+      detected[id] = analyzeComponentSource({ fileName: file, text, slug: id, radiusDefault });
+    } catch (error) {
+      // A component that cannot be read simply gets no properties panel: it must
+      // not take the whole detection down.
+      console.warn(`[capabilities] ${id}: detection skipped (${String(error)})`);
+    }
+  }
+
+  return writeDetectedFile(srcDir, detected);
+}
+
+// A registry path is the file it installs, so it normally carries its extension;
+// one or two entries omit it, and the source still has to be read.
+async function componentSource(srcDir: string, itemPath: string) {
+  const exact = path.resolve(srcDir, itemPath);
+
+  try {
+    await fs.access(exact);
+    return exact;
+  } catch {
+    return `${exact}.tsx`;
+  }
+}
+
+/** `{ id: source path }` of every component the registry declares. */
+async function registryItemPaths(srcDir: string) {
+  const items: Record<string, string> = {};
+
+  for (const relative of REGISTRY_SOURCES) {
+    const file = path.join(srcDir, relative);
+    const source = ts.createSourceFile(
+      file,
+      await fs.readFile(file, "utf8"),
+      ts.ScriptTarget.Latest,
+      true,
+      ts.ScriptKind.TS
+    );
+
+    const visit = (node: ts.Node) => {
+      if (
+        ts.isCallExpression(node) &&
+        ts.isIdentifier(node.expression) &&
+        node.expression.text === "defineRegistryItems"
+      ) {
+        const group = node.arguments[1];
+
+        if (group && ts.isObjectLiteralExpression(group)) {
+          for (const property of group.properties) {
+            if (!ts.isPropertyAssignment(property)) continue;
+            if (!ts.isObjectLiteralExpression(property.initializer)) continue;
+
+            // A dashed id (`"alert-dialog"`) has to be quoted: read both forms.
+            const id = keyOf(property.name);
+            if (!id) continue;
+
+            const pathEntry = property.initializer.properties.find(
+              (entry) => ts.isPropertyAssignment(entry) && keyOf(entry.name) === "path"
+            );
+
+            if (
+              pathEntry &&
+              ts.isPropertyAssignment(pathEntry) &&
+              ts.isStringLiteral(pathEntry.initializer)
+            ) {
+              items[id] = pathEntry.initializer.text;
+            }
+          }
+        }
+      }
+
+      node.forEachChild(visit);
+    };
+
+    visit(source);
+  }
+
+  return items;
+}
+
+// An object key as written: `accordion`, `"alert-dialog"`, or `4`.
+function keyOf(name: ts.PropertyName): string | undefined {
+  if (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) {
+    return name.text;
+  }
+
+  return undefined;
+}
+
+// ---------------------------------------------------------------------------
+// output
+// ---------------------------------------------------------------------------
+
+function toManifest(detected: Record<string, DetectedComponent>) {
+  const capabilities: Record<string, ComponentCapabilities> = {};
+  const classes: Record<string, ComponentVariantClasses> = {};
+
+  for (const [id, component] of Object.entries(detected)) {
+    // `undefined` groups are dropped by JSON.stringify, and a component with
+    // nothing detected gets no key at all.
+    const entry = JSON.parse(JSON.stringify(component.capabilities));
+
+    if (Object.keys(entry).length > 0) capabilities[id] = entry;
+    if (Object.keys(component.classes).length > 0) classes[id] = component.classes;
+  }
+
+  return { capabilities, classes };
+}
+
+function fileHeader() {
+  return `/**
+ * AUTO-GENERATED by \`pnpm --filter @rlz/ui detect:capabilities\` (or
+ * \`build:registry\`) - DO NOT EDIT, the next run overwrites this file.
+ *
+ * What every registered component exposes to the Creator, read straight from its
+ * source: cva variant axes and their values, compound parts (\`Object.assign\`),
+ * styled states, boolean props, and the radius tokens it draws. This is the
+ * detected half of a component's capabilities; what must stay hidden and what no
+ * source can tell (numeric sliders, labels) lives in \`./capabilities\`.
+ */`;
+}
+
+async function writeDetectedFile(
+  srcDir: string,
+  detected: Record<string, DetectedComponent>
+) {
+  const { capabilities, classes } = toManifest(detected);
+
+  const output = `${fileHeader()}
+
+import type { ComponentCapabilities, ComponentVariantClasses } from "@rlz/registry";
+
+export const detectedCapabilities: Record<string, ComponentCapabilities> = ${JSON.stringify(
+    capabilities,
+    null,
+    2
+  )};
+
+export const detectedVariantClasses: Record<string, ComponentVariantClasses> = ${JSON.stringify(
+    classes,
+    null,
+    2
+  )};
+`;
+
+  const outputPath = path.join(srcDir, OUTPUT_RELATIVE);
+
+  await fs.writeFile(outputPath, output, "utf8");
+
+  return {
+    outputPath,
+    components: Object.keys(capabilities).length,
+    withVariants: Object.keys(classes).length,
+  };
+}
+
+// Directly invoked (`tsx src/scripts/detect-capabilities.ts`).
+const invoked =
+  typeof process !== "undefined" &&
+  /detect-capabilities\.[tj]s$/.test(process.argv[1] ?? "");
+
+if (invoked) {
+  const scriptDir = path.dirname(path.resolve(process.argv[1]));
+
+  detectCapabilities(path.resolve(scriptDir, ".."))
+    .then(({ outputPath, components, withVariants }) => {
+      console.log(
+        `Capabilities detected for ${components} components (${withVariants} with variant classes):`,
+        outputPath
+      );
+    })
+    .catch((error) => {
+      console.error("Failed to detect capabilities:", error);
+      process.exit(1);
+    });
+}

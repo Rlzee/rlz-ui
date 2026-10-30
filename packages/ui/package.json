@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build:registry": "tsx src/scripts/generate-registry.ts"
+    "detect:capabilities": "tsx src/scripts/detect-capabilities.ts",
+    "build:registry": "tsx src/scripts/detect-capabilities.ts && tsx src/scripts/generate-registry.ts"
   },
   "peerDependencies": {
     "react": "^19.0.0",

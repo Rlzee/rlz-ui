@@ -1,101 +1,110 @@
-import type { ComponentCapabilities } from "@rlz/registry";
+import type { ComponentCapabilitiesOverride } from "@rlz/registry";
 
 /**
- * Declarative source of truth for what the Creator can configure per
- * component. This is the "Component Registry" layer of the capability system:
- * the PropertiesPanel is generated straight from this data, and only sections
- * that exist are rendered (a component without `variants` shows no Variants
- * block, one without `parts` shows none, and so on).
+ * The hand-written half of the capability system - and it stays hand-written
+ * only for what a source cannot say.
  *
- * Values mirror each component's real props / cva config in `../components`:
- *  - Button  -> `buttonVariants` (variant + size)
- *  - Input   -> `inputVariants` (variant)
- *  - Card    -> compound parts + spacing styles
- *  - Dialog  -> context `variant` (one value styled per part: Popup, Header and
- *              Footer each answer with their own cva classes, and the Creator
- *              edits all three)
- *              + compound parts + boolean props
+ * What a component exposes is DETECTED from its own file (`./capabilities.detected`,
+ * refreshed by `pnpm --filter @rlz/ui detect:capabilities`): cva variant axes and
+ * their values, compound parts, styled states, boolean props, and the radius
+ * tokens it draws. So adding a component needs no entry here at all - it becomes
+ * editable on its own, and this file only lists the exceptions.
  *
- * Adding a component means adding an entry here, not rebuilding the panel: the
- * Creator recovers each value's built-in classes by calling the component's cva
- * function (see `app/(creator)/preset/lib/variant-classes` in the docs app).
+ * `GLOBAL_EXCLUSIONS` hides what detection is right about in general but must
+ * never offer; `componentCapabilitiesOverrides` hides what one component should
+ * not expose, and declares what no file can tell: the range of a numeric slider
+ * and the intent that an axis accepts brand-new values.
  *
  * A style `default` must be the value the design system already renders, so a
- * preset that never touched the slider still previews identically: `radius` is
- * the `--radius` token (0.575rem in `../styles/globals.css`, same as the default
- * preset's `base.layout.radius`), not the corner a given utility draws.
+ * preset that never touched the slider still previews identically: `radius` is the
+ * `--radius` token (0.575rem in `../styles/globals.css`, same as the default
+ * preset's `base.layout.radius`), not the corner a given utility draws - which is
+ * also why detection seeds it instead of every component declaring it.
  */
-export const componentCapabilities: Record<string, ComponentCapabilities> = {
-  button: {
-    variants: [
-      {
-        name: "variant",
-        default: "primary",
-        customizable: true,
-        values: ["primary", "outline", "secondary", "ghost", "link", "destructive"],
-      },
-      {
-        name: "size",
-        default: "md",
-        values: [
-          "xs",
-          "sm",
-          "md",
-          "lg",
-          "xl",
-          "icon-xs",
-          "icon-sm",
-          "icon-md",
-          "icon-lg",
-          "icon-xl",
-        ],
-      },
-    ],
-    styles: [
-      { key: "radius", label: "Border radius", kind: "slider", min: 0, max: 2, step: 0.05, unit: "rem", default: 0.575 },
+
+export const GLOBAL_EXCLUSIONS: ComponentCapabilitiesOverride = {
+  exclude: {
+    // Parts that draw nothing themselves: they mount a portal, a context or a
+    // positioner, so there is no class of theirs to customize.
+    parts: ["Portal", "Provider", "Positioner"],
+    // React plumbing and behavior props: how a component works, not how it looks.
+    editableProperties: [
+      "children",
+      "className",
+      "style",
+      "render",
+      "id",
+      "value",
+      "defaultValue",
+      "unstyled",
+      "disabled",
+      "checked",
+      "defaultChecked",
+      "required",
+      "readOnly",
+      "multiple",
+      "hidden",
+      "autoFocus",
+      "open",
+      "defaultOpen",
+      "onOpenChange",
     ],
   },
+};
 
-  input: {
-    variants: [
-      { name: "variant", default: "primary", values: ["primary", "secondary"] },
-    ],
-    states: ["focus", "disabled", "invalid"],
+export const componentCapabilitiesOverrides: Record<
+  string,
+  ComponentCapabilitiesOverride
+> = {
+  button: {
+    // The one axis meant to grow with brand-new brand values: `size` stays the
+    // scale it is, `variant` is a palette.
+    variants: [{ name: "variant", customizable: true }],
   },
 
   card: {
-    parts: ["Header", "Title", "Description", "Body", "Footer"],
+    // `gap-6` and `px-6` are the design system's choice, not a range the Creator
+    // can be trusted to guess: the sliders tuning them are declared.
     styles: [
-      { key: "radius", label: "Border radius", kind: "slider", min: 0, max: 2, step: 0.05, unit: "rem", default: 0.575 },
       { key: "gap", label: "Gap", kind: "slider", min: 0, max: 3, step: 0.25, unit: "rem", default: 1.5 },
       { key: "padding", label: "Padding", kind: "slider", min: 0, max: 3, step: 0.25, unit: "rem", default: 1.5 },
     ],
   },
 
   dialog: {
-    variants: [
-      {
-        name: "variant",
-        default: "default",
-        // One chosen value restyles three parts at once, so the Creator edits
-        // the classes of every part, not only the Popup's.
-        parts: ["Popup", "Header", "Footer"],
-        values: ["default", "bare", "bare-top", "bare-bottom"],
-      },
-    ],
-    parts: [
-      "Trigger",
-      "Popup",
-      "Header",
-      "Title",
-      "Description",
-      "Body",
-      "Footer",
-      "Backdrop",
-    ],
-    editableProperties: ["backdrop", "backdropBlur", "showCloseButton"],
-    styles: [
-      { key: "radius", label: "Border radius", kind: "slider", min: 0, max: 2, step: 0.05, unit: "rem", default: 0.575 },
-    ],
+    exclude: {
+      // Structure of the popup, not style: hiding them leaves the parts and props
+      // a preset is actually meant to restyle.
+      parts: ["Viewport", "Close"],
+      editableProperties: ["blur", "scrollFade"],
+    },
+  },
+
+  drawer: {
+    exclude: {
+      parts: ["Viewport", "Close", "SwipeArea", "Indent", "IndentBackground"],
+      editableProperties: ["blur", "scrollFade", "indent"],
+    },
+  },
+
+  // Overlay props that only ever mute or position the popup.
+  command: { exclude: { editableProperties: ["blur", "keepHighlight"] } },
+  menu: { exclude: { parts: ["Viewport", "Close"] } },
+  select: { exclude: { editableProperties: ["alignItemWithTrigger"] } },
+  tooltip: { exclude: { editableProperties: ["arrow"] } },
+
+  sidebar: {
+    exclude: {
+      // A layout shell: its own open/close plumbing is not a design decision.
+      editableProperties: ["isMobile", "openMobile", "isActive", "showOnHover"],
+    },
+  },
+
+  chart: {
+    exclude: {
+      // Emits CSS variables and forwards to recharts instead of drawing itself.
+      parts: ["Style", "TooltipContent", "LegendContent"],
+      editableProperties: ["hideLabel", "hideIndicator", "hideIcon"],
+    },
   },
 };

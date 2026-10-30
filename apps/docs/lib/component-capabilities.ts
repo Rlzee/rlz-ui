@@ -1,14 +1,15 @@
-import { registryComponents } from "@rlz/ui/registry/components";
 import type { ComponentCapabilities } from "@rlz/registry";
+import { capabilitiesOf } from "@rlz/ui/registry/resolve-capabilities";
 
 /**
- * Component Analyzer lookup: resolves the declarative capabilities a component
- * exposes, keyed by its registry id (== docs page slug, e.g. "button"). Returns
- * undefined for components with no manifest entry, so the Creator can fall back
- * to "no editable properties" instead of guessing.
+ * Component Analyzer lookup: what a component exposes to the Creator, detected
+ * from its own source and filtered by the capability policy, keyed by its
+ * registry id (== docs page slug, e.g. "button"). Returns undefined for a
+ * component with nothing to customize, so the Creator shows no panel instead of
+ * an empty one - and a component nobody declared is still editable.
  */
 export function getCapabilities(
   slug: string
 ): ComponentCapabilities | undefined {
-  return registryComponents[slug]?.capabilities;
+  return capabilitiesOf(slug);
 }

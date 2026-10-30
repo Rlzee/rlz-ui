@@ -48,6 +48,41 @@ export const ComponentCapabilitiesSchema = z.object({
   editableProperties: z.array(z.string()).optional(),
 });
 
+// What source detection already knows about a component, minus the groups the
+// Creator is not allowed to show. One name per group: a variant axis, a part, a
+// state, a style key or a prop.
+export const ComponentCapabilityExclusionsSchema = z.object({
+  variants: z.array(z.string()).optional(),
+  states: z.array(z.string()).optional(),
+  parts: z.array(z.string()).optional(),
+  styles: z.array(z.string()).optional(),
+  editableProperties: z.array(z.string()).optional(),
+});
+
+// A patch of one detected variant axis. Every field but `name` is optional, so
+// declaring an intent (`customizable`) never means re-typing the values the
+// component already exposes: they keep coming from detection.
+export const ComponentVariantPatchSchema = z.object({
+  name: z.string(),
+  values: z.array(z.string()).optional(),
+  default: z.string().optional(),
+  customizable: z.boolean().optional(),
+  parts: z.array(z.string()).optional(),
+});
+
+// The hand-written half of a component's capabilities. Capabilities are
+// detected from the component sources, so this only carries what detection
+// cannot know (numeric sliders, labels, intent) and what must be hidden
+// (`exclude`). Adding a component therefore needs no entry at all.
+export const ComponentCapabilitiesOverrideSchema = z.object({
+  exclude: ComponentCapabilityExclusionsSchema.optional(),
+  variants: z.array(ComponentVariantPatchSchema).optional(),
+  states: z.array(z.string()).optional(),
+  parts: z.array(z.string()).optional(),
+  styles: z.array(ComponentStylePropertySchema).optional(),
+  editableProperties: z.array(z.string()).optional(),
+});
+
 // One value of a variant axis as the Creator stores it: its name plus the
 // classes that define it. `classes` is only written when the Creator changed
 // them, so a value keeps inheriting the design system's own classes by default.
