@@ -57,6 +57,48 @@ export function currentVariantValue(
   return options[0]?.value ?? "";
 }
 
+// The value an axis applies right now, together with the classes the Creator
+// gave it. Shared by the panel and the playground so both show the same thing:
+// a value that was renamed or added never falls back to another one.
+export function currentAppliedVariant(
+  axis: ComponentVariant,
+  edit?: PresetComponentCustomization
+): VariantOption {
+  const value = currentVariantValue(axis, edit);
+
+  return (
+    currentVariantOptions(axis, edit).find((option) => option.value === value) ??
+    { value }
+  );
+}
+
+// Writes the classes of one class editor back onto a value: `part` undefined is
+// the component itself (`classes`), else the entry of that part's record. An
+// `undefined` value removes it, and an emptied record is dropped so a preset
+// that reset everything stays as lean as it was before the edit.
+export function withVariantClasses(
+  option: VariantOption,
+  part: string | undefined,
+  classes: string | undefined
+): VariantOption {
+  if (part === undefined) {
+    return { ...option, classes };
+  }
+
+  const next: Record<string, string> = { ...option.partClasses };
+
+  if (classes === undefined) {
+    delete next[part];
+  } else {
+    next[part] = classes;
+  }
+
+  return {
+    ...option,
+    partClasses: Object.keys(next).length > 0 ? next : undefined,
+  };
+}
+
 // Resolve a numeric style (radius, spacing...). Order: edit -> default -> min.
 export function currentStyleValue(
   style: ComponentStyleProperty,

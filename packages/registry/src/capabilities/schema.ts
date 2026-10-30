@@ -11,11 +11,14 @@ export const ComponentCapabilityValueSchema = z.object({
 // the options that already exist in the design system; `customizable` marks
 // the axes meant to grow with brand-new values. The Creator can rename, add and
 // remove values on any axis, so this flag is a hint about intent, not a gate.
+// `parts` names the compound parts one value restyles at once (a dialog variant
+// drives Popup, Header and Footer): the axes without it style a single element.
 export const ComponentVariantSchema = z.object({
   name: z.string(),
   values: z.array(z.string()),
   default: z.string().optional(),
   customizable: z.boolean().optional(),
+  parts: z.array(z.string()).optional(),
 });
 
 // A numeric style the Creator can tune live (radius, spacing...). `kind` is a
@@ -48,9 +51,12 @@ export const ComponentCapabilitiesSchema = z.object({
 // One value of a variant axis as the Creator stores it: its name plus the
 // classes that define it. `classes` is only written when the Creator changed
 // them, so a value keeps inheriting the design system's own classes by default.
+// `partClasses` does the same per part of a compound axis (keyed by the part
+// names the axis declares), so each part of a value can be restyled on its own.
 export const PresetVariantValueSchema = z.object({
   value: z.string(),
   classes: z.string().optional(),
+  partClasses: z.record(z.string(), z.string()).optional(),
 });
 
 // Per-component edits captured in the Creator and serialized into a preset.

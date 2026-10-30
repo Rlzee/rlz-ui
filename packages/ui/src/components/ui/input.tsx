@@ -2,7 +2,18 @@
 
 import type * as React from "react";
 import { Input as InputPrimitive } from "@base-ui/react/input";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
+
+const inputVariants = cva("", {
+  defaultVariants: { variant: "primary" },
+  variants: {
+    variant: {
+      primary: "bg-input",
+      secondary: "bg-accent/60",
+    },
+  },
+});
 
 type InputProps = Omit<
   InputPrimitive.Props & React.RefAttributes<HTMLInputElement>,
@@ -10,7 +21,7 @@ type InputProps = Omit<
 > & {
   unstyled?: boolean;
   nativeInput?: boolean;
-  variant?: "primary" | "secondary";
+  variant?: NonNullable<VariantProps<typeof inputVariants>["variant"]>;
 };
 
 function Input({
@@ -36,8 +47,8 @@ function Input({
       className={cn(
         "inline-flex items-center text-sm w-full",
         !unstyled && [
-          "h-9 data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
-          "relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow",
+          "h-9 relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow",
+          inputVariants({ variant }),
           "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
           "has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring",
@@ -64,4 +75,4 @@ function Input({
   );
 }
 
-export { Input, type InputProps };
+export { Input, inputVariants, type InputProps };

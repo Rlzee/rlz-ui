@@ -5,8 +5,6 @@ import dynamic from "next/dynamic";
 import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "next-themes";
 
-import type { PresetComponentCustomization } from "@rlz/registry";
-
 import { demoPaths } from "@rlz/ui/components/examples";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { cn } from "@rlz/ui/lib/cn";
@@ -309,12 +307,6 @@ function ComponentExamplesPreview({
       .sort((a, b) => a[1].localeCompare(b[1]))
       .map(([key, path]) => ({ key, path }));
   }, [slug]);
-
-  const hasPlayground = !!capabilities;
-
-  if (entries.length === 0 && !hasPlayground) {
-    return <EmptyState>No examples for {name}.</EmptyState>;
-  }
 
   return (
     <div className="flex flex-col divide-y divide-border p-4">

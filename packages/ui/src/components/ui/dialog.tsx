@@ -7,11 +7,58 @@ import { useRender } from "@base-ui/react/use-render";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
+import { cva } from "class-variance-authority";
 import { cn } from "cn";
 
 type DialogVariant = "default" | "bare" | "bare-bottom" | "bare-top";
 const DialogVariantContext = React.createContext<DialogVariant>("default");
 const useDialogVariant = () => React.useContext(DialogVariantContext);
+
+const dialogPopupVariants = cva(
+  [
+    "relative row-start-2 flex max-h-full min-h-0 w-full min-w-0 origin-center max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200",
+    "-translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top",
+    "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 data-ending-style:scale-95 data-starting-style:scale-95",
+  ],
+  {
+    defaultVariants: { variant: "default" },
+    variants: {
+      variant: {
+        default: "bg-background",
+        bare: "bg-popover",
+        "bare-bottom": "bg-background",
+        "bare-top": "bg-background",
+      },
+    },
+  }
+);
+
+const dialogHeaderVariants = cva("flex flex-col text-left gap-0.5 pt-4 px-6", {
+  defaultVariants: { variant: "default" },
+  variants: {
+    variant: {
+      default: "border-b border-border/50 pb-4 bg-popover rounded-t-lg",
+      bare: "",
+      "bare-bottom": "border-b border-border/50 pb-4 bg-popover rounded-t-lg",
+      "bare-top": "",
+    },
+  },
+});
+
+const dialogFooterVariants = cva(
+  "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
+  {
+    defaultVariants: { variant: "default" },
+    variants: {
+      variant: {
+        default: "pt-4 border-t border-border/50 bg-popover rounded-b-lg",
+        bare: "",
+        "bare-bottom": "",
+        "bare-top": "pt-4 border-t border-border/50 bg-popover rounded-b-lg",
+      },
+    },
+  }
+);
 
 const DialogCreateHandle = DialogPrimitive.createHandle;
 
@@ -102,13 +149,7 @@ function DialogPopup({
       <DialogViewport>
         <DialogPrimitive.Popup
           data-slot="dialog-popup"
-          className={cn(
-            variant === "bare" ? "bg-popover" : "bg-background",
-            "relative row-start-2 flex max-h-full min-h-0 w-full min-w-0 origin-center max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200",
-            "-translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top",
-            "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 data-ending-style:scale-95 data-starting-style:scale-95",
-            className
-          )}
+          className={cn(dialogPopupVariants({ variant }), className)}
           {...props}
         >
           {children}
@@ -177,13 +218,7 @@ function DialogFooter({
 
   const defaultProps = {
     "data-slot": "dialog-footer",
-    className: cn(
-      "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
-      variant === "default" || variant === "bare-top"
-        ? "pt-4 border-t border-border/50 bg-popover rounded-b-lg"
-        : "",
-      className
-    ),
+    className: cn(dialogFooterVariants({ variant }), className),
   };
 
   return useRender({
@@ -206,13 +241,7 @@ const DialogHeader = ({
 
   const defaultProps = {
     "data-slot": "dialog-header",
-    className: cn(
-      "flex flex-col text-left gap-0.5 pt-4 px-6",
-      variant === "default" || variant === "bare-bottom"
-        ? "border-b border-border/50 pb-4 bg-popover rounded-t-lg"
-        : "",
-      className
-    ),
+    className: cn(dialogHeaderVariants({ variant }), className),
   };
 
   return useRender({
@@ -239,6 +268,9 @@ const DialogExports = Object.assign(DialogRoot, {
 export {
   DialogCreateHandle,
   DialogExports as Dialog,
+  dialogFooterVariants,
+  dialogHeaderVariants,
+  dialogPopupVariants,
   DialogTrigger,
   DialogPortal,
   DialogPopup,

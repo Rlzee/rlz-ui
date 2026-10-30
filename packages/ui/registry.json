@@ -219,7 +219,7 @@
             "max": 2,
             "step": 0.05,
             "unit": "rem",
-            "default": 0.375
+            "default": 0.575
           }
         ]
       }
@@ -252,7 +252,7 @@
             "max": 2,
             "step": 0.05,
             "unit": "rem",
-            "default": 0.5
+            "default": 0.575
           },
           {
             "key": "gap",
@@ -369,7 +369,8 @@
       "path": "components/ui/dialog.tsx",
       "description": "A generic modal dialog component",
       "dependencies": [
-        "cn"
+        "cn",
+        "class-variance-authority"
       ],
       "type": "component",
       "registryDependencies": [
@@ -387,7 +388,12 @@
               "bare-top",
               "bare-bottom"
             ],
-            "default": "default"
+            "default": "default",
+            "parts": [
+              "Popup",
+              "Header",
+              "Footer"
+            ]
           }
         ],
         "parts": [
@@ -409,7 +415,7 @@
             "max": 2,
             "step": 0.05,
             "unit": "rem",
-            "default": 0.5
+            "default": 0.575
           }
         ],
         "editableProperties": [
@@ -521,7 +527,8 @@
       "path": "components/ui/input.tsx",
       "description": "A text input component",
       "dependencies": [
-        "cn"
+        "cn",
+        "class-variance-authority"
       ],
       "type": "component",
       "registryDependencies": [],

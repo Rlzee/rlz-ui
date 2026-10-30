@@ -19,9 +19,14 @@ import {
   currentVariantOptions,
   currentVariantValue,
   titleCase,
+  withVariantClasses,
   type VariantOption,
 } from "../lib/component-edits";
-import { builtinVariantClasses } from "../lib/variant-classes";
+import {
+  variantClassSections,
+  variantSectionClasses,
+  type VariantClassSection,
+} from "../lib/variant-classes";
 import { componentEditsAtom, setComponentEditAtom } from "../preset-builder";
 
 import { Badge } from "@rlz/ui/components/ui/badge";
@@ -137,11 +142,11 @@ export function ComponentProperties() {
 
 /**
  * Editable list of the values an axis offers: one row per value, plus an "add"
- * field. A row is applied with one click, renamed in place, restyled (its
- * Tailwind classes) and deleted. Everything is stored on the preset
- * (`customization.variants`) so the registry manifest keeps the design system's
- * built-in values untouched, and the applied value always stays one of the
- * listed ones: renaming the active row keeps it active under its new name,
+ * field. A row is applied with one click, renamed in place, restyled (the
+ * Tailwind classes of each part the value styles) and deleted. Everything is
+ * stored on the preset (`customization.variants`) so the registry manifest keeps
+ * the design system's built-in values untouched, and the applied value always
+ * stays one of the listed ones: renaming the active row keeps it active,
  * deleting it falls back to the first remaining one.
  */
 function VariantList({
@@ -161,12 +166,6 @@ function VariantList({
   // Only one class editor is expanded at a time: the panel is narrow.
   const [openValue, setOpenValue] = React.useState<string | null>(null);
 
-  // Classes the design system ships for this value ("" when it has none, e.g. a
-  // component with no cva config or a value the Creator just created).
-  function builtIn(value: string) {
-    return builtinVariantClasses(slug, axis, value) ?? "";
-  }
-
   // A list edit replaces the whole axis, then keeps the selection valid.
   function writeList(next: VariantOption[], nextActive: string) {
     onUpdate({
@@ -180,20 +179,24 @@ function VariantList({
     onUpdate({ props: { [axis.name]: value } });
   }
 
+  // A renamed value has nothing to inherit from, so every class list it had -
+  // its own override or the built-in classes of the old name - is snapshotted
+  // onto it, part by part.
+  function inheritClasses(option: VariantOption, from: string, to: string) {
+    return variantClassSections(slug, axis, { ...option, value: from }).reduce(
+      (next, section) =>
+        withVariantClasses(next, section.part, variantSectionClasses(section)),
+      { value: to } satisfies VariantOption
+    );
+  }
+
   function rename(from: string, to: string) {
     // An empty or already-taken name is refused (the row restores its value).
     if (!to || options.some((option) => option.value === to)) return false;
 
     writeList(
       options.map((option) =>
-        option.value === from
-          ? // The new name has nothing to inherit from, so the classes the value
-            // had until now (override or built-in) are snapshotted onto it.
-            {
-              value: to,
-              classes: option.classes ?? (builtIn(from) || undefined),
-            }
-          : option
+        option.value === from ? inheritClasses(option, from, to) : option
       ),
       active === from ? to : active
     );
@@ -219,21 +222,28 @@ function VariantList({
 
     writeList([...options, { value }], active);
     setDraft("");
-    // A brand-new value has no styling at all, so its class editor opens right
+    // A brand-new value has no styling at all, so its class editors open right
     // away.
     setOpenValue(value);
   }
 
-  function setClasses(value: string, classes: string) {
+  function setClasses(
+    value: string,
+    classes: string,
+    section: VariantClassSection
+  ) {
     const next = classes.trim();
-    const inherited = builtIn(value);
 
     writeList(
       options.map((option) =>
         option.value === value
-          ? // Matching the built-in classes again drops the override, so the
-            // value keeps inheriting the design system.
-            { value, classes: next === inherited ? undefined : next }
+          ? // Writing the built-in classes back drops the override, so this
+            // section keeps inheriting what the design system ships.
+            withVariantClasses(
+              option,
+              section.part,
+              next === section.builtIn ? undefined : next
+            )
           : option
       ),
       active
@@ -254,7 +264,7 @@ function VariantList({
             active={option.value === active}
             removable={options.length > 1}
             open={openValue === option.value}
-            builtInClasses={builtIn(option.value)}
+            sections={variantClassSections(slug, axis, option)}
             onApply={() => apply(option.value)}
             onToggleOpen={() =>
               setOpenValue(openValue === option.value ? null : option.value)
@@ -295,18 +305,17 @@ function VariantList({
 }
 
 /**
- * Row = inline-editable name + class editor + delete. Clicking anywhere on the
- * row line applies the value, so the highlighted row is the one in the preview.
- * Both fields commit on blur and cancel on Escape, so a half-typed value never
- * lands in the preset. The class field starts from the built-in classes of the
- * value; editing it stores an override, putting them back removes it.
+ * Row = inline-editable name + one class editor per styled part + delete.
+ * Clicking anywhere on the row line applies the value, so the highlighted row is
+ * the one in the preview. Both fields commit on blur and cancel on Escape, so a
+ * half-typed value never lands in the preset.
  */
 function VariantRow({
   option,
   active,
   removable,
   open,
-  builtInClasses,
+  sections,
   onApply,
   onToggleOpen,
   onRename,
@@ -317,33 +326,30 @@ function VariantRow({
   active: boolean;
   removable: boolean;
   open: boolean;
-  builtInClasses: string;
+  sections: VariantClassSection[];
   onApply: () => void;
   onToggleOpen: () => void;
   onRename: (from: string, to: string) => boolean;
   onRemove: () => void;
-  onClasses: (value: string, classes: string) => void;
+  onClasses: (
+    value: string,
+    classes: string,
+    section: VariantClassSection
+  ) => void;
 }) {
-  const { value, classes } = option;
-  const overridden = classes !== undefined;
-  // Classes in effect: the Creator's override, else what the design system ships.
-  const effective = classes ?? builtInClasses;
+  const { value } = option;
+  // The icon is lit as soon as any part of the value was restyled.
+  const overridden = sections.some((section) => section.override !== undefined);
 
   const [text, setText] = React.useState(value);
-  const [css, setCss] = React.useState(effective);
 
-  // Keep the fields in sync with the stored values when they change elsewhere
+  // Keep the field in sync with the stored value when it changes elsewhere
   // (Reset, JSON import, another row).
   React.useEffect(() => setText(value), [value]);
-  React.useEffect(() => setCss(effective), [effective]);
 
   function commitName() {
     const next = text.trim();
     if (!onRename(value, next)) setText(value);
-  }
-
-  function commitClasses() {
-    onClasses(value, css);
   }
 
   return (
@@ -415,50 +421,100 @@ function VariantRow({
       </div>
 
       {open && (
-        <div className="flex flex-col gap-1.5 px-1.5 pb-2">
-          <Textarea
-            value={css}
-            rows={2}
-            aria-label={`Classes of ${value}`}
-            placeholder={
-              builtInClasses || `No classes yet - define ${value}`
-            }
-            onChange={(event) => setCss(event.target.value)}
-            onBlur={commitClasses}
-            onKeyDown={(event) => {
-              // Enter writes a newline here, so apply with Ctrl/Cmd+Enter.
-              if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-                event.currentTarget.blur();
-              }
-              if (event.key === "Escape") {
-                setCss(effective);
-                event.currentTarget.blur();
-              }
-            }}
-            className="font-mono text-xs"
-          />
-
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] text-muted-foreground">
-              {overridden
-                ? "Custom classes"
-                : builtInClasses
-                  ? "Built-in classes"
-                  : "No classes yet"}
-            </span>
-            {overridden && (
-              <Button
-                variant="ghost"
-                size="xs"
-                className="text-[11px]"
-                onClick={() => onClasses(value, builtInClasses)}
-              >
-                Reset
-              </Button>
-            )}
-          </div>
+        <div className="flex flex-col gap-2.5 px-1.5 pb-2">
+          {sections.map((section) => (
+            <VariantClassField
+              key={section.part ?? "self"}
+              value={value}
+              section={section}
+              onClasses={onClasses}
+            />
+          ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/**
+ * The classes one section of a value carries: a part of a compound component, or
+ * the whole component when the axis has no parts. The field starts from what the
+ * design system ships for that section; editing it stores an override, writing
+ * the built-in classes back removes it.
+ */
+function VariantClassField({
+  value,
+  section,
+  onClasses,
+}: {
+  value: string;
+  section: VariantClassSection;
+  onClasses: (
+    value: string,
+    classes: string,
+    section: VariantClassSection
+  ) => void;
+}) {
+  const { part, builtIn, override } = section;
+  // Classes in effect: the Creator's override, else what the design system ships.
+  const effective = variantSectionClasses(section) ?? "";
+  const overridden = override !== undefined;
+
+  const [css, setCss] = React.useState(effective);
+
+  // Keep the field in sync with the stored classes when they change elsewhere
+  // (Reset, JSON import, another part of the same value).
+  React.useEffect(() => setCss(effective), [effective]);
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      {part && (
+        <span className="text-xs font-medium text-muted-foreground">
+          {part}
+        </span>
+      )}
+
+      <Textarea
+        value={css}
+        rows={2}
+        aria-label={
+          part ? `Classes of ${value} (${part})` : `Classes of ${value}`
+        }
+        placeholder={builtIn || `No classes yet - define ${value}`}
+        onChange={(event) => setCss(event.target.value)}
+        onBlur={() => onClasses(value, css, section)}
+        onKeyDown={(event) => {
+          // Enter writes a newline here, so apply with Ctrl/Cmd+Enter.
+          if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
+            event.currentTarget.blur();
+          }
+          if (event.key === "Escape") {
+            setCss(effective);
+            event.currentTarget.blur();
+          }
+        }}
+        className="font-mono text-xs"
+      />
+
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[11px] text-muted-foreground">
+          {overridden
+            ? "Custom classes"
+            : builtIn
+              ? "Built-in classes"
+              : "No classes yet"}
+        </span>
+        {overridden && (
+          <Button
+            variant="ghost"
+            size="xs"
+            className="text-[11px]"
+            onClick={() => onClasses(value, builtIn, section)}
+          >
+            Reset
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
