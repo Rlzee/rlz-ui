@@ -4,12 +4,18 @@
  *
  * What every registered component exposes to the Creator, read straight from its
  * source: cva variant axes and their values, compound parts (`Object.assign`),
- * styled states, boolean props, and the radius tokens it draws. This is the
- * detected half of a component's capabilities; what must stay hidden and what no
- * source can tell (numeric sliders, labels) lives in `./capabilities`.
+ * styled states, boolean props, and the radius tokens it draws. Alongside it, the
+ * classes each part was authored with and the `data-slot` that identifies it in
+ * the demos. This is the detected half of a component's capabilities; what must
+ * stay hidden and what no source can tell (numeric sliders, labels) lives in
+ * `./capabilities`.
  */
 
-import type { ComponentCapabilities, ComponentVariantClasses } from "@rlz/registry";
+import type {
+  ComponentCapabilities,
+  ComponentPart,
+  ComponentVariantClasses,
+} from "@rlz/registry";
 
 export const detectedCapabilities: Record<string, ComponentCapabilities> = {
   "accordion": {
@@ -1526,6 +1532,1287 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
         "primary": "bg-foreground text-primary-foreground",
         "outline": "bg-popover outline-border outline text-popover-foreground"
       }
+    }
+  }
+};
+
+export const detectedParts: Record<string, Record<string, ComponentPart>> = {
+  "accordion": {
+    "Root": {
+      "slot": "accordion-root",
+      "classes": ""
+    },
+    "Item": {
+      "slot": "accordion-item",
+      "classes": "border-b last:border-b-0 data-disabled:text-muted-foreground/50"
+    },
+    "Trigger": {
+      "slot": "accordion-trigger",
+      "classes": "cursor-pointer relative flex w-full items-baseline justify-between gap-3 py-4 bg-transparent text-left text-sm font-medium [&[data-panel-open]>svg]:rotate-45 [&[data-panel-open]>svg]:scale-110"
+    },
+    "Icon": {
+      "slot": "accordion-icon",
+      "classes": "h-4 w-4 shrink-0 transition-transform duration-200"
+    },
+    "Panel": {
+      "slot": "accordion-panel",
+      "classes": "h-(--accordion-panel-height) overflow-hidden text-muted-foreground text-sm transition-[height] duration-200 ease-in-out data-ending-style:h-0 data-starting-style:h-0"
+    },
+    "Header": {
+      "slot": "accordion-header",
+      "classes": "flex"
+    }
+  },
+  "alert": {
+    "Root": {
+      "slot": "alert",
+      "classes": "relative w-full rounded-lg border py-3 px-3 text-card-foreground grid items-start grid-cols-[0_1fr] has-[[data-slot=alert-action]]:pr-18 [&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
+    },
+    "Title": {
+      "slot": "alert-title",
+      "classes": "col-start-2 font-medium leading-none"
+    },
+    "Description": {
+      "slot": "alert-description",
+      "classes": "col-start-2 ui-description"
+    },
+    "Action": {
+      "slot": "alert-action",
+      "classes": "absolute top-1/2 -translate-y-1/2 right-3"
+    }
+  },
+  "alert-dialog": {
+    "Root": {
+      "slot": "alert-dialog",
+      "classes": ""
+    },
+    "Portal": {
+      "slot": "alert-dialog-portal",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "alert-dialog-trigger",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "alert-dialog-popup",
+      "classes": "bg-background [&:has([data-slot=alert-dialog-actions][data-variant=bare])]:bg-popover relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)] data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95"
+    },
+    "Title": {
+      "slot": "alert-dialog-title",
+      "classes": "ui-title px-6 pt-4"
+    },
+    "Description": {
+      "slot": "alert-dialog-description",
+      "classes": "ui-description px-6 pb-1"
+    },
+    "Close": {
+      "slot": "alert-dialog-close",
+      "classes": ""
+    },
+    "Actions": {
+      "slot": "alert-dialog-actions",
+      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4 data-[variant=default]:bg-popover data-[variant=default]:border-border/32 data-[variant=default]:border-t data-[variant=default]:pt-4 data-[variant=default]:rounded-b-lg"
+    }
+  },
+  "autocomplete": {
+    "Trigger": {
+      "slot": "autocomplete-trigger",
+      "classes": ""
+    },
+    "Input": {
+      "slot": "autocomplete-input",
+      "classes": "h-9 data-popup-open:bg-secondary"
+    },
+    "Value": {
+      "slot": "autocomplete-value",
+      "classes": ""
+    },
+    "Clear": {
+      "slot": "autocomplete-clear",
+      "classes": "cursor-pointer flex text-muted-foreground hover:text-foreground"
+    },
+    "Icon": {
+      "slot": "autocomplete-icon",
+      "classes": "flex"
+    },
+    "Popup": {
+      "slot": "autocomplete-portal",
+      "classes": ""
+    },
+    "Arrow": {
+      "slot": "autocomplete-arrow",
+      "classes": ""
+    },
+    "Status": {
+      "slot": "autocomplete-status",
+      "classes": "text-center text-sm text-muted-foreground empty:hidden my-2"
+    },
+    "Empty": {
+      "slot": "autocomplete-empty",
+      "classes": "text-center text-sm text-muted-foreground empty:m-0 empty:p-0 my-2"
+    },
+    "List": {
+      "slot": "autocomplete-list",
+      "classes": "relative py-1 scroll-py-6 max-h-(--available-height) data-empty:hidden"
+    },
+    "Item": {
+      "slot": "autocomplete-item",
+      "classes": "flex cursor-default items-center gap-2 py-2 pr-4 pl-2.5 text-sm leading-4 outline-none select-none [&_svg]:text-muted [&_svg]:size-4 group-data-[side=none]:pr-12 group-data-[side=none]:text-base group-data-[side=none]:leading-4 pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] hover:before:absolute hover:text-accent-foreground hover:before:inset-x-1 hover:before:inset-y-0 hover:before:rounded-sm hover:before:z-[-1] hover:before:bg-accent/70 data-highlighted:relative hover:relative data-highlighted:text-accent-foreground data-highlighted:z-0 hover:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70"
+    },
+    "Separator": {
+      "slot": "autocomplete-separator",
+      "classes": "my-1 h-px bg-border mx-2 last:hidden"
+    },
+    "Group": {
+      "slot": "autocomplete-group",
+      "classes": "py-1"
+    },
+    "GroupLabel": {
+      "slot": "autocomplete-group-label",
+      "classes": "px-2.5 py-1.5 text-xs font-medium text-muted-foreground"
+    },
+    "Row": {
+      "slot": "autocomplete-row",
+      "classes": "grid"
+    },
+    "Collection": {
+      "slot": "autocomplete-collection",
+      "classes": ""
+    }
+  },
+  "avatar": {
+    "Root": {
+      "slot": "avatar",
+      "classes": "relative flex shrink-0 overflow-hidden rounded-full"
+    },
+    "Image": {
+      "slot": "avatar-image",
+      "classes": "aspect-square size-full object-cover"
+    },
+    "Fallback": {
+      "slot": "avatar-fallback",
+      "classes": "bg-accent flex size-full items-center justify-center font-medium"
+    },
+    "Stack": {
+      "slot": "avatar-stack",
+      "classes": "flex items-center [&_[data-slot=avatar]]:ring-2 [&_[data-slot=avatar]]:ring-accent"
+    }
+  },
+  "badge": {
+    "Root": {
+      "slot": "badge",
+      "classes": "inline-flex items-center justify-center rounded-md px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden"
+    }
+  },
+  "breadcrumb": {
+    "Root": {
+      "slot": "breadcrumb",
+      "classes": ""
+    },
+    "List": {
+      "slot": "breadcrumb-group",
+      "classes": "wrap-break-word flex flex-wrap items-center gap-1.5 text-muted-foreground text-sm sm:gap-2.5"
+    },
+    "Item": {
+      "slot": "breadcrumb-list",
+      "classes": "inline-flex items-center gap-1.5"
+    },
+    "Link": {
+      "slot": "breadcrumb-link",
+      "classes": "text-muted-foreground hover:text-primary transition-colors data-[active=true]:text-primary"
+    },
+    "Separator": {
+      "slot": "breadcrumb-separator",
+      "classes": "text-muted-foreground [&>svg]:size-4"
+    }
+  },
+  "button": {
+    "Root": {
+      "slot": "button",
+      "classes": "px-3 inline-flex items-center justify-center gap-1.5 whitespace-nowrap outline-none rounded-md font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 state-focus-ring state-invalid"
+    }
+  },
+  "card": {
+    "Root": {
+      "slot": "card",
+      "classes": "bg-card flex flex-col gap-6 rounded-lg border py-4"
+    },
+    "Header": {
+      "slot": "card-header",
+      "classes": "px-6 flex flex-col gap-0.5"
+    },
+    "Title": {
+      "slot": "card-title",
+      "classes": "text-lg text-card-foreground leading-none font-semibold"
+    },
+    "Description": {
+      "slot": "card-description",
+      "classes": "ui-description"
+    },
+    "Body": {
+      "slot": "card-body",
+      "classes": "px-6 flex-1"
+    },
+    "Footer": {
+      "slot": "card-footer",
+      "classes": "flex items-center px-6"
+    }
+  },
+  "chart": {
+    "Root": {
+      "slot": "chart",
+      "classes": "flex aspect-video justify-center text-xs [&_.recharts-sector]:outline-hidden [&_.recharts-surface]:outline-hidden [&_.recharts-layer]:outline-hidden [&_.recharts-sector[stroke='#fff']]:stroke-transparent [&_.recharts-dot[stroke='#fff']]:stroke-transparent [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-curve.recharts-tooltip-cursor]:stroke-border [&_.recharts-polar-grid_[stroke='#ccc']]:stroke-border [&_.recharts-reference-line_[stroke='#ccc']]:stroke-border [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground  [&_.recharts-radial-bar-background-sector]:fill-accent [&_.recharts-rectangle.recharts-tooltip-cursor]:fill-accent"
+    },
+    "TooltipContent": {
+      "slot": "chart-tooltip-content",
+      "classes": "grid min-w-32 gap-1.5 rounded-md border-border bg-popover px-2.5 py-1.5 text-xs text-popover-foreground shadow-md"
+    },
+    "LegendContent": {
+      "slot": "chart-legend-content",
+      "classes": "flex items-center justify-center gap-4 pb-3 pt-3"
+    }
+  },
+  "checkbox": {
+    "Root": {
+      "slot": "checkbox",
+      "classes": "relative inline-flex bg-transparent border peer size-4 shrink-0 rounded-sm outline-none transition-shadow data-checked:bg-primary data-checked:text-primary-foreground border data-checked:shadow-md ring-0 disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring state-invalid data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+    },
+    "Indicator": {
+      "slot": "checkbox-indicator",
+      "classes": "-inset-px absolute flex items-center justify-center rounded-sm text-primary-foreground data-unchecked:hidden data-checked:bg-primary"
+    },
+    "Icon": {
+      "slot": "checkbox-icon",
+      "classes": "size-3.5 text-primary-foreground flex items-center justify-center"
+    }
+  },
+  "collapsible": {
+    "Root": {
+      "slot": "collapsible-root",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "collapsible-trigger",
+      "classes": ""
+    },
+    "Panel": {
+      "slot": "collapsible-panel",
+      "classes": "h-(--collapsible-panel-height) overflow-hidden transition-[height] duration-200 data-ending-style:h-0 data-starting-style:h-0"
+    }
+  },
+  "combobox": {
+    "Value": {
+      "slot": "combobox-value",
+      "classes": ""
+    },
+    "Input": {
+      "slot": "combobox-input",
+      "classes": "h-9 data-popup-open:bg-secondary"
+    },
+    "Clear": {
+      "slot": "combobox-clear",
+      "classes": "cursor-pointer flex text-muted hover:text-foreground"
+    },
+    "Trigger": {
+      "slot": "combobox-trigger",
+      "classes": ""
+    },
+    "Field": {
+      "slot": "combobox-input-group",
+      "classes": "relative has-disabled:opacity-50"
+    },
+    "Icon": {
+      "slot": "combobox-icon",
+      "classes": "flex text-muted group-hover:text-foreground"
+    },
+    "Portal": {
+      "slot": "combobox-portal",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "combobox-popup",
+      "classes": "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 has-data-[slot=combobox-input]:p-2"
+    },
+    "Arrow": {
+      "slot": "combobox-arrow",
+      "classes": ""
+    },
+    "Empty": {
+      "slot": "combobox-empty",
+      "classes": "text-center text-sm text-muted-foreground empty:m-0 empty:p-0 my-2"
+    },
+    "Status": {
+      "slot": "combobox-status",
+      "classes": "text-center text-sm text-muted-foreground empty:hidden my-2"
+    },
+    "List": {
+      "slot": "combobox-list",
+      "classes": "relative py-1 scroll-py-6 max-h-[min(calc(--spacing(72)---spacing(9)),calc(var(--available-height)---spacing(9)))] data-empty:hidden"
+    },
+    "Item": {
+      "slot": "combobox-item",
+      "classes": "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr] flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70"
+    },
+    "ItemText": {
+      "slot": "combobox-item-text",
+      "classes": "col-start-2 order-last"
+    },
+    "ItemIndicator": {
+      "slot": "combobox-item-indicator",
+      "classes": "col-start-1 order-first invisible data-selected:visible"
+    },
+    "Separator": {
+      "slot": "combobox-separator",
+      "classes": "my-1 h-px bg-border mx-2 last:hidden"
+    },
+    "Group": {
+      "slot": "combobox-group",
+      "classes": "py-1"
+    },
+    "GroupLabel": {
+      "slot": "combobox-group-label",
+      "classes": "px-2.5 py-1.5 text-xs font-medium text-muted-foreground"
+    },
+    "Collection": {
+      "slot": "combobox-collection",
+      "classes": ""
+    },
+    "Row": {
+      "slot": "combobox-row",
+      "classes": ""
+    },
+    "Chips": {
+      "slot": "combobox-chips",
+      "classes": "relative inline-flex min-h-9 w-full flex-wrap gap-1 rounded-md border bg-input text-sm p-[calc(--spacing(1)-1px)] outline-none *:min-h-7 focus-within:ring-ring/50 focus-within:ring-[2px] focus-within:border-ring has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50"
+    },
+    "ChipsInput": {
+      "slot": "combobox-chips-input",
+      "classes": "min-w-12 flex-1 ps-3 outline-none [[data-slot=combobox-chip]+&]:ps-0.5"
+    },
+    "Chip": {
+      "slot": "combobox-chip",
+      "classes": "flex items-center rounded-[calc(var(--radius-md)-1px)] bg-accent ps-2 font-medium text-accent-foreground text-sm outline-none [&_svg]:size-4"
+    },
+    "ChipRemove": {
+      "slot": "combobox-chip-remove",
+      "classes": "h-full shrink-0 cursor-pointer px-1 text-muted-foreground"
+    }
+  },
+  "command": {
+    "Portal": {
+      "slot": "command-dialog-portal",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "command-dialog-trigger",
+      "classes": ""
+    },
+    "Backdrop": {
+      "slot": "command-dialog-backdrop",
+      "classes": ""
+    },
+    "Viewport": {
+      "slot": "command-dialog-viewport",
+      "classes": "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4"
+    },
+    "Popup": {
+      "slot": "command-dialog-popup",
+      "classes": "relative row-start-2 flex w-full max-w-xl min-h-0 min-w-0 flex-col -translate-y-[calc(1.25rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95"
+    },
+    "Input": {
+      "slot": "command-input",
+      "classes": ""
+    },
+    "List": {
+      "slot": "command-list",
+      "classes": "relative min-h-0 bg-clip-padding max-h-80"
+    },
+    "Empty": {
+      "slot": "command-empty",
+      "classes": "not-empty:py-6"
+    },
+    "Group": {
+      "slot": "command-group",
+      "classes": ""
+    },
+    "GroupLabel": {
+      "slot": "command-group-label",
+      "classes": ""
+    },
+    "Collection": {
+      "slot": "command-collection",
+      "classes": ""
+    },
+    "Item": {
+      "slot": "command-item",
+      "classes": "group/command-item"
+    },
+    "Separator": {
+      "slot": "command-separator",
+      "classes": ""
+    },
+    "Shortcut": {
+      "slot": "command-shortcut",
+      "classes": "group-hover/command-item:text-muted-foreground"
+    },
+    "Footer": {
+      "slot": "command-footer",
+      "classes": "flex items-center justify-between text-xs text-muted-foreground gap-2 px-3 py-3 rounded-b-lg bg-background -mx-2 -mb-2 border-t border-t-border/50"
+    }
+  },
+  "context-menu": {
+    "Root": {
+      "slot": "context-menu-root",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "context-menu-trigger",
+      "classes": ""
+    },
+    "Group": {
+      "slot": "context-menu-group",
+      "classes": ""
+    },
+    "Submenu": {
+      "slot": "context-menu-submenu",
+      "classes": ""
+    },
+    "RadioGroup": {
+      "slot": "context-menu-radio-group",
+      "classes": ""
+    },
+    "Shortcut": {
+      "slot": "context-menu-shortcut",
+      "classes": ""
+    }
+  },
+  "dialog": {
+    "Root": {
+      "slot": "dialog",
+      "classes": ""
+    },
+    "Portal": {
+      "slot": "dialog-portal",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "dialog-trigger",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "dialog-popup",
+      "classes": "relative row-start-2 flex max-h-full min-h-0 w-full min-w-0 origin-center max-w-lg flex-col rounded-lg border not-dark:bg-clip-padding text-popover-foreground transition-[scale,opacity,translate] duration-200 -translate-y-[calc(1.5rem*var(--nested-dialogs))] scale-[calc(1-0.1*var(--nested-dialogs))] data-nested:data-ending-style:translate-y-8 data-nested:data-starting-style:translate-y-8 data-nested-dialog-open:origin-top data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95 data-ending-style:scale-95 data-starting-style:scale-95"
+    },
+    "Title": {
+      "slot": "dialog-title",
+      "classes": "ui-title"
+    },
+    "Description": {
+      "slot": "dialog-description",
+      "classes": "ui-description"
+    },
+    "Footer": {
+      "slot": "dialog-footer",
+      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4"
+    },
+    "Close": {
+      "slot": "dialog-close",
+      "classes": ""
+    },
+    "Header": {
+      "slot": "dialog-header",
+      "classes": "flex flex-col text-left gap-0.5 pt-4 px-6"
+    },
+    "Body": {
+      "slot": "dialog-body",
+      "classes": "flex flex-col gap-6 px-6 py-6"
+    },
+    "Viewport": {
+      "slot": "dialog-viewport",
+      "classes": "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4"
+    },
+    "Backdrop": {
+      "slot": "dialog-backdrop",
+      "classes": ""
+    }
+  },
+  "drawer": {
+    "Root": {
+      "slot": "drawer",
+      "classes": ""
+    },
+    "Provider": {
+      "slot": "drawer-provider",
+      "classes": ""
+    },
+    "IndentBackground": {
+      "slot": "drawer-indent-background",
+      "classes": "absolute inset-0"
+    },
+    "Indent": {
+      "slot": "drawer-indent",
+      "classes": "[transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform transform-[scale(1)_translateY(0)] duration-[calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))] data-active:transform-[scale(calc(0.98+(0.02*var(--indent-progress))))_translateY(calc(0.5rem*(1-var(--indent-progress))))] data-active:rounded-tl-(--indent-radius) data-active:rounded-tr-(--indent-radius) [--indent-progress:var(--drawer-swipe-progress)] [--indent-radius:calc(1rem*(1-var(--indent-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))]"
+    },
+    "Portal": {
+      "slot": "drawer-portal",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "drawer-trigger",
+      "classes": ""
+    },
+    "SwipeArea": {
+      "slot": "drawer-swipe-area",
+      "classes": "absolute inset-y-0 z-10 box-border w-10 data-[swipe-direction=right]:left-0 data-[swipe-direction=left]:right-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=up]:top-0"
+    },
+    "Header": {
+      "slot": "drawer-header",
+      "classes": "flex flex-col text-left gap-0.5 pt-4 px-6 border-b border-border/50 pb-4 bg-popover rounded-t-lg"
+    },
+    "Title": {
+      "slot": "drawer-title",
+      "classes": "ui-title"
+    },
+    "Description": {
+      "slot": "drawer-description",
+      "classes": "ui-description"
+    },
+    "Body": {
+      "slot": "drawer-body",
+      "classes": "flex flex-col gap-6 px-6 py-6 h-full"
+    },
+    "Footer": {
+      "slot": "drawer-footer",
+      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4 pt-4 border-t border-border/50 bg-popover rounded-b-lg"
+    },
+    "Close": {
+      "slot": "drawer-close",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "drawer-popup",
+      "classes": "bg-background bg-popover group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground will-change-transform duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] data-starting-style:opacity-0 data-ending-style:opacity-0 transform-[translateX(var(--drawer-swipe-movement-x,0))] data-swiping:transition-none data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(-100%)] data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(-100%)] data-[swipe-direction=up]:data-starting-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)] data-[swipe-direction=up]:data-ending-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:border-t data-[swipe-direction=down]:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-starting-style:translate-y-8 data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:data-ending-style:-translate-y-8 data-[swipe-direction=up]:data-starting-style:-translate-y-8 data-[swipe-direction=up]:border-b data-[swipe-direction=left]:data-ending-style:-translate-x-8 data-[swipe-direction=left]:data-starting-style:-translate-x-8 data-[swipe-direction=left]:w-full data-[swipe-direction=left]:max-w-md data-[swipe-direction=left]:border-e data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:w-full data-[swipe-direction=right]:max-w-md data-[swipe-direction=right]:border-s data-[swipe-direction=right]:data-ending-style:translate-x-8 data-[swipe-direction=right]:data-starting-style:translate-x-8 data-[layout=inset]:rounded-lg data-[layout=inset]:border"
+    },
+    "Viewport": {
+      "slot": "drawer-viewport",
+      "classes": "fixed inset-0 z-50 grid data-[indent=true]:absolute data-[swipe-direction=down]:grid data-[swipe-direction=down]:grid-rows-[1fr_auto] data-[swipe-direction=down]:pt-12 data-[swipe-direction=up]:grid data-[swipe-direction=up]:grid-rows-[auto_1fr] data-[swipe-direction=up]:pb-12 data-[swipe-direction=left]:flex data-[swipe-direction=left]:justify-start data-[swipe-direction=right]:flex data-[swipe-direction=right]:justify-end data-[layout=inset]:m-4 data-[layout=inset]:data-[swipe-direction=right]:mx-2 data-[layout=inset]:data-nested:m-5"
+    },
+    "Backdrop": {
+      "slot": "drawer-backdrop",
+      "classes": "absolute"
+    },
+    "Content": {
+      "slot": "drawer-content",
+      "classes": ""
+    }
+  },
+  "empty": {
+    "Root": {
+      "slot": "empty",
+      "classes": "flex min-w-0 flex-1 flex-col items-center justify-center gap-6 rounded-lg p-6 text-center text-balance md:p-12"
+    },
+    "Media": {
+      "slot": "empty-icon",
+      "classes": "flex shrink-0 items-center justify-center [&_svg]:pointer-events-none [&_svg]:shrink-0"
+    },
+    "Header": {
+      "slot": "empty-header",
+      "classes": "flex max-w-sm flex-col items-center gap-2 text-center"
+    },
+    "Title": {
+      "slot": "empty-title",
+      "classes": "ui-title"
+    },
+    "Description": {
+      "slot": "empty-description",
+      "classes": "ui-description"
+    },
+    "Actions": {
+      "slot": "empty-action",
+      "classes": "flex gap-4 max-w-sm w-full justify-center"
+    }
+  },
+  "field": {
+    "Root": {
+      "slot": "field",
+      "classes": "grid gap-1.5"
+    },
+    "Group": {
+      "slot": "field-group",
+      "classes": "flex gap-3"
+    },
+    "Label": {
+      "slot": "field-label",
+      "classes": "inline-flex items-center justify-between text-sm font-medium text-foreground leading-none select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+    },
+    "Control": {
+      "slot": "field-control",
+      "classes": ""
+    },
+    "Description": {
+      "slot": "field-description",
+      "classes": "text-muted-foreground text-xs mt-0.5 font-normal"
+    },
+    "Item": {
+      "slot": "field-item",
+      "classes": "flex"
+    },
+    "Error": {
+      "slot": "field-error",
+      "classes": "text-destructive text-xs mt-0.5 font-normal"
+    },
+    "Validity": {
+      "slot": "field-validity",
+      "classes": ""
+    }
+  },
+  "fieldset": {
+    "Root": {
+      "slot": "fieldset",
+      "classes": "flex flex-col gap-6"
+    },
+    "Header": {
+      "slot": "fieldset-header",
+      "classes": "grid gap-0.5"
+    },
+    "Legend": {
+      "slot": "fieldset-legend",
+      "classes": "text-lg text-card-foreground leading-none font-semibold"
+    },
+    "Description": {
+      "slot": "fieldset-description",
+      "classes": "ui-description"
+    }
+  },
+  "form": {
+    "Root": {
+      "slot": "form",
+      "classes": ""
+    }
+  },
+  "group": {
+    "Root": {
+      "slot": "group",
+      "classes": "flex w-fit items-center has-[>[data-slot=group]]:gap-2"
+    },
+    "Separator": {
+      "slot": "group-separator",
+      "classes": "pointer-events-none relative z-2 shrink-0 bg-border [[data-orientation=horizontal]_&]:self-stretch [[data-orientation=horizontal]_&]:w-px [[data-orientation=vertical]_&]:h-px [[data-orientation=vertical]_&]:w-full [[data-orientation=horizontal]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px [[data-orientation=horizontal]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px [[data-orientation=vertical]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px [[data-orientation=vertical]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px"
+    },
+    "Text": {
+      "slot": "group-text",
+      "classes": "relative inline-flex self-stretch items-center gap-2 whitespace-nowrap rounded-md border bg-secondary px-[calc(--spacing(3)-1px)] text-sm text-muted-foreground"
+    }
+  },
+  "input": {
+    "Root": {
+      "slot": "input-control",
+      "classes": "inline-flex items-center text-sm w-full h-9 relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring"
+    }
+  },
+  "input-group": {
+    "Root": {
+      "slot": "input-group",
+      "classes": "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60 group/input-group relative inline-flex w-full px-3 h-9 min-w-0 items-center rounded-md border not-dark:bg-clip-padding text-base md:text-sm shadow-xs transition-[color,box-shadow] has-[input:disabled,textarea:disabled]:cursor-not-allowed has-[input:disabled,textarea:disabled]:opacity-50 has-[input:focus-visible,textarea:focus-visible]:has-[input[aria-invalid],textarea[aria-invalid]]:ring-destructive/20 dark:has-[input:focus-visible,textarea:focus-visible]:has-[input[aria-invalid],textarea[aria-invalid]]:ring-destructive/40 has-[input:focus-visible,textarea:focus-visible]:has-[input[aria-invalid],textarea[aria-invalid]]:border-destructive has-[input:focus-visible,textarea:focus-visible]:ring-ring/50 has-[input:focus-visible,textarea:focus-visible]:ring-[2px] has-[input:focus-visible,textarea:focus-visible]:border-ring has-[textarea]:h-auto **:[textarea]:min-h-20.5 **:[textarea]:resize-none **:[textarea]:max-sm:min-h-23.5 has-data-[align=block-end]:h-auto has-data-[align=block-end]:flex-col has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto has-data-[align=inline-start]:[&_input]:ps-2 has-data-[align=inline-end]:[&_input]:pe-2"
+    },
+    "Addon": {
+      "slot": "input-group-addon",
+      "classes": "text-muted-foreground [&_svg]:-mx-0.5 [&:not(:has(>button))_svg]:text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 leading-none font-medium select-none [&>svg:not([class*='size-'])]:size-4 group-data-[disabled=true]/input-group:opacity-50"
+    },
+    "Text": {
+      "slot": "input-group-text",
+      "classes": "inline-flex items-center text-sm font-medium text-muted-foreground"
+    }
+  },
+  "kbd": {
+    "Root": {
+      "slot": "kbd",
+      "classes": "bg-background text-muted-foreground flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium [&_svg:not([class*='size-'])]:size-3"
+    },
+    "Group": {
+      "slot": "kbd-group",
+      "classes": "inline-flex items-center gap-1"
+    }
+  },
+  "label": {
+    "Root": {
+      "slot": "label",
+      "classes": "inline-flex items-center gap-2 text-sm font-medium text-foreground leading-none select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
+    }
+  },
+  "menu": {
+    "Root": {
+      "slot": "menu-root",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "menu-trigger",
+      "classes": ""
+    },
+    "Arrow": {
+      "slot": "menu-arrow",
+      "classes": ""
+    },
+    "Group": {
+      "slot": "menu-group",
+      "classes": ""
+    },
+    "Submenu": {
+      "slot": "menu-submenu-root",
+      "classes": ""
+    },
+    "RadioGroup": {
+      "slot": "menu-radio-group",
+      "classes": ""
+    },
+    "Shortcut": {
+      "slot": "menu-shortcut",
+      "classes": ""
+    }
+  },
+  "menu-base": {
+    "Root": {
+      "slot": "menu-portal",
+      "classes": ""
+    }
+  },
+  "menubar": {
+    "Root": {
+      "slot": "menubar",
+      "classes": "bg-secondary flex h-9 items-center gap-1 rounded-md border p-1 shadow-xs"
+    },
+    "Trigger": {
+      "slot": "menubar-trigger",
+      "classes": "flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none hover:bg-accent hover:text-accent-foreground data-popup-open:bg-accent data-popup-open:text-foreground data-disabled:opacity-50 state-focus-ring"
+    }
+  },
+  "meter": {
+    "Root": {
+      "slot": "meter",
+      "classes": "w-full"
+    },
+    "Label": {
+      "slot": "meter-label",
+      "classes": "text-sm font-medium text-foreground"
+    },
+    "Value": {
+      "slot": "meter-value",
+      "classes": "text-right text-sm leading-5 text-foreground"
+    },
+    "Track": {
+      "slot": "meter-track",
+      "classes": "col-span-2 block h-2 w-full overflow-hidden bg-accent"
+    },
+    "Indicator": {
+      "slot": "meter-indicator",
+      "classes": "block bg-primary transition-all duration-500"
+    }
+  },
+  "number-field": {
+    "Root": {
+      "slot": "number-field",
+      "classes": "flex flex-col items-start gap-1.5"
+    },
+    "ScrubArea": {
+      "slot": "number-field-scrub-area",
+      "classes": "cursor-ew-resize"
+    },
+    "ScrubAreaCursor": {
+      "slot": "number-field-scrub-area-cursor",
+      "classes": ""
+    },
+    "Group": {
+      "slot": "number-field-group",
+      "classes": "flex data-disabled:pointer-events-none data-disabled:opacity-50"
+    },
+    "Decrement": {
+      "slot": "number-field-decrement",
+      "classes": "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4"
+    },
+    "Increment": {
+      "slot": "number-field-increment",
+      "classes": "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4"
+    },
+    "Input": {
+      "slot": "number-field-input",
+      "classes": "bg-transparent h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid"
+    }
+  },
+  "otp-field": {
+    "Root": {
+      "slot": "otp-field",
+      "classes": "flex items-center gap-2 has-disabled:opacity-50"
+    },
+    "Input": {
+      "slot": "otp-field-input",
+      "classes": "relative size-9 min-w-0 rounded-md border bg-input not-dark:bg-clip-padding text-center text-sm text-foreground leading-9 outline-none in-[[data-slot=otp-field][data-size=lg]]:size-10 in-[[data-slot=otp-field][data-size=lg]]:leading-10 state-focus-ring state-invalid"
+    },
+    "Separator": {
+      "slot": "otp-field-separator",
+      "classes": ""
+    }
+  },
+  "popover": {
+    "Root": {
+      "slot": "popover",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "popover-trigger",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "popover-portal",
+      "classes": ""
+    },
+    "Arrow": {
+      "slot": "popover-arrow",
+      "classes": ""
+    },
+    "Viewport": {
+      "slot": "popover-viewport",
+      "classes": ""
+    },
+    "Header": {
+      "slot": "popover-header",
+      "classes": "flex flex-col gap-0.5"
+    },
+    "Title": {
+      "slot": "popover-title",
+      "classes": "ui-title"
+    },
+    "Description": {
+      "slot": "popover-description",
+      "classes": "ui-description"
+    },
+    "Close": {
+      "slot": "popover-close",
+      "classes": ""
+    }
+  },
+  "popup-arrow": {
+    "Root": {
+      "slot": "popup-arrow",
+      "classes": "flex data-[side=bottom]:-top-2 data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:-bottom-2 data-[side=top]:rotate-180"
+    }
+  },
+  "preview-card": {
+    "Root": {
+      "slot": "preview-card",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "preview-card-trigger",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "preview-card-portal",
+      "classes": ""
+    },
+    "Arrow": {
+      "slot": "preview-card-arrow",
+      "classes": ""
+    }
+  },
+  "progress": {
+    "Root": {
+      "slot": "progress",
+      "classes": "w-full"
+    },
+    "Label": {
+      "slot": "progress-label",
+      "classes": "text-sm font-medium text-foreground"
+    },
+    "Value": {
+      "slot": "progress-value",
+      "classes": "text-right text-sm text-foreground"
+    },
+    "Track": {
+      "slot": "progress-track",
+      "classes": "col-span-full h-1.5 overflow-hidden rounded bg-accent"
+    },
+    "Indicator": {
+      "slot": "progress-indicator",
+      "classes": "h-full w-full bg-primary transition-all duration-200 ease-in-out"
+    }
+  },
+  "radio-group": {
+    "Root": {
+      "slot": "radio",
+      "classes": "flex size-4 bg-transparent items-center justify-center rounded-full data-checked:bg-foreground data-unchecked:border state-focus-ring state-invalid data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+    },
+    "Indicator": {
+      "slot": "radio-indicator",
+      "classes": "flex before:size-2 before:rounded-full before:bg-background data-unchecked:hidden"
+    },
+    "Group": {
+      "slot": "radio-group",
+      "classes": "grid gap-3"
+    }
+  },
+  "scroll-area": {
+    "Root": {
+      "slot": "scroll-area-root",
+      "classes": "size-full min-h-0"
+    },
+    "Viewport": {
+      "slot": "scroll-area-viewport",
+      "classes": "h-full rounded-[inherit] transition-shadows outline-none data-has-overflow-y:overscroll-y-contain data-has-overflow-x:overscroll-x-contain state-focus-ring mask-t-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-start)))] mask-b-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-y-end)))] mask-l-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-start)))] mask-r-from-[calc(100%-min(var(--fade-size),var(--scroll-area-overflow-x-end)))] [--fade-size:1.5rem] data-has-overflow-y:pe-2.5 data-has-overflow-x:pb-2.5"
+    },
+    "Scrollbar": {
+      "slot": "scroll-area-scrollbar",
+      "classes": "m-1 flex opacity-0 transition-opacity delay-0 data-hovering:opacity-100 data-scrolling:opacity-100 data-hovering:delay-0 data-scrolling:delay-0 data-hovering:duration-100 data-scrolling:duration-0 data-[orientation=vertical]:w-1.5 data-[orientation=horizontal]:h-1.5 data-[orientation=horizontal]:flex-col"
+    },
+    "Corner": {
+      "slot": "scroll-area-corner",
+      "classes": ""
+    }
+  },
+  "select": {
+    "Trigger": {
+      "slot": "select-trigger",
+      "classes": "relative inline-flex w-full min-w-36 select-none items-center justify-between gap-2 rounded-md border bg-popover not-dark:bg-clip-padding text-left text-sm text-foreground outline-none hover:bg-accent/70 data-popup-open:bg-accent data-popup-open:text-muted-foreground state-focus-ring"
+    },
+    "Value": {
+      "slot": "select-value",
+      "classes": "truncate data-placeholder:text-muted-foreground"
+    },
+    "Icon": {
+      "slot": "select-icon",
+      "classes": "text-muted"
+    },
+    "Portal": {
+      "slot": "select-portal",
+      "classes": ""
+    },
+    "Backdrop": {
+      "slot": "select-backdrop",
+      "classes": "fixed inset-0"
+    },
+    "Positioner": {
+      "slot": "select-positioner",
+      "classes": "outline-none select-none z-10"
+    },
+    "ScrollUp": {
+      "slot": "select-scroll-up-arrow",
+      "classes": "top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:w-full before:content-['']"
+    },
+    "ScrollDown": {
+      "slot": "select-scroll-down-arrow",
+      "classes": "bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:-bottom-full"
+    },
+    "Popup": {
+      "slot": "select-popup",
+      "classes": "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md"
+    },
+    "List": {
+      "slot": "select-list",
+      "classes": "relative py-1 scroll-py-6 max-h-(--available-height)"
+    },
+    "Item": {
+      "slot": "select-item",
+      "classes": "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr] flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70"
+    },
+    "ItemText": {
+      "slot": "select-item-text",
+      "classes": "col-start-2 order-last"
+    },
+    "ItemIndicator": {
+      "slot": "select-item-indicator",
+      "classes": "col-start-1 order-first invisible data-selected:visible"
+    },
+    "Separator": {
+      "slot": "select-separator",
+      "classes": "my-1 h-px bg-border mx-2 last:hidden"
+    },
+    "Group": {
+      "slot": "select-group",
+      "classes": "py-1"
+    },
+    "GroupLabel": {
+      "slot": "select-group-label",
+      "classes": "px-2.5 py-1.5 text-xs font-medium text-muted-foreground"
+    }
+  },
+  "separator": {
+    "Root": {
+      "slot": "separator",
+      "classes": "shrink-0 bg-border data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:w-px data-[orientation=vertical]:not-[[class^='h-']]:not-[[class*='_h-']]:self-stretch"
+    }
+  },
+  "shortcut": {
+    "Root": {
+      "slot": "shortcut",
+      "classes": "text-muted-foreground/30 ml-auto text-xs tracking-widest"
+    }
+  },
+  "sidebar": {
+    "Root": {
+      "slot": "sidebar",
+      "classes": "flex h-full w-(--sidebar-width) flex-col bg-sidebar-background text-foreground"
+    },
+    "Provider": {
+      "slot": "sidebar-wrapper",
+      "classes": "group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar-background"
+    },
+    "Inset": {
+      "slot": "sidebar-inset",
+      "classes": "relative flex w-full flex-1 flex-col bg-background md:peer-data-[variant=inset]:m-2 md:peer-data-[variant=inset]:ml-0 md:peer-data-[variant=inset]:rounded-xl md:peer-data-[variant=inset]:shadow-sm md:peer-data-[variant=inset]:peer-data-[state=collapsed]:ml-2"
+    },
+    "Trigger": {
+      "slot": "sidebar-trigger",
+      "classes": ""
+    },
+    "Rail": {
+      "slot": "sidebar-rail",
+      "classes": "absolute inset-y-0 z-20 hidden w-4 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:inset-s-1/2 after:w-0.5 hover:after:bg-sidebar-border sm:flex ltr:-translate-x-1/2 rtl:-translate-x-1/2 in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize [[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full hover:group-data-[collapsible=offcanvas]:bg-sidebar-background [[data-side=left][data-collapsible=offcanvas]_&]:-right-2 [[data-side=right][data-collapsible=offcanvas]_&]:-left-2"
+    },
+    "Header": {
+      "slot": "sidebar-header",
+      "classes": "flex flex-col gap-2 p-2"
+    },
+    "Footer": {
+      "slot": "sidebar-footer",
+      "classes": "flex flex-col gap-2 p-2"
+    },
+    "Separator": {
+      "slot": "sidebar-separator",
+      "classes": "my-2 w-auto bg-sidebar-border"
+    },
+    "Body": {
+      "slot": "sidebar-content",
+      "classes": "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden"
+    },
+    "Group": {
+      "slot": "sidebar-group",
+      "classes": "relative flex w-full min-w-0 flex-col p-2"
+    },
+    "GroupLabel": {
+      "slot": "sidebar-group-label",
+      "classes": "flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium text-foreground outline-hidden transition-[margin,opacity] duration-200 ease-linear focus-visible:ring-2 group-data-[collapsible=icon]:-mt-8 group-data-[collapsible=icon]:opacity-0 [&>svg]:size-4 [&>svg]:shrink-0"
+    },
+    "GroupContent": {
+      "slot": "sidebar-group-content",
+      "classes": "w-full text-sm"
+    },
+    "Menu": {
+      "slot": "sidebar-menu",
+      "classes": "flex w-full min-w-0 flex-col gap-1"
+    },
+    "MenuItem": {
+      "slot": "sidebar-menu-item",
+      "classes": "group/menu-item relative"
+    },
+    "MenuButton": {
+      "slot": "sidebar-menu-button",
+      "classes": "flex w-full items-center gap-2 rounded-md p-2 text-left text-sm text-muted-foreground overflow-hidden outline-hidden transition-[width,height,padding] disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 peer/menu-button group/menu-button group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate state-focus-ring data-[active=true]:font-medium"
+    },
+    "MenuAction": {
+      "slot": "sidebar-menu-action",
+      "classes": "absolute right-1 flex aspect-square w-5 items-center justify-center rounded-md p-0 text-muted-foreground outline-hidden transition-transform group-data-[collapsible=icon]:hidden after:absolute after:-inset-2 focus-visible:ring-2 md:after:hidden hover:bg-accent/70 hover:text-accent-foreground peer-hover/menu-button:text-accent-foreground peer-data-[size=md]/menu-button:top-1 peer-data-[size=lg]/menu-button:top-1.5 peer-data-[size=sm]/menu-button:top-0.5  [&>svg]:size-4 [&>svg]:shrink-0 group-focus-within/menu-item:opacity-100 group-hover/menu-item:opacity-100 peer-data-[active=true]/menu-button:text-accent-foreground aria-expanded:opacity-100 md:opacity-0"
+    },
+    "MenuBadge": {
+      "slot": "sidebar-menu-badge",
+      "classes": "pointer-events-none absolute right-1 flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-xs font-medium text-muted-foreground tabular-nums select-none group-data-[collapsible=icon]:hidden peer-data-[size=md]/menu-button:top-2 peer-data-[size=lg]/menu-button:top-2.5 peer-data-[size=sm]/menu-button:top-1.5 peer-hover/menu-button:text-accent-foreground peer-data-[active=true]/menu-button:text-accent-foreground"
+    },
+    "MenuSub": {
+      "slot": "sidebar-menu-sub",
+      "classes": "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5 group-data-[collapsible=icon]:hidden"
+    },
+    "MenuSubItem": {
+      "slot": "sidebar-menu-sub-item",
+      "classes": "group/menu-sub-item relative"
+    },
+    "MenuSubButton": {
+      "slot": "sidebar-menu-sub-button",
+      "classes": "flex min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 text-muted-foreground outline-hidden group-data-[collapsible=icon]:hidden [&>span:last-child]:truncate disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0 [&>svg]:text-sidebar-accent-foreground"
+    }
+  },
+  "skeleton": {
+    "Root": {
+      "slot": "skeleton",
+      "classes": "bg-accent animate-pulse rounded-md"
+    }
+  },
+  "slider": {
+    "Root": {
+      "slot": "slider",
+      "classes": "data-[orientation=horizontal]:w-full"
+    },
+    "Value": {
+      "slot": "slider-value",
+      "classes": ""
+    },
+    "Control": {
+      "slot": "slider-control",
+      "classes": "flex w-full touch-none items-center py-1.5 select-none data-disabled:cursor-not-allowed data-disabled:opacity-50"
+    },
+    "Track": {
+      "slot": "slider-track",
+      "classes": "h-1 w-full rounded bg-accent select-none"
+    },
+    "Indicator": {
+      "slot": "slider-indicator",
+      "classes": "bg-primary rounded select-none"
+    },
+    "Thumb": {
+      "slot": "slider-thumb",
+      "classes": "size-4 rounded-full bg-primary outline-1 outline-ring select-none"
+    }
+  },
+  "switch": {
+    "Root": {
+      "slot": "switch",
+      "classes": "data-checked:bg-primary data-checked:text-primary-foreground border data-checked:shadow-md ring-0 transition-[filter] duration-200 peer data-unchecked:bg-accent inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+    },
+    "Thumb": {
+      "slot": "switch-thumb",
+      "classes": "data-unchecked:bg-background dark:data-unchecked:bg-foreground data-checked:bg-primary-foreground pointer-events-none block size-4 rounded-full ring-0 transition-transform data-checked:translate-x-[calc(100%-2px)] data-unchecked:translate-x-0"
+    }
+  },
+  "table": {
+    "Root": {
+      "slot": "table-container",
+      "classes": "relative w-full overflow-x-auto"
+    },
+    "Header": {
+      "slot": "table-header",
+      "classes": "[&_tr]:border-b"
+    },
+    "Body": {
+      "slot": "table-body",
+      "classes": "relative [&_tr:last-child]:border-0"
+    },
+    "Footer": {
+      "slot": "table-footer",
+      "classes": "border-t font-medium bg-card"
+    },
+    "Head": {
+      "slot": "table-head",
+      "classes": "h-12 px-3 text-left align-middle font-semibold text-foreground [&:has([data-slot=table-sort-icon])]:pr-8 [&:has([role=checkbox])]:w-px [&:has([role=checkbox])]:pr-0 *:[[role=checkbox]]:translate-y-0.5"
+    },
+    "Row": {
+      "slot": "table-row",
+      "classes": "border-b transition-colors hover:bg-accent data-[state=selected]:bg-accent"
+    },
+    "Cell": {
+      "slot": "table-cell",
+      "classes": "p-2 whitespace-nowrap align-middle leading-none"
+    },
+    "Caption": {
+      "slot": "table-caption",
+      "classes": "mt-4 text-muted-foreground text-sm"
+    }
+  },
+  "tabs": {
+    "Root": {
+      "slot": "tabs",
+      "classes": "flex flex-col gap-2"
+    },
+    "List": {
+      "slot": "tabs-list",
+      "classes": "relative z-0 flex gap-1"
+    },
+    "Tab": {
+      "slot": "tabs-tab",
+      "classes": "flex h-9 items-center justify-center border-0 px-3 text-sm font-medium break-keep whitespace-nowrap text-muted-foreground outline-none select-none before:inset-x-0 before:inset-y-1 before:rounded-sm before:-outline-offset-1 hover:text-foreground focus-visible:relative focus-visible:before:absolute focus-visible:before:outline-2 data-active:text-foreground"
+    },
+    "Indicator": {
+      "slot": "tabs-indicator",
+      "classes": "absolute left-0 z-[-1] w-(--active-tab-width) translate-x-(--active-tab-left) transition-all duration-200 ease-in-out"
+    },
+    "Panel": {
+      "slot": "tabs-panel",
+      "classes": "flex-1 outline-none"
+    }
+  },
+  "textarea": {
+    "Root": {
+      "slot": "textarea-control",
+      "classes": "inline-flex text-sm w-full data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60 relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring"
+    }
+  },
+  "toast": {
+    "Root": {
+      "slot": "toast-portal",
+      "classes": ""
+    }
+  },
+  "toggle": {
+    "Root": {
+      "slot": "toggle",
+      "classes": "inline-flex items-center justify-center gap-2 rounded-md text-sm text-muted-foreground font-medium bg-transparent hover:bg-accent/70 hover:text-foreground disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0 transition-[color,box-shadow] outline-none state-invalid state-focus-ring whitespace-nowrap"
+    },
+    "Group": {
+      "slot": "toggle-group",
+      "classes": "flex items-center gap-0.5 data-[variant=outline]:gap-0 data-[orientation=vertical]:flex-col"
+    },
+    "GroupSeparator": {
+      "slot": "group-separator",
+      "classes": "pointer-events-none relative z-2 shrink-0 bg-border in-data-[orientation=horizontal]:self-stretch in-data-[orientation=horizontal]:w-px in-data-[orientation=vertical]:h-px in-data-[orientation=vertical]:w-full"
+    }
+  },
+  "toolbar": {
+    "Root": {
+      "slot": "toolbar",
+      "classes": "relative flex gap-2 rounded-lg border bg-popover not-dark:bg-clip-padding p-1 text-foreground transition-colors"
+    },
+    "Group": {
+      "slot": "toolbar-group",
+      "classes": "flex items-center gap-1"
+    },
+    "Button": {
+      "slot": "toolbar-button",
+      "classes": ""
+    },
+    "Separator": {
+      "slot": "toolbar-separator",
+      "classes": "shrink-0 bg-border data-[orientation=horizontal]:my-0.5 data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:my-1.5 data-[orientation=vertical]:w-px data-[orientation=vertical]:not-[[class^='h-']]:not-[[class*='_h-']]:self-stretch"
+    },
+    "Link": {
+      "slot": "toolbar-link",
+      "classes": ""
+    },
+    "Input": {
+      "slot": "toolbar-input",
+      "classes": ""
+    },
+    "Text": {
+      "slot": "toolbar-text",
+      "classes": "relative inline-flex self-stretch items-center gap-2 whitespace-nowrap text-sm text-muted-foreground pr-1"
+    }
+  },
+  "tooltip": {
+    "Root": {
+      "slot": "tooltip-root",
+      "classes": ""
+    },
+    "Provider": {
+      "slot": "tooltip-provider",
+      "classes": ""
+    },
+    "Trigger": {
+      "slot": "tooltip-trigger",
+      "classes": ""
+    },
+    "Portal": {
+      "slot": "tooltip-portal",
+      "classes": ""
+    },
+    "Popup": {
+      "slot": "tooltip-popup",
+      "classes": "group flex flex-col px-2 py-1 rounded-md text-sm shadow-md transition-[transform,scale,opacity] data-ending-style:opacity-0 data-ending-style:scale-90 data-instant:transition-none data-starting-style:opacity-0 data-starting-style:scale-90"
+    },
+    "Arrow": {
+      "slot": "tooltip-arrow",
+      "classes": ""
+    }
+  },
+  "x-close": {
+    "Root": {
+      "slot": "x-close-button",
+      "classes": "ring-offset-background absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none data-open:bg-accent data-open:text-muted-foreground focus:ring-ring focus:ring-2 focus:ring-offset-2 focus:outline-hidden [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
     }
   }
 };

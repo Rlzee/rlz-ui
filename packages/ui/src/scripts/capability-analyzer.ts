@@ -18,7 +18,17 @@ export type DetectedComponent = {
   capabilities: ComponentCapabilities;
   /** the built-in classes of each variant value, read from the same source */
   classes: ComponentVariantClasses;
+  /** every part of the component, its slot in the demos and its own classes */
+  parts: DetectedPart[];
 };
+
+/**
+ * One box the Creator can restyle: the component itself (`Root`) or a part it
+ * exports (`Header`, `Popup`...). `slot` is the `data-slot` its element carries,
+ * which is what the demos are marked with, and `classes` is what the design system
+ * authored on it - the shared classes, not the ones a variant value adds.
+ */
+export type DetectedPart = { name: string; slot: string; classes: string };
 
 // A corner drawn from one of the radius tokens, at any side. `rounded-full` and
 // arbitrary radii are not here: they follow no token, so nothing to tune.
@@ -48,7 +58,21 @@ const CLASS_HELPERS = new Set(["cn", "clsx"]);
 type Cva = {
   varName: string;
   part?: string;
+  /** the classes every value of this cva shares */
+  base: string;
   axes: { name: string; default?: string; values: { value: string; classes: string }[] }[];
+};
+
+// Local `const` holding classes, so `cva(defaultClass, ...)` and
+// `cn(inputClassName)` resolve to what they actually draw.
+type ClassConsts = Map<string, string>;
+
+// A compound export: the part names users type, the function that draws each of
+// them, and the function the component itself is.
+type Compound = {
+  keys: string[];
+  owners: Map<string, string>;
+  target?: string;
 };
 
 /**
@@ -89,9 +113,11 @@ export function analyzeComponentSource({
     .filter((node): node is ts.StringLiteralLike => ts.isStringLiteralLike(node))
     .map((node) => node.text);
 
-  const parts = compoundParts(nodes);
-  const cvas = readCvas(nodes, source, slug, parts);
-  const { variants, classes } = groupAxes(cvas, parts);
+  const consts = classConstants(nodes);
+  const compound = compoundOf(nodes);
+  const cvas = readCvas(nodes, source, slug, compound.keys, consts);
+  const { variants, classes } = groupAxes(cvas, compound.keys);
+  const parts = partEntries(nodes, compound, cvas, consts);
 
   const styles: ComponentStyleProperty[] = [];
 
@@ -114,13 +140,13 @@ export function analyzeComponentSource({
 
   const capabilities: ComponentCapabilities = {
     variants: variants.length > 0 ? variants : undefined,
-    parts: parts.length > 0 ? parts : undefined,
+    parts: compound.keys.length > 0 ? compound.keys : undefined,
     styles: styles.length > 0 ? styles : undefined,
     states: states.length > 0 ? states : undefined,
     editableProperties: nonEmpty(booleanProps(nodes)),
   };
 
-  return { capabilities, classes };
+  return { capabilities, classes, parts };
 }
 
 // Keeps an empty detection result out of the manifest, so the Creator renders no
@@ -138,25 +164,69 @@ function isRadiusDriven(classText: string) {
 /**
  * The compound parts of a component: the keys of its
  * `Object.assign(Root, { Header: ..., Footer: ... })`, which are exactly the
- * names users type (`Card.Header`). A single-element component has none.
+ * names users type (`Card.Header`), the function drawing each of them, and the
+ * function the component itself is. A single-element component has no key, and its
+ * own function is the one that draws the marked element.
  */
-function compoundParts(nodes: ts.Node[]) {
-  const parts: string[] = [];
+function compoundOf(nodes: ts.Node[]): Compound {
+  const keys: string[] = [];
+  const owners = new Map<string, string>();
+  let target: string | undefined;
 
   for (const node of nodes) {
     if (!ts.isCallExpression(node) || !isObjectAssign(node)) continue;
 
-    const [, keys] = node.arguments;
+    const [assigned, parts] = node.arguments;
 
-    if (keys && ts.isObjectLiteralExpression(keys)) {
-      for (const property of keys.properties) {
+    if (ts.isIdentifier(assigned)) target = assigned.text;
+
+    if (parts && ts.isObjectLiteralExpression(parts)) {
+      for (const property of parts.properties) {
+        if (!ts.isPropertyAssignment(property) || !ts.isIdentifier(property.initializer)) {
+          continue;
+        }
+
         const name = propertyName(property);
-        if (name && !parts.includes(name)) parts.push(name);
+
+        if (!name) continue;
+        if (!keys.includes(name)) keys.push(name);
+
+        owners.set(name, property.initializer.text);
       }
     }
   }
 
-  return parts;
+  if (!target) target = componentFunctions(nodes).find(isDrawn)?.name;
+
+  return { keys, owners, target };
+}
+
+// A component function that puts a `data-slot` on what it renders.
+function isDrawn(component: { name: string; node: ts.FunctionLikeDeclaration }) {
+  return Boolean(slotOwner(component.node));
+}
+
+// The component functions of a file, in the order they are written.
+function componentFunctions(nodes: ts.Node[]) {
+  const functions: { name: string; node: ts.FunctionLikeDeclaration }[] = [];
+
+  for (const node of nodes) {
+    if (ts.isFunctionDeclaration(node) && node.name) {
+      functions.push({ name: node.name.text, node });
+      continue;
+    }
+
+    if (
+      ts.isVariableDeclaration(node) &&
+      ts.isIdentifier(node.name) &&
+      node.initializer &&
+      (ts.isArrowFunction(node.initializer) || ts.isFunctionExpression(node.initializer))
+    ) {
+      functions.push({ name: node.name.text, node: node.initializer });
+    }
+  }
+
+  return functions;
 }
 
 function isObjectAssign(node: ts.CallExpression) {
@@ -186,19 +256,21 @@ function readCvas(
   nodes: ts.Node[],
   source: ts.SourceFile,
   slug: string,
-  parts: string[]
+  parts: string[],
+  consts: ClassConsts
 ): Cva[] {
   const cvas: Cva[] = [];
 
   for (const node of nodes) {
     if (!ts.isVariableDeclaration(node) || !ts.isIdentifier(node.name)) continue;
 
-    const config = node.initializer && cvaConfig(node.initializer);
+    const config = node.initializer && cvaConfig(node.initializer, consts);
     if (!config) continue;
 
     cvas.push({
       varName: node.name.text,
       part: partOfCva(node.name.text, nodes, source, slug, parts),
+      base: config.base,
       axes: config.axes,
     });
   }
@@ -206,8 +278,8 @@ function readCvas(
   return cvas;
 }
 
-/** The axes of one cva call, with the default of each axis. */
-function cvaConfig(initializer: ts.Expression) {
+/** The classes one cva call draws: its base, its axes and the default of each. */
+function cvaConfig(initializer: ts.Expression, consts: ClassConsts) {
   if (
     !ts.isCallExpression(initializer) ||
     !ts.isIdentifier(initializer.expression) ||
@@ -216,7 +288,7 @@ function cvaConfig(initializer: ts.Expression) {
     return undefined;
   }
 
-  const config = initializer.arguments[1];
+  const [base, config] = initializer.arguments;
 
   if (!config || !ts.isObjectLiteralExpression(config)) return undefined;
 
@@ -242,13 +314,13 @@ function cvaConfig(initializer: ts.Expression) {
 
           if (!value || !ts.isPropertyAssignment(entry)) return [];
 
-          return [{ value, classes: classTextOf(entry.initializer) }];
+          return [{ value, classes: classTextOf(entry.initializer, consts) }];
         }),
       },
     ];
   });
 
-  return { axes };
+  return { base: classTextOf(base, consts), axes };
 }
 
 function propertyObject(node: ts.Node | undefined, key: string) {
@@ -282,13 +354,19 @@ function readStringRecord(node: ts.ObjectLiteralExpression | undefined) {
 }
 
 /** The classes one cva value carries, whatever form they were written in. */
-function classTextOf(node: ts.Node | undefined): string {
+function classTextOf(node: ts.Node | undefined, consts?: ClassConsts): string {
   if (!node) return "";
 
   if (ts.isStringLiteralLike(node)) return node.text;
 
+  // A named class list (`const defaultClass = cn(...)`) is read for what it draws.
+  if (ts.isIdentifier(node)) return consts?.get(node.text) ?? "";
+
   if (ts.isArrayLiteralExpression(node)) {
-    return node.elements.map(classTextOf).filter(Boolean).join(" ");
+    return node.elements
+      .map((element) => classTextOf(element, consts))
+      .filter(Boolean)
+      .join(" ");
   }
 
   if (ts.isCallExpression(node)) {
@@ -298,28 +376,133 @@ function classTextOf(node: ts.Node | undefined): string {
     // A computed base (a token, a helper that is not a class joiner) is read as
     // written, so the analyzer still shows what the component does with it.
     return isHelper
-      ? node.arguments.map(classTextOf).filter(Boolean).join(" ")
+      ? node.arguments
+          .map((argument) => classTextOf(argument, consts))
+          .filter(Boolean)
+          .join(" ")
       : flatten(node.getText());
   }
 
   if (ts.isConditionalExpression(node)) {
-    return [classTextOf(node.whenTrue), classTextOf(node.whenFalse)]
+    return [
+      classTextOf(node.whenTrue, consts),
+      classTextOf(node.whenFalse, consts),
+    ]
       .filter(Boolean)
       .join(" ");
   }
 
-  if (ts.isBinaryExpression(node) || ts.isParenthesizedExpression(node)) {
-    return flatten(node.getText());
+  if (ts.isParenthesizedExpression(node)) return classTextOf(node.expression, consts);
+
+  if (ts.isBinaryExpression(node)) {
+    return [classTextOf(node.left, consts), classTextOf(node.right, consts)]
+      .filter(Boolean)
+      .join(" ");
   }
 
   if (ts.isTemplateExpression(node)) {
     return node.templateSpans.reduce(
-      (text, span) => text + classTextOf(span.literal),
+      (text, span) => text + classTextOf(span.literal, consts),
       node.head.text
     );
   }
 
   return "";
+}
+
+/**
+ * The classes one element was authored with, read out of the expression that builds
+ * its `className`: the string literals, the `cn`/`clsx` arguments, the local class
+ * constants and the base of a cva call. Its variant values stay out on purpose -
+ * those are edited on their own axis, not as the part's own classes.
+ */
+function authoredClasses(
+  node: ts.Node | undefined,
+  ctx: { consts: ClassConsts; bases: Map<string, string> }
+): string {
+  if (!node) return "";
+
+  if (ts.isJsxExpression(node)) return authoredClasses(node.expression, ctx);
+  if (ts.isStringLiteralLike(node)) return node.text;
+
+  if (ts.isIdentifier(node)) {
+    return ctx.consts.get(node.text) ?? "";
+  }
+
+  if (ts.isArrayLiteralExpression(node)) {
+    return node.elements
+      .map((element) => authoredClasses(element, ctx))
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (ts.isCallExpression(node)) {
+    const name = ts.isIdentifier(node.expression) ? node.expression.text : "";
+
+    if (CLASS_HELPERS.has(name)) {
+      return node.arguments
+        .map((argument) => authoredClasses(argument, ctx))
+        .filter(Boolean)
+        .join(" ");
+    }
+
+    // A cva call contributes the classes every value shares, whatever is picked.
+    return ctx.bases.get(name) ?? "";
+  }
+
+  if (ts.isParenthesizedExpression(node)) return authoredClasses(node.expression, ctx);
+
+  if (ts.isBinaryExpression(node)) {
+    return [
+      authoredClasses(node.left, ctx),
+      authoredClasses(node.right, ctx),
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (ts.isConditionalExpression(node)) {
+    return [
+      authoredClasses(node.whenTrue, ctx),
+      authoredClasses(node.whenFalse, ctx),
+    ]
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  if (ts.isTemplateExpression(node)) {
+    return node.head.text + node.templateSpans.map((span) => span.literal.text).join("");
+  }
+
+  return "";
+}
+
+// The local constants that only hold classes, so `cva(defaultClass, ...)` and
+// `cn(inputClassName)` are read as the classes they draw rather than as a name.
+function classConstants(nodes: ts.Node[]): ClassConsts {
+  const consts: ClassConsts = new Map();
+  const ctx = { consts, bases: new Map<string, string>() };
+
+  for (const node of nodes) {
+    if (
+      !ts.isVariableDeclaration(node) ||
+      !ts.isIdentifier(node.name) ||
+      !node.initializer
+    ) {
+      continue;
+    }
+
+    // A cva call is not a class list, it is the whole variant config.
+    if (ts.isCallExpression(node.initializer) && node.initializer.expression.getText() === "cva") {
+      continue;
+    }
+
+    const text = authoredClasses(node.initializer, ctx).trim();
+
+    if (text) consts.set(node.name.text, text);
+  }
+
+  return consts;
 }
 
 // Keeps an expression readable inside a class field: one line, no comments.
@@ -398,20 +581,94 @@ function slotOf(node: ts.ObjectLiteralExpression | ts.JsxAttributes) {
 }
 
 function slotInSubtree(node: ts.Node) {
-  let slot: string | undefined;
+  const owner = slotOwner(node);
+
+  return owner ? slotOf(owner) : undefined;
+}
+
+/**
+ * The element a component function draws: the JSX attributes, or the props object,
+ * carrying the first `data-slot`. Wrappers that only nest other components are
+ * walked through, since the mark sits on the element that finally renders.
+ */
+function slotOwner(node: ts.Node) {
+  let owner: ts.ObjectLiteralExpression | ts.JsxAttributes | undefined;
 
   (function visit(current: ts.Node) {
-    if (slot) return;
+    if (owner) return;
 
-    if (ts.isObjectLiteralExpression(current) || ts.isJsxAttributes(current)) {
-      slot = slotOf(current);
-      if (slot) return;
+    if (
+      (ts.isObjectLiteralExpression(current) || ts.isJsxAttributes(current)) &&
+      slotOf(current)
+    ) {
+      owner = current;
+      return;
     }
 
     current.forEachChild(visit);
   })(node);
 
-  return slot;
+  return owner;
+}
+
+/** The expression building the `className` of that same element, when it has one. */
+function classNameOf(owner: ts.ObjectLiteralExpression | ts.JsxAttributes) {
+  for (const property of owner.properties) {
+    if (ts.isPropertyAssignment(property) && propertyName(property) === "className") {
+      return property.initializer;
+    }
+
+    if (ts.isJsxAttribute(property) && property.name.getText() === "className") {
+      return property.initializer;
+    }
+  }
+
+  return undefined;
+}
+
+/**
+ * Every box the Creator can restyle, in the order it should be listed: the
+ * component itself first, then the parts it exports. A part is read from the
+ * function drawing it, so the name the user types (`Card.Header`) is tied to the
+ * slot the demos carry (`card-header`) and to the classes authored on it.
+ */
+function partEntries(
+  nodes: ts.Node[],
+  compound: Compound,
+  cvas: Cva[],
+  consts: ClassConsts
+): DetectedPart[] {
+  const bases = new Map(cvas.map((cva) => [cva.varName, cva.base]));
+  const functions = componentFunctions(nodes);
+  const entries: DetectedPart[] = [];
+  const claimed = new Set<string>();
+
+  const own = (name: string | undefined, fnName?: string) => {
+    if (!name || !fnName) return;
+
+    const fn = functions.find((entry) => entry.name === fnName);
+    const owner = fn ? slotOwner(fn.node) : undefined;
+    const slot = owner ? slotOf(owner) : undefined;
+
+    // No slot: nothing to point at in the demos. An already claimed slot: this
+    // function only composes the part that owns it, so it draws no box of its own.
+    if (!slot || claimed.has(slot)) return;
+
+    claimed.add(slot);
+    entries.push({
+      name,
+      slot,
+      classes: owner
+        ? authoredClasses(classNameOf(owner), { consts, bases }).trim()
+        : "",
+    });
+  };
+
+  own("Root", compound.target);
+
+  for (const key of compound.keys) own(key, compound.owners.get(key));
+
+  return entries;
 }
 
 // `dialog-popup` -> "Popup", `sidebar-menu-button` -> "MenuButton". The root slot

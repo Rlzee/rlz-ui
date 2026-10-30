@@ -1,11 +1,14 @@
 import {
   resolveComponentCapabilities,
+  type ComponentCapabilitiesOverride,
+  type ComponentPart,
   type RegistryComponentItem,
 } from "@rlz/registry";
 
 import { componentCapabilitiesOverrides, GLOBAL_EXCLUSIONS } from "./capabilities";
 import {
   detectedCapabilities,
+  detectedParts,
   detectedVariantClasses,
 } from "./capabilities.detected";
 
@@ -43,4 +46,30 @@ export function withResolvedCapabilities<T extends RegistryComponentItem>(
  */
 export function variantClassesOf(id: string) {
   return detectedVariantClasses[id];
+}
+
+/**
+ * Every box of a component the Creator can restyle, in display order: the
+ * component itself (`Root`), then the parts it exports. Names come from detection -
+ * which is what lets a part nobody declared still be editable - minus the ones the
+ * policy hides, and only those whose element carries a `data-slot`, since that is
+ * how the demos are pointed at.
+ */
+export function partsOf(id: string): (ComponentPart & { name: string })[] {
+  const detected = detectedParts[id];
+
+  if (!detected) return [];
+
+  const excluded = new Set([
+    ...hiddenParts(GLOBAL_EXCLUSIONS),
+    ...hiddenParts(componentCapabilitiesOverrides[id]),
+  ]);
+
+  return Object.entries(detected)
+    .filter(([name]) => !excluded.has(name))
+    .map(([name, part]) => ({ name, ...part }));
+}
+
+function hiddenParts(override?: ComponentCapabilitiesOverride) {
+  return override?.exclude?.parts ?? [];
 }

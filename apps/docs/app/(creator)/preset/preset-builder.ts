@@ -50,7 +50,7 @@ export const resetPresetAtom = atom(null, (_get, set) => {
 });
 
 // Merges a patch for one component without clobbering the other axes (props vs
-// styles vs variant lists), and without touching sibling components.
+// styles vs variant lists vs part classes), and without touching sibling components.
 export const setComponentEditAtom = atom(
   null,
   (
@@ -62,12 +62,21 @@ export const setComponentEditAtom = atom(
     const edits = get(componentEditsAtom);
     const current = edits[slug] ?? {};
 
+    const partClasses = { ...current.partClasses, ...patch.partClasses };
+
+    // A part written back to its built-in classes carries no override anymore, so
+    // it leaves the preset entirely rather than storing a copy of the design system.
+    for (const part of Object.keys(partClasses)) {
+      if (partClasses[part] === undefined) delete partClasses[part];
+    }
+
     set(componentEditsAtom, {
       ...edits,
       [slug]: {
         props: { ...current.props, ...patch.props },
         styles: { ...current.styles, ...patch.styles },
         variants: { ...current.variants, ...patch.variants },
+        partClasses: Object.keys(partClasses).length > 0 ? partClasses : undefined,
       },
     });
   }

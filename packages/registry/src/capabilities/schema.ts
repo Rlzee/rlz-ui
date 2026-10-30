@@ -105,4 +105,11 @@ export const PresetComponentCustomizationSchema = z.object({
   // restyled: the registry manifest keeps the design system's built-in values
   // untouched, and this override becomes the authoritative list for the axis.
   variants: z.record(z.string(), z.array(PresetVariantValueSchema)).optional(),
+  // Classes the Creator gave one box of the component, keyed by part name: `Root`
+  // for the component itself, then the parts it exports (`Header`, `Popup`...).
+  // They stand for the classes that part was authored with, whatever variant is
+  // picked - a variant restyles one value, a part restyles the box itself. An entry
+  // set to nothing is a part reset to what the design system ships, and drops out of
+  // the preset rather than being stored as a copy of it.
+  partClasses: z.record(z.string(), z.string().optional()).optional(),
 });

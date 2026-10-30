@@ -11,6 +11,7 @@ import type {
 
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { getCapabilities } from "@/lib/component-capabilities";
+import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 
 import { slugFromId } from "../lib/slug";
 import {
@@ -35,18 +36,18 @@ import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Slider } from "@rlz/ui/components/ui/slider";
 import { Switch } from "@rlz/ui/components/ui/switch";
-import { Textarea } from "@rlz/ui/components/ui/textarea";
 import { cn } from "@rlz/ui/lib/cn";
 
 import { Code, Plus, X } from "lucide-react";
 
 import { CollapsibleProperties } from "./colapsible-properties";
+import { ClassesField } from "./classes-field";
 
 /**
  * Auto-generated properties editor for a design-system component. It renders
  * ONLY the sections its capabilities declare: no variants -> no Variants block
- * (Card), no parts -> no Parts block (Button). Everything is driven by the
- * declarative manifest, so new components need no bespoke editor.
+ * (Card), no parts -> no Parts block (Button). Everything is driven by what the
+ * component source exposes, so new components need no bespoke editor.
  */
 export function ComponentProperties() {
   const [selected] = useSelectedComponent();
@@ -55,6 +56,9 @@ export function ComponentProperties() {
 
   const slug = selected ? slugFromId(selected.id) : "";
   const capabilities = getCapabilities(slug);
+  // Every box of the component, detected: the component itself as `Root`, then the
+  // parts it exports. Their names drive the labels, their classes seed the fields.
+  const parts = partsOf(slug);
 
   if (!selected || !capabilities) return null;
 
@@ -95,13 +99,25 @@ export function ComponentProperties() {
         </CollapsibleProperties>
       )}
 
-      {capabilities.parts && capabilities.parts.length > 0 && (
+      {parts.length > 0 && (
         <CollapsibleProperties name="Parts">
-          <div className="flex flex-wrap gap-1.5 px-2 py-2">
-            {capabilities.parts.map((part) => (
-              <Badge key={part} variant="outline">
-                {part}
-              </Badge>
+          <div className="flex flex-col gap-1 px-2 py-2">
+            {parts.map((part) => (
+              <PartRow
+                key={part.name}
+                part={part}
+                label={part.name === "Root" ? selected.name : titleCase(part.name)}
+                override={edit?.partClasses?.[part.name]}
+                onClasses={(classes) =>
+                  update({
+                    // Writing the built-in classes back drops the override, so the
+                    // part keeps inheriting what the design system ships.
+                    partClasses: {
+                      [part.name]: classes === part.classes ? undefined : classes,
+                    },
+                  })
+                }
+              />
             ))}
           </div>
         </CollapsibleProperties>
@@ -438,9 +454,8 @@ function VariantRow({
 
 /**
  * The classes one section of a value carries: a part of a compound component, or
- * the whole component when the axis has no parts. The field starts from what the
- * design system ships for that section; editing it stores an override, writing
- * the built-in classes back removes it.
+ * the whole component when the axis has no parts. Editing it stores an override on
+ * that value; writing the built-in classes back removes it.
  */
 function VariantClassField({
   value,
@@ -455,66 +470,74 @@ function VariantClassField({
     section: VariantClassSection
   ) => void;
 }) {
-  const { part, builtIn, override } = section;
-  // Classes in effect: the Creator's override, else what the design system ships.
-  const effective = variantSectionClasses(section) ?? "";
-  const overridden = override !== undefined;
+  return (
+    <ClassesField
+      target={{
+        subject: value,
+        part: section.part,
+        builtIn: section.builtIn,
+        override: section.override,
+      }}
+      onClasses={(classes) => onClasses(value, classes, section)}
+    />
+  );
+}
 
-  const [css, setCss] = React.useState(effective);
-
-  // Keep the field in sync with the stored classes when they change elsewhere
-  // (Reset, JSON import, another part of the same value).
-  React.useEffect(() => setCss(effective), [effective]);
+/**
+ * One box of the component - itself, or a part it exports - with the classes it was
+ * authored with. Collapsed by default: a component can ship a dozen parts, and the
+ * panel stays readable when only what is being tuned is open.
+ */
+function PartRow({
+  part,
+  label,
+  override,
+  onClasses,
+}: {
+  part: { slot: string; classes: string };
+  label: string;
+  override?: string;
+  onClasses: (classes: string) => void;
+}) {
+  const [open, setOpen] = React.useState(false);
+  const edited = override !== undefined;
 
   return (
-    <div className="flex flex-col gap-1.5">
-      {part && (
-        <span className="text-xs font-medium text-muted-foreground">
-          {part}
-        </span>
+    <div
+      className={cn(
+        "rounded border border-border/60 transition-colors",
+        open && "bg-accent/30"
       )}
-
-      <Textarea
-        value={css}
-        rows={2}
-        aria-label={
-          part ? `Classes of ${value} (${part})` : `Classes of ${value}`
-        }
-        placeholder={builtIn || `No classes yet - define ${value}`}
-        onChange={(event) => setCss(event.target.value)}
-        onBlur={() => onClasses(value, css, section)}
-        onKeyDown={(event) => {
-          // Enter writes a newline here, so apply with Ctrl/Cmd+Enter.
-          if (event.key === "Enter" && (event.metaKey || event.ctrlKey)) {
-            event.currentTarget.blur();
-          }
-          if (event.key === "Escape") {
-            setCss(effective);
-            event.currentTarget.blur();
-          }
-        }}
-        className="font-mono text-xs"
-      />
-
-      <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] text-muted-foreground">
-          {overridden
-            ? "Custom classes"
-            : builtIn
-              ? "Built-in classes"
-              : "No classes yet"}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((current) => !current)}
+        aria-expanded={open}
+        title={part.slot}
+        className="flex w-full items-center gap-2 px-1.5 py-1 text-left"
+      >
+        <span
+          className={cn(
+            "flex-1 truncate text-xs",
+            edited ? "text-primary" : "text-muted-foreground"
+          )}
+        >
+          {label}
         </span>
-        {overridden && (
-          <Button
-            variant="ghost"
-            size="xs"
-            className="text-[11px]"
-            onClick={() => onClasses(value, builtIn, section)}
-          >
-            Reset
-          </Button>
-        )}
-      </div>
+        <span className="shrink-0 text-[11px] text-muted-foreground">
+          {edited ? "Custom" : part.classes ? "Built-in" : "Empty"}
+        </span>
+        <Code className="size-3.5 shrink-0 text-muted-foreground" />
+      </button>
+
+      {open && (
+        <div className="px-1.5 pb-2">
+          <ClassesField
+            target={{ subject: label, builtIn: part.classes, override }}
+            onClasses={onClasses}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -10,8 +10,8 @@ import { componentEditsAtom, presetBuilderAtom } from "../preset-builder";
 import {
   playgroundCss,
   PREVIEW_ID,
-  variantPatches,
-  type VariantPatch,
+  previewPatches,
+  type PreviewPatch,
 } from "../lib/preset-styles";
 
 /**
@@ -56,7 +56,7 @@ export function PlaygroundPreset() {
 
     if (!preview) return;
 
-    const apply = () => applyPatches(preview, variantPatches(edits));
+    const apply = () => applyPatches(preview, previewPatches(edits));
 
     apply();
 
@@ -84,12 +84,13 @@ export function PlaygroundPreset() {
 const ORIGINAL = "data-rlz-original-class";
 
 /**
- * Swaps the built-in classes of a restyled variant value for the Creator's, on the
- * elements that were built with them: editing `outline` restyles the outline demo
- * and leaves the other variants of the same component alone. An element carrying
- * several restyled values - a variant AND a size - gets one merge, not two passes.
+ * Swaps the built-in classes of a restyled variant value, or of a part, for the
+ * Creator's own: editing `outline` restyles the outline demo and leaves the other
+ * variants alone, while editing a part restyles every element of that part. An
+ * element carrying several edits - a variant AND a size, or a value and its part -
+ * gets one merge, not two passes.
  */
-function applyPatches(preview: HTMLElement, patches: VariantPatch[]) {
+function applyPatches(preview: HTMLElement, patches: PreviewPatch[]) {
   const targets = new Map<
     Element,
     { original: string; remove: Set<string>; add: string[] }
@@ -98,7 +99,7 @@ function applyPatches(preview: HTMLElement, patches: VariantPatch[]) {
   for (const patch of patches) {
     // A value the Creator invented has no built-in classes to look for, so nothing
     // points at its elements: it lands in the preset, not in the preview.
-    if (patch.remove.length === 0) continue;
+    if (!patch.wholeSlot && patch.remove.length === 0) continue;
 
     preview
       .querySelectorAll<Element>(`[data-slot="${patch.slot}"]`)
@@ -108,10 +109,16 @@ function applyPatches(preview: HTMLElement, patches: VariantPatch[]) {
         const original = element.getAttribute(ORIGINAL) ?? classOf(element);
         const came = new Set(original.split(/\s+/));
 
-        // Every class of the value has to be there. A single shared token is not a
-        // match: variants borrow from each other (`hover:bg-accent/70`), and a
-        // borrowed class would drag another variant's element into this swap.
-        if (!patch.remove.every((token) => came.has(token))) return;
+        // A variant value owns only what was drawn with all of its classes. One
+        // shared token is not a match: variants borrow from each other
+        // (`hover:bg-accent/70`), and a borrowed class would drag another variant's
+        // element into this swap. A part, though, owns its whole slot.
+        if (
+          !patch.wholeSlot &&
+          !patch.remove.every((token) => came.has(token))
+        ) {
+          return;
+        }
 
         const target =
           targets.get(element) ?? { original, remove: new Set<string>(), add: [] };

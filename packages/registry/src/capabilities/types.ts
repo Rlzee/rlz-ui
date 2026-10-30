@@ -44,6 +44,15 @@ export type ComponentVariantClasses = {
   byPart?: Record<string, Record<string, Record<string, string>>>;
 };
 
+/**
+ * One box of a component the Creator can restyle: `slot` is the `data-slot` its
+ * element carries in the demos, `classes` what the design system authored on it -
+ * the shared classes, before any variant value is added. Detected from the source,
+ * so a preset only stores what the Creator changed. `Root` is the component itself,
+ * the other names are the parts it exports (`Header`, `Popup`...).
+ */
+export type ComponentPart = { slot: string; classes: string };
+
 export type PresetVariantValue = z.infer<typeof PresetVariantValueSchema>;
 
 export type PresetComponentCustomization = z.infer<

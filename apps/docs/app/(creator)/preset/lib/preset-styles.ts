@@ -3,7 +3,10 @@ import type {
   RegistryPreset,
 } from "@rlz/registry";
 
-import { capabilitiesOf } from "@rlz/ui/registry/resolve-capabilities";
+import {
+  capabilitiesOf,
+  partsOf,
+} from "@rlz/ui/registry/resolve-capabilities";
 
 import { currentAppliedVariant, currentStyleValue } from "./component-edits";
 import { variantClassSections } from "./variant-classes";
@@ -17,9 +20,10 @@ import { variantClassSections } from "./variant-classes";
  *  - CSS custom properties. The design system reads every color, radius and
  *    spacing through a variable, so overriding the variables on the preview area
  *    restyles the demos it holds - light and dark values included.
- *  - Class replacement. A variant value IS a list of Tailwind classes, and classes
- *    are not CSS: the classes the Creator wrote are swapped for the built-in ones
- *    on the elements that carry them (see `variantPatches`).
+ *  - Class replacement. A variant value, or a part's own look, IS a list of
+ *    Tailwind classes, and classes are not CSS: the classes the Creator wrote are
+ *    swapped for the built-in ones on the elements they belong to (see
+ *    `previewPatches`).
  */
 
 // The demos only: the pane's own toolbar and tabs are Creator chrome, so the
@@ -151,23 +155,30 @@ export function playgroundCss(
 
 /**
  * One class replacement to perform on the demos: the elements of `slot` that carry
- * the built-in classes of the applied variant value lose them and take the
- * Creator's own. `remove` is what the design system ships for that value, so an
- * element that never used it (another variant in the same demo) is left alone.
+ * the built-in classes lose them and take the Creator's own.
+ *
+ * `remove` is what the design system ships there, which is also how the element is
+ * recognised: a variant value only owns the elements drawn with its classes, so the
+ * other variants of the same demo are left alone. A part is the opposite case -
+ * `wholeSlot` - since every element of that slot IS that part, and the edit is on
+ * the box itself rather than on one of its values.
  */
-export type VariantPatch = { slot: string; remove: string[]; add: string[] };
+export type PreviewPatch = {
+  slot: string;
+  remove: string[];
+  add: string[];
+  wholeSlot?: boolean;
+};
 
-export function variantPatches(
+export function previewPatches(
   edits: Record<string, PresetComponentCustomization>
-): VariantPatch[] {
-  const patches: VariantPatch[] = [];
+): PreviewPatch[] {
+  const patches: PreviewPatch[] = [];
 
   for (const [slug, edit] of Object.entries(edits)) {
     const capabilities = capabilitiesOf(slug);
 
-    if (!capabilities?.variants) continue;
-
-    for (const axis of capabilities.variants) {
+    for (const axis of capabilities?.variants ?? []) {
       // Only the value in effect is worth applying: the others are not shown.
       const option = currentAppliedVariant(axis, edit);
 
@@ -180,6 +191,20 @@ export function variantPatches(
           add: tokensOf(section.override),
         });
       }
+    }
+
+    for (const part of partsOf(slug)) {
+      const override = edit.partClasses?.[part.name];
+
+      if (override === undefined) continue;
+
+      const remove = tokensOf(part.classes);
+      const add = tokensOf(override);
+
+      // Nothing authored and nothing written: the part draws what it always drew.
+      if (remove.length === 0 && add.length === 0) continue;
+
+      patches.push({ slot: part.slot, remove, add, wholeSlot: true });
     }
   }
 

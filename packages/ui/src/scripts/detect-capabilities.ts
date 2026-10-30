@@ -1,7 +1,11 @@
 import fs from "fs/promises";
 import path from "path";
 import ts from "typescript";
-import type { ComponentCapabilities, ComponentVariantClasses } from "@rlz/registry";
+import type {
+  ComponentCapabilities,
+  ComponentPart,
+  ComponentVariantClasses,
+} from "@rlz/registry";
 import {
   analyzeComponentSource,
   readRadiusDefault,
@@ -128,6 +132,7 @@ function keyOf(name: ts.PropertyName): string | undefined {
 function toManifest(detected: Record<string, DetectedComponent>) {
   const capabilities: Record<string, ComponentCapabilities> = {};
   const classes: Record<string, ComponentVariantClasses> = {};
+  const parts: Record<string, Record<string, ComponentPart>> = {};
 
   for (const [id, component] of Object.entries(detected)) {
     // `undefined` groups are dropped by JSON.stringify, and a component with
@@ -136,9 +141,17 @@ function toManifest(detected: Record<string, DetectedComponent>) {
 
     if (Object.keys(entry).length > 0) capabilities[id] = entry;
     if (Object.keys(component.classes).length > 0) classes[id] = component.classes;
+
+    // A part the source never marked with a `data-slot` cannot be pointed at, so
+    // only the ones carrying a slot are worth listing.
+    const own = Object.fromEntries(
+      component.parts.map((part) => [part.name, { slot: part.slot, classes: part.classes }])
+    );
+
+    if (Object.keys(own).length > 0) parts[id] = own;
   }
 
-  return { capabilities, classes };
+  return { capabilities, classes, parts };
 }
 
 function fileHeader() {
@@ -148,9 +161,11 @@ function fileHeader() {
  *
  * What every registered component exposes to the Creator, read straight from its
  * source: cva variant axes and their values, compound parts (\`Object.assign\`),
- * styled states, boolean props, and the radius tokens it draws. This is the
- * detected half of a component's capabilities; what must stay hidden and what no
- * source can tell (numeric sliders, labels) lives in \`./capabilities\`.
+ * styled states, boolean props, and the radius tokens it draws. Alongside it, the
+ * classes each part was authored with and the \`data-slot\` that identifies it in
+ * the demos. This is the detected half of a component's capabilities; what must
+ * stay hidden and what no source can tell (numeric sliders, labels) lives in
+ * \`./capabilities\`.
  */`;
 }
 
@@ -158,11 +173,15 @@ async function writeDetectedFile(
   srcDir: string,
   detected: Record<string, DetectedComponent>
 ) {
-  const { capabilities, classes } = toManifest(detected);
+  const { capabilities, classes, parts } = toManifest(detected);
 
   const output = `${fileHeader()}
 
-import type { ComponentCapabilities, ComponentVariantClasses } from "@rlz/registry";
+import type {
+  ComponentCapabilities,
+  ComponentPart,
+  ComponentVariantClasses,
+} from "@rlz/registry";
 
 export const detectedCapabilities: Record<string, ComponentCapabilities> = ${JSON.stringify(
     capabilities,
@@ -172,6 +191,12 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = ${JSO
 
 export const detectedVariantClasses: Record<string, ComponentVariantClasses> = ${JSON.stringify(
     classes,
+    null,
+    2
+  )};
+
+export const detectedParts: Record<string, Record<string, ComponentPart>> = ${JSON.stringify(
+    parts,
     null,
     2
   )};
@@ -185,6 +210,7 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = $
     outputPath,
     components: Object.keys(capabilities).length,
     withVariants: Object.keys(classes).length,
+    withParts: Object.keys(parts).length,
   };
 }
 
@@ -197,9 +223,9 @@ if (invoked) {
   const scriptDir = path.dirname(path.resolve(process.argv[1]));
 
   detectCapabilities(path.resolve(scriptDir, ".."))
-    .then(({ outputPath, components, withVariants }) => {
+    .then(({ outputPath, components, withVariants, withParts }) => {
       console.log(
-        `Capabilities detected for ${components} components (${withVariants} with variant classes):`,
+        `Capabilities detected for ${components} components (${withVariants} with variant classes, ${withParts} with parts):`,
         outputPath
       );
     })
