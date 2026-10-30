@@ -3,6 +3,7 @@ import { getDocsExplorerSections } from "@/lib/docs";
 import { Navbar } from "../components/navbar";
 import { Explorer } from "../components/explorer";
 import { PropertiesPanel } from "../components/properties-panel";
+import { PlaygroundPreset } from "../components/playground-preset";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const sections = getDocsExplorerSections();
@@ -10,6 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider className="flex-col">
       <Navbar />
+      <PlaygroundPreset />
       <div className="flex w-full min-h-0 flex-1">
         <Explorer sections={sections} />
         <PropertiesPanel />

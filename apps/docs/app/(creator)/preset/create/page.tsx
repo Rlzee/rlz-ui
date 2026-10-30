@@ -8,6 +8,7 @@ import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "../components/selected-preview";
 import { OpenDocsButton } from "../components/open-docs-button";
+import { PREVIEW_ID } from "../lib/preset-styles";
 import { Maximize, Minimize, SquareMousePointer, Plus } from "lucide-react";
 
 export default function Page() {
@@ -83,6 +84,7 @@ export default function Page() {
         </div>
       </header>
       <Tabs.Panel
+        id={PREVIEW_ID}
         value="selected"
         className="flex min-h-0 flex-1 flex-col overflow-hidden"
       >

@@ -32,7 +32,38 @@
       "type": "component",
       "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false
+      "allowManualInstall": false,
+      "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "destructive"
+            ],
+            "default": "default"
+          }
+        ],
+        "states": [
+          "focus",
+          "open"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop"
+        ]
+      }
     },
     "popup-arrow": {
       "id": "popup-arrow",
@@ -76,7 +107,27 @@
       "type": "component",
       "destPath": "base",
       "registryDependencies": [],
-      "allowManualInstall": false
+      "allowManualInstall": false,
+      "capabilities": {
+        "states": [
+          "hover",
+          "focus",
+          "disabled",
+          "open"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "accordion": {
       "id": "accordion",
@@ -111,7 +162,37 @@
       "type": "component",
       "registryDependencies": [
         "backdrop"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "open"
+        ],
+        "parts": [
+          "Trigger",
+          "Popup",
+          "Title",
+          "Description",
+          "Close",
+          "Actions"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "blur",
+          "backdrop",
+          "backdropBlur"
+        ]
+      }
     },
     "alert": {
       "id": "alert",
@@ -670,7 +751,27 @@
       "registryDependencies": [
         "menu-base",
         "shortcut"
-      ]
+      ],
+      "capabilities": {
+        "parts": [
+          "Trigger",
+          "Popup",
+          "Group",
+          "GroupLabel",
+          "Item",
+          "Separator",
+          "CheckboxItem",
+          "SwitchItem",
+          "Submenu",
+          "SubmenuTrigger",
+          "RadioGroup",
+          "RadioItem",
+          "Shortcut"
+        ],
+        "editableProperties": [
+          "backdrop"
+        ]
+      }
     },
     "dialog": {
       "id": "dialog",
@@ -947,7 +1048,40 @@
       "registryDependencies": [
         "input",
         "textarea"
-      ]
+      ],
+      "capabilities": {
+        "variants": [
+          {
+            "name": "align",
+            "values": [
+              "inline-start",
+              "inline-end",
+              "block-start",
+              "block-end"
+            ],
+            "default": "inline-start"
+          }
+        ],
+        "parts": [
+          "Addon",
+          "Text"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "focusVisible"
+        ]
+      }
     },
     "input": {
       "id": "input",
@@ -1138,7 +1272,38 @@
       "type": "component",
       "registryDependencies": [
         "label"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "hover",
+          "focus",
+          "active",
+          "invalid"
+        ],
+        "parts": [
+          "ScrubArea",
+          "ScrubAreaCursor",
+          "Group",
+          "Decrement",
+          "Increment",
+          "Input"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "scrubAreaCursor"
+        ]
+      }
     },
     "otp-field": {
       "id": "otp-field",
@@ -1152,7 +1317,30 @@
       "type": "component",
       "registryDependencies": [
         "separator"
-      ]
+      ],
+      "capabilities": {
+        "states": [
+          "focus",
+          "disabled",
+          "invalid"
+        ],
+        "parts": [
+          "Input",
+          "Separator"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ]
+      }
     },
     "popover": {
       "id": "popover",
@@ -1210,7 +1398,30 @@
       "type": "component",
       "registryDependencies": [
         "popup-arrow"
-      ]
+      ],
+      "capabilities": {
+        "parts": [
+          "Root",
+          "Trigger",
+          "Popup",
+          "Arrow"
+        ],
+        "styles": [
+          {
+            "key": "radius",
+            "label": "Border radius",
+            "kind": "slider",
+            "min": 0,
+            "max": 2,
+            "step": 0.05,
+            "unit": "rem",
+            "default": 0.575
+          }
+        ],
+        "editableProperties": [
+          "backdrop"
+        ]
+      }
     },
     "progress": {
       "id": "progress",
@@ -1255,7 +1466,18 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "focus",
+          "invalid"
+        ],
+        "parts": [
+          "Root",
+          "Indicator",
+          "Group"
+        ]
+      }
     },
     "scroll-area": {
       "id": "scroll-area",
@@ -1267,7 +1489,22 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": []
+      "registryDependencies": [],
+      "capabilities": {
+        "states": [
+          "focus"
+        ],
+        "parts": [
+          "Root",
+          "Viewport",
+          "Scrollbar",
+          "Corner"
+        ],
+        "editableProperties": [
+          "scrollFade",
+          "scrollbarGutter"
+        ]
+      }
     },
     "select": {
       "id": "select",

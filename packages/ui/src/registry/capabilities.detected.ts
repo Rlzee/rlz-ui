@@ -829,6 +829,29 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "scrubAreaCursor"
     ]
   },
+  "otp-field": {
+    "parts": [
+      "Input",
+      "Separator"
+    ],
+    "styles": [
+      {
+        "key": "radius",
+        "label": "Border radius",
+        "kind": "slider",
+        "min": 0,
+        "max": 2,
+        "step": 0.05,
+        "unit": "rem",
+        "default": 0.575
+      }
+    ],
+    "states": [
+      "focus",
+      "disabled",
+      "invalid"
+    ]
+  },
   "popover": {
     "parts": [
       "Trigger",
