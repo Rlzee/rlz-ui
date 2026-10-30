@@ -16,7 +16,6 @@ import { getCapabilities } from "@/lib/component-capabilities";
 import { componentEditsAtom, presetBuilderAtom } from "../preset-builder";
 import { slugFromId } from "../lib/slug";
 import { describeEdits } from "../lib/component-edits";
-import { LiveDemo } from "./live-demo";
 
 /**
  * First preview of the playground: reflects whatever is selected in the
@@ -319,39 +318,9 @@ function ComponentExamplesPreview({
 
   return (
     <div className="flex flex-col divide-y divide-border p-4">
-      {hasPlayground && (
-        <PlaygroundBlock
-          slug={slug}
-          capabilities={capabilities}
-          edit={edit}
-        />
-      )}
       {entries.map(({ key, path }) => (
         <DemoBlock key={key} entry={path} label={variantLabel(path)} />
       ))}
-    </div>
-  );
-}
-
-// Live, prop-driven instance of the component reacting to the properties panel,
-// with the applied-edits summary beneath it (mirrors the prototype footer).
-function PlaygroundBlock({
-  slug,
-  capabilities,
-  edit,
-}: {
-  slug: string;
-  capabilities: NonNullable<ReturnType<typeof getCapabilities>>;
-  edit?: PresetComponentCustomization;
-}) {
-  return (
-    <div className="flex flex-col items-center gap-4 py-8">
-      <div className="flex items-center justify-center">
-        <LiveDemo slug={slug} capabilities={capabilities} edit={edit} />
-      </div>
-      <span className="text-muted-foreground font-mono text-xs">
-        {describeEdits(capabilities, edit)}
-      </span>
     </div>
   );
 }

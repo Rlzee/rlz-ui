@@ -49,11 +49,6 @@ export function ComponentProperties() {
 
   return (
     <section id="editor-component" className="flex flex-col gap-2 px-2 py-3">
-      <div className="flex items-center gap-2 px-2 pb-1">
-        <Badge variant="secondary">Detected</Badge>
-        <span className="text-xs text-muted-foreground">{selected.name}</span>
-      </div>
-
       {capabilities.variants?.map((axis) => (
         <CollapsibleProperties
           key={axis.name}
