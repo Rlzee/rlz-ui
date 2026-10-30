@@ -50,7 +50,7 @@ export const resetPresetAtom = atom(null, (_get, set) => {
 });
 
 // Merges a patch for one component without clobbering the other axes (props vs
-// styles), and without touching sibling components.
+// styles vs variant lists), and without touching sibling components.
 export const setComponentEditAtom = atom(
   null,
   (
@@ -67,6 +67,7 @@ export const setComponentEditAtom = atom(
       [slug]: {
         props: { ...current.props, ...patch.props },
         styles: { ...current.styles, ...patch.styles },
+        variants: { ...current.variants, ...patch.variants },
       },
     });
   }

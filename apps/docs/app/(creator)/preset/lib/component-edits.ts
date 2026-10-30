@@ -3,15 +3,58 @@ import type {
   ComponentStyleProperty,
   ComponentVariant,
   PresetComponentCustomization,
+  PresetVariantValue,
 } from "@rlz/registry";
+
+// The panel needs the same shape everywhere: an option carries its name and,
+// once the Creator touched it, its own classes.
+export type VariantOption = PresetVariantValue;
+
+// Drafts saved before class editing stored plain strings, so both shapes are
+// accepted on read and normalised to options.
+function toOptions(
+  list: (VariantOption | string)[] | undefined
+): VariantOption[] {
+  return (list ?? []).map((item) =>
+    typeof item === "string" ? { value: item } : item
+  );
+}
+
+// The option list an axis actually offers: the Creator's edited list when it
+// has one (renamed / added / removed / restyled values), otherwise the values
+// declared in the registry manifest. An empty override is ignored so an axis can
+// never end up with no selectable value.
+export function currentVariantOptions(
+  axis: ComponentVariant,
+  edit?: PresetComponentCustomization
+): VariantOption[] {
+  const override = toOptions(edit?.variants?.[axis.name]);
+
+  return override.length > 0
+    ? override
+    : axis.values.map((value) => ({ value }));
+}
 
 // Resolve the value a control should show for a variant axis (variant, size).
 // Order: explicit Creator edit -> declared default -> first available value.
+// A value that is no longer in the list is skipped, so renaming or deleting
+// never leaves the axis pointing at something that does not exist.
 export function currentVariantValue(
   axis: ComponentVariant,
   edit?: PresetComponentCustomization
 ): string {
-  return edit?.props?.[axis.name] ?? axis.default ?? axis.values[0];
+  const options = currentVariantOptions(axis, edit);
+  const chosen = edit?.props?.[axis.name];
+
+  if (chosen && options.some((option) => option.value === chosen)) {
+    return chosen;
+  }
+
+  if (axis.default && options.some((option) => option.value === axis.default)) {
+    return axis.default;
+  }
+
+  return options[0]?.value ?? "";
 }
 
 // Resolve a numeric style (radius, spacing...). Order: edit -> default -> min.

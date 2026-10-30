@@ -9,8 +9,8 @@ export const ComponentCapabilityValueSchema = z.object({
 
 // A named axis the component exposes, e.g. `variant` or `size`. `values` are
 // the options that already exist in the design system; `customizable` marks
-// axes where the Creator may later add brand-new values (reserved slot, kept
-// distinct from the plain read-only detection of available variants).
+// the axes meant to grow with brand-new values. The Creator can rename, add and
+// remove values on any axis, so this flag is a hint about intent, not a gate.
 export const ComponentVariantSchema = z.object({
   name: z.string(),
   values: z.array(z.string()),
@@ -45,10 +45,23 @@ export const ComponentCapabilitiesSchema = z.object({
   editableProperties: z.array(z.string()).optional(),
 });
 
+// One value of a variant axis as the Creator stores it: its name plus the
+// classes that define it. `classes` is only written when the Creator changed
+// them, so a value keeps inheriting the design system's own classes by default.
+export const PresetVariantValueSchema = z.object({
+  value: z.string(),
+  classes: z.string().optional(),
+});
+
 // Per-component edits captured in the Creator and serialized into a preset.
 export const PresetComponentCustomizationSchema = z.object({
   // Chosen value per variant axis, e.g. { variant: "outline", size: "sm" }.
   props: z.record(z.string(), z.union([z.string(), z.null()])).optional(),
   // Numeric style overrides keyed by ComponentStyleProperty.key.
   styles: z.record(z.string(), z.number()).optional(),
+  // Full option list per variant axis, keyed by axis name, in display order.
+  // Written by the Creator as soon as a value is renamed, added, removed or
+  // restyled: the registry manifest keeps the design system's built-in values
+  // untouched, and this override becomes the authoritative list for the axis.
+  variants: z.record(z.string(), z.array(PresetVariantValueSchema)).optional(),
 });
