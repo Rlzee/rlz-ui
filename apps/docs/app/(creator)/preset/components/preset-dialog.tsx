@@ -7,12 +7,9 @@ import type { RegistryPreset } from "@rlz/registry";
 import { Dialog } from "@rlz/ui/components/ui/dialog";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Braces, Check, Download, Pencil, Upload, X } from "lucide-react";
-import { CopyButton } from "@/components/copy-button";
-import { Pre } from "@/components/Pre";
 
 import { presetBuilderAtom, componentEditsAtom } from "../preset-builder";
-
-const PRE_CLASS = "font-mono text-xs wrap-break-word";
+import { CodeViewer } from "./code-viewer";
 
 /**
  * Keeps the identity of the draft. `type`, `id`, `version` and `path` belong to the
@@ -41,45 +38,9 @@ function exportFileName(preset: RegistryPreset) {
 }
 
 /**
- * Highlighted preset JSON, through the same highlightCode helper as the docs
- * code blocks. This lives in a child component so it only runs while the
- * dialog is mounted, and shiki is imported on demand to keep it out of the
- * initial bundle.
+ * The draft as registry JSON: copyable, exportable, importable and editable, and
+ * always the same text that is shown, copied and downloaded.
  */
-function PresetCode({ code }: { code: string }) {
-  const [highlighted, setHighlighted] = React.useState("");
-
-  React.useEffect(() => {
-    let active = true;
-
-    import("@/lib/highlight").then(async ({ highlightCode }) => {
-      const html = await highlightCode(code, "json");
-
-      if (active) {
-        setHighlighted(html);
-      }
-    });
-
-    return () => {
-      active = false;
-    };
-  }, [code]);
-
-  return (
-    <>
-      <CopyButton className="absolute right-5 top-4 z-2" code={code} />
-      {highlighted ? (
-        <Pre
-          className={PRE_CLASS}
-          dangerouslySetInnerHTML={{ __html: highlighted }}
-        />
-      ) : (
-        <Pre className={PRE_CLASS}>{code}</Pre>
-      )}
-    </>
-  );
-}
-
 export function PresetDialog({
   name,
   preset,
@@ -197,7 +158,7 @@ export function PresetDialog({
             </div>
           ) : (
             <>
-              <PresetCode code={code} />
+              <CodeViewer code={code} lang="json" />
               {error && (
                 <span className="text-destructive block px-6 pb-3 text-xs">
                   {error}

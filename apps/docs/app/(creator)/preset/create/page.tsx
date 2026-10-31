@@ -8,6 +8,7 @@ import { Tabs } from "@rlz/ui/components/ui/tabs";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "../components/selected-preview";
 import { OpenDocsButton } from "../components/open-docs-button";
+import { ModeSwitcher } from "@/components/mode-switcher";
 import { PREVIEW_ID } from "../lib/preset-styles";
 import { Maximize, Minimize, SquareMousePointer, Plus } from "lucide-react";
 
@@ -47,6 +48,7 @@ export default function Page() {
         </Tabs.List>
         <div className="flex gap-1.5 items-center">
           <OpenInV0Button size="sm" variant="outline" />
+          <ModeSwitcher />
           <Tooltip.Provider delay={0} closeDelay={0}>
             <OpenDocsButton />
             <Tooltip

@@ -49,7 +49,7 @@ const STYLE_PROPERTIES: Record<string, string> = {
 const SURFACE_SLOTS = ["", "popup", "content", "control", "body"];
 
 // A color value is written by a picker, so a stray `}` would break the sheet.
-function safe(value: string) {
+export function safe(value: string) {
   return value.replace(/[{}<>;]/g, "");
 }
 
@@ -85,16 +85,18 @@ export function presetVariables(
   if (typography?.fontHeading) {
     vars["font-heading"] = fontFamily(typography.fontHeading);
   }
-  if (typography?.fontMono) vars["font-mono"] = fontFamily(typography.fontMono);
+  if (typography?.fontMono) {
+    vars["font-mono"] = fontFamily(typography.fontMono, "monospace");
+  }
 
   return vars;
 }
 
 // A family name, quoted with a fallback so it never stands alone.
-function fontFamily(value: string) {
+export function fontFamily(value: string, fallback = "sans-serif") {
   const name = safe(value.trim());
 
-  return /["']|^var\(/.test(name) ? name : `"${name}", sans-serif`;
+  return /["']|^var\(/.test(name) ? name : `"${name}", ${fallback}`;
 }
 
 /**

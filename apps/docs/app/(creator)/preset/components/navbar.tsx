@@ -11,6 +11,7 @@ import {
 import { Input } from "@rlz/ui/components/ui/input";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { PresetDialog } from "./preset-dialog";
+import { CssPreviewDialog } from "./css-preview-dialog";
 import { Button } from "@rlz/ui/components/ui/button";
 import { RefreshCw, CloudSync, Share2 } from "lucide-react";
 
@@ -46,6 +47,8 @@ export function Navbar() {
           </Button>
 
           <PresetDialog name={preset.name.trim()} preset={preset} />
+
+          <CssPreviewDialog name={preset.name.trim()} preset={preset} />
 
           <Button size="sm" variant="ghost">
             <Share2 />
