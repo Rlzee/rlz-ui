@@ -6,10 +6,11 @@ import type { RegistryPreset } from "@rlz/registry";
 
 import { Dialog } from "@rlz/ui/components/ui/dialog";
 import { Button } from "@rlz/ui/components/ui/button";
-import { Braces, Check, Download, Pencil, Upload, X } from "lucide-react";
+import { Braces, Check, Pencil, Upload, X } from "lucide-react";
 
 import { presetBuilderAtom, componentEditsAtom } from "../preset-builder";
 import { CodeViewer } from "./code-viewer";
+import { ExportButton } from "./export-button";
 
 /**
  * Keeps the identity of the draft. `type`, `id`, `version` and `path` belong to the
@@ -27,14 +28,6 @@ function keepIdentity(
     version: preset.version,
     path: preset.path,
   };
-}
-
-// A downloadable name out of the preset's own name, or its registry key when the
-// name was cleared - and never a path separator.
-function exportFileName(preset: RegistryPreset) {
-  const base = preset.name.trim() || preset.id || "preset";
-
-  return `${base.toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^[-.]+|[-.]+$/g, "") || "preset"}.json`;
 }
 
 /**
@@ -111,22 +104,6 @@ export function PresetDialog({
     }
   }
 
-  // The download carries the same formatted JSON that is shown and copied, live
-  // Creator edits included.
-  function handleExport() {
-    const url = URL.createObjectURL(
-      new Blob([code], { type: "application/json" })
-    );
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = exportFileName(exported);
-    link.click();
-
-    // Revoking too early cancels the download, so the click is allowed to land.
-    setTimeout(() => URL.revokeObjectURL(url), 0);
-  }
-
   return (
     <Dialog>
       <Dialog.Trigger render={<Button variant="ghost" size="sm" />}>
@@ -188,10 +165,14 @@ export function PresetDialog({
                 className="hidden"
                 onChange={handleImport}
               />
-              <Button variant="outline" onClick={handleExport}>
-                <Download />
-                Export
-              </Button>
+              {/* The download carries the same JSON that is shown and copied, live
+                  Creator edits included. */}
+              <ExportButton
+                preset={exported}
+                content={code}
+                extension="json"
+                mediaType="application/json"
+              />
               <Button variant="outline" onClick={triggerImport}>
                 <Upload />
                 Import

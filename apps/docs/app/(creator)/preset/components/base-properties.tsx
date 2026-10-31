@@ -14,6 +14,7 @@ import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
 import { presetBuilderAtom } from "../preset-builder";
+import { writeCssValue } from "../lib/preset-css";
 
 // The shared utility classes, in the order the design system's own sheet declares
 // them: the four recipes its components borrow instead of restating.
@@ -43,22 +44,11 @@ export function BaseProperties() {
   };
 
   const updateUtility = (name: DesignSystemUtility, classes: string) => {
-    setPreset((prev) => {
-      const utilities = { ...prev.base.utilities };
-
-      // Writing the design system's own classes back drops the rewrite, so the app
-      // keeps the definition it ships - and the preset stores no copy of it.
-      if (classes === designSystemUtilities[name]) delete utilities[name];
-      else utilities[name] = classes;
-
-      return {
-        ...prev,
-        base: {
-          ...prev.base,
-          utilities: Object.keys(utilities).length ? utilities : undefined,
-        },
-      };
-    });
+    // The same write the CSS editor makes, so what counts as a rewrite of a shared
+    // class - and what drops back to the design system's own - lives in one place.
+    setPreset((prev) =>
+      writeCssValue(prev, { kind: "utility", name }, classes)
+    );
   };
 
   return (
