@@ -60,15 +60,21 @@ function collectDocsPages(
   return pages;
 }
 
-export type PresetSection = keyof Pick<
-  RegistryPreset,
-  "base" | "colors" | "recommendations"
->;
+// The sections a preset carries, plus the one entry that stands above them: `info`
+// is not a key of the preset data, it is the preset itself - what it is called,
+// keyed and versioned.
+type PresetDataSection = "base" | "colors" | "recommendations";
+
+export type PresetSection = "info" | PresetDataSection;
 
 const PRESET_SECTIONS: Record<
   PresetSection,
   { name: string; description: string }
 > = {
+  info: {
+    name: "Info",
+    description: "Name, description and registry coordinates of the preset",
+  },
   base: {
     name: "Base",
     description:
@@ -88,15 +94,19 @@ const PRESET_SECTIONS: Record<
 export function getPresetFoundationItems(
   preset: RegistryPreset = defaultPreset
 ): DocsNavItem[] {
-  const sections = Object.keys(PRESET_SECTIONS) as PresetSection[];
+  // A section the draft does not carry has nothing to edit, so it stays out of the
+  // explorer. The identity never does: every preset has one.
+  const carried: PresetSection[] = (
+    ["base", "colors", "recommendations"] as const
+  ).filter((key) => preset[key] !== undefined);
 
-  return sections
-    .filter((key) => preset[key] !== undefined)
-    .map((key) => ({
-      id: key,
-      section: FOUNDATION_TITLE,
-      ...PRESET_SECTIONS[key],
-    }));
+  const entries: PresetSection[] = ["info", ...carried];
+
+  return entries.map((key) => ({
+    id: key,
+    section: FOUNDATION_TITLE,
+    ...PRESET_SECTIONS[key],
+  }));
 }
 
 /** Explorer entries built from the base primitives of the registry. */

@@ -267,7 +267,7 @@ function VariantList({
   }
 
   return (
-    <div className="flex flex-col gap-1 px-2 py-2">
+    <div className="flex flex-col gap-1 py-2 px-2">
       <div
         role="group"
         aria-label={titleCase(axis.name)}
@@ -378,7 +378,7 @@ function VariantRow({
       <div
         title={active ? "Applied value" : "Click to apply"}
         onClick={onApply}
-        className="flex cursor-pointer items-center gap-2 px-1.5 py-1"
+        className="flex cursor-pointer items-center gap-0.5 pr-1.5 pl-3 py-1"
       >
         <Input
           value={text}

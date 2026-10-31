@@ -10,6 +10,7 @@ import { Breadcrumb } from "@rlz/ui/components/ui/breadcrumb";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { ChevronRight } from "lucide-react";
 
+import { InfoProperties } from "./info-properties";
 import { BaseProperties } from "./base-properties";
 import { ColorProperties } from "./colors-properties";
 import { ComponentProperties } from "./component-properties";
@@ -17,6 +18,7 @@ import { RecommendationsProperties } from "./recommendations-properties";
 
 // Properties editor shown for each Foundation entry of the explorer.
 const FOUNDATION_EDITORS: Partial<Record<PresetSection, ComponentType>> = {
+  info: InfoProperties,
   base: BaseProperties,
   colors: ColorProperties,
   recommendations: RecommendationsProperties,
@@ -25,7 +27,7 @@ const FOUNDATION_EDITORS: Partial<Record<PresetSection, ComponentType>> = {
 export function PropertiesPanel() {
   const [selected] = useSelectedComponent();
 
-  // Foundation ids (base|colors|recommendations) never collide with component
+  // Foundation ids (info|base|colors|recommendations) never collide with component
   // ids (MDX URLs), so a component is simply "not a Foundation editor".
   const FoundationEditor = selected
     ? FOUNDATION_EDITORS[selected.id as PresetSection]
