@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation";
 import { useAtom, useSetAtom } from "jotai";
 import {
   ensurePresetIdAtom,
@@ -15,6 +16,7 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { RefreshCw, CloudSync, Share2, ArrowLeft } from "lucide-react";
 
 export function Navbar() {
+  const router = useRouter();
   const resetPreset = useSetAtom(resetPresetAtom);
   const ensurePresetId = useSetAtom(ensurePresetIdAtom);
   const [preset, setPreset] = useAtom(presetBuilderAtom);
@@ -27,8 +29,13 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full bg-transparent px-4 sm:px-6">
       <div className="relative flex h-(--header-height) w-full items-center justify-between gap-2">
-        <div className="flex items-center gap-3">
-          <Button size="icon-sm" variant="secondary">
+        <div className="flex items-center gap-2">
+          <Button
+            size="icon-sm"
+            variant="secondary"
+            aria-label="Back"
+            onClick={() => router.back()}
+          >
             <ArrowLeft />
           </Button>
           <Input
