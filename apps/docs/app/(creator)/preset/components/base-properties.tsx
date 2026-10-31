@@ -3,6 +3,10 @@
 import { useAtom } from "jotai";
 
 import { CollapsibleProperties } from "./colapsible-properties";
+import { ClassesField } from "./classes-field";
+
+import { designSystemUtilities } from "@rlz/ui/styles/utilities";
+import type { DesignSystemUtility } from "@rlz/ui/styles/utilities";
 
 import { Label } from "@rlz/ui/components/ui/label";
 import { Slider } from "@rlz/ui/components/ui/slider";
@@ -10,6 +14,13 @@ import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 
 import { presetBuilderAtom } from "../preset-builder";
+
+// The shared utility classes, in the order the design system's own sheet declares
+// them: the four recipes its components borrow instead of restating.
+const UTILITIES = Object.entries(designSystemUtilities) as [
+  DesignSystemUtility,
+  string,
+][];
 
 export function BaseProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
@@ -29,6 +40,25 @@ export function BaseProperties() {
         },
       },
     }));
+  };
+
+  const updateUtility = (name: DesignSystemUtility, classes: string) => {
+    setPreset((prev) => {
+      const utilities = { ...prev.base.utilities };
+
+      // Writing the design system's own classes back drops the rewrite, so the app
+      // keeps the definition it ships - and the preset stores no copy of it.
+      if (classes === designSystemUtilities[name]) delete utilities[name];
+      else utilities[name] = classes;
+
+      return {
+        ...prev,
+        base: {
+          ...prev.base,
+          utilities: Object.keys(utilities).length ? utilities : undefined,
+        },
+      };
+    });
   };
 
   return (
@@ -70,6 +100,23 @@ export function BaseProperties() {
             unit="rem"
             onChange={(value) => updateBase("layout", "spacing", value)}
           />
+        </CollapsibleProperties>
+
+        <CollapsibleProperties name="UTILITIES" defaultOpen>
+          <div className="flex flex-col gap-2.5 px-2 py-2">
+            {UTILITIES.map(([name, builtIn]) => (
+              <ClassesField
+                key={name}
+                target={{
+                  subject: "shared utility",
+                  part: `.${name}`,
+                  builtIn,
+                  override: preset.base.utilities?.[name],
+                }}
+                onClasses={(classes) => updateUtility(name, classes)}
+              />
+            ))}
+          </div>
         </CollapsibleProperties>
       </div>
     </section>

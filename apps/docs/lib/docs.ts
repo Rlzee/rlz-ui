@@ -71,7 +71,8 @@ const PRESET_SECTIONS: Record<
 > = {
   base: {
     name: "Base",
-    description: "Typography and layout scale of the preset",
+    description:
+      "Typography, layout scale and shared utility classes of the preset",
   },
   colors: {
     name: "Colors",

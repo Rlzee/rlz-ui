@@ -11,6 +11,8 @@ export const PresetBaseConfigSchema = z.object({
     radius: z.number(),
     spacing: z.number(),
   }),
+
+  utilities: z.record(z.string(), z.string()).optional(),
 });
 
 export const PresetColorTokenSchema = z.object({

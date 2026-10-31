@@ -1,5 +1,7 @@
 import type { RegistryPreset } from "@rlz/registry";
 
+import { designSystemUtilities } from "@rlz/ui/styles/utilities";
+
 import { fontFamily, safe } from "./preset-styles";
 
 /**
@@ -11,8 +13,10 @@ import { fontFamily, safe } from "./preset-styles";
  * helpers the playground paints with (see `presetVariables`): one source for what
  * a value becomes, whether it is shown or applied.
  *
- * Only the foundations are here. A component edit is a list of classes rather
- * than a declaration, so it belongs to the preset JSON, not to this sheet.
+ * The four shared utility classes come along at the end, since a preset retunes
+ * them through `base.utilities` rather than through a component. A per-component
+ * edit stays out of this sheet: it is a list of classes for one box, not a
+ * declaration the whole design system reads.
  */
 
 type Declaration = [name: string, value: string];
@@ -66,7 +70,46 @@ export function themeCss(preset: RegistryPreset): string {
     );
   }
 
-  return `${[rule(":root", light), rule(".dark", dark)].filter(Boolean).join("\n\n")}\n`;
+  return `${[
+    rule(":root", light),
+    rule(".dark", dark),
+    utilityLayer(preset),
+  ]
+    .filter(Boolean)
+    .join("\n\n")}\n`;
+}
+
+/**
+ * The shared classes the components borrow from, rewritten by the draft where it
+ * rewrote them. A class left without any class to apply writes nothing: the app
+ * keeps the definition it ships with, which is what an empty field says.
+ */
+function utilityLayer(preset: RegistryPreset) {
+  const rewritten = preset.base.utilities ?? {};
+  const rules = Object.entries(designSystemUtilities)
+    .map(([name, builtIn]) => utility(name, rewritten[name] ?? builtIn))
+    .filter(Boolean);
+
+  // A rewrite of a class the design system does not ship is still a class the
+  // preset declares, so it belongs in the sheet too.
+  rules.push(
+    ...Object.entries(rewritten)
+      .filter(([name]) => !(name in designSystemUtilities))
+      .map(([name, classes]) => utility(name, classes))
+      .filter(Boolean)
+  );
+
+  if (rules.length === 0) return "";
+
+  return `@layer utilities {\n${rules.join("\n\n")}\n}`;
+}
+
+function utility(name: string, classes: string) {
+  const applied = classes.replace(/\s+/g, " ").trim();
+
+  if (!applied) return "";
+
+  return `  .${name} {\n    @apply ${safe(applied)};\n  }`;
 }
 
 // A number the draft never settled (a cleared slider) writes nothing, so the app
