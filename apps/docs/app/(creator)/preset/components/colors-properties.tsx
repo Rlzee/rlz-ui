@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useTheme } from "next-themes";
 import { useAtom } from "jotai";
 
 import type { PresetColorToken as ColorRow } from "@rlz/registry";
@@ -21,20 +20,7 @@ const DEFAULT_OPEN = new Set(["primary", "secondary-accent"]);
 export function ColorProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
 
-  const { resolvedTheme } = useTheme();
-
-  const [mounted, setMounted] = React.useState(false);
   const [search, setSearch] = React.useState("");
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  const isDark = resolvedTheme === "dark";
 
   const filtered = preset.colors.filter(
     (section) =>
@@ -44,7 +30,12 @@ export function ColorProperties() {
       )
   );
 
-  function updateColor(sectionId: string, cssVar: string, value: string) {
+  function updateColor(
+    sectionId: string,
+    cssVar: string,
+    mode: "light" | "dark",
+    value: string
+  ) {
     setPreset((prev) => ({
       ...prev,
       colors: prev.colors.map((section) =>
@@ -55,10 +46,7 @@ export function ColorProperties() {
                 token.cssVar === cssVar
                   ? {
                       ...token,
-                      [isDark ? "dark" : "light"]: {
-                        ...token[isDark ? "dark" : "light"],
-                        value,
-                      },
+                      [mode]: { ...token[mode], value },
                     }
                   : token
               ),
@@ -97,9 +85,8 @@ export function ColorProperties() {
                   <ColorRowItem
                     key={row.cssVar}
                     row={row}
-                    isDark={isDark}
-                    onChange={(value) =>
-                      updateColor(section.id, row.cssVar, value)
+                    onChange={(mode, value) =>
+                      updateColor(section.id, row.cssVar, mode, value)
                     }
                   />
                 ))}
@@ -112,37 +99,72 @@ export function ColorProperties() {
   );
 }
 
+/**
+ * One token, and both of its values at once. A preset decides what a color looks
+ * like in the light scheme and what it looks like in the dark one: those are two
+ * answers about the draft, not two states of the site, so the panel stopped asking
+ * which scheme it was wearing to know which value to show.
+ */
 function ColorRowItem({
   row,
-  isDark,
   onChange,
 }: {
   row: ColorRow;
-  isDark: boolean;
-  onChange: (value: string) => void;
+  onChange: (mode: "light" | "dark", value: string) => void;
 }) {
-  const current = isDark ? row.dark : row.light;
-
   return (
-    <div className="group flex items-center gap-2 rounded px-2 py-1.5 transition-colors">
-      <div
-        className="h-6 w-6 shrink-0 rounded-sm border"
-        style={{ background: current.value }}
+    <div className="flex flex-col gap-1 rounded px-2 py-1.5">
+      <span className="text-xs text-muted-foreground">{row.label}</span>
+
+      <SchemeValue
+        scheme="light"
+        cssVar={row.cssVar}
+        token={row.light}
+        onChange={onChange}
       />
 
-      <span className="w-24 shrink-0 text-xs text-muted-foreground">
-        {row.label}
+      <SchemeValue
+        scheme="dark"
+        cssVar={row.cssVar}
+        token={row.dark}
+        onChange={onChange}
+      />
+    </div>
+  );
+}
+
+function SchemeValue({
+  scheme,
+  cssVar,
+  token,
+  onChange,
+}: {
+  scheme: "light" | "dark";
+  cssVar: string;
+  token: ColorRow["light"];
+  onChange: (mode: "light" | "dark", value: string) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="w-9 shrink-0 text-[11px] text-muted-foreground capitalize">
+        {scheme}
       </span>
 
+      <div
+        className="size-5 shrink-0 rounded-sm border"
+        style={{ background: token.value }}
+      />
+
       <Input
-        value={current.value}
-        onChange={(e) => onChange(e.target.value)}
+        value={token.value}
+        aria-label={`${scheme} value of ${cssVar}`}
+        onChange={(e) => onChange(scheme, e.target.value)}
         className="h-7 truncate font-mono text-xs"
       />
 
       <TailwindColorsSelector
-        value={current.value}
-        onChange={(value) => onChange(value)}
+        value={token.value}
+        onChange={(value) => onChange(scheme, value)}
       />
     </div>
   );
