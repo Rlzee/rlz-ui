@@ -6,13 +6,39 @@ import type { RegistryPreset } from "@rlz/registry";
 
 import { Dialog } from "@rlz/ui/components/ui/dialog";
 import { Button } from "@rlz/ui/components/ui/button";
-import { Braces, Check, Pencil, Upload, X } from "lucide-react";
+import { Braces, Check, Download, Pencil, Upload, X } from "lucide-react";
 import { CopyButton } from "@/components/copy-button";
 import { Pre } from "@/components/Pre";
 
 import { presetBuilderAtom, componentEditsAtom } from "../preset-builder";
 
 const PRE_CLASS = "font-mono text-xs wrap-break-word";
+
+/**
+ * Keeps the identity of the draft. `type`, `id`, `version` and `path` belong to the
+ * registry, not to the design: what is typed in the JSON editor or read from an
+ * imported file changes the preset's look, never who it is.
+ */
+function keepIdentity(
+  incoming: RegistryPreset,
+  preset: RegistryPreset
+): RegistryPreset {
+  return {
+    ...incoming,
+    type: preset.type,
+    id: preset.id,
+    version: preset.version,
+    path: preset.path,
+  };
+}
+
+// A downloadable name out of the preset's own name, or its registry key when the
+// name was cleared - and never a path separator.
+function exportFileName(preset: RegistryPreset) {
+  const base = preset.name.trim() || preset.id || "preset";
+
+  return `${base.toLowerCase().replace(/[^a-z0-9._-]+/g, "-").replace(/^[-.]+|[-.]+$/g, "") || "preset"}.json`;
+}
 
 /**
  * Highlighted preset JSON, through the same highlightCode helper as the docs
@@ -97,7 +123,7 @@ export function PresetDialog({
   function applyEdit() {
     try {
       const parsed = JSON.parse(draft) as RegistryPreset;
-      setPreset(parsed);
+      setPreset(keepIdentity(parsed, preset));
       setError(null);
       setEditing(false);
     } catch (err) {
@@ -117,11 +143,27 @@ export function PresetDialog({
 
     try {
       const parsed = JSON.parse(await file.text()) as RegistryPreset;
-      setPreset(parsed);
+      setPreset(keepIdentity(parsed, preset));
       setError(null);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Invalid JSON file");
     }
+  }
+
+  // The download carries the same formatted JSON that is shown and copied, live
+  // Creator edits included.
+  function handleExport() {
+    const url = URL.createObjectURL(
+      new Blob([code], { type: "application/json" })
+    );
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = exportFileName(exported);
+    link.click();
+
+    // Revoking too early cancels the download, so the click is allowed to land.
+    setTimeout(() => URL.revokeObjectURL(url), 0);
   }
 
   return (
@@ -135,8 +177,8 @@ export function PresetDialog({
           <Dialog.Title>{name}</Dialog.Title>
           <Dialog.Description>
             {editing
-              ? "Edit the JSON and apply it back to the preset."
-              : "Registry preset definition, formatted and ready to copy."}
+              ? "Edit the JSON and apply it back to the preset. Its type, id, version and path stay as they are."
+              : "Registry preset definition, formatted and ready to copy or export."}
           </Dialog.Description>
         </Dialog.Header>
         <Dialog.Body className={editing ? undefined : "p-0"}>
@@ -185,6 +227,10 @@ export function PresetDialog({
                 className="hidden"
                 onChange={handleImport}
               />
+              <Button variant="outline" onClick={handleExport}>
+                <Download />
+                Export
+              </Button>
               <Button variant="outline" onClick={triggerImport}>
                 <Upload />
                 Import
