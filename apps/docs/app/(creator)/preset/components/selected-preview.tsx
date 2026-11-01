@@ -6,6 +6,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "next-themes";
 
 import { demoPaths } from "@rlz/ui/components/examples";
+import { Card } from "@rlz/ui/components/ui/card";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { cn } from "@rlz/ui/lib/cn";
 
@@ -123,15 +124,15 @@ function ColorsPreview() {
               const current = isDark ? token.dark : token.light;
 
               return (
-                <div
+                <Card
                   key={token.cssVar}
-                  className="bg-card overflow-hidden rounded-md border border-sidebar-border"
+                  className="gap-0 overflow-hidden rounded-md py-0"
                 >
                   <div
                     className="h-16 w-full border-b border-border/60"
                     style={{ background: current.value }}
                   />
-                  <div className="flex flex-col gap-0.5 p-2">
+                  <Card.Body className="flex flex-col gap-0.5 p-2">
                     <span className="truncate text-xs font-medium">
                       {token.label}
                     </span>
@@ -141,8 +142,8 @@ function ColorsPreview() {
                     <span className="text-muted-foreground truncate font-mono text-[11px]">
                       {current.value}
                     </span>
-                  </div>
-                </div>
+                  </Card.Body>
+                </Card>
               );
             })}
           </div>
@@ -164,63 +165,67 @@ function BasePreview() {
   return (
     <div className="flex flex-col gap-8 p-4">
       <PreviewSection title="Radius" value={`${radius}rem`}>
-        <div className="bg-card flex flex-wrap items-end gap-4 rounded-md border border-sidebar-border p-5">
-          {[
-            { label: "sm", r: radius * 0.5 },
-            { label: "base", r: radius },
-            { label: "lg", r: radius * 1.5 },
-            { label: "full", r: 9999 },
-          ].map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-1.5">
-              <div
-                className="bg-primary/90 h-16 w-16"
-                style={{ borderRadius: `${item.r}px` }}
-              />
-              <span className="text-muted-foreground text-[11px]">
-                {item.label}
-              </span>
-            </div>
-          ))}
-        </div>
+        <Card className="border-sidebar-border">
+          <Card.Body className="flex flex-wrap items-end gap-4">
+            {[
+              { label: "sm", r: radius * 0.5 },
+              { label: "base", r: radius },
+              { label: "lg", r: radius * 1.5 },
+              { label: "full", r: 9999 },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-1.5">
+                <div
+                  className="bg-primary/90 h-16 w-16"
+                  style={{ borderRadius: `${item.r}px` }}
+                />
+                <span className="text-muted-foreground text-[11px]">
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </Card.Body>
+        </Card>
       </PreviewSection>
 
       <PreviewSection title="Letter Spacing" value={`${letterSpacing}em`}>
-        <div className="bg-card rounded-md border border-sidebar-border p-5">
-          <p
-            className="text-foreground text-2xl font-semibold"
-            style={{ letterSpacing: `${letterSpacing}em` }}
-          >
-            The quick brown fox jumps
-          </p>
-          <p
-            className="text-muted-foreground mt-2 text-sm"
-            style={{ letterSpacing: `${letterSpacing}em` }}
-          >
-            Sphinx of black quartz, judge my vow — 0123456789.
-          </p>
-        </div>
+        <Card className="border-sidebar-border">
+          <Card.Body>
+            <p
+              className="text-foreground text-2xl font-semibold"
+              style={{ letterSpacing: `${letterSpacing}em` }}
+            >
+              The quick brown fox jumps
+            </p>
+            <p
+              className="text-muted-foreground mt-2 text-sm"
+              style={{ letterSpacing: `${letterSpacing}em` }}
+            >
+              Sphinx of black quartz, judge my vow — 0123456789.
+            </p>
+          </Card.Body>
+        </Card>
       </PreviewSection>
 
       <PreviewSection title="Spacing" value={`${spacing}rem`}>
-        <div
-          className="bg-card rounded-md border border-sidebar-border"
-          style={{ padding: `${spacing}rem` }}
-        >
-          <div style={{ display: "flex", flexWrap: "wrap", gap: `${spacing}rem` }}>
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-primary/15 text-muted-foreground flex items-center justify-center text-xs"
-                style={{
-                  padding: `${spacing}rem`,
-                  borderRadius: `${radius}rem`,
-                }}
-              >
-                Item {i + 1}
-              </div>
-            ))}
-          </div>
-        </div>
+        <Card className="border-sidebar-border">
+          {/* Padding is the token under test, so it overrides the body padding. */}
+          <Card.Body style={{ padding: `${spacing}rem` }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: `${spacing}rem` }}>
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="bg-primary/15 text-muted-foreground flex items-center justify-center text-xs"
+                  style={{
+                    padding: `${spacing}rem`,
+                    borderRadius: `${radius}rem`,
+                  }}
+                >
+                  Item {i + 1}
+                </div>
+              ))}
+            </div>
+          </Card.Body>
+        </Card>
       </PreviewSection>
     </div>
   );
@@ -270,14 +275,16 @@ function RecommendationsPreview() {
           title={sample.label}
           value={sample.font ?? "—"}
         >
-          <div className="bg-card rounded-md border border-sidebar-border p-5">
-            <p
-              className={cn("text-foreground", sample.className)}
-              style={sample.font ? { fontFamily: sample.font } : undefined}
-            >
-              {sample.text}
-            </p>
-          </div>
+          <Card className="border-sidebar-border">
+            <Card.Body>
+              <p
+                className={cn("text-foreground", sample.className)}
+                style={sample.font ? { fontFamily: sample.font } : undefined}
+              >
+                {sample.text}
+              </p>
+            </Card.Body>
+          </Card>
         </PreviewSection>
       ))}
     </div>

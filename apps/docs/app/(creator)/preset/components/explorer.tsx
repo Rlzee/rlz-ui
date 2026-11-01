@@ -16,7 +16,7 @@ type ExplorerProps = React.ComponentProps<typeof Sidebar> & {
 };
 
 // Entry selected when the creator opens with nothing chosen yet.
-const DEFAULT_SELECTED_ID = "colors";
+const DEFAULT_SELECTED_ID = "info";
 
 export function Explorer({ sections, ...props }: ExplorerProps) {
   const [query, setQuery] = React.useState("");

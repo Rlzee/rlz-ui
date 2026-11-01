@@ -35,7 +35,7 @@ export default function Page() {
   }, []);
 
   return (
-    <Tabs className="min-h-0 flex-1" defaultValue="selected">
+    <Tabs className="min-h-0 flex-1 gap-0" defaultValue="selected">
       <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
         {/* <h2 className="font-semibold text-lg">Playground</h2> */}
         <Tabs.List className="bg-secondary rounded-md items-center">

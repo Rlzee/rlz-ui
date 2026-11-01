@@ -88,7 +88,7 @@ export function TailwindColorsSelector({
             <Separator />
           </div>
 
-          <Tabs.Panel value="list" className="my-0 min-w-[300px]">
+          <Tabs.Panel value="list" className="my-0 min-w-75">
             <Command items={groups} className="flex h-84 flex-col border-0">
               <Command.Input placeholder="Search Tailwind colors..." />
 
@@ -218,7 +218,7 @@ function ColorSwatch({
       className={cn(
         "group relative cursor-pointer rounded-md border transition-all hover:z-10 hover:scale-110 hover:shadow-lg",
         isTransparent
-          ? "[background-image:linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%),linear-gradient(-45deg,transparent_75%,#ccc_75%)] [background-size:8px_8px] [background-position:0_0,0_4px,4px_-4px,-4px_0px]"
+          ? "bg-[linear-gradient(45deg,#ccc_25%,transparent_25%),linear-gradient(-45deg,#ccc_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#ccc_75%),linear-gradient(-45deg,transparent_75%,#ccc_75%)] bg-size-[8px_8px] bg-position-[0_0,0_4px,4px_-4px,-4px_0px]"
           : "bg-(--color)",
         sizeClasses[size],
         isSelected &&

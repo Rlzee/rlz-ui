@@ -1,6 +1,7 @@
 import { atomWithStorage } from "jotai/utils";
 import { atom } from "jotai";
 import { defaultPreset } from "@rlz/ui/styles/presets";
+import type { PresetSection } from "@/lib/docs";
 import type { PresetComponentCustomization, RegistryPreset } from "@rlz/registry";
 
 // Registry key for a fresh draft, so a created preset never collides with the
@@ -47,6 +48,58 @@ export const resetPresetAtom = atom(null, (_get, set) => {
   set(presetBuilderAtom, createDraftPreset());
   // A fresh draft also drops per-component Creator edits, so Reset is total.
   set(componentEditsAtom, {});
+});
+
+/**
+ * Puts ONE Foundation entry back to what the design system ships and leaves every
+ * other part of the draft alone - the counterpart of `resetPresetAtom`, which
+ * discards everything. `info` owns only the draft's own words: the registry
+ * coordinates stay where they are, the same rule the disabled fields and the JSON
+ * dialog follow through `keepIdentity`.
+ */
+export const resetSectionAtom = atom(
+  null,
+  (get, set, section: PresetSection) => {
+    const preset = get(presetBuilderAtom);
+    const shipped = structuredClone(defaultPreset);
+
+    switch (section) {
+      case "info":
+        set(presetBuilderAtom, {
+          ...preset,
+          name: DRAFT_NAME,
+          description: defaultPreset.description,
+        });
+        break;
+      case "base":
+        // Radius, letter spacing, spacing and the shared utility rewrites.
+        set(presetBuilderAtom, { ...preset, base: shipped.base });
+        break;
+      case "colors":
+        set(presetBuilderAtom, { ...preset, colors: shipped.colors });
+        break;
+      case "recommendations":
+        set(presetBuilderAtom, {
+          ...preset,
+          recommendations: shipped.recommendations,
+        });
+        break;
+    }
+  }
+);
+
+/**
+ * Drops the Creator edits of ONE component (variants, styles, part classes) so its
+ * properties go back to the built-in ones. Sibling components keep theirs.
+ */
+export const resetComponentEditsAtom = atom(null, (get, set, slug: string) => {
+  const edits = get(componentEditsAtom);
+
+  if (!edits[slug]) return;
+
+  const rest = { ...edits };
+  delete rest[slug];
+  set(componentEditsAtom, rest);
 });
 
 // Merges a patch for one component without clobbering the other axes (props vs
