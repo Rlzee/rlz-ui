@@ -26,11 +26,18 @@ import {
   variantSectionClasses,
   type VariantClassSection,
 } from "../lib/variant-classes";
+import {
+  appearanceFields,
+  setAppearanceValue,
+  type AppearanceField,
+} from "../lib/appearance";
 import { componentEditsAtom, setComponentEditAtom } from "../preset-builder";
 
 import { Button } from "@rlz/ui/components/ui/button";
 import { Input } from "@rlz/ui/components/ui/input";
+import { NumberField } from "@rlz/ui/components/ui/number-field";
 import { Switch } from "@rlz/ui/components/ui/switch";
+import { Toggle } from "@rlz/ui/components/ui/toggle";
 import { cn } from "@rlz/ui/lib/cn";
 
 import { Code, Plus, X } from "lucide-react";
@@ -60,6 +67,17 @@ export function ComponentProperties() {
   const edit = edits[slug];
   const update = (patch: PresetComponentCustomization) => setEdit(slug, patch);
 
+  // A box that sizes itself with padding/gap/radius utilities gets an Appearance
+  // field per family; a box whose classes carry none has nothing to offer here.
+  const appearanceBoxes = parts
+    .map((part) => {
+      const override = edit?.partClasses?.[part.name];
+      const effective = override ?? part.classes;
+
+      return { part, override, effective, fields: appearanceFields(effective) };
+    })
+    .filter((box) => box.fields.length > 0);
+
   return (
     <section id="editor-component" className="flex flex-col gap-2 px-2 py-3">
       {capabilities.variants?.map((axis) => (
@@ -68,30 +86,58 @@ export function ComponentProperties() {
           name={titleCase(axis.name)}
           defaultOpen
         >
-          <VariantList
-            slug={slug}
-            axis={axis}
-            edit={edit}
-            onUpdate={update}
-          />
+          <VariantList slug={slug} axis={axis} edit={edit} onUpdate={update} />
         </CollapsibleProperties>
       ))}
 
+      {appearanceBoxes.length > 0 && (
+        <CollapsibleProperties name="Appearance" defaultOpen>
+          <div className="flex flex-col gap-1 px-2 py-2">
+            {appearanceBoxes.map(({ part, override, effective, fields }) => (
+              <AppearancePart
+                key={part.name}
+                slot={part.slot}
+                label={
+                  part.name === "Root" ? selected.name : titleCase(part.name)
+                }
+                fields={fields}
+                edited={override !== undefined}
+                onValue={(prefix, value) => {
+                  // Rewrite only this utility inside the box's classes. Writing the
+                  // built-in string back drops the override, so the box keeps
+                  // inheriting what the design system ships - the Classes rule.
+                  const next = setAppearanceValue(effective, prefix, value);
+
+                  update({
+                    partClasses: {
+                      [part.name]: next === part.classes ? undefined : next,
+                    },
+                  });
+                }}
+              />
+            ))}
+          </div>
+        </CollapsibleProperties>
+      )}
+
       {parts.length > 0 && (
-        <CollapsibleProperties name="Parts Classes">
+        <CollapsibleProperties name="Classes">
           <div className="flex flex-col gap-1 px-2 py-2">
             {parts.map((part) => (
               <PartRow
                 key={part.name}
                 part={part}
-                label={part.name === "Root" ? selected.name : titleCase(part.name)}
+                label={
+                  part.name === "Root" ? selected.name : titleCase(part.name)
+                }
                 override={edit?.partClasses?.[part.name]}
                 onClasses={(classes) =>
                   update({
                     // Writing the built-in classes back drops the override, so the
                     // part keeps inheriting what the design system ships.
                     partClasses: {
-                      [part.name]: classes === part.classes ? undefined : classes,
+                      [part.name]:
+                        classes === part.classes ? undefined : classes,
                     },
                   })
                 }
@@ -522,5 +568,226 @@ function BoolRow({
       <span className="text-xs text-muted-foreground">{label}</span>
       <Switch checked={checked} onCheckedChange={onChange} />
     </div>
+  );
+}
+
+/**
+ * One box's Appearance: a field for each padding/gap/radius family its classes
+ * carry. The box is named like the Classes editor names it, and each field edits
+ * only its own utility family, leaving the rest of the class string untouched.
+ */
+function AppearancePart({
+  slot,
+  label,
+  fields,
+  edited,
+  onValue,
+}: {
+  slot: string;
+  label: string;
+  fields: AppearanceField[];
+  edited: boolean;
+  onValue: (prefix: string, value: string) => void;
+}) {
+  return (
+    <div>
+      <div title={slot} className="px-1.5 pt-1">
+        <span
+          className={cn(
+            "block truncate text-xs",
+            edited ? "text-primary" : "text-muted-foreground"
+          )}
+        >
+          {label}
+        </span>
+      </div>
+
+      <div className="flex flex-col gap-3 px-1.5 py-1.5">
+        {fields.map((field) => (
+          <AppearanceField
+            key={field.prefix}
+            field={field}
+            onValue={(value) => onValue(field.prefix, value)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// The radius scale the Creator offers as a segmented toggle. Tailwind names a
+// corner by these steps, so a click writes `rounded-<step>` and the box's own
+// value stays lit when it is one of them.
+const RADIUS_OPTIONS = ["xs", "sm", "md", "lg", "xl", "full"];
+
+// A gap/padding scale reads back as a number (`6`, `0.5`), so it is edited with a
+// NumberField. Anything that is not a plain number - an arbitrary `[0.6rem]`, the
+// `px` keyword - falls back to a free text field, so a value is never lost.
+function scaleNumber(value: string): number | null {
+  if (value.trim() === "") return null;
+
+  const parsed = Number(value);
+
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
+function isNumericScale(value: string): boolean {
+  return value.trim() === "" || scaleNumber(value) !== null;
+}
+
+/**
+ * One Appearance field: radius is a curated scale picked from a segmented toggle,
+ * gap and padding use a NumberField when their value is a plain number, and any
+ * other value (an arbitrary `[0.6rem]`, the `px` keyword) falls back to a free
+ * text field. The label sits in a fixed column so controls line up.
+ */
+function AppearanceField({
+  field,
+  onValue,
+}: {
+  field: AppearanceField;
+  onValue: (value: string) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="w-28 shrink-0 text-xs text-muted-foreground">
+        {field.label}
+      </span>
+
+      {field.prefix === "rounded" ? (
+        <RadiusOptions value={field.value} onChange={onValue} />
+      ) : isNumericScale(field.value) ? (
+        <NumberScaleField
+          value={field.value}
+          label={field.label}
+          onCommit={onValue}
+        />
+      ) : (
+        <ScaleField
+          value={field.value}
+          label={field.label}
+          onCommit={onValue}
+        />
+      )}
+    </div>
+  );
+}
+
+/**
+ * The radius scale as a single-select Toggle group: its outline variant draws the
+ * joined, rounded-end segmented bar, the current step stays pressed, and picking
+ * one applies it at once. The group reports a wide value (a single string here,
+ * since only one step is selected), so it is narrowed before it is written.
+ */
+function RadiusOptions({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  return (
+    <Toggle.Group
+      variant="outline"
+      size="xs"
+      value={value ? [value] : []}
+      aria-label="Radius"
+      className="flex-1"
+      onValueChange={(next) => {
+        // A single-select group keeps the whole pressed set, so only one step is
+        // ever in it; read that one back as the radius value.
+        const picked = next[0];
+
+        if (typeof picked === "string") onChange(picked);
+      }}
+    >
+      {RADIUS_OPTIONS.map((option, index) => (
+        <React.Fragment key={option}>
+          <Toggle value={option} className="flex-1 font-mono">
+            {option}
+          </Toggle>
+
+          {index < RADIUS_OPTIONS.length - 1 && <Toggle.GroupSeparator />}
+        </React.Fragment>
+      ))}
+    </Toggle.Group>
+  );
+}
+
+/**
+ * A numeric gap/padding scale, edited with the package NumberField: the steppers
+ * and typing both commit on blur, and an emptied field drops the utility. It is
+ * keyed by the stored value so a Reset, a sibling edit or the Classes field
+ * re-seeds this otherwise uncontrolled input.
+ */
+function NumberScaleField({
+  value,
+  label,
+  onCommit,
+}: {
+  value: string;
+  label: string;
+  onCommit: (value: string) => void;
+}) {
+  const initial = scaleNumber(value);
+
+  return (
+    <NumberField
+      key={value}
+      min={0}
+      step={0.5}
+      defaultValue={initial ?? undefined}
+      onValueCommitted={(next) =>
+        onCommit(next === null || Number.isNaN(next) ? "" : String(next))
+      }
+    >
+      <NumberField.Group className="h-7">
+        <NumberField.Decrement className="h-7 [&_svg]:size-3.5" />
+        <NumberField.Input aria-label={label} className="h-7 w-full text-xs" />
+        <NumberField.Increment className="h-7 [&_svg]:size-3.5" />
+      </NumberField.Group>
+    </NumberField>
+  );
+}
+
+/**
+ * A free scale value. It commits on blur or Enter and cancels on Escape, so a
+ * half-typed value never lands in the preset; an unchanged blur writes nothing,
+ * which keeps a bare utility from being dropped by focusing it and tabbing away.
+ */
+function ScaleField({
+  value,
+  label,
+  onCommit,
+}: {
+  value: string;
+  label: string;
+  onCommit: (value: string) => void;
+}) {
+  const [text, setText] = React.useState(value);
+
+  // Keep the field in sync when the stored value changes elsewhere (Reset, a
+  // sibling field of the same box, the Classes editor).
+  React.useEffect(() => setText(value), [value]);
+
+  return (
+    <Input
+      value={text}
+      unstyled
+      aria-label={label}
+      placeholder="—"
+      onChange={(event) => setText(event.target.value)}
+      onBlur={() => {
+        if (text !== value) onCommit(text);
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter") event.currentTarget.blur();
+        if (event.key === "Escape") {
+          setText(value);
+          event.currentTarget.blur();
+        }
+      }}
+      className="h-7 flex-1 truncate font-mono text-xs"
+    />
   );
 }
