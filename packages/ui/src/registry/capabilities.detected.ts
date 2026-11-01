@@ -47,6 +47,16 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     ]
   },
   "alert-dialog": {
+    "variants": [
+      {
+        "name": "variant",
+        "values": [
+          "default",
+          "bare"
+        ],
+        "default": "default"
+      }
+    ],
     "parts": [
       "Portal",
       "Trigger",
@@ -342,6 +352,23 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     ]
   },
   "drawer": {
+    "variants": [
+      {
+        "name": "variant",
+        "values": [
+          "default",
+          "bare",
+          "bare-bottom",
+          "bare-top"
+        ],
+        "default": "default",
+        "parts": [
+          "Popup",
+          "Header",
+          "Footer"
+        ]
+      }
+    ],
     "parts": [
       "Provider",
       "IndentBackground",
@@ -537,6 +564,16 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     ]
   },
   "otp-field": {
+    "variants": [
+      {
+        "name": "size",
+        "values": [
+          "md",
+          "lg"
+        ],
+        "default": "md"
+      }
+    ],
     "parts": [
       "Input",
       "Separator"
@@ -726,6 +763,16 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     ]
   },
   "textarea": {
+    "variants": [
+      {
+        "name": "variant",
+        "values": [
+          "primary",
+          "secondary"
+        ],
+        "default": "primary"
+      }
+    ],
     "editableProperties": [
       "unstyled"
     ]
@@ -814,6 +861,13 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
       }
     }
   },
+  "alert-dialog": {
+    "byValue": {
+      "variant": {
+        "default": "bg-popover border-border/32 border-t pt-4 rounded-b-lg"
+      }
+    }
+  },
   "avatar": {
     "byValue": {
       "size": {
@@ -888,6 +942,26 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
       }
     }
   },
+  "drawer": {
+    "byPart": {
+      "variant": {
+        "Popup": {
+          "default": "bg-background",
+          "bare": "bg-popover",
+          "bare-bottom": "bg-background",
+          "bare-top": "bg-background"
+        },
+        "Header": {
+          "default": "border-b border-border/50 pb-4 bg-popover",
+          "bare-bottom": "border-b border-border/50 pb-4 bg-popover"
+        },
+        "Footer": {
+          "default": "pt-4 border-t border-border/50 bg-popover",
+          "bare-top": "pt-4 border-t border-border/50 bg-popover"
+        }
+      }
+    }
+  },
   "empty": {
     "byValue": {
       "variant": {
@@ -935,6 +1009,14 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
       }
     }
   },
+  "otp-field": {
+    "byValue": {
+      "size": {
+        "md": "size-9 leading-9",
+        "lg": "size-10 leading-10"
+      }
+    }
+  },
   "sidebar": {
     "byPart": {
       "variant": {
@@ -965,6 +1047,14 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
       "variant": {
         "default": "top-1/2 -translate-y-1/2 h-9 rounded-md bg-accent",
         "underline": "bottom-0 h-0.5 bg-primary"
+      }
+    }
+  },
+  "textarea": {
+    "byValue": {
+      "variant": {
+        "primary": "bg-input",
+        "secondary": "bg-accent/60"
       }
     }
   },
@@ -1074,7 +1164,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Actions": {
       "slot": "alert-dialog-actions",
-      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4 data-[variant=default]:bg-popover data-[variant=default]:border-border/32 data-[variant=default]:border-t data-[variant=default]:pt-4 data-[variant=default]:rounded-b-lg"
+      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4"
     }
   },
   "autocomplete": {
@@ -1530,7 +1620,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Header": {
       "slot": "drawer-header",
-      "classes": "flex flex-col text-left gap-0.5 pt-4 px-6 border-b border-border/50 pb-4 bg-popover rounded-t-lg"
+      "classes": "flex flex-col text-left gap-0.5 pt-4 px-6 rounded-t-lg"
     },
     "Title": {
       "slot": "drawer-title",
@@ -1546,7 +1636,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Footer": {
       "slot": "drawer-footer",
-      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4 pt-4 border-t border-border/50 bg-popover rounded-b-lg"
+      "classes": "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4 rounded-b-lg"
     },
     "Close": {
       "slot": "drawer-close",
@@ -1554,7 +1644,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Popup": {
       "slot": "drawer-popup",
-      "classes": "bg-background bg-popover group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground will-change-transform duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] data-starting-style:opacity-0 data-ending-style:opacity-0 transform-[translateX(var(--drawer-swipe-movement-x,0))] data-swiping:transition-none data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(-100%)] data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(-100%)] data-[swipe-direction=up]:data-starting-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)] data-[swipe-direction=up]:data-ending-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:border-t data-[swipe-direction=down]:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-starting-style:translate-y-8 data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:data-ending-style:-translate-y-8 data-[swipe-direction=up]:data-starting-style:-translate-y-8 data-[swipe-direction=up]:border-b data-[swipe-direction=left]:data-ending-style:-translate-x-8 data-[swipe-direction=left]:data-starting-style:-translate-x-8 data-[swipe-direction=left]:w-full data-[swipe-direction=left]:max-w-md data-[swipe-direction=left]:border-e data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:w-full data-[swipe-direction=right]:max-w-md data-[swipe-direction=right]:border-s data-[swipe-direction=right]:data-ending-style:translate-x-8 data-[swipe-direction=right]:data-starting-style:translate-x-8 data-[layout=inset]:rounded-lg data-[layout=inset]:border"
+      "classes": "group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground will-change-transform duration-450 ease-[cubic-bezier(0.32,0.72,0,1)] data-starting-style:opacity-0 data-ending-style:opacity-0 transform-[translateX(var(--drawer-swipe-movement-x,0))] data-swiping:transition-none data-ending-style:duration-[calc(var(--drawer-swipe-strength)*400ms)] data-[swipe-direction=right]:data-starting-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-starting-style:transform-[translateX(-100%)] data-[swipe-direction=right]:data-ending-style:transform-[translateX(100%)] data-[swipe-direction=left]:data-ending-style:transform-[translateX(-100%)] data-[swipe-direction=up]:data-starting-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-starting-style:transform-[translateY(100%)] data-[swipe-direction=up]:data-ending-style:transform-[translateY(-100%)] data-[swipe-direction=down]:data-ending-style:transform-[translateY(100%)] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=right]:translate-x-[calc(1rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=left]:-translate-x-[calc(1rem*var(--nested-drawers))] data-[swipe-direction=left]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[swipe-direction=right]:data-[layout=inset]:scale-[calc(1-0.05*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=down]:translate-y-[calc(0.5rem*var(--nested-drawers))] data-[layout=inset]:data-nested-drawer-open:data-[swipe-direction=up]:-translate-y-[calc(0.5rem*var(--nested-drawers))] data-[swipe-direction=down]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=up]:data-[layout=inset]:scale-[calc(1-0.01*var(--nested-drawers))] data-[swipe-direction=down]:mt-auto data-[swipe-direction=down]:border-t data-[swipe-direction=down]:data-ending-style:translate-y-8 data-[swipe-direction=down]:data-starting-style:translate-y-8 data-[swipe-direction=up]:mb-auto data-[swipe-direction=up]:data-ending-style:-translate-y-8 data-[swipe-direction=up]:data-starting-style:-translate-y-8 data-[swipe-direction=up]:border-b data-[swipe-direction=left]:data-ending-style:-translate-x-8 data-[swipe-direction=left]:data-starting-style:-translate-x-8 data-[swipe-direction=left]:w-full data-[swipe-direction=left]:max-w-md data-[swipe-direction=left]:border-e data-[swipe-direction=right]:ml-auto data-[swipe-direction=right]:w-full data-[swipe-direction=right]:max-w-md data-[swipe-direction=right]:border-s data-[swipe-direction=right]:data-ending-style:translate-x-8 data-[swipe-direction=right]:data-starting-style:translate-x-8 data-[layout=inset]:rounded-lg data-[layout=inset]:border"
     },
     "Viewport": {
       "slot": "drawer-viewport",
@@ -1808,7 +1898,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Input": {
       "slot": "otp-field-input",
-      "classes": "relative size-9 min-w-0 rounded-md border bg-input not-dark:bg-clip-padding text-center text-sm text-foreground leading-9 outline-none in-[[data-slot=otp-field][data-size=lg]]:size-10 in-[[data-slot=otp-field][data-size=lg]]:leading-10 state-focus-ring state-invalid"
+      "classes": "relative min-w-0 rounded-md border bg-input not-dark:bg-clip-padding text-center text-sm text-foreground outline-none state-focus-ring state-invalid"
     },
     "Separator": {
       "slot": "otp-field-separator",
@@ -2192,7 +2282,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
   "textarea": {
     "Root": {
       "slot": "textarea-control",
-      "classes": "inline-flex text-sm w-full data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60 relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring"
+      "classes": "inline-flex text-sm w-full relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring"
     }
   },
   "toast": {

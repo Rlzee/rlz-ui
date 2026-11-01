@@ -78,7 +78,7 @@ export function ComponentProperties() {
       ))}
 
       {parts.length > 0 && (
-        <CollapsibleProperties name="Parts">
+        <CollapsibleProperties name="Parts Classes">
           <div className="flex flex-col gap-1 px-2 py-2">
             {parts.map((part) => (
               <PartRow

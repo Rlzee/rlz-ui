@@ -4,6 +4,7 @@ import * as React from "react";
 import { Drawer as DrawerPrimitive } from "@base-ui/react/drawer";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
+import { cva } from "class-variance-authority";
 import { cn } from "cn";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
 import { Xclose } from "@rlz/ui/components/base/x-close";
@@ -31,6 +32,42 @@ const useDrawer = (): DrawerContextProps => {
   }
   return ctx;
 };
+
+const drawerPopupVariants = cva("", {
+  defaultVariants: { variant: "default" },
+  variants: {
+    variant: {
+      default: "bg-background",
+      bare: "bg-popover",
+      "bare-bottom": "bg-background",
+      "bare-top": "bg-background",
+    },
+  },
+});
+
+const drawerHeaderVariants = cva("", {
+  defaultVariants: { variant: "default" },
+  variants: {
+    variant: {
+      default: "border-b border-border/50 pb-4 bg-popover",
+      bare: "",
+      "bare-bottom": "border-b border-border/50 pb-4 bg-popover",
+      "bare-top": "",
+    },
+  },
+});
+
+const drawerFooterVariants = cva("", {
+  defaultVariants: { variant: "default" },
+  variants: {
+    variant: {
+      default: "pt-4 border-t border-border/50 bg-popover",
+      bare: "",
+      "bare-bottom": "",
+      "bare-top": "pt-4 border-t border-border/50 bg-popover",
+    },
+  },
+});
 
 const DrawerCreateHandle = DrawerPrimitive.createHandle;
 
@@ -208,7 +245,7 @@ function DrawerPopup({
           data-slot="drawer-popup"
           data-layout={layout}
           className={cn(
-            variant !== "bare" ? "bg-background" : "bg-popover",
+            drawerPopupVariants({ variant }),
             "group/drawer-popup relative flex max-h-full min-h-0 w-full min-w-0 flex-col not-dark:bg-clip-padding text-popover-foreground",
 
             // animation
@@ -258,9 +295,7 @@ const DrawerHeader = ({
     "data-slot": "drawer-header",
     className: cn(
       "flex flex-col text-left gap-0.5 pt-4 px-6",
-      variant === "default" || variant === "bare-bottom"
-        ? "border-b border-border/50 pb-4 bg-popover"
-        : "",
+      drawerHeaderVariants({ variant }),
       layout === "inset" ? "rounded-t-lg" : "",
       className
     ),
@@ -335,9 +370,7 @@ function DrawerFooter({
     "data-slot": "drawer-footer",
     className: cn(
       "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
-      variant === "default" || variant === "bare-top"
-        ? "pt-4 border-t border-border/50 bg-popover"
-        : "",
+      drawerFooterVariants({ variant }),
       layout === "inset" ? "rounded-b-lg" : "",
       className
     ),

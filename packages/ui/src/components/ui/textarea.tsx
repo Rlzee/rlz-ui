@@ -3,12 +3,23 @@
 import type * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { mergeProps } from "@base-ui/react/merge-props";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
+
+const textareaVariants = cva("", {
+  defaultVariants: { variant: "primary" },
+  variants: {
+    variant: {
+      primary: "bg-input",
+      secondary: "bg-accent/60",
+    },
+  },
+});
 
 type TextareaProps = React.ComponentProps<"textarea"> &
   React.RefAttributes<HTMLTextAreaElement> & {
     unstyled?: boolean;
-    variant?: "primary" | "secondary";
+    variant?: NonNullable<VariantProps<typeof textareaVariants>["variant"]>;
   };
 
 function Textarea({
@@ -25,7 +36,7 @@ function Textarea({
       className={cn(
         "inline-flex text-sm w-full",
         !unstyled && [
-          "data-[variant=primary]:bg-input data-[variant=secondary]:bg-accent/60",
+          textareaVariants({ variant }),
           "relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs",
           "has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50",
           "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
@@ -56,4 +67,4 @@ function Textarea({
   );
 }
 
-export { Textarea, type TextareaProps };
+export { Textarea, textareaVariants, type TextareaProps };

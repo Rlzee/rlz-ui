@@ -3,7 +3,21 @@
 import * as React from "react";
 import { AlertDialog as AlertDialogPrimitive } from "@base-ui/react/alert-dialog";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
+import { cva } from "class-variance-authority";
 import { cn } from "cn";
+
+const alertActionsVariants = cva(
+  "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
+  {
+    defaultVariants: { variant: "default" },
+    variants: {
+      variant: {
+        default: "bg-popover border-border/32 border-t pt-4 rounded-b-lg",
+        bare: "",
+      },
+    },
+  }
+);
 
 const AlertDialogCreateHandle: typeof AlertDialogPrimitive.createHandle =
   AlertDialogPrimitive.createHandle;
@@ -126,11 +140,7 @@ function AlertDialogActions({
     <footer
       data-slot="alert-dialog-actions"
       data-variant={variant}
-      className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
-        "data-[variant=default]:bg-popover data-[variant=default]:border-border/32 data-[variant=default]:border-t data-[variant=default]:pt-4 data-[variant=default]:rounded-b-lg",
-        className
-      )}
+      className={cn(alertActionsVariants({ variant }), className)}
       {...props}
     />
   );
