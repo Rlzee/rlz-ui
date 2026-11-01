@@ -1,7 +1,6 @@
 import ts from "typescript";
 import type {
   ComponentCapabilities,
-  ComponentStyleProperty,
   ComponentVariant,
   ComponentVariantClasses,
 } from "@rlz/registry";
@@ -29,27 +28,6 @@ export type DetectedComponent = {
  * authored on it - the shared classes, not the ones a variant value adds.
  */
 export type DetectedPart = { name: string; slot: string; classes: string };
-
-// A corner drawn from one of the radius tokens, at any side. `rounded-full` and
-// arbitrary radii are not here: they follow no token, so nothing to tune.
-const RADIUS_TOKEN = /^rounded(-(t|b|s|e|r|l|x|y)+)?(-(sm|md|lg|xl))?$/;
-
-// Canonical order of the state badges the Creator can show; a state is kept when
-// the component's own classes style it. A state can sit behind another variant
-// (`dark:hover:`, `has-focus-visible:has-aria-invalid:`), so a prefix separator
-// counts as a boundary too.
-const STATES: [string, RegExp][] = [
-  ["hover", /(^|[\s\[:])hover:/],
-  ["focus", /(^|[\s\[:])focus(-visible)?:|state-focus|has-focus/],
-  ["active", /(^|[\s\[:])active:/],
-  ["disabled", /(^|[\s\[:])(has-)?disabled[:-]/],
-  ["invalid", /(^|[\s\[:])(has-)?aria-invalid[:-]|state-invalid/],
-  ["checked", /data-\[checked\]|data-\[state='?checked|aria-checked/],
-  ["selected", /data-\[selected|aria-selected/],
-  ["expanded", /data-\[expanded|aria-expanded/],
-  ["open", /(^|[\s\[:])data-open[:-]|data-\[state='?open/],
-  ["pressed", /data-\[pressed\]|aria-pressed/],
-];
 
 // Functions that only join classes, so their arguments are read as class text.
 const CLASS_HELPERS = new Set(["cn", "clsx"]);
@@ -79,21 +57,14 @@ type Compound = {
  * `--radius` is what a radius slider starts from, and it belongs to the
  * stylesheet, not to this analyzer.
  */
-export function readRadiusDefault(globalsCss: string): number {
-  const match = /--radius:\s*([\d.]+)rem/.exec(globalsCss);
-  return match ? Number(match[1]) : 0.575;
-}
-
 export function analyzeComponentSource({
   fileName,
   text,
   slug,
-  radiusDefault,
 }: {
   fileName: string;
   text: string;
   slug: string;
-  radiusDefault: number;
 }): DetectedComponent {
   const source = ts.createSourceFile(
     fileName,
@@ -109,40 +80,15 @@ export function analyzeComponentSource({
     node.forEachChild(collect);
   })(source);
 
-  const classTexts = nodes
-    .filter((node): node is ts.StringLiteralLike => ts.isStringLiteralLike(node))
-    .map((node) => node.text);
-
   const consts = classConstants(nodes);
   const compound = compoundOf(nodes);
   const cvas = readCvas(nodes, source, slug, compound.keys, consts);
   const { variants, classes } = groupAxes(cvas, compound.keys);
   const parts = partEntries(nodes, compound, cvas, consts);
 
-  const styles: ComponentStyleProperty[] = [];
-
-  if (classTexts.some(isRadiusDriven)) {
-    styles.push({
-      key: "radius",
-      label: "Border radius",
-      kind: "slider",
-      min: 0,
-      max: 2,
-      step: 0.05,
-      unit: "rem",
-      default: radiusDefault,
-    });
-  }
-
-  const states = STATES.filter(([, pattern]) =>
-    pattern.test(classTexts.join(" "))
-  ).map(([state]) => state);
-
   const capabilities: ComponentCapabilities = {
     variants: variants.length > 0 ? variants : undefined,
     parts: compound.keys.length > 0 ? compound.keys : undefined,
-    styles: styles.length > 0 ? styles : undefined,
-    states: states.length > 0 ? states : undefined,
     editableProperties: nonEmpty(booleanProps(nodes)),
   };
 
@@ -153,12 +99,6 @@ export function analyzeComponentSource({
 // section instead of an empty one.
 function nonEmpty(list: string[]) {
   return list.length > 0 ? list : undefined;
-}
-
-function isRadiusDriven(classText: string) {
-  return classText
-    .split(/\s+/)
-    .some((token) => RADIUS_TOKEN.test(token) && token !== "rounded-none");
 }
 
 /**

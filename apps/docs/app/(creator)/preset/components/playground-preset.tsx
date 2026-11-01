@@ -39,8 +39,8 @@ export function PlaygroundPreset() {
   React.useEffect(() => setIsDark(resolvedTheme === "dark"), [resolvedTheme]);
 
   const css = React.useMemo(
-    () => playgroundCss(preset, isDark, edits),
-    [preset, isDark, edits]
+    () => playgroundCss(preset, isDark),
+    [preset, isDark]
   );
 
   // Written through the node rather than as children: the sheet is generated from

@@ -1,6 +1,5 @@
 import type {
   ComponentCapabilities,
-  ComponentStyleProperty,
   ComponentVariant,
   PresetComponentCustomization,
   PresetVariantValue,
@@ -95,16 +94,12 @@ export function withVariantClasses(
 
   return {
     ...option,
+    // `Root` is the component's own box, which a whole-value `classes` override
+    // used to stand for. Now that Root has its own entry, writing it supersedes
+    // (and drops) that legacy field; the other parts never touch it.
+    classes: part === "Root" ? undefined : option.classes,
     partClasses: Object.keys(next).length > 0 ? next : undefined,
   };
-}
-
-// Resolve a numeric style (radius, spacing...). Order: edit -> default -> min.
-export function currentStyleValue(
-  style: ComponentStyleProperty,
-  edit?: PresetComponentCustomization
-): number {
-  return edit?.styles?.[style.key] ?? style.default ?? style.min;
 }
 
 // Booleans are stored as "true"/"false" strings (the props record is
@@ -128,7 +123,7 @@ export function titleCase(value: string) {
 }
 
 // One-line "what is applied" summary shown under the live demo, mirroring the
-// prototype: "Variant: outline - Size: md - Radius: 0.4rem".
+// prototype: "Variant: outline - Size: md".
 export function describeEdits(
   capabilities: ComponentCapabilities,
   edit?: PresetComponentCustomization
@@ -137,12 +132,6 @@ export function describeEdits(
 
   capabilities.variants?.forEach((axis) => {
     bits.push(`${titleCase(axis.name)}: ${currentVariantValue(axis, edit)}`);
-  });
-
-  capabilities.styles?.forEach((style) => {
-    bits.push(
-      `${style.label}: ${currentStyleValue(style, edit)}${style.unit}`
-    );
   });
 
   return bits.join(" - ");

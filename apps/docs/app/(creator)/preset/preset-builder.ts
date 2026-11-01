@@ -103,7 +103,7 @@ export const resetComponentEditsAtom = atom(null, (get, set, slug: string) => {
 });
 
 // Merges a patch for one component without clobbering the other axes (props vs
-// styles vs variant lists vs part classes), and without touching sibling components.
+// variant lists vs part classes), and without touching sibling components.
 export const setComponentEditAtom = atom(
   null,
   (
@@ -127,7 +127,6 @@ export const setComponentEditAtom = atom(
       ...edits,
       [slug]: {
         props: { ...current.props, ...patch.props },
-        styles: { ...current.styles, ...patch.styles },
         variants: { ...current.variants, ...patch.variants },
         partClasses: Object.keys(partClasses).length > 0 ? partClasses : undefined,
       },

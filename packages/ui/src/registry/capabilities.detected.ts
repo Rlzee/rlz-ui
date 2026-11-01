@@ -3,12 +3,11 @@
  * `build:registry`) - DO NOT EDIT, the next run overwrites this file.
  *
  * What every registered component exposes to the Creator, read straight from its
- * source: cva variant axes and their values, compound parts (`Object.assign`),
- * styled states, boolean props, and the radius tokens it draws. Alongside it, the
- * classes each part was authored with and the `data-slot` that identifies it in
- * the demos. This is the detected half of a component's capabilities; what must
- * stay hidden and what no source can tell (numeric sliders, labels) lives in
- * `./capabilities`.
+ * source: cva variant axes and their values, compound parts (`Object.assign`)
+ * and boolean props. Alongside it, the classes each part was authored with and
+ * the `data-slot` that identifies it in the demos. This is the detected half of
+ * a component's capabilities; what must stay hidden and what no source can tell
+ * (labels, intent) lives in `./capabilities`.
  */
 
 import type {
@@ -45,18 +44,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Title",
       "Description",
       "Action"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "alert-dialog": {
@@ -68,21 +55,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Description",
       "Close",
       "Actions"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "open"
     ],
     "editableProperties": [
       "blur",
@@ -108,24 +80,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "GroupLabel",
       "Row",
       "Collection"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "disabled",
-      "open"
     ],
     "editableProperties": [
       "unstyled",
@@ -184,22 +138,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
         ],
         "default": "primary"
       }
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "invalid"
     ]
   },
   "breadcrumb": {
@@ -208,9 +146,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Item",
       "Link",
       "Separator"
-    ],
-    "states": [
-      "hover"
     ],
     "editableProperties": [
       "isActive"
@@ -247,24 +182,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
         "default": "md"
       }
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "disabled",
-      "invalid"
-    ],
     "editableProperties": [
       "loading"
     ]
@@ -276,18 +193,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Description",
       "Body",
       "Footer"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "chart": {
@@ -297,18 +202,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "TooltipContent",
       "Legend",
       "LegendContent"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ],
     "editableProperties": [
       "hideLabel",
@@ -322,23 +215,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Indicator",
       "Icon",
       "Group"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "disabled",
-      "invalid"
     ]
   },
   "collapsible": {
@@ -374,24 +250,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Chip",
       "ChipRemove"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "disabled",
-      "invalid",
-      "open"
-    ],
     "editableProperties": [
       "multiple",
       "unstyled",
@@ -416,21 +274,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Separator",
       "Shortcut",
       "Footer"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "open"
     ],
     "editableProperties": [
       "blur",
@@ -490,21 +333,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Viewport",
       "Backdrop"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "open"
-    ],
     "editableProperties": [
       "blur",
       "backdrop",
@@ -531,18 +359,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Viewport",
       "Backdrop",
       "Content"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ],
     "editableProperties": [
       "indent",
@@ -579,18 +395,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Title",
       "Description",
       "Actions"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "field": {
@@ -625,18 +429,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     "parts": [
       "Separator",
       "Text"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "input": {
@@ -649,23 +441,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
         ],
         "default": "primary"
       }
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "disabled",
-      "invalid"
     ],
     "editableProperties": [
       "unstyled",
@@ -689,18 +464,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Addon",
       "Text"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
     "editableProperties": [
       "focusVisible"
     ]
@@ -708,18 +471,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
   "kbd": {
     "parts": [
       "Group"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "menu": {
@@ -754,22 +505,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
         "default": "default"
       }
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "open"
-    ],
     "editableProperties": [
       "backdrop"
     ]
@@ -777,22 +512,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
   "menubar": {
     "parts": [
       "Trigger"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus"
     ]
   },
   "meter": {
@@ -813,24 +532,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Increment",
       "Input"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "active",
-      "invalid"
-    ],
     "editableProperties": [
       "scrubAreaCursor"
     ]
@@ -839,23 +540,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     "parts": [
       "Input",
       "Separator"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "disabled",
-      "invalid"
     ]
   },
   "popover": {
@@ -869,21 +553,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Description",
       "Close"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "open"
-    ],
     "editableProperties": [
       "backdrop"
     ]
@@ -894,18 +563,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Trigger",
       "Popup",
       "Arrow"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ],
     "editableProperties": [
       "backdrop"
@@ -918,18 +575,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Value",
       "Track",
       "Indicator"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "radio-group": {
@@ -937,10 +582,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Root",
       "Indicator",
       "Group"
-    ],
-    "states": [
-      "focus",
-      "invalid"
     ]
   },
   "scroll-area": {
@@ -949,9 +590,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Viewport",
       "Scrollbar",
       "Corner"
-    ],
-    "states": [
-      "focus"
     ],
     "editableProperties": [
       "scrollFade",
@@ -976,22 +614,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Separator",
       "Group",
       "GroupLabel"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus"
     ],
     "editableProperties": [
       "backdrop",
@@ -1049,26 +671,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "MenuSubItem",
       "MenuSubButton"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "active",
-      "disabled",
-      "expanded",
-      "open"
-    ],
     "editableProperties": [
       "open",
       "openMobile",
@@ -1076,20 +678,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "defaultOpen",
       "isActive",
       "showOnHover"
-    ]
-  },
-  "skeleton": {
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "slider": {
@@ -1100,28 +688,12 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Track",
       "Indicator",
       "Thumb"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "switch": {
     "parts": [
       "Root",
       "Thumb"
-    ],
-    "states": [
-      "focus",
-      "disabled"
     ]
   },
   "table": {
@@ -1133,9 +705,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Row",
       "Cell",
       "Caption"
-    ],
-    "states": [
-      "hover"
     ]
   },
   "tabs": {
@@ -1154,58 +723,14 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Tab",
       "Indicator",
       "Panel"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus"
     ]
   },
   "textarea": {
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "focus",
-      "invalid"
-    ],
     "editableProperties": [
       "unstyled"
     ]
   },
   "toast": {
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
     "editableProperties": [
       "tooltipStyle"
     ]
@@ -1240,25 +765,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     "parts": [
       "Group",
       "GroupSeparator"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "disabled",
-      "invalid",
-      "pressed"
     ]
   },
   "toolbar": {
@@ -1269,18 +775,6 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Link",
       "Input",
       "Text"
-    ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
     ]
   },
   "tooltip": {
@@ -1302,40 +796,8 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
       "Popup",
       "Arrow"
     ],
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
     "editableProperties": [
       "arrow"
-    ]
-  },
-  "x-close": {
-    "styles": [
-      {
-        "key": "radius",
-        "label": "Border radius",
-        "kind": "slider",
-        "min": 0,
-        "max": 2,
-        "step": 0.05,
-        "unit": "rem",
-        "default": 0.575
-      }
-    ],
-    "states": [
-      "hover",
-      "focus",
-      "disabled",
-      "open"
     ]
   }
 };

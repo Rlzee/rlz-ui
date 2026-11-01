@@ -6,20 +6,14 @@ import type { ComponentCapabilitiesOverride } from "@rlz/registry";
  *
  * What a component exposes is DETECTED from its own file (`./capabilities.detected`,
  * refreshed by `pnpm --filter @rlz/ui detect:capabilities`): cva variant axes and
- * their values, compound parts, styled states, boolean props, and the radius
- * tokens it draws. So adding a component needs no entry here at all - it becomes
- * editable on its own, and this file only lists the exceptions.
+ * their values, compound parts, and boolean props. So adding a component needs no
+ * entry here at all - it becomes editable on its own, and this file only lists the
+ * exceptions.
  *
  * `GLOBAL_EXCLUSIONS` hides what detection is right about in general but must
  * never offer; `componentCapabilitiesOverrides` hides what one component should
- * not expose, and declares what no file can tell: the range of a numeric slider
- * and the intent that an axis accepts brand-new values.
- *
- * A style `default` must be the value the design system already renders, so a
- * preset that never touched the slider still previews identically: `radius` is the
- * `--radius` token (0.575rem in `../styles/globals.css`, same as the default
- * preset's `base.layout.radius`), not the corner a given utility draws - which is
- * also why detection seeds it instead of every component declaring it.
+ * not expose, and declares what no file can tell: the intent that an axis accepts
+ * brand-new values.
  */
 
 export const GLOBAL_EXCLUSIONS: ComponentCapabilitiesOverride = {
@@ -60,15 +54,6 @@ export const componentCapabilitiesOverrides: Record<
     // The one axis meant to grow with brand-new brand values: `size` stays the
     // scale it is, `variant` is a palette.
     variants: [{ name: "variant", customizable: true }],
-  },
-
-  card: {
-    // `gap-6` and `px-6` are the design system's choice, not a range the Creator
-    // can be trusted to guess: the sliders tuning them are declared.
-    styles: [
-      { key: "gap", label: "Gap", kind: "slider", min: 0, max: 3, step: 0.25, unit: "rem", default: 1.5 },
-      { key: "padding", label: "Padding", kind: "slider", min: 0, max: 3, step: 0.25, unit: "rem", default: 1.5 },
-    ],
   },
 
   dialog: {

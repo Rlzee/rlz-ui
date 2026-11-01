@@ -21,27 +21,12 @@ export const ComponentVariantSchema = z.object({
   parts: z.array(z.string()).optional(),
 });
 
-// A numeric style the Creator can tune live (radius, spacing...). `kind` is a
-// discriminator so future control types (color, select...) can be added.
-export const ComponentStylePropertySchema = z.object({
-  key: z.string(),
-  label: z.string(),
-  kind: z.literal("slider"),
-  min: z.number(),
-  max: z.number(),
-  step: z.number(),
-  unit: z.string(),
-  default: z.number().optional(),
-});
-
 // Everything the Creator needs to auto-build a PropertiesPanel for a
 // component. Every group is optional: a section only renders when present, so
 // a component without variants never shows a Variants block.
 export const ComponentCapabilitiesSchema = z.object({
   variants: z.array(ComponentVariantSchema).optional(),
-  states: z.array(z.string()).optional(),
   parts: z.array(z.string()).optional(),
-  styles: z.array(ComponentStylePropertySchema).optional(),
   // Props worth surfacing as an always-available Creator adjustment (e.g.
   // booleans such as `backdrop`, `showCloseButton`), separate from the
   // structural `variants`/`parts` they accompany.
@@ -49,13 +34,11 @@ export const ComponentCapabilitiesSchema = z.object({
 });
 
 // What source detection already knows about a component, minus the groups the
-// Creator is not allowed to show. One name per group: a variant axis, a part, a
-// state, a style key or a prop.
+// Creator is not allowed to show. One name per group: a variant axis, a part or
+// a prop.
 export const ComponentCapabilityExclusionsSchema = z.object({
   variants: z.array(z.string()).optional(),
-  states: z.array(z.string()).optional(),
   parts: z.array(z.string()).optional(),
-  styles: z.array(z.string()).optional(),
   editableProperties: z.array(z.string()).optional(),
 });
 
@@ -72,14 +55,12 @@ export const ComponentVariantPatchSchema = z.object({
 
 // The hand-written half of a component's capabilities. Capabilities are
 // detected from the component sources, so this only carries what detection
-// cannot know (numeric sliders, labels, intent) and what must be hidden
-// (`exclude`). Adding a component therefore needs no entry at all.
+// cannot know (labels, intent) and what must be hidden (`exclude`). Adding a
+// component therefore needs no entry at all.
 export const ComponentCapabilitiesOverrideSchema = z.object({
   exclude: ComponentCapabilityExclusionsSchema.optional(),
   variants: z.array(ComponentVariantPatchSchema).optional(),
-  states: z.array(z.string()).optional(),
   parts: z.array(z.string()).optional(),
-  styles: z.array(ComponentStylePropertySchema).optional(),
   editableProperties: z.array(z.string()).optional(),
 });
 
@@ -98,8 +79,6 @@ export const PresetVariantValueSchema = z.object({
 export const PresetComponentCustomizationSchema = z.object({
   // Chosen value per variant axis, e.g. { variant: "outline", size: "sm" }.
   props: z.record(z.string(), z.union([z.string(), z.null()])).optional(),
-  // Numeric style overrides keyed by ComponentStyleProperty.key.
-  styles: z.record(z.string(), z.number()).optional(),
   // Full option list per variant axis, keyed by axis name, in display order.
   // Written by the Creator as soon as a value is renamed, added, removed or
   // restyled: the registry manifest keeps the design system's built-in values

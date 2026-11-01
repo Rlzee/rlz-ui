@@ -8,7 +8,7 @@ import {
   partsOf,
 } from "@rlz/ui/registry/resolve-capabilities";
 
-import { currentAppliedVariant, currentStyleValue } from "./component-edits";
+import { currentAppliedVariant } from "./component-edits";
 import { variantClassSections } from "./variant-classes";
 
 /**
@@ -31,22 +31,6 @@ import { variantClassSections } from "./variant-classes";
 export const PREVIEW_ID = "playground-preview";
 
 const SCOPE = `#${PREVIEW_ID}`;
-
-// Which CSS property one style slider tunes, on the component's own box.
-const STYLE_PROPERTIES: Record<string, string> = {
-  radius: "border-radius",
-  gap: "gap",
-  padding: "padding",
-};
-
-/**
- * The box a component style applies to. The root slot when the component draws
- * itself (Card, Button), else the part holding the surface users see: a dialog
- * tunes its popup, an input its control, a drawer its content. A component style
- * wins over `base.layout` because it is a declaration, while the base is the
- * variable those declarations read.
- */
-const SURFACE_SLOTS = ["", "popup", "content", "control", "body"];
 
 // A color value is written by a picker, so a stray `}` would break the sheet.
 export function safe(value: string) {
@@ -100,14 +84,12 @@ export function fontFamily(value: string, fallback = "sans-serif") {
 }
 
 /**
- * The stylesheet injected while the Creator runs: the preset's variables on the
- * playground, then one rule per component style the Creator moved.
+ * The stylesheet injected while the Creator runs: the preset's variables, applied
+ * to the playground. A per-component edit is a list of classes for one box, not a
+ * declaration the whole design system reads, so it stays out here and goes through
+ * `previewPatches` instead.
  */
-export function playgroundCss(
-  preset: RegistryPreset,
-  isDark: boolean,
-  edits: Record<string, PresetComponentCustomization>
-): string {
+export function playgroundCss(preset: RegistryPreset, isDark: boolean): string {
   const declarations = Object.entries(presetVariables(preset, isDark)).map(
     ([name, value]) => `--${name}:${value}`
   );
@@ -124,33 +106,6 @@ export function playgroundCss(
   );
 
   const rules = [`${SCOPE}{${declarations.join(";")}}`];
-
-  for (const [slug, edit] of Object.entries(edits)) {
-    const styles = edit.styles;
-
-    if (!styles) continue;
-
-    const capabilities = capabilitiesOf(slug);
-
-    for (const style of capabilities?.styles ?? []) {
-      const moved = styles[style.key];
-
-      if (moved === undefined) continue;
-
-      const property = STYLE_PROPERTIES[style.key];
-
-      if (!property) continue;
-
-      const value = `${currentStyleValue(style, edit)}${style.unit}`;
-
-      rules.push(
-        ...SURFACE_SLOTS.map(
-          (surface) =>
-            `${SCOPE} [data-slot="${surface ? `${slug}-${surface}` : slug}"]{${property}:${value}}`
-        )
-      );
-    }
-  }
 
   return rules.join("\n");
 }
@@ -188,7 +143,7 @@ export function previewPatches(
         if (section.override === undefined) continue;
 
         patches.push({
-          slot: slotOfSection(slug, section.part),
+          slot: section.slot,
           remove: tokensOf(section.builtIn),
           add: tokensOf(section.override),
         });
@@ -213,18 +168,7 @@ export function previewPatches(
   return patches;
 }
 
-// `Dialog` + `Popup` -> `dialog-popup`, the slot the demos are marked with.
-function slotOfSection(slug: string, part?: string) {
-  return part ? `${slug}-${kebab(part)}` : slug;
-}
-
-function kebab(value: string) {
-  return value
-    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
-    .replace(/([a-zA-Z])(\d)/g, "$1-$2")
-    .toLowerCase();
-}
-
+// Splits a class string into the individual tokens a patch removes or adds.
 function tokensOf(classes: string | undefined) {
   return (classes ?? "").split(/\s+/).filter(Boolean);
 }

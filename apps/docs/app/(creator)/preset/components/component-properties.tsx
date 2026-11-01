@@ -4,7 +4,6 @@ import * as React from "react";
 import { useAtomValue, useSetAtom } from "jotai";
 
 import type {
-  ComponentStyleProperty,
   ComponentVariant,
   PresetComponentCustomization,
 } from "@rlz/registry";
@@ -16,7 +15,6 @@ import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 import { slugFromId } from "../lib/slug";
 import {
   currentBool,
-  currentStyleValue,
   currentVariantOptions,
   currentVariantValue,
   titleCase,
@@ -30,11 +28,8 @@ import {
 } from "../lib/variant-classes";
 import { componentEditsAtom, setComponentEditAtom } from "../preset-builder";
 
-import { Badge } from "@rlz/ui/components/ui/badge";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Input } from "@rlz/ui/components/ui/input";
-import { InputGroup } from "@rlz/ui/components/ui/input-group";
-import { Slider } from "@rlz/ui/components/ui/slider";
 import { Switch } from "@rlz/ui/components/ui/switch";
 import { cn } from "@rlz/ui/lib/cn";
 
@@ -82,23 +77,6 @@ export function ComponentProperties() {
         </CollapsibleProperties>
       ))}
 
-      {capabilities.styles && capabilities.styles.length > 0 && (
-        <CollapsibleProperties name="Appearance" defaultOpen>
-          <div className="flex flex-col">
-            {capabilities.styles.map((style) => (
-              <SliderRow
-                key={style.key}
-                style={style}
-                value={currentStyleValue(style, edit)}
-                onChange={(value) =>
-                  update({ styles: { [style.key]: value } })
-                }
-              />
-            ))}
-          </div>
-        </CollapsibleProperties>
-      )}
-
       {parts.length > 0 && (
         <CollapsibleProperties name="Parts">
           <div className="flex flex-col gap-1 px-2 py-2">
@@ -140,18 +118,6 @@ export function ComponentProperties() {
             </div>
           </CollapsibleProperties>
         )}
-
-      {capabilities.states && capabilities.states.length > 0 && (
-        <CollapsibleProperties name="States">
-          <div className="flex flex-wrap gap-1.5 px-2 py-2">
-            {capabilities.states.map((state) => (
-              <Badge key={state} variant="secondary">
-                {state}
-              </Badge>
-            ))}
-          </div>
-        </CollapsibleProperties>
-      )}
     </section>
   );
 }
@@ -538,45 +504,6 @@ function PartRow({
           />
         </div>
       )}
-    </div>
-  );
-}
-
-function SliderRow({
-  style,
-  value,
-  onChange,
-}: {
-  style: ComponentStyleProperty;
-  value: number;
-  onChange: (value: number) => void;
-}) {
-  return (
-    <div className="flex flex-col gap-1.5 px-2 py-2">
-      <span className="text-xs text-muted-foreground">{style.label}</span>
-      <div className="flex items-center gap-3">
-        <Slider
-          min={style.min}
-          max={style.max}
-          step={style.step}
-          value={[value]}
-          onValueChange={(next) => onChange(next[0])}
-        />
-        <InputGroup className="h-7 w-28">
-          <Input
-            value={value}
-            step={style.step}
-            min={style.min}
-            max={style.max}
-            onChange={(event) => onChange(Number(event.target.value))}
-            unstyled
-            className="truncate font-mono text-xs"
-          />
-          <InputGroup.Addon align="inline-end">
-            <InputGroup.Text>{style.unit}</InputGroup.Text>
-          </InputGroup.Addon>
-        </InputGroup>
-      </div>
     </div>
   );
 }

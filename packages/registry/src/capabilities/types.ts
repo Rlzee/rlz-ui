@@ -4,7 +4,6 @@ import type {
   ComponentCapabilitiesSchema,
   ComponentCapabilityExclusionsSchema,
   ComponentCapabilityValueSchema,
-  ComponentStylePropertySchema,
   ComponentVariantPatchSchema,
   ComponentVariantSchema,
   PresetComponentCustomizationSchema,
@@ -16,8 +15,6 @@ export type ComponentCapabilityValue = z.infer<
 >;
 
 export type ComponentVariant = z.infer<typeof ComponentVariantSchema>;
-
-export type ComponentStyleProperty = z.infer<typeof ComponentStylePropertySchema>;
 
 export type ComponentCapabilities = z.infer<typeof ComponentCapabilitiesSchema>;
 

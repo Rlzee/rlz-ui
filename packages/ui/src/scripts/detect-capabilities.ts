@@ -8,7 +8,6 @@ import type {
 } from "@rlz/registry";
 import {
   analyzeComponentSource,
-  readRadiusDefault,
   type DetectedComponent,
 } from "./capability-analyzer";
 
@@ -26,10 +25,6 @@ const OUTPUT_RELATIVE = path.join("registry", "capabilities.detected.ts");
 const REGISTRY_SOURCES = ["registry/components.ts", "registry/base_components.ts"];
 
 export async function detectCapabilities(srcDir: string) {
-  const radiusDefault = readRadiusDefault(
-    await fs.readFile(path.join(srcDir, "styles", "globals.css"), "utf8")
-  );
-
   const items = await registryItemPaths(srcDir);
   const detected: Record<string, DetectedComponent> = {};
 
@@ -37,7 +32,7 @@ export async function detectCapabilities(srcDir: string) {
     try {
       const file = await componentSource(srcDir, itemPath);
       const text = await fs.readFile(file, "utf8");
-      detected[id] = analyzeComponentSource({ fileName: file, text, slug: id, radiusDefault });
+      detected[id] = analyzeComponentSource({ fileName: file, text, slug: id });
     } catch (error) {
       // A component that cannot be read simply gets no properties panel: it must
       // not take the whole detection down.
@@ -160,12 +155,11 @@ function fileHeader() {
  * \`build:registry\`) - DO NOT EDIT, the next run overwrites this file.
  *
  * What every registered component exposes to the Creator, read straight from its
- * source: cva variant axes and their values, compound parts (\`Object.assign\`),
- * styled states, boolean props, and the radius tokens it draws. Alongside it, the
- * classes each part was authored with and the \`data-slot\` that identifies it in
- * the demos. This is the detected half of a component's capabilities; what must
- * stay hidden and what no source can tell (numeric sliders, labels) lives in
- * \`./capabilities\`.
+ * source: cva variant axes and their values, compound parts (\`Object.assign\`)
+ * and boolean props. Alongside it, the classes each part was authored with and
+ * the \`data-slot\` that identifies it in the demos. This is the detected half of
+ * a component's capabilities; what must stay hidden and what no source can tell
+ * (labels, intent) lives in \`./capabilities\`.
  */`;
 }
 

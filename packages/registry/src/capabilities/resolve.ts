@@ -2,7 +2,6 @@ import type {
   ComponentCapabilities,
   ComponentCapabilitiesOverride,
   ComponentCapabilityExclusions,
-  ComponentStyleProperty,
   ComponentVariant,
 } from "./types";
 
@@ -10,9 +9,7 @@ import type {
 // capabilities list them.
 const GROUPS = [
   "variants",
-  "styles",
   "parts",
-  "states",
   "editableProperties",
 ] as const;
 
@@ -22,9 +19,7 @@ type Exclusions = Required<ComponentCapabilityExclusions>;
 
 const NO_EXCLUSIONS: Exclusions = {
   variants: [],
-  styles: [],
   parts: [],
-  states: [],
   editableProperties: [],
 };
 
@@ -43,8 +38,8 @@ function collectExclusions(
 
 /**
  * Resolves what the Creator can configure on a component: what its sources
- * already expose (detection), plus what only a human can declare (numeric
- * sliders, labels, intent), minus everything the policy hides (`exclude`).
+ * already expose (detection), plus what only a human can declare (labels,
+ * intent), minus everything the policy hides (`exclude`).
  * Returns undefined when nothing is left to edit, so the Creator shows no panel
  * instead of an empty one.
  */
@@ -62,13 +57,7 @@ export function resolveComponentCapabilities(
     added("variants", (override) => override.variants),
     excluded
   );
-  const styles = mergeByKey(
-    detected?.styles,
-    added("styles", (override) => override.styles),
-    excluded.styles
-  );
   const parts = mergeStrings(detected?.parts, added("parts", (o) => o.parts), excluded.parts);
-  const states = mergeStrings(detected?.states, added("states", (o) => o.states), excluded.states);
   const editableProperties = mergeStrings(
     detected?.editableProperties,
     added("editableProperties", (o) => o.editableProperties),
@@ -77,9 +66,7 @@ export function resolveComponentCapabilities(
 
   const resolved: ComponentCapabilities = {
     variants,
-    styles,
     parts,
-    states,
     editableProperties,
   };
 
@@ -100,27 +87,6 @@ function mergeStrings(
   );
 
   return merged.length > 0 ? [...new Set(merged)] : undefined;
-}
-
-// Same as `mergeStrings`, but keyed: a declared style with a detected `key`
-// patches it instead of being appended twice.
-function mergeByKey(
-  detected: ComponentStyleProperty[] | undefined,
-  added: ComponentStyleProperty[],
-  excluded: string[]
-): ComponentStyleProperty[] | undefined {
-  const byKey = new Map<string, ComponentStyleProperty>();
-
-  for (const style of [...(detected ?? []), ...added]) {
-    if (excluded.includes(style.key)) {
-      byKey.delete(style.key);
-      continue;
-    }
-
-    byKey.set(style.key, { ...byKey.get(style.key), ...style });
-  }
-
-  return byKey.size > 0 ? [...byKey.values()] : undefined;
 }
 
 // A patch only changes the fields it declares: an axis keeps the values, the
