@@ -1,9 +1,8 @@
 import fs from "fs-extra";
-import {
-  shadowPrimitives,
-  type PresetColorToken,
-  type PresetColorConfig,
-  type PresetBaseConfig,
+import type {
+  PresetColorToken,
+  PresetColorConfig,
+  PresetBaseConfig,
 } from "@rlz/registry";
 
 function escapeRegExp(value: string): string {
@@ -74,15 +73,19 @@ export async function updateCssPreset(
     );
   }
 
-  // The shadow box, six primitives at a time. Only the box is written: the app's own
-  // `@theme inline` draws every `shadow-*` step from it, resolved on the element the
-  // utility styles. A preset that says nothing about shadows leaves the sheet alone.
-  if (preset.base?.shadows) {
-    for (const [cssVar, value] of Object.entries(
-      shadowPrimitives(preset.base.shadows)
-    )) {
-      css = replaceVariable(css, cssVar, value);
-    }
+  // The shadow box, six primitives at a time - the way `--radius` above is written,
+  // with the unit the sheet declares it with. Only the box is written: the app's own
+  // `@theme inline` draws every `shadow-*` step from it. A preset that carries no box
+  // leaves the sheet's own alone.
+  const shadows = preset.base?.shadows;
+
+  if (shadows) {
+    css = replaceVariable(css, "--shadow-x", `${shadows.offsetX}px`);
+    css = replaceVariable(css, "--shadow-y", `${shadows.offsetY}px`);
+    css = replaceVariable(css, "--shadow-blur", `${shadows.blur}px`);
+    css = replaceVariable(css, "--shadow-spread", `${shadows.spread}px`);
+    css = replaceVariable(css, "--shadow-opacity", `${shadows.opacity}`);
+    css = replaceVariable(css, "--shadow-color", shadows.color);
   }
 
   await fs.writeFile(cssPath, css, "utf8");

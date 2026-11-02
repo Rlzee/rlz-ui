@@ -26,8 +26,8 @@ export const PresetBaseConfigSchema = z.object({
     spacing: z.number(),
   }),
 
-  // One shadow box, retuned: absent means the app keeps what the design system
-  // ships, and the ladder its sheet declares (see `designSystemShadowBox`).
+  // One shadow box: the color it is drawn in, the alpha, and how far it reaches.
+  // Absent means the app keeps the box its own stylesheet declares.
   shadows: PresetShadowConfigSchema.optional(),
 
   utilities: z.record(z.string(), z.string()).optional(),

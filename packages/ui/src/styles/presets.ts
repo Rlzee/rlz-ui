@@ -17,6 +17,14 @@ export const defaultPreset: RegistryPreset = {
       radius: 0.575,
       spacing: 0.25,
     },
+    shadows: {
+      color: "hsl(0 0% 0%)",
+      opacity: 0.18,
+      blur: 2,
+      spread: 0,
+      offsetX: 0,
+      offsetY: 1,
+    },
   },
 
   colors: [

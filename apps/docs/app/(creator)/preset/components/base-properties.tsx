@@ -4,11 +4,7 @@ import * as React from "react";
 import { useAtom } from "jotai";
 import { Plus } from "lucide-react";
 
-import {
-  designSystemShadowBox,
-  designSystemShadowFields,
-  type PresetShadowConfig,
-} from "@rlz/registry";
+import type { PresetShadowConfig } from "@rlz/registry";
 
 import { CollapsibleProperties } from "./colapsible-properties";
 import { ClassesField } from "./classes-field";
@@ -28,26 +24,38 @@ import {
   utilityName,
   writeCssValue,
 } from "../lib/preset-css";
+import {
+  designSystemShadowBox,
+  designSystemShadowFields,
+} from "../lib/preset-shadows";
 
-// What each numeric field of the shadow box is worth sliding to: an alpha has no
-// reach beyond one, a blur only grows one way. The units and labels come from the
-// registry, so the form and the sheet can never name the box differently.
+// The five numbers of the shadow box, in the order this panel asks them, each with
+// the reach worth sliding to: an alpha has none beyond one, a blur only grows one
+// way. Labels and reach are this form's business; which variable a field writes, and
+// in what unit, is what `preset-shadows` answers for the whole Creator.
 const SHADOW_SCALES = {
-  opacity: { min: 0, max: 1, step: 0.01 },
-  blur: { min: 0, max: 48, step: 1 },
-  spread: { min: -24, max: 24, step: 1 },
-  offsetX: { min: -32, max: 32, step: 1 },
-  offsetY: { min: -32, max: 32, step: 1 },
+  opacity: { label: "Opacity", min: 0, max: 1, step: 0.01 },
+  blur: { label: "Blur", min: 0, max: 48, step: 1 },
+  spread: { label: "Spread", min: -24, max: 24, step: 1 },
+  offsetX: { label: "Offset X", min: -32, max: 32, step: 1 },
+  offsetY: { label: "Offset Y", min: -32, max: 32, step: 1 },
 } satisfies Record<
   Exclude<keyof PresetShadowConfig, "color">,
-  { min: number; max: number; step: number }
+  { label: string; min: number; max: number; step: number }
 >;
 
-// The box as the form holds it: the color is picked, the rest are slid.
-const SHADOW_FIELDS = designSystemShadowFields.flatMap(
-  ({ key, label, unit }) =>
-    key === "color" ? [] : [{ key, label, unit, ...SHADOW_SCALES[key] }]
-);
+// A row of the form: what it is called, how far it slides, and the unit the design
+// system writes the number with - so an addon and the sheet cannot disagree about
+// what `2` means.
+const SHADOW_ROWS = Object.entries(SHADOW_SCALES).map(([key, scale]) => {
+  const field = key as Exclude<keyof PresetShadowConfig, "color">;
+
+  return {
+    ...scale,
+    key: field,
+    unit: designSystemShadowFields.find((one) => one.key === field)?.unit ?? "",
+  };
+});
 
 export function BaseProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
@@ -114,8 +122,9 @@ export function BaseProperties() {
     if (declared === name) setDeclared("");
   };
 
-  // The box the draft carries, or the one the design system ships: a field shows
-  // what the app would draw if the preset said nothing about shadows.
+  // The box the draft carries, or the one the shipped preset declares: a field shows
+  // what the app would draw if the preset said nothing about shadows. A design system
+  // whose preset names no box has no shadow to edit here, and the section stays out.
   const shadow = preset.base.shadows ?? designSystemShadowBox;
 
   const updateShadow = (key: keyof PresetShadowConfig, value: string) => {
@@ -165,51 +174,9 @@ export function BaseProperties() {
           />
         </CollapsibleProperties>
 
-        <CollapsibleProperties name="SHADOWS" defaultOpen>
-          <div className="flex flex-col gap-0.5 px-2 py-2">
-            <span className="px-2 text-[11px] text-muted-foreground">
-              Each shadow-* step is drawn from this box.
-            </span>
-
-            <div className="flex items-center gap-2 px-2 py-1.5">
-              <span className="w-16 shrink-0 text-xs text-muted-foreground">
-                Color
-              </span>
-
-              <div
-                className="size-5 shrink-0 rounded-sm border"
-                style={{ background: shadow.color }}
-              />
-
-              <Input
-                value={shadow.color}
-                spellCheck={false}
-                aria-label="Shadow color"
-                onChange={(event) => updateShadow("color", event.target.value)}
-                className="h-7 min-w-0 flex-1 truncate font-mono text-xs"
-              />
-
-              <TailwindColorsSelector
-                value={shadow.color}
-                onChange={(value) => updateShadow("color", value)}
-              />
-            </div>
-
-            {SHADOW_FIELDS.map((field) => (
-              <SliderRow
-                key={field.key}
-                showLabel
-                label={field.label}
-                value={shadow[field.key]}
-                min={field.min}
-                max={field.max}
-                step={field.step}
-                unit={field.unit}
-                onChange={(value) => updateShadow(field.key, String(value))}
-              />
-            ))}
-          </div>
-        </CollapsibleProperties>
+        {shadow && (
+          <ShadowBoxFields box={shadow} onChange={updateShadow} />
+        )}
 
         <CollapsibleProperties name="UTILITIES" defaultOpen>
           <div className="flex flex-col gap-2.5 px-2 py-2">
@@ -246,6 +213,68 @@ export function BaseProperties() {
         </CollapsibleProperties>
       </div>
     </section>
+  );
+}
+
+/**
+ * The shadow box as a form: what it is drawn in, then how far it reaches. The color is
+ * the Colors panel's own trio - swatch, value, Tailwind picker - and the five numbers
+ * slide and type like the radius above them. What they add up to is the ladder the app's
+ * sheet draws from the six, which is why this panel has no step to name.
+ */
+function ShadowBoxFields({
+  box,
+  onChange,
+}: {
+  box: PresetShadowConfig;
+  onChange: (key: keyof PresetShadowConfig, value: string) => void;
+}) {
+  return (
+    <CollapsibleProperties name="SHADOWS" defaultOpen>
+      <div className="flex flex-col gap-0.5 px-2 py-2">
+        <span className="px-2 text-[11px] text-muted-foreground">
+          Each shadow-* step is drawn from this box.
+        </span>
+
+        <div className="flex items-center gap-2 px-2 py-1.5">
+          <span className="w-16 shrink-0 text-xs text-muted-foreground">
+            Color
+          </span>
+
+          <div
+            className="size-5 shrink-0 rounded-sm border"
+            style={{ background: box.color }}
+          />
+
+          <Input
+            value={box.color}
+            spellCheck={false}
+            aria-label="Shadow color"
+            onChange={(event) => onChange("color", event.target.value)}
+            className="h-7 min-w-0 flex-1 truncate font-mono text-xs"
+          />
+
+          <TailwindColorsSelector
+            value={box.color}
+            onChange={(value) => onChange("color", value)}
+          />
+        </div>
+
+        {SHADOW_ROWS.map((row) => (
+          <SliderRow
+            key={row.key}
+            showLabel
+            label={row.label}
+            value={box[row.key]}
+            min={row.min}
+            max={row.max}
+            step={row.step}
+            unit={row.unit}
+            onChange={(value) => onChange(row.key, String(value))}
+          />
+        ))}
+      </div>
+    </CollapsibleProperties>
   );
 }
 

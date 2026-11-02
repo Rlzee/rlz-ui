@@ -1,4 +1,3 @@
-import { shadowPrimitives } from "@rlz/registry";
 import type {
   PresetComponentCustomization,
   RegistryPreset,
@@ -10,6 +9,7 @@ import {
 } from "@rlz/ui/registry/resolve-capabilities";
 
 import { currentAppliedVariant } from "./component-edits";
+import { shadowPrimitives } from "./preset-shadows";
 import { variantClassSections } from "./variant-classes";
 
 /**
@@ -81,10 +81,9 @@ export function presetVariables(
     vars["font-mono"] = fontFamily(typography.fontMono, "monospace");
   }
 
-  // The shadow box, when the preset retuned one - only its six primitives. The app's
-  // own `@theme inline` draws the steps from them and resolves the primitives on the
-  // element each `shadow-*` utility styles, so a box written here is seen on the
-  // demo, not only in the exported sheet.
+  // The shadow box, only its six primitives. The app's own `@theme inline` draws the
+  // steps from them and resolves the primitives on the element each `shadow-*` utility
+  // styles, so a box written here is seen on the demo, not only in the exported sheet.
   const shadows = preset.base.shadows;
 
   if (shadows) {

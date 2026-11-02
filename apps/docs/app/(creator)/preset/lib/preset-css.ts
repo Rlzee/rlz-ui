@@ -1,12 +1,4 @@
-import type { RegistryPreset } from "@rlz/registry";
-
-import {
-  designSystemShadowBox,
-  designSystemShadowFields,
-  isDesignSystemShadowBox,
-  shadowPrimitives,
-  type PresetShadowConfig,
-} from "@rlz/registry";
+import type { PresetShadowConfig, RegistryPreset } from "@rlz/registry";
 
 import {
   designSystemUtilities,
@@ -14,6 +6,11 @@ import {
 } from "@rlz/ui/styles/utilities";
 
 import { fontFamily, safe } from "./preset-styles";
+import {
+  designSystemShadowBox,
+  designSystemShadowFields,
+  shadowPrimitives,
+} from "./preset-shadows";
 
 /**
  * The stylesheet a consuming app ends up with, described once and rendered twice:
@@ -163,8 +160,8 @@ export function cssSheet(preset: RegistryPreset): CssRule[] {
   }));
 
   // The design system closes both of its blocks with the shadow box, so a preset
-  // that retuned one closes them the same way. One that touched nothing says
-  // nothing: the app keeps the values it shipped.
+  // carrying one closes them the same way - light values under `:root`, dark under
+  // `.dark`, the one box the sheet itself ships twice.
   const shadows = shadowEntries(preset);
 
   if (shadows.length > 0) {
@@ -185,10 +182,7 @@ export function cssSheet(preset: RegistryPreset): CssRule[] {
 
 /** The sheet as the text an app's stylesheet carries. */
 export function themeCss(preset: RegistryPreset): string {
-  return `${cssSheet(preset)
-    .map(renderRule)
-    .filter(Boolean)
-    .join("\n\n")}\n`;
+  return `${cssSheet(preset).map(renderRule).filter(Boolean).join("\n\n")}\n`;
 }
 
 /**
@@ -257,11 +251,11 @@ export function writeCssValue(
 }
 
 /**
- * The shadow part of the sheet: the six primitives of a box the preset retuned.
- * A draft still wearing the design system's own box lists nothing - the sheet is
- * what ships it, and a preset stores a difference, not a copy. The steps are not
- * listed either: the app's `@theme inline` draws them from these six, which is why
- * one box is six numbers here and not eight shadow strings.
+ * The shadow part of the sheet: the six primitives of the box a preset declares.
+ * A preset that carries no box at all - one imported from before the field existed -
+ * lists nothing, the way a preset without a recommendation lists no font variables.
+ * The steps are never listed: the app's own `@theme inline` draws them from these
+ * six, which is why one box is six numbers here rather than eight shadow strings.
  */
 function shadowEntries(preset: RegistryPreset): CssEntry[] {
   const box = preset.base.shadows;
@@ -282,9 +276,12 @@ function writeShadow(
   key: keyof PresetShadowConfig,
   raw: string
 ): RegistryPreset {
-  // The box the draft carries, or the one the design system ships: a field is always
-  // edited against what it shows.
+  // The box the draft carries, or the one the shipped preset declares: a field is
+  // always edited against what it shows. A design system whose preset names no box has
+  // no values for a field to start from - and no Shadows section offers one.
   const current = preset.base.shadows ?? designSystemShadowBox;
+
+  if (!current) return preset;
 
   if (key === "color") {
     return withShadowBox(preset, { ...current, color: safe(raw.trim()) });
@@ -318,19 +315,16 @@ function shadowNumber(
   }
 }
 
-// A box the design system already ships would be a copy of its sheet rather than a
-// decision, so the field goes back to unset - and the app's own primitives, and the
-// ladder they draw, come back with it.
+// The draft with its box written. A box is declared rather than differed, the way
+// `layout.radius` is: a preset keeps the shadow it draws even when that is the one
+// the design system ships, so the JSON says what the app will look like.
 function withShadowBox(
   preset: RegistryPreset,
   box: PresetShadowConfig
 ): RegistryPreset {
   return {
     ...preset,
-    base: {
-      ...preset.base,
-      shadows: isDesignSystemShadowBox(box) ? undefined : box,
-    },
+    base: { ...preset.base, shadows: box },
   };
 }
 
@@ -541,5 +535,7 @@ function color(value: string | undefined) {
 
 // Classes are one line here, however they were typed.
 function classes(value: string | undefined) {
-  return safe(value ?? "").replace(/\s+/g, " ").trim();
+  return safe(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
