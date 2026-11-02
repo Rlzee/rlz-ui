@@ -1,9 +1,6 @@
 import type { PresetShadowConfig, RegistryPreset } from "@rlz/registry";
 
-import {
-  designSystemUtilities,
-  type DesignSystemUtility,
-} from "@rlz/ui/styles/utilities";
+import { defaultPreset } from "@rlz/ui/styles/presets";
 
 import { fontFamily, safe } from "./preset-styles";
 import {
@@ -11,6 +8,12 @@ import {
   designSystemShadowFields,
   shadowPrimitives,
 } from "./preset-shadows";
+
+// The shared classes as the shipped preset declares them. The Creator reads its
+// defaults through the preset and nowhere else in the design system, which is what
+// keeps `globals.css` the only truth of what an app ships.
+const designSystemUtilities: Record<string, string> =
+  defaultPreset.base.utilities ?? {};
 
 /**
  * The stylesheet a consuming app ends up with, described once and rendered twice:
@@ -352,17 +355,12 @@ function writeColor(
 }
 
 function writeUtility(preset: RegistryPreset, name: string, value: string) {
-  const shipped = builtIn(name);
-  const utilities = { ...preset.base.utilities };
-
-  // Writing the design system's own classes back drops the rewrite, so the app
-  // keeps the definition it ships and the preset stores no copy of it. A class of
-  // the preset's own has nothing to fall back to: an empty field is a definition
-  // still being written, and `removeUtility` is what takes the class out.
-  if (shipped !== "" && value === shipped) delete utilities[name];
-  else utilities[name] = value;
-
-  return withUtilities(preset, utilities);
+  // A shared class is declared rather than differed, the way the radius and the
+  // shadow box are: writing the design system's own classes back keeps the entry, at
+  // those classes, so the preset's JSON says what the app will draw. A class of the
+  // preset's own has nothing to fall back to: an empty field is a definition still
+  // being written, and `removeUtility` is what takes the class out.
+  return withUtilities(preset, { ...preset.base.utilities, [name]: value });
 }
 
 /**
@@ -415,7 +413,7 @@ export function utilityName(raw: string) {
 export type UtilityDraft = {
   /** the class the app types, without its leading dot */
   name: string;
-  /** the design system's own classes, empty for a class of the preset's own */
+  /** the shipped preset's own classes, empty for a class of the draft's own */
   builtIn: string;
   /** what the draft wrote over it, `undefined` while it wrote nothing */
   override?: string;
@@ -424,10 +422,10 @@ export type UtilityDraft = {
 };
 
 /**
- * Every utility the draft can write classes for: the design system's own in the
- * order its sheet declares them, then any class only this preset knows about. Both
- * the base panel and the CSS editor list from here, so neither can hide an entry
- * the other one created.
+ * Every utility the draft can write classes for: the ones the shipped preset declares,
+ * in the order it declares them, then any class only this draft knows about. Both the
+ * base panel and the CSS editor list from here, so neither can hide an entry the other
+ * one created.
  */
 export function utilitiesOf(preset: RegistryPreset): UtilityDraft[] {
   const rewritten = preset.base.utilities ?? {};
@@ -443,10 +441,10 @@ export function utilitiesOf(preset: RegistryPreset): UtilityDraft[] {
   }));
 }
 
-// The classes the design system ships under a name, empty for a class it never
+// The classes the shipped preset declares under a name, empty for a class it never
 // declares - which is how a utility of the preset's own tells itself apart.
 function builtIn(name: string): string {
-  return designSystemUtilities[name as DesignSystemUtility] ?? "";
+  return designSystemUtilities[name] ?? "";
 }
 
 function isOwnUtility(name: string) {

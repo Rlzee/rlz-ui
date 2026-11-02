@@ -25,6 +25,14 @@ export const defaultPreset: RegistryPreset = {
       offsetX: 0,
       offsetY: 1,
     },
+    utilities: {
+      "state-invalid":
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+      "state-focus-ring":
+        "focus-visible:outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-2",
+      "ui-title": "text-lg text-foreground leading-none font-semibold",
+      "ui-description": "text-sm text-muted-foreground",
+    },
   },
 
   colors: [

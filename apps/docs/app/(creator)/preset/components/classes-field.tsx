@@ -6,15 +6,15 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Textarea } from "@rlz/ui/components/ui/textarea";
 
 /**
- * One class editor, shared by the two ways the Creator restyles a component: a
- * variant value (the classes one value of an axis draws) and a part of the
- * component (the classes one of its boxes was authored with). Both are the same
- * exchange - what the design system ships in, what the Creator wants out.
+ * One class editor, shared by the two ways the Creator restyles a design system: a
+ * variant value or a part of a component (the classes one box was authored with), and
+ * a shared utility class (the recipe several components borrow). All three are the same
+ * exchange - what ships in, what the Creator wants out.
  *
- * `builtIn` is what the component really carries, `override` what was written over
- * it. Writing the built-in classes back clears the override, so a preset only ever
- * stores a real difference. A field with nothing to fall back to - a utility the
- * preset declared itself - cannot be reset, so `onRemove` replaces that button.
+ * `builtIn` is what is really carried there, `override` what was written over it, and a
+ * field only reads as rewritten once the two differ - a preset may store a class at the
+ * very classes it ships, and say so honestly. A field with nothing to fall back to, a
+ * utility the preset declared itself, cannot be reset: `onRemove` replaces that button.
  */
 export type ClassesFieldTarget = {
   /** what the field edits, for its label: an axis value or a part name */
@@ -37,9 +37,10 @@ export function ClassesField({
   autoFocus?: boolean;
 }) {
   const { subject, part, builtIn, override } = target;
-  // Classes in effect: the Creator's own, else what the design system ships.
+  // Classes in effect: the Creator's own, else what the design system ships. What is
+  // stored only counts as a rewrite once it reads differently.
   const effective = override ?? builtIn;
-  const overridden = override !== undefined;
+  const overridden = override !== undefined && override !== builtIn;
 
   // What the field holds, in the panel's own words: a rewrite of a shared class, a
   // class of the preset's own, or the design system's untouched definition.
