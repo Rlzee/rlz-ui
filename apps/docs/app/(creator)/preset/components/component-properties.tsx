@@ -28,6 +28,7 @@ import {
 } from "../lib/variant-classes";
 import {
   appearanceFields,
+  isRounded,
   setAppearanceValue,
   type AppearanceField,
 } from "../lib/appearance";
@@ -67,7 +68,7 @@ export function ComponentProperties() {
   const edit = edits[slug];
   const update = (patch: PresetComponentCustomization) => setEdit(slug, patch);
 
-  // A box that sizes itself with padding/gap/radius utilities gets an Appearance
+  // A box that sizes itself with padding/gap/rounded utilities gets an Appearance
   // field per family; a box whose classes carry none has nothing to offer here.
   const appearanceBoxes = parts
     .map((part) => {
@@ -572,9 +573,10 @@ function BoolRow({
 }
 
 /**
- * One box's Appearance: a field for each padding/gap/radius family its classes
- * carry. The box is named like the Classes editor names it, and each field edits
- * only its own utility family, leaving the rest of the class string untouched.
+ * One box's Appearance: a field for each padding/gap/rounded family its classes
+ * carry - `rounded-t-lg` and `rounded-b-lg` are two families, so two fields. The
+ * box is named like the Classes editor names it, and each field edits only its own
+ * utility family, leaving the rest of the class string untouched.
  */
 function AppearancePart({
   slot,
@@ -616,9 +618,9 @@ function AppearancePart({
 }
 
 // The radius scale the Creator offers as a segmented toggle. Tailwind names a
-// corner by these steps, so a click writes `rounded-<step>` and the box's own
-// value stays lit when it is one of them.
-const RADIUS_OPTIONS = ["xs", "sm", "md", "lg", "xl", "full"];
+// corner by these steps, so a click writes them onto the field's own utility
+// (`rounded-lg`, `rounded-t-lg`) and the box's current step stays lit.
+const ROUNDED_OPTIONS = ["xs", "sm", "md", "lg", "xl", "full"];
 
 // A gap/padding scale reads back as a number (`6`, `0.5`), so it is edited with a
 // NumberField. Anything that is not a plain number - an arbitrary `[0.6rem]`, the
@@ -635,11 +637,19 @@ function isNumericScale(value: string): boolean {
   return value.trim() === "" || scaleNumber(value) !== null;
 }
 
+// The toggle only speaks the curated steps, so an off-scale value (`none`, `2xl`,
+// an arbitrary `(--radius)`) reads back in the free text field instead of sitting
+// behind an unlit control.
+function isRoundedScale(value: string): boolean {
+  return value.trim() === "" || ROUNDED_OPTIONS.includes(value.trim());
+}
+
 /**
- * One Appearance field: radius is a curated scale picked from a segmented toggle,
- * gap and padding use a NumberField when their value is a plain number, and any
- * other value (an arbitrary `[0.6rem]`, the `px` keyword) falls back to a free
- * text field. The label sits in a fixed column so controls line up.
+ * One Appearance field: the rounded families pick their step from a segmented
+ * toggle, gap and padding use a NumberField when their value is a plain number,
+ * and any other value (an arbitrary `[0.6rem]`, the `px` keyword, an off-scale
+ * `2xl`) falls back to a free text field. The label sits in a fixed column so
+ * controls line up.
  */
 function AppearanceField({
   field,
@@ -648,14 +658,20 @@ function AppearanceField({
   field: AppearanceField;
   onValue: (value: string) => void;
 }) {
+  const rounded = isRounded(field.prefix) && isRoundedScale(field.value);
+
   return (
     <div className="flex items-center gap-2">
       <span className="w-28 shrink-0 text-xs text-muted-foreground">
         {field.label}
       </span>
 
-      {field.prefix === "rounded" ? (
-        <RadiusOptions value={field.value} onChange={onValue} />
+      {rounded ? (
+        <RoundedOptions
+          value={field.value}
+          label={field.label}
+          onChange={onValue}
+        />
       ) : isNumericScale(field.value) ? (
         <NumberScaleField
           value={field.value}
@@ -676,14 +692,18 @@ function AppearanceField({
 /**
  * The radius scale as a single-select Toggle group: its outline variant draws the
  * joined, rounded-end segmented bar, the current step stays pressed, and picking
- * one applies it at once. The group reports a wide value (a single string here,
- * since only one step is selected), so it is narrowed before it is written.
+ * one applies it at once. Every rounded family shares it, so the group is labelled
+ * by the field that owns it (Rounded, Rounded Top, Rounded Bottom Left...). The
+ * group reports a wide value (a single string here, since only one step is
+ * selected), so it is narrowed before it is written.
  */
-function RadiusOptions({
+function RoundedOptions({
   value,
+  label,
   onChange,
 }: {
   value: string;
+  label: string;
   onChange: (value: string) => void;
 }) {
   return (
@@ -691,23 +711,23 @@ function RadiusOptions({
       variant="outline"
       size="xs"
       value={value ? [value] : []}
-      aria-label="Radius"
+      aria-label={label}
       className="flex-1"
       onValueChange={(next) => {
         // A single-select group keeps the whole pressed set, so only one step is
-        // ever in it; read that one back as the radius value.
+        // ever in it; read that one back as the rounded value.
         const picked = next[0];
 
         if (typeof picked === "string") onChange(picked);
       }}
     >
-      {RADIUS_OPTIONS.map((option, index) => (
+      {ROUNDED_OPTIONS.map((option, index) => (
         <React.Fragment key={option}>
           <Toggle value={option} className="flex-1 font-mono">
             {option}
           </Toggle>
 
-          {index < RADIUS_OPTIONS.length - 1 && <Toggle.GroupSeparator />}
+          {index < ROUNDED_OPTIONS.length - 1 && <Toggle.GroupSeparator />}
         </React.Fragment>
       ))}
     </Toggle.Group>

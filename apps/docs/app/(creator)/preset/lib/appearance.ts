@@ -1,20 +1,22 @@
 // The design system sizes a box with raw Tailwind utilities written straight in
-// its classes (`px-6`, `gap-2`, `rounded-lg`). The Appearance section reads those
-// back as named fields, so the Creator tunes padding, gap and radius without
-// editing the whole class string. A utility is recognised by its prefix only when
-// the token continues with `-` (`px-6` is `px`, `pyramid` and `md:px-6` are not),
-// and a bare `rounded` reads as radius with no scale.
+// its classes (`px-6`, `gap-2`, `rounded-lg`, `rounded-t-lg`). The Appearance
+// section reads those back as named fields, so the Creator tunes padding, gap and
+// rounding without editing the whole class string. A utility is recognised by its
+// prefix only when the token continues with `-` (`px-6` is `px`, `pyramid` and
+// `md:px-6` are not), and a bare `rounded` reads as the rounding with no scale.
 
 export type AppearanceField = {
-  /** the utility family it edits: `px`, `gap`, `rounded`... */
+  /** the utility family it edits: `px`, `gap`, `rounded`, `rounded-t`... */
   prefix: string;
   /** what the field shows and edits: the token after the prefix (`6`, `lg`) */
   value: string;
   label: string;
 };
 
-// Order decides both detection (a longer prefix is checked before its shorter
-// parent) and the order the fields are listed.
+// The order the fields are listed in: the generic family of a group before the
+// ones narrowing a side or a corner. Detection does not follow this order - a
+// token belongs to the LONGEST family it matches, so `rounded-t-lg` is `rounded-t`
+// and not `rounded` with a `t-lg` scale, exactly like `px-6` is `px`, not `p`.
 const FAMILIES: { prefix: string; label: string }[] = [
   { prefix: "gap-x", label: "Gap X" },
   { prefix: "gap-y", label: "Gap Y" },
@@ -28,29 +30,63 @@ const FAMILIES: { prefix: string; label: string }[] = [
   { prefix: "pb", label: "Padding Bottom" },
   { prefix: "pl", label: "Padding Left" },
   { prefix: "p", label: "Padding" },
-  { prefix: "rounded", label: "Radius" },
+  { prefix: "rounded", label: "Rounded" },
+  { prefix: "rounded-t", label: "Rounded Top" },
+  { prefix: "rounded-r", label: "Rounded Right" },
+  { prefix: "rounded-b", label: "Rounded Bottom" },
+  { prefix: "rounded-l", label: "Rounded Left" },
+  { prefix: "rounded-s", label: "Rounded Start" },
+  { prefix: "rounded-e", label: "Rounded End" },
+  // The four physical corners, then their logical (writing-mode aware) twins.
+  { prefix: "rounded-tl", label: "Rounded Top Left" },
+  { prefix: "rounded-tr", label: "Rounded Top Right" },
+  { prefix: "rounded-bl", label: "Rounded Bottom Left" },
+  { prefix: "rounded-br", label: "Rounded Bottom Right" },
+  { prefix: "rounded-ss", label: "Rounded SS" },
+  { prefix: "rounded-se", label: "Rounded SE" },
+  { prefix: "rounded-es", label: "Rounded ES" },
+  { prefix: "rounded-ee", label: "Rounded EE" },
 ];
 
 // The family one token belongs to, with the scale that follows it ("" when the
-// utility carries none, as a bare `rounded` does).
+// utility carries none, as a bare `rounded` does). The most specific family wins,
+// so each side and corner is its own field rather than a scale of the whole box.
 function familyOf(token: string) {
   // Variant-prefixed utilities (`md:px-6`, `data-...:rounded`) are not a box's
   // static size: they only fire in a state, so Appearance leaves them alone.
   if (token.includes(":")) return undefined;
 
-  for (const family of FAMILIES) {
-    if (token === family.prefix) return { ...family, value: "" };
+  let hit: { prefix: string; label: string; value: string } | undefined;
 
-    if (token.startsWith(`${family.prefix}-`)) {
-      return { ...family, value: token.slice(family.prefix.length + 1) };
+  for (const family of FAMILIES) {
+    const value =
+      token === family.prefix
+        ? ""
+        : token.startsWith(`${family.prefix}-`)
+          ? token.slice(family.prefix.length + 1)
+          : undefined;
+
+    if (value === undefined) continue;
+
+    if (!hit || hit.prefix.length < family.prefix.length) {
+      hit = { ...family, value };
     }
   }
 
-  return undefined;
+  return hit;
 }
 
 /**
- * The padding/gap/radius fields a class string exposes, always in the fixed
+ * Whether a field edits a rounding family: `rounded` itself, or one of its side
+ * and corner variants (`rounded-t`, `rounded-bl`...). They all pick from the same
+ * radius scale, so they share one control.
+ */
+export function isRounded(prefix: string) {
+  return prefix === "rounded" || prefix.startsWith("rounded-");
+}
+
+/**
+ * The padding/gap/rounding fields a class string exposes, always in the fixed
  * family order. Listing them by the utility's position in the string would make
  * the Creator rows jump when an edit moves that token, so the order here is tied
  * to `FAMILIES`, never to the class string.
