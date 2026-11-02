@@ -13,7 +13,8 @@ import { Textarea } from "@rlz/ui/components/ui/textarea";
  *
  * `builtIn` is what the component really carries, `override` what was written over
  * it. Writing the built-in classes back clears the override, so a preset only ever
- * stores a real difference.
+ * stores a real difference. A field with nothing to fall back to - a utility the
+ * preset declared itself - cannot be reset, so `onRemove` replaces that button.
  */
 export type ClassesFieldTarget = {
   /** what the field edits, for its label: an axis value or a part name */
@@ -27,14 +28,28 @@ export type ClassesFieldTarget = {
 export function ClassesField({
   target,
   onClasses,
+  onRemove,
+  autoFocus,
 }: {
   target: ClassesFieldTarget;
   onClasses: (classes: string) => void;
+  onRemove?: () => void;
+  autoFocus?: boolean;
 }) {
   const { subject, part, builtIn, override } = target;
   // Classes in effect: the Creator's own, else what the design system ships.
   const effective = override ?? builtIn;
   const overridden = override !== undefined;
+
+  // What the field holds, in the panel's own words: a rewrite of a shared class, a
+  // class of the preset's own, or the design system's untouched definition.
+  const status = builtIn
+    ? overridden
+      ? "Custom classes"
+      : "Built-in classes"
+    : effective
+      ? "Utility of the preset's own"
+      : "Nothing applied yet";
 
   const [css, setCss] = React.useState(effective);
 
@@ -51,10 +66,11 @@ export function ClassesField({
       <Textarea
         value={css}
         rows={2}
+        autoFocus={autoFocus}
         aria-label={
           part ? `Classes of ${subject} (${part})` : `Classes of ${subject}`
         }
-        placeholder={builtIn || `No classes yet - define ${subject}`}
+        placeholder={builtIn || `Classes to @apply in ${part ?? subject}`}
         onChange={(event) => setCss(event.target.value)}
         onBlur={() => onClasses(css)}
         onKeyDown={(event) => {
@@ -71,22 +87,28 @@ export function ClassesField({
       />
 
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[11px] text-muted-foreground">
-          {overridden
-            ? "Custom classes"
-            : builtIn
-              ? "Built-in classes"
-              : "No classes yet"}
-        </span>
-        {overridden && (
+        <span className="text-[11px] text-muted-foreground">{status}</span>
+
+        {onRemove ? (
           <Button
             variant="ghost"
             size="xs"
             className="text-[11px]"
-            onClick={() => onClasses(builtIn)}
+            onClick={onRemove}
           >
-            Reset
+            Remove
           </Button>
+        ) : (
+          overridden && (
+            <Button
+              variant="ghost"
+              size="xs"
+              className="text-[11px]"
+              onClick={() => onClasses(builtIn)}
+            >
+              Reset
+            </Button>
+          )
         )}
       </div>
     </div>

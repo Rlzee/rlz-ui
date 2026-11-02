@@ -21,6 +21,10 @@ import { fontFamily, safe } from "./preset-styles";
  * design system anymore, it would be replacing it, and every component reading that
  * variable would stop being drawn.
  *
+ * A utility is the one place allowed to grow a name of its own: a class the app was
+ * never given restyles nothing that exists, so a preset may declare one (see
+ * `addUtility`) next to retuning the four the design system ships.
+ *
  * Values are derived with the helpers the playground paints with (see
  * `presetVariables`), so what is shown, what is edited and what is applied live can
  * never disagree. A per-component edit stays out of this sheet: it is a list of
@@ -253,13 +257,113 @@ function writeColor(
 }
 
 function writeUtility(preset: RegistryPreset, name: string, value: string) {
+  const shipped = builtIn(name);
   const utilities = { ...preset.base.utilities };
 
   // Writing the design system's own classes back drops the rewrite, so the app
-  // keeps the definition it ships and the preset stores no copy of it.
-  if (value === builtIn(name)) delete utilities[name];
+  // keeps the definition it ships and the preset stores no copy of it. A class of
+  // the preset's own has nothing to fall back to: an empty field is a definition
+  // still being written, and `removeUtility` is what takes the class out.
+  if (shipped !== "" && value === shipped) delete utilities[name];
   else utilities[name] = value;
 
+  return withUtilities(preset, utilities);
+}
+
+/**
+ * Declares a utility of the preset's own, with no classes yet - the field that
+ * appears below is what fills it in. A name the draft already carries, one of the
+ * design system's four or a class declared earlier, leaves the draft alone.
+ */
+export function addUtility(
+  preset: RegistryPreset,
+  rawName: string
+): RegistryPreset {
+  const name = utilityName(rawName);
+
+  if (!name || utilitiesOf(preset).some((utility) => utility.name === name)) {
+    return preset;
+  }
+
+  return writeUtility(preset, name, "");
+}
+
+/**
+ * Takes a utility of the preset's own out of the draft. A class the design system
+ * declares cannot be removed - the components carrying it would lose their look -
+ * so its rewrite simply goes back through `writeUtility`.
+ */
+export function removeUtility(
+  preset: RegistryPreset,
+  name: string
+): RegistryPreset {
+  if (!isOwnUtility(name)) return preset;
+
+  const utilities = { ...preset.base.utilities };
+  delete utilities[name];
+
+  return withUtilities(preset, utilities);
+}
+
+/**
+ * The name a typed label becomes as a utility. The panel writes a class with its
+ * dot, so the dot comes off first, and only what a selector can carry survives:
+ * empty when the text could not name a class.
+ */
+export function utilityName(raw: string) {
+  const name = safe(raw).trim().replace(/^\.+/, "").replace(/\s+/g, "-");
+
+  return /^[A-Za-z][A-Za-z0-9_-]*$/.test(name) ? name : "";
+}
+
+/** One utility as the Creator reads it: what is shipped, what was written over it. */
+export type UtilityDraft = {
+  /** the class the app types, without its leading dot */
+  name: string;
+  /** the design system's own classes, empty for a class of the preset's own */
+  builtIn: string;
+  /** what the draft wrote over it, `undefined` while it wrote nothing */
+  override?: string;
+  /** a class only this preset declares, so it can be removed rather than reset */
+  own: boolean;
+};
+
+/**
+ * Every utility the draft can write classes for: the design system's own in the
+ * order its sheet declares them, then any class only this preset knows about. Both
+ * the base panel and the CSS editor list from here, so neither can hide an entry
+ * the other one created.
+ */
+export function utilitiesOf(preset: RegistryPreset): UtilityDraft[] {
+  const rewritten = preset.base.utilities ?? {};
+
+  return [
+    ...Object.keys(designSystemUtilities),
+    ...Object.keys(rewritten).filter(isOwnUtility),
+  ].map((name) => ({
+    name,
+    builtIn: builtIn(name),
+    override: rewritten[name],
+    own: isOwnUtility(name),
+  }));
+}
+
+// The classes the design system ships under a name, empty for a class it never
+// declares - which is how a utility of the preset's own tells itself apart.
+function builtIn(name: string): string {
+  return designSystemUtilities[name as DesignSystemUtility] ?? "";
+}
+
+function isOwnUtility(name: string) {
+  return !(name in designSystemUtilities);
+}
+
+// The draft with its shared class rewrites replaced. An empty record drops the
+// field, so a preset that retunes nothing carries nothing.
+function withUtilities(
+  preset: RegistryPreset,
+  utilities: Record<string, string>
+): RegistryPreset {
   return {
     ...preset,
     base: {
@@ -269,23 +373,10 @@ function writeUtility(preset: RegistryPreset, name: string, value: string) {
   };
 }
 
-function builtIn(name: string) {
-  return designSystemUtilities[name as DesignSystemUtility] ?? "";
-}
-
 function utilityEntries(preset: RegistryPreset): CssEntry[] {
-  const rewritten = preset.base.utilities ?? {};
-
-  // The shared classes first, in the order the design system declares them, then
-  // any class only this preset knows about.
-  const names = [
-    ...Object.keys(designSystemUtilities),
-    ...Object.keys(rewritten).filter((name) => !(name in designSystemUtilities)),
-  ];
-
-  return names.map((name) => ({
+  return utilitiesOf(preset).map(({ name, builtIn: shipped, override }) => ({
     name,
-    value: classes(rewritten[name] ?? builtIn(name)),
+    value: classes(override ?? shipped),
     target: { kind: "utility", name },
   }));
 }
