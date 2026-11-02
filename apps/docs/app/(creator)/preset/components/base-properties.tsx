@@ -217,6 +217,12 @@ function NewUtilityRow({
   );
 }
 
+// The number a typed box holds, if it holds one yet. A decimal comma reads as a
+// number too, because the box is typed by hand: `0,575` is the same radius.
+function parsedNumber(raw: string) {
+  return Number.parseFloat(raw.trim().replace(",", "."));
+}
+
 function SliderRow({
   label,
   value,
@@ -234,6 +240,29 @@ function SliderRow({
   unit: string;
   onChange: (value: number) => void;
 }) {
+  // The box keeps its own text: `0,` or an emptied field is not a value yet, and
+  // writing one into the draft would be worse than keeping what it had - the whole
+  // Tailwind radius and spacing scale is computed from these two numbers.
+  const [text, setText] = React.useState(String(value));
+
+  // Re-seed only when the number moved elsewhere (the slider, a Reset, an imported
+  // preset), never over a half-written text that reads as that same number.
+  React.useEffect(
+    () =>
+      setText((current) =>
+        parsedNumber(current) === value ? current : String(value)
+      ),
+    [value]
+  );
+
+  const type = (raw: string) => {
+    setText(raw);
+
+    const number = parsedNumber(raw);
+
+    if (Number.isFinite(number)) onChange(number);
+  };
+
   return (
     <div className="flex items-center gap-3 px-2 py-2">
       {/* <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
@@ -250,11 +279,15 @@ function SliderRow({
 
       <InputGroup className="w-38 h-7">
         <Input
-          value={value}
+          value={text}
           step={step}
           min={min}
           max={max}
-          onChange={(e) => onChange(Number(e.target.value))}
+          onChange={(e) => type(e.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") event.currentTarget.blur();
+            if (event.key === "Escape") setText(String(value));
+          }}
           unstyled
           className="truncate font-mono text-xs"
         />

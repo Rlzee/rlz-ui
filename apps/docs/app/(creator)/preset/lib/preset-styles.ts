@@ -56,11 +56,18 @@ export function presetVariables(
   const { letterSpacing } = preset.base.typography;
 
   // `--tracking-normal` is what the `tracking-normal` body utility resolves, and
-  // `--font-*` are the families the recommended typefaces land on.
+  // `--font-*` are the families the recommended typefaces land on. A number the
+  // draft never settled writes nothing, exactly as the exported sheet leaves it out
+  // (see `sized`): these three variables are what Tailwind's own radius and spacing
+  // scales are computed from, so a `--radius:NaNrem` here would not only lose the
+  // radius - it would take every `rounded-*` utility in the preview down with it.
+  const settled = (value: number | undefined, unit: string) =>
+    Number.isFinite(value) ? `${value}${unit}` : "";
+
   Object.assign(vars, {
-    radius: `${radius}rem`,
-    spacing: `${spacing}rem`,
-    "tracking-normal": `${letterSpacing}em`,
+    radius: settled(radius, "rem"),
+    spacing: settled(spacing, "rem"),
+    "tracking-normal": settled(letterSpacing, "em"),
   });
 
   const typography = preset.recommendations?.typography;
@@ -90,9 +97,11 @@ export function fontFamily(value: string, fallback = "sans-serif") {
  * `previewPatches` instead.
  */
 export function playgroundCss(preset: RegistryPreset, isDark: boolean): string {
-  const declarations = Object.entries(presetVariables(preset, isDark)).map(
-    ([name, value]) => `--${name}:${value}`
-  );
+  const declarations = Object.entries(presetVariables(preset, isDark))
+    // A value the draft left unset writes nothing, so the preview keeps the value
+    // the app shipped with rather than an empty custom property.
+    .filter(([, value]) => value !== "")
+    .map(([name, value]) => `--${name}:${value}`);
 
   // `font-family` and `letter-spacing` are inherited as a resolved value, so the
   // preview has to read them itself for its subtree to inherit the preset's. And
