@@ -2,6 +2,20 @@ import { z } from "zod";
 import { BaseRegistryItemSchema } from "../base-schema";
 import { PresetComponentCustomizationSchema } from "../capabilities/schema";
 
+export const PresetShadowConfigSchema = z.object({
+  /** `--shadow-color`: what every layer of the ladder is drawn in */
+  color: z.string(),
+
+  /** `--shadow-opacity`: the alpha the steps scale, not a percentage */
+  opacity: z.number(),
+
+  /** `--shadow-blur`, `--shadow-spread` and both offsets are pixels */
+  blur: z.number(),
+  spread: z.number(),
+  offsetX: z.number(),
+  offsetY: z.number(),
+});
+
 export const PresetBaseConfigSchema = z.object({
   typography: z.object({
     letterSpacing: z.number(),
@@ -11,6 +25,10 @@ export const PresetBaseConfigSchema = z.object({
     radius: z.number(),
     spacing: z.number(),
   }),
+
+  // One shadow box, retuned: absent means the app keeps what the design system
+  // ships, and the ladder its sheet declares (see `designSystemShadowBox`).
+  shadows: PresetShadowConfigSchema.optional(),
 
   utilities: z.record(z.string(), z.string()).optional(),
 });

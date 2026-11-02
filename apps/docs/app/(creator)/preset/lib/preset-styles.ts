@@ -1,3 +1,4 @@
+import { shadowPrimitives } from "@rlz/registry";
 import type {
   PresetComponentCustomization,
   RegistryPreset,
@@ -78,6 +79,18 @@ export function presetVariables(
   }
   if (typography?.fontMono) {
     vars["font-mono"] = fontFamily(typography.fontMono, "monospace");
+  }
+
+  // The shadow box, when the preset retuned one - only its six primitives. The app's
+  // own `@theme inline` draws the steps from them and resolves the primitives on the
+  // element each `shadow-*` utility styles, so a box written here is seen on the
+  // demo, not only in the exported sheet.
+  const shadows = preset.base.shadows;
+
+  if (shadows) {
+    for (const [cssVar, value] of Object.entries(shadowPrimitives(shadows))) {
+      vars[cssVar.replace(/^--/, "")] = safe(value);
+    }
   }
 
   return vars;

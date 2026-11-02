@@ -16,6 +16,7 @@ export * from "./items/schema";
 export * from "./presets/define-presets";
 export * from "./presets/types";
 export * from "./presets/schema";
+export * from "./presets/shadows";
 
 // capabilities
 

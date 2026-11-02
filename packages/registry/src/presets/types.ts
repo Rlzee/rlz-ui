@@ -4,12 +4,17 @@ import type {
   PresetColorConfigSchema,
   PresetColorTokenSchema,
   PresetRecommendationsSchema,
+  PresetShadowConfigSchema,
   RegistryPresetSchema,
 } from "./schema";
 
 // Base
 
 export type PresetBaseConfig = z.infer<typeof PresetBaseConfigSchema>;
+
+// Shadow
+
+export type PresetShadowConfig = z.infer<typeof PresetShadowConfigSchema>;
 
 // Colors
 

@@ -1,6 +1,14 @@
 import type { RegistryPreset } from "@rlz/registry";
 
 import {
+  designSystemShadowBox,
+  designSystemShadowFields,
+  isDesignSystemShadowBox,
+  shadowPrimitives,
+  type PresetShadowConfig,
+} from "@rlz/registry";
+
+import {
   designSystemUtilities,
   type DesignSystemUtility,
 } from "@rlz/ui/styles/utilities";
@@ -38,7 +46,9 @@ export type CssTarget =
   | { kind: "spacing" }
   | { kind: "letterSpacing" }
   | { kind: "font"; key: "fontSans" | "fontHeading" | "fontMono" }
-  | { kind: "utility"; name: string };
+  | { kind: "utility"; name: string }
+  /** one field of the shadow box the preset retuned */
+  | { kind: "shadow"; key: keyof PresetShadowConfig };
 
 export type CssEntry = {
   /** locked label: the custom property, or the class without its leading dot */
@@ -152,6 +162,16 @@ export function cssSheet(preset: RegistryPreset): CssRule[] {
     ),
   }));
 
+  // The design system closes both of its blocks with the shadow box, so a preset
+  // that retuned one closes them the same way. One that touched nothing says
+  // nothing: the app keeps the values it shipped.
+  const shadows = shadowEntries(preset);
+
+  if (shadows.length > 0) {
+    light.push({ title: "Shadow", entries: shadows });
+    dark.push({ title: "Shadow", entries: shadows });
+  }
+
   return [
     { selector: ":root", shape: "declarations", groups: light },
     { selector: ".dark", shape: "declarations", groups: dark },
@@ -230,7 +250,88 @@ export function writeCssValue(
 
     case "utility":
       return writeUtility(preset, target.name, classes(raw));
+
+    case "shadow":
+      return writeShadow(preset, target.key, raw);
   }
+}
+
+/**
+ * The shadow part of the sheet: the six primitives of a box the preset retuned.
+ * A draft still wearing the design system's own box lists nothing - the sheet is
+ * what ships it, and a preset stores a difference, not a copy. The steps are not
+ * listed either: the app's `@theme inline` draws them from these six, which is why
+ * one box is six numbers here and not eight shadow strings.
+ */
+function shadowEntries(preset: RegistryPreset): CssEntry[] {
+  const box = preset.base.shadows;
+
+  if (!box) return [];
+
+  const primitives = shadowPrimitives(box);
+
+  return designSystemShadowFields.map(({ key, cssVar }) => ({
+    name: cssVar,
+    value: primitives[cssVar],
+    target: { kind: "shadow", key },
+  }));
+}
+
+function writeShadow(
+  preset: RegistryPreset,
+  key: keyof PresetShadowConfig,
+  raw: string
+): RegistryPreset {
+  // The box the draft carries, or the one the design system ships: a field is always
+  // edited against what it shows.
+  const current = preset.base.shadows ?? designSystemShadowBox;
+
+  if (key === "color") {
+    return withShadowBox(preset, { ...current, color: safe(raw.trim()) });
+  }
+
+  const number = Number.parseFloat(raw);
+
+  // A field mid-typing is not a value yet, so it leaves the draft alone.
+  if (!Number.isFinite(number)) return preset;
+
+  return withShadowBox(preset, shadowNumber(current, key, number));
+}
+
+// One numeric field written back. Named per key, so a number cannot land on `color`.
+function shadowNumber(
+  current: PresetShadowConfig,
+  key: Exclude<keyof PresetShadowConfig, "color">,
+  value: number
+): PresetShadowConfig {
+  switch (key) {
+    case "opacity":
+      return { ...current, opacity: value };
+    case "blur":
+      return { ...current, blur: value };
+    case "spread":
+      return { ...current, spread: value };
+    case "offsetX":
+      return { ...current, offsetX: value };
+    default:
+      return { ...current, offsetY: value };
+  }
+}
+
+// A box the design system already ships would be a copy of its sheet rather than a
+// decision, so the field goes back to unset - and the app's own primitives, and the
+// ladder they draw, come back with it.
+function withShadowBox(
+  preset: RegistryPreset,
+  box: PresetShadowConfig
+): RegistryPreset {
+  return {
+    ...preset,
+    base: {
+      ...preset.base,
+      shadows: isDesignSystemShadowBox(box) ? undefined : box,
+    },
+  };
 }
 
 function writeColor(

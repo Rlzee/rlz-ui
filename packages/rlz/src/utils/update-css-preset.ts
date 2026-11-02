@@ -1,8 +1,9 @@
 import fs from "fs-extra";
-import type {
-  PresetColorToken,
-  PresetColorConfig,
-  PresetBaseConfig,
+import {
+  shadowPrimitives,
+  type PresetColorToken,
+  type PresetColorConfig,
+  type PresetBaseConfig,
 } from "@rlz/registry";
 
 function escapeRegExp(value: string): string {
@@ -71,6 +72,17 @@ export async function updateCssPreset(
       "--tracking-normal",
       `${preset.base.typography.letterSpacing}em`
     );
+  }
+
+  // The shadow box, six primitives at a time. Only the box is written: the app's own
+  // `@theme inline` draws every `shadow-*` step from it, resolved on the element the
+  // utility styles. A preset that says nothing about shadows leaves the sheet alone.
+  if (preset.base?.shadows) {
+    for (const [cssVar, value] of Object.entries(
+      shadowPrimitives(preset.base.shadows)
+    )) {
+      css = replaceVariable(css, cssVar, value);
+    }
   }
 
   await fs.writeFile(cssPath, css, "utf8");

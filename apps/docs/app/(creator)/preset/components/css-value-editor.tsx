@@ -86,7 +86,7 @@ function DeclarationRow({
       <span className="shrink-0">{`${entry.name}:`}</span>
 
       {/* The swatch the Colors panel shows, so a value reads as a color here too. */}
-      {entry.target.kind === "color" && (
+      {isColorEntry(entry) && (
         <span
           className="size-3.5 shrink-0 rounded-sm border"
           style={{ background: entry.value }}
@@ -101,6 +101,14 @@ function DeclarationRow({
 
       <span className="shrink-0">;</span>
     </Line>
+  );
+}
+
+// A color is a color whether it is a token or the shadow box drawn in it.
+function isColorEntry(entry: CssEntry) {
+  return (
+    entry.target.kind === "color" ||
+    (entry.target.kind === "shadow" && entry.target.key === "color")
   );
 }
 

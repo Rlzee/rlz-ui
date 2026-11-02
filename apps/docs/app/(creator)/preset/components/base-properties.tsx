@@ -4,10 +4,16 @@ import * as React from "react";
 import { useAtom } from "jotai";
 import { Plus } from "lucide-react";
 
+import {
+  designSystemShadowBox,
+  designSystemShadowFields,
+  type PresetShadowConfig,
+} from "@rlz/registry";
+
 import { CollapsibleProperties } from "./colapsible-properties";
 import { ClassesField } from "./classes-field";
+import { TailwindColorsSelector } from "@/components/tailwind-colors-selector";
 
-import { Label } from "@rlz/ui/components/ui/label";
 import { Slider } from "@rlz/ui/components/ui/slider";
 import { Input } from "@rlz/ui/components/ui/input";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
@@ -22,6 +28,26 @@ import {
   utilityName,
   writeCssValue,
 } from "../lib/preset-css";
+
+// What each numeric field of the shadow box is worth sliding to: an alpha has no
+// reach beyond one, a blur only grows one way. The units and labels come from the
+// registry, so the form and the sheet can never name the box differently.
+const SHADOW_SCALES = {
+  opacity: { min: 0, max: 1, step: 0.01 },
+  blur: { min: 0, max: 48, step: 1 },
+  spread: { min: -24, max: 24, step: 1 },
+  offsetX: { min: -32, max: 32, step: 1 },
+  offsetY: { min: -32, max: 32, step: 1 },
+} satisfies Record<
+  Exclude<keyof PresetShadowConfig, "color">,
+  { min: number; max: number; step: number }
+>;
+
+// The box as the form holds it: the color is picked, the rest are slid.
+const SHADOW_FIELDS = designSystemShadowFields.flatMap(
+  ({ key, label, unit }) =>
+    key === "color" ? [] : [{ key, label, unit, ...SHADOW_SCALES[key] }]
+);
 
 export function BaseProperties() {
   const [preset, setPreset] = useAtom(presetBuilderAtom);
@@ -88,6 +114,16 @@ export function BaseProperties() {
     if (declared === name) setDeclared("");
   };
 
+  // The box the draft carries, or the one the design system ships: a field shows
+  // what the app would draw if the preset said nothing about shadows.
+  const shadow = preset.base.shadows ?? designSystemShadowBox;
+
+  const updateShadow = (key: keyof PresetShadowConfig, value: string) => {
+    // The same write the CSS editor makes, so what counts as a retune of the box -
+    // and what drops back to the design system's own - lives in one place.
+    setPreset((prev) => writeCssValue(prev, { kind: "shadow", key }, value));
+  };
+
   return (
     <section id="editor-base" className="h-full">
       <div className="px-2 py-3 flex flex-col gap-2">
@@ -127,6 +163,52 @@ export function BaseProperties() {
             unit="rem"
             onChange={(value) => updateBase("layout", "spacing", value)}
           />
+        </CollapsibleProperties>
+
+        <CollapsibleProperties name="SHADOWS" defaultOpen>
+          <div className="flex flex-col gap-0.5 px-2 py-2">
+            <span className="px-2 text-[11px] text-muted-foreground">
+              Each shadow-* step is drawn from this box.
+            </span>
+
+            <div className="flex items-center gap-2 px-2 py-1.5">
+              <span className="w-16 shrink-0 text-xs text-muted-foreground">
+                Color
+              </span>
+
+              <div
+                className="size-5 shrink-0 rounded-sm border"
+                style={{ background: shadow.color }}
+              />
+
+              <Input
+                value={shadow.color}
+                spellCheck={false}
+                aria-label="Shadow color"
+                onChange={(event) => updateShadow("color", event.target.value)}
+                className="h-7 min-w-0 flex-1 truncate font-mono text-xs"
+              />
+
+              <TailwindColorsSelector
+                value={shadow.color}
+                onChange={(value) => updateShadow("color", value)}
+              />
+            </div>
+
+            {SHADOW_FIELDS.map((field) => (
+              <SliderRow
+                key={field.key}
+                showLabel
+                label={field.label}
+                value={shadow[field.key]}
+                min={field.min}
+                max={field.max}
+                step={field.step}
+                unit={field.unit}
+                onChange={(value) => updateShadow(field.key, String(value))}
+              />
+            ))}
+          </div>
         </CollapsibleProperties>
 
         <CollapsibleProperties name="UTILITIES" defaultOpen>
@@ -231,6 +313,7 @@ function SliderRow({
   step,
   unit,
   onChange,
+  showLabel,
 }: {
   label: string;
   value: number;
@@ -239,6 +322,8 @@ function SliderRow({
   step: number;
   unit: string;
   onChange: (value: number) => void;
+  /** for a section holding several rows: Shadows names each box it slides. */
+  showLabel?: boolean;
 }) {
   // The box keeps its own text: `0,` or an emptied field is not a value yet, and
   // writing one into the draft would be worse than keeping what it had - the whole
@@ -265,15 +350,18 @@ function SliderRow({
 
   return (
     <div className="flex items-center gap-3 px-2 py-2">
-      {/* <Label className="text-xs w-16 flex shrink-0 text-muted-foreground">
-        {label}
-      </Label> */}
+      {showLabel && (
+        <span className="w-16 shrink-0 text-xs text-muted-foreground">
+          {label}
+        </span>
+      )}
 
       <Slider
         min={min}
         max={max}
         step={step}
         value={[value]}
+        aria-label={label}
         onValueChange={(value) => onChange(value[0])}
       />
 
@@ -283,6 +371,7 @@ function SliderRow({
           step={step}
           min={min}
           max={max}
+          aria-label={`${label} value`}
           onChange={(e) => type(e.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter") event.currentTarget.blur();
