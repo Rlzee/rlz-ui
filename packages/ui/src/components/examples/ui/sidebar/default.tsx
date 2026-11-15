@@ -1,3 +1,5 @@
+"use client";
+
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { Separator } from "@rlz/ui/components/ui/separator";
@@ -63,19 +65,13 @@ export default function Examples() {
                 <Sidebar.GroupLabel>Account</Sidebar.GroupLabel>
                 <Sidebar.List>
                   <Sidebar.Sub>
-                    <Sidebar.SubTrigger
-                      render={<a href="#team" />}
-                      tooltip="Team"
-                    >
+                    <Sidebar.SubTrigger tooltip="Team">
                       <User />
                       Team
                     </Sidebar.SubTrigger>
                     <Sidebar.SubList>
                       {TEAM.map((item) => (
-                        <Sidebar.SubButton
-                          key={item}
-                          tooltip={item}
-                        >
+                        <Sidebar.SubButton key={item} tooltip={item}>
                           {item}
                         </Sidebar.SubButton>
                       ))}
@@ -95,16 +91,11 @@ export default function Examples() {
             <Sidebar.Body>
               <Sidebar.List>
                 <Sidebar.NavBack>Settings</Sidebar.NavBack>
-                <Sidebar.Button
-                  isActive
-                  tooltip="Profile"
-                >
+                <Sidebar.Button isActive tooltip="Profile">
                   <User />
                   Profile
                 </Sidebar.Button>
-                <Sidebar.Button
-                  tooltip="Security"
-                >
+                <Sidebar.Button tooltip="Security">
                   <Shield />
                   Security
                 </Sidebar.Button>
@@ -120,12 +111,8 @@ export default function Examples() {
             <Sidebar.Body>
               <Sidebar.List>
                 <Sidebar.NavBack>Billing</Sidebar.NavBack>
-                <Sidebar.SubButton>
-                  Invoices
-                </Sidebar.SubButton>
-                <Sidebar.Button>
-                  Plans
-                </Sidebar.Button>
+                <Sidebar.SubButton>Invoices</Sidebar.SubButton>
+                <Sidebar.Button>Plans</Sidebar.Button>
               </Sidebar.List>
             </Sidebar.Body>
           </Sidebar.NavPage>
