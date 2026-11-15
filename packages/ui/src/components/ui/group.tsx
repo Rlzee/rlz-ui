@@ -43,6 +43,7 @@ const groupVariants = cva(
 function GroupRoot({
   className,
   orientation = "horizontal",
+  attached = true,
   ...props
 }: React.ComponentProps<"div"> & VariantProps<typeof groupVariants>) {
   return (
@@ -50,7 +51,7 @@ function GroupRoot({
       role="group"
       data-slot="group"
       data-orientation={orientation}
-      className={cn(groupVariants({ orientation }), className)}
+      className={cn(groupVariants({ orientation, attached }), className)}
       {...props}
     />
   );
@@ -63,12 +64,12 @@ function GroupSeparator({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="group-separator"
       className={cn(
         "pointer-events-none relative z-2 shrink-0 bg-border",
-        "[[data-orientation=horizontal]_&]:self-stretch [[data-orientation=horizontal]_&]:w-px",
-        "[[data-orientation=vertical]_&]:h-px [[data-orientation=vertical]_&]:w-full",
-        "[[data-orientation=horizontal]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px",
-        "[[data-orientation=horizontal]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px",
-        "[[data-orientation=vertical]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px",
-        "[[data-orientation=vertical]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px",
+        "in-data-[orientation=horizontal]:self-stretch in-data-[orientation=horizontal]:w-px",
+        "in-data-[orientation=vertical]:h-px in-data-[orientation=vertical]:w-full",
+        "in-data-[orientation=horizontal]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px",
+        "in-data-[orientation=horizontal]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px",
+        "in-data-[orientation=vertical]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px",
+        "in-data-[orientation=vertical]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px",
         className,
       )}
       {...props}

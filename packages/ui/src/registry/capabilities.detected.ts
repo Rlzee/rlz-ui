@@ -448,6 +448,9 @@ export const detectedCapabilities: Record<string, ComponentCapabilities> = {
     "parts": [
       "Separator",
       "Text"
+    ],
+    "editableProperties": [
+      "attached"
     ]
   },
   "input": {
@@ -981,7 +984,7 @@ export const detectedVariantClasses: Record<string, ComponentVariantClasses> = {
     "byValue": {
       "variant": {},
       "unstyled": {
-        "false": "h-9 relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring"
+        "false": "h-9 relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50 has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring"
       }
     }
   },
@@ -1413,7 +1416,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Chips": {
       "slot": "combobox-chips",
-      "classes": "relative inline-flex min-h-9 w-full flex-wrap gap-1 rounded-md border bg-input text-sm p-[calc(--spacing(1)-1px)] outline-none *:min-h-7 focus-within:ring-ring/50 focus-within:ring-[2px] focus-within:border-ring has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50"
+      "classes": "relative inline-flex min-h-9 w-full flex-wrap gap-1 rounded-md border bg-input text-sm p-[calc(--spacing(1)-1px)] outline-none *:min-h-7 focus-within:ring-ring/50 focus-within:ring-2 focus-within:border-ring has-aria-invalid:ring-destructive/20 dark:has-aria-invalid:ring-destructive/40 has-aria-invalid:border-destructive has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50"
     },
     "ChipsInput": {
       "slot": "combobox-chips-input",
@@ -1699,7 +1702,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Separator": {
       "slot": "group-separator",
-      "classes": "pointer-events-none relative z-2 shrink-0 bg-border [[data-orientation=horizontal]_&]:self-stretch [[data-orientation=horizontal]_&]:w-px [[data-orientation=vertical]_&]:h-px [[data-orientation=vertical]_&]:w-full [[data-orientation=horizontal]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px [[data-orientation=horizontal]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px [[data-orientation=vertical]_&]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px [[data-orientation=vertical]_&]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px"
+      "classes": "pointer-events-none relative z-2 shrink-0 bg-border in-data-[orientation=horizontal]:self-stretch in-data-[orientation=horizontal]:w-px in-data-[orientation=vertical]:h-px in-data-[orientation=vertical]:w-full in-data-[orientation=horizontal]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-x-px in-data-[orientation=horizontal]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-x-px in-data-[orientation=vertical]:[[data-slot=input-control]:focus-within+&,[data-slot=input-group]:focus-within+&,[data-slot=select-trigger]:focus-visible+*+&,[data-slot=number-field]:focus-within+input+&]:-translate-y-px in-data-[orientation=vertical]:has-[+[data-slot=input-control]:focus-within,+[data-slot=input-group]:focus-within,+[data-slot=select-trigger]:focus-visible+*,+[data-slot=number-field]:focus-within]:translate-y-px"
     },
     "Text": {
       "slot": "group-text",
@@ -2091,15 +2094,15 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Header": {
       "slot": "sidebar-header",
-      "classes": "flex flex-col gap-2 py-2 px-2 [&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto"
+      "classes": "flex flex-col gap-2 py-2 px-2 *:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto"
     },
     "Footer": {
       "slot": "sidebar-footer",
-      "classes": "flex flex-col gap-2 py-2 px-2 [&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto"
+      "classes": "flex flex-col gap-2 py-2 px-2 *:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto"
     },
     "Body": {
       "slot": "sidebar-content",
-      "classes": "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden px-2 [&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto"
+      "classes": "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden px-2 *:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto"
     },
     "Group": {
       "slot": "sidebar-group",
@@ -2119,7 +2122,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "ButtonField": {
       "slot": "sidebar-button-field",
-      "classes": "group/menu-item relative [&>*:not([data-slot=sidebar-menu-button])]:pointer-events-none [&>*:not([data-slot=sidebar-menu-button])]:absolute [&>*:not([data-slot=sidebar-menu-button])]:right-2 [&>*:not([data-slot=sidebar-menu-button])]:inset-y-0 [&>*:not([data-slot=sidebar-menu-button])]:my-auto [&>*:not([data-slot=sidebar-menu-button])]:h-fit [&>[data-slot=badge]]:pt-0 group-data-[collapsible=icon]:[&>*:not([data-slot=sidebar-menu-button])]:hidden"
+      "classes": "group/menu-item relative [&>*:not([data-slot=sidebar-menu-button])]:pointer-events-none [&>*:not([data-slot=sidebar-menu-button])]:absolute [&>*:not([data-slot=sidebar-menu-button])]:right-2 [&>*:not([data-slot=sidebar-menu-button])]:inset-y-0 [&>*:not([data-slot=sidebar-menu-button])]:my-auto [&>*:not([data-slot=sidebar-menu-button])]:h-fit *:data-[slot=badge]:pt-0 group-data-[collapsible=icon]:[&>*:not([data-slot=sidebar-menu-button])]:hidden"
     },
     "Sub": {
       "slot": "sidebar-sub",

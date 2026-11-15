@@ -356,7 +356,7 @@ function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="header"
       className={cn(
         "flex flex-col gap-2 py-2 px-2",
-        "[&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto",
+        "*:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto",
         className,
       )}
       {...props}
@@ -371,7 +371,7 @@ function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
       data-sidebar="footer"
       className={cn(
         "flex flex-col gap-2 py-2 px-2",
-        "[&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto",
+        "*:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto",
         className,
       )}
       {...props}
@@ -390,7 +390,7 @@ function SidebarBody({ className, ...props }: React.ComponentProps<"div">) {
         data-slot="sidebar-content"
         className={cn(
           "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden px-2",
-          "[&>[data-slot=separator]]:-mx-1 [&>[data-slot=separator]]:w-auto",
+          "*:data-[slot=separator]:-mx-1 *:data-[slot=separator]:w-auto",
           className,
         )}
         {...props}
@@ -459,7 +459,7 @@ function SidebarButtonField({
         "[&>*:not([data-slot=sidebar-menu-button])]:inset-y-0",
         "[&>*:not([data-slot=sidebar-menu-button])]:my-auto",
         "[&>*:not([data-slot=sidebar-menu-button])]:h-fit",
-        "[&>[data-slot=badge]]:pt-0",
+        "*:data-[slot=badge]:pt-0",
         "group-data-[collapsible=icon]:[&>*:not([data-slot=sidebar-menu-button])]:hidden",
         className,
       )}

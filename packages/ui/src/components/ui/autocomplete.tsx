@@ -164,7 +164,7 @@ function AutocompletePopup({
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-foreground shadow-md",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             "data-disabled:pointer-events-none data-disabled:opacity-50",
-            "has-data-[slot=autocomplete-input]:p-2 [&_[data-slot=input-control]]:has-focus-visible:ring-0 [&_[data-slot=input-control]]:has-focus-visible:border-border",
+            "has-data-[slot=autocomplete-input]:p-2 **:data-[slot=input-control]:has-focus-visible:ring-0 **:data-[slot=input-control]:has-focus-visible:border-border",
             className
           )}
           {...props}
