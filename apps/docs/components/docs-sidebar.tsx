@@ -1,16 +1,13 @@
+
 "use client";
 
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-
+import { useRouter, usePathname } from "next/navigation";
 import { PAGES_NEW } from "@/lib/docs";
 import type { source } from "@/lib/source";
 
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
 import { Badge } from "@rlz/ui/components/ui/badge";
 import { ComponentProps } from "react";
-
-// Docs Sidebar Component
 
 type Props = ComponentProps<typeof Sidebar> & {
   tree: typeof source.pageTree;
@@ -29,39 +26,42 @@ export function DocsSidebar({ tree, ...props }: Props) {
       <Sidebar.Body>
         {tree.children.map((item) => (
           <Sidebar.Group key={item.$id} className="px-6 pt-0">
-            <Sidebar.GroupLabel>{item.name}</Sidebar.GroupLabel>
-            <Sidebar.GroupContent>
-              {item.type === "folder" && (
-                <Sidebar.Menu>
-                  {item.children.map((page) => {
-                    return (
-                      page.type === "page" && (
-                        <Sidebar.MenuItem key={page.url}>
-                          <Sidebar.MenuButton
-                            size="sm"
-                            variant="ghost"
-                            isActive={
-                              page.url === "/docs"
-                                ? pathname === page.url
-                                : pathname === page.url ||
-                                  pathname.startsWith(page.url + "/")
-                            }
-                            onClick={() => router.push(page.url)}
-                          >
-                            {page.name}
-                          </Sidebar.MenuButton>
-                          {PAGES_NEW.includes(page.url) && (
-                            <Sidebar.MenuBadge>
-                              <Badge variant="success">New</Badge>
-                            </Sidebar.MenuBadge>
-                          )}
-                        </Sidebar.MenuItem>
-                      )
-                    );
-                  })}
-                </Sidebar.Menu>
-              )}
-            </Sidebar.GroupContent>
+            <Sidebar.GroupLabel>
+              {item.name}
+            </Sidebar.GroupLabel>
+
+            {item.type === "folder" && (
+              <Sidebar.List>
+                {item.children.map((page) => {
+                  if (page.type !== "page") return null;
+
+                  const isActive =
+                    page.url === "/docs"
+                      ? pathname === page.url
+                      : pathname === page.url ||
+                        pathname.startsWith(page.url + "/");
+
+                  return (
+                    <Sidebar.ButtonField key={page.url}>
+                      <Sidebar.Button
+                        size="sm"
+                        variant="secondary"
+                        isActive={isActive}
+                        onClick={() => router.push(page.url)}
+                      >
+                        {page.name}
+                      </Sidebar.Button>
+
+                      {PAGES_NEW.includes(page.url) && (
+                        <Badge variant="success">
+                          New
+                        </Badge>
+                      )}
+                    </Sidebar.ButtonField>
+                  );
+                })}
+              </Sidebar.List>
+            )}
           </Sidebar.Group>
         ))}
       </Sidebar.Body>
