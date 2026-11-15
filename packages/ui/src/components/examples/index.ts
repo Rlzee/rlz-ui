@@ -14,7 +14,6 @@ export const demoPaths: Record<string, string> = {
   "alert-action": "alert/action",
   // Alert Dialog
   "alert-dialog": "alert-dialog/default",
-  "alert-dialog-bare": "alert-dialog/bare",
   // Autocomplete
   autocomplete: "autocomplete/default",
   "autocomplete-disabled": "autocomplete/disabled",
@@ -148,6 +147,9 @@ export const demoPaths: Record<string, string> = {
   "select-group": "select/group",
   // separator
   separator: "separator",
+  // Sidebar
+  sidebar: "sidebar/default",
+  "sidebar-submenu": "sidebar/submenu",
   // Slider
   slider: "slider/default",
   "slider-disabled": "slider/disabled",

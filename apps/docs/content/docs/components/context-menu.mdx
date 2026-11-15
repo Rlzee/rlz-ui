@@ -49,7 +49,10 @@ npm install @base-ui/react
 
 ```tsx
 import { ContextMenu } from "@/components/ui/context-menu";
+import { Menu } from "@/components/ui/menu";
 ```
+
+The context menu only provides `Root`, `Trigger`, and `Popup`. The items, groups, separators, checkboxes, radios, submenus, and shortcuts are provided by the [Menu](/docs/components/menu) component, which shares the same underlying primitive.
 
 ```tsx
 <ContextMenu>
@@ -57,100 +60,75 @@ import { ContextMenu } from "@/components/ui/context-menu";
     Right click here
   </ContextMenu.Trigger>
   <ContextMenu.Popup>
-    <ContextMenu.Arrow />
-
-    <ContextMenu.Group>
-      <ContextMenu.Item>
+    <Menu.Group>
+      <Menu.Item>
         <Send /> Forward
-        <ContextMenu.Shortcut>⌘F</ContextMenu.Shortcut>
-      </ContextMenu.Item>
-      <ContextMenu.Item>
+        <Menu.Shortcut>⌘F</Menu.Shortcut>
+      </Menu.Item>
+      <Menu.Item>
         <Reply /> Reply
-        <ContextMenu.Shortcut>⌘R</ContextMenu.Shortcut>
-      </ContextMenu.Item>
-      <ContextMenu.Item>
+        <Menu.Shortcut>⌘R</Menu.Shortcut>
+      </Menu.Item>
+      <Menu.Item>
         <ReplyAll /> Reply all
-        <ContextMenu.Shortcut>⌘A</ContextMenu.Shortcut>
-      </ContextMenu.Item>
-    </ContextMenu.Group>
+        <Menu.Shortcut>⌘A</Menu.Shortcut>
+      </Menu.Item>
+    </Menu.Group>
 
-    <ContextMenu.Separator />
-    <ContextMenu.Group>
-      <ContextMenu.GroupLabel>View</ContextMenu.GroupLabel>
-      <ContextMenu.CheckboxItem checked>Show grid</ContextMenu.CheckboxItem>
-      <ContextMenu.CheckboxItem>Show rulers</ContextMenu.CheckboxItem>
-    </ContextMenu.Group>
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>View</Menu.GroupLabel>
+      <Menu.CheckboxItem checked>Show grid</Menu.CheckboxItem>
+      <Menu.CheckboxItem>Show rulers</Menu.CheckboxItem>
+    </Menu.Group>
 
-    <ContextMenu.Separator />
-    <ContextMenu.Group>
-      <ContextMenu.GroupLabel>Theme</ContextMenu.GroupLabel>
-      <ContextMenu.RadioGroup defaultValue="system">
-        <ContextMenu.RadioItem value="light">Light</ContextMenu.RadioItem>
-        <ContextMenu.RadioItem value="dark">Dark</ContextMenu.RadioItem>
-        <ContextMenu.RadioItem value="system">System</ContextMenu.RadioItem>
-      </ContextMenu.RadioGroup>
-    </ContextMenu.Group>
+    <Menu.Separator />
+    <Menu.Group>
+      <Menu.GroupLabel>Theme</Menu.GroupLabel>
+      <Menu.RadioGroup defaultValue="system">
+        <Menu.RadioItem value="light">Light</Menu.RadioItem>
+        <Menu.RadioItem value="dark">Dark</Menu.RadioItem>
+        <Menu.RadioItem value="system">System</Menu.RadioItem>
+      </Menu.RadioGroup>
+    </Menu.Group>
 
-    <ContextMenu.Separator />
-    <ContextMenu.Submenu>
-      <ContextMenu.SubmenuTrigger>Export as</ContextMenu.SubmenuTrigger>
-      <ContextMenu.Popup>
-        <ContextMenu.Item>PNG</ContextMenu.Item>
-        <ContextMenu.Item>SVG</ContextMenu.Item>
-        <ContextMenu.Item>PDF</ContextMenu.Item>
-      </ContextMenu.Popup>
-    </ContextMenu.Submenu>
+    <Menu.Separator />
+    <Menu.Submenu>
+      <Menu.SubmenuTrigger>Export as</Menu.SubmenuTrigger>
+      <Menu.Popup>
+        <Menu.Item>PNG</Menu.Item>
+        <Menu.Item>SVG</Menu.Item>
+        <Menu.Item>PDF</Menu.Item>
+      </Menu.Popup>
+    </Menu.Submenu>
 
-    <ContextMenu.Separator />
-    <ContextMenu.SwitchItem>Autosave</ContextMenu.SwitchItem>
+    <Menu.Separator />
+    <Menu.SwitchItem>Autosave</Menu.SwitchItem>
 
-    <ContextMenu.Separator />
-    <ContextMenu.Item variant="destructive">
+    <Menu.Separator />
+    <Menu.Item variant="destructive">
       <Trash2 /> Delete
-      <ContextMenu.Shortcut>⌘ ⌫</ContextMenu.Shortcut>
-    </ContextMenu.Item>
+      <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
+    </Menu.Item>
   </ContextMenu.Popup>
 </ContextMenu>
 ```
 
 ## API Reference
 
-Each component extends its [Base UI](https://base-ui.com/react/components/context-menu/#api-reference) counterpart.
-Only additions and modifications are listed here.
-
 ### Context Menu Popup
 
-Built on [Menu Base](/docs/base-components#menu-base).
+Renders the shared [Menu Popup](/docs/components/menu#menu-popup).
 
-| Prop              | Type                                    | Default             |
-| ----------------- | --------------------------------------- | ------------------- |
-| `backdrop`        | `boolean`                               | -                   |
-| `backdropProps`   | `ContextMenuPrimitive.Backdrop.Props`   | -                   |
-| `positionerProps` | `ContextMenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+| Prop               | Type                                    | Default             |
+| ------------------ | --------------------------------------- | ------------------- |
+| `backdrop`         | `boolean`                               | -                   |
+| `backdropProps`    | `ContextMenuPrimitive.Backdrop.Props`   | -                   |
+| `positionnerProps` | `ContextMenuPrimitive.Positioner.Props` | `{ sideOffset: 0 }` |
 
-### Context Menu Item
+### Context Menu Items
 
-Built on [Menu Base](/docs/base-components#menu-base).
-
-| Prop      | Type                         | Default     |
-| --------- | ---------------------------- | ----------- |
-| `variant` | `"default" \| "destructive"` | `"default"` |
-
-### Context Menu Checkbox Item
-
-Built on [Menu Base](/docs/base-components#menu-base).
-
-| Prop      | Type                   | Default     |
-| --------- | ---------------------- | ----------- |
-| `variant` | `"default" \| "solid"` | `"default"` |
-
-### Context Menu Switch Item
-
-Built on [Menu Base](/docs/base-components#menu-base). Menu item with a toggle switch indicator.
-
-### Context Menu Shortcut
-
-Extends Base Component [Shortcut](/docs/base-components#shortcut).
+Items, groups, separators, checkbox items, switch items, radio items, submenus, and shortcuts are provided by the [Menu](/docs/components/menu) component.
 
 See the [Base UI](https://base-ui.com/react/components/menu/#api-reference) documentation for more information.
 

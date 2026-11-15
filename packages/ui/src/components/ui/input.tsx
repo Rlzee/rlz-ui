@@ -17,13 +17,8 @@ const inputVariants = cva("inline-flex items-center text-sm w-full", {
         "h-9 relative w-full rounded-md border not-dark:bg-clip-padding transition-shadow",
         "has-disabled:cursor-not-allowed has-disabled:pointer-events-none has-disabled:opacity-50",
         "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
-      ],
-    },
-    focusVisible: {
-      true: [
         "has-focus-visible:ring-ring/50 has-focus-visible:ring-[2px] has-focus-visible:border-ring",
       ],
-      false: "",
     },
   },
   compoundVariants: [
@@ -33,7 +28,6 @@ const inputVariants = cva("inline-flex items-center text-sm w-full", {
   defaultVariants: {
     variant: "primary",
     unstyled: false,
-    focusVisible: true,
   },
 });
 
@@ -62,7 +56,7 @@ function Input({
     props.type === "search" &&
       "[&::-ms-clear]:hidden [&::-ms-reveal]:hidden [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden",
     props.type === "file" &&
-      "text-muted-foreground file:me-3 file:bg-transparent file:font-medium file:text-foreground"
+      "text-muted-foreground file:me-3 file:bg-transparent file:font-medium file:text-foreground",
   );
 
   return (

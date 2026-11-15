@@ -45,7 +45,7 @@ export function DocsSidebar({ tree, ...props }: Props) {
                     <Sidebar.ButtonField key={page.url}>
                       <Sidebar.Button
                         size="sm"
-                        variant="secondary"
+                        className="cursor-pointer"
                         isActive={isActive}
                         onClick={() => router.push(page.url)}
                       >

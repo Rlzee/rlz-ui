@@ -40,9 +40,7 @@ const sidebarButtonVariants = cva(
     variants: {
       variant: {
         primary:
-          "text-muted-foreground hover:bg-accent hover:text-accent-foreground data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
-        secondary:
-          "text-muted-foreground hover:text-foreground data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
+          "text-muted-foreground hover:bg-accent/70 hover:text-accent-foreground data-[active=true]:bg-accent data-[active=true]:text-accent-foreground",
         destructive:
           "text-destructive hover:bg-accent data-[active=true]:bg-accent data-[active=true]:text-destructive",
       },

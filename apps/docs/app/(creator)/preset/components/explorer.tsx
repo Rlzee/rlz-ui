@@ -74,28 +74,26 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
         {visibleSections.map((section) => (
           <Sidebar.Group key={section.title}>
             <Sidebar.GroupLabel>{section.title}</Sidebar.GroupLabel>
-            <Sidebar.GroupContent>
-              <Sidebar.Menu>
-                {section.items.map((item) => (
-                  <Sidebar.MenuItem key={item.id}>
-                    <Sidebar.MenuButton
-                      size="sm"
-                      isActive={selected?.id === item.id}
-                      onClick={() => setSelected(item)}
-                    >
-                      {item.name}
-                    </Sidebar.MenuButton>
-                  </Sidebar.MenuItem>
-                ))}
-              </Sidebar.Menu>
-            </Sidebar.GroupContent>
+            <Sidebar.List>
+              {section.items.map((item) => (
+                <Sidebar.ButtonField key={item.id}>
+                  <Sidebar.Button
+                    size="sm"
+                    isActive={selected?.id === item.id}
+                    onClick={() => setSelected(item)}
+                  >
+                    {item.name}
+                  </Sidebar.Button>
+                </Sidebar.ButtonField>
+              ))}
+            </Sidebar.List>
           </Sidebar.Group>
         ))}
         {visibleSections.length === 0 && (
           <Sidebar.Group>
-            <Sidebar.GroupContent className="text-muted-foreground">
+            <Sidebar.List className="text-muted-foreground">
               No results for "{query}".
-            </Sidebar.GroupContent>
+            </Sidebar.List>
           </Sidebar.Group>
         )}
       </Sidebar.Body>

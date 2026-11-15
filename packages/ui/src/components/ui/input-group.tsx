@@ -5,39 +5,6 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
 import { inputVariants, type InputVariant } from "@rlz/ui/components/ui/input";
 
-function InputGroupRoot({
-  variant = "primary",
-  focusVisible = true,
-  className,
-  ...props
-}: React.ComponentProps<"div"> & {
-  variant?: InputVariant;
-  focusVisible?: boolean;
-}) {
-  return (
-    <div
-      data-slot="input-group"
-      role="group"
-      data-variant={variant}
-      className={cn(
-        inputVariants({ variant, unstyled: false, focusVisible }),
-        "group/input-group px-3 min-w-0 text-base md:text-sm shadow-xs transition-[color,box-shadow]",
-
-        // textarea
-        "has-[textarea]:h-auto **:[textarea]:min-h-20.5 **:[textarea]:resize-none **:[textarea]:max-sm:min-h-23.5",
-        // block
-        "has-data-[align=block-end]:h-auto has-data-[align=block-end]:flex-col",
-        "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col",
-        "has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto",
-        // inline
-        "has-data-[align=inline-start]:[&_input]:ps-2 has-data-[align=inline-end]:[&_input]:pe-2",
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
 const inputGroupAddonVariants = cva(
   "text-muted-foreground [&_svg]:-mx-0.5 [&:not(:has(>button))_svg]:text-muted-foreground flex h-auto cursor-text select-none items-center justify-center gap-2 leading-none font-medium [&>svg:not([class*='size-'])]:size-4 group-data-[disabled=true]/input-group:opacity-50",
   {
@@ -56,8 +23,45 @@ const inputGroupAddonVariants = cva(
     defaultVariants: {
       align: "inline-start",
     },
-  },
+  }
 );
+
+function InputGroupRoot({
+  variant = "primary",
+  focusVisible = true,
+  className,
+  ...props
+}: React.ComponentProps<"div"> & {
+  variant?: InputVariant;
+  focusVisible?: boolean;
+}) {
+  return (
+    <div
+      data-slot="input-group"
+      role="group"
+      data-variant={variant}
+      className={cn(
+        inputVariants({ variant, unstyled: false }),
+
+        !focusVisible &&
+          "has-focus-visible:ring-0 has-focus-visible:border-border has-focus-visible:has-aria-invalid:ring-0",
+
+        "group/input-group px-3 min-w-0 text-base md:text-sm shadow-xs transition-[color,box-shadow]",
+
+        // textarea
+        "has-[textarea]:h-auto **:[textarea]:min-h-20.5 **:[textarea]:resize-none **:[textarea]:max-sm:min-h-23.5",
+        // block
+        "has-data-[align=block-end]:h-auto has-data-[align=block-end]:flex-col",
+        "has-data-[align=block-start]:h-auto has-data-[align=block-start]:flex-col",
+        "has-[[data-align=block-start],[data-align=block-end]]:**:[input]:h-auto",
+        // inline
+        "has-data-[align=inline-start]:[&_input]:ps-2 has-data-[align=inline-end]:[&_input]:pe-2",
+        className
+      )}
+      {...props}
+    />
+  );
+}
 
 function InputGroupAddon({
   className,
@@ -72,7 +76,7 @@ function InputGroupAddon({
       onMouseDown={(e) => {
         const target = e.target as HTMLElement;
         const isInteractive = target.closest(
-          "button, a, input, select, textarea, [role='button'], [role='combobox'], [role='listbox'], [data-slot='select-trigger']",
+          "button, a, input, select, textarea, [role='button'], [role='combobox'], [role='listbox'], [data-slot='select-trigger']"
         );
         if (isInteractive) return;
         e.preventDefault();
@@ -95,7 +99,7 @@ function InputGroupText({ className, ...props }: React.ComponentProps<"span">) {
       data-slot="input-group-text"
       className={cn(
         "inline-flex items-center text-sm font-medium text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />

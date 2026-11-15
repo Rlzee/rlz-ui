@@ -171,7 +171,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
           <ChevronDown />
         </Menu.Trigger>
         <Menu.Popup
-          positionerProps={{
+          positionnerProps={{
             align: "end",
           }}
         >

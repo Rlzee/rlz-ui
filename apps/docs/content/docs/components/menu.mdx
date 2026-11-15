@@ -118,17 +118,25 @@ Only additions and modifications are listed here.
 
 ### Menu Popup
 
-Built on [Menu Base](/docs/base-components#menu-base).
+Renders the Portal, Positioner, and Popup with shared animation and layout.
 
 | Prop              | Type                             | Default             |
 | ----------------- | -------------------------------- | ------------------- |
 | `backdrop`        | `boolean`                        | -                   |
 | `backdropProps`   | `MenuPrimitive.Backdrop.Props`   | -                   |
-| `positionerProps` | `MenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+| `positionnerProps`| `MenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+
+### Menu Input
+
+Search input rendered inside the popup. Composes the [Input](/docs/components/input) component.
+
+| Prop        | Type                       | Default     |
+| ----------- | -------------------------- | ----------- |
+| `variant`   | `"primary" \| "secondary"` | `"primary"` |
+| `unstyled`  | `boolean`                  | `false`     |
+| `clearable` | `boolean`                  | `false`     |
 
 ### Menu Item
-
-Built on [Menu Base](/docs/base-components#menu-base).
 
 | Prop      | Type                         | Default     |
 | --------- | ---------------------------- | ----------- |
@@ -136,15 +144,13 @@ Built on [Menu Base](/docs/base-components#menu-base).
 
 ### Menu Checkbox Item
 
-Built on [Menu Base](/docs/base-components#menu-base).
-
 | Prop      | Type                   | Default     |
 | --------- | ---------------------- | ----------- |
 | `variant` | `"default" \| "solid"` | `"default"` |
 
 ### Menu Switch Item
 
-Built on [Menu Base](/docs/base-components#menu-base). Menu item with a toggle switch indicator.
+Menu item with a toggle switch indicator.
 
 ### Menu Shortcut
 

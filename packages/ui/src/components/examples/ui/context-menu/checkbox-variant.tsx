@@ -1,4 +1,5 @@
 import { ContextMenu } from "@rlz/ui/components/ui/context-menu";
+import { Menu } from "@rlz/ui/components/ui/menu";
 
 export default function Example() {
   return (
@@ -7,15 +8,13 @@ export default function Example() {
         Right click here
       </ContextMenu.Trigger>
       <ContextMenu.Popup className="w-40">
-        <ContextMenu.Group>
-          <ContextMenu.GroupLabel>View</ContextMenu.GroupLabel>
-          <ContextMenu.CheckboxItem checked variant="solid">
+        <Menu.Group>
+          <Menu.GroupLabel>View</Menu.GroupLabel>
+          <Menu.CheckboxItem checked variant="solid">
             Show grid
-          </ContextMenu.CheckboxItem>
-          <ContextMenu.CheckboxItem variant="solid">
-            Show rulers
-          </ContextMenu.CheckboxItem>
-        </ContextMenu.Group>
+          </Menu.CheckboxItem>
+          <Menu.CheckboxItem variant="solid">Show rulers</Menu.CheckboxItem>
+        </Menu.Group>
       </ContextMenu.Popup>
     </ContextMenu>
   );

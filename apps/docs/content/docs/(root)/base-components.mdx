@@ -13,12 +13,11 @@ Modifying a base component propagates changes across all components that use it,
 
 Used by [Alert Dialog](/docs/components/alert-dialog), [Command](/docs/components/command), [Dialog](/docs/components/dialog), and [Drawer](/docs/components/drawer).
 
-It accepts a `baseComponent` prop, which allows it to wrap any primitive's Backdrop element while applying consistent styling.
+Renders a styled `<div>` that covers the screen behind a popup, applying consistent styling across components.
 
-| Prop            | Type                | Default |
-| --------------- | ------------------- | ------- |
-| `baseComponent` | `React.ElementType` | -       |
-| `blur`          | `boolean`           | `true`  |
+| Prop   | Type      | Default |
+| ------ | --------- | ------- |
+| `blur` | `boolean` | `true`  |
 
 When `blur` is `true`, the backdrop renders with a frosted glass effect (`backdrop-blur`).
 When `false`, it renders as a plain dark overlay.
@@ -29,47 +28,27 @@ Used by [Autocomplete](/docs/components/autocomplete), [Combobox](/docs/componen
 
 Renders an SVG arrow that automatically repositions itself based on the popup's current side (`top`, `bottom`, `left`, `right`).
 
-| Prop              | Type                | Default        |
-| ----------------- | ------------------- | -------------- |
-| `baseComponent`   | `React.ElementType` | -              |
-| `border`          | `1 \| 2`            | `1`            |
-| `classNameBg`     | `string`            | `fill-popover` |
-| `classNameBorder` | `string`            | `fill-border`  |
+| Prop              | Type          | Default        |
+| ----------------- | ------------- | -------------- |
+| `border`          | `0 \| 1 \| 2` | `1`            |
+| `bgClassName`     | `string`      | `fill-popover` |
+| `borderClassName` | `string`      | `fill-border`  |
 
-`border` controls which SVG path is used for the border stroke — `1` for a thin border, `2` for a thicker one.
-`classNameBg` and `classNameBorder` accept either a Tailwind fill class (e.g. `fill-popover`) or a CSS variable name without `--` (e.g. `popover`) to override the arrow's fill colors.
-
-## Menu Base
-
-Used by [Context Menu](/docs/components/context-menu) and [Menu](/docs/components/menu).
-
-Rather than duplicating styles across every menu-like component, `MenuBase` accepts the underlying primitive as a prop and applies the shared styling once.
-
-| Sub-component             | Description                                                                        |
-| ------------------------- | ---------------------------------------------------------------------------------- |
-| `MenuBase.Popup`          | Wraps Portal + Positioner + Popup with shared animation and layout                 |
-| `MenuBase.Item`           | Shared item styles with `variant="default" \| "destructive"` and highlighted state |
-| `MenuBase.GroupLabel`     | Styled section heading inside a menu                                               |
-| `MenuBase.Separator`      | Horizontal divider between menu sections                                           |
-| `MenuBase.CheckboxItem`   | Menu item with a checkbox indicator, supports `variant="default" \| "solid"`       |
-| `MenuBase.SwitchItem`     | Menu item with a toggle switch indicator                                           |
-| `MenuBase.RadioItem`      | Menu item with a radio indicator                                                   |
-| `MenuBase.SubmenuTrigger` | Item that opens a nested menu, with a chevron icon                                 |
-
-`MenuBase.Popup` accepts `backdrop`, `backdropProps`, and `positionerProps` to configure the overlay and positioning behavior, with `sideOffset` defaulting to `8`.
+`border` controls which SVG path is used for the border stroke — `1` for a thin border, `2` for a thicker one, `0` for none.
+`bgClassName` and `borderClassName` accept a Tailwind fill class (e.g. `fill-popover`) to override the arrow's fill colors.
 
 ## Shortcut
 
 Used by [Command](/docs/components/command), [Context Menu](/docs/components/context-menu), and [Menu](/docs/components/menu) to display keyboard shortcut hints inline with items.
 
-Renders as a styled `<span>` pushed to the right via `ml-auto`.
+Renders as a styled `<kbd>` pushed to the right via `ml-auto`.
 
 ## X Close
 
 Used by [Dialog](/docs/components/dialog) and [Drawer](/docs/components/drawer) to render a consistent close button in the top-right corner of a panel.
 
-Accepts a `baseComponent` prop to wrap any primitive's Close element.
+Renders as a `<button>` with an accessible `aria-label`.
 
-| Prop            | Type                | Default |
-| --------------- | ------------------- | ------- |
-| `baseComponent` | `React.ElementType` | -       |
+| Prop    | Type     | Default   |
+| ------- | -------- | --------- |
+| `label` | `string` | `"Close"` |

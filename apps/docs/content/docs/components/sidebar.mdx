@@ -58,16 +58,14 @@ import { Sidebar } from "@/components/ui/sidebar";
     <Sidebar.Body>
       <Sidebar.Group>
         <Sidebar.GroupLabel>Navigation</Sidebar.GroupLabel>
-        <Sidebar.GroupContent>
-          <Sidebar.Menu>
-            <Sidebar.MenuItem>
-              <Sidebar.MenuButton>
-                <Home />
-                <span>Home</span>
-              </Sidebar.MenuButton>
-            </Sidebar.MenuItem>
-          </Sidebar.Menu>
-        </Sidebar.GroupContent>
+        <Sidebar.List>
+          <Sidebar.ButtonField>
+            <Sidebar.Button isActive>
+              <Home />
+              Home
+            </Sidebar.Button>
+          </Sidebar.ButtonField>
+        </Sidebar.List>
       </Sidebar.Group>
     </Sidebar.Body>
     <Sidebar.Footer />
@@ -115,42 +113,84 @@ Toggles the sidebar open and closed. Renders as a `<Button>`.
 | `variant` | `ButtonProps["variant"]` | `"ghost"`   |
 | `size`    | `ButtonProps["size"]`    | `"icon-md"` |
 
-### Sidebar Menu Button
+### Sidebar Button
 
-The main interactive element inside a menu item.
+The main interactive element inside a `<Sidebar.List>`. Use `<Sidebar.ButtonField>` to wrap it when you need to render an action or badge on the right.
 
-| Prop       | Type                            | Default   |
-| ---------- | ------------------------------- | --------- |
-| `variant`  | `"ghost" \| "primary"`          | `"ghost"` |
-| `size`     | `"sm" \| "md" \| "lg"`          | `"md"`    |
-| `isActive` | `boolean`                       | `false`   |
-| `tooltip`  | `string \| Tooltip.Popup props` | -         |
+| Prop       | Type                                         | Default     |
+| ---------- | -------------------------------------------- | ----------- |
+| `variant`  | `"primary" \| "secondary" \| "destructive"`  | `"primary"` |
+| `size`     | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`       | `"md"`      |
+| `isActive` | `boolean`                                    | `false`     |
+| `tooltip`  | `string \| Tooltip.Popup props`              | -           |
 
 When `collapsible="icon"` and a `tooltip` is provided, the tooltip is shown automatically when the sidebar is collapsed.
 Supports the `render` prop for custom element rendering (e.g. a `<Link>`).
 
-### Sidebar Menu Sub Button
+### Sidebar Button Field
 
-Button used inside `<Sidebar.MenuSub>` for nested navigation items.
+Wraps a `<Sidebar.Button>` to position secondary content (such as a `<Badge>` or action button) on the right side of the item.
 
-| Prop       | Type                   | Default   |
-| ---------- | ---------------------- | --------- |
-| `variant`  | `"ghost" \| "primary"` | `"ghost"` |
-| `size`     | `"sm" \| "md"`         | `"md"`    |
-| `isActive` | `boolean`              | `false`   |
+### Sidebar Sub
 
-Supports the `render` prop for custom element rendering.
+Collapsible container for nested navigation. Manages its own open state and expands the sidebar if it is collapsed.
 
-### Sidebar Menu Action
+| Prop           | Type                       | Default |
+| -------------- | -------------------------- | ------- |
+| `size`         | `SidebarButtonSize`        | `"md"`  |
+| `defaultOpen`  | `boolean`                  | `false` |
+| `open`         | `boolean`                  | -       |
+| `onOpenChange` | `(open: boolean) => void`  | -       |
 
-An action button rendered on the right side of a menu item (e.g. a context menu trigger).
+### Sidebar Sub Trigger
 
-| Prop          | Type      | Default |
-| ------------- | --------- | ------- |
-| `showOnHover` | `boolean` | `false` |
+Button that toggles a `<Sidebar.Sub>`. Renders a chevron that rotates when the panel is open.
 
-When `showOnHover` is `true`, the action is hidden until the menu item is hovered or focused.
-Supports the `render` prop for custom element rendering.
+### Sidebar Sub List
+
+Collapsible panel containing the nested `<Sidebar.SubButton>` items.
+
+### Sidebar Sub Button
+
+Nested navigation item. Its `size` is derived from the parent `<Sidebar.Sub>` unless overridden.
+
+### Sidebar Nav
+
+Container for a stack-based, multi-page navigation flow. Renders the current page and animates transitions.
+
+| Prop            | Type                       | Default |
+| --------------- | -------------------------- | ------- |
+| `defaultPath`   | `string[]`                 | `[]`    |
+| `path`          | `string[]`                 | -       |
+| `onPathChange`  | `(path: string[]) => void` | -       |
+
+### Sidebar Nav Page
+
+Content shown when its `name` matches the current path.
+
+| Prop   | Type     | Default |
+| ------ | -------- | ------- |
+| `name` | `string` | -       |
+
+### Sidebar Nav Trigger
+
+Pushes a new page onto the navigation stack.
+
+| Prop      | Type                                        | Default     |
+| --------- | ------------------------------------------- | ----------- |
+| `to`      | `string`                                    | -           |
+| `variant` | `"primary" \| "secondary" \| "destructive"` | `"primary"` |
+| `size`    | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`      | `"md"`      |
+
+### Sidebar Nav Back
+
+Pops the current page off the navigation stack.
+
+| Prop      | Type                                        | Default     |
+| --------- | ------------------------------------------- | ----------- |
+| `variant` | `"primary" \| "secondary" \| "destructive"` | `"primary"` |
+| `size`    | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`      | `"md"`      |
+| `tooltip` | `string \| Tooltip.Popup props`             | `"back"`    |
 
 ### Sidebar Group Label
 
@@ -176,40 +216,15 @@ const {
 } = useSidebar();
 ```
 
-## Examples
+### useSidebarNav
 
-### Collapsible Icon
+Hook that exposes the navigation context. Must be used inside `<Sidebar.Nav>`.
 
-Use `collapsible="icon"` to collapse the sidebar to icon-only mode. Add a `tooltip` to `<Sidebar.MenuButton>` to show labels when collapsed.
-
-<ComponentPreview name="sidebar-icon" />
-
-### Floating
-
-Use `variant="floating"` for a sidebar that floats above the content with rounded corners.
-
-<ComponentPreview name="sidebar-floating" />
-
-### Inset
-
-Use `variant="inset"` to render the sidebar with an inset layout where the main content is visually framed.
-
-<ComponentPreview name="sidebar-inset" />
-
-### Right Side
-
-Use `side="right"` to render the sidebar on the right.
-
-<ComponentPreview name="sidebar-right" />
-
-### With Submenu
-
-Use `<Sidebar.MenuSub>` and `<Sidebar.MenuSubItem>` to add nested navigation.
-
-<ComponentPreview name="sidebar-submenu" />
-
-### With Badge
-
-Use `<Sidebar.MenuBadge>` to display a count or status indicator inside a menu item.
-
-<ComponentPreview name="sidebar-badge" />
+```tsx
+const {
+  current, // string | null
+  direction, // "forward" | "back"
+  push, // (name: string) => void
+  pop, // () => void
+} = useSidebarNav();
+```

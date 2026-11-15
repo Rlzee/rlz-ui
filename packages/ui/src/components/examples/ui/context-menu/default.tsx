@@ -1,4 +1,5 @@
 import { ContextMenu } from "@rlz/ui/components/ui/context-menu";
+import { Menu } from "@rlz/ui/components/ui/menu";
 import { Send, Reply, ReplyAll, Trash2 } from "lucide-react";
 
 export default function Example() {
@@ -8,58 +9,58 @@ export default function Example() {
         Right click here
       </ContextMenu.Trigger>
       <ContextMenu.Popup className="w-40">
-        <ContextMenu.Group>
-          <ContextMenu.Item>
+        <Menu.Group>
+          <Menu.Item>
             <Send /> Forward
-            <ContextMenu.Shortcut>⌘F</ContextMenu.Shortcut>
-          </ContextMenu.Item>
-          <ContextMenu.Item>
+            <Menu.Shortcut>⌘F</Menu.Shortcut>
+          </Menu.Item>
+          <Menu.Item>
             <Reply /> Reply
-            <ContextMenu.Shortcut>⌘R</ContextMenu.Shortcut>
-          </ContextMenu.Item>
-          <ContextMenu.Item>
+            <Menu.Shortcut>⌘R</Menu.Shortcut>
+          </Menu.Item>
+          <Menu.Item>
             <ReplyAll /> Reply all
-            <ContextMenu.Shortcut>⌘A</ContextMenu.Shortcut>
-          </ContextMenu.Item>
-        </ContextMenu.Group>
-        <ContextMenu.Separator />
+            <Menu.Shortcut>⌘A</Menu.Shortcut>
+          </Menu.Item>
+        </Menu.Group>
+        <Menu.Separator />
 
-        <ContextMenu.Group>
-          <ContextMenu.GroupLabel>View</ContextMenu.GroupLabel>
-          <ContextMenu.CheckboxItem checked>Show grid</ContextMenu.CheckboxItem>
-          <ContextMenu.CheckboxItem>Show rulers</ContextMenu.CheckboxItem>
-        </ContextMenu.Group>
+        <Menu.Group>
+          <Menu.GroupLabel>View</Menu.GroupLabel>
+          <Menu.CheckboxItem checked>Show grid</Menu.CheckboxItem>
+          <Menu.CheckboxItem>Show rulers</Menu.CheckboxItem>
+        </Menu.Group>
 
-        <ContextMenu.Separator />
+        <Menu.Separator />
 
-        <ContextMenu.Group>
-          <ContextMenu.GroupLabel>Theme</ContextMenu.GroupLabel>
-          <ContextMenu.RadioGroup defaultValue="system">
-            <ContextMenu.RadioItem value="light">Light</ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="dark">Dark</ContextMenu.RadioItem>
-            <ContextMenu.RadioItem value="system">System</ContextMenu.RadioItem>
-          </ContextMenu.RadioGroup>
-        </ContextMenu.Group>
+        <Menu.Group>
+          <Menu.GroupLabel>Theme</Menu.GroupLabel>
+          <Menu.RadioGroup defaultValue="system">
+            <Menu.RadioItem value="light">Light</Menu.RadioItem>
+            <Menu.RadioItem value="dark">Dark</Menu.RadioItem>
+            <Menu.RadioItem value="system">System</Menu.RadioItem>
+          </Menu.RadioGroup>
+        </Menu.Group>
 
-        <ContextMenu.Separator />
+        <Menu.Separator />
 
-        <ContextMenu.Submenu>
-          <ContextMenu.SubmenuTrigger>Export as</ContextMenu.SubmenuTrigger>
-          <ContextMenu.Popup>
-            <ContextMenu.Item>PNG</ContextMenu.Item>
-            <ContextMenu.Item>SVG</ContextMenu.Item>
-            <ContextMenu.Item>PDF</ContextMenu.Item>
-          </ContextMenu.Popup>
-        </ContextMenu.Submenu>
+        <Menu.Submenu>
+          <Menu.SubmenuTrigger>Export as</Menu.SubmenuTrigger>
+          <Menu.Popup>
+            <Menu.Item>PNG</Menu.Item>
+            <Menu.Item>SVG</Menu.Item>
+            <Menu.Item>PDF</Menu.Item>
+          </Menu.Popup>
+        </Menu.Submenu>
 
-        <ContextMenu.Separator />
-        <ContextMenu.SwitchItem>Autosave</ContextMenu.SwitchItem>
+        <Menu.Separator />
+        <Menu.SwitchItem>Autosave</Menu.SwitchItem>
 
-        <ContextMenu.Separator />
-        <ContextMenu.Item variant="destructive">
+        <Menu.Separator />
+        <Menu.Item variant="destructive">
           <Trash2 /> Delete
-          <ContextMenu.Shortcut>⌘ ⌫</ContextMenu.Shortcut>
-        </ContextMenu.Item>
+          <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
+        </Menu.Item>
       </ContextMenu.Popup>
     </ContextMenu>
   );
