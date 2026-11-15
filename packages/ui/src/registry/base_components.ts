@@ -11,16 +11,6 @@ export const registryBaseComponents = defineRegistryItems("component", {
     registryDependencies: [],
     allowManualInstall: false,
   },
-  "menu-base": {
-    name: "Menu Base",
-    description: "A component that provides a menu base.",
-    path: "components/base/menu-base.tsx",
-    destPath: "base",
-    version: "1.0.0",
-    dependencies: ["cn"],
-    registryDependencies: [],
-    allowManualInstall: false,
-  },
   "popup-arrow": {
     name: "Popup Arrow",
     description: "A component that provides a popup arrow.",

@@ -15,37 +15,17 @@
       "registryDependencies": [],
       "allowManualInstall": false,
       "capabilities": {
-        "editableProperties": [
-          "blur"
-        ]
-      }
-    },
-    "menu-base": {
-      "id": "menu-base",
-      "name": "Menu Base",
-      "version": "1.0.0",
-      "path": "components/base/menu-base.tsx",
-      "description": "A component that provides a menu base.",
-      "dependencies": [
-        "cn"
-      ],
-      "type": "component",
-      "destPath": "base",
-      "registryDependencies": [],
-      "allowManualInstall": false,
-      "capabilities": {
         "variants": [
           {
-            "name": "variant",
+            "name": "blur",
             "values": [
-              "default",
-              "destructive"
-            ],
-            "default": "default"
+              "true",
+              "false"
+            ]
           }
         ],
         "editableProperties": [
-          "backdrop"
+          "blur"
         ]
       }
     },
@@ -128,16 +108,6 @@
         "backdrop"
       ],
       "capabilities": {
-        "variants": [
-          {
-            "name": "variant",
-            "values": [
-              "default",
-              "bare"
-            ],
-            "default": "default"
-          }
-        ],
         "parts": [
           "Trigger",
           "Popup",
@@ -463,8 +433,7 @@
       "registryDependencies": [
         "scroll-area",
         "input",
-        "popup-arrow",
-        "button"
+        "popup-arrow"
       ],
       "capabilities": {
         "parts": [
@@ -547,27 +516,12 @@
       ],
       "type": "component",
       "registryDependencies": [
-        "menu-base",
-        "shortcut"
+        "menu"
       ],
       "capabilities": {
         "parts": [
           "Trigger",
-          "Popup",
-          "Group",
-          "GroupLabel",
-          "Item",
-          "Separator",
-          "CheckboxItem",
-          "SwitchItem",
-          "Submenu",
-          "SubmenuTrigger",
-          "RadioGroup",
-          "RadioItem",
-          "Shortcut"
-        ],
-        "editableProperties": [
-          "backdrop"
+          "Popup"
         ]
       }
     },
@@ -778,9 +732,7 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": [
-        "separator"
-      ],
+      "registryDependencies": [],
       "capabilities": {
         "variants": [
           {
@@ -790,6 +742,13 @@
               "vertical"
             ],
             "default": "horizontal"
+          },
+          {
+            "name": "attached",
+            "values": [
+              "true",
+              "false"
+            ]
           }
         ],
         "parts": [
@@ -856,6 +815,13 @@
               "secondary"
             ],
             "default": "primary"
+          },
+          {
+            "name": "unstyled",
+            "values": [
+              "true",
+              "false"
+            ]
           }
         ],
         "editableProperties": [
@@ -904,28 +870,50 @@
       "type": "component",
       "registryDependencies": [
         "popup-arrow",
-        "menu-base",
-        "shortcut"
+        "shortcut",
+        "input"
       ],
       "capabilities": {
+        "variants": [
+          {
+            "name": "variant",
+            "values": [
+              "default",
+              "destructive",
+              "solid",
+              "switch"
+            ],
+            "default": "default",
+            "parts": [
+              "Item",
+              "CheckboxItem"
+            ]
+          }
+        ],
         "parts": [
           "Trigger",
           "Popup",
           "Arrow",
+          "Input",
+          "Clear",
+          "Empty",
+          "List",
           "Group",
           "GroupLabel",
           "Item",
+          "LinkItem",
           "Separator",
           "CheckboxItem",
           "SwitchItem",
-          "Submenu",
-          "SubmenuTrigger",
           "RadioGroup",
           "RadioItem",
+          "Submenu",
+          "SubmenuTrigger",
           "Shortcut"
         ],
         "editableProperties": [
-          "backdrop"
+          "backdrop",
+          "clearable"
         ]
       }
     },
@@ -978,13 +966,15 @@
       ],
       "type": "component",
       "registryDependencies": [
-        "label"
+        "label",
+        "group"
       ],
       "capabilities": {
         "parts": [
           "ScrubArea",
           "ScrubAreaCursor",
           "Group",
+          "Separator",
           "Decrement",
           "Increment",
           "Input"
@@ -1153,6 +1143,7 @@
       ],
       "type": "component",
       "registryDependencies": [
+        "scroll-area",
         "button"
       ],
       "capabilities": {
@@ -1307,19 +1298,9 @@
         "cn"
       ],
       "type": "component",
-      "registryDependencies": [],
-      "capabilities": {
-        "variants": [
-          {
-            "name": "variant",
-            "values": [
-              "primary",
-              "secondary"
-            ],
-            "default": "primary"
-          }
-        ]
-      }
+      "registryDependencies": [
+        "input"
+      ]
     },
     "toast": {
       "id": "toast",
@@ -1351,7 +1332,9 @@
         "class-variance-authority"
       ],
       "type": "component",
-      "registryDependencies": [],
+      "registryDependencies": [
+        "group"
+      ],
       "capabilities": {
         "variants": [
           {
@@ -1380,8 +1363,7 @@
           }
         ],
         "parts": [
-          "Group",
-          "GroupSeparator"
+          "Group"
         ]
       }
     },
@@ -1457,7 +1439,8 @@
         "drawer",
         "scroll-area",
         "tooltip",
-        "separator"
+        "separator",
+        "collapsible"
       ],
       "capabilities": {
         "variants": [
@@ -1465,26 +1448,20 @@
             "name": "variant",
             "values": [
               "primary",
-              "ghost"
+              "destructive"
             ],
-            "default": "ghost",
-            "parts": [
-              "MenuButton",
-              "MenuSubButton"
-            ]
+            "default": "primary"
           },
           {
             "name": "size",
             "values": [
+              "xs",
               "sm",
               "md",
-              "lg"
+              "lg",
+              "xl"
             ],
-            "default": "md",
-            "parts": [
-              "MenuButton",
-              "MenuSubButton"
-            ]
+            "default": "md"
           }
         ],
         "parts": [
@@ -1493,19 +1470,20 @@
           "Rail",
           "Header",
           "Footer",
-          "Separator",
           "Body",
           "Group",
           "GroupLabel",
-          "GroupContent",
-          "Menu",
-          "MenuItem",
-          "MenuButton",
-          "MenuAction",
-          "MenuBadge",
-          "MenuSub",
-          "MenuSubItem",
-          "MenuSubButton"
+          "List",
+          "Button",
+          "ButtonField",
+          "Sub",
+          "SubTrigger",
+          "SubList",
+          "SubButton",
+          "Nav",
+          "NavPage",
+          "NavTrigger",
+          "NavBack"
         ]
       }
     },

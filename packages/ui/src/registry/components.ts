@@ -104,7 +104,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/combobox.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["scroll-area", "input", "popup-arrow", "button"],
+    registryDependencies: ["scroll-area", "input", "popup-arrow"],
   },
   command: {
     name: "command",
@@ -120,7 +120,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/context-menu.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["menu-base", "shortcut"],
+    registryDependencies: ["menu"],
   },
   dialog: {
     name: "dialog",
@@ -176,7 +176,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/group.tsx",
     version: "1.0.0",
     dependencies: ["cn", "class-variance-authority"],
-    registryDependencies: ["separator"],
+    registryDependencies: [],
   },
   "input-group": {
     name: "input-group",
@@ -216,7 +216,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/menu.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["popup-arrow", "menu-base", "shortcut"],
+    registryDependencies: ["popup-arrow", "shortcut", "input"],
   },
   menubar: {
     name: "menubar",
@@ -240,7 +240,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/number-field.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["label"],
+    registryDependencies: ["label", "group"],
   },
   "otp-field": {
     name: "otp-field",
@@ -296,7 +296,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/select.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["button"],
+    registryDependencies: ["scroll-area", "button"],
   },
   separator: {
     name: "separator",
@@ -352,7 +352,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/textarea.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: [],
+    registryDependencies: ["input"],
   },
   toast: {
     name: "toast",
@@ -368,7 +368,7 @@ export const registryComponents = defineRegistryItems("component", {
     path: "components/ui/toggle.tsx",
     version: "1.0.0",
     dependencies: ["cn", "class-variance-authority"],
-    registryDependencies: [],
+    registryDependencies: ["group"],
   },
   toolbar: {
     name: "toolbar",
@@ -400,6 +400,7 @@ export const registryComponents = defineRegistryItems("component", {
       "scroll-area",
       "tooltip",
       "separator",
+      "collapsible",
     ],
   },
 });
