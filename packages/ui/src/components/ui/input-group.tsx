@@ -7,10 +7,12 @@ import { inputVariants, type InputVariant } from "@rlz/ui/components/ui/input";
 
 function InputGroupRoot({
   variant = "primary",
+  focusVisible = true,
   className,
   ...props
 }: React.ComponentProps<"div"> & {
   variant?: InputVariant;
+  focusVisible?: boolean;
 }) {
   return (
     <div
@@ -18,7 +20,7 @@ function InputGroupRoot({
       role="group"
       data-variant={variant}
       className={cn(
-        inputVariants({ variant, unstyled: false }),
+        inputVariants({ variant, unstyled: false, focusVisible }),
         "group/input-group px-3 min-w-0 text-base md:text-sm shadow-xs transition-[color,box-shadow]",
 
         // textarea
