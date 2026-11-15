@@ -1,31 +1,21 @@
 "use client";
 
-import type * as React from "react";
 import { Field as FieldPrimitive } from "@base-ui/react/field";
 import { mergeProps } from "@base-ui/react/merge-props";
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
-
-const textareaVariants = cva("", {
-  defaultVariants: { variant: "primary" },
-  variants: {
-    variant: {
-      primary: "bg-input",
-      secondary: "bg-accent/60",
-    },
-  },
-});
+import type * as React from "react";
+import { inputVariants, type InputVariant } from "./input";
 
 type TextareaProps = React.ComponentProps<"textarea"> &
   React.RefAttributes<HTMLTextAreaElement> & {
     unstyled?: boolean;
-    variant?: NonNullable<VariantProps<typeof textareaVariants>["variant"]>;
+    variant?: InputVariant;
   };
 
 function Textarea({
   variant = "primary",
-  className,
   unstyled = false,
+  className,
   ref,
   ...props
 }: TextareaProps) {
@@ -34,15 +24,9 @@ function Textarea({
       data-slot="textarea-control"
       data-variant={variant}
       className={cn(
-        "inline-flex text-sm w-full",
-        !unstyled && [
-          textareaVariants({ variant }),
-          "relative rounded-md border not-dark:bg-clip-padding text-base md:text-sm transition-[color,box-shadow] shadow-xs",
-          "has-[textarea:disabled]:cursor-not-allowed has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-50",
-          "has-focus-visible:has-aria-invalid:ring-destructive/20 dark:has-focus-visible:has-aria-invalid:ring-destructive/40 has-focus-visible:has-aria-invalid:border-destructive",
-          "has-focus-visible:ring-ring/50 has-focus-visible:ring-2 has-focus-visible:border-ring",
-        ],
-        className
+        inputVariants({ variant, unstyled }),
+        !unstyled && "h-auto items-stretch text-base md:text-sm",
+        className,
       )}
     >
       <FieldPrimitive.Control
@@ -56,7 +40,7 @@ function Textarea({
           <textarea
             className={cn(
               "min-h-20.5 max-sm:min-h-23.5 min-w-0 w-full py-2 rounded-[inherit] placeholder:text-muted-foreground outline-none",
-              !unstyled && "px-3"
+              !unstyled && "px-3",
             )}
             data-slot="textarea"
             {...mergeProps(defaultProps, props)}
@@ -67,4 +51,4 @@ function Textarea({
   );
 }
 
-export { Textarea, textareaVariants, type TextareaProps };
+export { Textarea, type TextareaProps };

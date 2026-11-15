@@ -4,17 +4,12 @@ import type * as React from "react";
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
-import {
-  PopupArrow,
-  type PopupArrowPublicProps as ArrowType,
-} from "@rlz/ui/components/base/popup-arrow";
+import { PopupArrow } from "@rlz/ui/components/base/popup-arrow";
 import { cn } from "cn";
 
-export const PopoverCreateHandle = PopoverPrimitive.createHandle;
+const PopoverCreateHandle = PopoverPrimitive.createHandle;
 
-function PopoverRoot(props: PopoverPrimitive.Root.Props) {
-  return <PopoverPrimitive.Root data-slot="popover" {...props} />;
-}
+const PopoverRoot: typeof PopoverPrimitive.Root = PopoverPrimitive.Root;
 
 function PopoverTrigger(props: PopoverPrimitive.Trigger.Props) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
@@ -76,7 +71,7 @@ function PopoverPopup({
             "h-(--popup-height,auto) w-(--popup-width,auto) origin-(--transform-origin) rounded-md bg-popover px-3 py-4 shadow-md border",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2",
-            className
+            className,
           )}
           {...props}
         >
@@ -87,12 +82,11 @@ function PopoverPopup({
   );
 }
 
-function PopoverArrow(props: ArrowType) {
+function PopoverArrow(props: PopoverPrimitive.Arrow.Props) {
   return (
-    <PopupArrow
-      border={2}
-      baseComponent={PopoverPrimitive.Arrow}
+    <PopoverPrimitive.Arrow
       data-slot="popover-arrow"
+      render={<PopupArrow border={2} />}
       {...props}
     />
   );
@@ -167,4 +161,5 @@ export {
   PopoverTitle,
   PopoverDescription,
   PopoverClose,
+  PopoverCreateHandle,
 };

@@ -4,10 +4,7 @@ import * as React from "react";
 import { Autocomplete as AutocompletePrimitive } from "@base-ui/react/autocomplete";
 import { Input, type InputProps } from "@rlz/ui/components/ui/input";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
-import {
-  PopupArrow,
-  type PopupArrowPublicProps as ArrowType,
-} from "@rlz/ui/components/base/popup-arrow";
+import { PopupArrow } from "@rlz/ui/components/base/popup-arrow";
 import { cn } from "cn";
 import { ChevronDown, X } from "lucide-react";
 
@@ -46,7 +43,7 @@ function AutocompleteInput({
           className="w-full has-disabled:opacity-50"
         />
       }
-      className={cn("h-9", "data-popup-open:bg-secondary", className)}
+      className={cn("h-9 data-popup-open:bg-secondary", className)}
       {...props}
     />
   );
@@ -56,7 +53,7 @@ function AutocompleteInput({
   return (
     <div className="relative [&>input]:pr-10 w-auto">
       {input}
-      <div className="absolute right-3 bottom-0 flex h-9 items-center gap-1">
+      <div className="absolute right-2.5 bottom-0 flex h-9 items-center gap-1">
         <AutocompleteClear />
       </div>
     </div>
@@ -177,12 +174,11 @@ function AutocompletePopup({
   );
 }
 
-function AutocompleteArrow(props: ArrowType) {
+function AutocompleteArrow(props: AutocompletePrimitive.Arrow.Props) {
   return (
-    <PopupArrow
-      border={2}
-      baseComponent={AutocompletePrimitive.Arrow}
+    <AutocompletePrimitive.Arrow
       data-slot="autocomplete-arrow"
+      render={<PopupArrow border={2} />}
       {...props}
     />
   );
@@ -322,7 +318,9 @@ function AutocompleteCollection(props: AutocompletePrimitive.Collection.Props) {
   );
 }
 
-export const useAutocompleteFilter = AutocompletePrimitive.useFilter;
+const useAutocompleteFilter = AutocompletePrimitive.useFilter;
+
+const useAutoCompleteFilteredItems = AutocompletePrimitive.useFilteredItems;
 
 const AutocompleteExports = Object.assign(AutocompleteRoot, {
   Trigger: AutocompleteTrigger,
@@ -361,4 +359,6 @@ export {
   AutocompleteGroupLabel,
   AutocompleteRow,
   AutocompleteCollection,
+  useAutocompleteFilter,
+  useAutoCompleteFilteredItems,
 };

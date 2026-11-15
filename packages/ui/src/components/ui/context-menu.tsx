@@ -2,12 +2,15 @@
 
 import type * as React from "react";
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
-import { cn } from "cn";
-import { MenuBase } from "@rlz/ui/components/base/menu-base";
-import { Shortcut } from "@rlz/ui/components/base/shortcut";
+import { Menu as MenuPrimitive } from "@base-ui/react/menu";
+import { MenuPopup } from "@rlz/ui/components/ui/menu";
 
 function ContextMenuRoot(props: ContextMenuPrimitive.Root.Props) {
-  return <ContextMenuPrimitive.Root data-slot="context-menu-root" {...props} />;
+  return (
+    <MenuPrimitive.FilterProvider>
+      <ContextMenuPrimitive.Root {...props} />
+    </MenuPrimitive.FilterProvider>
+  );
 }
 
 function ContextMenuTrigger(props: ContextMenuPrimitive.Trigger.Props) {
@@ -17,210 +20,30 @@ function ContextMenuTrigger(props: ContextMenuPrimitive.Trigger.Props) {
 }
 
 function ContextMenuPopup({
-  backdrop,
-  backdropProps,
-  positionerProps = {
-    sideOffset: 8,
-  },
-  className,
-  ...props
-}: ContextMenuPrimitive.Popup.Props & {
-  backdrop?: boolean;
-  backdropProps?: ContextMenuPrimitive.Backdrop.Props;
-  positionerProps?: ContextMenuPrimitive.Positioner.Props;
-}) {
-  return (
-    <MenuBase.Popup
-      portalC={ContextMenuPrimitive.Portal}
-      popupC={ContextMenuPrimitive.Popup}
-      backdropC={ContextMenuPrimitive.Backdrop}
-      positionerC={ContextMenuPrimitive.Positioner}
-      backdrop={backdrop}
-      backdropProps={backdropProps}
-      positionerProps={positionerProps}
-      className={className}
-      {...props}
-    />
-  );
-}
-
-function ContextMenuGroup(props: ContextMenuPrimitive.Group.Props) {
-  return (
-    <ContextMenuPrimitive.Group data-slot="context-menu-group" {...props} />
-  );
-}
-
-function ContextMenuGroupLabel({
-  className,
-  ...props
-}: ContextMenuPrimitive.GroupLabel.Props) {
-  return (
-    <MenuBase.GroupLabel
-      baseComponent={ContextMenuPrimitive.GroupLabel}
-      className={className}
-      {...props}
-    />
-  );
-}
-
-function ContextMenuItem({
-  variant = "default",
-  className,
-  ...props
-}: ContextMenuPrimitive.Item.Props & {
-  variant?: React.ComponentProps<typeof MenuBase.Item>["variant"];
-}) {
-  return (
-    <MenuBase.Item
-      baseComponent={ContextMenuPrimitive.Item}
-      variant={variant}
-      className={className}
-      {...props}
-    />
-  );
-}
-
-function ContextMenuSeparator({
-  className,
-  ...props
-}: ContextMenuPrimitive.Separator.Props) {
-  return (
-    <MenuBase.Separator
-      baseComponent={ContextMenuPrimitive.Separator}
-      className={cn("mx-2 my-1.5", className)}
-      {...props}
-    />
-  );
-}
-
-function ContextMenuCheckboxItem({
-  variant = "default",
-  className,
-  children,
-  checked,
-  ...props
-}: ContextMenuPrimitive.CheckboxItem.Props & {
-  variant?: React.ComponentProps<typeof MenuBase.CheckboxItem>["variant"];
-}) {
-  return (
-    <MenuBase.CheckboxItem
-      itemC={ContextMenuPrimitive.CheckboxItem}
-      indicatorC={ContextMenuPrimitive.CheckboxItemIndicator}
-      variant={variant}
-      className={className}
-      checked={checked}
-      {...props}
-    >
-      {children}
-    </MenuBase.CheckboxItem>
-  );
-}
-
-function ContextMenuSwitchItem({
-  className,
-  children,
-  checked,
-  ...props
-}: ContextMenuPrimitive.CheckboxItem.Props) {
-  return (
-    <MenuBase.SwitchItem
-      itemC={ContextMenuPrimitive.CheckboxItem}
-      indicatorC={ContextMenuPrimitive.CheckboxItemIndicator}
-      className={className}
-      checked={checked}
-      {...props}
-    >
-      {children}
-    </MenuBase.SwitchItem>
-  );
-}
-
-function ContextMenuSubmenu(props: ContextMenuPrimitive.SubmenuRoot.Props) {
-  return (
-    <ContextMenuPrimitive.SubmenuRoot
-      data-slot="context-menu-submenu"
-      {...props}
-    />
-  );
-}
-
-function ContextMenuSubmenuTrigger({
-  className,
   children,
   ...props
-}: ContextMenuPrimitive.SubmenuTrigger.Props) {
+}: React.ComponentProps<typeof MenuPopup>) {
   return (
-    <MenuBase.SubmenuTrigger
-      baseComponent={ContextMenuPrimitive.SubmenuTrigger}
-      className={className}
+    <MenuPopup
       {...props}
+      positionnerProps={{
+        sideOffset: 0,
+        alignOffset: 0,
+        ...props.positionnerProps,
+      }}
     >
       {children}
-    </MenuBase.SubmenuTrigger>
+    </MenuPopup>
   );
 }
 
-function ContextMenuRadioGroup(
-  props: React.ComponentProps<typeof ContextMenuPrimitive.RadioGroup>
-) {
-  return (
-    <ContextMenuPrimitive.RadioGroup
-      data-slot="context-menu-radio-group"
-      {...props}
-    />
-  );
-}
-
-function ContextMenuRadioItem({
-  className,
-  children,
-  ...props
-}: ContextMenuPrimitive.RadioItem.Props) {
-  return (
-    <MenuBase.RadioItem
-      itemC={ContextMenuPrimitive.RadioItem}
-      indicatorC={ContextMenuPrimitive.RadioItemIndicator}
-      className={className}
-      {...props}
-    >
-      {children}
-    </MenuBase.RadioItem>
-  );
-}
-
-function ContextMenuShortcut(props: React.ComponentProps<typeof Shortcut>) {
-  return <Shortcut data-slot="context-menu-shortcut" {...props} />;
-}
-
-const ContextMenuExports = Object.assign(ContextMenuRoot, {
+const ExportsContextMenu = Object.assign(ContextMenuRoot, {
   Trigger: ContextMenuTrigger,
   Popup: ContextMenuPopup,
-  Group: ContextMenuGroup,
-  GroupLabel: ContextMenuGroupLabel,
-  Item: ContextMenuItem,
-  Separator: ContextMenuSeparator,
-  CheckboxItem: ContextMenuCheckboxItem,
-  SwitchItem: ContextMenuSwitchItem,
-  Submenu: ContextMenuSubmenu,
-  SubmenuTrigger: ContextMenuSubmenuTrigger,
-  RadioGroup: ContextMenuRadioGroup,
-  RadioItem: ContextMenuRadioItem,
-  Shortcut: ContextMenuShortcut,
 });
 
 export {
-  ContextMenuExports as ContextMenu,
+  ExportsContextMenu as ContextMenu,
   ContextMenuTrigger,
   ContextMenuPopup,
-  ContextMenuGroup,
-  ContextMenuGroupLabel,
-  ContextMenuItem,
-  ContextMenuSeparator,
-  ContextMenuCheckboxItem,
-  ContextMenuSwitchItem,
-  ContextMenuSubmenu,
-  ContextMenuSubmenuTrigger,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
-  ContextMenuShortcut,
 };

@@ -43,11 +43,15 @@ function CommandDialogBackdrop({
   blur?: boolean;
 }) {
   return (
-    <Backdrop
+    <CommandDialogPrimitive.Backdrop
       data-slot="command-dialog-backdrop"
-      baseComponent={CommandDialogPrimitive.Backdrop}
-      blur={blur}
-      className={className}
+      render={(renderProps) => (
+        <Backdrop
+          {...renderProps}
+          blur={blur}
+          className={cn(renderProps.className, className)}
+        />
+      )}
       {...props}
     />
   );

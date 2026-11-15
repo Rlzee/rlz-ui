@@ -2,15 +2,13 @@
 
 import type * as React from "react";
 import { PreviewCard as PreviewCardPrimitive } from "@base-ui/react/preview-card";
-import {
-  PopupArrow,
-  type PopupArrowPublicProps as ArrowType,
-} from "@rlz/ui/components/base/popup-arrow";
+import { PopupArrow } from "@rlz/ui/components/base/popup-arrow";
 import { cn } from "cn";
 
-function PreviewCardRoot(props: PreviewCardPrimitive.Root.Props) {
-  return <PreviewCardPrimitive.Root data-slot="preview-card" {...props} />;
-}
+const PreviewCardCreateHandle = PreviewCardPrimitive.createHandle;
+
+const PreviewCardRoot: typeof PreviewCardPrimitive.Root =
+  PreviewCardPrimitive.Root;
 
 function PreviewCardTrigger(props: PreviewCardPrimitive.Trigger.Props) {
   return (
@@ -75,7 +73,7 @@ function PreviewCardPopup({
           className={cn(
             "flex w-60 origin-(--transform-origin) flex-col gap-2 rounded-lg bg-popover text-popover-foreground p-2 shadow-md outline-1 outline-border transition-[transform,scale,opacity] dark:shadow-none dark:-outline-offset-1",
             "data-ending-style:scale-90 data-ending-style:opacity-0 data-starting-style:scale-90 data-starting-style:opacity-0",
-            className
+            className,
           )}
           {...props}
         >
@@ -86,12 +84,11 @@ function PreviewCardPopup({
   );
 }
 
-function PreviewCardArrow(props: ArrowType) {
+function PreviewCardArrow(props: PreviewCardPrimitive.Arrow.Props) {
   return (
-    <PopupArrow
+    <PreviewCardPrimitive.Arrow
       data-slot="preview-card-arrow"
-      border={2}
-      baseComponent={PreviewCardPrimitive.Arrow}
+      render={<PopupArrow border={2} />}
       {...props}
     />
   );
@@ -109,4 +106,5 @@ export {
   PreviewCardTrigger,
   PreviewCardPopup,
   PreviewCardArrow,
+  PreviewCardCreateHandle,
 };

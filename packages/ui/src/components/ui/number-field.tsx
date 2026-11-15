@@ -5,6 +5,7 @@ import { NumberField as NumberFieldPrimitive } from "@base-ui/react/number-field
 import { Label } from "@rlz/ui/components/ui/label";
 import { Minus, Plus } from "lucide-react";
 import { cn } from "cn";
+import { Group, GroupSeparator } from "./group";
 
 export const NumberFieldContext = React.createContext<{
   fieldId: string;
@@ -99,15 +100,18 @@ function NumberFieldGroup({
 }: NumberFieldPrimitive.Group.Props) {
   return (
     <NumberFieldPrimitive.Group
-      data-slot="number-field-group"
+      render={<Group />}
       className={cn(
-        "flex data-disabled:pointer-events-none data-disabled:opacity-50 ",
+        "data-disabled:pointer-events-none data-disabled:opacity-50",
         className
       )}
       {...props}
     />
   );
 }
+
+const stepperClassName =
+  "flex h-9 px-3 items-center justify-center rounded-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4";
 
 function NumberFieldDecrement({
   className,
@@ -119,13 +123,10 @@ function NumberFieldDecrement({
   return (
     <NumberFieldPrimitive.Decrement
       data-slot="number-field-decrement"
-      className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tl-md rounded-bl-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4",
-        className
-      )}
+      className={cn(stepperClassName, className)}
       {...props}
     >
-      {icon ? icon : <Minus />}
+      {icon ?? <Minus />}
     </NumberFieldPrimitive.Decrement>
   );
 }
@@ -140,13 +141,10 @@ function NumberFieldIncrement({
   return (
     <NumberFieldPrimitive.Increment
       data-slot="number-field-increment"
-      className={cn(
-        "flex h-9 px-3 items-center justify-center rounded-tr-md rounded-br-md border bg-secondary bg-clip-padding text-secondary-foreground select-none hover:bg-accent/70 active:bg-accent/70 [&_svg]:size-4",
-        className
-      )}
+      className={cn(stepperClassName, className)}
       {...props}
     >
-      {icon ? icon : <Plus />}
+      {icon ?? <Plus />}
     </NumberFieldPrimitive.Increment>
   );
 }
@@ -171,6 +169,7 @@ const NumberFieldExport = Object.assign(NumberFieldRoot, {
   ScrubArea: NumberFieldScrubArea,
   ScrubAreaCursor: NumberFieldScrubAreaCursor,
   Group: NumberFieldGroup,
+  Separator: GroupSeparator,
   Decrement: NumberFieldDecrement,
   Increment: NumberFieldIncrement,
   Input: NumberFieldInput,

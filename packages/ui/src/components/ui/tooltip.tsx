@@ -2,49 +2,9 @@
 
 import type * as React from "react";
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
-import {
-  PopupArrow,
-  type PopupArrowPublicProps as ArrowType,
-} from "@rlz/ui/components/base/popup-arrow";
+import { PopupArrow } from "@rlz/ui/components/base/popup-arrow";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "cn";
-
-const TooltipCreateHandle = TooltipPrimitive.createHandle;
-
-function TooltipProvider({
-  delay = 0,
-  closeDelay = 500,
-  timeout = 0,
-  ...props
-}: TooltipPrimitive.Provider.Props) {
-  return (
-    <TooltipPrimitive.Provider
-      data-slot="tooltip-provider"
-      delay={delay}
-      closeDelay={closeDelay}
-      timeout={timeout}
-      {...props}
-    />
-  );
-}
-
-function TooltipRoot(props: TooltipPrimitive.Root.Props) {
-  return <TooltipPrimitive.Root data-slot="tooltip-root" {...props} />;
-}
-
-function TooltipTrigger(props: TooltipPrimitive.Trigger.Props) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
-}
-
-function TooltipPortal(props: TooltipPrimitive.Portal.Props) {
-  return <TooltipPrimitive.Portal data-slot="tooltip-portal" {...props} />;
-}
-
-function TooltipPositioner(props: TooltipPrimitive.Positioner.Props) {
-  return (
-    <TooltipPrimitive.Positioner data-slot="tooltip-positioner" {...props} />
-  );
-}
 
 const tooltipPopupVariants = cva(
   cn(
@@ -63,6 +23,41 @@ const tooltipPopupVariants = cva(
     },
   }
 );
+
+const TooltipCreateHandle: typeof TooltipPrimitive.createHandle =
+  TooltipPrimitive.createHandle;
+
+function TooltipProvider({
+  delay = 0,
+  closeDelay = 500,
+  timeout = 0,
+  ...props
+}: TooltipPrimitive.Provider.Props) {
+  return (
+    <TooltipPrimitive.Provider
+      delay={delay}
+      closeDelay={closeDelay}
+      timeout={timeout}
+      {...props}
+    />
+  );
+}
+
+const TooltipRoot: typeof TooltipPrimitive.Root = TooltipPrimitive.Root;
+
+function TooltipTrigger(props: TooltipPrimitive.Trigger.Props) {
+  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />;
+}
+
+function TooltipPortal(props: TooltipPrimitive.Portal.Props) {
+  return <TooltipPrimitive.Portal data-slot="tooltip-portal" {...props} />;
+}
+
+function TooltipPositioner(props: TooltipPrimitive.Positioner.Props) {
+  return (
+    <TooltipPrimitive.Positioner data-slot="tooltip-positioner" {...props} />
+  );
+}
 
 type TooltipPopupProps = TooltipPrimitive.Popup.Props &
   VariantProps<typeof tooltipPopupVariants> & {
@@ -101,20 +96,17 @@ function TooltipPopup({
   );
 }
 
-function TooltipArrow(props: ArrowType) {
+function TooltipArrow(props: TooltipPrimitive.Arrow.Props) {
   return (
-    <PopupArrow
+    <TooltipPrimitive.Arrow
       data-slot="tooltip-arrow"
-      border={1}
-      classNameBg={cn(
-        "fill-foreground group-data-[variant=outline]:fill-popover",
-        props.classNameBg
-      )}
-      classNameBorder={cn(
-        "fill-none group-data-[variant=outline]:fill-border",
-        props.classNameBorder
-      )}
-      baseComponent={TooltipPrimitive.Arrow}
+      render={
+        <PopupArrow
+          border={1}
+          bgClassName="fill-foreground group-data-[variant=outline]:fill-popover"
+          borderClassName="fill-none group-data-[variant=outline]:fill-border"
+        />
+      }
       {...props}
     />
   );

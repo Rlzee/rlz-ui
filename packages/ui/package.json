@@ -11,7 +11,7 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@base-ui/react": "^1.6.0",
+    "@base-ui/react": "^1.9.0",
     "@rlz/registry": "workspace:^",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.3.0",

@@ -7,7 +7,7 @@ import { useRender } from "@base-ui/react/use-render";
 import { cva } from "class-variance-authority";
 import { cn } from "cn";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
-import { Xclose } from "@rlz/ui/components/base/x-close";
+import { XClose } from "@rlz/ui/components/base/x-close";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 
 type DrawerVariant = "default" | "bare" | "bare-bottom" | "bare-top";
@@ -85,7 +85,6 @@ function DrawerRoot({
   return (
     <DrawerContext.Provider value={{ layout, variant, indent }}>
       <DrawerPrimitive.Root
-        data-slot="drawer"
         swipeDirection={swipeDirection}
         {...props}
       />
@@ -101,7 +100,7 @@ function DrawerIndent({ className, ...props }: DrawerPrimitive.Indent.Props) {
         "[transition:transform_0.4s_cubic-bezier(0.32,0.72,0,1),border-radius_0.25s_cubic-bezier(0.32,0.72,0,1)] origin-[center_top] will-change-transform transform-[scale(1)_translateY(0)] duration-[calc(400ms*var(--indent-transition)),calc(250ms*var(--indent-transition))]",
         "data-active:transform-[scale(calc(0.98+(0.02*var(--indent-progress))))_translateY(calc(0.5rem*(1-var(--indent-progress))))] data-active:rounded-tl-(--indent-radius) data-active:rounded-tr-(--indent-radius)",
         "[--indent-progress:var(--drawer-swipe-progress)] [--indent-radius:calc(1rem*(1-var(--indent-progress)))] [--indent-transition:calc(1-clamp(0,calc(var(--drawer-swipe-progress)*100000),1))]",
-        className
+        className,
       )}
       {...props}
     />
@@ -139,7 +138,7 @@ function DrawerSwipeArea({
       className={cn(
         "absolute inset-y-0 z-10 box-border w-10",
         "data-[swipe-direction=right]:left-0 data-[swipe-direction=left]:right-0 data-[swipe-direction=down]:bottom-0 data-[swipe-direction=up]:top-0",
-        className
+        className,
       )}
       {...props}
     />
@@ -154,17 +153,23 @@ function DrawerBackdrop({
   className,
   blur,
   ...props
-}: DrawerPrimitive.Backdrop.Props & {
-  blur?: boolean;
-}) {
+}: DrawerPrimitive.Backdrop.Props & { blur?: boolean }) {
   const { indent } = useDrawer();
 
   return (
-    <Backdrop
+    <DrawerPrimitive.Backdrop
       data-slot="drawer-backdrop"
-      baseComponent={DrawerPrimitive.Backdrop}
-      blur={blur}
-      className={cn(indent && "absolute", className)}
+      render={(renderProps) => (
+        <Backdrop
+          {...renderProps}
+          blur={blur}
+          className={cn(
+            renderProps.className,
+            indent && "data-[indent=true]:absolute",
+            className,
+          )}
+        />
+      )}
       {...props}
     />
   );
@@ -195,22 +200,18 @@ function DrawerViewport({
 
         //nested
         "data-[layout=inset]:data-nested:m-5",
-        className
+        className,
       )}
       {...props}
     />
   );
 }
 
-function DrawerCloseButton({
-  className,
-  ...props
-}: DrawerPrimitive.Close.Props) {
+function DrawerCloseButton(props: DrawerPrimitive.Close.Props) {
   return (
-    <Xclose
+    <DrawerPrimitive.Close
       data-slot="drawer-close-button"
-      baseComponent={DrawerPrimitive.Close}
-      className={className}
+      render={<XClose />}
       {...props}
     />
   );
@@ -272,7 +273,7 @@ function DrawerPopup({
 
             // inset
             "data-[layout=inset]:rounded-lg data-[layout=inset]:border",
-            className
+            className,
           )}
           {...props}
         >
@@ -297,7 +298,7 @@ const DrawerHeader = ({
       "flex flex-col text-left gap-0.5 pt-4 px-6",
       drawerHeaderVariants({ variant }),
       layout === "inset" ? "rounded-t-lg" : "",
-      className
+      className,
     ),
   };
 
@@ -341,8 +342,6 @@ function DrawerBody({
   scrollFade?: React.ComponentProps<typeof ScrollArea>["scrollFade"];
   scrollClassName?: React.ComponentProps<typeof ScrollArea>["className"];
 }) {
-  const { variant, layout } = useDrawer();
-
   const defaultProps = {
     "data-slot": "drawer-body",
     className: cn("flex flex-col gap-6 px-6 py-6 h-full", className),
@@ -372,7 +371,7 @@ function DrawerFooter({
       "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
       drawerFooterVariants({ variant }),
       layout === "inset" ? "rounded-b-lg" : "",
-      className
+      className,
     ),
   };
 

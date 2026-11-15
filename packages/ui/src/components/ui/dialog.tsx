@@ -6,7 +6,7 @@ import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { Backdrop } from "@rlz/ui/components/base/backdrop";
-import { Xclose } from "@rlz/ui/components/base/x-close";
+import { XClose } from "@rlz/ui/components/base/x-close";
 import { cva } from "class-variance-authority";
 import { cn } from "cn";
 
@@ -30,7 +30,7 @@ const dialogPopupVariants = cva(
         "bare-top": "bg-background",
       },
     },
-  }
+  },
 );
 
 const dialogHeaderVariants = cva("flex flex-col text-left gap-0.5 pt-4 px-6", {
@@ -57,7 +57,7 @@ const dialogFooterVariants = cva(
         "bare-top": "pt-4 border-t border-border/50 bg-popover rounded-b-lg",
       },
     },
-  }
+  },
 );
 
 const DialogCreateHandle = DialogPrimitive.createHandle;
@@ -68,7 +68,7 @@ function DialogRoot({
 }: DialogPrimitive.Root.Props & { variant?: DialogVariant }) {
   return (
     <DialogVariantContext.Provider value={variant}>
-      <DialogPrimitive.Root data-slot="dialog" {...props} />
+      <DialogPrimitive.Root {...props} />
     </DialogVariantContext.Provider>
   );
 }
@@ -90,7 +90,7 @@ function DialogViewport({
       data-slot="dialog-viewport"
       className={cn(
         "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4",
-        className
+        className,
       )}
       {...props}
     />
@@ -101,29 +101,27 @@ function DialogBackdrop({
   className,
   blur,
   ...props
-}: DialogPrimitive.Backdrop.Props & {
-  blur?: boolean;
-}) {
+}: DialogPrimitive.Backdrop.Props & { blur?: boolean }) {
   return (
-    <Backdrop
+    <DialogPrimitive.Backdrop
       data-slot="dialog-backdrop"
-      baseComponent={DialogPrimitive.Backdrop}
-      blur={blur}
-      className={className}
+      render={(renderProps) => (
+        <Backdrop
+          {...renderProps}
+          blur={blur}
+          className={cn(renderProps.className, className)}
+        />
+      )}
       {...props}
     />
   );
 }
 
-function DialogCloseButton({
-  className,
-  ...props
-}: DialogPrimitive.Close.Props) {
+function DialogCloseButton(props: DialogPrimitive.Close.Props) {
   return (
-    <Xclose
+    <DialogPrimitive.Close
       data-slot="dialog-close-button"
-      baseComponent={DialogPrimitive.Close}
-      className={className}
+      render={<XClose />}
       {...props}
     />
   );
