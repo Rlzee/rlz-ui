@@ -128,6 +128,7 @@ export const demoPaths: Record<string, string> = {
   "number-field-scrub": "number-field/scrub",
   "number-field-formated": "number-field/formated",
   "number-field-step": "number-field/step",
+  "number-field-group-separator": "number-field/group-separator",
   // Popover
   popover: "popover/default",
   // Preview Card

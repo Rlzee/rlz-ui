@@ -7,8 +7,7 @@ import { isRounded, type AppearanceField } from "../../../lib/appearance";
 import { Input } from "@rlz/ui/components/ui/input";
 import { NumberField } from "@rlz/ui/components/ui/number-field";
 import { Toggle } from "@rlz/ui/components/ui/toggle";
-import { cn } from "@rlz/ui/lib/cn";
-
+import { Group } from "@rlz/ui/components/ui/group";
 // The radius scale the Creator offers as a segmented toggle. Tailwind names a
 // corner by these steps, so a click writes them onto the field's own utility
 // (`rounded-lg`, `rounded-t-lg`) and the box's current step stays lit.
@@ -155,7 +154,9 @@ function NumberScaleField({
     >
       <NumberField.Group className="h-7">
         <NumberField.Decrement className="h-7 [&_svg]:size-3.5" />
+        <Group.Separator />
         <NumberField.Input aria-label={label} className="h-7 w-full text-xs" />
+        <Group.Separator />
         <NumberField.Increment className="h-7 [&_svg]:size-3.5" />
       </NumberField.Group>
     </NumberField>
