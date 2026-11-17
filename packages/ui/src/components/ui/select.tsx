@@ -29,7 +29,7 @@ function SelectTrigger({
         "relative inline-flex w-full min-w-36 select-none items-center justify-between gap-2 rounded-md border bg-popover not-dark:bg-clip-padding text-left text-sm text-foreground outline-none",
         "hover:bg-accent/70 data-popup-open:bg-accent data-popup-open:text-muted-foreground",
         "state-focus-ring",
-        className,
+        className
       )}
       {...props}
     />
@@ -42,7 +42,7 @@ function SelectValue({ className, ...props }: SelectPrimitive.Value.Props) {
       data-slot="select-value"
       className={cn(
         "truncate data-placeholder:text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />
@@ -101,8 +101,8 @@ function SelectScrollUpArrow({
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-arrow"
       className={cn(
-        "top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:w-full before:content-['']",
-        className,
+        "top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:content-['']",
+        className
       )}
       {...props}
     />
@@ -118,7 +118,7 @@ function SelectScrollDownArrow({
       data-slot="select-scroll-down-arrow"
       className={cn(
         "bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute before:left-0 before:h-full before:w-full before:content-[''] data-[side=none]:before:-bottom-full",
-        className,
+        className
       )}
       {...props}
     />
@@ -180,7 +180,7 @@ function SelectPopup({
           data-slot="select-popup"
           className={cn(
             "border group w-(--anchor-width) max-w-(--available-width) origin-(--transform-origin) bg-clip-padding rounded-md bg-popover text-popover-foreground shadow-md",
-            className,
+            className
           )}
           {...props}
         >
@@ -198,7 +198,7 @@ function SelectList({ className, ...props }: SelectPrimitive.List.Props) {
         data-slot="select-list"
         className={cn(
           "relative py-1 scroll-py-6 max-h-(--available-height)",
-          className,
+          className
         )}
         {...props}
       />
@@ -211,12 +211,17 @@ function SelectItem({ className, ...props }: SelectPrimitive.Item.Props) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr]",
-        "flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none",
+        // The indicator must not push the item's text 28px to the right of
+        // the trigger value. Base UI aligns those two texts in overlap mode;
+        // an inline leading check therefore shifts the entire popup left.
+        // Use a slightly smaller leading inset to compensate for the remaining
+        // horizontal offset in Base UI's selected-item alignment. Keep the
+        // check at the end so it never affects the measured text position.
+        "relative flex cursor-default items-center gap-3 py-2 pl-2 pr-9 text-sm leading-4 outline-none select-none",
         "pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem]",
         "hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70",
         "data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70",
-        className,
+        className
       )}
       {...props}
     />
@@ -230,7 +235,7 @@ function SelectItemText({
   return (
     <SelectPrimitive.ItemText
       data-slot="select-item-text"
-      className={cn("col-start-2 order-last", className)}
+      className={cn("min-w-0 flex-1", className)}
       {...props}
     />
   );
@@ -246,8 +251,8 @@ function SelectItemIndicator({
       data-slot="select-item-indicator"
       keepMounted
       className={cn(
-        "col-start-1 order-first invisible data-selected:visible",
-        className,
+        "absolute right-3 top-1/2 -translate-y-1/2 invisible data-selected:visible",
+        className
       )}
       {...props}
     >
@@ -288,7 +293,7 @@ function SelectGroupLabel({
       data-slot="select-group-label"
       className={cn(
         "px-2.5 py-1.5 text-xs font-medium text-muted-foreground",
-        className,
+        className
       )}
       {...props}
     />
