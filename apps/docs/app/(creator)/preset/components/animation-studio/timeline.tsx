@@ -123,14 +123,14 @@ export function AnimationTimeline({
     onMove(property, from, to);
   }
   return (
-    <div className="rounded-md border p-3">
+    <div>
       <div className="mb-3 flex items-center justify-between gap-2">
         <span className="text-xs font-medium">Timeline</span>
         <span className="text-[11px] text-muted-foreground">
           Drag playhead ↔ · drag property keys · double-click a track to add
         </span>
       </div>
-      <div className="grid grid-cols-[92px_minmax(0,1fr)] gap-x-3 gap-y-2">
+      <div className="grid grid-cols-[92px_minmax(0,1fr)] gap-x-3 gap-y-2 px-1.5">
         <div />
         <div className="flex justify-between text-[10px] tabular-nums text-muted-foreground">
           <span>0 ms</span>

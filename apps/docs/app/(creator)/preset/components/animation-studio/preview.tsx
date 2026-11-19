@@ -1,9 +1,38 @@
 "use client";
 
 import * as React from "react";
+import dynamic from "next/dynamic";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Slider } from "@rlz/ui/components/ui/slider";
+import { Select } from "@rlz/ui/components/ui/select";
+import { demoPaths } from "@rlz/ui/components/examples";
+import { useSelectedComponent } from "@/hooks/use-selected-component";
+import { slugFromId } from "../../lib/slug";
 import { type CreatorAnimation, toWebKeyframes } from "./model";
+
+function MissingDemo() {
+  return (
+    <span className="text-xs text-muted-foreground">Preview not available</span>
+  );
+}
+
+function ComponentDemo({ entry }: { entry: string }) {
+  const Demo = React.useMemo(
+    () =>
+      dynamic(
+        async () => {
+          try {
+            return await import(`@rlz/ui/components/examples/ui/${entry}`);
+          } catch {
+            return { default: MissingDemo };
+          }
+        },
+        { ssr: false }
+      ),
+    [entry]
+  );
+  return <Demo />;
+}
 
 export function AnimationPreview({
   animation,
@@ -16,6 +45,17 @@ export function AnimationPreview({
   onProgressChange: (progress: number) => void;
   seekRequest: { value: number; id: number };
 }) {
+  const [selected] = useSelectedComponent();
+  const slug = selected ? slugFromId(selected.id) : "";
+  const entries = React.useMemo(() => {
+    const prefix = `${slug}/`;
+    return Object.entries(demoPaths)
+      .filter(([, path]) => slug && (path === slug || path.startsWith(prefix)))
+      .sort((a, b) => a[1].localeCompare(b[1]))
+      .map(([, path]) => path);
+  }, [slug]);
+  const [chosenEntry, setChosenEntry] = React.useState("");
+  const entry = entries.includes(chosenEntry) ? chosenEntry : entries[0] ?? "";
   const target = React.useRef<HTMLDivElement>(null);
   const playback = React.useRef<Animation | null>(null);
   const [playing, setPlaying] = React.useState(false);
@@ -46,7 +86,7 @@ export function AnimationPreview({
       setPlaying(false);
       setPaused(false);
     },
-    [animation]
+    [animation, onProgressChange]
   );
 
   const play = React.useCallback(() => {
@@ -69,7 +109,7 @@ export function AnimationPreview({
       setPlaying(false);
       setPaused(false);
     };
-  }, [animation]);
+  }, [animation, onProgressChange]);
 
   const togglePause = React.useCallback(() => {
     const instance = playback.current;
@@ -91,13 +131,12 @@ export function AnimationPreview({
       playback.current?.cancel();
       playback.current = null;
     };
-    // Rebuild the preview only when the animation definition changes.
+    // Rebuild the preview only when the animation definition or example changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animation]);
+  }, [animation, entry]);
 
   React.useEffect(() => {
     if (seekRequest.id > 0) seek(seekRequest.value);
-    // A seek request is an explicit timeline action, not a playback tick.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [seekRequest]);
 
@@ -121,18 +160,53 @@ export function AnimationPreview({
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [playing, animation.duration, animation.delay]);
+  }, [playing, animation.duration, animation.delay, onProgressChange]);
 
   return (
     <div className="flex min-w-0 flex-col gap-3">
-      <div className="flex min-h-52 items-center justify-center overflow-hidden rounded-lg border bg-muted/30 p-8">
+      {entries.length > 1 && (
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-xs text-muted-foreground">
+            Component example
+          </span>
+          <Select
+            value={entry}
+            onValueChange={(next) => {
+              if (typeof next === "string") setChosenEntry(next);
+            }}
+          >
+            <Select.Trigger size="xs" className="min-w-0 max-w-60">
+              <Select.Value>{entry.split("/").pop()}</Select.Value>
+              <Select.Icon />
+            </Select.Trigger>
+            <Select.Popup
+              positionerProps={{ align: "start", className: "z-[60]" }}
+            >
+              <Select.List>
+                {entries.map((path) => (
+                  <Select.Item key={path} value={path}>
+                    <Select.ItemIndicator />
+                    <Select.ItemText>{path.split("/").pop()}</Select.ItemText>
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Popup>
+          </Select>
+        </div>
+      )}
+      <div className="flex min-h-52 items-center justify-center rounded-lg border bg-muted/30 p-8">
         <div
           ref={target}
-          className="w-44 rounded-lg border bg-background p-4 shadow-lg"
+          className="flex min-w-0 max-w-full items-center justify-center"
         >
-          <div className="mb-3 h-2 w-24 rounded bg-foreground/25" />
-          <div className="mb-2 h-2 w-full rounded bg-foreground/10" />
-          <div className="h-2 w-3/4 rounded bg-foreground/10" />
+          {entry ? (
+            <ComponentDemo key={entry} entry={entry} />
+          ) : (
+            <span className="text-xs text-muted-foreground">
+              Select a component with an available demo to preview its
+              animation.
+            </span>
+          )}
         </div>
       </div>
       <div className="flex items-center gap-2">
