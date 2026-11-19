@@ -14,11 +14,13 @@ import { VariantList } from "./components/variant-list";
 import { AppearancePart } from "./components/appearance-part";
 import { PartRow } from "./components/part-row";
 import { BoolRow } from "./components/bool-row";
+import { AnimationStudio } from "../animation-studio/studio";
 
 export function ComponentProperties() {
   const [selected] = useSelectedComponent();
   const edits = useAtomValue(componentEditsAtom);
   const setEdit = useSetAtom(setComponentEditAtom);
+
   const slug = selected ? slugFromId(selected.id) : "";
   const capabilities = getCapabilities(slug);
   const parts = partsOf(slug);
@@ -26,13 +28,19 @@ export function ComponentProperties() {
   if (!selected || !capabilities) return null;
 
   const edit = edits[slug];
+
   const update = (patch: PresetComponentCustomization) => setEdit(slug, patch);
 
-  // Keep parts with no appearance utilities: they can now receive new properties.
   const appearanceBoxes = parts.map((part) => {
     const override = edit?.partClasses?.[part.name];
     const effective = override ?? part.classes;
-    return { part, override, effective, fields: appearanceFields(effective) };
+
+    return {
+      part,
+      override,
+      effective,
+      fields: appearanceFields(effective),
+    };
   });
 
   return (
@@ -46,6 +54,16 @@ export function ComponentProperties() {
           <VariantList slug={slug} axis={axis} edit={edit} onUpdate={update} />
         </CollapsibleProperties>
       ))}
+
+      <CollapsibleProperties name="Animations" defaultOpen>
+        <div className="px-2 py-2">
+          <AnimationStudio
+            onApply={(animation) => {
+              console.log("Animation created:", animation);
+            }}
+          />
+        </div>
+      </CollapsibleProperties>
 
       {appearanceBoxes.length > 0 && (
         <CollapsibleProperties name="Appearance" defaultOpen>
@@ -61,6 +79,7 @@ export function ComponentProperties() {
                 edited={override !== undefined}
                 onValue={(prefix, value) => {
                   const next = setAppearanceValue(effective, prefix, value);
+
                   update({
                     partClasses: {
                       [part.name]: next === part.classes ? undefined : next,
@@ -108,7 +127,11 @@ export function ComponentProperties() {
                   label={titleCase(key)}
                   checked={currentBool(key, edit)}
                   onChange={(checked) =>
-                    update({ props: { [key]: checked ? "true" : "false" } })
+                    update({
+                      props: {
+                        [key]: checked ? "true" : "false",
+                      },
+                    })
                   }
                 />
               ))}

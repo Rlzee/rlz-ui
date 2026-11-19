@@ -8,7 +8,6 @@ import {
 } from "../../../lib/appearance";
 import { Input } from "@rlz/ui/components/ui/input";
 import { NumberField } from "@rlz/ui/components/ui/number-field";
-import { Group } from "@rlz/ui/components/ui/group";
 import { Select } from "@rlz/ui/components/ui/select";
 
 const RADIUS_OPTIONS = [
@@ -196,9 +195,7 @@ function NumberScaleField({
     >
       <NumberField.Group className="h-7">
         <NumberField.Decrement className="h-7 [&_svg]:size-3.5" />
-        <Group.Separator />
         <NumberField.Input aria-label={label} className="h-7 w-full text-xs" />
-        <Group.Separator />
         <NumberField.Increment className="h-7 [&_svg]:size-3.5" />
       </NumberField.Group>
     </NumberField>

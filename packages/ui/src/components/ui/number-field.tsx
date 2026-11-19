@@ -103,6 +103,7 @@ function NumberFieldGroup({
       render={<Group />}
       className={cn(
         "data-disabled:pointer-events-none data-disabled:opacity-50",
+        "has-data-[slot=group-separator]:**:data-[slot=number-field-input]:bg-background",
         className
       )}
       {...props}
@@ -157,7 +158,7 @@ function NumberFieldInput({
     <NumberFieldPrimitive.Input
       data-slot="number-field-input"
       className={cn(
-        "bg-transparent h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
+        "bg-secondary h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid",
         className
       )}
       {...props}
