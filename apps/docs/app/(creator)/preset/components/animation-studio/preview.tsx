@@ -159,7 +159,7 @@ export function AnimationPreview({
 
       clone.style.setProperty("position", "relative", "important");
       clone.style.setProperty("inset", "auto", "important");
-      clone.style.setProperty("transform", "none", "important");
+      clone.style.setProperty("transform", "none");
       clone.style.setProperty("animation", "none", "important");
       clone.style.setProperty("transition", "none", "important");
       clone.style.maxHeight = "100%";
