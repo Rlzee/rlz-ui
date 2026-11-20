@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Kbd } from "@rlz/ui/components/ui/kbd";
 import {
   ANIMATION_PROPERTIES,
   type AnimationKeyframe,
@@ -124,11 +125,22 @@ export function AnimationTimeline({
   }
   return (
     <div>
-      <div className="mb-3 flex items-center justify-between gap-2">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <span className="text-xs font-medium">Timeline</span>
-        <span className="text-[11px] text-muted-foreground">
-          Drag playhead ↔ · drag property keys · double-click a track to add
-        </span>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <Kbd>↔</Kbd>
+            Drag playhead
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Kbd>Drag</Kbd>
+            Move keyframes
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Kbd>Double click</Kbd>
+            Add keyframe
+          </span>
+        </div>
       </div>
       <div className="grid grid-cols-[92px_minmax(0,1fr)] gap-x-3 gap-y-2 px-1.5">
         <div />

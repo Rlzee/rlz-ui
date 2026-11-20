@@ -14,6 +14,7 @@ import { presetVariables, previewPatches } from "../../lib/preset-styles";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { slugFromId } from "../../lib/slug";
 import { type CreatorAnimation, toWebKeyframes } from "./model";
+import { Play, Pause, RotateCcw } from "lucide-react";
 
 function MissingDemo() {
   return (
@@ -475,7 +476,8 @@ export function AnimationPreview({
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <Button type="button" size="sm" onClick={play}>
+        <Button type="button" size="sm" variant="outline" onClick={play}>
+          {playing || paused ? <RotateCcw /> : <Play />}{" "}
           {playing || paused ? "Replay" : "Play"}
         </Button>
         {(playing || paused) && (
@@ -485,13 +487,13 @@ export function AnimationPreview({
             variant="outline"
             onClick={togglePause}
           >
-            {paused ? "Resume" : "Pause"}
+            {paused ? <Play /> : <Pause />} {paused ? "Resume" : "Pause"}
           </Button>
         )}
         <Button
           type="button"
           size="sm"
-          variant="outline"
+          variant="ghost"
           onClick={() => {
             stop();
             seek(0);
