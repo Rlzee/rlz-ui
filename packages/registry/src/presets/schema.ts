@@ -16,10 +16,65 @@ export const PresetShadowConfigSchema = z.object({
   offsetY: z.number(),
 });
 
+export const PresetAnimationNameSchema = z.string().regex(/^[a-z][a-z0-9-]*$/);
+
+export const PresetKeyframeSelectorSchema = z.string().refine(
+  (value) =>
+    value.split(",").every((part) => {
+      const selector = part.trim();
+      if (selector === "from" || selector === "to") return true;
+      return (
+        /^(?:\d+(?:\.\d+)?|\.\d+)%$/.test(selector) &&
+        Number(selector.slice(0, -1)) <= 100
+      );
+    }),
+  "Expected from, to, or percentages between 0% and 100%"
+);
+
+const AnimationPropertySchema = z
+  .string()
+  .regex(/^(?:-?[a-z][a-z0-9-]*|--[a-zA-Z_][a-zA-Z0-9_-]*)$/);
+
+// Values may contain functions and strings, but cannot escape their declaration.
+const AnimationValueSchema = z
+  .string()
+  .min(1)
+  .refine((value) => {
+    if (
+      !value.trim() ||
+      /[;{}@\\\u0000-\u001f\u007f]/.test(value) ||
+      /\/\*|\*\//.test(value)
+    )
+      return false;
+
+    let quote = "";
+    let depth = 0;
+    for (const character of value) {
+      if (quote) {
+        if (character === quote) quote = "";
+      } else if (character === '"' || character === "'") {
+        quote = character;
+      } else if (character === "(") {
+        depth++;
+      } else if (character === ")") {
+        if (--depth < 0) return false;
+      }
+    }
+    return quote === "" && depth === 0;
+  }, "Expected a CSS value without rule delimiters, comments or unbalanced functions");
+
 export const PresetAnimationSchema = z.object({
-  value: z.string(),
-  keyframes: z.record(z.string(), z.record(z.string(), z.string())),
+  value: AnimationValueSchema,
+  keyframes: z.record(
+    PresetKeyframeSelectorSchema,
+    z.record(AnimationPropertySchema, AnimationValueSchema)
+  ),
 });
+
+export const PresetAnimationsSchema = z.record(
+  PresetAnimationNameSchema,
+  PresetAnimationSchema
+);
 
 export const PresetBaseConfigSchema = z.object({
   typography: z.object({
@@ -37,7 +92,7 @@ export const PresetBaseConfigSchema = z.object({
 
   utilities: z.record(z.string(), z.string()).optional(),
 
-  animations: z.record(z.string(), PresetAnimationSchema).optional(),
+  animations: PresetAnimationsSchema.optional(),
 });
 
 export const PresetColorTokenSchema = z.object({

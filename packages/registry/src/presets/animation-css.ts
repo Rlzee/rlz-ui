@@ -1,10 +1,14 @@
 import type { PresetBaseConfig } from "./types";
+import { PresetAnimationsSchema } from "./schema";
 
 /** Shared by the Creator preview and the installer. Application stays in classes. */
 export function presetAnimationsCss(
   animations: PresetBaseConfig["animations"]
 ): string {
-  const entries = Object.entries(animations ?? {});
+  // Validate here too: typed callers may supply unparsed JSON at runtime.
+  const entries = Object.entries(
+    PresetAnimationsSchema.parse(animations ?? {})
+  );
 
   if (entries.length === 0) return "";
 
