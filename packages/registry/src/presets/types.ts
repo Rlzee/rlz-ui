@@ -1,5 +1,6 @@
 import type { z } from "zod";
 import type {
+  PresetAnimationSchema,
   PresetBaseConfigSchema,
   PresetColorConfigSchema,
   PresetColorTokenSchema,
@@ -11,6 +12,8 @@ import type {
 // Base
 
 export type PresetBaseConfig = z.infer<typeof PresetBaseConfigSchema>;
+
+export type PresetAnimation = z.infer<typeof PresetAnimationSchema>;
 
 // Shadow
 

@@ -16,6 +16,11 @@ export const PresetShadowConfigSchema = z.object({
   offsetY: z.number(),
 });
 
+export const PresetAnimationSchema = z.object({
+  value: z.string(),
+  keyframes: z.record(z.string(), z.record(z.string(), z.string())),
+});
+
 export const PresetBaseConfigSchema = z.object({
   typography: z.object({
     letterSpacing: z.number(),
@@ -31,6 +36,8 @@ export const PresetBaseConfigSchema = z.object({
   shadows: PresetShadowConfigSchema.optional(),
 
   utilities: z.record(z.string(), z.string()).optional(),
+
+  animations: z.record(z.string(), PresetAnimationSchema).optional(),
 });
 
 export const PresetColorTokenSchema = z.object({

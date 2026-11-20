@@ -1,4 +1,5 @@
 import type { PresetShadowConfig, RegistryPreset } from "@rlz/registry";
+import { presetAnimationsCss } from "@rlz/registry";
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
 
@@ -185,7 +186,12 @@ export function cssSheet(preset: RegistryPreset): CssRule[] {
 
 /** The sheet as the text an app's stylesheet carries. */
 export function themeCss(preset: RegistryPreset): string {
-  return `${cssSheet(preset).map(renderRule).filter(Boolean).join("\n\n")}\n`;
+  return `${[
+    ...cssSheet(preset).map(renderRule),
+    presetAnimationsCss(preset.base.animations),
+  ]
+    .filter(Boolean)
+    .join("\n\n")}\n`;
 }
 
 /**

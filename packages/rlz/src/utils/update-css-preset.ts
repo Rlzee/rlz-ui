@@ -1,4 +1,5 @@
 import fs from "fs-extra";
+import { presetAnimationsCss } from "@rlz/registry";
 import type {
   PresetColorToken,
   PresetColorConfig,
@@ -86,6 +87,24 @@ export async function updateCssPreset(
     css = replaceVariable(css, "--shadow-spread", `${shadows.spread}px`);
     css = replaceVariable(css, "--shadow-opacity", `${shadows.opacity}`);
     css = replaceVariable(css, "--shadow-color", shadows.color);
+  }
+
+  if (preset.base?.animations !== undefined) {
+    // Replace only the section owned by the preset, leaving app animations alone.
+    const start = "/* rlz preset animations */";
+    const end = "/* end rlz preset animations */";
+    const section = new RegExp(
+      `${escapeRegExp(start)}[\\s\\S]*?${escapeRegExp(end)}\\r?\\n?`,
+      "g"
+    );
+    const animations = presetAnimationsCss(preset.base.animations);
+    const block = animations ? `${start}\n${animations}\n${end}\n` : "";
+
+    css = section.test(css)
+      ? css.replace(section, () => block)
+      : block
+      ? `${css.trimEnd()}\n\n${block}`
+      : css;
   }
 
   await fs.writeFile(cssPath, css, "utf8");
