@@ -6,6 +6,11 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Slider } from "@rlz/ui/components/ui/slider";
 import { Select } from "@rlz/ui/components/ui/select";
 import { demoPaths } from "@rlz/ui/components/examples";
+import { useAtomValue } from "jotai";
+import { useTheme } from "next-themes";
+import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
+import { presetBuilderAtom, componentEditsAtom } from "../../preset-builder";
+import { presetVariables, previewPatches } from "../../lib/preset-styles";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { slugFromId } from "../../lib/slug";
 import { type CreatorAnimation, toWebKeyframes } from "./model";
@@ -56,10 +61,223 @@ export function AnimationPreview({
   }, [slug]);
   const [chosenEntry, setChosenEntry] = React.useState("");
   const entry = entries.includes(chosenEntry) ? chosenEntry : entries[0] ?? "";
+  const preset = useAtomValue(presetBuilderAtom);
+  const edits = useAtomValue(componentEditsAtom);
+  const { resolvedTheme } = useTheme();
+  const parts = React.useMemo(() => partsOf(slug), [slug]);
+  const [partName, setPartName] = React.useState("");
+  const selectedPart =
+    parts.find((part) => part.name === partName) ??
+    parts.find((part) => /popup|content/i.test(part.name)) ??
+    parts[0];
+  const [snapshot, setSnapshot] = React.useState<HTMLElement | null>(null);
+  const [captureError, setCaptureError] = React.useState("");
+  const stage = React.useRef<HTMLDivElement>(null);
+  const source = React.useRef<HTMLDivElement>(null);
   const target = React.useRef<HTMLDivElement>(null);
+  const variables = React.useMemo(
+    () => presetVariables(preset, resolvedTheme === "dark"),
+    [preset, resolvedTheme]
+  );
+  const patches = React.useMemo(() => previewPatches(edits), [edits]);
   const playback = React.useRef<Animation | null>(null);
   const [playing, setPlaying] = React.useState(false);
   const [paused, setPaused] = React.useState(false);
+
+  // The example is loaded asynchronously. Observe its actual DOM rather than
+  // assuming it has mounted after a fixed 150 ms timeout.
+  React.useEffect(() => {
+    setSnapshot(null);
+    setCaptureError("");
+    if (!entry || !selectedPart || !source.current || !stage.current) return;
+
+    const slot = selectedPart.slot;
+    const selector = `[data-slot="${CSS.escape(slot)}"]`;
+    const needsOpening = /popup|content|viewport|listbox/i.test(slot);
+    const existingPortals = new Set(
+      document.querySelectorAll<HTMLElement>(selector)
+    );
+    let disposed = false;
+    let captured = false;
+    let opened = false;
+    let openingAt = 0;
+    let timeoutId: number | undefined;
+    let retryId: number | undefined;
+    let observer: MutationObserver;
+    let backdropGuard: HTMLStyleElement | null = null;
+    let closeTimer: number | undefined;
+
+    // The real popup is opened only long enough to take a styled snapshot.
+    // Hide its backdrop while it exists so the modal cannot blur the Creator.
+    const suppressBackdrop = () => {
+      if (backdropGuard) return;
+      backdropGuard = document.createElement("style");
+      backdropGuard.dataset.animationStudioBackdropGuard = "";
+      backdropGuard.textContent = `
+        [data-slot$="-backdrop"],
+        [data-slot$="-overlay"],
+        [data-slot="dialog-backdrop"],
+        [data-slot="alert-dialog-backdrop"] {
+          opacity: 0 !important;
+          visibility: hidden !important;
+          pointer-events: none !important;
+          backdrop-filter: none !important;
+          -webkit-backdrop-filter: none !important;
+        }
+      `;
+      document.head.appendChild(backdropGuard);
+    };
+    const releaseBackdrop = () => {
+      backdropGuard?.remove();
+      backdropGuard = null;
+    };
+
+    const copy = (element: HTMLElement) => {
+      if (disposed || captured) return;
+      captured = true;
+      const clone = element.cloneNode(true) as HTMLElement;
+      clone.removeAttribute("id");
+      clone
+        .querySelectorAll("[id]")
+        .forEach((node) => node.removeAttribute("id"));
+
+      // A portaled popup inherits its theme variables from the portal's actual
+      // ancestors, not from the Studio stage. Preserve that resolved context.
+      const originalStyle = window.getComputedStyle(element);
+      for (const name of originalStyle) {
+        if (!name.startsWith("--")) continue;
+        const value = originalStyle.getPropertyValue(name);
+        if (value.trim()) clone.style.setProperty(name, value);
+      }
+
+      clone.style.setProperty("position", "relative", "important");
+      clone.style.setProperty("inset", "auto", "important");
+      clone.style.setProperty("transform", "none", "important");
+      clone.style.setProperty("animation", "none", "important");
+      clone.style.setProperty("transition", "none", "important");
+      clone.style.maxHeight = "100%";
+      clone.style.maxWidth = "100%";
+      for (const patch of patches.filter((patch) => patch.slot === slot)) {
+        const classes = new Set(
+          (clone.getAttribute("class") ?? "").split(/\s+/)
+        );
+        if (
+          !patch.wholeSlot &&
+          !patch.remove.every((name) => classes.has(name))
+        )
+          continue;
+        patch.remove.forEach((name) => classes.delete(name));
+        patch.add.forEach((name) => classes.add(name));
+        clone.setAttribute("class", [...classes].filter(Boolean).join(" "));
+      }
+      setSnapshot(clone);
+      if (!source.current?.contains(element)) {
+        // Close the original modal after capturing the popup.
+        // Keep the backdrop suppressed until React removes the portal.
+        document.dispatchEvent(
+          new KeyboardEvent("keydown", {
+            key: "Escape",
+            code: "Escape",
+            bubbles: true,
+            cancelable: true,
+          })
+        );
+        closeTimer = window.setTimeout(releaseBackdrop, 250);
+      } else {
+        releaseBackdrop();
+      }
+    };
+
+    const find = () => {
+      const local = source.current?.querySelector<HTMLElement>(selector);
+      if (local) {
+        copy(local);
+        return true;
+      }
+      if (opened) {
+        const external = [
+          ...document.querySelectorAll<HTMLElement>(selector),
+        ].find(
+          (node) =>
+            !existingPortals.has(node) &&
+            !source.current?.contains(node) &&
+            !node.closest("[data-animation-studio-snapshot]")
+        );
+        if (external) {
+          copy(external);
+          return true;
+        }
+      }
+      return false;
+    };
+
+    const attempt = () => {
+      if (disposed || captured || find()) return;
+      if (!needsOpening || opened) return;
+      const trigger = source.current?.querySelector<HTMLElement>(
+        '[data-slot$="-trigger"], button, [role="combobox"], input'
+      );
+      if (!trigger) return;
+      opened = true;
+      openingAt = performance.now();
+      if (needsOpening) suppressBackdrop();
+      if (trigger instanceof HTMLInputElement) {
+        trigger.focus();
+        trigger.dispatchEvent(new Event("input", { bubbles: true }));
+      } else {
+        trigger.click();
+      }
+    };
+
+    // Mutations from the lazy-loaded demo and its portal both retry capture.
+    // requestAnimationFrame avoids reading half-committed portal markup.
+    let pending = false;
+    const schedule = () => {
+      if (pending || disposed || captured) return;
+      pending = true;
+      requestAnimationFrame(() => {
+        pending = false;
+        attempt();
+      });
+    };
+    observer = new MutationObserver(schedule);
+    observer.observe(document.body, { childList: true, subtree: true });
+    schedule();
+    retryId = window.setInterval(() => {
+      if (disposed || captured) return;
+      attempt();
+      if (opened && performance.now() - openingAt > 1200 && !captured) {
+        // Some examples require a second user interaction; report that clearly.
+        setCaptureError(
+          "Unable to open this part automatically. Try another example or part."
+        );
+        releaseBackdrop();
+      }
+    }, 100);
+    timeoutId = window.setTimeout(() => {
+      if (!disposed && !captured) {
+        setCaptureError(
+          "Preview unavailable: the component or its popup did not appear."
+        );
+        releaseBackdrop();
+      }
+    }, 4500);
+    return () => {
+      disposed = true;
+      observer.disconnect();
+      window.clearInterval(retryId);
+      window.clearTimeout(timeoutId);
+      window.clearTimeout(closeTimer);
+      releaseBackdrop();
+    };
+  }, [entry, selectedPart?.slot, patches]);
+
+  React.useLayoutEffect(() => {
+    const node = target.current;
+    if (!node) return;
+    node.replaceChildren();
+    if (snapshot) node.appendChild(snapshot);
+  }, [snapshot]);
 
   const stop = React.useCallback(() => {
     playback.current?.cancel();
@@ -70,8 +288,8 @@ export function AnimationPreview({
 
   const seek = React.useCallback(
     (fraction: number) => {
-      const node = target.current;
-      if (!node) return;
+      const node = snapshot;
+      if (!node || !snapshot) return;
       playback.current?.cancel();
       const instance = node.animate(toWebKeyframes(animation), {
         duration: Math.max(1, animation.duration),
@@ -86,12 +304,12 @@ export function AnimationPreview({
       setPlaying(false);
       setPaused(false);
     },
-    [animation, onProgressChange]
+    [animation, onProgressChange, snapshot]
   );
 
   const play = React.useCallback(() => {
-    const node = target.current;
-    if (!node) return;
+    const node = snapshot;
+    if (!node || !snapshot) return;
     playback.current?.cancel();
     onProgressChange(0);
     const instance = node.animate(toWebKeyframes(animation), {
@@ -109,7 +327,7 @@ export function AnimationPreview({
       setPlaying(false);
       setPaused(false);
     };
-  }, [animation, onProgressChange]);
+  }, [animation, onProgressChange, snapshot]);
 
   const togglePause = React.useCallback(() => {
     const instance = playback.current;
@@ -126,14 +344,16 @@ export function AnimationPreview({
   }, [paused, playing]);
 
   React.useEffect(() => {
-    seek(progress);
+    // A captured "fade in" popup is invisible at 0 ms. Show the finished
+    // state immediately; Play still starts the animation from its beginning.
+    if (snapshot) seek(1);
     return () => {
       playback.current?.cancel();
       playback.current = null;
     };
     // Rebuild the preview only when the animation definition or example changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [animation, entry]);
+  }, [animation, entry, snapshot]);
 
   React.useEffect(() => {
     if (seekRequest.id > 0) seek(seekRequest.value);
@@ -194,19 +414,64 @@ export function AnimationPreview({
           </Select>
         </div>
       )}
-      <div className="flex min-h-52 items-center justify-center rounded-lg border bg-muted/30 p-8">
+      {parts.length > 0 && (
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-xs text-muted-foreground">Animated part</span>
+          <Select
+            value={selectedPart?.name ?? ""}
+            onValueChange={(next) => {
+              if (typeof next === "string") setPartName(next);
+            }}
+          >
+            <Select.Trigger size="xs" className="min-w-0 max-w-60">
+              <Select.Value>{selectedPart?.name ?? "Select part"}</Select.Value>
+              <Select.Icon />
+            </Select.Trigger>
+            <Select.Popup
+              positionerProps={{ align: "start", className: "z-[60]" }}
+            >
+              <Select.List>
+                {parts.map((part) => (
+                  <Select.Item key={part.name} value={part.name}>
+                    <Select.ItemIndicator />
+                    <Select.ItemText>{part.name}</Select.ItemText>
+                  </Select.Item>
+                ))}
+              </Select.List>
+            </Select.Popup>
+          </Select>
+        </div>
+      )}
+      <div
+        ref={stage}
+        className="relative flex min-h-52 items-center justify-center overflow-hidden rounded-lg border bg-muted/30 p-8"
+        style={
+          Object.fromEntries(
+            Object.entries(variables)
+              .filter(([, v]) => v)
+              .map(([k, v]) => [`--${k}`, v])
+          ) as React.CSSProperties
+        }
+      >
         <div
           ref={target}
-          className="flex min-w-0 max-w-full items-center justify-center"
+          data-animation-studio-snapshot
+          className="flex max-h-full min-w-0 max-w-full items-center justify-center"
+        />
+        {!snapshot && (
+          <div className="text-center text-xs text-muted-foreground">
+            {captureError ||
+              (entry
+                ? "Preparing component preview…"
+                : "No component example available")}
+          </div>
+        )}
+        <div
+          ref={source}
+          className="pointer-events-none absolute size-px overflow-hidden opacity-0"
+          aria-hidden="true"
         >
-          {entry ? (
-            <ComponentDemo key={entry} entry={entry} />
-          ) : (
-            <span className="text-xs text-muted-foreground">
-              Select a component with an available demo to preview its
-              animation.
-            </span>
-          )}
+          {entry && <ComponentDemo key={entry} entry={entry} />}
         </div>
       </div>
       <div className="flex items-center gap-2">
