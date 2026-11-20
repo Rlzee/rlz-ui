@@ -1,23 +1,51 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useAtom } from "jotai";
-
+import type { CreatorAnimation } from "../components/animation-studio/model";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
+import { Select } from "@rlz/ui/components/ui/select";
 import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "../components/selected-preview";
 import { OpenDocsButton } from "../components/open-docs-button";
 import { ModeSwitcher } from "@/components/mode-switcher";
+import { useSelectedComponent } from "@/hooks/use-selected-component";
+import { slugFromId } from "../lib/slug";
 import { PREVIEW_ID } from "../lib/preset-styles";
+import { applyCreatorAnimation } from "../lib/animation-apply";
+import {
+  animationSettingsAtom,
+  animationSettingKey,
+  animationPhaseAtom,
+} from "../lib/animation-state";
 import { AnimationStudio } from "../components/animation-studio/studio";
-import { animationStudioOpenAtom } from "../components/animation-studio/panel-state";
+import {
+  animationStudioOpenAtom,
+  animationPartAtom,
+} from "../components/animation-studio/panel-state";
+import {
+  presetBuilderAtom,
+  componentEditsAtom,
+  setComponentEditAtom,
+} from "../preset-builder";
+import type { AnimationPhase } from "../lib/animation-compiler";
 import { Maximize, Minimize, SquareMousePointer, Plus, X } from "lucide-react";
 
 export default function Page() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [studioOpen, setStudioOpen] = useAtom(animationStudioOpenAtom);
+  const [selected] = useSelectedComponent();
+  const slug = selected ? slugFromId(selected.id) : "";
+  const [partName] = useAtom(animationPartAtom);
+  const [phase, setPhase] = useAtom(animationPhaseAtom);
+  const [settings, setSettings] = useAtom(animationSettingsAtom);
+  const [applyError, setApplyError] = useState("");
+  const [preset, setPreset] = useAtom(presetBuilderAtom);
+  const edits = useAtomValue(componentEditsAtom);
+  const setComponentEdit = useSetAtom(setComponentEditAtom);
 
   useEffect(() => {
     const onChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
@@ -28,14 +56,52 @@ export default function Page() {
   const toggleFullscreen = useCallback(() => {
     const playground = document.getElementById("playground");
     if (!playground) return;
-    if (document.fullscreenElement) {
-      void document.exitFullscreen();
-    } else {
-      void playground.requestFullscreen();
-    }
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else void playground.requestFullscreen();
   }, []);
 
-  const closeStudio = () => setStudioOpen(false);
+  const closeStudio = () => {
+    setApplyError("");
+    setStudioOpen(false);
+  };
+
+  const applyAnimation = (animation: CreatorAnimation) => {
+    try {
+      if (!slug)
+        throw new Error("Select a component before applying an animation.");
+      const parts = partsOf(slug);
+      const part =
+        parts.find((item) => item.name === partName) ??
+        parts.find((item) => /popup|content/i.test(item.name)) ??
+        parts[0];
+      if (!part) throw new Error("This component has no editable parts.");
+
+      const result = applyCreatorAnimation(
+        preset,
+        edits[slug],
+        slug,
+        part.name,
+        phase,
+        animation
+      );
+      setPreset(result.preset);
+      setComponentEdit(slug, {
+        partClasses: { [part.name]: result.partClasses },
+      });
+      setSettings((previous) => ({
+        ...previous,
+        [animationSettingKey(slug, part.name, phase)]: {
+          mode: "custom",
+          animation: structuredClone(animation),
+        },
+      }));
+      closeStudio();
+    } catch (error) {
+      setApplyError(
+        error instanceof Error ? error.message : "Unable to apply animation."
+      );
+    }
+  };
 
   return (
     <Tabs
@@ -49,8 +115,7 @@ export default function Page() {
       <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
         <Tabs.List className="bg-secondary rounded-md items-center">
           <Button size="sm" className="ml-0.5" variant="outline">
-            <Plus />
-            Add
+            <Plus /> Add
           </Button>
           <Tabs.Tab value="selected" className={studioOpen ? "" : "mr-0.5"}>
             Selected
@@ -64,16 +129,51 @@ export default function Page() {
         </Tabs.List>
         <div className="flex gap-1.5 items-center">
           {studioOpen ? (
-            <Button
-              type="button"
-              size="icon-sm"
-              variant="ghost"
-              aria-label="Close Animation Studio"
-              title="Close Animation Studio without applying"
-              onClick={closeStudio}
-            >
-              <X />
-            </Button>
+            <>
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <span>Phase</span>
+                <Select
+                  value={phase}
+                  onValueChange={(next) => {
+                    if (next === "enter" || next === "exit") setPhase(next);
+                  }}
+                >
+                  <Select.Trigger
+                    size="xs"
+                    className="max-w-20"
+                    aria-label="Animation phase"
+                  >
+                    <Select.Value>
+                      {phase === "enter" ? "Enter" : "Exit"}
+                    </Select.Value>
+                    <Select.Icon />
+                  </Select.Trigger>
+                  <Select.Popup
+                    positionerProps={{ align: "end", className: "z-[60]" }}
+                  >
+                    <Select.List>
+                      <Select.Item value="enter">
+                        <Select.ItemIndicator />
+                        <Select.ItemText>Enter</Select.ItemText>
+                      </Select.Item>
+                      <Select.Item value="exit">
+                        <Select.ItemIndicator />
+                        <Select.ItemText>Exit</Select.ItemText>
+                      </Select.Item>
+                    </Select.List>
+                  </Select.Popup>
+                </Select>
+              </div>
+              <Button
+                type="button"
+                size="icon-sm"
+                variant="ghost"
+                aria-label="Close Animation Studio"
+                onClick={closeStudio}
+              >
+                <X />
+              </Button>
+            </>
           ) : (
             <>
               <OpenInV0Button size="sm" variant="outline" />
@@ -122,13 +222,18 @@ export default function Page() {
           value="animation"
           className="flex min-h-0 flex-1 flex-col overflow-hidden"
         >
+          {applyError && (
+            <p role="alert" className="px-4 py-2 text-sm text-destructive">
+              {applyError}
+            </p>
+          )}
           <AnimationStudio
+            key={`${slug}:${partName}:${phase}:${studioOpen}`}
+            value={
+              settings[animationSettingKey(slug, partName, phase)]?.animation
+            }
             onCancel={closeStudio}
-            onApply={(animation) => {
-              // UI integration only. V7 will persist animations in the preset.
-              console.log("Animation created:", animation);
-              closeStudio();
-            }}
+            onApply={applyAnimation}
           />
         </Tabs.Panel>
       )}

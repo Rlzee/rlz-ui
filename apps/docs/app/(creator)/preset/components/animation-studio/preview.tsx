@@ -6,7 +6,7 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Slider } from "@rlz/ui/components/ui/slider";
 import { Select } from "@rlz/ui/components/ui/select";
 import { demoPaths } from "@rlz/ui/components/examples";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useTheme } from "next-themes";
 import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 import { presetBuilderAtom, componentEditsAtom } from "../../preset-builder";
@@ -14,6 +14,7 @@ import { presetVariables, previewPatches } from "../../lib/preset-styles";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { slugFromId } from "../../lib/slug";
 import { type CreatorAnimation, toWebKeyframes } from "./model";
+import { animationPartAtom } from "./panel-state";
 import { Play, Pause, RotateCcw } from "lucide-react";
 
 function MissingDemo() {
@@ -66,11 +67,20 @@ export function AnimationPreview({
   const edits = useAtomValue(componentEditsAtom);
   const { resolvedTheme } = useTheme();
   const parts = React.useMemo(() => partsOf(slug), [slug]);
-  const [partName, setPartName] = React.useState("");
+  const [partName, setPartName] = useAtom(animationPartAtom);
   const selectedPart =
     parts.find((part) => part.name === partName) ??
     parts.find((part) => /popup|content/i.test(part.name)) ??
     parts[0];
+
+  // Keep Apply in sync even when the current part was chosen by fallback
+  // (for example, after switching to a different component).
+  React.useEffect(() => {
+    if (selectedPart && selectedPart.name !== partName) {
+      setPartName(selectedPart.name);
+    }
+  }, [selectedPart?.name, partName, setPartName]);
+
   const [snapshot, setSnapshot] = React.useState<HTMLElement | null>(null);
   const [captureError, setCaptureError] = React.useState("");
   const stage = React.useRef<HTMLDivElement>(null);
@@ -86,7 +96,7 @@ export function AnimationPreview({
   const [paused, setPaused] = React.useState(false);
 
   // The example is loaded asynchronously. Observe its actual DOM rather than
-  // assuming it has mounted after a fixed 150 ms timeout.
+  // assuming it has mounted after a fixed timeout.
   React.useEffect(() => {
     setSnapshot(null);
     setCaptureError("");
@@ -108,8 +118,6 @@ export function AnimationPreview({
     let backdropGuard: HTMLStyleElement | null = null;
     let closeTimer: number | undefined;
 
-    // The real popup is opened only long enough to take a styled snapshot.
-    // Hide its backdrop while it exists so the modal cannot blur the Creator.
     const suppressBackdrop = () => {
       if (backdropGuard) return;
       backdropGuard = document.createElement("style");
@@ -142,8 +150,6 @@ export function AnimationPreview({
         .querySelectorAll("[id]")
         .forEach((node) => node.removeAttribute("id"));
 
-      // A portaled popup inherits its theme variables from the portal's actual
-      // ancestors, not from the Studio stage. Preserve that resolved context.
       const originalStyle = window.getComputedStyle(element);
       for (const name of originalStyle) {
         if (!name.startsWith("--")) continue;
@@ -173,8 +179,6 @@ export function AnimationPreview({
       }
       setSnapshot(clone);
       if (!source.current?.contains(element)) {
-        // Close the original modal after capturing the popup.
-        // Keep the backdrop suppressed until React removes the portal.
         document.dispatchEvent(
           new KeyboardEvent("keydown", {
             key: "Escape",
@@ -230,8 +234,6 @@ export function AnimationPreview({
       }
     };
 
-    // Mutations from the lazy-loaded demo and its portal both retry capture.
-    // requestAnimationFrame avoids reading half-committed portal markup.
     let pending = false;
     const schedule = () => {
       if (pending || disposed || captured) return;
@@ -248,7 +250,6 @@ export function AnimationPreview({
       if (disposed || captured) return;
       attempt();
       if (opened && performance.now() - openingAt > 1200 && !captured) {
-        // Some examples require a second user interaction; report that clearly.
         setCaptureError(
           "Unable to open this part automatically. Try another example or part."
         );
@@ -290,7 +291,7 @@ export function AnimationPreview({
   const seek = React.useCallback(
     (fraction: number) => {
       const node = snapshot;
-      if (!node || !snapshot) return;
+      if (!node) return;
       playback.current?.cancel();
       const instance = node.animate(toWebKeyframes(animation), {
         duration: Math.max(1, animation.duration),
@@ -310,7 +311,7 @@ export function AnimationPreview({
 
   const play = React.useCallback(() => {
     const node = snapshot;
-    if (!node || !snapshot) return;
+    if (!node) return;
     playback.current?.cancel();
     onProgressChange(0);
     const instance = node.animate(toWebKeyframes(animation), {
@@ -345,14 +346,11 @@ export function AnimationPreview({
   }, [paused, playing]);
 
   React.useEffect(() => {
-    // A captured "fade in" popup is invisible at 0 ms. Show the finished
-    // state immediately; Play still starts the animation from its beginning.
     if (snapshot) seek(1);
     return () => {
       playback.current?.cancel();
       playback.current = null;
     };
-    // Rebuild the preview only when the animation definition or example changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [animation, entry, snapshot]);
 
