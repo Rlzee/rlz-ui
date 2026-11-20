@@ -24,6 +24,27 @@ import {
 } from "./animation-studio/panel-state";
 import type { AnimationPhase } from "../lib/animation-compiler";
 
+// Detect native animations from the part's original classes, not from edits.
+// Keep this phase-specific so an Exit animation doesn't imply an Enter one.
+const PHASE_PREFIX: Record<AnimationPhase, string> = {
+  enter: "data-open:",
+  exit: "data-ending-style:",
+};
+
+function hasNativeAnimation(
+  classes: string | undefined,
+  phase: AnimationPhase
+) {
+  const prefix = PHASE_PREFIX[phase];
+  return (classes ?? "").split(/\s+/).some((token) => {
+    if (!token.startsWith(prefix)) return false;
+    const utility = token.slice(prefix.length);
+    return /^(?:animate(?:-.+)?|fade-(?:in|out)(?:-.+)?|zoom-(?:in|out)(?:-.+)?|slide-(?:in|out)(?:-.+)?|spin-(?:in|out)(?:-.+)?)$/.test(
+      utility
+    );
+  });
+}
+
 export function AnimationProperties() {
   const [selected] = useSelectedComponent();
   const slug = selected ? slugFromId(selected.id) : "";
@@ -40,6 +61,12 @@ export function AnimationProperties() {
     parts[0];
   const setPhase = useSetAtom(animationPhaseAtom);
 
+  const openStudio = (part: string, phase: AnimationPhase) => {
+    setPart(part);
+    setPhase(phase);
+    setStudioOpen(true);
+  };
+
   const changeMode = (
     part: string,
     phase: AnimationPhase,
@@ -47,7 +74,6 @@ export function AnimationProperties() {
   ) => {
     const key = animationSettingKey(slug, part, phase);
     const existing = settings[key];
-    // A custom animation without saved keyframes must be authored in the Studio.
     if (mode === "custom" && !existing?.animation) {
       openStudio(part, phase);
       return;
@@ -67,12 +93,6 @@ export function AnimationProperties() {
       ...previous,
       [key]: { mode, animation: existing?.animation },
     }));
-  };
-
-  const openStudio = (part: string, phase: AnimationPhase) => {
-    setPart(part);
-    setPhase(phase);
-    setStudioOpen(true);
   };
 
   if (!parts.length)
@@ -125,7 +145,12 @@ export function AnimationProperties() {
         (["enter", "exit"] as const).map((phase) => {
           const setting =
             settings[animationSettingKey(slug, selectedPart.name, phase)];
-          const mode = setting?.mode ?? "default";
+          const nativeExists = hasNativeAnimation(selectedPart.classes, phase);
+          // No stored choice: derive from native classes for this exact phase.
+          // Explicit "none" stays "none", even when native classes exist.
+          const mode: AnimationMode =
+            setting?.mode ?? (nativeExists ? "default" : "none");
+          const canOpenStudio = mode !== "none";
           return (
             <div
               key={`${selectedPart.name}:${phase}`}
@@ -138,7 +163,7 @@ export function AnimationProperties() {
                 value={mode}
                 onValueChange={(value) => {
                   if (
-                    value === "default" ||
+                    (value === "default" && nativeExists) ||
                     value === "none" ||
                     value === "custom"
                   ) {
@@ -164,10 +189,12 @@ export function AnimationProperties() {
                   positionerProps={{ align: "start", className: "z-[60]" }}
                 >
                   <Select.List>
-                    <Select.Item value="default">
-                      <Select.ItemIndicator />
-                      <Select.ItemText>Default</Select.ItemText>
-                    </Select.Item>
+                    {nativeExists && (
+                      <Select.Item value="default">
+                        <Select.ItemIndicator />
+                        <Select.ItemText>Default</Select.ItemText>
+                      </Select.Item>
+                    )}
                     <Select.Item value="none">
                       <Select.ItemIndicator />
                       <Select.ItemText>None</Select.ItemText>
@@ -179,14 +206,16 @@ export function AnimationProperties() {
                   </Select.List>
                 </Select.Popup>
               </Select>
-              <Button
-                type="button"
-                size="sm"
-                variant="outline"
-                onClick={() => openStudio(selectedPart.name, phase)}
-              >
-                {mode === "custom" && setting?.animation ? "Edit" : "Create"}
-              </Button>
+              {canOpenStudio && (
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => openStudio(selectedPart.name, phase)}
+                >
+                  {mode === "custom" && setting?.animation ? "Edit" : "Create"}
+                </Button>
+              )}
             </div>
           );
         })}
