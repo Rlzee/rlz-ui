@@ -8,6 +8,7 @@ import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { slugFromId } from "../lib/slug";
 import { setPartAnimation } from "../lib/animation-apply";
 import {
+  animationLibraryAtom,
   animationSettingKey,
   animationSettingsAtom,
   animationPhaseAtom,
@@ -24,23 +25,18 @@ import {
 } from "./animation-studio/panel-state";
 import type { AnimationPhase } from "../lib/animation-compiler";
 
-// Detect native animations from the part's original classes, not from edits.
-// Keep this phase-specific so an Exit animation doesn't imply an Enter one.
 const PHASE_PREFIX: Record<AnimationPhase, string> = {
   enter: "data-open:",
   exit: "data-ending-style:",
 };
-
 function hasNativeAnimation(
   classes: string | undefined,
   phase: AnimationPhase
 ) {
-  const prefix = PHASE_PREFIX[phase];
   return (classes ?? "").split(/\s+/).some((token) => {
-    if (!token.startsWith(prefix)) return false;
-    const utility = token.slice(prefix.length);
+    if (!token.startsWith(PHASE_PREFIX[phase])) return false;
     return /^(?:animate(?:-.+)?|fade-(?:in|out)(?:-.+)?|zoom-(?:in|out)(?:-.+)?|slide-(?:in|out)(?:-.+)?|spin-(?:in|out)(?:-.+)?)$/.test(
-      utility
+      token.slice(PHASE_PREFIX[phase].length)
     );
   });
 }
@@ -50,16 +46,17 @@ export function AnimationProperties() {
   const slug = selected ? slugFromId(selected.id) : "";
   const parts = partsOf(slug);
   const [settings, setSettings] = useAtom(animationSettingsAtom);
+  const library = useAtomValue(animationLibraryAtom);
   const [preset, setPreset] = useAtom(presetBuilderAtom);
   const edits = useAtomValue(componentEditsAtom);
   const setComponentEdit = useSetAtom(setComponentEditAtom);
   const setStudioOpen = useSetAtom(animationStudioOpenAtom);
   const [partName, setPart] = useAtom(animationPartAtom);
+  const setPhase = useSetAtom(animationPhaseAtom);
   const selectedPart =
     parts.find((part) => part.name === partName) ??
     parts.find((part) => /popup|content/i.test(part.name)) ??
     parts[0];
-  const setPhase = useSetAtom(animationPhaseAtom);
 
   const openStudio = (part: string, phase: AnimationPhase) => {
     setPart(part);
@@ -67,17 +64,19 @@ export function AnimationProperties() {
     setStudioOpen(true);
   };
 
-  const changeMode = (
+  const applyMode = (
     part: string,
     phase: AnimationPhase,
-    mode: AnimationMode
+    mode: AnimationMode,
+    animation?: (typeof library)[number]["animation"]
   ) => {
     const key = animationSettingKey(slug, part, phase);
     const existing = settings[key];
-    if (mode === "custom" && !existing?.animation) {
+    if (mode === "custom" && !animation && !existing?.animation) {
       openStudio(part, phase);
       return;
     }
+    const selectedAnimation = animation ?? existing?.animation;
     const result = setPartAnimation(
       preset,
       edits[slug],
@@ -85,13 +84,19 @@ export function AnimationProperties() {
       part,
       phase,
       mode,
-      existing?.animation
+      selectedAnimation,
+      edits
     );
     setPreset(result.preset);
     setComponentEdit(slug, { partClasses: { [part]: result.partClasses } });
     setSettings((previous) => ({
       ...previous,
-      [key]: { mode, animation: existing?.animation },
+      [key]: {
+        mode,
+        animation: selectedAnimation
+          ? structuredClone(selectedAnimation)
+          : undefined,
+      },
     }));
   };
 
@@ -114,9 +119,8 @@ export function AnimationProperties() {
             if (
               typeof next === "string" &&
               parts.some((part) => part.name === next)
-            ) {
+            )
               setPart(next);
-            }
           }}
         >
           <Select.Trigger
@@ -143,78 +147,125 @@ export function AnimationProperties() {
       </div>
       {selectedPart &&
         (["enter", "exit"] as const).map((phase) => {
-          const setting =
-            settings[animationSettingKey(slug, selectedPart.name, phase)];
+          const key = animationSettingKey(slug, selectedPart.name, phase);
+          const setting = settings[key];
           const nativeExists = hasNativeAnimation(selectedPart.classes, phase);
-          // No stored choice: derive from native classes for this exact phase.
-          // Explicit "none" stays "none", even when native classes exist.
           const mode: AnimationMode =
             setting?.mode ?? (nativeExists ? "default" : "none");
-          const canOpenStudio = mode !== "none";
+          // Only same-phase animations: Enter and Exit have different utility semantics.
+          const reusable = library.filter(
+            (entry) => entry.phase === phase && entry.key !== key
+          );
           return (
             <div
               key={`${selectedPart.name}:${phase}`}
-              className="flex items-center gap-2"
+              className="flex flex-col gap-1.5"
             >
-              <span className="w-10 shrink-0 text-xs text-muted-foreground">
-                {phase === "enter" ? "Enter" : "Exit"}
-              </span>
-              <Select
-                value={mode}
-                onValueChange={(value) => {
-                  if (
-                    (value === "default" && nativeExists) ||
-                    value === "none" ||
-                    value === "custom"
-                  ) {
-                    changeMode(selectedPart.name, phase, value);
-                  }
-                }}
-              >
-                <Select.Trigger
-                  size="xs"
-                  className="min-w-0 flex-1"
-                  aria-label={`${selectedPart.name} ${phase} animation`}
+              <div className="flex items-center gap-2">
+                <span className="w-10 shrink-0 text-xs text-muted-foreground">
+                  {phase === "enter" ? "Enter" : "Exit"}
+                </span>
+                <Select
+                  value={mode}
+                  onValueChange={(value) => {
+                    if (
+                      (value === "default" && nativeExists) ||
+                      value === "none" ||
+                      value === "custom"
+                    )
+                      applyMode(selectedPart.name, phase, value);
+                  }}
                 >
-                  <Select.Value>
-                    {mode === "default"
-                      ? "Default"
-                      : mode === "none"
-                      ? "None"
-                      : "Custom"}
-                  </Select.Value>
-                  <Select.Icon />
-                </Select.Trigger>
-                <Select.Popup
-                  positionerProps={{ align: "start", className: "z-[60]" }}
-                >
-                  <Select.List>
-                    {nativeExists && (
-                      <Select.Item value="default">
+                  <Select.Trigger
+                    size="xs"
+                    className="min-w-0 flex-1"
+                    aria-label={`${selectedPart.name} ${phase} animation`}
+                  >
+                    <Select.Value>
+                      {mode === "default"
+                        ? "Default"
+                        : mode === "none"
+                        ? "None"
+                        : "Custom"}
+                    </Select.Value>
+                    <Select.Icon />
+                  </Select.Trigger>
+                  <Select.Popup
+                    positionerProps={{ align: "start", className: "z-[60]" }}
+                  >
+                    <Select.List>
+                      {nativeExists && (
+                        <Select.Item value="default">
+                          <Select.ItemIndicator />
+                          <Select.ItemText>Default</Select.ItemText>
+                        </Select.Item>
+                      )}
+                      <Select.Item value="none">
                         <Select.ItemIndicator />
-                        <Select.ItemText>Default</Select.ItemText>
+                        <Select.ItemText>None</Select.ItemText>
                       </Select.Item>
-                    )}
-                    <Select.Item value="none">
-                      <Select.ItemIndicator />
-                      <Select.ItemText>None</Select.ItemText>
-                    </Select.Item>
-                    <Select.Item value="custom">
-                      <Select.ItemIndicator />
-                      <Select.ItemText>Custom</Select.ItemText>
-                    </Select.Item>
-                  </Select.List>
-                </Select.Popup>
-              </Select>
-              {canOpenStudio && (
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={() => openStudio(selectedPart.name, phase)}
-                >
-                  {mode === "custom" && setting?.animation ? "Edit" : "Create"}
-                </Button>
+                      <Select.Item value="custom">
+                        <Select.ItemIndicator />
+                        <Select.ItemText>Custom</Select.ItemText>
+                      </Select.Item>
+                    </Select.List>
+                  </Select.Popup>
+                </Select>
+                {mode !== "none" && (
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => openStudio(selectedPart.name, phase)}
+                  >
+                    {mode === "custom" && setting?.animation
+                      ? "Edit"
+                      : "Create"}
+                  </Button>
+                )}
+              </div>
+              {reusable.length > 0 && (
+                <div className="flex items-center gap-2 pl-10">
+                  <Select
+                    value=""
+                    onValueChange={(value) => {
+                      const source = reusable.find(
+                        (entry) => entry.key === value
+                      );
+                      if (source)
+                        applyMode(
+                          selectedPart.name,
+                          phase,
+                          "custom",
+                          source.animation
+                        );
+                    }}
+                  >
+                    <Select.Trigger
+                      size="xs"
+                      className="min-w-0 flex-1"
+                      aria-label={`Use existing ${phase} animation`}
+                    >
+                      <Select.Value>Use existing animation…</Select.Value>
+                      <Select.Icon />
+                    </Select.Trigger>
+                    <Select.Popup
+                      positionerProps={{ align: "start", className: "z-[60]" }}
+                    >
+                      <Select.List>
+                        {reusable.map((entry) => (
+                          <Select.Item key={entry.key} value={entry.key}>
+                            <Select.ItemIndicator />
+                            <Select.ItemText>
+                              {entry.animation.name} · {entry.slug} /{" "}
+                              {entry.part}
+                            </Select.ItemText>
+                          </Select.Item>
+                        ))}
+                      </Select.List>
+                    </Select.Popup>
+                  </Select>
+                </div>
               )}
             </div>
           );

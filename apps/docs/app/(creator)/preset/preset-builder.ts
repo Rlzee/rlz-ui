@@ -10,6 +10,7 @@ import {
   animationSettingsAtom,
   animationPhaseAtom,
 } from "./lib/animation-state";
+import { pruneUnusedCreatorAnimations } from "./lib/animation-apply";
 import {
   animationPartAtom,
   animationStudioOpenAtom,
@@ -18,9 +19,7 @@ import {
 function createPresetId() {
   return `preset-${crypto.randomUUID().split("-")[0]}`;
 }
-
 const DRAFT_NAME = "United";
-
 function createDraftPreset(): RegistryPreset {
   return {
     ...structuredClone(defaultPreset),
@@ -28,24 +27,20 @@ function createDraftPreset(): RegistryPreset {
     name: DRAFT_NAME,
   };
 }
-
 export const presetBuilderAtom = atomWithStorage<RegistryPreset>(
   "rlz-preset-builder",
   createDraftPreset()
 );
-
 export const ensurePresetIdAtom = atom(null, (get, set) => {
   const preset = get(presetBuilderAtom);
-  if (!preset.id || preset.id === defaultPreset.id) {
+  if (!preset.id || preset.id === defaultPreset.id)
     set(presetBuilderAtom, { ...preset, id: createPresetId() });
-  }
 });
-
 export const componentEditsAtom = atomWithStorage<
   Record<string, PresetComponentCustomization>
 >("rlz-component-edits", {});
 
-/** Reset the preset, component overrides, editable animations and Studio UI together. */
+/** New preset = no old custom animations or library entries. */
 export const resetPresetAtom = atom(null, (_get, set) => {
   set(presetBuilderAtom, createDraftPreset());
   set(componentEditsAtom, {});
@@ -60,7 +55,6 @@ export const resetSectionAtom = atom(
   (get, set, section: PresetSection) => {
     const preset = get(presetBuilderAtom);
     const shipped = structuredClone(defaultPreset);
-
     switch (section) {
       case "info":
         set(presetBuilderAtom, {
@@ -85,17 +79,15 @@ export const resetSectionAtom = atom(
   }
 );
 
-/** Reset a single component, including its saved editable animations. */
+/** Reset one component, retaining shared CSS used by other components. */
 export const resetComponentEditsAtom = atom(null, (get, set, slug: string) => {
   const edits = get(componentEditsAtom);
-  if (edits[slug]) {
-    const rest = { ...edits };
-    delete rest[slug];
-    set(componentEditsAtom, rest);
-  }
+  const remainingEdits = { ...edits };
+  delete remainingEdits[slug];
+  set(componentEditsAtom, remainingEdits);
 
   const settings = get(animationSettingsAtom);
-  const remaining = Object.fromEntries(
+  const remainingSettings = Object.fromEntries(
     Object.entries(settings).filter(([key]) => {
       try {
         const parsed: unknown = JSON.parse(key);
@@ -105,32 +97,11 @@ export const resetComponentEditsAtom = atom(null, (get, set, slug: string) => {
       }
     })
   );
-  if (Object.keys(remaining).length !== Object.keys(settings).length) {
-    set(animationSettingsAtom, remaining);
-  }
-
-  // Only remove generated keyframes belonging to this component.
-  const preset = get(presetBuilderAtom);
-  const existingAnimations = preset.base.animations;
-  if (existingAnimations) {
-    const animations = { ...existingAnimations };
-    let changed = false;
-    for (const key of Object.keys(animations)) {
-      if (key.startsWith(`creator-${slug}-`)) {
-        delete animations[key];
-        changed = true;
-      }
-    }
-    if (changed) {
-      set(presetBuilderAtom, {
-        ...preset,
-        base: {
-          ...preset.base,
-          animations: Object.keys(animations).length ? animations : undefined,
-        },
-      });
-    }
-  }
+  set(animationSettingsAtom, remainingSettings);
+  set(
+    presetBuilderAtom,
+    pruneUnusedCreatorAnimations(get(presetBuilderAtom), remainingEdits)
+  );
 });
 
 export const setComponentEditAtom = atom(
@@ -139,11 +110,9 @@ export const setComponentEditAtom = atom(
     const edits = get(componentEditsAtom);
     const current = edits[slug] ?? {};
     const partClasses = { ...current.partClasses, ...patch.partClasses };
-
     for (const part of Object.keys(partClasses)) {
       if (partClasses[part] === undefined) delete partClasses[part];
     }
-
     set(componentEditsAtom, {
       ...edits,
       [slug]: {

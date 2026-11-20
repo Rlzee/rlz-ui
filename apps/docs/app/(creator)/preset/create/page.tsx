@@ -31,7 +31,6 @@ import {
   componentEditsAtom,
   setComponentEditAtom,
 } from "../preset-builder";
-import type { AnimationPhase } from "../lib/animation-compiler";
 import { Maximize, Minimize, SquareMousePointer, Plus, X } from "lucide-react";
 
 export default function Page() {
@@ -75,14 +74,14 @@ export default function Page() {
         parts.find((item) => /popup|content/i.test(item.name)) ??
         parts[0];
       if (!part) throw new Error("This component has no editable parts.");
-
       const result = applyCreatorAnimation(
         preset,
         edits[slug],
         slug,
         part.name,
         phase,
-        animation
+        animation,
+        edits
       );
       setPreset(result.preset);
       setComponentEdit(slug, {
