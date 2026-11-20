@@ -11,6 +11,7 @@ import {
   animationPhaseAtom,
 } from "./lib/animation-state";
 import { pruneUnusedCreatorAnimations } from "./lib/animation-apply";
+import { classEditorRequestAtom } from "./lib/class-editor-state";
 import {
   animationPartAtom,
   animationStudioOpenAtom,
@@ -40,7 +41,6 @@ export const componentEditsAtom = atomWithStorage<
   Record<string, PresetComponentCustomization>
 >("rlz-component-edits", {});
 
-/** New preset = no old custom animations or library entries. */
 export const resetPresetAtom = atom(null, (_get, set) => {
   set(presetBuilderAtom, createDraftPreset());
   set(componentEditsAtom, {});
@@ -48,6 +48,7 @@ export const resetPresetAtom = atom(null, (_get, set) => {
   set(animationPartAtom, "");
   set(animationPhaseAtom, "enter");
   set(animationStudioOpenAtom, false);
+  set(classEditorRequestAtom, null);
 });
 
 export const resetSectionAtom = atom(
@@ -55,6 +56,7 @@ export const resetSectionAtom = atom(
   (get, set, section: PresetSection) => {
     const preset = get(presetBuilderAtom);
     const shipped = structuredClone(defaultPreset);
+    set(classEditorRequestAtom, null);
     switch (section) {
       case "info":
         set(presetBuilderAtom, {
@@ -79,13 +81,12 @@ export const resetSectionAtom = atom(
   }
 );
 
-/** Reset one component, retaining shared CSS used by other components. */
 export const resetComponentEditsAtom = atom(null, (get, set, slug: string) => {
+  set(classEditorRequestAtom, null);
   const edits = get(componentEditsAtom);
   const remainingEdits = { ...edits };
   delete remainingEdits[slug];
   set(componentEditsAtom, remainingEdits);
-
   const settings = get(animationSettingsAtom);
   const remainingSettings = Object.fromEntries(
     Object.entries(settings).filter(([key]) => {

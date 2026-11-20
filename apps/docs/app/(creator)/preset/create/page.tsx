@@ -26,6 +26,8 @@ import {
   animationStudioOpenAtom,
   animationPartAtom,
 } from "../components/animation-studio/panel-state";
+import { classEditorRequestAtom } from "../lib/class-editor-state";
+import { ClassEditorPanel } from "../components/class-editor-panel";
 import {
   presetBuilderAtom,
   componentEditsAtom,
@@ -36,6 +38,7 @@ import { Maximize, Minimize, SquareMousePointer, Plus, X } from "lucide-react";
 export default function Page() {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [studioOpen, setStudioOpen] = useAtom(animationStudioOpenAtom);
+  const [classRequest, setClassRequest] = useAtom(classEditorRequestAtom);
   const [selected] = useSelectedComponent();
   const slug = selected ? slugFromId(selected.id) : "";
   const [partName] = useAtom(animationPartAtom);
@@ -63,6 +66,13 @@ export default function Page() {
     setApplyError("");
     setStudioOpen(false);
   };
+  const closeClasses = () => setClassRequest(null);
+  // Class editor takes priority when opened from any properties field.
+  const activeTab = classRequest
+    ? "classes"
+    : studioOpen
+    ? "animation"
+    : "selected";
 
   const applyAnimation = (animation: CreatorAnimation) => {
     try {
@@ -105,10 +115,19 @@ export default function Page() {
   return (
     <Tabs
       className="min-h-0 flex-1 gap-0"
-      value={studioOpen ? "animation" : "selected"}
+      value={activeTab}
       onValueChange={(next) => {
-        if (next === "selected") closeStudio();
-        if (next === "animation") setStudioOpen(true);
+        if (next === "selected") {
+          closeClasses();
+          closeStudio();
+        }
+        if (next === "animation") {
+          closeClasses();
+          setStudioOpen(true);
+        }
+        if (next === "classes") {
+          closeStudio();
+        }
       }}
     >
       <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
@@ -116,7 +135,10 @@ export default function Page() {
           <Button size="sm" className="ml-0.5" variant="outline">
             <Plus /> Add
           </Button>
-          <Tabs.Tab value="selected" className={studioOpen ? "" : "mr-0.5"}>
+          <Tabs.Tab
+            value="selected"
+            className={activeTab === "selected" ? "mr-0.5" : ""}
+          >
             Selected
           </Tabs.Tab>
           {studioOpen && (
@@ -124,10 +146,15 @@ export default function Page() {
               Animation Studio
             </Tabs.Tab>
           )}
+          {classRequest && (
+            <Tabs.Tab value="classes" className="gap-1.5 mr-0.5">
+              Class Editor
+            </Tabs.Tab>
+          )}
           <Tabs.Indicator className="h-8" />
         </Tabs.List>
         <div className="flex gap-1.5 items-center">
-          {studioOpen ? (
+          {activeTab === "animation" ? (
             <>
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <span>Phase</span>
@@ -173,6 +200,16 @@ export default function Page() {
                 <X />
               </Button>
             </>
+          ) : activeTab === "classes" ? (
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="ghost"
+              aria-label="Close Class Editor"
+              onClick={closeClasses}
+            >
+              <X />
+            </Button>
           ) : (
             <>
               <OpenInV0Button size="sm" variant="outline" />
@@ -234,6 +271,14 @@ export default function Page() {
             onCancel={closeStudio}
             onApply={applyAnimation}
           />
+        </Tabs.Panel>
+      )}
+      {classRequest && (
+        <Tabs.Panel
+          value="classes"
+          className="flex min-h-0 flex-1 flex-col overflow-hidden"
+        >
+          <ClassEditorPanel onClose={closeClasses} />
         </Tabs.Panel>
       )}
     </Tabs>
