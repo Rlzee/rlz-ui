@@ -20,12 +20,8 @@ export type CompiledAnimation =
     };
 
 /**
- * Conservative compiler: emits utilities only for shapes supported exactly by
- * the project's animate-in/animate-out + fade-in-0/fade-out-0 utilities.
- * Complex transforms, partial tracks and per-property easings use keyframes.
- *
- * The caller owns the selected component part and applies the returned classes
- * using the existing class-patch mechanism. This module does not edit presets.
+ * Compile Studio animations into Tailwind utilities when possible, otherwise
+ * compact CSS keyframes. Only independent easing/timing tracks need sampling.
  */
 export function compileCreatorAnimation(
   animation: CreatorAnimation,
@@ -46,12 +42,7 @@ export function compileCreatorAnimation(
       `${prefix}duration-[${duration}ms]`,
     ];
     if (delay) classes.push(`${prefix}delay-[${delay}ms]`);
-    if (
-      easing === "linear" ||
-      easing === "ease-in" ||
-      easing === "ease-out" ||
-      easing === "ease-in-out"
-    ) {
+    if (["linear", "ease-in", "ease-out", "ease-in-out"].includes(easing)) {
       classes.push(`${prefix}${easing === "linear" ? "ease-linear" : easing}`);
     } else {
       classes.push(`${prefix}ease-[${easing.replace(/\s+/g, "")}]`);
@@ -59,35 +50,116 @@ export function compileCreatorAnimation(
     return { kind: "utilities", classes };
   }
 
-  // Property tracks can have different keyframe times and easings. Sampling
-  // through valueAt preserves the Studio's per-track interpolation behavior.
-  const samples = Math.min(300, Math.max(60, Math.ceil(duration / 8)));
-  const offsets = new Set<number>([0, 1]);
-  for (let i = 0; i <= samples; i++) offsets.add(i / samples);
-  for (const frame of animation.keyframes) offsets.add(frame.offset);
+  const compact = compactKeyframes(animation, easing);
+  const keyframes = compact ?? sampledKeyframes(animation, duration, easing);
+  const animationValue = `${normalizedName} ${duration}ms ${
+    compact ? easing : "linear"
+  } ${delay}ms both`;
 
-  const keyframes: PresetAnimation["keyframes"] = {};
-  for (const offset of [...offsets].sort((a, b) => a - b)) {
-    const at = (offset * 100).toFixed(5).replace(/0+$/, "").replace(/\.$/, "");
-    const get = (property: AnimationProperty) =>
-      formatNumber(valueAt(animation.keyframes, property, offset, easing));
-    keyframes[`${at}%`] = {
-      opacity: get("opacity"),
-      transform: `translate(${get("x")}px, ${get("y")}px) scale(${get(
-        "scale"
-      )}) rotate(${get("rotate")}deg)`,
-    };
-  }
-
-  // The Studio's preview uses sampled interpolation. Linear playback avoids
-  // applying the easing twice to these already-eased samples.
-  const animationValue = `${normalizedName} ${duration}ms linear ${delay}ms both`;
   return {
     kind: "keyframes",
     name: normalizedName,
     classes: [`${prefix}animate-${normalizedName}`],
     animation: { value: animationValue, keyframes },
   };
+}
+
+/**
+ * CSS can interpolate every property natively when all changing tracks have
+ * the same offsets and the same easing for each segment. A track with only
+ * one value is constant, and a missing track is neutral.
+ *
+ * Preserve explicit offsets rather than manufacturing intermediate frames.
+ * Segment-specific easing is encoded in the starting keyframe using the CSS
+ * animation-timing-function property.
+ */
+function compactKeyframes(
+  animation: CreatorAnimation,
+  defaultEasing: string
+): PresetAnimation["keyframes"] | null {
+  const tracks = ANIMATION_PROPERTIES.map((property) => ({
+    property,
+    frames: propertyFrames(animation.keyframes, property),
+  }));
+  const changing = tracks.filter(
+    ({ frames, property }) =>
+      frames.length > 1 &&
+      frames.some((frame) => frame[property] !== frames[0][property])
+  );
+
+  // A single-keyed property is constant in the Studio's interpolation model.
+  // Different offsets are harmless for constant tracks, but changing tracks
+  // must share offsets to avoid altering their independent timing.
+  const reference = changing[0]?.frames.map((frame) => frame.offset) ?? [0, 1];
+  if (
+    changing.some(
+      ({ frames }) =>
+        frames.length !== reference.length ||
+        frames.some((frame, i) => frame.offset !== reference[i])
+    )
+  )
+    return null;
+
+  const offsets = [...new Set([0, 1, ...reference])].sort((a, b) => a - b);
+  const segmentEasings: string[] = [];
+  for (let i = 0; i < offsets.length - 1; i++) {
+    const start = offsets[i];
+    const end = offsets[i + 1];
+    const easings = new Set<string>();
+    for (const { property, frames } of changing) {
+      const first = frames[0];
+      const last = frames[frames.length - 1];
+      if (start < first.offset || end > last.offset) continue;
+      const startFrame = frames.find((frame) => frame.offset === start);
+      if (!startFrame) return null;
+      easings.add(cssEasing(startFrame.easing?.[property] ?? defaultEasing));
+    }
+    if (easings.size > 1) return null;
+    segmentEasings.push([...easings][0] ?? defaultEasing);
+  }
+
+  const result: PresetAnimation["keyframes"] = {};
+  for (let i = 0; i < offsets.length; i++) {
+    const offset = offsets[i];
+    const get = (property: AnimationProperty) =>
+      formatNumber(valueAt(animation.keyframes, property, offset, "linear"));
+    const frame: Record<string, string> = {
+      opacity: get("opacity"),
+      transform: `translate(${get("x")}px, ${get("y")}px) scale(${get(
+        "scale"
+      )}) rotate(${get("rotate")}deg)`,
+    };
+    if (i < segmentEasings.length && segmentEasings[i] !== defaultEasing) {
+      frame["animation-timing-function"] = segmentEasings[i];
+    }
+    result[`${formatNumber(offset * 100)}%`] = frame;
+  }
+  return result;
+}
+
+/** Fallback for independently timed or eased tracks. */
+function sampledKeyframes(
+  animation: CreatorAnimation,
+  duration: number,
+  easing: string
+): PresetAnimation["keyframes"] {
+  const samples = Math.min(300, Math.max(60, Math.ceil(duration / 8)));
+  const offsets = new Set<number>([0, 1]);
+  for (let i = 0; i <= samples; i++) offsets.add(i / samples);
+  for (const frame of animation.keyframes) offsets.add(frame.offset);
+
+  const result: PresetAnimation["keyframes"] = {};
+  for (const offset of [...offsets].sort((a, b) => a - b)) {
+    const get = (property: AnimationProperty) =>
+      formatNumber(valueAt(animation.keyframes, property, offset, easing));
+    result[`${formatNumber(offset * 100)}%`] = {
+      opacity: get("opacity"),
+      transform: `translate(${get("x")}px, ${get("y")}px) scale(${get(
+        "scale"
+      )}) rotate(${get("rotate")}deg)`,
+    };
+  }
+  return result;
 }
 
 function canUseFadeUtilities(
@@ -128,7 +200,6 @@ function normalizeAnimationName(raw: string): string {
     ? name
     : `creator-${name || "animation"}`;
 }
-
 function positiveDuration(value: number): number {
   return Number.isFinite(value) ? Math.max(1, Math.round(value)) : 300;
 }
