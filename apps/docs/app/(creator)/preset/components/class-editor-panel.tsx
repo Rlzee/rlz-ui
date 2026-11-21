@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { useAtomValue } from "jotai";
+import { useIsMac } from "@/hooks/use-is-mac";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Kbd } from "@rlz/ui/components/ui/kbd";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
@@ -30,6 +31,7 @@ function ClassEditorSession({
   onClose: () => void;
 }) {
   const preset = useAtomValue(presetBuilderAtom);
+  const isMac = useIsMac();
   const [draft, setDraft] = React.useState(request.initial);
   const [insertRequest, setInsertRequest] = React.useState<{
     id: number;
@@ -92,14 +94,14 @@ function ClassEditorSession({
       <div className="flex shrink-0 items-center justify-between gap-3 border-t border-border px-4 py-3">
         <div className="hidden flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground sm:flex">
           <span className="inline-flex items-center gap-1">
-            <Kbd>Ctrl/Cmd</Kbd>
+            <Kbd>{isMac ? "Cmd" : "Ctrl"}</Kbd>
             <span>+</span>
             <Kbd>Space</Kbd>
             <span>Suggestions</span>
           </span>
           <span aria-hidden="true">·</span>
           <span className="inline-flex items-center gap-1">
-            <Kbd>Ctrl/Cmd</Kbd>
+            <Kbd>{isMac ? "Cmd" : "Ctrl"}</Kbd>
             <span>+</span>
             <Kbd>Enter</Kbd>
             <span>Apply</span>

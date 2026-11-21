@@ -21,7 +21,7 @@ import {
   tailwindCompletions,
 } from "../lib/tailwind-completions";
 
-/** CodeMirror only mounts while the expanded class dialog is open. */
+/** CodeMirror mounts only while the Class Editor panel is open. */
 export function TailwindCodeEditor({
   value,
   onChange,
@@ -112,18 +112,20 @@ export function TailwindCodeEditor({
             ".cm-scroller": { overflow: "auto", fontFamily: "inherit" },
             ".cm-focused": { outline: "none" },
             ".cm-cursor": { borderLeftColor: "var(--foreground)" },
-            ".cm-selectionBackground": {
-              backgroundColor: "var(--accent) !important",
+            // Match the site selection colors, including CodeMirror's drawn selection.
+            ".cm-selectionBackground, &.cm-focused .cm-selectionBackground": {
+              backgroundColor: "var(--color-foreground) !important",
             },
-            ".cm-activeLine": {
-              backgroundColor:
-                "color-mix(in srgb, var(--accent) 35%, transparent)",
+            ".cm-content ::selection, .cm-content ::-moz-selection": {
+              backgroundColor: "var(--color-foreground) !important",
+              color: "var(--color-background) !important",
             },
+            ".cm-activeLine": { backgroundColor: "transparent" },
             ".cm-placeholder": { color: "var(--muted-foreground)" },
             ".cm-tooltip-autocomplete": {
               backgroundColor: "var(--popover)",
               color: "var(--popover-foreground)",
-              border: "1px solid var(--border)",
+              border: "1px solid var(--color-border)",
               borderRadius: "8px",
               overflow: "hidden",
             },
@@ -134,7 +136,7 @@ export function TailwindCodeEditor({
             ".cm-completionInfo": {
               backgroundColor: "var(--popover)",
               color: "var(--popover-foreground)",
-              border: "1px solid var(--border)",
+              border: "1px solid var(--color-border)",
               borderRadius: "8px",
               padding: "10px",
               maxWidth: "280px",
@@ -178,8 +180,8 @@ export function TailwindCodeEditor({
     const { from, to } = editor.state.selection.main;
     const before = editor.state.sliceDoc(0, from);
     const after = editor.state.sliceDoc(to);
-    const left = before && !/\\s$/.test(before) ? " " : "";
-    const right = after && !/^\\s/.test(after) ? " " : "";
+    const left = before && !/\s$/.test(before) ? " " : "";
+    const right = after && !/^\s/.test(after) ? " " : "";
     const insertion = left + insertRequest.text + right;
     editor.dispatch({
       changes: { from, to, insert: insertion },
@@ -194,7 +196,7 @@ export function TailwindCodeEditor({
       ref={host}
       role="group"
       aria-label="Tailwind class code editor"
-      className="min-w-0 overflow-hidden rounded-md border border-input bg-background focus-within:ring-1 focus-within:ring-ring"
+      className="min-w-0 overflow-hidden rounded-lg border border-border bg-background"
     />
   );
 }

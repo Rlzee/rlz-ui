@@ -33,7 +33,7 @@ function AlertDialogViewport({
       {...props}
       className={cn(
         "fixed inset-0 z-50 grid grid-rows-[1fr_auto_2fr] justify-items-center p-4",
-        className,
+        className
       )}
     />
   );
@@ -76,10 +76,9 @@ function AlertDialogPopup({
         <AlertDialogPrimitive.Popup
           data-slot="alert-dialog-popup"
           className={cn(
-            "bg-background [&:has([data-slot=alert-dialog-actions][data-variant=bare])]:bg-popover",
-            "relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
+            "bg-background relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
-            className,
+            className
           )}
           {...props}
         >
@@ -126,7 +125,7 @@ function AlertDialogActions({
       className={cn(
         "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
         "bg-popover border-border/32 border-t pt-4 rounded-b-lg",
-        className,
+        className
       )}
       {...props}
     />
