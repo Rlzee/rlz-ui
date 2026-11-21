@@ -1,104 +1,23 @@
 "use client";
 
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Select } from "@rlz/ui/components/ui/select";
-import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
-import { useSelectedComponent } from "@/hooks/use-selected-component";
-import { slugFromId } from "../../../lib/slug";
-import { setPartAnimation } from "../../../lib/animation-apply";
-import {
-  animationLibraryAtom,
-  animationSettingKey,
-  animationSettingsAtom,
-  animationPhaseAtom,
-} from "../../../state/animation-state";
-import {
-  componentEditsAtom,
-  presetBuilderAtom,
-  setComponentEditAtom,
-} from "../../../state/preset-builder";
-import {
-  animationStudioOpenAtom,
-  animationPartAtom,
-} from "../../../state/animation-panel-state";
-import type { AnimationPhase } from "../../../lib/animation-compiler";
+import { animationSettingKey } from "../../../state/animation-state";
 import type { AnimationMode } from "../../../lib/animation-model";
-
-const PHASE_PREFIX: Record<AnimationPhase, string> = {
-  enter: "data-open:",
-  exit: "data-ending-style:",
-};
-function hasNativeAnimation(
-  classes: string | undefined,
-  phase: AnimationPhase
-) {
-  return (classes ?? "").split(/\s+/).some((token) => {
-    if (!token.startsWith(PHASE_PREFIX[phase])) return false;
-    return /^(?:animate(?:-.+)?|fade-(?:in|out)(?:-.+)?|zoom-(?:in|out)(?:-.+)?|slide-(?:in|out)(?:-.+)?|spin-(?:in|out)(?:-.+)?)$/.test(
-      token.slice(PHASE_PREFIX[phase].length)
-    );
-  });
-}
+import { hasNativeAnimation } from "../../../lib/animation-parts";
+import { useAnimationProperties } from "../../../hooks/use-animation-properties";
 
 export function AnimationProperties() {
-  const [selected] = useSelectedComponent();
-  const slug = selected ? slugFromId(selected.id) : "";
-  const parts = partsOf(slug);
-  const [settings, setSettings] = useAtom(animationSettingsAtom);
-  const library = useAtomValue(animationLibraryAtom);
-  const [preset, setPreset] = useAtom(presetBuilderAtom);
-  const edits = useAtomValue(componentEditsAtom);
-  const setComponentEdit = useSetAtom(setComponentEditAtom);
-  const setStudioOpen = useSetAtom(animationStudioOpenAtom);
-  const [partName, setPart] = useAtom(animationPartAtom);
-  const setPhase = useSetAtom(animationPhaseAtom);
-  const selectedPart =
-    parts.find((part) => part.name === partName) ??
-    parts.find((part) => /popup|content/i.test(part.name)) ??
-    parts[0];
-
-  const openStudio = (part: string, phase: AnimationPhase) => {
-    setPart(part);
-    setPhase(phase);
-    setStudioOpen(true);
-  };
-
-  const applyMode = (
-    part: string,
-    phase: AnimationPhase,
-    mode: AnimationMode,
-    animation?: (typeof library)[number]["animation"]
-  ) => {
-    const key = animationSettingKey(slug, part, phase);
-    const existing = settings[key];
-    if (mode === "custom" && !animation && !existing?.animation) {
-      openStudio(part, phase);
-      return;
-    }
-    const selectedAnimation = animation ?? existing?.animation;
-    const result = setPartAnimation(
-      preset,
-      edits[slug],
-      slug,
-      part,
-      phase,
-      mode,
-      selectedAnimation,
-      edits
-    );
-    setPreset(result.preset);
-    setComponentEdit(slug, { partClasses: { [part]: result.partClasses } });
-    setSettings((previous) => ({
-      ...previous,
-      [key]: {
-        mode,
-        animation: selectedAnimation
-          ? structuredClone(selectedAnimation)
-          : undefined,
-      },
-    }));
-  };
+  const {
+    slug,
+    parts,
+    selectedPart,
+    setPartName,
+    settings,
+    library,
+    openStudio,
+    applyMode,
+  } = useAnimationProperties();
 
   if (!parts.length)
     return (
@@ -120,7 +39,7 @@ export function AnimationProperties() {
               typeof next === "string" &&
               parts.some((part) => part.name === next)
             )
-              setPart(next);
+              setPartName(next);
           }}
         >
           <Select.Trigger

@@ -1,9 +1,5 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import type { CreatorAnimation } from "../lib/animation-model";
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
-import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Tabs } from "@rlz/ui/components/ui/tabs";
@@ -12,123 +8,35 @@ import { OpenInV0Button } from "@/components/open-in-v0-button";
 import { SelectedPreview } from "./preview";
 import { OpenDocsButton } from "./preview/open-docs-button";
 import { ModeSwitcher } from "@/components/mode-switcher";
-import { useSelectedComponent } from "@/hooks/use-selected-component";
-import { slugFromId } from "../lib/slug";
 import { PREVIEW_ID } from "../lib/preset-styles";
-import { applyCreatorAnimation } from "../lib/animation-apply";
-import {
-  animationSettingsAtom,
-  animationSettingKey,
-  animationPhaseAtom,
-} from "../state/animation-state";
 import { AnimationStudio } from "./editors/animation-studio/animation-studio";
-import {
-  animationStudioOpenAtom,
-  animationPartAtom,
-} from "../state/animation-panel-state";
-import { classEditorRequestAtom } from "../state/class-editor-state";
 import { ClassEditorPanel } from "./editors/class-editor/class-editor-panel";
-import {
-  presetBuilderAtom,
-  componentEditsAtom,
-  setComponentEditAtom,
-} from "../state/preset-builder";
+import { usePresetWorkspace } from "../hooks/use-preset-workspace";
+import { usePlaygroundFullscreen } from "../hooks/use-playground-fullscreen";
 import { Maximize, Minimize, SquareMousePointer, Plus, X } from "lucide-react";
 
 export function PresetWorkspace() {
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [studioOpen, setStudioOpen] = useAtom(animationStudioOpenAtom);
-  const [classRequest, setClassRequest] = useAtom(classEditorRequestAtom);
-  const [selected] = useSelectedComponent();
-  const slug = selected ? slugFromId(selected.id) : "";
-  const [partName] = useAtom(animationPartAtom);
-  const [phase, setPhase] = useAtom(animationPhaseAtom);
-  const [settings, setSettings] = useAtom(animationSettingsAtom);
-  const [applyError, setApplyError] = useState("");
-  const [preset, setPreset] = useAtom(presetBuilderAtom);
-  const edits = useAtomValue(componentEditsAtom);
-  const setComponentEdit = useSetAtom(setComponentEditAtom);
-
-  useEffect(() => {
-    const onChange = () => setIsFullscreen(Boolean(document.fullscreenElement));
-    document.addEventListener("fullscreenchange", onChange);
-    return () => document.removeEventListener("fullscreenchange", onChange);
-  }, []);
-
-  const toggleFullscreen = useCallback(() => {
-    const playground = document.getElementById("playground");
-    if (!playground) return;
-    if (document.fullscreenElement) void document.exitFullscreen();
-    else void playground.requestFullscreen();
-  }, []);
-
-  const closeStudio = () => {
-    setApplyError("");
-    setStudioOpen(false);
-  };
-  const closeClasses = () => setClassRequest(null);
-  // Class editor takes priority when opened from any properties field.
-  const activeTab = classRequest
-    ? "classes"
-    : studioOpen
-    ? "animation"
-    : "selected";
-
-  const applyAnimation = (animation: CreatorAnimation) => {
-    try {
-      if (!slug)
-        throw new Error("Select a component before applying an animation.");
-      const parts = partsOf(slug);
-      const part =
-        parts.find((item) => item.name === partName) ??
-        parts.find((item) => /popup|content/i.test(item.name)) ??
-        parts[0];
-      if (!part) throw new Error("This component has no editable parts.");
-      const result = applyCreatorAnimation(
-        preset,
-        edits[slug],
-        slug,
-        part.name,
-        phase,
-        animation,
-        edits
-      );
-      setPreset(result.preset);
-      setComponentEdit(slug, {
-        partClasses: { [part.name]: result.partClasses },
-      });
-      setSettings((previous) => ({
-        ...previous,
-        [animationSettingKey(slug, part.name, phase)]: {
-          mode: "custom",
-          animation: structuredClone(animation),
-        },
-      }));
-      closeStudio();
-    } catch (error) {
-      setApplyError(
-        error instanceof Error ? error.message : "Unable to apply animation."
-      );
-    }
-  };
+  const { isFullscreen, toggleFullscreen } = usePlaygroundFullscreen();
+  const {
+    activeTab,
+    changeTab,
+    studioOpen,
+    classRequest,
+    closeStudio,
+    closeClasses,
+    phase,
+    setPhase,
+    applyError,
+    applyAnimation,
+    studioKey,
+    animation,
+  } = usePresetWorkspace();
 
   return (
     <Tabs
       className="min-h-0 flex-1 gap-0"
       value={activeTab}
-      onValueChange={(next) => {
-        if (next === "selected") {
-          closeClasses();
-          closeStudio();
-        }
-        if (next === "animation") {
-          closeClasses();
-          setStudioOpen(true);
-        }
-        if (next === "classes") {
-          closeStudio();
-        }
-      }}
+      onValueChange={changeTab}
     >
       <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
         <Tabs.List className="bg-secondary rounded-md items-center">
@@ -264,10 +172,8 @@ export function PresetWorkspace() {
             </p>
           )}
           <AnimationStudio
-            key={`${slug}:${partName}:${phase}:${studioOpen}`}
-            value={
-              settings[animationSettingKey(slug, partName, phase)]?.animation
-            }
+            key={studioKey}
+            value={animation}
             onCancel={closeStudio}
             onApply={applyAnimation}
           />

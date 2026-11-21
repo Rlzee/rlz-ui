@@ -162,24 +162,3 @@ export function setPartAnimation(
   }
   return { preset: nextPreset, partClasses };
 }
-
-export function applyCreatorAnimation(
-  preset: RegistryPreset,
-  currentEdit: PresetComponentCustomization | undefined,
-  slug: string,
-  partName: string,
-  phase: AnimationPhase,
-  animation: CreatorAnimation,
-  allEdits?: Record<string, PresetComponentCustomization>
-) {
-  return setPartAnimation(
-    preset,
-    currentEdit,
-    slug,
-    partName,
-    phase,
-    "custom",
-    animation,
-    allEdits
-  );
-}
