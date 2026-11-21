@@ -7,8 +7,7 @@ import {
   compileCreatorAnimation,
   type AnimationPhase,
 } from "./animation-compiler";
-import type { CreatorAnimation } from "../components/animation-studio/model";
-import type { AnimationMode } from "./animation-state";
+import type { AnimationMode, CreatorAnimation } from "./animation-model";
 
 const prefixOf = (phase: AnimationPhase) =>
   phase === "enter" ? "data-open:" : "data-ending-style:";

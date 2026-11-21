@@ -6,7 +6,7 @@ import {
   valueAt,
   type AnimationProperty,
   type CreatorAnimation,
-} from "../components/animation-studio/model";
+} from "./animation-model";
 
 export type AnimationPhase = "enter" | "exit";
 

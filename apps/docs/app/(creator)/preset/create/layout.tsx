@@ -1,9 +1,9 @@
 import { SidebarProvider, SidebarInset } from "@rlz/ui/components/ui/sidebar";
 import { getDocsExplorerSections } from "@/lib/docs";
-import { Navbar } from "../components/navbar";
-import { Explorer } from "../components/explorer";
-import { PropertiesPanel } from "../components/properties-panel";
-import { PlaygroundPreset } from "../components/playground-preset";
+import { Navbar } from "../components/layout/navbar";
+import { Explorer } from "../components/layout/explorer";
+import { PropertiesPanel } from "../components/properties/properties-panel";
+import { PlaygroundPreset } from "../components/preview/playground-preset";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const sections = getDocsExplorerSections();
