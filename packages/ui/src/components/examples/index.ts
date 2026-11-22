@@ -172,6 +172,9 @@ export const demoPaths: Record<string, string> = {
   "toggle-group-size": "toggle/group-size",
   // Toolbar
   toolbar: "toolbar/default",
+  // Toast
+  toast: "toast/default",
+  "toast-anchored": "toast/anchored",
   // Tooltip
   tooltip: "tooltip/default",
   "tooltip-variant": "tooltip/variant",

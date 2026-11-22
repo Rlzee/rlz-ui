@@ -1,0 +1,203 @@
+---
+title: Toast
+description: Temporary notifications with stacking, status icons, actions, and anchored positioning.
+links:
+  doc: https://base-ui.com/react/components/toast
+  api: https://base-ui.com/react/components/toast/#api-reference
+---
+
+<ComponentPreview name="toast" />
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTab value="cli">CLI</TabsTab>
+  <TabsTab value="manual">Manual</TabsTab>
+  <TabsIndicator />
+</TabsList>
+
+<TabsPanel value="cli">
+
+```bash
+npx rlz@latest add toast
+```
+
+</TabsPanel>
+
+<TabsPanel value="manual">
+
+<Steps>
+
+<Step className="mb-4">Install the following dependencies:</Step>
+
+```bash
+npm install @base-ui/react lucide-react cn class-variance-authority
+```
+
+<Step>Install the Button component.</Step>
+
+```bash
+npx rlz@latest add button
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="toast" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsPanel>
+
+</CodeTabs>
+
+## Usage
+
+Mount one `<Toaster />` near the root of your application. It can wrap children
+or be rendered alongside them.
+
+```tsx
+import { Toaster } from "@/components/ui/toast";
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      {children}
+      <Toaster />
+    </>
+  );
+}
+```
+
+Call `toastManager.add()` from a client-side event handler to show a notification.
+
+```tsx
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { toastManager } from "@/components/ui/toast";
+
+export function SaveButton() {
+  return (
+    <Button
+      onClick={() =>
+        toastManager.add({
+          title: "Changes saved",
+          description: "Your preferences have been updated.",
+          type: "success",
+        })
+      }
+    >
+      Save
+    </Button>
+  );
+}
+```
+
+## API Reference
+
+Built on [Base UI Toast](https://base-ui.com/react/components/toast/#api-reference).
+The component exports `Toaster`, `toastManager`, and `anchoredToastManager`.
+
+### Toaster
+
+Includes the provider, portal, viewport, and notification content internally.
+Use a single instance per manager to avoid rendering the same notifications twice.
+
+| Prop | Type | Default |
+| --- | --- | --- |
+| `variant` | `"stacked" \| "anchored"` | `"stacked"` |
+| `defaultPosition` | `"top-left" \| "top-center" \| "top-right" \| "bottom-left" \| "bottom-center" \| "bottom-right"` | `"bottom-right"` |
+| `children` | `React.ReactNode` | - |
+
+`defaultPosition` applies only to stacked notifications.
+
+### Toast managers
+
+`toastManager` controls stacked notifications. `anchoredToastManager` controls
+notifications attached to an element. Both expose the Base UI manager methods,
+including `add`, `update`, `close`, and `promise`.
+
+Common `add()` options:
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `title` | `React.ReactNode` | Notification title. |
+| `description` | `React.ReactNode` | Optional supporting message. |
+| `type` | `"default" \| "success" \| "error" \| "loading" \| "warning" \| "info"` | Selects the status icon. Omit for no icon. |
+| `timeout` | `number` | Auto-dismiss delay in milliseconds; `0` disables auto-dismiss. |
+| `actionProps` | `Toast.Action.Props` | Action button props, including `children` and `onClick`. |
+| `position` | `ToastPosition` | Overrides the position of a stacked notification. |
+| `positionerProps` | `Toast.Positioner.Props` | Anchored positioning options; provide `anchor`. |
+| `data` | `object` | Custom data; `{ tooltipStyle: true }` enables a compact, title-only anchored notification. |
+
+`add()` returns an id that can be passed to `update()` or `close()`.
+
+```tsx
+const id = toastManager.add({ title: "Saving…", type: "loading", timeout: 0 });
+
+toastManager.update(id, { title: "Saved", type: "success", timeout: 5000 });
+
+// Dismiss a notification manually.
+toastManager.close(id);
+```
+
+## Examples
+
+### Position
+
+Set a default position on the toaster, or override it for an individual notification.
+
+```tsx
+<Toaster defaultPosition="top-center" />
+```
+
+```tsx
+toastManager.add({
+  title: "Changes saved",
+  type: "success",
+  position: "bottom-left",
+});
+```
+
+### Action
+
+```tsx
+toastManager.add({
+  title: "Message archived",
+  actionProps: {
+    children: "Undo",
+    onClick: () => restoreMessage(),
+  },
+});
+```
+
+### Anchored
+
+Mount `<Toaster variant="anchored" />` and use `anchoredToastManager` with
+`positionerProps.anchor` pointing to the target element.
+
+<ComponentPreview name="toast-anchored" />
+
+```tsx
+<Button
+  onClick={(event) =>
+    anchoredToastManager.add({
+      title: "Saved",
+      type: "success",
+      positionerProps: {
+        anchor: event.currentTarget,
+        side: "top",
+        sideOffset: 8,
+      },
+    })
+  }
+>
+  Save
+</Button>
+```
+
+For a compact, title-only notification, pass `data: { tooltipStyle: true }`.
