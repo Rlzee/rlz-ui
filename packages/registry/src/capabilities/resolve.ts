@@ -28,6 +28,8 @@ function collectExclusions(
   overrides: ComponentCapabilitiesOverride[]
 ): Exclusions {
   return overrides.reduce<Exclusions>((all, override) => {
+    if (override.exclude === true) return all;
+
     for (const group of GROUPS) {
       all[group] = [...all[group], ...(override.exclude?.[group] ?? [])];
     }
@@ -48,6 +50,9 @@ export function resolveComponentCapabilities(
   ...overrides: (ComponentCapabilitiesOverride | undefined)[]
 ): ComponentCapabilities | undefined {
   const valid = overrides.filter(Boolean) as ComponentCapabilitiesOverride[];
+  // A full exclusion is policy, not a patch: later overrides cannot undo it.
+  if (valid.some((override) => override.exclude === true)) return undefined;
+
   const excluded = collectExclusions(valid);
   const added = <T>(group: Group, pick: (o: ComponentCapabilitiesOverride) => T[] | undefined) =>
     valid.flatMap((override) => pick(override) ?? []);

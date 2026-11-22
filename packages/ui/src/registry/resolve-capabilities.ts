@@ -45,6 +45,8 @@ export function withResolvedCapabilities<T extends RegistryComponentItem>(
  * meant to store what the Creator changed, not a copy of the design system.
  */
 export function variantClassesOf(id: string) {
+  if (isExcluded(id)) return undefined;
+
   return detectedVariantClasses[id];
 }
 
@@ -56,6 +58,8 @@ export function variantClassesOf(id: string) {
  * how the demos are pointed at.
  */
 export function partsOf(id: string): (ComponentPart & { name: string })[] {
+  if (isExcluded(id)) return [];
+
   const detected = detectedParts[id];
 
   if (!detected) return [];
@@ -71,5 +75,13 @@ export function partsOf(id: string): (ComponentPart & { name: string })[] {
 }
 
 function hiddenParts(override?: ComponentCapabilitiesOverride) {
-  return override?.exclude?.parts ?? [];
+  const exclude = override?.exclude;
+  return exclude && exclude !== true ? exclude.parts ?? [] : [];
+}
+
+function isExcluded(id: string) {
+  return (
+    GLOBAL_EXCLUSIONS.exclude === true ||
+    componentCapabilitiesOverrides[id]?.exclude === true
+  );
 }

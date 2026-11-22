@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <PlaygroundPreset />
       <div className="flex w-full min-h-0 flex-1">
         <Explorer sections={sections} />
-        <PropertiesPanel />
+        <PropertiesPanel sections={sections} />
         <SidebarInset
           id="playground"
           className="h-[calc(100svh-var(--header-height)-0.5rem)] min-h-0 flex-1 overflow-hidden border border-sidebar-border rounded-md mx-2 mb-2 [&:fullscreen]:m-0 [&:fullscreen]:h-full [&:fullscreen]:w-full [&:fullscreen]:rounded-none [&:fullscreen]:border-0 [&:fullscreen]:bg-background"

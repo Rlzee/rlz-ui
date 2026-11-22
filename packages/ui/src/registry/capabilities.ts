@@ -13,7 +13,8 @@ import type { ComponentCapabilitiesOverride } from "@rlz/registry";
  * `GLOBAL_EXCLUSIONS` hides what detection is right about in general but must
  * never offer; `componentCapabilitiesOverrides` hides what one component should
  * not expose, and declares what no file can tell: the intent that an axis accepts
- * brand-new values.
+ * brand-new values. `exclude: true` disables a component entirely, including its
+ * editable parts and any capabilities detected in the future.
  */
 
 export const GLOBAL_EXCLUSIONS: ComponentCapabilitiesOverride = {
@@ -50,6 +51,24 @@ export const componentCapabilitiesOverrides: Record<
   string,
   ComponentCapabilitiesOverride
 > = {
+  // Context menus reuse menu styling and must not expose their own customization.
+  "context-menu": { exclude: true },
+
+  // A behavior-only wrapper with no authored styles to customize.
+  form: { exclude: true },
+
+  collapsible: {
+    // Only the panel owns styles; root and trigger are behavior-only wrappers.
+    exclude: { parts: ["Root", "Trigger"] },
+  },
+
+  "alert-dialog": {
+    exclude: {
+      parts: ["Viewport"],
+      editableProperties: ["blur", "backdropBlur"],
+    },
+  },
+
   button: {
     // The one axis meant to grow with brand-new brand values: `size` stays the
     // scale it is, `variant` is a palette.

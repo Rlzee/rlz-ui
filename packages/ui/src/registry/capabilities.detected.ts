@@ -1104,7 +1104,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
   "alert": {
     "Root": {
       "slot": "alert",
-      "classes": "relative w-full rounded-lg border py-3 px-3 text-card-foreground grid items-start grid-cols-[0_1fr] has-[[data-slot=alert-action]]:pr-18 [&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
+      "classes": "relative w-full rounded-lg border py-3 px-3 text-foreground grid items-start grid-cols-[0_1fr] has-[[data-slot=alert-action]]:pr-18 [&>svg]:size-4 has-[>svg]:py-2.5 has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-2"
     },
     "Title": {
       "slot": "alert-title",
@@ -1130,7 +1130,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Popup": {
       "slot": "alert-dialog-popup",
-      "classes": "bg-background [&:has([data-slot=alert-dialog-actions][data-variant=bare])]:bg-popover relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)] data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95"
+      "classes": "bg-background relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)] data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95"
     },
     "Title": {
       "slot": "alert-dialog-title",
@@ -1874,7 +1874,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Input": {
       "slot": "number-field-input",
-      "classes": "bg-transparent h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid"
+      "classes": "bg-secondary h-9 w-24 border-t border-b text-center text-sm text-secondary-foreground tabular-nums focus:z-1 outline-none state-invalid"
     }
   },
   "otp-field": {
@@ -2020,7 +2020,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "ScrollUp": {
       "slot": "select-scroll-up-arrow",
-      "classes": "top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:w-full before:content-['']"
+      "classes": "top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md bg-foreground text-center text-xs before:absolute data-[side=none]:before:-top-full before:left-0 before:h-full before:content-['']"
     },
     "ScrollDown": {
       "slot": "select-scroll-down-arrow",
@@ -2036,15 +2036,15 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
     },
     "Item": {
       "slot": "select-item",
-      "classes": "has-data-[slot=select-item-indicator]:grid has-data-[slot=select-item-indicator]:grid-cols-[0.75rem_1fr] flex cursor-default items-center gap-3 py-2 pl-3 text-sm leading-4 outline-none select-none pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70"
+      "classes": "relative flex cursor-default items-center gap-3 py-2 pl-2 pr-9 text-sm leading-4 outline-none select-none pointer-coarse:py-2.5 pointer-coarse:text-[0.925rem] hover:relative hover:text-accent-foreground hover:z-0 hover:before:absolute hover:before:inset-x-1 hover:before:inset-y-0 hover:before:z-[-1] hover:before:rounded-sm hover:before:bg-accent/70 data-highlighted:relative data-highlighted:text-accent-foreground data-highlighted:z-0 data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:z-[-1] data-highlighted:before:rounded-sm data-highlighted:before:bg-accent/70"
     },
     "ItemText": {
       "slot": "select-item-text",
-      "classes": "col-start-2 order-last"
+      "classes": "min-w-0 flex-1"
     },
     "ItemIndicator": {
       "slot": "select-item-indicator",
-      "classes": "col-start-1 order-first invisible data-selected:visible"
+      "classes": "absolute right-3 top-1/2 -translate-y-1/2 invisible data-selected:visible"
     },
     "Separator": {
       "slot": "select-separator",

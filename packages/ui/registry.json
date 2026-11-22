@@ -117,9 +117,7 @@
           "Actions"
         ],
         "editableProperties": [
-          "blur",
-          "backdrop",
-          "backdropBlur"
+          "backdrop"
         ]
       }
     },
@@ -415,7 +413,6 @@
       "registryDependencies": [],
       "capabilities": {
         "parts": [
-          "Trigger",
           "Panel"
         ]
       }
@@ -517,13 +514,7 @@
       "type": "component",
       "registryDependencies": [
         "menu"
-      ],
-      "capabilities": {
-        "parts": [
-          "Trigger",
-          "Popup"
-        ]
-      }
+      ]
     },
     "dialog": {
       "id": "dialog",

@@ -3,10 +3,11 @@
 import type { ComponentType } from "react";
 import { useSetAtom } from "jotai";
 
-import type { PresetSection } from "@/lib/docs";
+import type { DocsNavSection, PresetSection } from "@/lib/docs";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { getCapabilities } from "@/lib/component-capabilities";
 import { slugFromId } from "../../lib/slug";
+import { classEditorRequestAtom } from "../../state/class-editor-state";
 import {
   resetComponentEditsAtom,
   resetSectionAtom,
@@ -30,8 +31,9 @@ const FOUNDATION_EDITORS: Partial<Record<PresetSection, ComponentType>> = {
   recommendations: RecommendationsProperties,
 };
 
-export function PropertiesPanel() {
-  const [selected] = useSelectedComponent();
+export function PropertiesPanel({ sections }: { sections: DocsNavSection[] }) {
+  const [selected, setSelected] = useSelectedComponent();
+  const setClassEditorRequest = useSetAtom(classEditorRequestAtom);
   const resetSection = useSetAtom(resetSectionAtom);
   const resetComponentEdits = useSetAtom(resetComponentEditsAtom);
 
@@ -48,7 +50,15 @@ export function PropertiesPanel() {
 
   // Components fall back to the generated editor when capabilities are known,
   // and to nothing (handled below) for components without a manifest entry.
-  const Editor = FoundationEditor ?? (capabilities ? ComponentProperties : undefined);
+  const Editor =
+    FoundationEditor ?? (capabilities ? ComponentProperties : undefined);
+
+  const menu =
+    selected && slugFromId(selected.id) === "context-menu"
+      ? sections
+          .flatMap((section) => section.items)
+          .find((item) => slugFromId(item.id) === "menu")
+      : undefined;
 
   // The panel edits either a Foundation entry or one component, so its Reset follows
   // whichever is selected: Colors goes back to the shipped palette, a component goes
@@ -101,8 +111,10 @@ export function PropertiesPanel() {
           ) : null}
         </div>
         <div className="grid gap-0 py-3 px-2">
-          <h2>{selected?.name ?? "No selection"}</h2>
-          <span className="text-xs text-muted-foreground">
+          <h2 className="text-xl xl:text-2xl font-medium tracking-tight">
+            {selected?.name ?? "No selection"}
+          </h2>
+          <span className="text-sm text-muted-foreground">
             {selected?.description ??
               "Pick an item in the explorer to see its properties."}
           </span>
@@ -115,6 +127,26 @@ export function PropertiesPanel() {
       >
         {Editor ? (
           <Editor />
+        ) : menu ? (
+          <div className="flex flex-col items-start gap-3 px-4 py-6">
+            <p className="text-sm text-muted-foreground">
+              ContextMenu.Popup reuses Menu.Popup styles. Its content is
+              composed of Menu components (items, groups, separators…). Edit
+              Menu to style those parts. ContextMenu.Trigger is styled
+              separately where it is used.
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => {
+                setClassEditorRequest(null);
+                setSelected(menu);
+              }}
+            >
+              Edit Menu
+              <ChevronRight />
+            </Button>
+          </div>
         ) : selected ? (
           <p className="px-4 py-6 text-xs text-muted-foreground">
             No editable properties for this item yet.

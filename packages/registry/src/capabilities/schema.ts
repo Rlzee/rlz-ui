@@ -56,9 +56,10 @@ export const ComponentVariantPatchSchema = z.object({
 // The hand-written half of a component's capabilities. Capabilities are
 // detected from the component sources, so this only carries what detection
 // cannot know (labels, intent) and what must be hidden (`exclude`). Adding a
-// component therefore needs no entry at all.
+// component therefore needs no entry at all. `exclude: true` disables all
+// customization, including capabilities discovered in future detection passes.
 export const ComponentCapabilitiesOverrideSchema = z.object({
-  exclude: ComponentCapabilityExclusionsSchema.optional(),
+  exclude: z.union([z.literal(true), ComponentCapabilityExclusionsSchema]).optional(),
   variants: z.array(ComponentVariantPatchSchema).optional(),
   parts: z.array(z.string()).optional(),
   editableProperties: z.array(z.string()).optional(),
