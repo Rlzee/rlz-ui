@@ -120,7 +120,6 @@ export function PresetWorkspace() {
             </Button>
           ) : (
             <>
-              <OpenInV0Button size="sm" variant="outline" />
               <ModeSwitcher />
               <Tooltip.Provider delay={0} closeDelay={0}>
                 <OpenDocsButton />

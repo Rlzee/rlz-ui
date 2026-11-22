@@ -1,9 +1,11 @@
 "use client";
 
 import * as React from "react";
+import { useSetAtom } from "jotai";
 
 import type { DocsNavSection } from "@/lib/docs";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
+import { classEditorRequestAtom } from "../../state/class-editor-state";
 
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
@@ -21,6 +23,7 @@ const DEFAULT_SELECTED_ID = "info";
 export function Explorer({ sections, ...props }: ExplorerProps) {
   const [query, setQuery] = React.useState("");
   const [selected, setSelected] = useSelectedComponent();
+  const setClassEditorRequest = useSetAtom(classEditorRequestAtom);
 
   React.useEffect(() => {
     if (selected) return;
@@ -80,7 +83,12 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
                   <Sidebar.Button
                     size="sm"
                     isActive={selected?.id === item.id}
-                    onClick={() => setSelected(item)}
+                    onClick={() => {
+                      if (selected?.id !== item.id) {
+                        setClassEditorRequest(null);
+                      }
+                      setSelected(item);
+                    }}
                   >
                     {item.name}
                   </Sidebar.Button>
