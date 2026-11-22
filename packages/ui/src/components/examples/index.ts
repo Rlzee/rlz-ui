@@ -172,6 +172,10 @@ export const demoPaths: Record<string, string> = {
   "toggle-group-size": "toggle/group-size",
   // Toolbar
   toolbar: "toolbar/default",
+  // Tabs
+  tabs: "tabs/default",
+  "tabs-underline": "tabs/underline",
+  "tabs-vertical": "tabs/vertical",
   // Toast
   toast: "toast/default",
   "toast-anchored": "toast/anchored",
