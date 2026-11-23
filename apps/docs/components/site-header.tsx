@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  BorderFlash,
-  BorderFlashBox,
-  BorderFlashBoxContent,
-} from "@rlz/ui/components/animations/border-flash";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { Button } from "@rlz/ui/components/ui/button";
 import { CommandInput } from "./command-input";
 import { DialogTrigger } from "@rlz/ui/components/ui/dialog";
@@ -50,12 +46,8 @@ export function SiteHeader({ container }: { container?: boolean }) {
         aria-hidden="true"
         className="container pointer-events-none fixed inset-0 z-45"
       >
-        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-        <BorderFlashBox className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
+        <BorderFlash.Box className="absolute top-[calc(var(--header-height)-4.5px)] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0" />
+        <BorderFlash.Box className="absolute top-[calc(var(--header-height)-4.5px)] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0" />
       </div>
 
       <header className="sticky top-0 z-40 w-full bg-sidebar-background/70 backdrop-blur-2xl">
@@ -114,11 +106,6 @@ export function SiteHeader({ container }: { container?: boolean }) {
             </DialogTrigger>
           </div>
         </div>
-        <BorderFlash
-          border="bottom"
-          animation="right"
-          className="absolute inset-x-0 bottom-0"
-        />
       </header>
     </>
   );

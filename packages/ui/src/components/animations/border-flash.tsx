@@ -4,13 +4,15 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { cn } from "cn";
 
-type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y";
-type Animation = "bottom" | "top" | "left" | "right";
+type Orientation = "top" | "right" | "bottom" | "left" | "x" | "y" | "all";
+type Animation = "bottom" | "top" | "left" | "right" | "none";
 
 const getBorderAnim = (side: Animation) => {
   const base = { duration: 1, ease: "easeOut" as const };
 
   switch (side) {
+    case "none":
+      return {};
     case "bottom":
       return {
         initial: { scaleY: 0 },
@@ -81,6 +83,7 @@ const BorderFlash = ({
     left: "border-l",
     x: "border-x",
     y: "border-y",
+    all: "border",
   };
 
   return (
@@ -120,6 +123,59 @@ interface BorderFlashBoxProps {
   className?: string;
 }
 
+/** Reveal four fixed segments so rounded corners never stretch or slide. */
+const FRAME_SEGMENTS = [
+  {
+    clip: "polygon(0% 0%, 100% 0%, 50% 50%)",
+    initial: "inset(0% 100% 0% 0%)",
+    delay: 0.2,
+  },
+  {
+    clip: "polygon(100% 0%, 100% 100%, 50% 50%)",
+    initial: "inset(100% 0% 0% 0%)",
+    delay: 0,
+  },
+  {
+    clip: "polygon(100% 100%, 0% 100%, 50% 50%)",
+    initial: "inset(0% 0% 0% 100%)",
+    delay: 0.3,
+  },
+  {
+    clip: "polygon(0% 100%, 0% 0%, 50% 50%)",
+    initial: "inset(0% 0% 100% 0%)",
+    delay: 0.1,
+  },
+] as const;
+
+const BorderFlashFrame = ({ className }: { className?: string }) => (
+  <div
+    data-slot="border-flash-frame"
+    aria-hidden="true"
+    className={cn("pointer-events-none absolute inset-0 rounded-md", className)}
+  >
+    {FRAME_SEGMENTS.map((segment) => (
+      <div
+        key={segment.clip}
+        className="absolute inset-0 rounded-[inherit]"
+        style={{ clipPath: segment.clip }}
+      >
+        <motion.div
+          className="absolute inset-0 rounded-[inherit]"
+          initial={{ clipPath: segment.initial }}
+          animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+          transition={{ duration: 1, ease: "easeOut", delay: segment.delay }}
+        >
+          <BorderFlash
+            border="all"
+            animation="none"
+            className="absolute inset-0 rounded-[inherit]"
+          />
+        </motion.div>
+      </div>
+    ))}
+  </div>
+);
+
 const BorderFlashBox: React.FC<BorderFlashBoxProps> = ({
   children,
   className,
@@ -127,55 +183,19 @@ const BorderFlashBox: React.FC<BorderFlashBoxProps> = ({
   return (
     <div
       data-slot="border-flash-box"
-      className={cn("relative w-full p-6", className)}
+      className={cn("relative w-full p-6 rounded-md", className)}
     >
-      {/* Top border */}
-      <div className="absolute inset-x-0 top-0 mx-px">
-        <BorderFlash border="top" animation="left" />
-      </div>
-
-      {/* Bottom border */}
-      <div className="absolute inset-x-0 bottom-0 mx-px">
-        <BorderFlash border="bottom" animation="right" />
-      </div>
-
-      {/* Left border */}
-      <div className="absolute inset-y-0 left-0 h-full">
-        <BorderFlash border="left" animation="top" className="h-full" />
-      </div>
-
-      {/* Right border */}
-      <div className="absolute inset-y-0 right-0 h-full">
-        <BorderFlash border="right" animation="bottom" className="h-full" />
-      </div>
+      <BorderFlashFrame className="z-10 rounded-[inherit]" />
 
       {/* Content */}
-      <div className="relative bg-background text-left">{children}</div>
-    </div>
-  );
-};
-
-const BorderFlashBoxContent = ({
-  children,
-  className,
-}: BorderFlashBoxProps) => {
-  return (
-    <div
-      data-slot="border-flash-box-content"
-      className={cn("flex items-center justify-center p-2", className)}
-    >
-      {children}
+      <div className="relative bg-background">{children}</div>
     </div>
   );
 };
 
 const BorderFlashExports = Object.assign(BorderFlash, {
+  Frame: BorderFlashFrame,
   Box: BorderFlashBox,
-  BoxContent: BorderFlashBoxContent,
 });
 
-export {
-  BorderFlashExports as BorderFlash,
-  BorderFlashBox,
-  BorderFlashBoxContent,
-};
+export { BorderFlashExports as BorderFlash, BorderFlashFrame, BorderFlashBox };

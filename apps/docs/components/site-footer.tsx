@@ -2,11 +2,7 @@
 
 import { usePathname } from "fumadocs-core/framework";
 
-import {
-  BorderFlash,
-  BorderFlashBox,
-  BorderFlashBoxContent,
-} from "@rlz/ui/components/animations/border-flash";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { cn } from "@rlz/ui/lib/cn";
 
 export function SiteFooter() {
@@ -15,20 +11,9 @@ export function SiteFooter() {
 
   return (
     <div className={cn("relative", !isHomePage && "pb-3")}>
-      <BorderFlash
-        border="top"
-        animation="left"
-        className="absolute inset-x-0 top-0"
-      />
-
       <div className="container pointer-events-none absolute inset-0 overflow-visible">
-        <BorderFlashBox className="absolute -top-[4.5px] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0 z-50">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
-
-        <BorderFlashBox className="absolute -top-[4.5px] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 dark:bg-clip-border p-0 z-50">
-          <BorderFlashBoxContent className="p-0" />
-        </BorderFlashBox>
+        <BorderFlash.Box className="absolute -top-[4.5px] -left-[11.5px] -ml-1 size-2 rounded-[2px] bg-background shadow-xs/5 p-0 z-50" />
+        <BorderFlash.Box className="absolute -top-[4.5px] -right-[11.5px] -mr-1 size-2 rounded-[2px] bg-background shadow-xs/5 dark:bg-clip-border p-0 z-50" />
       </div>
 
       {isHomePage ? (

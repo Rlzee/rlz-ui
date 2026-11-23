@@ -15,6 +15,7 @@ import {
 import { Breadcrumb } from "@rlz/ui/components/ui/breadcrumb";
 import { Button } from "@rlz/ui/components/ui/button";
 import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { ChevronRight, RefreshCw } from "lucide-react";
 
 import { InfoProperties } from "./info-properties";
@@ -76,7 +77,12 @@ export function PropertiesPanel({ sections }: { sections: DocsNavSection[] }) {
   };
 
   return (
-    <aside className="top-(--header-height)! h-[calc(100svh-var(--header-height)-0.5rem)] mb-2 bg-background w-100 border border-sidebar-border rounded-md ml-4 flex flex-col">
+    <aside className="relative h-[calc(100svh-var(--header-height)-0.5rem-2px)] bg-background w-100 rounded-l-md md:rounded-none border-r border-transparent flex flex-col">
+      <BorderFlash
+        border="right"
+        animation="top"
+        className="pointer-events-none absolute inset-y-0 -right-px z-10"
+      />
       <header className="p-2 border-b border-border shrink-0">
         <div className="flex items-start justify-between gap-2">
           <Breadcrumb className="min-w-0">

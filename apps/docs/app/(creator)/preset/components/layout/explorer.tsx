@@ -8,6 +8,7 @@ import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { classEditorRequestAtom } from "../../state/class-editor-state";
 
 import { Sidebar } from "@rlz/ui/components/ui/sidebar";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
 import { InputGroup } from "@rlz/ui/components/ui/input-group";
 import { Input } from "@rlz/ui/components/ui/input";
 
@@ -55,10 +56,15 @@ export function Explorer({ sections, ...props }: ExplorerProps) {
 
   return (
     <Sidebar
-      variant="floating"
-      className="top-(--header-height)! h-auto! mb-2 p-0! **:data-[slot=sidebar-inner]:bg-background! ml-2"
+      variant="sidebar"
+      className="top-[calc(var(--header-height)+1px)]! bottom-[calc(0.5rem+1px)]! ml-[calc(0.5rem+1px)] h-auto! p-0! border-r-transparent! **:data-[slot=sidebar-inner]:relative **:data-[slot=sidebar-inner]:rounded-l-md **:data-[slot=sidebar-inner]:bg-background!"
       {...props}
     >
+      <BorderFlash
+        border="right"
+        animation="bottom"
+        className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden md:block"
+      />
       <Sidebar.Header>
         <InputGroup>
           <InputGroup.Addon align="inline-start">
