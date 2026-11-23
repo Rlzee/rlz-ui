@@ -1,6 +1,17 @@
+import {
+  EXTRA_APPEARANCE,
+  utilityPrefix,
+  validExtraValue,
+} from "./appearance-options";
+
 export type AppearanceField = { prefix: string; value: string; label: string };
 
 const FAMILIES = [
+  ...EXTRA_APPEARANCE.map(({ prefix, label }) => [prefix, label] as const),
+  ["text", "Font size"],
+  ["font", "Font weight"],
+  ["leading", "Line height"],
+  ["tracking", "Letter spacing"],
   ["gap-x", "Gap X"],
   ["gap-y", "Gap Y"],
   ["gap", "Gap"],
@@ -13,6 +24,15 @@ const FAMILIES = [
   ["pb", "Padding Bottom"],
   ["pl", "Padding Left"],
   ["p", "Padding"],
+  ["m", "Margin"],
+  ["mx", "Margin X"],
+  ["my", "Margin Y"],
+  ["mt", "Margin Top"],
+  ["mr", "Margin Right"],
+  ["mb", "Margin Bottom"],
+  ["ml", "Margin Left"],
+  ["ms", "Margin Start"],
+  ["me", "Margin End"],
   ["rounded", "Rounded"],
   ["rounded-t", "Rounded Top"],
   ["rounded-r", "Rounded Right"],
@@ -31,6 +51,64 @@ const FAMILIES = [
 ] as const;
 
 export type AppearancePrefix = (typeof FAMILIES)[number][0];
+
+export const TYPOGRAPHY_OPTIONS = {
+  text: [
+    "xs",
+    "sm",
+    "base",
+    "lg",
+    "xl",
+    "2xl",
+    "3xl",
+    "4xl",
+    "5xl",
+    "6xl",
+    "7xl",
+    "8xl",
+    "9xl",
+  ],
+  font: [
+    "thin",
+    "extralight",
+    "light",
+    "normal",
+    "medium",
+    "semibold",
+    "bold",
+    "extrabold",
+    "black",
+  ],
+  leading: ["none", "tight", "snug", "normal", "relaxed", "loose"],
+  tracking: ["tighter", "tight", "normal", "wide", "wider", "widest"],
+} as const;
+
+export function isTypography(
+  prefix: string
+): prefix is keyof typeof TYPOGRAPHY_OPTIONS {
+  return Object.hasOwn(TYPOGRAPHY_OPTIONS, prefix);
+}
+
+// `text-*` and `font-*` also cover colors, alignment and font families.
+// Only unambiguous size/weight utilities belong to these appearance fields.
+function isTypographyValue(prefix: string, value: string): boolean {
+  if (prefix === "leading" || prefix === "tracking") return !!value;
+  if (prefix === "text") {
+    const size = value.split("/")[0]!;
+    return (
+      (TYPOGRAPHY_OPTIONS.text as readonly string[]).includes(size) ||
+      /^\[(?:length:|(?:\d*\.?\d+)(?:px|rem|em|%|vw|vh)|(?:calc|min|max|clamp)\()/.test(
+        size
+      ) ||
+      size.startsWith("(length:")
+    );
+  }
+  return (
+    (TYPOGRAPHY_OPTIONS.font as readonly string[]).includes(value) ||
+    /^\[(?:number:|\d+(?:\.\d+)?\])/.test(value) ||
+    value.startsWith("(number:")
+  );
+}
 
 /** Split only on whitespace outside arbitrary-value brackets and quoted strings. */
 function splitClasses(classes: string): string[] {
@@ -90,28 +168,34 @@ function hasVariant(token: string): boolean {
   return false;
 }
 
+export function isMargin(prefix: string): boolean {
+  return /^m[xytrblse]?$/.test(prefix);
+}
+
 function familyOf(token: string): AppearanceField | undefined {
-  // Important/negative and state-specific utilities need their own editor.
-  if (
-    hasVariant(token) ||
-    token.startsWith("!") ||
-    token.startsWith("-") ||
-    token.startsWith("*")
-  )
+  // Negative utilities are editable only for margins.
+  const negative = token.startsWith("-");
+  if (negative && !/^-m[xytrblse]?-/.test(token)) return;
+  // Important and state-specific utilities need their own editor.
+  if (hasVariant(token) || token.startsWith("!") || token.startsWith("*"))
     return;
+  if (negative) token = token.slice(1);
   let match: AppearanceField | undefined;
   for (const [prefix, label] of FAMILIES) {
+    const utility = utilityPrefix(prefix);
     const value =
-      token === prefix
+      token === utility
         ? ""
-        : token.startsWith(`${prefix}-`)
-        ? token.slice(prefix.length + 1)
+        : token.startsWith(`${utility}-`)
+        ? token.slice(utility.length + 1)
         : undefined;
     if (
       value !== undefined &&
+      validExtraValue(prefix, value) &&
+      (!isTypography(prefix) || isTypographyValue(prefix, value)) &&
       (!match || prefix.length > match.prefix.length)
     ) {
-      match = { prefix, label, value };
+      match = { prefix, label, value: negative ? `-${value}` : value };
     }
   }
   return match;
@@ -135,6 +219,17 @@ export function appearanceFields(classes: string): AppearanceField[] {
 }
 
 const COVERAGE: Record<string, readonly string[]> = {
+  ...Object.fromEntries(
+    EXTRA_APPEARANCE.map(({ prefix }) => [prefix, [prefix]])
+  ),
+  border: ["border-t", "border-r", "border-b", "border-l"],
+  "border-x": ["border-r", "border-l"],
+  "border-y": ["border-t", "border-b"],
+  size: ["w", "h"],
+  text: ["font-size"],
+  font: ["font-weight"],
+  leading: ["line-height"],
+  tracking: ["letter-spacing"],
   p: ["t", "r", "b", "l"],
   px: ["r", "l"],
   py: ["t", "b"],
@@ -144,6 +239,15 @@ const COVERAGE: Record<string, readonly string[]> = {
   pl: ["l"],
   ps: ["start"],
   pe: ["end"],
+  m: ["margin-t", "margin-r", "margin-b", "margin-l"],
+  mx: ["margin-r", "margin-l"],
+  my: ["margin-t", "margin-b"],
+  mt: ["margin-t"],
+  mr: ["margin-r"],
+  mb: ["margin-b"],
+  ml: ["margin-l"],
+  ms: ["margin-start"],
+  me: ["margin-end"],
   gap: ["x", "y"],
   "gap-x": ["x"],
   "gap-y": ["y"],
@@ -199,7 +303,14 @@ export function setAppearanceValue(
 ): string {
   if (!FAMILIES.some(([name]) => name === prefix)) return classes;
   const trimmed = value.trim();
-  const replacement = trimmed ? `${prefix}-${trimmed}` : null;
+  if (trimmed && isTypography(prefix) && !isTypographyValue(prefix, trimmed))
+    return classes;
+  if (trimmed && !validExtraValue(prefix, trimmed)) return classes;
+  const replacement = trimmed
+    ? isMargin(prefix) && trimmed.startsWith("-")
+      ? `-${prefix}-${trimmed.slice(1)}`
+      : `${utilityPrefix(prefix)}-${trimmed}`
+    : null;
   const result: string[] = [];
   let placed = false;
   for (const token of splitClasses(classes)) {

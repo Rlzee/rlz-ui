@@ -2,17 +2,26 @@
 
 import * as React from "react";
 import type { AppearanceField as AppearanceFieldModel } from "../../../lib/appearance";
-import { isRounded } from "../../../lib/appearance";
-import { cn } from "@rlz/ui/lib/cn";
+import { isRounded, isTypography, isMargin } from "../../../lib/appearance";
+import { Separator } from "@rlz/ui/components/ui/separator";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 import { Plus } from "lucide-react";
 import { AppearanceField } from "./appearance-field";
+import {
+  EXTRA_APPEARANCE,
+  extraAppearance,
+} from "../../../lib/appearance-options";
 
 type FieldGroup = { title: string; fields: AppearanceFieldModel[] };
 
 // The same families supported by lib/appearance.ts. Only absent families can be added.
 const ADDABLE = [
+  ...EXTRA_APPEARANCE.map(({ prefix, label }) => [prefix, label] as const),
+  ["text", "Font size"],
+  ["font", "Font weight"],
+  ["leading", "Line height"],
+  ["tracking", "Letter spacing"],
   ["p", "Padding"],
   ["px", "Padding X"],
   ["py", "Padding Y"],
@@ -22,6 +31,15 @@ const ADDABLE = [
   ["pl", "Padding Left"],
   ["ps", "Padding Start"],
   ["pe", "Padding End"],
+  ["m", "Margin"],
+  ["mx", "Margin X"],
+  ["my", "Margin Y"],
+  ["mt", "Margin Top"],
+  ["mr", "Margin Right"],
+  ["mb", "Margin Bottom"],
+  ["ml", "Margin Left"],
+  ["ms", "Margin Start"],
+  ["me", "Margin End"],
   ["gap", "Gap"],
   ["gap-x", "Gap X"],
   ["gap-y", "Gap Y"],
@@ -53,11 +71,29 @@ function groupFields(fields: AppearanceFieldModel[]): FieldGroup[] {
       field.prefix === "gap-x" ||
       field.prefix === "gap-y"
   );
-  const radius = fields.filter((field) => isRounded(field.prefix));
+  const border = fields.filter(
+    (field) =>
+      isRounded(field.prefix) ||
+      extraAppearance(field.prefix)?.group === "Border"
+  );
   return [
+    ...["Dimensions", "Effects", "Alignment"].map((title) => ({
+      title,
+      fields: fields.filter(
+        (field) => extraAppearance(field.prefix)?.group === title
+      ),
+    })),
+    {
+      title: "Typography",
+      fields: fields.filter((field) => isTypography(field.prefix)),
+    },
     { title: "Padding", fields: padding },
+    {
+      title: "Margin",
+      fields: fields.filter((field) => isMargin(field.prefix)),
+    },
     { title: "Gap", fields: gap },
-    { title: "Border radius", fields: radius },
+    { title: "Border", fields: border },
   ].filter((group) => group.fields.length > 0);
 }
 
@@ -81,6 +117,20 @@ export function AppearancePart({
   );
   const groups = groupFields(fields);
   const addableGroups = [
+    ...["Dimensions", "Effects", "Alignment"].map((title) => ({
+      title,
+      options: available.filter(
+        ([prefix]) => extraAppearance(prefix)?.group === title
+      ),
+    })),
+    {
+      title: "Margin",
+      options: available.filter(([prefix]) => isMargin(prefix)),
+    },
+    {
+      title: "Typography",
+      options: available.filter(([prefix]) => isTypography(prefix)),
+    },
     {
       title: "Padding",
       options: available.filter(
@@ -92,8 +142,11 @@ export function AppearancePart({
       options: available.filter(([prefix]) => prefix.startsWith("gap")),
     },
     {
-      title: "Border radius",
-      options: available.filter(([prefix]) => isRounded(prefix)),
+      title: "Border",
+      options: available.filter(
+        ([prefix]) =>
+          isRounded(prefix) || extraAppearance(prefix)?.group === "Border"
+      ),
     },
   ].filter((group) => group.options.length > 0);
 
@@ -103,24 +156,26 @@ export function AppearancePart({
     // The field becomes editable as soon as the parent recomputes appearanceFields.
     onValue(
       prefix,
-      isRounded(prefix) ? "lg" : prefix.startsWith("gap") ? "2" : "4"
+      extraAppearance(prefix)?.value ??
+        (prefix === "text"
+          ? "sm"
+          : prefix === "font"
+          ? "normal"
+          : prefix === "leading"
+          ? "normal"
+          : prefix === "tracking"
+          ? "normal"
+          : isRounded(prefix)
+          ? "lg"
+          : prefix.startsWith("gap")
+          ? "2"
+          : "4")
     );
     setAdding(false);
   }
 
   return (
     <div className="min-w-0">
-      <div title={slot} className="px-1.5 pt-2">
-        <span
-          className={cn(
-            "block truncate text-xs font-medium",
-            edited ? "text-primary" : "text-muted-foreground"
-          )}
-        >
-          {label}
-        </span>
-      </div>
-
       <div className="flex min-w-0 flex-col gap-2.5 px-1.5 pb-2 pt-1.5">
         {groups.map((group) => (
           <section
@@ -132,10 +187,7 @@ export function AppearancePart({
               <span className="shrink-0 text-[11px] font-medium text-muted-foreground">
                 {group.title}
               </span>
-              <div
-                aria-hidden="true"
-                className="h-px min-w-0 flex-1 bg-border/60"
-              />
+              <Separator />
             </div>
             <div className="flex min-w-0 flex-col gap-2">
               {group.fields.map((field) => (

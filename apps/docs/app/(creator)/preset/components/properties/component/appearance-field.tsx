@@ -4,11 +4,15 @@ import * as React from "react";
 
 import {
   isRounded,
+  isMargin,
+  isTypography,
+  TYPOGRAPHY_OPTIONS,
   type AppearanceField as AppearanceFieldModel,
 } from "../../../lib/appearance";
 import { Input } from "@rlz/ui/components/ui/input";
 import { NumberField } from "@rlz/ui/components/ui/number-field";
 import { Select } from "@rlz/ui/components/ui/select";
+import { extraAppearance } from "../../../lib/appearance-options";
 
 const RADIUS_OPTIONS = [
   { value: "none", label: "None" },
@@ -36,14 +40,68 @@ export function AppearanceField({
   field: AppearanceFieldModel;
   onValue: (value: string) => void;
 }) {
+  const extra = extraAppearance(field.prefix);
   return (
     <div className="flex min-w-0 items-center gap-2">
       <span className="w-28 shrink-0 text-xs text-muted-foreground">
         {field.label}
       </span>
       <div className="min-w-0 flex-1">
-        {isRounded(field.prefix) ? (
-          <RadiusField
+        {extra ? (
+          <PresetField
+            value={field.value}
+            label={field.label}
+            options={extra.options.map((value) => ({ value, label: value }))}
+            placeholder={
+              extra.group === "Dimensions"
+                ? "64, 1/2, [320px] or [24rem]"
+                : extra.group === "Border"
+                ? "3, [1.5px] or [length:var(--border-width)]"
+                : "Custom Tailwind value"
+            }
+            allowCustom={
+              extra.group !== "Alignment" && extra.prefix !== "border-style"
+            }
+            bareLabel={`Default (${field.prefix})`}
+            onCommit={onValue}
+          />
+        ) : isMargin(field.prefix) ? (
+          <PresetField
+            value={field.value}
+            label={field.label}
+            options={[
+              "auto",
+              "0",
+              "0.5",
+              "1",
+              "2",
+              "3",
+              "4",
+              "6",
+              "8",
+              "12",
+              "16",
+            ].map((value) => ({ value, label: value }))}
+            placeholder="-2, 1.5, [12px] or (--spacing)"
+            onCommit={onValue}
+          />
+        ) : isTypography(field.prefix) ? (
+          <PresetField
+            value={field.value}
+            label={field.label}
+            options={TYPOGRAPHY_OPTIONS[field.prefix].map((value) => ({
+              value,
+              label: value,
+            }))}
+            placeholder={
+              field.prefix === "text"
+                ? "[14px] or [length:var(--text-size)]"
+                : "Custom Tailwind value"
+            }
+            onCommit={onValue}
+          />
+        ) : isRounded(field.prefix) ? (
+          <PresetField
             value={field.value}
             label={field.label}
             onCommit={onValue}
@@ -66,18 +124,26 @@ export function AppearanceField({
   );
 }
 
-function RadiusField({
+function PresetField({
   value,
   label,
   onCommit,
+  options = RADIUS_OPTIONS,
+  placeholder = "[0.6rem] or (--radius)",
+  allowCustom = true,
+  bareLabel = "Default (rounded)",
 }: {
   value: string;
   label: string;
   onCommit: (value: string) => void;
+  options?: readonly { value: string; label: string }[];
+  placeholder?: string;
+  allowCustom?: boolean;
+  bareLabel?: string;
 }) {
   // An unsuffixed `rounded` is displayed as its own state. Never write an
   // empty string back: the existing setter interprets that as removal.
-  const isPreset = RADIUS_OPTIONS.some((option) => option.value === value);
+  const isPreset = options.some((option) => option.value === value);
   const selection = value === "" ? "__bare" : isPreset ? value : "__custom";
   const [custom, setCustom] = React.useState(value);
   const [customMode, setCustomMode] = React.useState(false);
@@ -132,19 +198,21 @@ function RadiusField({
             {value === "" && (
               <Select.Item value="__bare">
                 <Select.ItemIndicator />
-                <Select.ItemText>Default (rounded)</Select.ItemText>
+                <Select.ItemText>{bareLabel}</Select.ItemText>
               </Select.Item>
             )}
-            {RADIUS_OPTIONS.map((option) => (
+            {options.map((option) => (
               <Select.Item key={option.value} value={option.value}>
                 <Select.ItemIndicator />
                 <Select.ItemText>{option.label}</Select.ItemText>
               </Select.Item>
             ))}
-            <Select.Item value="__custom">
-              <Select.ItemIndicator />
-              <Select.ItemText>Custom…</Select.ItemText>
-            </Select.Item>
+            {allowCustom && (
+              <Select.Item value="__custom">
+                <Select.ItemIndicator />
+                <Select.ItemText>Custom…</Select.ItemText>
+              </Select.Item>
+            )}
           </Select.List>
         </Select.Popup>
       </Select>
@@ -164,7 +232,7 @@ function RadiusField({
             }
           }}
           aria-label={`${label} custom value`}
-          placeholder="[0.6rem] or (--radius)"
+          placeholder={placeholder}
           className="h-7 w-full font-mono text-xs"
         />
       )}
