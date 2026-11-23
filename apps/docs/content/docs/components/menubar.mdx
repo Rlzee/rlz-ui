@@ -49,7 +49,32 @@ npm install @base-ui/react
 
 ```tsx
 import { Menubar } from "@/components/ui/menubar";
+import { Menu } from "@/components/ui/menu";
 ```
+
+Compose each menu with `Menu`, `Menubar.Trigger`, and `Menu.Popup`:
+
+```tsx
+<Menubar>
+  <Menu>
+    <Menubar.Trigger>File</Menubar.Trigger>
+    <Menu.Popup>
+      <Menu.Item>New file</Menu.Item>
+      <Menu.Item>Open file</Menu.Item>
+    </Menu.Popup>
+  </Menu>
+  <Menu>
+    <Menubar.Trigger>Edit</Menubar.Trigger>
+    <Menu.Popup>
+      <Menu.Item>Undo</Menu.Item>
+      <Menu.Item>Redo</Menu.Item>
+    </Menu.Popup>
+  </Menu>
+</Menubar>
+```
+
+Popups, items, groups, and separators are provided by [Menu](/docs/components/menu).
+Each `Menu` includes its own Base UI `Menu.FilterProvider`; no additional provider is needed around `Menubar`.
 
 ## API Reference
 

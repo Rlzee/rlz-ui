@@ -52,14 +52,16 @@ import { ContextMenu } from "@/components/ui/context-menu";
 import { Menu } from "@/components/ui/menu";
 ```
 
-The context menu only provides `Root`, `Trigger`, and `Popup`. The items, groups, separators, checkboxes, radios, submenus, and shortcuts are provided by the [Menu](/docs/components/menu) component, which shares the same underlying primitive.
+`ContextMenu` is the root component and exposes `ContextMenu.Trigger`. The popup, items, groups, separators, checkboxes, radios, submenus, and shortcuts are provided by the [Menu](/docs/components/menu) component, which shares the same underlying primitive.
+
+Use `Menu.Popup` with `positionnerProps={{ sideOffset: 0, alignOffset: 0 }}` to position the popup at the pointer without an extra offset. `ContextMenu.Popup` is no longer exported.
 
 ```tsx
 <ContextMenu>
   <ContextMenu.Trigger className="flex h-48 w-96 items-center justify-center rounded border border-dashed text-muted-foreground select-none">
     Right click here
   </ContextMenu.Trigger>
-  <ContextMenu.Popup>
+  <Menu.Popup positionnerProps={{ sideOffset: 0, alignOffset: 0 }}>
     <Menu.Group>
       <Menu.Item>
         <Send /> Forward
@@ -110,21 +112,23 @@ The context menu only provides `Root`, `Trigger`, and `Popup`. The items, groups
       <Trash2 /> Delete
       <Menu.Shortcut>⌘ ⌫</Menu.Shortcut>
     </Menu.Item>
-  </ContextMenu.Popup>
+  </Menu.Popup>
 </ContextMenu>
 ```
 
 ## API Reference
 
-### Context Menu Popup
+### Popup
 
-Renders the shared [Menu Popup](/docs/components/menu#menu-popup).
+Use the shared [Menu Popup](/docs/components/menu#menu-popup) directly.
 
-| Prop               | Type                                    | Default             |
-| ------------------ | --------------------------------------- | ------------------- |
-| `backdrop`         | `boolean`                               | -                   |
-| `backdropProps`    | `ContextMenuPrimitive.Backdrop.Props`   | -                   |
-| `positionnerProps` | `ContextMenuPrimitive.Positioner.Props` | `{ sideOffset: 0 }` |
+| Prop               | Type                             | Default             |
+| ------------------ | -------------------------------- | ------------------- |
+| `backdrop`         | `boolean`                        | -                   |
+| `backdropProps`    | `MenuPrimitive.Backdrop.Props`   | -                   |
+| `positionnerProps` | `MenuPrimitive.Positioner.Props` | `{ sideOffset: 8 }` |
+
+The example above overrides `sideOffset` and `alignOffset` to `0`.
 
 ### Context Menu Items
 

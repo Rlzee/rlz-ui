@@ -130,10 +130,10 @@ export function PropertiesPanel({ sections }: { sections: DocsNavSection[] }) {
         ) : menu ? (
           <div className="flex flex-col items-start gap-3 px-4 py-6">
             <p className="text-sm text-muted-foreground">
-              ContextMenu.Popup reuses Menu.Popup styles. Its content is
-              composed of Menu components (items, groups, separators…). Edit
-              Menu to style those parts. ContextMenu.Trigger is styled
-              separately where it is used.
+              ContextMenu uses Menu.Popup directly. Its content is composed of
+              Menu components (items, groups, separators…). Edit Menu to style
+              those parts. ContextMenu.Trigger is styled separately where it is
+              used.
             </p>
             <Button
               variant="outline"
