@@ -119,6 +119,7 @@ export function ComponentProperties() {
                     part.name === "Root" ? selected.name : titleCase(part.name)
                   }
                   fields={fields}
+                  classes={effective}
                   edited={override !== undefined}
                   onValue={(prefix, value) => {
                     const next = setAppearanceValue(effective, prefix, value);

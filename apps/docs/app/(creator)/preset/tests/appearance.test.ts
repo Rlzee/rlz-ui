@@ -115,7 +115,7 @@ test("border width overlaps are separate from radius, style and color", () => {
     appearanceConflicts(
       "border-2 border-t-4 border-dotted rounded-lg border-border"
     ),
-    [{ first: "border-2", second: "border-t-4" }]
+    [{ first: "border-2", second: "border-t-4", kind: "overlap" }]
   );
 });
 
@@ -136,7 +136,7 @@ test("dimensions accept named, numeric, fractional and arbitrary values", () => 
     );
   }
   assert.deepEqual(appearanceConflicts("size-8 w-4"), [
-    { first: "size-8", second: "w-4" },
+    { first: "size-8", second: "w-4", kind: "overlap" },
   ]);
 });
 
@@ -214,7 +214,7 @@ test("updates margin signs and removes both positive and negative duplicates", (
 
 test("margin conflicts stay separate from padding and gap", () => {
   assert.deepEqual(appearanceConflicts("m-4 -mt-2 p-4 gap-2"), [
-    { first: "m-4", second: "-mt-2" },
+    { first: "m-4", second: "-mt-2", kind: "overlap" },
   ]);
 });
 
@@ -267,6 +267,36 @@ test("recognizes arbitrary sizes, weights and combined line heights safely", () 
 test("reports duplicate typography utilities without unrelated conflicts", () => {
   assert.deepEqual(
     appearanceConflicts("text-sm text-lg text-primary font-bold"),
-    [{ first: "text-sm", second: "text-lg" }]
+    [{ first: "text-sm", second: "text-lg", kind: "duplicate" }]
   );
+});
+
+test("distinguishes same-family duplicates from potentially intentional overlaps", () => {
+  assert.deepEqual(appearanceConflicts("text-sm text-lg p-4 pl-2"), [
+    { first: "text-sm", second: "text-lg", kind: "duplicate" },
+    { first: "p-4", second: "pl-2", kind: "overlap" },
+  ]);
+  assert.deepEqual(appearanceConflicts("m-4 -m-2 mx-auto"), [
+    { first: "m-4", second: "-m-2", kind: "duplicate" },
+    { first: "m-4", second: "mx-auto", kind: "overlap" },
+    { first: "-m-2", second: "mx-auto", kind: "overlap" },
+  ]);
+});
+
+test("classification does not depend on class order or mistake variants for duplicates", () => {
+  assert.deepEqual(appearanceConflicts("pl-2 p-4"), [
+    { first: "pl-2", second: "p-4", kind: "overlap" },
+  ]);
+  assert.deepEqual(
+    appearanceConflicts(
+      "text-sm md:text-lg hover:text-xl !text-2xl p-4 py-2 pl-1"
+    ),
+    [
+      { first: "p-4", second: "py-2", kind: "overlap" },
+      { first: "p-4", second: "pl-1", kind: "overlap" },
+    ]
+  );
+  assert.deepEqual(appearanceConflicts("p-4 p-4"), [
+    { first: "p-4", second: "p-4", kind: "duplicate" },
+  ]);
 });

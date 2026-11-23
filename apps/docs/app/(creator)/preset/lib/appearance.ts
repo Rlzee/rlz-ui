@@ -195,23 +195,34 @@ const COVERAGE: Record<string, readonly string[]> = {
   "rounded-ee": ["ee"],
 };
 
-/** Potential overlap, not an assertion about Tailwind's final CSS precedence. */
-export function appearanceConflicts(
-  classes: string
-): Array<{ first: string; second: string }> {
+export type AppearanceConflict = {
+  first: string;
+  second: string;
+  kind: "duplicate" | "overlap";
+};
+
+/** Same-family duplicates warrant review; cross-family overlaps may be intentional.
+ * Neither classification asserts Tailwind's final CSS precedence.
+ */
+export function appearanceConflicts(classes: string): AppearanceConflict[] {
   const found = splitClasses(classes)
     .map((token) => ({ token, field: familyOf(token) }))
     .filter(
       (entry): entry is { token: string; field: AppearanceField } =>
         !!entry.field
     );
-  const conflicts: Array<{ first: string; second: string }> = [];
+  const conflicts: AppearanceConflict[] = [];
   for (let i = 0; i < found.length; i++) {
     for (let j = i + 1; j < found.length; j++) {
       const a = COVERAGE[found[i].field.prefix] ?? [];
       const b = COVERAGE[found[j].field.prefix] ?? [];
-      if (a.some((side) => b.includes(side)))
-        conflicts.push({ first: found[i].token, second: found[j].token });
+      const sameFamily = found[i].field.prefix === found[j].field.prefix;
+      if (sameFamily || a.some((side) => b.includes(side)))
+        conflicts.push({
+          first: found[i].token,
+          second: found[j].token,
+          kind: sameFamily ? "duplicate" : "overlap",
+        });
     }
   }
   return conflicts;

@@ -1316,7 +1316,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
   "checkbox": {
     "Root": {
       "slot": "checkbox",
-      "classes": "relative inline-flex bg-transparent border peer size-4 shrink-0 rounded-sm outline-none transition-shadow data-checked:bg-primary data-checked:text-primary-foreground border data-checked:shadow-md ring-0 disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring state-invalid data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+      "classes": "relative inline-flex bg-transparent border peer size-4 shrink-0 rounded-sm outline-none transition-shadow data-checked:bg-primary data-checked:text-primary-foreground data-checked:shadow-md ring-0 disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring state-invalid data-disabled:opacity-50 data-disabled:cursor-not-allowed"
     },
     "Indicator": {
       "slot": "checkbox-indicator",
@@ -2184,7 +2184,7 @@ export const detectedParts: Record<string, Record<string, ComponentPart>> = {
   "switch": {
     "Root": {
       "slot": "switch",
-      "classes": "data-checked:bg-primary data-checked:text-primary-foreground border data-checked:shadow-md ring-0 transition-[filter] duration-200 peer data-unchecked:bg-accent inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring data-disabled:opacity-50 data-disabled:cursor-not-allowed"
+      "classes": "data-checked:bg-primary data-checked:text-primary-foreground data-checked:shadow-md ring-0 transition-[filter] duration-200 peer data-unchecked:bg-accent inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent transition-all outline-none disabled:cursor-not-allowed disabled:opacity-50 state-focus-ring data-disabled:opacity-50 data-disabled:cursor-not-allowed"
     },
     "Thumb": {
       "slot": "switch-thumb",

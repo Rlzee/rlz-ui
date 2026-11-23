@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { AppearanceField as AppearanceFieldModel } from "../../../lib/appearance";
+import { appearanceConflicts } from "../../../lib/appearance";
 import {
   APPEARANCE_PROPERTIES,
   APPEARANCE_GROUPS,
@@ -12,15 +13,18 @@ import { Button } from "@rlz/ui/components/ui/button";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 import { Plus } from "lucide-react";
 import { AppearanceField } from "./appearance-field";
+import { AppearanceConflicts } from "./appearance-conflicts";
 
 /** Appearance controls and the add menu share the parser's property registry. */
 export function AppearancePart({
   label,
+  classes,
   fields,
   onValue,
 }: {
   slot: string;
   label: string;
+  classes: string;
   fields: AppearanceFieldModel[];
   edited: boolean;
   onValue: (prefix: string, value: string) => void;
@@ -43,6 +47,7 @@ export function AppearancePart({
   return (
     <div className="min-w-0">
       <div className="flex min-w-0 flex-col gap-2.5 px-1.5 pb-2 pt-1.5">
+        <AppearanceConflicts conflicts={appearanceConflicts(classes)} />
         {groups.map((group) => (
           <section
             key={group.title}
