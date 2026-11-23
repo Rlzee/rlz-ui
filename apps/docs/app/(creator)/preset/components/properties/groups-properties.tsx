@@ -3,12 +3,13 @@
 import { useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { Button } from "@rlz/ui/components/ui/button";
+import { Alert } from "@rlz/ui/components/ui/alert";
 import { Input } from "@rlz/ui/components/ui/input";
 import { Select } from "@rlz/ui/components/ui/select";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 import { partsOf } from "@rlz/ui/registry/resolve-capabilities";
 import { registryComponents } from "@rlz/ui/registry/components";
-import { Plus, Trash2, X, RefreshCw } from "lucide-react";
+import { Plus, Trash2, X, RefreshCw, Info } from "lucide-react";
 import {
   styleGroupsAtom,
   selectedStyleGroupAtom,
@@ -93,6 +94,14 @@ export function GroupsProperties() {
         classes, just like individual edits. The latest edit wins. Removing a
         member or group keeps its applied changes.
       </p>
+      <Alert variant="info" role="note" className="mx-2 w-auto">
+        <Info aria-hidden="true" />
+        <Alert.Description className="text-xs">
+          Values replace matching utilities; they do not add up. Applying{" "}
+          <code>px-2</code> keeps an existing <code>px-2</code> unchanged and
+          replaces <code>px-4</code> with <code>px-2</code>.
+        </Alert.Description>
+      </Alert>
       {error && (
         <p role="alert" className="px-2 text-xs text-destructive">
           {error}
