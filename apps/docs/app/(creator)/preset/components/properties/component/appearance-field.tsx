@@ -2,36 +2,14 @@
 
 import * as React from "react";
 
-import {
-  isRounded,
-  isMargin,
-  isTypography,
-  TYPOGRAPHY_OPTIONS,
-  type AppearanceField as AppearanceFieldModel,
-} from "../../../lib/appearance";
+import type { AppearanceField as AppearanceFieldModel } from "../../../lib/appearance";
 import { Input } from "@rlz/ui/components/ui/input";
 import { NumberField } from "@rlz/ui/components/ui/number-field";
 import { Select } from "@rlz/ui/components/ui/select";
-import { extraAppearance } from "../../../lib/appearance-options";
-
-const RADIUS_OPTIONS = [
-  { value: "none", label: "None" },
-  { value: "xs", label: "XS" },
-  { value: "sm", label: "SM" },
-  { value: "md", label: "MD" },
-  { value: "lg", label: "LG" },
-  { value: "xl", label: "XL" },
-  { value: "2xl", label: "2XL" },
-  { value: "3xl", label: "3XL" },
-  { value: "4xl", label: "4XL" },
-  { value: "full", label: "Full" },
-] as const;
-
-function numericValue(value: string): number | null {
-  if (!value.trim()) return null;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) && parsed >= 0 ? parsed : null;
-}
+import {
+  appearanceProperty,
+  numericAppearanceValue,
+} from "../../../lib/appearance-options";
 
 export function AppearanceField({
   field,
@@ -40,76 +18,31 @@ export function AppearanceField({
   field: AppearanceFieldModel;
   onValue: (value: string) => void;
 }) {
-  const extra = extraAppearance(field.prefix);
+  const property = appearanceProperty(field.prefix);
   return (
     <div className="flex min-w-0 items-center gap-2">
       <span className="w-28 shrink-0 text-xs text-muted-foreground">
         {field.label}
       </span>
       <div className="min-w-0 flex-1">
-        {extra ? (
+        {property?.options ? (
           <PresetField
             value={field.value}
             label={field.label}
-            options={extra.options.map((value) => ({ value, label: value }))}
-            placeholder={
-              extra.group === "Dimensions"
-                ? "64, 1/2, [320px] or [24rem]"
-                : extra.group === "Border"
-                ? "3, [1.5px] or [length:var(--border-width)]"
-                : "Custom Tailwind value"
-            }
-            allowCustom={
-              extra.group !== "Alignment" && extra.prefix !== "border-style"
-            }
+            options={property.options.map((value) => ({ value, label: value }))}
+            placeholder={property.placeholder}
+            allowCustom={property.allowCustom}
+            numeric={property.numeric}
+            allowNegative={property.allowNegative}
             bareLabel={`Default (${field.prefix})`}
             onCommit={onValue}
           />
-        ) : isMargin(field.prefix) ? (
-          <PresetField
-            value={field.value}
-            label={field.label}
-            options={[
-              "auto",
-              "0",
-              "0.5",
-              "1",
-              "2",
-              "3",
-              "4",
-              "6",
-              "8",
-              "12",
-              "16",
-            ].map((value) => ({ value, label: value }))}
-            placeholder="-2, 1.5, [12px] or (--spacing)"
-            onCommit={onValue}
-          />
-        ) : isTypography(field.prefix) ? (
-          <PresetField
-            value={field.value}
-            label={field.label}
-            options={TYPOGRAPHY_OPTIONS[field.prefix].map((value) => ({
-              value,
-              label: value,
-            }))}
-            placeholder={
-              field.prefix === "text"
-                ? "[14px] or [length:var(--text-size)]"
-                : "Custom Tailwind value"
-            }
-            onCommit={onValue}
-          />
-        ) : isRounded(field.prefix) ? (
-          <PresetField
-            value={field.value}
-            label={field.label}
-            onCommit={onValue}
-          />
-        ) : numericValue(field.value) !== null ? (
+        ) : numericAppearanceValue(field.value, property?.allowNegative) !==
+          null ? (
           <NumberScaleField
             value={field.value}
             label={field.label}
+            allowNegative={property?.allowNegative}
             onCommit={onValue}
           />
         ) : (
@@ -128,23 +61,34 @@ function PresetField({
   value,
   label,
   onCommit,
-  options = RADIUS_OPTIONS,
-  placeholder = "[0.6rem] or (--radius)",
+  options,
+  placeholder = "Custom Tailwind value",
   allowCustom = true,
-  bareLabel = "Default (rounded)",
+  bareLabel,
+  numeric = false,
+  allowNegative = false,
 }: {
   value: string;
   label: string;
   onCommit: (value: string) => void;
-  options?: readonly { value: string; label: string }[];
+  options: readonly { value: string; label: string }[];
   placeholder?: string;
   allowCustom?: boolean;
-  bareLabel?: string;
+  bareLabel: string;
+  numeric?: boolean;
+  allowNegative?: boolean;
 }) {
   // An unsuffixed `rounded` is displayed as its own state. Never write an
   // empty string back: the existing setter interprets that as removal.
   const isPreset = options.some((option) => option.value === value);
-  const selection = value === "" ? "__bare" : isPreset ? value : "__custom";
+  const selection =
+    value === ""
+      ? "__bare"
+      : isPreset
+      ? value
+      : numeric && numericAppearanceValue(value, allowNegative) !== null
+      ? "__number"
+      : "__custom";
   const [custom, setCustom] = React.useState(value);
   const [customMode, setCustomMode] = React.useState(false);
   const cancelBlur = React.useRef(false);
@@ -171,7 +115,11 @@ function PresetField({
         value={selected}
         onValueChange={(next) => {
           if (typeof next !== "string") return;
-          if (next === "__custom") {
+          if (next === "__number") {
+            setCustomMode(false);
+            if (numericAppearanceValue(value, allowNegative) === null)
+              onCommit("0");
+          } else if (next === "__custom") {
             setCustomMode(true);
             setCustom(selection === "__custom" ? value : "");
           } else if (next === "__bare") {
@@ -192,7 +140,11 @@ function PresetField({
           <Select.Icon />
         </Select.Trigger>
         <Select.Popup
-          positionerProps={{ alignItemWithTrigger: true, align: "start" }}
+          positionerProps={{
+            alignItemWithTrigger: true,
+            align: "start",
+            className: "z-60",
+          }}
         >
           <Select.List>
             {value === "" && (
@@ -207,6 +159,12 @@ function PresetField({
                 <Select.ItemText>{option.label}</Select.ItemText>
               </Select.Item>
             ))}
+            {numeric && (
+              <Select.Item value="__number">
+                <Select.ItemIndicator />
+                <Select.ItemText>Number…</Select.ItemText>
+              </Select.Item>
+            )}
             {allowCustom && (
               <Select.Item value="__custom">
                 <Select.ItemIndicator />
@@ -216,6 +174,14 @@ function PresetField({
           </Select.List>
         </Select.Popup>
       </Select>
+      {selected === "__number" && (
+        <NumberScaleField
+          value={value}
+          label={label}
+          allowNegative={allowNegative}
+          onCommit={onCommit}
+        />
+      )}
       {selected === "__custom" && (
         <Input
           key={value}
@@ -244,17 +210,19 @@ function NumberScaleField({
   value,
   label,
   onCommit,
+  allowNegative = false,
 }: {
   value: string;
   label: string;
   onCommit: (value: string) => void;
+  allowNegative?: boolean;
 }) {
   return (
     <NumberField
       key={value}
-      min={0}
+      min={allowNegative ? undefined : 0}
       step={0.5}
-      defaultValue={numericValue(value) ?? undefined}
+      defaultValue={numericAppearanceValue(value, allowNegative) ?? undefined}
       onValueCommitted={(next) => {
         const nextValue =
           next === null || Number.isNaN(next) ? "" : String(next);

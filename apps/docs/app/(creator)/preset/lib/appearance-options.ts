@@ -40,7 +40,7 @@ const BORDER_WIDTHS = [
   ["border-e", "Border end width"],
 ] as const;
 
-export const EXTRA_APPEARANCE = [
+const EXTRA_APPEARANCE = [
   ...BORDER_WIDTHS.map(([prefix, label]) => ({
     prefix,
     label,
@@ -190,8 +190,180 @@ export const EXTRA_APPEARANCE = [
   },
 ] as const;
 
-export function extraAppearance(prefix: string) {
-  return EXTRA_APPEARANCE.find((field) => field.prefix === prefix);
+export const TYPOGRAPHY_OPTIONS = {
+  text: [
+    "xs",
+    "sm",
+    "base",
+    "lg",
+    "xl",
+    "2xl",
+    "3xl",
+    "4xl",
+    "5xl",
+    "6xl",
+    "7xl",
+    "8xl",
+    "9xl",
+  ],
+  font: [
+    "thin",
+    "extralight",
+    "light",
+    "normal",
+    "medium",
+    "semibold",
+    "bold",
+    "extrabold",
+    "black",
+  ],
+  leading: ["none", "tight", "snug", "normal", "relaxed", "loose"],
+  tracking: ["tighter", "tight", "normal", "wide", "wider", "widest"],
+} as const;
+
+const RADIUS_OPTIONS = [
+  "none",
+  "xs",
+  "sm",
+  "md",
+  "lg",
+  "xl",
+  "2xl",
+  "3xl",
+  "4xl",
+  "full",
+];
+
+export type AppearanceProperty = {
+  prefix: string;
+  label: string;
+  group: string;
+  value: string;
+  options?: readonly string[];
+  allowNegative?: boolean;
+  allowCustom?: boolean;
+  numeric?: boolean;
+  placeholder?: string;
+};
+
+/** Shared by parsing, rendering and the add-property menu. Order is intentional. */
+export const APPEARANCE_PROPERTIES: readonly AppearanceProperty[] = [
+  ...EXTRA_APPEARANCE.map((field) => ({
+    ...field,
+    allowCustom: field.group !== "Alignment" && field.prefix !== "border-style",
+    placeholder:
+      field.group === "Dimensions"
+        ? "64, 1/2, [320px] or [24rem]"
+        : field.group === "Border"
+        ? "3, [1.5px] or [length:var(--border-width)]"
+        : "Custom Tailwind value",
+  })),
+  ...(
+    [
+      ["text", "Font size", "sm"],
+      ["font", "Font weight", "normal"],
+      ["leading", "Line height", "normal"],
+      ["tracking", "Letter spacing", "normal"],
+    ] as const
+  ).map(([prefix, label, value]) => ({
+    prefix,
+    label,
+    value,
+    group: "Typography",
+    options: TYPOGRAPHY_OPTIONS[prefix],
+    placeholder:
+      prefix === "text"
+        ? "[14px] or [length:var(--text-size)]"
+        : "Custom Tailwind value",
+  })),
+  ...(
+    [
+      ["gap-x", "Gap X"],
+      ["gap-y", "Gap Y"],
+      ["gap", "Gap"],
+      ["px", "Padding X"],
+      ["py", "Padding Y"],
+      ["ps", "Padding Start"],
+      ["pe", "Padding End"],
+      ["pt", "Padding Top"],
+      ["pr", "Padding Right"],
+      ["pb", "Padding Bottom"],
+      ["pl", "Padding Left"],
+      ["p", "Padding"],
+    ] as const
+  ).map(([prefix, label]) => ({
+    prefix,
+    label,
+    group: prefix.startsWith("gap") ? "Gap" : "Padding",
+    value: prefix.startsWith("gap") ? "2" : "4",
+  })),
+  ...(
+    [
+      ["m", "Margin"],
+      ["mx", "Margin X"],
+      ["my", "Margin Y"],
+      ["mt", "Margin Top"],
+      ["mr", "Margin Right"],
+      ["mb", "Margin Bottom"],
+      ["ml", "Margin Left"],
+      ["ms", "Margin Start"],
+      ["me", "Margin End"],
+    ] as const
+  ).map(([prefix, label]) => ({
+    prefix,
+    label,
+    group: "Margin",
+    value: "4",
+    options: ["auto"],
+    numeric: true,
+    allowNegative: true,
+    placeholder: "-2, 1.5, [12px] or (--spacing)",
+  })),
+  ...(
+    [
+      ["rounded", "Rounded"],
+      ["rounded-t", "Rounded Top"],
+      ["rounded-r", "Rounded Right"],
+      ["rounded-b", "Rounded Bottom"],
+      ["rounded-l", "Rounded Left"],
+      ["rounded-s", "Rounded Start"],
+      ["rounded-e", "Rounded End"],
+      ["rounded-tl", "Rounded Top Left"],
+      ["rounded-tr", "Rounded Top Right"],
+      ["rounded-bl", "Rounded Bottom Left"],
+      ["rounded-br", "Rounded Bottom Right"],
+      ["rounded-ss", "Rounded SS"],
+      ["rounded-se", "Rounded SE"],
+      ["rounded-es", "Rounded ES"],
+      ["rounded-ee", "Rounded EE"],
+    ] as const
+  ).map(([prefix, label]) => ({
+    prefix,
+    label,
+    group: "Border",
+    value: "lg",
+    options: RADIUS_OPTIONS,
+    placeholder: "[0.6rem] or (--radius)",
+  })),
+];
+
+export const APPEARANCE_GROUPS = [
+  ...new Set(APPEARANCE_PROPERTIES.map(({ group }) => group)),
+];
+
+export function appearanceProperty(prefix: string) {
+  return APPEARANCE_PROPERTIES.find((field) => field.prefix === prefix);
+}
+
+export function numericAppearanceValue(
+  value: string,
+  allowNegative = false
+): number | null {
+  if (!value.trim()) return null;
+  const parsed = Number(value);
+  return Number.isFinite(parsed) && (allowNegative || parsed >= 0)
+    ? parsed
+    : null;
 }
 
 export function utilityPrefix(prefix: string) {
@@ -201,7 +373,7 @@ export function utilityPrefix(prefix: string) {
 }
 
 export function validExtraValue(prefix: string, value: string): boolean {
-  const field = extraAppearance(prefix);
+  const field = EXTRA_APPEARANCE.find((field) => field.prefix === prefix);
   if (!field) return true;
   if ((field.options as readonly string[]).includes(value)) return true;
   if (field.group === "Border") {

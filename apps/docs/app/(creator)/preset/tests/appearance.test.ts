@@ -5,6 +5,51 @@ import {
   appearanceConflicts,
   setAppearanceValue,
 } from "../lib/appearance";
+import {
+  APPEARANCE_PROPERTIES,
+  APPEARANCE_GROUPS,
+  appearanceProperty,
+  numericAppearanceValue,
+} from "../lib/appearance-options";
+
+test("every addable property has a unique definition and a recognized default", () => {
+  const prefixes = APPEARANCE_PROPERTIES.map(({ prefix }) => prefix);
+  assert.equal(new Set(prefixes).size, prefixes.length);
+  const labels = APPEARANCE_PROPERTIES.map(({ label }) => label);
+  assert.equal(new Set(labels).size, labels.length);
+  for (const property of APPEARANCE_PROPERTIES) {
+    assert.ok(APPEARANCE_GROUPS.includes(property.group));
+    assert.equal(appearanceProperty(property.prefix), property);
+    assert.deepEqual(
+      appearanceFields(setAppearanceValue("", property.prefix, property.value)),
+      [
+        {
+          prefix: property.prefix,
+          label: property.label,
+          value: property.value,
+        },
+      ]
+    );
+  }
+});
+
+test("positive and negative margins share numeric controls while other spacing stays nonnegative", () => {
+  for (const prefix of ["m", "mx", "my", "mt", "mr", "mb", "ml", "ms", "me"]) {
+    const property = appearanceProperty(prefix)!;
+    assert.equal(property.numeric, true);
+    assert.ok(property.options?.includes("auto"));
+    assert.equal(numericAppearanceValue("-3", property.allowNegative), -3);
+    assert.equal(numericAppearanceValue("3", property.allowNegative), 3);
+    assert.equal(numericAppearanceValue("-1.5", property.allowNegative), -1.5);
+  }
+  assert.equal(
+    numericAppearanceValue("-3", appearanceProperty("p")?.allowNegative),
+    null
+  );
+  for (const value of ["auto", "[12px]", "", "NaN", "Infinity"]) {
+    assert.equal(numericAppearanceValue(value, true), null);
+  }
+});
 
 test("border widths, styles and radius are recognized independently of colors", () => {
   const fields = appearanceFields(

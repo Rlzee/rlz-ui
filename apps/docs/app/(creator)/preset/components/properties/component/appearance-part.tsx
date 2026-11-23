@@ -2,107 +2,21 @@
 
 import * as React from "react";
 import type { AppearanceField as AppearanceFieldModel } from "../../../lib/appearance";
-import { isRounded, isTypography, isMargin } from "../../../lib/appearance";
+import {
+  APPEARANCE_PROPERTIES,
+  APPEARANCE_GROUPS,
+  appearanceProperty,
+} from "../../../lib/appearance-options";
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
 import { Plus } from "lucide-react";
 import { AppearanceField } from "./appearance-field";
-import {
-  EXTRA_APPEARANCE,
-  extraAppearance,
-} from "../../../lib/appearance-options";
 
-type FieldGroup = { title: string; fields: AppearanceFieldModel[] };
-
-// The same families supported by lib/appearance.ts. Only absent families can be added.
-const ADDABLE = [
-  ...EXTRA_APPEARANCE.map(({ prefix, label }) => [prefix, label] as const),
-  ["text", "Font size"],
-  ["font", "Font weight"],
-  ["leading", "Line height"],
-  ["tracking", "Letter spacing"],
-  ["p", "Padding"],
-  ["px", "Padding X"],
-  ["py", "Padding Y"],
-  ["pt", "Padding Top"],
-  ["pr", "Padding Right"],
-  ["pb", "Padding Bottom"],
-  ["pl", "Padding Left"],
-  ["ps", "Padding Start"],
-  ["pe", "Padding End"],
-  ["m", "Margin"],
-  ["mx", "Margin X"],
-  ["my", "Margin Y"],
-  ["mt", "Margin Top"],
-  ["mr", "Margin Right"],
-  ["mb", "Margin Bottom"],
-  ["ml", "Margin Left"],
-  ["ms", "Margin Start"],
-  ["me", "Margin End"],
-  ["gap", "Gap"],
-  ["gap-x", "Gap X"],
-  ["gap-y", "Gap Y"],
-  ["rounded", "Rounded"],
-  ["rounded-t", "Rounded Top"],
-  ["rounded-r", "Rounded Right"],
-  ["rounded-b", "Rounded Bottom"],
-  ["rounded-l", "Rounded Left"],
-  ["rounded-s", "Rounded Start"],
-  ["rounded-e", "Rounded End"],
-  ["rounded-tl", "Rounded Top Left"],
-  ["rounded-tr", "Rounded Top Right"],
-  ["rounded-bl", "Rounded Bottom Left"],
-  ["rounded-br", "Rounded Bottom Right"],
-  ["rounded-ss", "Rounded SS"],
-  ["rounded-se", "Rounded SE"],
-  ["rounded-es", "Rounded ES"],
-  ["rounded-ee", "Rounded EE"],
-] as const;
-
-function groupFields(fields: AppearanceFieldModel[]): FieldGroup[] {
-  const padding = fields.filter(
-    (field) =>
-      field.prefix === "p" || /^p(?:x|y|t|r|b|l|s|e)$/.test(field.prefix)
-  );
-  const gap = fields.filter(
-    (field) =>
-      field.prefix === "gap" ||
-      field.prefix === "gap-x" ||
-      field.prefix === "gap-y"
-  );
-  const border = fields.filter(
-    (field) =>
-      isRounded(field.prefix) ||
-      extraAppearance(field.prefix)?.group === "Border"
-  );
-  return [
-    ...["Dimensions", "Effects", "Alignment"].map((title) => ({
-      title,
-      fields: fields.filter(
-        (field) => extraAppearance(field.prefix)?.group === title
-      ),
-    })),
-    {
-      title: "Typography",
-      fields: fields.filter((field) => isTypography(field.prefix)),
-    },
-    { title: "Padding", fields: padding },
-    {
-      title: "Margin",
-      fields: fields.filter((field) => isMargin(field.prefix)),
-    },
-    { title: "Gap", fields: gap },
-    { title: "Border", fields: border },
-  ].filter((group) => group.fields.length > 0);
-}
-
-/** Appearance controls grouped by family, with an option to add missing utilities. */
+/** Appearance controls and the add menu share the parser's property registry. */
 export function AppearancePart({
-  slot,
   label,
   fields,
-  edited,
   onValue,
 }: {
   slot: string;
@@ -112,67 +26,19 @@ export function AppearancePart({
   onValue: (prefix: string, value: string) => void;
 }) {
   const [adding, setAdding] = React.useState(false);
-  const available = ADDABLE.filter(
-    ([prefix]) => !fields.some((field) => field.prefix === prefix)
+  const available = APPEARANCE_PROPERTIES.filter(
+    ({ prefix }) => !fields.some((field) => field.prefix === prefix)
   );
-  const groups = groupFields(fields);
-  const addableGroups = [
-    ...["Dimensions", "Effects", "Alignment"].map((title) => ({
-      title,
-      options: available.filter(
-        ([prefix]) => extraAppearance(prefix)?.group === title
-      ),
-    })),
-    {
-      title: "Margin",
-      options: available.filter(([prefix]) => isMargin(prefix)),
-    },
-    {
-      title: "Typography",
-      options: available.filter(([prefix]) => isTypography(prefix)),
-    },
-    {
-      title: "Padding",
-      options: available.filter(
-        ([prefix]) => prefix === "p" || /^p[xytrblse]$/.test(prefix)
-      ),
-    },
-    {
-      title: "Gap",
-      options: available.filter(([prefix]) => prefix.startsWith("gap")),
-    },
-    {
-      title: "Border",
-      options: available.filter(
-        ([prefix]) =>
-          isRounded(prefix) || extraAppearance(prefix)?.group === "Border"
-      ),
-    },
-  ].filter((group) => group.options.length > 0);
-
-  function addProperty(prefix: string) {
-    if (!available.some(([option]) => option === prefix)) return;
-    // Non-empty initial values ensure a real utility is created immediately.
-    // The field becomes editable as soon as the parent recomputes appearanceFields.
-    onValue(
-      prefix,
-      extraAppearance(prefix)?.value ??
-        (prefix === "text"
-          ? "sm"
-          : prefix === "font"
-          ? "normal"
-          : prefix === "leading"
-          ? "normal"
-          : prefix === "tracking"
-          ? "normal"
-          : isRounded(prefix)
-          ? "lg"
-          : prefix.startsWith("gap")
-          ? "2"
-          : "4")
-    );
-    setAdding(false);
-  }
+  const groups = APPEARANCE_GROUPS.map((title) => ({
+    title,
+    fields: fields.filter(
+      (field) => appearanceProperty(field.prefix)?.group === title
+    ),
+  })).filter((group) => group.fields.length > 0);
+  const addableGroups = APPEARANCE_GROUPS.map((title) => ({
+    title,
+    options: available.filter((field) => field.group === title),
+  })).filter((group) => group.options.length > 0);
 
   return (
     <div className="min-w-0">
@@ -218,11 +84,15 @@ export function AppearancePart({
             ) : (
               <div className="flex min-w-0 items-center gap-1.5">
                 <Combobox
-                  items={available.map(([, name]) => name)}
+                  items={available.map(({ label }) => label)}
                   value={null}
                   onValueChange={(name) => {
-                    const found = available.find(([, label]) => label === name);
-                    if (found) addProperty(found[0]);
+                    const property = available.find(
+                      ({ label }) => label === name
+                    );
+                    if (!property) return;
+                    onValue(property.prefix, property.value);
+                    setAdding(false);
                   }}
                 >
                   <Combobox.Field
@@ -236,19 +106,17 @@ export function AppearancePart({
                   >
                     <Combobox.Empty>No properties found.</Combobox.Empty>
                     <Combobox.List className="max-h-64">
-                      {addableGroups.map((group, index) => (
-                        <React.Fragment key={group.title}>
-                          <Combobox.Group>
-                            <Combobox.GroupLabel>
-                              {group.title}
-                            </Combobox.GroupLabel>
-                            {group.options.map(([prefix, name]) => (
-                              <Combobox.Item key={prefix} value={name}>
-                                <Combobox.ItemText>{name}</Combobox.ItemText>
-                              </Combobox.Item>
-                            ))}
-                          </Combobox.Group>
-                        </React.Fragment>
+                      {addableGroups.map((group) => (
+                        <Combobox.Group key={group.title}>
+                          <Combobox.GroupLabel>
+                            {group.title}
+                          </Combobox.GroupLabel>
+                          {group.options.map(({ prefix, label }) => (
+                            <Combobox.Item key={prefix} value={label}>
+                              <Combobox.ItemText>{label}</Combobox.ItemText>
+                            </Combobox.Item>
+                          ))}
+                        </Combobox.Group>
                       ))}
                     </Combobox.List>
                   </Combobox.Popup>

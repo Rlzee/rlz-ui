@@ -1,87 +1,14 @@
 import {
-  EXTRA_APPEARANCE,
+  APPEARANCE_PROPERTIES,
+  appearanceProperty,
+  TYPOGRAPHY_OPTIONS,
   utilityPrefix,
   validExtraValue,
 } from "./appearance-options";
 
 export type AppearanceField = { prefix: string; value: string; label: string };
 
-const FAMILIES = [
-  ...EXTRA_APPEARANCE.map(({ prefix, label }) => [prefix, label] as const),
-  ["text", "Font size"],
-  ["font", "Font weight"],
-  ["leading", "Line height"],
-  ["tracking", "Letter spacing"],
-  ["gap-x", "Gap X"],
-  ["gap-y", "Gap Y"],
-  ["gap", "Gap"],
-  ["px", "Padding X"],
-  ["py", "Padding Y"],
-  ["ps", "Padding Start"],
-  ["pe", "Padding End"],
-  ["pt", "Padding Top"],
-  ["pr", "Padding Right"],
-  ["pb", "Padding Bottom"],
-  ["pl", "Padding Left"],
-  ["p", "Padding"],
-  ["m", "Margin"],
-  ["mx", "Margin X"],
-  ["my", "Margin Y"],
-  ["mt", "Margin Top"],
-  ["mr", "Margin Right"],
-  ["mb", "Margin Bottom"],
-  ["ml", "Margin Left"],
-  ["ms", "Margin Start"],
-  ["me", "Margin End"],
-  ["rounded", "Rounded"],
-  ["rounded-t", "Rounded Top"],
-  ["rounded-r", "Rounded Right"],
-  ["rounded-b", "Rounded Bottom"],
-  ["rounded-l", "Rounded Left"],
-  ["rounded-s", "Rounded Start"],
-  ["rounded-e", "Rounded End"],
-  ["rounded-tl", "Rounded Top Left"],
-  ["rounded-tr", "Rounded Top Right"],
-  ["rounded-bl", "Rounded Bottom Left"],
-  ["rounded-br", "Rounded Bottom Right"],
-  ["rounded-ss", "Rounded SS"],
-  ["rounded-se", "Rounded SE"],
-  ["rounded-es", "Rounded ES"],
-  ["rounded-ee", "Rounded EE"],
-] as const;
-
-export type AppearancePrefix = (typeof FAMILIES)[number][0];
-
-export const TYPOGRAPHY_OPTIONS = {
-  text: [
-    "xs",
-    "sm",
-    "base",
-    "lg",
-    "xl",
-    "2xl",
-    "3xl",
-    "4xl",
-    "5xl",
-    "6xl",
-    "7xl",
-    "8xl",
-    "9xl",
-  ],
-  font: [
-    "thin",
-    "extralight",
-    "light",
-    "normal",
-    "medium",
-    "semibold",
-    "bold",
-    "extrabold",
-    "black",
-  ],
-  leading: ["none", "tight", "snug", "normal", "relaxed", "loose"],
-  tracking: ["tighter", "tight", "normal", "wide", "wider", "widest"],
-} as const;
+export type AppearancePrefix = (typeof APPEARANCE_PROPERTIES)[number]["prefix"];
 
 export function isTypography(
   prefix: string
@@ -169,19 +96,19 @@ function hasVariant(token: string): boolean {
 }
 
 export function isMargin(prefix: string): boolean {
-  return /^m[xytrblse]?$/.test(prefix);
+  return appearanceProperty(prefix)?.allowNegative === true;
 }
 
 function familyOf(token: string): AppearanceField | undefined {
   // Negative utilities are editable only for margins.
   const negative = token.startsWith("-");
-  if (negative && !/^-m[xytrblse]?-/.test(token)) return;
   // Important and state-specific utilities need their own editor.
   if (hasVariant(token) || token.startsWith("!") || token.startsWith("*"))
     return;
   if (negative) token = token.slice(1);
   let match: AppearanceField | undefined;
-  for (const [prefix, label] of FAMILIES) {
+  for (const { prefix, label, allowNegative } of APPEARANCE_PROPERTIES) {
+    if (negative && !allowNegative) continue;
     const utility = utilityPrefix(prefix);
     const value =
       token === utility
@@ -212,7 +139,7 @@ export function appearanceFields(classes: string): AppearanceField[] {
     const hit = familyOf(token);
     if (hit) values.set(hit.prefix, hit.value);
   }
-  return FAMILIES.flatMap(([prefix, label]) => {
+  return APPEARANCE_PROPERTIES.flatMap(({ prefix, label }) => {
     const value = values.get(prefix);
     return value === undefined ? [] : [{ prefix, label, value }];
   });
@@ -220,7 +147,7 @@ export function appearanceFields(classes: string): AppearanceField[] {
 
 const COVERAGE: Record<string, readonly string[]> = {
   ...Object.fromEntries(
-    EXTRA_APPEARANCE.map(({ prefix }) => [prefix, [prefix]])
+    APPEARANCE_PROPERTIES.map(({ prefix }) => [prefix, [prefix]])
   ),
   border: ["border-t", "border-r", "border-b", "border-l"],
   "border-x": ["border-r", "border-l"],
@@ -301,7 +228,7 @@ export function setAppearanceValue(
   prefix: string,
   value: string
 ): string {
-  if (!FAMILIES.some(([name]) => name === prefix)) return classes;
+  if (!appearanceProperty(prefix)) return classes;
   const trimmed = value.trim();
   if (trimmed && isTypography(prefix) && !isTypographyValue(prefix, trimmed))
     return classes;
