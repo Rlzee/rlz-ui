@@ -38,7 +38,7 @@ function isTypographyValue(prefix: string, value: string): boolean {
 }
 
 /** Split only on whitespace outside arbitrary-value brackets and quoted strings. */
-function splitClasses(classes: string): string[] {
+export function splitClasses(classes: string): string[] {
   const tokens: string[] = [];
   let start = -1;
   let depth = 0;

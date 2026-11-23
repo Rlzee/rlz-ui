@@ -11,7 +11,7 @@ import {
 import { Separator } from "@rlz/ui/components/ui/separator";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Combobox } from "@rlz/ui/components/ui/combobox";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { AppearanceField } from "./appearance-field";
 import { AppearanceConflicts } from "./appearance-conflicts";
 
@@ -21,6 +21,7 @@ export function AppearancePart({
   classes,
   fields,
   onValue,
+  onRemoveValue,
 }: {
   slot: string;
   label: string;
@@ -28,6 +29,7 @@ export function AppearancePart({
   fields: AppearanceFieldModel[];
   edited: boolean;
   onValue: (prefix: string, value: string) => void;
+  onRemoveValue?: (prefix: string) => void;
 }) {
   const [adding, setAdding] = React.useState(false);
   const available = APPEARANCE_PROPERTIES.filter(
@@ -62,11 +64,29 @@ export function AppearancePart({
             </div>
             <div className="flex min-w-0 flex-col gap-2">
               {group.fields.map((field) => (
-                <AppearanceField
+                <div
                   key={field.prefix}
-                  field={field}
-                  onValue={(value) => onValue(field.prefix, value)}
-                />
+                  className="flex min-w-0 items-center gap-1"
+                >
+                  <div className="min-w-0 flex-1">
+                    <AppearanceField
+                      field={field}
+                      onValue={(value) => onValue(field.prefix, value)}
+                    />
+                  </div>
+                  {onRemoveValue && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon-xs"
+                      aria-label={`Restore default ${field.label} for group members`}
+                      title={`Restore default ${field.label} for group members`}
+                      onClick={() => onRemoveValue(field.prefix)}
+                    >
+                      <X className="size-3" />
+                    </Button>
+                  )}
+                </div>
               ))}
             </div>
           </section>

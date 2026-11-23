@@ -28,16 +28,13 @@ export function ComponentProperties() {
   const [appearanceParts, setAppearanceParts] = useState<
     Record<string, string>
   >({});
-
   const slug = selected ? slugFromId(selected.id) : "";
   const capabilities = getCapabilities(slug);
   const parts = partsOf(slug);
-
   if (!selected || !capabilities) return null;
 
   const edit = edits[slug];
   const update = (patch: PresetComponentCustomization) => setEdit(slug, patch);
-
   const appearanceBoxes = parts.map((part) => {
     const override = edit?.partClasses?.[part.name];
     const effective = override ?? part.classes;
@@ -60,7 +57,6 @@ export function ComponentProperties() {
           <VariantList slug={slug} axis={axis} edit={edit} onUpdate={update} />
         </CollapsibleProperties>
       ))}
-
       {appearanceBoxes.length > 0 && (
         <CollapsibleProperties name="Appearance" defaultOpen>
           <div className="flex flex-col gap-3 px-2 py-2">
@@ -115,9 +111,7 @@ export function ComponentProperties() {
                 <AppearancePart
                   key={part.name}
                   slot={part.slot}
-                  label={
-                    part.name === "Root" ? selected.name : titleCase(part.name)
-                  }
+                  label={partLabel(part.name)}
                   fields={fields}
                   classes={effective}
                   edited={override !== undefined}
@@ -134,11 +128,9 @@ export function ComponentProperties() {
           </div>
         </CollapsibleProperties>
       )}
-
       <CollapsibleProperties name="Animations" defaultOpen>
         <AnimationProperties />
       </CollapsibleProperties>
-
       {parts.length > 0 && (
         <CollapsibleProperties name="Classes">
           <div className="flex flex-col gap-1 px-2 py-2">
@@ -146,9 +138,7 @@ export function ComponentProperties() {
               <PartRow
                 key={part.name}
                 part={part}
-                label={
-                  part.name === "Root" ? selected.name : titleCase(part.name)
-                }
+                label={partLabel(part.name)}
                 override={edit?.partClasses?.[part.name]}
                 onClasses={(classes) =>
                   update({
@@ -163,7 +153,6 @@ export function ComponentProperties() {
           </div>
         </CollapsibleProperties>
       )}
-
       {capabilities.editableProperties &&
         capabilities.editableProperties.length > 0 && (
           <CollapsibleProperties name="Properties" defaultOpen>

@@ -7,7 +7,7 @@
     "dev": "next dev",
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
-    "test:preset": "tsx --test \"app/(creator)/preset/tests/preset-animation.test.ts\"",
+    "test:preset": "tsx --test \"app/(creator)/preset/tests/*.test.ts\"",
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {

@@ -123,8 +123,11 @@ function applyPatches(preview: HTMLElement, patches: PreviewPatch[]) {
           return;
         }
 
-        const target =
-          targets.get(element) ?? { original, remove: new Set<string>(), add: [] };
+        const target = targets.get(element) ?? {
+          original,
+          remove: new Set<string>(),
+          add: [],
+        };
 
         target.add.push(...patch.add);
         patch.remove.forEach((token) => target.remove.add(token));

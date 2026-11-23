@@ -2,14 +2,14 @@
 
 import * as React from "react";
 import { useAtomValue, useSetAtom } from "jotai";
-import type { RegistryPreset } from "@rlz/registry";
+import { RegistryPresetSchema, type RegistryPreset } from "@rlz/registry";
 
 import { Dialog } from "@rlz/ui/components/ui/dialog";
 import { Button } from "@rlz/ui/components/ui/button";
 import { Braces, Check, Pencil, Upload, X } from "lucide-react";
 
 import {
-  presetBuilderAtom,
+  importCreatorPresetAtom,
   componentEditsAtom,
 } from "../../state/preset-builder";
 import { CodeViewer } from "../shared/code-viewer";
@@ -47,14 +47,15 @@ export function PresetDialog({
   // Merge the live per-component edits into the exported preset so the JSON
   // carries Creator customizations (only when present, to avoid empty noise).
   const edits = useAtomValue(componentEditsAtom);
-  const exported: RegistryPreset = Object.keys(edits).length
-    ? { ...preset, components: edits }
-    : preset;
+  const exported: RegistryPreset = {
+    ...preset,
+    components: Object.keys(edits).length ? edits : undefined,
+  };
 
   // Single formatted source, used for both the display and the copy button.
   const code = JSON.stringify(exported, null, 2);
 
-  const setPreset = useSetAtom(presetBuilderAtom);
+  const setPreset = useSetAtom(importCreatorPresetAtom);
 
   const [editing, setEditing] = React.useState(false);
   const [draft, setDraft] = React.useState(code);
@@ -79,7 +80,7 @@ export function PresetDialog({
 
   function applyEdit() {
     try {
-      const parsed = JSON.parse(draft) as RegistryPreset;
+      const parsed = RegistryPresetSchema.parse(JSON.parse(draft));
       setPreset(keepIdentity(parsed, preset));
       setError(null);
       setEditing(false);
@@ -99,7 +100,7 @@ export function PresetDialog({
     if (!file) return;
 
     try {
-      const parsed = JSON.parse(await file.text()) as RegistryPreset;
+      const parsed = RegistryPresetSchema.parse(JSON.parse(await file.text()));
       setPreset(keepIdentity(parsed, preset));
       setError(null);
     } catch (err) {

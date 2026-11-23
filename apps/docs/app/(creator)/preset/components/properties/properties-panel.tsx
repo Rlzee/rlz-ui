@@ -23,10 +23,12 @@ import { BaseProperties } from "./base";
 import { ColorProperties } from "./colors";
 import { ComponentProperties } from "./component";
 import { RecommendationsProperties } from "./recommendations-properties";
+import { GroupsProperties } from "./groups-properties";
 
 // Properties editor shown for each Foundation entry of the explorer.
 const FOUNDATION_EDITORS: Partial<Record<PresetSection, ComponentType>> = {
   info: InfoProperties,
+  groups: GroupsProperties,
   base: BaseProperties,
   colors: ColorProperties,
   recommendations: RecommendationsProperties,

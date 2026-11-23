@@ -10,6 +10,7 @@ import { ColorsPreview } from "./colors-preview";
 import { BasePreview } from "./base-preview";
 import { RecommendationsPreview } from "./recommendations-preview";
 import { ComponentExamplesPreview } from "./component-examples-preview";
+import { GroupsPreview } from "./groups-preview";
 
 /**
  * First preview of the playground: reflects whatever is selected in the
@@ -39,11 +40,15 @@ function PreviewContent({
 }) {
   if (!selected) {
     return (
-      <EmptyState>Select an item in the explorer to preview it here.</EmptyState>
+      <EmptyState>
+        Select an item in the explorer to preview it here.
+      </EmptyState>
     );
   }
 
   switch (selected.id) {
+    case "groups":
+      return <GroupsPreview />;
     case "colors":
       return <ColorsPreview />;
     case "base":

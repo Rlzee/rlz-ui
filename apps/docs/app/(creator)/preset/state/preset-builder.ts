@@ -6,16 +6,19 @@ import type {
   PresetComponentCustomization,
   RegistryPreset,
 } from "@rlz/registry";
-import {
-  animationSettingsAtom,
-  animationPhaseAtom,
-} from "./animation-state";
+import { animationSettingsAtom, animationPhaseAtom } from "./animation-state";
 import { pruneUnusedCreatorAnimations } from "../lib/animation-apply";
 import { classEditorRequestAtom } from "./class-editor-state";
 import {
   animationPartAtom,
   animationStudioOpenAtom,
 } from "./animation-panel-state";
+import { styleGroupsAtom, selectedStyleGroupAtom } from "./style-group-state";
+import { defaultStyleGroups } from "../lib/style-groups";
+import {
+  materializeLegacyGroupDraft,
+  refreshLegacyGroupSuggestions,
+} from "../lib/style-group-migration";
 
 function createPresetId() {
   return `preset-${crypto.randomUUID().split("-")[0]}`;
@@ -33,6 +36,39 @@ export const presetBuilderAtom = atomWithStorage<RegistryPreset>(
   createDraftPreset()
 );
 export const ensurePresetIdAtom = atom(null, (get, set) => {
+  // Preserve existing experimental group drafts when switching to batch edits.
+  if (typeof window !== "undefined") {
+    try {
+      const storage = window.localStorage;
+      if (!storage.getItem("rlz-style-groups-batch-v1")) {
+        const groups = JSON.parse(storage.getItem("rlz-style-groups") ?? "[]");
+        const overrides = JSON.parse(
+          storage.getItem("rlz-appearance-overrides") ?? "{}"
+        );
+        const edits = JSON.parse(
+          storage.getItem("rlz-component-edits") ?? "{}"
+        );
+        if (groups.length || Object.keys(overrides).length) {
+          set(
+            componentEditsAtom,
+            materializeLegacyGroupDraft(groups, edits, overrides)
+          );
+        }
+        storage.setItem("rlz-style-groups-batch-v1", "1");
+      }
+      if (!storage.getItem("rlz-style-group-suggestions-v2")) {
+        const stored = storage.getItem("rlz-style-groups");
+        if (stored)
+          set(
+            styleGroupsAtom,
+            refreshLegacyGroupSuggestions(JSON.parse(stored))
+          );
+        storage.setItem("rlz-style-group-suggestions-v2", "1");
+      }
+    } catch {
+      // Leave unreadable storage untouched; normal editing still works.
+    }
+  }
   const preset = get(presetBuilderAtom);
   if (!preset.id || preset.id === defaultPreset.id)
     set(presetBuilderAtom, { ...preset, id: createPresetId() });
@@ -41,9 +77,26 @@ export const componentEditsAtom = atomWithStorage<
   Record<string, PresetComponentCustomization>
 >("rlz-component-edits", {});
 
+/** Import ordinary classes, exactly as for individually edited components. */
+export const importCreatorPresetAtom = atom(
+  null,
+  (_get, set, preset: RegistryPreset) => {
+    const { components, ...draft } = preset;
+    set(presetBuilderAtom, draft);
+    set(componentEditsAtom, components ?? {});
+    set(styleGroupsAtom, defaultStyleGroups());
+    set(selectedStyleGroupAtom, "dialog-popups");
+    set(animationSettingsAtom, {});
+    set(classEditorRequestAtom, null);
+    set(animationStudioOpenAtom, false);
+  }
+);
+
 export const resetPresetAtom = atom(null, (_get, set) => {
   set(presetBuilderAtom, createDraftPreset());
   set(componentEditsAtom, {});
+  set(styleGroupsAtom, defaultStyleGroups());
+  set(selectedStyleGroupAtom, "dialog-popups");
   set(animationSettingsAtom, {});
   set(animationPartAtom, "");
   set(animationPhaseAtom, "enter");
@@ -58,6 +111,10 @@ export const resetSectionAtom = atom(
     const shipped = structuredClone(defaultPreset);
     set(classEditorRequestAtom, null);
     switch (section) {
+      case "groups":
+        set(styleGroupsAtom, defaultStyleGroups());
+        set(selectedStyleGroupAtom, "dialog-popups");
+        break;
       case "info":
         set(presetBuilderAtom, {
           ...preset,

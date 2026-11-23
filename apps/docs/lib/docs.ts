@@ -65,12 +65,16 @@ function collectDocsPages(
 // keyed and versioned.
 type PresetDataSection = "base" | "colors" | "recommendations";
 
-export type PresetSection = "info" | PresetDataSection;
+export type PresetSection = "info" | "groups" | PresetDataSection;
 
 const PRESET_SECTIONS: Record<
   PresetSection,
   { name: string; description: string }
 > = {
+  groups: {
+    name: "Style groups",
+    description: "Shared appearance settings for groups of component parts",
+  },
   info: {
     name: "Info",
     description: "Name, description and registry coordinates of the preset",
@@ -100,7 +104,7 @@ export function getPresetFoundationItems(
     ["base", "colors", "recommendations"] as const
   ).filter((key) => preset[key] !== undefined);
 
-  const entries: PresetSection[] = ["info", ...carried];
+  const entries: PresetSection[] = ["info", ...carried, "groups"];
 
   return entries.map((key) => ({
     id: key,
