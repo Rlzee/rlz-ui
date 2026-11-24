@@ -34,10 +34,9 @@ const designSystemUtilities: Record<string, string> =
  * never given restyles nothing that exists, so a preset may declare one (see
  * `addUtility`) next to retuning the four the design system ships.
  *
- * Values are derived with the helpers the playground paints with (see
- * `presetVariables`), so what is shown, what is edited and what is applied live can
- * never disagree. A per-component edit stays out of this sheet: it is a list of
- * classes for one box, not a declaration the whole design system reads.
+ * The export and the playground share the same token and utility rules.
+ * Per-component edits stay out of this sheet: they are classes for individual
+ * parts, not declarations the whole design system reads.
  */
 
 /** Where a written value belongs in the draft. */
@@ -186,12 +185,29 @@ export function cssSheet(preset: RegistryPreset): CssRule[] {
 
 /** The sheet as the text an app's stylesheet carries. */
 export function themeCss(preset: RegistryPreset): string {
-  return `${[
-    ...cssSheet(preset).map(renderRule),
+  return `${[foundationCss(preset), themeUtilitiesCss(preset)]
+    .filter(Boolean)
+    .join("\n\n")}\n`;
+}
+
+/** Browser-ready tokens; kept live even while Tailwind rebuilds utilities. */
+export function foundationCss(preset: RegistryPreset): string {
+  return cssSheet(preset)
+    .filter((rule) => rule.shape === "declarations")
+    .map(renderRule)
+    .filter(Boolean)
+    .join("\n\n");
+}
+
+export function themeUtilitiesCss(preset: RegistryPreset): string {
+  return [
+    ...cssSheet(preset)
+      .filter((rule) => rule.shape === "rules")
+      .map(renderRule),
     presetAnimationsCss(preset.base.animations),
   ]
     .filter(Boolean)
-    .join("\n\n")}\n`;
+    .join("\n\n");
 }
 
 /**

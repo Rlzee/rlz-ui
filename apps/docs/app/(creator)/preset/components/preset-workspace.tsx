@@ -8,10 +8,9 @@ import { Tooltip } from "@rlz/ui/components/ui/tooltip";
 import { Maximize, Minimize, Plus, SquareMousePointer, X } from "lucide-react";
 import { usePlaygroundFullscreen } from "../hooks/use-playground-fullscreen";
 import { usePresetWorkspace } from "../hooks/use-preset-workspace";
-import { PREVIEW_ID } from "../lib/preset-styles";
 import { AnimationStudio } from "./editors/animation-studio/animation-studio";
 import { ClassEditorPanel } from "./editors/class-editor/class-editor-panel";
-import { SelectedPreview } from "./preview";
+import { PlaygroundFrame } from "./preview/playground-frame";
 import { OpenDocsButton } from "./preview/open-docs-button";
 
 export function PresetWorkspace() {
@@ -153,11 +152,11 @@ export function PresetWorkspace() {
         </div>
       </header>
       <Tabs.Panel
-        id={PREVIEW_ID}
         value="selected"
+        keepMounted
         className="flex min-h-0 flex-1 flex-col overflow-hidden"
       >
-        <SelectedPreview />
+        <PlaygroundFrame />
       </Tabs.Panel>
       {studioOpen && (
         <Tabs.Panel

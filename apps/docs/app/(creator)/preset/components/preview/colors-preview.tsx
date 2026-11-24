@@ -1,26 +1,18 @@
 "use client";
 
-import * as React from "react";
-import { useAtom } from "jotai";
-import { useTheme } from "next-themes";
-
+import type { RegistryPreset } from "@rlz/registry";
 import { Card } from "@rlz/ui/components/ui/card";
-
-import { presetBuilderAtom } from "../../state/preset-builder";
 
 import { PreviewSection } from "./preview-shell";
 
 /* Colors: every token as a swatch square carrying its own info. */
-export function ColorsPreview() {
-  const [preset] = useAtom(presetBuilderAtom);
-  const { resolvedTheme } = useTheme();
-
-  // Match the editor: only trust the resolved theme once mounted so the first
-  // client render stays in sync with the server HTML.
-  const [mounted, setMounted] = React.useState(false);
-  React.useEffect(() => setMounted(true), []);
-  const isDark = mounted && resolvedTheme === "dark";
-
+export function ColorsPreview({
+  preset,
+  isDark,
+}: {
+  preset: RegistryPreset;
+  isDark: boolean;
+}) {
   return (
     <div className="flex flex-col gap-8 p-4">
       {preset.colors.map((section) => (

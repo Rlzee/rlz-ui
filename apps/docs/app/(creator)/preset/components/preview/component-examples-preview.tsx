@@ -4,14 +4,26 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 
 import { demoPaths } from "@rlz/ui/components/examples";
+import type { PlaygroundState } from "../../lib/playground-state";
+import { useLegacyDemoClasses } from "../../hooks/use-legacy-demo-classes";
+import { ButtonPlayground } from "./button-playground";
+import { DialogPlayground } from "./dialog-playground";
+import { EmptyState } from "./preview-shell";
 
-/* Components: render every example of the selected component from demoPaths. */
 export function ComponentExamplesPreview({
   slug,
-}: {
-  slug: string;
-  name: string;
-}) {
+  edits,
+}: Pick<PlaygroundState, "edits"> & { slug: string }) {
+  if (slug === "button") return <ButtonPlayground edit={edits.button} />;
+  if (slug === "dialog") return <DialogPlayground edit={edits.dialog} />;
+  return <LegacyExamples key={slug} slug={slug} edits={edits} />;
+}
+
+function LegacyExamples({
+  slug,
+  edits,
+}: Pick<PlaygroundState, "edits"> & { slug: string }) {
+  useLegacyDemoClasses(edits);
   const entries = React.useMemo(() => {
     const prefix = `${slug}/`;
 
@@ -20,6 +32,9 @@ export function ComponentExamplesPreview({
       .sort((a, b) => a[1].localeCompare(b[1]))
       .map(([key, path]) => ({ key, path }));
   }, [slug]);
+
+  if (!entries.length)
+    return <EmptyState>No example available for this component.</EmptyState>;
 
   return (
     <div className="flex flex-col divide-y divide-border p-4">
@@ -40,9 +55,7 @@ function variantLabel(path: string) {
 // preview, so the loader falls back to this placeholder when a module is missing.
 function MissingDemo() {
   return (
-    <span className="text-muted-foreground text-xs">
-      Preview not available
-    </span>
+    <span className="text-muted-foreground text-xs">Preview not available</span>
   );
 }
 

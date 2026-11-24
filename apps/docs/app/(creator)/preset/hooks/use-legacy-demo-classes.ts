@@ -1,65 +1,21 @@
 "use client";
 
-import * as React from "react";
-import { useAtomValue } from "jotai";
-import { useTheme } from "next-themes";
-
+import { useLayoutEffect } from "react";
 import { cn } from "@rlz/ui/lib/cn";
-
-import {
-  componentEditsAtom,
-  presetBuilderAtom,
-} from "../../state/preset-builder";
-import {
-  playgroundCss,
-  PREVIEW_ID,
-  previewPatches,
-  type PreviewPatch,
-} from "../../lib/preset-styles";
+import type { PlaygroundState } from "../lib/playground-state";
+import { previewPatches, type PreviewPatch } from "../lib/preset-styles";
 
 /**
- * Makes the playground answer back: the preset being drafted is applied to the
- * live demos, so a color, a radius or a rewritten variant is seen where it is
- * edited instead of only in the exported JSON.
- *
- * Only the demos, never the pane's own chrome: the sheet and the class patches
- * both stop at `#playground-preview`, so the toolbar and tabs keep the site's
- * look whatever the draft says.
- *
- * It renders the stylesheet the preset describes (custom properties, which every
- * design-system utility reads) and patches the class list of the demos whose
- * variant value was restyled. Mount it once, above the preview.
+ * Compatibility for documentation examples that do not accept a preset yet.
+ * Only runs in the canvas document, including its portaled overlays.
  */
-export function PlaygroundPreset() {
-  const preset = useAtomValue(presetBuilderAtom);
-  const edits = useAtomValue(componentEditsAtom);
-  const { resolvedTheme } = useTheme();
-
-  const [isDark, setIsDark] = React.useState(false);
-
-  // Same rule as the previews: only trust the resolved theme once mounted, so the
-  // first client render stays in sync with the server HTML.
-  React.useEffect(() => setIsDark(resolvedTheme === "dark"), [resolvedTheme]);
-
-  const css = React.useMemo(
-    () => playgroundCss(preset, isDark),
-    [preset, isDark]
-  );
-
-  // Written through the node rather than as children: the sheet is generated from
-  // what the draft holds, and a text node cannot be parsed as markup.
-  const styleRef = React.useRef<HTMLStyleElement>(null);
-
-  React.useEffect(() => {
-    if (styleRef.current) styleRef.current.textContent = css;
-  }, [css]);
-
-  React.useEffect(() => {
-    const preview = document.getElementById(PREVIEW_ID);
-
-    if (!preview) return;
-
-    const apply = () => applyPatches(preview, previewPatches(edits));
+export function useLegacyDemoClasses(edits: PlaygroundState["edits"]) {
+  useLayoutEffect(() => {
+    const preview = document.body;
+    const patches = previewPatches(edits);
+    if (!patches.length) return;
+    const previous = new Map<Element, { original: string; applied: string }>();
+    const apply = () => applyPatches(preview, patches, previous);
 
     apply();
 
@@ -75,16 +31,12 @@ export function PlaygroundPreset() {
       attributeFilter: ["class", "data-slot"],
     });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      applyPatches(preview, [], previous);
+    };
   }, [edits]);
-
-  // An unlayered sheet beats Tailwind's `@layer utilities`, which is what lets a
-  // component style win over the class the design system drew with.
-  return <style id="rlz-playground-preset" ref={styleRef} />;
 }
-
-// What a patch wrote on an element, so it can be taken back.
-const ORIGINAL = "data-rlz-original-class";
 
 /**
  * Swaps the built-in classes of a restyled variant value, or of a part, for the
@@ -93,7 +45,11 @@ const ORIGINAL = "data-rlz-original-class";
  * element carrying several edits - a variant AND a size, or a value and its part -
  * gets one merge, not two passes.
  */
-function applyPatches(preview: HTMLElement, patches: PreviewPatch[]) {
+function applyPatches(
+  preview: HTMLElement,
+  patches: PreviewPatch[],
+  previous: Map<Element, { original: string; applied: string }>
+) {
   const targets = new Map<
     Element,
     { original: string; remove: Set<string>; add: string[] }
@@ -109,7 +65,9 @@ function applyPatches(preview: HTMLElement, patches: PreviewPatch[]) {
       .forEach((element) => {
         // Judge the element by the classes it came with, never by the ones a patch
         // wrote: a swap reading its own work would undo it on the next pass.
-        const original = element.getAttribute(ORIGINAL) ?? classOf(element);
+        const live = classOf(element);
+        const last = previous.get(element);
+        const original = last?.applied === live ? last.original : live;
         const came = new Set(original.split(/\s+/));
 
         // A variant value owns only what was drawn with all of its classes. One
@@ -137,24 +95,25 @@ function applyPatches(preview: HTMLElement, patches: PreviewPatch[]) {
   }
 
   targets.forEach((target, element) => {
-    if (!element.hasAttribute(ORIGINAL)) {
-      element.setAttribute(ORIGINAL, target.original);
-    }
-
     const next = composed(target.original, target);
 
     // Writing only what actually changed is what keeps the observer quiet.
     if (next !== classOf(element)) element.setAttribute("class", next);
+    previous.set(element, { original: target.original, applied: next });
   });
 
   // Whatever a patch owned but no longer matches (a reset, a deleted value,
   // another selection) gets its classes back.
-  preview.querySelectorAll<Element>(`[${ORIGINAL}]`).forEach((element) => {
-    if (targets.has(element)) return;
-
-    element.setAttribute("class", element.getAttribute(ORIGINAL) ?? "");
-    element.removeAttribute(ORIGINAL);
-  });
+  for (const [element, last] of previous) {
+    if (targets.has(element)) continue;
+    if (
+      preview.contains(element) &&
+      classOf(element) === last.applied &&
+      last.applied !== last.original
+    )
+      element.setAttribute("class", last.original);
+    previous.delete(element);
+  }
 }
 
 // Demos are not only `<div>`: an icon carries a slot too, and `className` is

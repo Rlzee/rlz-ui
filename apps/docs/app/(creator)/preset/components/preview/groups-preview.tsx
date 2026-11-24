@@ -1,18 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { useAtomValue } from "jotai";
 import { Select } from "@rlz/ui/components/ui/select";
-import {
-  styleGroupsAtom,
-  selectedStyleGroupAtom,
-} from "../../state/style-group-state";
+import type { PlaygroundState } from "../../lib/playground-state";
 import { ComponentExamplesPreview } from "./component-examples-preview";
 import { EmptyState } from "./preview-shell";
 
-export function GroupsPreview() {
-  const groups = useAtomValue(styleGroupsAtom);
-  const selectedId = useAtomValue(selectedStyleGroupAtom);
+export function GroupsPreview({
+  groups,
+  selectedId,
+  edits,
+}: Pick<PlaygroundState, "groups" | "edits"> & { selectedId: string }) {
   const group = groups.find(({ id }) => id === selectedId) ?? groups[0];
   const components = [
     ...new Set(group?.members.map(({ component }) => component)),
@@ -57,7 +55,7 @@ export function GroupsPreview() {
           </Select.Popup>
         </Select>
       </div>
-      <ComponentExamplesPreview slug={component} name={component} />
+      <ComponentExamplesPreview slug={component} edits={edits} />
     </div>
   );
 }

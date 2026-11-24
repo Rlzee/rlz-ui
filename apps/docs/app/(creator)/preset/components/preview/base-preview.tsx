@@ -1,16 +1,13 @@
 "use client";
 
-import { useAtom } from "jotai";
+import type { RegistryPreset } from "@rlz/registry";
 
 import { Card } from "@rlz/ui/components/ui/card";
-
-import { presetBuilderAtom } from "../../state/preset-builder";
 
 import { PreviewSection } from "./preview-shell";
 
 /* Base: live visuals that react to radius, letter spacing and spacing. */
-export function BasePreview() {
-  const [preset] = useAtom(presetBuilderAtom);
+export function BasePreview({ preset }: { preset: RegistryPreset }) {
   const { radius, spacing } = preset.base.layout;
   const { letterSpacing } = preset.base.typography;
 
@@ -25,7 +22,10 @@ export function BasePreview() {
               { label: "lg", r: radius * 1.5 },
               { label: "full", r: 9999 },
             ].map((item) => (
-              <div key={item.label} className="flex flex-col items-center gap-1.5">
+              <div
+                key={item.label}
+                className="flex flex-col items-center gap-1.5"
+              >
                 <div
                   className="bg-primary/90 h-16 w-16"
                   style={{ borderRadius: `${item.r}px` }}
@@ -62,7 +62,13 @@ export function BasePreview() {
         <Card className="border-sidebar-border">
           {/* Padding is the token under test, so it overrides the body padding. */}
           <Card.Body style={{ padding: `${spacing}rem` }}>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: `${spacing}rem` }}>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: `${spacing}rem`,
+              }}
+            >
               {Array.from({ length: 6 }).map((_, i) => (
                 <div
                   key={i}

@@ -1,9 +1,7 @@
 "use client";
 
-import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
-
-import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { slugFromId } from "../../lib/slug";
+import type { PlaygroundState } from "../../lib/playground-state";
 
 import { EmptyState } from "./preview-shell";
 import { ColorsPreview } from "./colors-preview";
@@ -18,26 +16,8 @@ import { GroupsPreview } from "./groups-preview";
  * live preview driven by the draft preset, while a selected component renders
  * every one of its examples listed in `demoPaths`.
  */
-export function SelectedPreview() {
-  const [selected] = useSelectedComponent();
-
-  return (
-    // Internal scroll region, mirroring the properties panel: only the preview
-    // body scrolls, the surrounding page stays put.
-    <ScrollArea
-      scrollFade
-      className="min-h-0 flex-1 **:data-[slot=scroll-area-scrollbar]:hidden"
-    >
-      <PreviewContent selected={selected} />
-    </ScrollArea>
-  );
-}
-
-function PreviewContent({
-  selected,
-}: {
-  selected: ReturnType<typeof useSelectedComponent>[0];
-}) {
+export function SelectedPreview({ state }: { state: PlaygroundState }) {
+  const { selected, preset, dark, edits, groups, selectedGroup } = state;
   if (!selected) {
     return (
       <EmptyState>
@@ -47,19 +27,31 @@ function PreviewContent({
   }
 
   switch (selected.id) {
+    case "info":
+      return (
+        <EmptyState>
+          Choose a component or a foundation to preview your preset.
+        </EmptyState>
+      );
     case "groups":
-      return <GroupsPreview />;
+      return (
+        <GroupsPreview
+          groups={groups}
+          selectedId={selectedGroup}
+          edits={edits}
+        />
+      );
     case "colors":
-      return <ColorsPreview />;
+      return <ColorsPreview preset={preset} isDark={dark} />;
     case "base":
-      return <BasePreview />;
+      return <BasePreview preset={preset} />;
     case "recommendations":
-      return <RecommendationsPreview />;
+      return <RecommendationsPreview preset={preset} />;
     default:
       return (
         <ComponentExamplesPreview
           slug={slugFromId(selected.id)}
-          name={selected.name}
+          edits={edits}
         />
       );
   }

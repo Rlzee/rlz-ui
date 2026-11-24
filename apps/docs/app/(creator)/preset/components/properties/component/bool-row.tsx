@@ -14,7 +14,7 @@ export function BoolRow({
   return (
     <div className="flex items-center justify-between gap-3 px-2 py-2">
       <span className="text-xs text-muted-foreground">{label}</span>
-      <Switch checked={checked} onCheckedChange={onChange} />
+      <Switch aria-label={label} checked={checked} onCheckedChange={onChange} />
     </div>
   );
 }

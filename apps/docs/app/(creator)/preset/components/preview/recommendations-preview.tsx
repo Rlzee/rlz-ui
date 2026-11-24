@@ -1,17 +1,14 @@
 "use client";
 
-import { useAtom } from "jotai";
+import type { RegistryPreset } from "@rlz/registry";
 
 import { Card } from "@rlz/ui/components/ui/card";
 import { cn } from "@rlz/ui/lib/cn";
 
-import { presetBuilderAtom } from "../../state/preset-builder";
-
 import { EmptyState, PreviewSection } from "./preview-shell";
 
 /* Recommendations: the three recommended typefaces. Icons are not previewed. */
-export function RecommendationsPreview() {
-  const [preset] = useAtom(presetBuilderAtom);
+export function RecommendationsPreview({ preset }: { preset: RegistryPreset }) {
   const typography = preset.recommendations?.typography;
 
   if (!typography) {

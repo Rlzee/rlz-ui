@@ -3,35 +3,11 @@ import type {
   RegistryPreset,
 } from "@rlz/registry";
 
-import {
-  capabilitiesOf,
-  partsOf,
-} from "@rlz/ui/registry/resolve-capabilities";
+import { capabilitiesOf, partsOf } from "@rlz/ui/registry/resolve-capabilities";
 
 import { currentAppliedVariant } from "./component-edits";
 import { shadowPrimitives } from "./preset-shadows";
 import { variantClassSections } from "./variant-classes";
-
-/**
- * The playground answers back: whatever the Creator edits is applied to the live
- * demos, not only written into the exported preset - and to the demos only, never
- * to the pane's toolbar or tabs, which are the Creator's own chrome.
- *
- * Two mechanisms, because the two kinds of edits are not the same thing:
- *  - CSS custom properties. The design system reads every color, radius and
- *    spacing through a variable, so overriding the variables on the preview area
- *    restyles the demos it holds - light and dark values included.
- *  - Class replacement. A variant value, or a part's own look, IS a list of
- *    Tailwind classes, and classes are not CSS: the classes the Creator wrote are
- *    swapped for the built-in ones on the elements they belong to (see
- *    `previewPatches`).
- */
-
-// The demos only: the pane's own toolbar and tabs are Creator chrome, so the
-// preset never restyles them (`#playground-preview` inside the Tabs.Panel).
-export const PREVIEW_ID = "playground-preview";
-
-const SCOPE = `#${PREVIEW_ID}`;
 
 // A color value is written by a picker, so a stray `}` would break the sheet.
 export function safe(value: string) {
@@ -100,35 +76,6 @@ export function fontFamily(value: string, fallback = "sans-serif") {
   const name = safe(value.trim());
 
   return /["']|^var\(/.test(name) ? name : `"${name}", ${fallback}`;
-}
-
-/**
- * The stylesheet injected while the Creator runs: the preset's variables, applied
- * to the playground. A per-component edit is a list of classes for one box, not a
- * declaration the whole design system reads, so it stays out here and goes through
- * `previewPatches` instead.
- */
-export function playgroundCss(preset: RegistryPreset, isDark: boolean): string {
-  const declarations = Object.entries(presetVariables(preset, isDark))
-    // A value the draft left unset writes nothing, so the preview keeps the value
-    // the app shipped with rather than an empty custom property.
-    .filter(([, value]) => value !== "")
-    .map(([name, value]) => `--${name}:${value}`);
-
-  // `font-family` and `letter-spacing` are inherited as a resolved value, so the
-  // preview has to read them itself for its subtree to inherit the preset's. And
-  // because it is the canvas the draft paints on, it carries the preset's own
-  // background and default text - the surrounding Creator chrome keeps the site's.
-  declarations.push(
-    "font-family:var(--font-sans)",
-    "letter-spacing:var(--tracking-normal)",
-    "background-color:var(--background)",
-    "color:var(--foreground)"
-  );
-
-  const rules = [`${SCOPE}{${declarations.join(";")}}`];
-
-  return rules.join("\n");
 }
 
 /**
