@@ -1,29 +1,29 @@
 "use client";
 
-import type { ComponentType } from "react";
 import { useSetAtom } from "jotai";
+import type { ComponentType } from "react";
 
-import type { DocsNavSection, PresetSection } from "@/lib/docs";
 import { useSelectedComponent } from "@/hooks/use-selected-component";
 import { getCapabilities } from "@/lib/component-capabilities";
+import type { DocsNavSection, PresetSection } from "@/lib/docs";
+import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
+import { Breadcrumb } from "@rlz/ui/components/ui/breadcrumb";
+import { Button } from "@rlz/ui/components/ui/button";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
+import { ChevronRight, RefreshCw } from "lucide-react";
 import { slugFromId } from "../../lib/slug";
 import { classEditorRequestAtom } from "../../state/class-editor-state";
 import {
   resetComponentEditsAtom,
   resetSectionAtom,
 } from "../../state/preset-builder";
-import { Breadcrumb } from "@rlz/ui/components/ui/breadcrumb";
-import { Button } from "@rlz/ui/components/ui/button";
-import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
-import { BorderFlash } from "@rlz/ui/components/animations/border-flash";
-import { ChevronRight, RefreshCw } from "lucide-react";
 
-import { InfoProperties } from "./info-properties";
 import { BaseProperties } from "./base";
 import { ColorProperties } from "./colors";
 import { ComponentProperties } from "./component";
-import { RecommendationsProperties } from "./recommendations-properties";
 import { GroupsProperties } from "./groups-properties";
+import { InfoProperties } from "./info-properties";
+import { RecommendationsProperties } from "./recommendations-properties";
 
 // Properties editor shown for each Foundation entry of the explorer.
 const FOUNDATION_EDITORS: Partial<Record<PresetSection, ComponentType>> = {
@@ -85,7 +85,7 @@ export function PropertiesPanel({ sections }: { sections: DocsNavSection[] }) {
         animation="top"
         className="pointer-events-none absolute inset-y-0 -right-px z-10"
       />
-      <header className="p-2 border-b border-border shrink-0">
+      <header className="p-2 border-b border-border/60 shrink-0">
         <div className="flex items-start justify-between gap-2">
           <Breadcrumb className="min-w-0">
             <Breadcrumb.List className="gap-1 sm:gap-1">

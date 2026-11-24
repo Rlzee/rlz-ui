@@ -1,19 +1,18 @@
 "use client";
 
-import { Button } from "@rlz/ui/components/ui/button";
-import { Tooltip } from "@rlz/ui/components/ui/tooltip";
-import { Tabs } from "@rlz/ui/components/ui/tabs";
-import { Select } from "@rlz/ui/components/ui/select";
-import { OpenInV0Button } from "@/components/open-in-v0-button";
-import { SelectedPreview } from "./preview";
-import { OpenDocsButton } from "./preview/open-docs-button";
 import { ModeSwitcher } from "@/components/mode-switcher";
+import { Button } from "@rlz/ui/components/ui/button";
+import { Select } from "@rlz/ui/components/ui/select";
+import { Tabs } from "@rlz/ui/components/ui/tabs";
+import { Tooltip } from "@rlz/ui/components/ui/tooltip";
+import { Maximize, Minimize, Plus, SquareMousePointer, X } from "lucide-react";
+import { usePlaygroundFullscreen } from "../hooks/use-playground-fullscreen";
+import { usePresetWorkspace } from "../hooks/use-preset-workspace";
 import { PREVIEW_ID } from "../lib/preset-styles";
 import { AnimationStudio } from "./editors/animation-studio/animation-studio";
 import { ClassEditorPanel } from "./editors/class-editor/class-editor-panel";
-import { usePresetWorkspace } from "../hooks/use-preset-workspace";
-import { usePlaygroundFullscreen } from "../hooks/use-playground-fullscreen";
-import { Maximize, Minimize, SquareMousePointer, Plus, X } from "lucide-react";
+import { SelectedPreview } from "./preview";
+import { OpenDocsButton } from "./preview/open-docs-button";
 
 export function PresetWorkspace() {
   const { isFullscreen, toggleFullscreen } = usePlaygroundFullscreen();
@@ -38,7 +37,7 @@ export function PresetWorkspace() {
       value={activeTab}
       onValueChange={changeTab}
     >
-      <header className="shrink-0 border-b border-border flex items-center justify-between py-2 px-3">
+      <header className="shrink-0 border-b border-border/60 flex items-center justify-between py-2 px-3">
         <Tabs.List className="bg-secondary rounded-md items-center">
           <Button size="sm" className="ml-0.5" variant="outline">
             <Plus /> Add
