@@ -193,7 +193,7 @@ export const defaultPreset: RegistryPreset = {
         {
           label: "Warning",
           cssVar: "--warning",
-          dark: { value: "oklch(0.7924 0.2066 101.27)", swatch: "#ca8a04" },
+          dark: { value: "oklch(0.828 0.189 84.429)", swatch: "#fbbf24" },
           light: { value: "oklch(0.7924 0.2066 101.27)", swatch: "#ca8a04" },
         },
       ],

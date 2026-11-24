@@ -1,3 +1,4 @@
+import { Alert } from "@rlz/ui/components/ui/alert";
 import { Info, TriangleAlert } from "lucide-react";
 import type { AppearanceConflict } from "../../../lib/appearance";
 
@@ -13,19 +14,21 @@ export function AppearanceConflicts({
   return (
     <div className="flex min-w-0 flex-col gap-2 text-xs">
       {duplicates.length > 0 && (
-        <section
+        <Alert
+          variant="warning"
           aria-label="Duplicate appearance utilities"
-          className="rounded-md border border-amber-500/30 bg-amber-500/5 p-2 text-amber-700 dark:text-amber-400"
         >
-          <div className="flex items-center gap-1.5 font-medium">
-            <TriangleAlert aria-hidden="true" className="size-3.5 shrink-0" />
+          <TriangleAlert aria-hidden="true" />
+          <Alert.Title>
             Same property defined multiple times
-          </div>
-          <p className="mt-1">
+          </Alert.Title>
+          <Alert.Description className="mt-1 text-xs">
             Review these utilities. Class order does not determine which wins.
-          </p>
-          <ConflictPairs conflicts={duplicates} />
-        </section>
+          </Alert.Description>
+          <div className="col-start-2 min-w-0">
+            <ConflictPairs conflicts={duplicates} />
+          </div>
+        </Alert>
       )}
       {overlaps.length > 0 && (
         <details className="rounded-md border border-border/60 p-2 text-muted-foreground">

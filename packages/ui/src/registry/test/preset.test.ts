@@ -314,8 +314,8 @@ export const testPreset: RegistryPreset = {
           label: "Warning",
           cssVar: "--warning",
           dark: {
-            value: "var(--color-amber-500)",
-            swatch: "#f59e0b",
+            value: "var(--color-amber-400)",
+            swatch: "#fbbf24",
           },
           light: {
             value: "var(--color-amber-500)",
