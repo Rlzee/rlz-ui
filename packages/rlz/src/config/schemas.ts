@@ -27,12 +27,14 @@ export const presetConfigSchema = z.discriminatedUnion("source", [
     id: z.string(),
     name: z.string(),
     source: z.literal("registry"),
+    snapshot: z.string().min(1).optional(),
   }),
   z.object({
     id: z.string(),
     name: z.string(),
     source: z.literal("path"),
     path: z.string(),
+    snapshot: z.string().min(1).optional(),
   }),
 ]);
 

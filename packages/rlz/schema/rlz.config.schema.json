@@ -74,6 +74,10 @@
             "source": {
               "type": "string",
               "const": "registry"
+            },
+            "snapshot": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [
@@ -98,6 +102,10 @@
             },
             "path": {
               "type": "string"
+            },
+            "snapshot": {
+              "type": "string",
+              "minLength": 1
             }
           },
           "required": [

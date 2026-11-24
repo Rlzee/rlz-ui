@@ -4,6 +4,7 @@ import { readConfig } from "@/config/read";
 import { readRegistry } from "@/utils/read-registry";
 import { resolveDirs } from "@/config/utils";
 import { installItem } from "@/utils/install-item";
+import { resolveProjectPreset } from "@/utils/project-preset";
 
 export const addCommand = new Command()
   .name("add")
@@ -26,21 +27,24 @@ export const addCommand = new Command()
       const item = registry.items[normalizedName];
       if (!item) return logger.error(`Item not found in registry: ${name}`);
 
-      if (item.allowManualInstall === false) {
-        return logger.error(
-          `Item "${item.name}" cannot be installed directly via the CLI.`
-        );
-      }
-      if (item.allowManualInstall === "deprecated") {
-        return logger.error(
-          `Item "${item.name}" is deprecated and can no longer be installed.`
-        );
+      if (item.type === "component") {
+        if (item.allowManualInstall === false) {
+          return logger.error(
+            `Item "${item.name}" cannot be installed directly via the CLI.`
+          );
+        }
+        if (item.allowManualInstall === "deprecated") {
+          return logger.error(
+            `Item "${item.name}" is deprecated and can no longer be installed.`
+          );
+        }
       }
 
       const dirs = resolveDirs({
         dirs: config.dirs,
         cwd,
       });
+      const preset = await resolveProjectPreset(cwd, config.preset, registry);
 
       await installItem({
         item,
@@ -48,6 +52,7 @@ export const addCommand = new Command()
         dirs,
         config,
         cwd,
+        preset,
       });
 
       logger.success(`Item "${normalizedName}" added successfully.`);

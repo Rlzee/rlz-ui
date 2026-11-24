@@ -8,7 +8,7 @@ import { UpdateComponent } from "@/utils/update-component";
 import { installDependencies } from "@/utils/install-dependencies";
 
 import type { rlzConfig } from "@/config/types";
-import type { Registry, RegistryItem } from "@rlz/registry";
+import type { Registry, RegistryItem, RegistryPreset } from "@rlz/registry";
 
 type InstallItemOptions = {
   item: RegistryItem;
@@ -16,6 +16,7 @@ type InstallItemOptions = {
   dirs: Record<string, string>;
   config: rlzConfig;
   cwd: string;
+  preset?: RegistryPreset;
 };
 
 export async function installItem({
@@ -24,6 +25,7 @@ export async function installItem({
   dirs,
   config,
   cwd,
+  preset,
 }: InstallItemOptions) {
   const installed = new Set<string>();
 
@@ -67,7 +69,12 @@ export async function installItem({
     const sourceFile = project.addSourceFileAtPath(itemPath);
 
     if (item.type === "component") {
-      await UpdateComponent({ sourceFile, config });
+      await UpdateComponent({
+        sourceFile,
+        config,
+        componentId: item.id,
+        customization: preset?.components?.[item.id],
+      });
     }
 
     if (item.dependencies?.length) {

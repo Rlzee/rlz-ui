@@ -1,6 +1,5 @@
 import { Command } from "commander";
 import path from "node:path";
-import fs from "fs-extra";
 
 import { logger } from "@/utils/logger";
 import { getPackageInfo } from "@/utils/get-package-info";
@@ -10,6 +9,7 @@ import { getTypeScriptInfo } from "@/utils/get-typescript-info";
 import { getFontByFamily } from "@rlz/fonts";
 import { ICON_LIBS, type IconLib } from "@/icons/libs";
 import { readRegistry } from "@/utils/read-registry";
+import { readPresetFile } from "@/utils/project-preset";
 import { runInit } from "./run";
 
 import type { RegistryPreset } from "@rlz/registry";
@@ -142,23 +142,12 @@ export const initCommand = new Command()
           if (isFile) {
             const presetPath = path.resolve(cwd, presetInput);
 
-            if (!(await fs.pathExists(presetPath))) {
-              logger.error(`Preset file not found: ${presetInput}`);
-              process.exit(1);
-            }
-
             if (path.extname(presetPath).toLowerCase() !== ".json") {
               logger.error(`Preset file must be a JSON file: ${presetInput}`);
               process.exit(1);
             }
 
-            try {
-              preset = (await fs.readJson(presetPath)) as RegistryPreset;
-            } catch (error) {
-              logger.error(`Invalid preset JSON: ${presetInput}`);
-              logger.error(error);
-              process.exit(1);
-            }
+            preset = await readPresetFile(presetPath);
 
             presetConfig = {
               id: preset.id,

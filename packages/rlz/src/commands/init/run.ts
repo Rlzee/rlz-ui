@@ -5,6 +5,7 @@ import { logger } from "@/utils/logger";
 import { confirm, input, select, search } from "@inquirer/prompts";
 import { cssPathResponseSchema } from "@/schemas/init";
 import { updateCssPreset } from "@/utils/update-css-preset";
+import { pinProjectPreset } from "@/utils/project-preset";
 import { safeParseWithError } from "@/utils/validation";
 import { createConfig } from "@/config/create";
 import type { rlzConfig, PresetConfig } from "@/config/types";
@@ -271,6 +272,10 @@ export async function runInit({
   // Config
   // --------------------------------
 
+  const pinnedPreset =
+    preset && presetConfig
+      ? await pinProjectPreset(cwd, presetConfig, preset)
+      : presetConfig;
   const rlzConfig: rlzConfig = {
     framework,
     dirs: {
@@ -279,8 +284,8 @@ export async function runInit({
     css: validatedCssPath,
     aliases: defaultAliasesRlzConfig,
     icons: selectedIconLib,
-    ...(presetConfig && {
-      preset: presetConfig,
+    ...(pinnedPreset && {
+      preset: pinnedPreset,
     }),
   };
 

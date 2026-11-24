@@ -19,12 +19,24 @@ Initialize rlz-ui in an existing project. Detects your framework, TypeScript, an
 npx rlz@latest init
 ```
 
-| Flag             | Description           |
-| ---------------- | --------------------- |
-| `--font-sans`    | Sans font family      |
-| `--font-heading` | Heading font family   |
-| `--font-mono`    | Monospace font family |
-| `--icon-lib`     | Icon library to use   |
+| Flag             | Description                                             |
+| ---------------- | ------------------------------------------------------- |
+| `--font-sans`    | Sans font family                                        |
+| `--font-heading` | Heading font family                                     |
+| `--font-mono`    | Monospace font family                                   |
+| `--icon-lib`     | Icon library to use                                     |
+| `--preset`       | Registry preset name or path to an exported JSON preset |
+
+To use a preset exported from the Creator:
+
+```bash
+npx rlz@latest init --preset ./my-preset.json
+npx rlz@latest add button
+```
+
+Use `--preset test` to select the `test` preset from the registry instead.
+`init` saves a snapshot under `.rlz/presets/` so later installs use the same
+preset. Keep that snapshot with your project along with `rlz.config.json`.
 
 ### add
 
@@ -33,6 +45,11 @@ Add a component, hook, or lib to your project. Dependencies are resolved and ins
 ```bash
 npx rlz@latest add <name>
 ```
+
+For new installs, preset part classes are currently applied to Button (`Root`)
+and Dialog (`Popup`, `Header`, and `Footer`). Other part overrides, custom
+variants, and preset prop defaults are not applied yet. Existing component
+files are never overwritten by `add`.
 
 ### list
 

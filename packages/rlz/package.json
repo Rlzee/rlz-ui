@@ -31,7 +31,8 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "build:schema": "tsx scripts/generate-schema.ts"
+    "build:schema": "tsx scripts/generate-schema.ts",
+    "test": "tsx --test \"tests/*.test.ts\""
   },
   "dependencies": {
     "@antfu/ni": "^23.2.0",
