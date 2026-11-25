@@ -1,4 +1,5 @@
 import { createMDX } from 'fumadocs-mdx/next';
+import { fileURLToPath } from 'node:url';
 
 const withMDX = createMDX();
 
@@ -6,6 +7,13 @@ const withMDX = createMDX();
 const config = {
   serverExternalPackages: ['@takumi-rs/image-response'],
   reactStrictMode: true,
+  turbopack: {
+    root: fileURLToPath(new URL('../../', import.meta.url)),
+  },
+  experimental: {
+    // A relocated workspace can leave stale absolute paths in the dev cache.
+    turbopackFileSystemCacheForDev: false,
+  },
   async rewrites() {
     return [
       {
