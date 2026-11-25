@@ -5,7 +5,11 @@ import {
   type ObjectLiteralExpression,
   type SourceFile,
 } from "ts-morph";
-import type { PresetComponentCustomization } from "@rlz/registry";
+import type {
+  PresetComponentCustomization,
+  PresetVariantValue,
+} from "@rlz/registry";
+import { addVariantValues } from "./add-variants";
 import {
   assignment,
   classJoin,
@@ -211,7 +215,23 @@ function replaceVariant(
   return true;
 }
 
-/** Restyle a value declared in the downloaded source; never add keys or change defaults. */
+function receivesAxis(call: CallExpression, axis: string) {
+  const options = call.getArguments()[0];
+  return (
+    Node.isObjectLiteralExpression(options) &&
+    options
+      .getProperties()
+      .some(
+        (entry) =>
+          (Node.isPropertyAssignment(entry) ||
+            Node.isShorthandPropertyAssignment(entry)) &&
+          staticName(entry.getNameNode()) === axis
+      ) &&
+    fixedVariant(call, axis) === undefined
+  );
+}
+
+/** Install new string values and restyle existing values without changing defaults. */
 export function applyPresetVariantClasses(
   source: SourceFile,
   componentId: string,
@@ -220,6 +240,12 @@ export function applyPresetVariantClasses(
   if (!overrides || !Object.keys(overrides).length) return [];
   const skipped: string[] = [];
   const targets = discoverStyleTargets(source, componentId);
+  const existing: {
+    axis: string;
+    uses: Map<string, CallExpression>;
+    defaultPart?: string;
+    options: PresetVariantValue[];
+  }[] = [];
   for (const [axis, options] of Object.entries(overrides)) {
     const uses = new Map<string, CallExpression>();
     const native = new Set<string>();
@@ -247,12 +273,32 @@ export function applyPresetVariantClasses(
     const omitted = [...native].filter((value) => !requested.has(value));
     if (omitted.length) skipped.push(`${axis} (kept ${omitted.join(", ")})`);
 
+    skipped.push(
+      ...addVariantValues(
+        source,
+        axis,
+        native,
+        selectable.flatMap(([part, call]) => {
+          const values = getAxis(source, call, axis);
+          return values && receivesAxis(call, axis)
+            ? [{ part, call, values }]
+            : [];
+        }),
+        options.filter(({ value }) => !native.has(value))
+      )
+    );
+    existing.push({
+      axis,
+      uses,
+      defaultPart,
+      options: options.filter(({ value }) => native.has(value)),
+    });
+  }
+  // Existing overrides can split a shared CVA. Do that only after all public CVA
+  // definitions contain their new keys, so each clone keeps the expanded type.
+  for (const { axis, uses, defaultPart, options } of existing) {
     for (const option of options) {
       const label = `${axis}.${option.value}`;
-      if (!native.has(option.value)) {
-        skipped.push(label);
-        continue;
-      }
       const parts = { ...option.partClasses };
       if (option.classes !== undefined) {
         if (defaultPart) parts[defaultPart] ??= option.classes;

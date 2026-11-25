@@ -46,7 +46,7 @@ export async function UpdateComponent({
     logger.warn(
       `Some preset variant changes were not applied to ${componentId}: ${skippedVariants.join(
         "; "
-      )}. Only existing variant styles in supported parts can be changed.`
+      )}. The registry defaults were kept.`
     );
   }
 

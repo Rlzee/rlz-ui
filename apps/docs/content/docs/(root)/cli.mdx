@@ -51,11 +51,13 @@ The default is **No**. Use `--overwrite` to replace it without a prompt, includi
 in non-interactive mode. This replaces the file rather than merging your changes.
 Existing dependencies are never overwritten by `add`.
 
-Presets can restyle component parts with authored classes and existing CVA
-variant values, such as Badge `outline` or Dialog `bare`. The CLI discovers those
-targets from the registry component source. It reports changes it cannot safely
-apply, such as adding or removing variant values, preset prop defaults, or a
-variant override on a part that does not use that axis.
+Presets can restyle existing CVA variants and add new values to supported string
+axes. For example, add `brand` in the Creator, then use `<Badge variant="brand" />`
+after installing Badge with that preset. A compound component can define
+different classes for each part that uses the axis.
+
+The CLI reports values it cannot add safely. It does not extend boolean axes,
+add new props, remove existing values, or change preset prop defaults.
 
 ### list
 
