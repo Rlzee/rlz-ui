@@ -10,6 +10,7 @@ import type {
   PresetVariantValue,
 } from "@rlz/registry";
 import { addVariantValues } from "./add-variants";
+import { removeVariantValues } from "./remove-variants";
 import {
   assignment,
   classJoin,
@@ -231,11 +232,12 @@ function receivesAxis(call: CallExpression, axis: string) {
   );
 }
 
-/** Install new string values and restyle existing values without changing defaults. */
+/** Reconcile the preset list with the public CVA axis. Unlisted axes are untouched. */
 export function applyPresetVariantClasses(
   source: SourceFile,
   componentId: string,
-  overrides: PresetComponentCustomization["variants"]
+  overrides: PresetComponentCustomization["variants"],
+  props?: PresetComponentCustomization["props"]
 ): string[] {
   if (!overrides || !Object.keys(overrides).length) return [];
   const skipped: string[] = [];
@@ -269,24 +271,34 @@ export function applyPresetVariantClasses(
     );
     const defaultPart =
       selectable.length === 1 ? selectable[0]?.[0] : undefined;
-    const requested = new Set(options.map(({ value }) => value));
+    const orderedValues = [...new Set(options.map(({ value }) => value))];
+    const requested = new Set(orderedValues);
     const omitted = [...native].filter((value) => !requested.has(value));
-    if (omitted.length) skipped.push(`${axis} (kept ${omitted.join(", ")})`);
+    const publicTargets = selectable.flatMap(([part, call]) => {
+      const values = getAxis(source, call, axis);
+      return values && receivesAxis(call, axis) ? [{ part, call, values }] : [];
+    });
 
     skipped.push(
       ...addVariantValues(
         source,
         axis,
         native,
-        selectable.flatMap(([part, call]) => {
-          const values = getAxis(source, call, axis);
-          return values && receivesAxis(call, axis)
-            ? [{ part, call, values }]
-            : [];
-        }),
+        publicTargets,
         options.filter(({ value }) => !native.has(value))
       )
     );
+    if (omitted.length || !options.length) {
+      skipped.push(
+        ...removeVariantValues(
+          source,
+          axis,
+          publicTargets,
+          orderedValues,
+          props?.[axis]
+        )
+      );
+    }
     existing.push({
       axis,
       uses,

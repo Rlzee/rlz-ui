@@ -56,8 +56,14 @@ axes. For example, add `brand` in the Creator, then use `<Badge variant="brand" 
 after installing Badge with that preset. A compound component can define
 different classes for each part that uses the axis.
 
-The CLI reports values it cannot add safely. It does not extend boolean axes,
-add new props, remove existing values, or change preset prop defaults.
+For a preset axis with a value list, the CLI also removes unlisted public string
+variants. It preserves variants used by fixed internal calls. If the default is
+removed, the CLI uses a remaining `props` value from the preset or the first
+remaining value. It does not change an existing default that is still listed.
+Existing code that explicitly uses removed variants must be updated.
+
+The CLI reports changes it cannot apply safely. Boolean axes, new props, and
+standalone prop defaults are not supported.
 
 ### list
 

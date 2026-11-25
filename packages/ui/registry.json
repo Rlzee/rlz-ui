@@ -40,9 +40,7 @@
       ],
       "type": "component",
       "destPath": "base",
-      "registryDependencies": [
-        "cn"
-      ],
+      "registryDependencies": [],
       "allowManualInstall": false
     },
     "shortcut": {

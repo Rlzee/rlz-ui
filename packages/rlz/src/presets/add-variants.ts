@@ -12,7 +12,7 @@ import {
   usesManualVariantType,
 } from "./variant-types";
 
-type VariantTarget = {
+export type VariantTarget = {
   part: string;
   call: CallExpression;
   values: ObjectLiteralExpression;

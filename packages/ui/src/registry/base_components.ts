@@ -18,7 +18,7 @@ export const registryBaseComponents = defineRegistryItems("component", {
     destPath: "base",
     version: "1.0.0",
     dependencies: ["cn"],
-    registryDependencies: ["cn"],
+    registryDependencies: [],
     allowManualInstall: false,
   },
   shortcut: {

@@ -69,6 +69,23 @@ function infersAxis(
   if (name === "VariantProps") {
     return Node.isTypeQuery(target) && target.getExprName().getText() === cva;
   }
+  if (
+    /^(React\.)?ComponentProps(?:WithRef|WithoutRef)?$/.test(name) &&
+    Node.isTypeQuery(target)
+  ) {
+    const owner = target.getExprName().getText();
+    const fn =
+      source.getFunction(owner) ??
+      source.getVariableDeclaration(owner)?.getInitializer();
+    if (
+      Node.isFunctionDeclaration(fn) ||
+      Node.isArrowFunction(fn) ||
+      Node.isFunctionExpression(fn)
+    ) {
+      return infer(fn.getParameters()[0]?.getTypeNode());
+    }
+    return false;
+  }
   if (name === "NonNullable" || name === "Partial" || name === "Required")
     return infer(target);
   if (name === "Pick" || name === "Omit" || name === "Exclude") {
@@ -193,6 +210,23 @@ function localPropertyType(
     );
   }
   return undefined;
+}
+
+export function sharesVariantType(
+  source: SourceFile,
+  type: TypeNode | undefined,
+  axis: string,
+  cva: string,
+  value: string,
+  manual: TypeNode | undefined
+): boolean {
+  const property = localPropertyType(source, type, axis);
+  return (
+    (manual !== undefined &&
+      (finiteAxisType(source, type) === manual ||
+        finiteAxisType(source, property) === manual)) ||
+    infersAxis(source, type, axis, cva, value)
+  );
 }
 
 function localContextType(

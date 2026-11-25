@@ -40,13 +40,14 @@ export async function UpdateComponent({
   const skippedVariants = applyPresetVariantClasses(
     sourceFile,
     componentId,
-    customization?.variants
+    customization?.variants,
+    customization?.props
   );
   if (skippedVariants.length) {
     logger.warn(
       `Some preset variant changes were not applied to ${componentId}: ${skippedVariants.join(
         "; "
-      )}. The registry defaults were kept.`
+      )}.`
     );
   }
 
@@ -62,9 +63,14 @@ export async function UpdateComponent({
       )}).`
     );
   }
-  if (Object.keys(customization?.props ?? {}).length) {
+  const unsupportedProps = Object.keys(customization?.props ?? {}).filter(
+    (prop) => !Object.hasOwn(customization?.variants ?? {}, prop)
+  );
+  if (unsupportedProps.length) {
     logger.warn(
-      `Preset prop overrides for ${componentId} are not supported yet.`
+      `Preset prop overrides for ${componentId} are not supported: ${unsupportedProps.join(
+        ", "
+      )}.`
     );
   }
 

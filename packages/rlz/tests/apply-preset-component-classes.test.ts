@@ -218,7 +218,7 @@ test("Dialog restyles existing variant parts independently and can clear a varia
   assert.match(cn(header()), /\bbg-popover\b/);
 });
 
-test("removing variant values and styling unsupported parts does not change the source", async () => {
+test("styling unsupported parts does not change the source", async () => {
   const source = await fixture("dialog");
   const original = source.getText();
   assert.deepEqual(
@@ -226,11 +226,12 @@ test("removing variant values and styling unsupported parts does not change the 
       variant: [
         { value: "default" },
         { value: "bare", partClasses: { Title: "text-xl" } },
+        { value: "bare-bottom" },
+        { value: "bare-top" },
         { value: "brand", partClasses: { Title: "bg-accent" } },
       ],
     }),
     [
-      "variant (kept bare-bottom, bare-top)",
       "variant.brand (specify only parts that use this axis)",
       "variant.bare.Title",
     ]
