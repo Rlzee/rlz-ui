@@ -1,4 +1,6 @@
 import { Command } from "commander";
+import { confirm } from "@inquirer/prompts";
+import path from "node:path";
 import { logger } from "@/utils/logger";
 import { readConfig } from "@/config/read";
 import { readRegistry } from "@/utils/read-registry";
@@ -8,9 +10,10 @@ import { resolveProjectPreset } from "@/utils/project-preset";
 
 export const addCommand = new Command()
   .name("add")
-  .description("Add a new items from rlz-ui")
+  .description("Add an item from rlz-ui")
   .argument("<name>", "The name of the item to add")
-  .action(async (name: string) => {
+  .option("--overwrite", "Replace the requested component if it already exists")
+  .action(async (name: string, options: { overwrite?: boolean }) => {
     try {
       if (!name?.trim()) {
         return logger.error("Name cannot be empty");
@@ -46,16 +49,42 @@ export const addCommand = new Command()
       });
       const preset = await resolveProjectPreset(cwd, config.preset, registry);
 
-      await installItem({
+      const outcome = await installItem({
         item,
         registry,
         dirs,
         config,
         cwd,
         preset,
+        async confirmOverwrite(filePath) {
+          if (options.overwrite) return true;
+          if (!process.stdin.isTTY || !process.stdout.isTTY) {
+            logger.info(
+              "Use --overwrite to replace an existing component in non-interactive mode."
+            );
+            return false;
+          }
+          const relativePath = path.relative(cwd, filePath);
+          return confirm({
+            message: `"${relativePath}" already exists. Replace it with the registry version${
+              preset ? " using the current preset" : ""
+            }? Local changes will be lost.`,
+            default: false,
+          });
+        },
       });
 
-      logger.success(`Item "${normalizedName}" added successfully.`);
+      if (outcome === "skipped") {
+        logger.info(
+          `Item "${normalizedName}" already exists and was left unchanged.`
+        );
+      } else {
+        logger.success(
+          `Item "${normalizedName}" ${
+            outcome === "overwritten" ? "replaced" : "added"
+          } successfully.`
+        );
+      }
     } catch (error: any) {
       logger.error(`Error adding item: ${error?.message ?? String(error)}`);
       process.exit(1);

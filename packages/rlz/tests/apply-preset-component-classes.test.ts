@@ -4,7 +4,10 @@ import { createRequire } from "node:module";
 import { test } from "node:test";
 import { runInNewContext } from "node:vm";
 import { Project } from "ts-morph";
-import { applyPresetPartClasses } from "../src/utils/apply-preset-part-classes";
+import {
+  applyPresetPartClasses,
+  applyPresetVariantClasses,
+} from "../src/utils/apply-preset-component-classes";
 
 const requireFromUi = createRequire(
   new URL("../../ui/package.json", import.meta.url)
@@ -128,4 +131,108 @@ test("no overrides and unknown source layouts leave the file unchanged", async (
     ["Root"]
   );
   assert.equal(source.getText(), changed);
+});
+
+test("Button restyles an existing variant and a quoted size without changing defaults", async () => {
+  const source = await fixture("button");
+  assert.deepEqual(
+    applyPresetVariantClasses(source, "button", {
+      variant: [
+        { value: "primary" },
+        { value: "outline", classes: "border bg-accent" },
+        { value: "secondary" },
+        { value: "ghost" },
+        { value: "link" },
+        { value: "destructive" },
+      ],
+      size: [
+        ...[
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl",
+          "icon-sm",
+          "icon-md",
+          "icon-lg",
+          "icon-xl",
+        ].map((value) => ({ value })),
+        { value: "icon-xs", classes: "size-8" },
+      ],
+    }),
+    []
+  );
+
+  const installedVariants = runInNewContext(
+    source
+      .getVariableDeclarationOrThrow("buttonVariants")
+      .getInitializerOrThrow()
+      .getText(),
+    { cva, defaultClass: "rounded-md" }
+  );
+  assert.match(cn(installedVariants()), /\bbg-primary\b/);
+  assert.match(cn(installedVariants()), /\bh-9\b/);
+  const outline = cn(
+    installedVariants({ variant: "outline", size: "icon-xs" })
+  );
+  assert.match(outline, /\bbg-accent\b/);
+  assert.match(outline, /\bsize-8\b/);
+  assert.doesNotMatch(outline, /\bbg-secondary\b/);
+  assert.match(
+    cn(installedVariants({ variant: "outline", className: "bg-card" })),
+    /\bbg-card\b/
+  );
+});
+
+test("Dialog restyles existing variant parts independently and can clear a variant's classes", async () => {
+  const source = await fixture("dialog");
+  assert.deepEqual(
+    applyPresetVariantClasses(source, "dialog", {
+      variant: [
+        { value: "default" },
+        {
+          value: "bare",
+          partClasses: { Popup: "bg-accent", Header: "bg-card" },
+        },
+        { value: "bare-bottom", partClasses: { Header: "" } },
+        { value: "bare-top" },
+      ],
+    }),
+    []
+  );
+  const evaluate = (part: string) =>
+    runInNewContext(
+      source
+        .getVariableDeclarationOrThrow(`dialog${part}Variants`)
+        .getInitializerOrThrow()
+        .getText(),
+      { cva }
+    );
+  const popup = evaluate("Popup");
+  const header = evaluate("Header");
+  assert.match(cn(popup({ variant: "bare" })), /\bbg-accent\b/);
+  assert.match(cn(header({ variant: "bare" })), /\bbg-card\b/);
+  assert.match(cn(header({ variant: "bare-bottom" })), /\bpt-4\b/);
+  assert.doesNotMatch(cn(header({ variant: "bare-bottom" })), /\bbg-popover\b/);
+  assert.match(cn(header()), /\bbg-popover\b/);
+});
+
+test("adding or removing variant values and styling unsupported parts does not change the source", async () => {
+  const source = await fixture("dialog");
+  const original = source.getText();
+  assert.deepEqual(
+    applyPresetVariantClasses(source, "dialog", {
+      variant: [
+        { value: "default" },
+        { value: "bare", partClasses: { Title: "text-xl" } },
+        { value: "brand", partClasses: { Popup: "bg-accent" } },
+      ],
+    }),
+    [
+      "variant (kept bare-bottom, bare-top)",
+      "variant.bare.Title",
+      "variant.brand",
+    ]
+  );
+  assert.equal(source.getText(), original);
 });

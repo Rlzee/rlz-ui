@@ -46,10 +46,15 @@ Add a component, hook, or lib to your project. Dependencies are resolved and ins
 npx rlz@latest add <name>
 ```
 
-For new installs, preset part classes are currently applied to Button (`Root`)
-and Dialog (`Popup`, `Header`, and `Footer`). Other part overrides, custom
-variants, and preset prop defaults are not applied yet. Existing component
-files are never overwritten by `add`.
+If the requested component already exists, the CLI asks before replacing it.
+The default is **No**. Use `--overwrite` to replace it without a prompt, including
+in non-interactive mode. This replaces the file rather than merging your changes.
+Existing dependencies are never overwritten by `add`.
+
+Presets can restyle Button (`Root`) and Dialog (`Popup`, `Header`, and `Footer`),
+including classes for existing variant values such as Button `outline` or
+Dialog `bare`. Other parts, adding or removing variant values, and preset prop
+defaults are not supported yet.
 
 ### list
 

@@ -5,7 +5,10 @@ import { defaultUiComponentsAliases } from "@/config/constants";
 import { SourceFile } from "ts-morph";
 import { updateAliases } from "./update-aliases";
 import type { PresetComponentCustomization } from "@rlz/registry";
-import { applyPresetPartClasses } from "./apply-preset-part-classes";
+import {
+  applyPresetPartClasses,
+  applyPresetVariantClasses,
+} from "./apply-preset-component-classes";
 import { logger } from "./logger";
 
 type UpdateComponentParams = {
@@ -34,24 +37,34 @@ export async function UpdateComponent({
     config,
   });
 
-  const skipped = applyPresetPartClasses(
+  const skippedVariants = applyPresetVariantClasses(
+    sourceFile,
+    componentId,
+    customization?.variants
+  );
+  if (skippedVariants.length) {
+    logger.warn(
+      `Some preset variant changes were not applied to ${componentId}: ${skippedVariants.join(
+        "; "
+      )}. Only existing variant styles in supported parts can be changed.`
+    );
+  }
+
+  const skippedParts = applyPresetPartClasses(
     sourceFile,
     componentId,
     customization?.partClasses
   );
-  if (skipped.length) {
+  if (skippedParts.length) {
     logger.warn(
-      `Preset classes not applied to ${componentId}: unsupported parts or source layout (${skipped.join(
+      `Preset classes not applied to ${componentId}: unsupported parts or source layout (${skippedParts.join(
         ", "
       )}).`
     );
   }
-  if (
-    Object.keys(customization?.variants ?? {}).length ||
-    Object.keys(customization?.props ?? {}).length
-  ) {
+  if (Object.keys(customization?.props ?? {}).length) {
     logger.warn(
-      `Preset variant and prop overrides for ${componentId} are not supported yet.`
+      `Preset prop overrides for ${componentId} are not supported yet.`
     );
   }
 

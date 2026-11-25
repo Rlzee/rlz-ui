@@ -17,58 +17,50 @@ type InstallItemOptions = {
   config: rlzConfig;
   cwd: string;
   preset?: RegistryPreset;
+  confirmOverwrite?: (filePath: string) => Promise<boolean>;
 };
 
-export async function installItem({
-  item,
-  registry,
-  dirs,
-  config,
-  cwd,
-  preset,
-}: InstallItemOptions) {
+const typeToDir = {
+  component: "components",
+  hook: "hooks",
+  lib: "lib",
+} as const;
+
+function getItemPath(item: RegistryItem, dirs: Record<string, string>) {
+  const baseDir = dirs[typeToDir[item.type]];
+  if (!baseDir) {
+    throw new Error(`Target directory not found for type: ${item.type}`);
+  }
+
+  const subDir = item.type === "component" ? item.destPath ?? "ui" : "";
+  if (subDir.includes("..")) {
+    throw new Error(`Invalid destPath in registry for ${item.name}`);
+  }
+  return path.join(baseDir, subDir, path.basename(item.path));
+}
+
+export async function installItem(
+  {
+    item,
+    registry,
+    dirs,
+    config,
+    cwd,
+    preset,
+    confirmOverwrite,
+  }: InstallItemOptions,
+  download = getUiFile
+) {
   const installed = new Set<string>();
 
-  const typeToDir = {
-    component: "components",
-    hook: "hooks",
-    lib: "lib",
-  } as const;
-
-  const installSingleItem = async (item: RegistryItem) => {
-    const baseDir = dirs[typeToDir[item.type]];
-    if (!baseDir) {
-      throw new Error(`Target directory not found for type: ${item.type}`);
-    }
-
-    let targetDir = baseDir;
-
-    if (item.type === "component") {
-      const subDir = item.destPath ?? "ui";
-
-      if (subDir.includes("..")) {
-        throw new Error(`Invalid destPath in registry for ${item.name}`);
-      }
-      targetDir = path.join(baseDir, subDir);
-    }
-
-    const fileName = path.basename(item.path);
-    const itemPath = path.join(targetDir, fileName);
-
-    if (await fs.pathExists(itemPath)) {
-      installed.add(item.id);
-      return;
-    }
-
+  const prepareItem = async (item: RegistryItem, destination: string) => {
     const itemUrl = `${UI_URL}/${item.path}`;
 
-    await fs.ensureDir(path.dirname(itemPath));
-    await getUiFile(itemUrl, itemPath);
-
-    const project = new Project();
-    const sourceFile = project.addSourceFileAtPath(itemPath);
+    await download(itemUrl, destination);
 
     if (item.type === "component") {
+      const project = new Project();
+      const sourceFile = project.addSourceFileAtPath(destination);
       await UpdateComponent({
         sourceFile,
         config,
@@ -84,7 +76,7 @@ export async function installItem({
 
   const install = async (itemId: string) => {
     if (installed.has(itemId)) {
-      return;
+      return "skipped";
     }
 
     const registryItem = registry.items[itemId];
@@ -95,6 +87,22 @@ export async function installItem({
 
     installed.add(itemId);
 
+    const itemPath = getItemPath(registryItem, dirs);
+    const exists = await fs.pathExists(itemPath);
+    const requested = itemId === item.id;
+    const overwrite =
+      exists &&
+      requested &&
+      registryItem.type === "component" &&
+      (await confirmOverwrite?.(itemPath));
+
+    if (requested && exists && !overwrite) return "skipped";
+    if (overwrite && !(await fs.lstat(itemPath)).isFile()) {
+      throw new Error(
+        `Cannot overwrite "${itemPath}": it is not a regular file.`
+      );
+    }
+
     if (
       registryItem.type === "component" &&
       registryItem.registryDependencies?.length
@@ -104,8 +112,27 @@ export async function installItem({
       }
     }
 
-    await installSingleItem(registryItem);
+    if (overwrite) {
+      // Prepare the replacement on the same filesystem so a failed download,
+      // transformation or dependency install never truncates the user's file.
+      const staging = await fs.mkdtemp(
+        path.join(path.dirname(itemPath), ".rlz-")
+      );
+      try {
+        const replacement = path.join(staging, path.basename(itemPath));
+        await prepareItem(registryItem, replacement);
+        await fs.rename(replacement, itemPath);
+      } finally {
+        await fs.remove(staging);
+      }
+      return "overwritten";
+    }
+
+    if (exists || (await fs.pathExists(itemPath))) return "skipped";
+    await fs.ensureDir(path.dirname(itemPath));
+    await prepareItem(registryItem, itemPath);
+    return "added";
   };
 
-  await install(item.id);
+  return install(item.id);
 }
