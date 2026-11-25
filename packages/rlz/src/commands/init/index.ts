@@ -9,7 +9,7 @@ import { getTypeScriptInfo } from "@/utils/get-typescript-info";
 import { getFontByFamily } from "@rlz/fonts";
 import { ICON_LIBS, type IconLib } from "@/icons/libs";
 import { readRegistry } from "@/utils/read-registry";
-import { readPresetFile } from "@/utils/project-preset";
+import { readPresetFile } from "@/presets/project";
 import { runInit } from "./run";
 
 import type { RegistryPreset } from "@rlz/registry";

@@ -6,7 +6,7 @@ import { readConfig } from "@/config/read";
 import { readRegistry } from "@/utils/read-registry";
 import { resolveDirs } from "@/config/utils";
 import { installItem } from "@/utils/install-item";
-import { resolveProjectPreset } from "@/utils/project-preset";
+import { resolveProjectPreset } from "@/presets/project";
 
 export const addCommand = new Command()
   .name("add")

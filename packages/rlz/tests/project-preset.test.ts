@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import type { Registry, RegistryPreset } from "@rlz/registry";
-import { pinProjectPreset, resolveProjectPreset } from "../src/utils/project-preset";
+import { pinProjectPreset, resolveProjectPreset } from "../src/presets/project";
 
 const preset: RegistryPreset = {
   type: "preset",

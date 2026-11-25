@@ -4,7 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { test } from "node:test";
 import type { PresetBaseConfig } from "@rlz/registry";
-import { updateCssPreset } from "../src/utils/update-css-preset";
+import { updateCssPreset } from "../src/presets/update-css";
 
 test("installs, replaces and removes preset animations without duplicates", async () => {
   const directory = await mkdtemp(join(tmpdir(), "rlz-animations-"));

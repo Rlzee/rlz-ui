@@ -8,7 +8,7 @@ import type { Registry, PresetVariantValue } from "@rlz/registry";
 import {
   applyPresetPartClasses,
   applyPresetVariantClasses,
-} from "../src/utils/apply-preset-component-classes";
+} from "../src/presets/update-classes";
 
 const requireFromUi = createRequire(
   new URL("../../ui/package.json", import.meta.url)

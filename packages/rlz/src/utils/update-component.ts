@@ -8,7 +8,7 @@ import type { PresetComponentCustomization } from "@rlz/registry";
 import {
   applyPresetPartClasses,
   applyPresetVariantClasses,
-} from "./apply-preset-component-classes";
+} from "@/presets/update-classes";
 import { logger } from "./logger";
 
 type UpdateComponentParams = {

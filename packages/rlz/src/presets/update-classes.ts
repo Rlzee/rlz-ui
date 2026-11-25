@@ -15,7 +15,7 @@ import {
   isolateCva,
   isStaticClasses,
   staticName,
-} from "./component-style-targets";
+} from "./component-targets";
 
 function mapProperty(object: ObjectLiteralExpression, name: string) {
   const initializer = assignment(object, name)?.getInitializer();
