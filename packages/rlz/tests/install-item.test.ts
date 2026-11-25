@@ -126,7 +126,7 @@ test("confirmation replaces only the requested component and reapplies the prese
       assert.notEqual(destination, button);
       await writeFile(
         destination,
-        'const defaultClass = "rounded-md";\nconst buttonVariants = cva(defaultClass, { variants: { variant: { outline: "bg-secondary" } } });'
+        'const defaultClass = "rounded-md";\nconst buttonVariants = cva(defaultClass, { variants: { variant: { outline: "bg-secondary" } } });\nfunction Button({ variant }) { return <button data-slot="button" className={buttonVariants({ variant })} />; }'
       );
     }
   );

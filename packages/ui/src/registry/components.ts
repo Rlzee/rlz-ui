@@ -245,7 +245,7 @@ export const registryComponents = defineRegistryItems("component", {
   "otp-field": {
     name: "otp-field",
     description: "A otp input field component",
-    path: "components/ui/otp-field",
+    path: "components/ui/otp-field.tsx",
     version: "1.0.0",
     dependencies: ["cn"],
     registryDependencies: ["separator"],

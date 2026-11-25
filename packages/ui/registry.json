@@ -982,7 +982,7 @@
       "id": "otp-field",
       "name": "otp-field",
       "version": "1.0.0",
-      "path": "components/ui/otp-field",
+      "path": "components/ui/otp-field.tsx",
       "description": "A otp input field component",
       "dependencies": [
         "cn"

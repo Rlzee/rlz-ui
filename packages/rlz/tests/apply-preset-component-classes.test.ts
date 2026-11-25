@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { test } from "node:test";
 import { runInNewContext } from "node:vm";
 import { Project } from "ts-morph";
+import type { Registry, PresetVariantValue } from "@rlz/registry";
 import {
   applyPresetPartClasses,
   applyPresetVariantClasses,
@@ -117,8 +118,8 @@ test("no overrides and unknown source layouts leave the file unchanged", async (
   const before = source.getText();
   assert.deepEqual(applyPresetPartClasses(source, "button", undefined), []);
   assert.deepEqual(
-    applyPresetPartClasses(source, "badge", { Root: "rounded-full" }),
-    ["Root"]
+    applyPresetPartClasses(source, "button", { Header: "rounded-full" }),
+    ["Header"]
   );
   assert.equal(source.getText(), before);
 
@@ -235,4 +236,115 @@ test("adding or removing variant values and styling unsupported parts does not c
     ]
   );
   assert.equal(source.getText(), original);
+});
+
+test("restyles an existing value on every CVA axis currently exposed by the registry", async () => {
+  const registry: Registry = JSON.parse(
+    await readFile(new URL("../../ui/registry.json", import.meta.url), "utf8")
+  );
+  const covered: string[] = [];
+  for (const item of Object.values(registry.items)) {
+    if (item.type !== "component" || !item.capabilities?.variants?.length)
+      continue;
+    const text = await readFile(
+      new URL(`../../ui/src/${item.path}`, import.meta.url),
+      "utf8"
+    );
+    const project = new Project({ useInMemoryFileSystem: true });
+    const source = project.createSourceFile(item.path, text);
+    for (const axis of item.capabilities.variants) {
+      const options = axis.values.map(
+        (value): PresetVariantValue => ({ value })
+      );
+      const marker = `rlz-test-${item.id}-${axis.name}`;
+      if (axis.parts?.length) {
+        options[0]!.partClasses = Object.fromEntries(
+          axis.parts.map((part) => [part, marker])
+        );
+      } else {
+        options[0]!.classes = marker;
+      }
+      assert.deepEqual(
+        applyPresetVariantClasses(source, item.id, { [axis.name]: options }),
+        [],
+        `${item.id}.${axis.name}`
+      );
+      assert.ok(
+        source.getText().includes(marker),
+        `${item.id}.${axis.name} is restyled`
+      );
+      covered.push(`${item.id}.${axis.name}`);
+    }
+  }
+  assert.ok(
+    covered.includes("badge.variant") && covered.includes("menu.variant")
+  );
+});
+
+test("Card part classes are found by their exported part and preserve the caller className", async () => {
+  const source = await fixture("card");
+  const title = source.getFunctionOrThrow("CardTitle").getText();
+  assert.deepEqual(
+    applyPresetPartClasses(source, "card", { Header: "px-8 bg-accent" }),
+    []
+  );
+  assert.match(
+    source.getFunctionOrThrow("CardHeader").getText(),
+    /cn\("px-8 bg-accent", className\)/
+  );
+  assert.equal(source.getFunctionOrThrow("CardTitle").getText(), title);
+});
+
+test("styling one part of a shared CVA does not change the sibling still using its original function", async () => {
+  const source = await fixture("menu");
+  const original = source
+    .getVariableDeclarationOrThrow("menuCheckboxItemVariants")
+    .getText();
+  const sibling = source.getFunctionOrThrow("MenuSwitchItem").getText();
+  assert.deepEqual(
+    applyPresetPartClasses(source, "menu", { CheckboxItem: "px-8 bg-accent" }),
+    []
+  );
+  assert.equal(
+    source.getVariableDeclarationOrThrow("menuCheckboxItemVariants").getText(),
+    original
+  );
+  assert.equal(source.getFunctionOrThrow("MenuSwitchItem").getText(), sibling);
+  assert.match(
+    source.getFunctionOrThrow("MenuCheckboxItem").getText(),
+    /menuCheckboxItemVariantsForCheckboxItem\(/
+  );
+  assert.match(
+    source
+      .getVariableDeclarationOrThrow("menuCheckboxItemVariantsForCheckboxItem")
+      .getText(),
+    /class: "px-8 bg-accent"/
+  );
+});
+
+test("an Input variant override wins over conflicting native compound classes without changing other values", async () => {
+  const source = await fixture("input");
+  assert.deepEqual(
+    applyPresetVariantClasses(source, "input", {
+      variant: [
+        { value: "primary", classes: "bg-card" },
+        { value: "secondary" },
+      ],
+    }),
+    []
+  );
+  const variants = runInNewContext(
+    source
+      .getVariableDeclarationOrThrow("inputVariants")
+      .getInitializerOrThrow()
+      .getText(),
+    { cva }
+  );
+  const custom = cn(variants({ variant: "primary", unstyled: false }));
+  assert.match(custom, /\bbg-card\b/);
+  assert.doesNotMatch(custom, /\bbg-input\b/);
+  assert.match(
+    cn(variants({ variant: "secondary", unstyled: false })),
+    /\bbg-accent\/60\b/
+  );
 });
