@@ -1,5 +1,7 @@
 import type { PresetVariantValue } from "@rlz/registry";
 import {
+  IndentationText,
+  NewLineKind,
   Node,
   type CallExpression,
   type ObjectLiteralExpression,
@@ -126,7 +128,9 @@ export function addVariantValues(
     for (const [values, classes] of entries) {
       const list = changes.get(values) ?? [];
       list.push({
-        name: JSON.stringify(value),
+        name: /^[A-Za-z][A-Za-z0-9_]*$/.test(value)
+          ? value
+          : JSON.stringify(value),
         initializer: JSON.stringify(classes),
       });
       changes.set(values, list);
@@ -142,7 +146,40 @@ export function addVariantValues(
       ].join(" | ")
     );
   }
-  for (const [values, entries] of changes)
-    values.addPropertyAssignments(entries);
+  const settings = source.getProject().manipulationSettings;
+  const originalIndentation = settings.getIndentationText();
+  const originalNewLine = settings.getNewLineKind();
+  const text = source.getFullText();
+  // ts-morph's getIndentationText rounds to the project's configured width,
+  // which may differ from the downloaded source. Read its actual whitespace.
+  const indentationOf = (node: Node) =>
+    node
+      .getSourceFile()
+      .getFullText()
+      .slice(node.getStartLinePos(), node.getStart())
+      .match(/^[\t ]*/)![0];
+  try {
+    for (const [values, entries] of changes) {
+      const parentIndentation = indentationOf(values);
+      const sibling = values.getProperties()[0];
+      const siblingIndentation = sibling && indentationOf(sibling);
+      const unit = siblingIndentation?.slice(parentIndentation.length);
+      const indentation = Object.values(IndentationText).find(
+        (candidate) => candidate === unit
+      );
+      settings.set({
+        indentationText: indentation ?? originalIndentation,
+        newLineKind: text.includes("\r\n")
+          ? NewLineKind.CarriageReturnLineFeed
+          : NewLineKind.LineFeed,
+      });
+      values.addPropertyAssignments(entries);
+    }
+  } finally {
+    settings.set({
+      indentationText: originalIndentation,
+      newLineKind: originalNewLine,
+    });
+  }
   return skipped;
 }

@@ -42,6 +42,50 @@ async function load(project: Project, id: string, suffix = "") {
   );
 }
 
+test("new variant keys follow sibling indentation and only quote names when needed", async () => {
+  const project = consumerProject();
+  const originalIndentation = project.manipulationSettings.getIndentationText();
+  const originalNewLine = project.manipulationSettings.getNewLineKind();
+  for (const [index, unit] of ["  ", "    ", "\t"].entries()) {
+    const button = await load(project, "button", `-format-${index}`);
+    const newline = index === 1 ? "\r\n" : "\n";
+    button.replaceWithText(
+      button
+        .getFullText()
+        .replace(/^(?: {2})+/gm, (spaces) => unit.repeat(spaces.length / 2))
+        .replace(/\r?\n/g, newline)
+    );
+    assert.deepEqual(
+      applyPresetVariantClasses(button, "button", {
+        variant: [
+          ...native("button", "variant"),
+          { value: "brand", classes: "bg-violet-600" },
+          { value: "brand-soft", classes: "bg-violet-100" },
+        ],
+        size: [
+          ...native("button", "size"),
+          { value: "comfy", classes: "h-12" },
+        ],
+      }),
+      []
+    );
+    const text = button.getFullText();
+    const lines = text.split(/\r?\n/).map((line) => line.replace(/,$/, ""));
+    assert.ok(lines.includes(`${unit.repeat(3)}brand: "bg-violet-600"`));
+    assert.ok(lines.includes(`${unit.repeat(3)}"brand-soft": "bg-violet-100"`));
+    assert.ok(lines.includes(`${unit.repeat(3)}comfy: "h-12"`));
+    assert.doesNotMatch(text, /"brand":/);
+    assert.equal(
+      project.manipulationSettings.getIndentationText(),
+      originalIndentation
+    );
+    assert.equal(
+      project.manipulationSettings.getNewLineKind(),
+      originalNewLine
+    );
+  }
+});
+
 test("installed Badge and Dialog accept a new value in TSX and apply its styles", async () => {
   const project = consumerProject();
   const badge = await load(project, "badge");
@@ -132,8 +176,8 @@ test("adds a shared CVA key before isolating existing styles for one part", asyn
   const isolated = source
     .getVariableDeclarationOrThrow("menuCheckboxItemVariantsForCheckboxItem")
     .getText();
-  assert.match(original, /"brand": ""/);
-  assert.match(isolated, /"brand": ""/);
+  assert.match(original, /brand: ""/);
+  assert.match(isolated, /brand: ""/);
   assert.match(isolated, /\bbg-card\b/);
   assert.match(
     source.getFunctionOrThrow("MenuSwitchItem").getText(),
