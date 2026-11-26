@@ -17,6 +17,7 @@ export * from "./presets/define-presets";
 export * from "./presets/types";
 export * from "./presets/schema";
 export * from "./presets/animation-css";
+export * from "./presets/utility-css";
 
 // capabilities
 

@@ -1,5 +1,5 @@
 import type { PresetShadowConfig, RegistryPreset } from "@rlz/registry";
-import { presetAnimationsCss } from "@rlz/registry";
+import { presetAnimationsCss, presetUtilitiesCss } from "@rlz/registry";
 
 import { defaultPreset } from "@rlz/ui/styles/presets";
 
@@ -201,9 +201,11 @@ export function foundationCss(preset: RegistryPreset): string {
 
 export function themeUtilitiesCss(preset: RegistryPreset): string {
   return [
-    ...cssSheet(preset)
-      .filter((rule) => rule.shape === "rules")
-      .map(renderRule),
+    presetUtilitiesCss(
+      Object.fromEntries(
+        utilityEntries(preset).map(({ name, value }) => [name, value])
+      )
+    ),
     presetAnimationsCss(preset.base.animations),
   ]
     .filter(Boolean)

@@ -312,7 +312,7 @@ export async function runInit({
   // Preset Css
   // --------------------------------
 
-  if (preset?.colors?.length) {
+  if (preset) {
     await updateCssPreset(path.resolve(cwd, validatedCssPath), preset);
   }
 

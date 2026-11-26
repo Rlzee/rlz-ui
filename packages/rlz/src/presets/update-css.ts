@@ -1,5 +1,10 @@
 import fs from "fs-extra";
-import { presetAnimationsCss } from "@rlz/registry";
+import postcss from "postcss";
+import {
+  presetAnimationsCss,
+  presetUtilitiesCss,
+  presetUtilityClasses,
+} from "@rlz/registry";
 import type {
   PresetColorToken,
   PresetColorConfig,
@@ -40,6 +45,60 @@ function updateBlock(
 
     return `${start}${updatedContent}${end}`;
   });
+}
+
+function updateUtilities(
+  css: string,
+  utilities: Record<string, string>
+): string {
+  if (!Object.keys(utilities).length) return css;
+
+  // Validate names with the shared export serializer before touching the sheet.
+  presetUtilitiesCss(utilities);
+  const sheet = postcss.parse(css);
+  const remaining = new Map(Object.entries(utilities));
+  let targetLayer: postcss.AtRule | undefined;
+
+  sheet.walkAtRules("layer", (layer) => {
+    if (layer.params !== "utilities") return;
+    targetLayer ??= layer;
+
+    // Only direct, single-class rules belong to this contract. Nested states and
+    // unrelated selectors must not be mistaken for a shared utility definition.
+    for (const node of [...(layer.nodes ?? [])]) {
+      if (node.type !== "rule" || !node.selector.startsWith(".")) continue;
+      const name = node.selector.slice(1);
+      if (!Object.prototype.hasOwnProperty.call(utilities, name)) continue;
+      const classes = presetUtilityClasses(utilities[name]!);
+      remaining.delete(name);
+
+      const applications = node.nodes.filter(
+        (child) => child.type === "atrule" && child.name === "apply"
+      );
+      const application = applications.shift();
+      for (const duplicate of applications) duplicate.remove();
+      if (classes) {
+        if (application?.type === "atrule") application.params = classes;
+        else node.append(postcss.atRule({ name: "apply", params: classes }));
+      } else {
+        application?.remove();
+        if (!node.nodes.length) node.remove();
+      }
+    }
+  });
+
+  const additions = postcss.parse(
+    presetUtilitiesCss(Object.fromEntries(remaining))
+  ).first;
+  if (additions?.type === "atrule") {
+    if (targetLayer) {
+      targetLayer.append(additions.nodes ?? []);
+    } else {
+      sheet.append(additions);
+    }
+  }
+
+  return sheet.toString();
 }
 
 export async function updateCssPreset(
@@ -105,6 +164,10 @@ export async function updateCssPreset(
       : block
       ? `${css.trimEnd()}\n\n${block}`
       : css;
+  }
+
+  if (preset.base?.utilities !== undefined) {
+    css = updateUtilities(css, preset.base.utilities);
   }
 
   await fs.writeFile(cssPath, css, "utf8");

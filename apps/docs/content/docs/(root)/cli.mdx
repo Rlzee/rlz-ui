@@ -38,6 +38,12 @@ Use `--preset test` to select the `test` preset from the registry instead.
 `init` saves a snapshot under `.rlz/presets/` so later installs use the same
 preset. Keep that snapshot with your project along with `rlz.config.json`.
 
+`init` also applies the preset's base settings, shared utilities (including focus
+styles), and animations, even when its color list is empty. Shared utility
+overrides replace their existing `@apply` classes; custom utilities are added to
+`@layer utilities`. An empty class list clears that utility's `@apply` classes,
+while utilities absent from the preset keep their shipped definitions.
+
 ### add
 
 Add a component, hook, or lib to your project. Dependencies are resolved and installed automatically.
