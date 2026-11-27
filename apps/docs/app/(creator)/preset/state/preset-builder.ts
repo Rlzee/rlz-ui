@@ -1,4 +1,3 @@
-import { atomWithStorage } from "jotai/utils";
 import { atom } from "jotai";
 import { defaultPreset } from "@rlz/ui/styles/presets";
 import type { PresetSection } from "@/lib/docs";
@@ -15,10 +14,6 @@ import {
 } from "./animation-panel-state";
 import { styleGroupsAtom, selectedStyleGroupAtom } from "./style-group-state";
 import { defaultStyleGroups } from "../lib/style-groups";
-import {
-  materializeLegacyGroupDraft,
-  refreshLegacyGroupSuggestions,
-} from "../lib/style-group-migration";
 
 function createPresetId() {
   return `preset-${crypto.randomUUID().split("-")[0]}`;
@@ -31,51 +26,16 @@ function createDraftPreset(): RegistryPreset {
     name: DRAFT_NAME,
   };
 }
-export const presetBuilderAtom = atomWithStorage<RegistryPreset>(
-  "rlz-preset-builder",
-  createDraftPreset()
-);
+// The Creator session owns persistence as one coherent local draft.
+export const presetBuilderAtom = atom<RegistryPreset>(createDraftPreset());
 export const ensurePresetIdAtom = atom(null, (get, set) => {
-  // Preserve existing experimental group drafts when switching to batch edits.
-  if (typeof window !== "undefined") {
-    try {
-      const storage = window.localStorage;
-      if (!storage.getItem("rlz-style-groups-batch-v1")) {
-        const groups = JSON.parse(storage.getItem("rlz-style-groups") ?? "[]");
-        const overrides = JSON.parse(
-          storage.getItem("rlz-appearance-overrides") ?? "{}"
-        );
-        const edits = JSON.parse(
-          storage.getItem("rlz-component-edits") ?? "{}"
-        );
-        if (groups.length || Object.keys(overrides).length) {
-          set(
-            componentEditsAtom,
-            materializeLegacyGroupDraft(groups, edits, overrides)
-          );
-        }
-        storage.setItem("rlz-style-groups-batch-v1", "1");
-      }
-      if (!storage.getItem("rlz-style-group-suggestions-v2")) {
-        const stored = storage.getItem("rlz-style-groups");
-        if (stored)
-          set(
-            styleGroupsAtom,
-            refreshLegacyGroupSuggestions(JSON.parse(stored))
-          );
-        storage.setItem("rlz-style-group-suggestions-v2", "1");
-      }
-    } catch {
-      // Leave unreadable storage untouched; normal editing still works.
-    }
-  }
   const preset = get(presetBuilderAtom);
   if (!preset.id || preset.id === defaultPreset.id)
     set(presetBuilderAtom, { ...preset, id: createPresetId() });
 });
-export const componentEditsAtom = atomWithStorage<
+export const componentEditsAtom = atom<
   Record<string, PresetComponentCustomization>
->("rlz-component-edits", {});
+>({});
 
 /** Import ordinary classes, exactly as for individually edited components. */
 export const importCreatorPresetAtom = atom(

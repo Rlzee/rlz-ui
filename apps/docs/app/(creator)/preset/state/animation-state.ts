@@ -1,5 +1,4 @@
 import { atom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
 import type { AnimationMode, CreatorAnimation } from "../lib/animation-model";
 import type { AnimationPhase } from "../lib/animation-compiler";
 
@@ -9,11 +8,7 @@ export type SavedAnimation = {
 };
 export type AnimationSettings = Record<string, SavedAnimation>;
 
-// Existing per-preset draft storage. Resetting the preset clears this atom.
-export const animationSettingsAtom = atomWithStorage<AnimationSettings>(
-  "rlz-creator-animation-settings",
-  {}
-);
+export const animationSettingsAtom = atom<AnimationSettings>({});
 
 export function animationSettingKey(
   slug: string,

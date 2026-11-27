@@ -165,12 +165,27 @@ test(
           exact: true,
         });
         await selector.click();
+        await frame.waitForFunction(() => {
+          const trigger = document.querySelector(
+            '[aria-label="Preview scenario"]'
+          );
+          return (
+            trigger?.getAttribute("aria-expanded") === "true" &&
+            trigger.hasAttribute("aria-controls")
+          );
+        });
+        const popupId = await selector.getAttribute("aria-controls");
+        assert.ok(popupId);
+        const scenarioList = frame.locator(`[id="${popupId}"]`);
+        await scenarioList.waitFor({ state: "visible" });
+        await scenarioList.getByRole("option").first().waitFor();
         assert.equal(
-          await frame.getByRole("listbox").getByRole("option").count(),
+          await scenarioList.getByRole("option").count(),
           examples.length + 1,
           slug
         );
         await selector.press("Escape");
+        await scenarioList.waitFor({ state: "hidden" });
         assert.equal(
           await frame
             .getByText("compatibility styling", { exact: false })
