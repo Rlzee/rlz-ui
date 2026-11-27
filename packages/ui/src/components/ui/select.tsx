@@ -87,7 +87,7 @@ function SelectPositioner({
   return (
     <SelectPrimitive.Positioner
       data-slot="select-positioner"
-      className={cn("outline-none select-none z-10", className)}
+      className={cn("outline-none select-none z-60", className)}
       {...props}
     />
   );
