@@ -38,8 +38,8 @@ export default function IndexPage() {
         <div className="relative">
           <BorderFlash border="bottom" animation="right" dashed />
           <div className="container pointer-events-none absolute bottom-0 inset-x-0 overflow-visible">
-            <BorderFlashBox className="absolute -bottom-[3.5px] -left-[11.5px] -ml-1 size-2 bg-background shadow-xs/5 p-0 z-50" />
-            <BorderFlashBox className="absolute -bottom-[3.5px] -right-[11.5px] -mr-1 size-2 bg-background shadow-xs/5 dark:bg-clip-border p-0 z-50" />
+            <BorderFlashBox className="rounded-none absolute -bottom-[3.5px] -left-[11.5px] -ml-1 size-2 bg-background shadow-xs/5 p-0 z-50" />
+            <BorderFlashBox className="rounded-none absolute -bottom-[3.5px] -right-[11.5px] -mr-1 size-2 bg-background shadow-xs/5 dark:bg-clip-border p-0 z-50" />
           </div>
         </div>
 
