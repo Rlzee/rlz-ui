@@ -36,7 +36,7 @@ export function PresetWorkspace() {
       value={activeTab}
       onValueChange={changeTab}
     >
-      <header className="shrink-0 border-b border-border/60 flex items-center justify-between py-2 px-3">
+      <header className="shrink-0 border-b flex items-center justify-between py-2 px-3">
         <Tabs.List className="bg-secondary rounded-md items-center">
           <Button size="sm" className="ml-0.5" variant="outline">
             <Plus /> Add

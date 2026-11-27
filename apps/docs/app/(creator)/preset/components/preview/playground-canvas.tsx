@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ScrollArea } from "@rlz/ui/components/ui/scroll-area";
 import { usePlaygroundCss } from "../../hooks/use-playground-css";
 import { foundationCss, themeUtilitiesCss } from "../../lib/preset-css";
 import { playgroundCandidates } from "../../lib/playground-tailwind";
@@ -72,18 +73,21 @@ function CanvasContent({ state }: { state: PlaygroundState }) {
     <>
       <style>{`${foundationCss(preset)}
         html { font-family: var(--font-sans); }
+        html, body { height: 100%; overflow: hidden; }
         body { background-color: var(--background); color: var(--foreground); }
       `}</style>
       <style>{css}</style>
-      {error && (
-        <p role="status" className="border-b p-3 text-xs">
-          Preview CSS could not be rebuilt. Keeping the last valid styles:{" "}
-          {error}
-        </p>
-      )}
-      <SourcePreviewAppliedContext.Provider value={setAppliedSourceEdits}>
-        <SelectedPreview state={state} />
-      </SourcePreviewAppliedContext.Provider>
+      <ScrollArea className="h-dvh overflow-hidden">
+        {error && (
+          <p role="status" className="border-b p-3 text-xs">
+            Preview CSS could not be rebuilt. Keeping the last valid styles:{" "}
+            {error}
+          </p>
+        )}
+        <SourcePreviewAppliedContext.Provider value={setAppliedSourceEdits}>
+          <SelectedPreview state={state} />
+        </SourcePreviewAppliedContext.Provider>
+      </ScrollArea>
     </>
   );
 }
