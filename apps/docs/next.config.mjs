@@ -5,7 +5,7 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
-  serverExternalPackages: ['@takumi-rs/image-response'],
+  serverExternalPackages: ['@takumi-rs/image-response', '@rlz/preset-transform', 'ts-morph'],
   reactStrictMode: true,
   turbopack: {
     root: fileURLToPath(new URL('../../', import.meta.url)),

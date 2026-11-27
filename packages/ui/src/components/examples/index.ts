@@ -129,6 +129,8 @@ export const demoPaths: Record<string, string> = {
   "number-field-formated": "number-field/formated",
   "number-field-step": "number-field/step",
   "number-field-group-separator": "number-field/group-separator",
+  // OTP Field
+  "otp-field": "otp-field/default",
   // Popover
   popover: "popover/default",
   // Preview Card
@@ -151,6 +153,8 @@ export const demoPaths: Record<string, string> = {
   // Sidebar
   sidebar: "sidebar/default",
   "sidebar-submenu": "sidebar/submenu",
+  // Skeleton
+  skeleton: "skeleton/default",
   // Slider
   slider: "slider/default",
   "slider-disabled": "slider/disabled",
@@ -176,6 +180,8 @@ export const demoPaths: Record<string, string> = {
   tabs: "tabs/default",
   "tabs-underline": "tabs/underline",
   "tabs-vertical": "tabs/vertical",
+  // Table
+  table: "table/default",
   // Toast
   toast: "toast/default",
   "toast-anchored": "toast/anchored",

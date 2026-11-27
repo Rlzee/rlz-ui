@@ -5,10 +5,7 @@ import { defaultUiComponentsAliases } from "@/config/constants";
 import { SourceFile } from "ts-morph";
 import { updateAliases } from "./update-aliases";
 import type { PresetComponentCustomization } from "@rlz/registry";
-import {
-  applyPresetPartClasses,
-  applyPresetVariantClasses,
-} from "@/presets/update-classes";
+import { transformPresetComponent } from "@rlz/preset-transform";
 import { logger } from "./logger";
 
 type UpdateComponentParams = {
@@ -37,12 +34,8 @@ export async function UpdateComponent({
     config,
   });
 
-  const skippedVariants = applyPresetVariantClasses(
-    sourceFile,
-    componentId,
-    customization?.variants,
-    customization?.props
-  );
+  const { variants: skippedVariants, parts: skippedParts } =
+    transformPresetComponent(sourceFile, componentId, customization);
   if (skippedVariants.length) {
     logger.warn(
       `Some preset variant changes were not applied to ${componentId}: ${skippedVariants.join(
@@ -51,11 +44,6 @@ export async function UpdateComponent({
     );
   }
 
-  const skippedParts = applyPresetPartClasses(
-    sourceFile,
-    componentId,
-    customization?.partClasses
-  );
   if (skippedParts.length) {
     logger.warn(
       `Preset classes not applied to ${componentId}: unsupported parts or source layout (${skippedParts.join(

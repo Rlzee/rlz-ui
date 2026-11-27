@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { runInNewContext } from "node:vm";
 import { Project } from "ts-morph";
 import type { Registry } from "@rlz/registry";
-import { applyPresetVariantClasses } from "../src/presets/update-classes";
+import { applyPresetVariantClasses } from "@rlz/preset-transform";
 
 const url = (path: string) => new URL(`../../ui/${path}`, import.meta.url);
 const registry: Registry = JSON.parse(

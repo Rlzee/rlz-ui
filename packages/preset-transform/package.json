@@ -1,0 +1,29 @@
+{
+  "name": "@rlz/preset-transform",
+  "version": "1.0.0",
+  "description": "Server-side source transformations shared by the RLZ CLI and preset previews.",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean",
+    "dev": "tsup src/index.ts --format esm --dts --watch"
+  },
+  "dependencies": {
+    "@rlz/registry": "workspace:^",
+    "ts-morph": "^18.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^6.6.3",
+    "typescript": "^5.5.3"
+  }
+}

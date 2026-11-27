@@ -66,8 +66,9 @@ export function currentAppliedVariant(
   const value = currentVariantValue(axis, edit);
 
   return (
-    currentVariantOptions(axis, edit).find((option) => option.value === value) ??
-    { value }
+    currentVariantOptions(axis, edit).find(
+      (option) => option.value === value
+    ) ?? { value }
   );
 }
 
@@ -105,8 +106,8 @@ export function withVariantClasses(
 // Booleans are stored as "true"/"false" strings (the props record is
 // string|null). When untouched we default them ON: the pilot boolean props
 // (dialog backdrop / showCloseButton / backdropBlur) all render a sensible
-// popup this way, and both the panel and the live demo share this helper so
-// they can never disagree.
+// popup this way. This is a control value, not an installed prop default.
+// The source preview passes explicitly edited values to their consuming parts.
 export function currentBool(
   key: string,
   edit?: PresetComponentCustomization

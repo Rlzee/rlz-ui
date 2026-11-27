@@ -10,6 +10,7 @@ import {
   type PlaygroundState,
 } from "../../lib/playground-state";
 import { SelectedPreview } from "./selected-preview";
+import { SourcePreviewAppliedContext } from "../../lib/source-preview/applied-context";
 
 export function PlaygroundCanvas() {
   const [state, setState] = useState<PlaygroundState>();
@@ -44,9 +45,21 @@ export function PlaygroundCanvas() {
 
 function CanvasContent({ state }: { state: PlaygroundState }) {
   const { preset, edits, dark } = state;
+  const [appliedSourceEdits, setAppliedSourceEdits] = useState<
+    PlaygroundState["edits"]
+  >({});
+  // A rejected source update must not strip the classes still used by the last
+  // committed components from the next Tailwind compilation.
   const { css, error } = usePlaygroundCss(
     themeUtilitiesCss(preset),
-    playgroundCandidates(edits).join("\n")
+    [
+      ...new Set([
+        ...playgroundCandidates(edits),
+        ...playgroundCandidates(appliedSourceEdits),
+      ]),
+    ]
+      .sort()
+      .join("\n")
   );
 
   useEffect(() => {
@@ -68,7 +81,9 @@ function CanvasContent({ state }: { state: PlaygroundState }) {
           {error}
         </p>
       )}
-      <SelectedPreview state={state} />
+      <SourcePreviewAppliedContext.Provider value={setAppliedSourceEdits}>
+        <SelectedPreview state={state} />
+      </SourcePreviewAppliedContext.Provider>
     </>
   );
 }
