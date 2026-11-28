@@ -5,9 +5,33 @@ description: Shared building blocks used internally across components to ensure 
 
 Base components are internal primitives that power multiple components at once.
 They are not installed directly — they are added automatically when a component that depends on them is installed.
-They live in `components/base/` of your project once installed.
 
-Modifying a base component propagates changes across all components that use it, making global customization straightforward.
+You don't need to work with them to get started. They are useful when you want to customize shared styling across your interface.
+
+## Installation Directory
+
+Base components are installed in the `base/` subdirectory of your configured components directory.
+
+The parent directory is configurable through `dirs.root` and `dirs.components` in `rlz.config.json`. For example, this directory configuration installs base components in `src/components/base/` and regular UI components in `src/components/ui/`:
+
+```json
+{
+  "dirs": {
+    "root": "src",
+    "components": "components"
+  }
+}
+```
+
+This is a configuration excerpt, not a complete `rlz.config.json`. Relative component paths are resolved from `dirs.root`; absolute paths are also supported.
+
+The `base/` subdirectory itself is defined by the registry. There is no separate `dirs.base` option.
+
+## Shared Customization
+
+**Changes to a base component affect every component that imports it.** For example, editing Backdrop changes the shared overlay used by dialogs and drawers.
+
+Use the consuming component's props or classes for a local adjustment; edit the base file when you want the change to be shared. Existing base files are preserved when the CLI installs dependent components.
 
 ## Backdrop
 
@@ -20,13 +44,13 @@ Renders a styled `<div>` that covers the screen behind a popup, applying consist
 | `blur` | `boolean` | `true`  |
 
 When `blur` is `true`, the backdrop renders with a frosted glass effect (`backdrop-blur`).
-When `false`, it renders as a plain dark overlay.
+When `false`, it renders without blur, using the theme's background color with reduced opacity.
 
 ## Popup Arrow
 
 Used by [Autocomplete](/docs/components/autocomplete), [Combobox](/docs/components/combobox), [Menu](/docs/components/menu), [Popover](/docs/components/popover), [Preview Card](/docs/components/preview-card), and [Tooltip](/docs/components/tooltip).
 
-Renders an SVG arrow that automatically repositions itself based on the popup's current side (`top`, `bottom`, `left`, `right`).
+Renders an SVG arrow whose positioning and rotation styles respond to `data-side` (`top`, `bottom`, `left`, `right`). The consuming popup primitive provides this attribute; the arrow does not calculate its own placement.
 
 | Prop              | Type          | Default        |
 | ----------------- | ------------- | -------------- |

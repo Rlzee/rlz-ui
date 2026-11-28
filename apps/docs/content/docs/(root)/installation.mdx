@@ -1,39 +1,71 @@
 ---
 title: Installation
-description: Get started with rlz-ui in a new or existing project.
+description: Set up rlz-ui with a generated command, a Creator preset, or your own CLI options.
 ---
 
-## Configure from the Web
+import { NewProjectButton } from "@/components/new-project-button";
 
-You can also configure your project visually from this site. Click the **New Project** button in the header to open the configurator — select your framework, fonts, and icon library, then copy the generated command directly.
+All setup workflows use the rlz-ui CLI. Generate your command with the configurator, customize your UI with a Creator preset, or write the command yourself.
 
+## Quick Start
 
-## New Project
+The simplest way to get started is to open the project configurator:
 
-The fastest way to get started is to create a new project with everything configured from scratch.
+<NewProjectButton />il faudrait 
+
+You can also open it anytime using **New** in the site header.
+
+**Currently supported:** use the **Existing Project** tab. The configurator also offers **New Project**, but `create` is not registered in the current CLI yet.
+
+1. Choose **New Project** or **Existing Project**.
+2. For a new project, select your framework: Next.js, Vite, or React.
+3. Choose your fonts and icon library.
+4. Copy the generated command and run it in your terminal.
+
+Once setup is complete, [add your first component](#add-components).
+
+Want to customize your UI before installing? Use a [Creator preset](#use-a-creator-preset). Prefer to write your own command? See [CLI Setup](#cli-setup).
+
+## Use a Creator Preset
+
+Use the [Creator](/preset/create) to customize your theme and component styles visually, preview the result, and bring that design into your project.
+
+You need an existing project with TypeScript and Tailwind CSS v4+ for this workflow. If you don't have one yet, create it with your framework's tooling first.
+
+### Export Your Preset
+
+1. Customize your UI in the Creator.
+2. Click **Install**, then **Export preset** to download the JSON file.
+3. Move the file to your project root.
+
+### Apply It to Your Project
+
+Run this command from your project root, replacing `my-preset.json` with the name of your exported file:
 
 ```bash
-npx rlz@latest create
+npx rlz@latest init --preset ./my-preset.json
 ```
 
-This sets up a new project with your chosen framework, fonts, and icon library.
+Your theme is applied during initialization. You can now [add components](#add-components); they will use your saved preset automatically.
 
-### Options
+Keep `rlz.config.json` and the snapshot in `.rlz/presets/` with your project so future component installs use the same preset. Preset installation currently uses local JSON exports, not registry presets.
 
-| Flag             | Description                           |
-| ---------------- | ------------------------------------- |
-| `--framework`    | `next`, `vite`, or `react`            |
-| `--body-font`    | Body font family                      |
-| `--heading-font` | Heading font family                   |
-| `--icon-lib`     | Icon library (`lucide`, `radix`, ...) |
+## CLI Setup
 
-```bash
-npx rlz@latest create --framework next --body-font "Inter" --heading-font "Geist Mono" --icon-lib lucide
-```
+The **New** configurator generates these commands for you. To write or adjust them yourself, use the commands and options below.
 
-## Existing Project
+### New Project
 
-To add rlz-ui to an existing project, run `init` at the root of your project.
+The `create` command is not available in the current CLI. Create your Next.js, Vite, or React project with your framework's tooling, configure TypeScript and Tailwind CSS v4+, then follow the existing-project instructions below.
+
+### Existing Project
+
+Your project needs:
+
+- TypeScript
+- Tailwind CSS v4+
+
+Run `init` at the root of your project:
 
 ```bash
 npx rlz@latest init
@@ -41,19 +73,30 @@ npx rlz@latest init
 
 The CLI will detect your framework, TypeScript, and Tailwind setup automatically, then prompt you for any remaining configuration.
 
-**Requirements:**
-
-- TypeScript
-- Tailwind CSS v4+
-
-### Options
+#### Options
 
 | Flag             | Description                           |
 | ---------------- | ------------------------------------- |
-| `--body-font`    | Body font family                      |
-| `--heading-font` | Heading font family                   |
+| `--font-sans`    | Sans font family                      |
+| `--font-heading` | Heading font family                   |
+| `--font-mono`    | Monospace font family                 |
 | `--icon-lib`     | Icon library (`lucide`, `radix`, ...) |
+| `--preset`       | Path to a local JSON preset exported from the Creator |
 
 ```bash
-npx rlz@latest init --body-font "Inter" --icon-lib lucide
+npx rlz@latest init --font-sans "Inter" --icon-lib lucide
 ```
+
+## Add Components
+
+After setting up your project with any of the workflows above, install the components you need:
+
+```bash
+npx rlz@latest add button
+```
+
+Dependencies are installed automatically. If you initialized with a Creator preset, your saved customizations are applied to the components you add.
+
+To restyle a component you already installed, add it again and confirm replacement. Back up any local changes first: this replaces the component file rather than merging your edits.
+
+Browse the [components](/docs/components) to find what you need, or see the [CLI reference](/docs/cli) for more commands and options.

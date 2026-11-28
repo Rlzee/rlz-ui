@@ -1,18 +1,29 @@
 ---
-title: Importing
-description: Every component supports two import styles — use whichever fits your preference.
+title: Usage
+description: Find your installed components and use compound or named imports in your project.
 ---
 
-Every component exports both a compound object and individual named exports.
-The two styles are equivalent and can be mixed freely.
+## Where Components Live
 
-### Compound
+The CLI adds component source files to your project. Import them from your local files, not from an `rlz-ui` package.
+
+The destination directories are configured in `rlz.config.json`. For example, if Accordion is installed at `src/components/ui/accordion.tsx` and `@/` points to `src/`, import it from `@/components/ui/accordion`.
+
+Adjust the paths in the examples below to match your project. You can edit the installed files directly; back up your changes before replacing a component with the CLI.
+
+## Import Styles
+
+Components with multiple parts, such as Accordion, expose both a compound API and individual named exports. Both styles use the same underlying components and can be mixed.
+
+### Compound (Recommended)
+
+Import the root component and access its parts through dot notation:
 
 ```tsx
 import { Accordion } from "@/components/ui/accordion";
 
 <Accordion>
-  <Accordion.Item>
+  <Accordion.Item value="getting-started">
     <Accordion.Trigger>Title</Accordion.Trigger>
     <Accordion.Panel>Content</Accordion.Panel>
   </Accordion.Item>
@@ -20,6 +31,8 @@ import { Accordion } from "@/components/ui/accordion";
 ```
 
 ### Named
+
+Import each part explicitly if you prefer separate component names:
 
 ```tsx
 import {
@@ -30,12 +43,15 @@ import {
 } from "@/components/ui/accordion";
 
 <Accordion>
-  <AccordionItem>
+  <AccordionItem value="getting-started">
     <AccordionTrigger>Title</AccordionTrigger>
     <AccordionPanel>Content</AccordionPanel>
   </AccordionItem>
 </Accordion>;
 ```
 
-We recommend the compound style — one import, no need to remember every sub-component name.
-Named exports are available for those who prefer explicit imports or need finer tree-shaking control.
+We recommend the compound style to keep related parts grouped under one import. Named exports are an equivalent alternative, not a different implementation.
+
+## Component Examples
+
+See each [component's documentation](/docs/components) for its available parts, props, and usage examples. For installation commands, see the [CLI reference](/docs/cli).

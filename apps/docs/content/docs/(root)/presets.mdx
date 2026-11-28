@@ -1,0 +1,92 @@
+---
+title: Presets
+description: Understand how Creator presets carry your theme and component customizations into your project.
+---
+
+A preset is a reusable description of your UI identity. It brings together theme settings and component customizations so you don't have to repeat the same styling work in every project.
+
+Use the [Creator](/preset/create) to build and preview a preset visually. For the export and installation steps, see [Installation](/docs/installation#use-a-creator-preset).
+
+## What a Preset Contains
+
+| Area | What it controls |
+| ---- | ---------------- |
+| Theme colors | Color tokens for light and dark modes |
+| Base settings | Radius, spacing, letter spacing, and optional shadow settings |
+| Shared utilities | Reusable styling classes, including focus styles |
+| Animations | Animation values and keyframes |
+| Recommendations | Suggested fonts and icon library |
+| Component customizations | Supported variant styles and shared classes for component parts |
+
+Recommendations are not mandatory settings. During initialization, the CLI can ask whether to use the preset's suggested fonts and icon library. Explicit font and icon CLI options take precedence.
+
+## How It Is Applied
+
+A preset is applied to your project's files, not loaded as a runtime theme package.
+
+- **During `init --preset`**, the CLI applies the theme to your CSS and saves the preset configuration.
+- **During `add`**, the CLI reads the saved preset and transforms supported component styles before writing the component file.
+- **After installation**, your app uses those local CSS and component files. You can edit them directly.
+
+Base settings, shared utilities, and animations are applied even when the preset's color list is empty.
+
+## Saved Presets and Snapshots
+
+Initialization saves a snapshot of the imported preset under `.rlz/presets/` and records its location in `rlz.config.json`.
+
+Future component installs read that snapshot first. Editing the original exported JSON file does not automatically update the snapshot, your CSS, or installed components.
+
+Keep `rlz.config.json` and the referenced snapshot with your project, including in version control, so teammates and future installs use the same preset.
+
+## Updating Your Design
+
+Changes made in the Creator do not automatically sync to an existing project.
+
+1. Export the updated preset.
+2. Run `init --preset` again with the updated JSON file to apply the theme and save a new snapshot.
+3. Re-add any installed components whose generated styles need to change.
+
+```bash
+npx rlz@latest init --preset ./my-preset.json
+npx rlz@latest add button
+```
+
+**Back up or commit your local changes first.** Initialization can modify your project's configuration and CSS. Re-adding an existing component asks before replacement and replaces the file rather than merging your edits.
+
+Theme changes affect components that use the updated CSS tokens. Component source customizations only take effect when those components are installed or replaced.
+
+## Component Customizations
+
+Presets can restyle existing CVA variants and add values to supported string variant axes, such as `variant` or `size`. They can also apply shared classes to supported component parts.
+
+For example, if you add a supported `brand` variant to Badge in the Creator and install Badge with that preset, you can use:
+
+```tsx
+<Badge variant="brand">New</Badge>
+```
+
+### Variant Selection
+
+When a preset supplies a list of values for a supported string axis, unlisted public variants are removed. Variants required by fixed internal calls are preserved.
+
+An existing default is kept if it remains available. If it is removed, the transformation uses a remaining value from the preset's `props`, or the first remaining variant value.
+
+Update application code that explicitly uses a removed variant.
+
+### Current Limits
+
+- Supported transformations depend on the component's available customization targets.
+- Boolean variant axes, new props, and standalone prop-default changes are not supported.
+- The CLI reports transformations it cannot apply safely; not every edit can be generated into component source.
+- Presets are currently installed from local JSON exports, not by registry name or URL.
+
+## Shared Utility Overrides
+
+For advanced customization, a preset can override shared utilities:
+
+- An override replaces the utility's existing `@apply` classes.
+- A new utility is added to `@layer utilities`.
+- An empty class list clears that utility's `@apply` classes.
+- Utilities absent from the preset keep their shipped definitions.
+
+Because these utilities are shared, changing one can affect multiple components. For changes to shared component source instead, see [Base Components](/docs/base-components).

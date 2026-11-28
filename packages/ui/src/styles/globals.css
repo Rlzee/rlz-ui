@@ -147,8 +147,6 @@
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
 
-  /* Shadow - a dark scheme draws its box with the same six, and may answer with
-     other values: a shadow that reads on white rarely reads on black. */
   --shadow-x: 0px;
   --shadow-y: 1px;
   --shadow-blur: 2px;

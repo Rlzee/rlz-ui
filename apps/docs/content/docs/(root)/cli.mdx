@@ -3,13 +3,35 @@ title: CLI
 description: Reference for all available rlz-ui CLI commands.
 ---
 
-## Installation
+## Usage
+
+Run the CLI with `npx`; no global installation is required.
 
 ```bash
 npx rlz@latest <command>
 ```
 
+For project setup and the Creator preset workflow, see [Installation](/docs/installation).
+
+To check the options for a command:
+
+```bash
+npx rlz@latest --help
+npx rlz@latest init --help
+```
+
 ## Commands
+
+<div className="[&_a]:no-underline">
+
+| Command | Purpose |
+| ------- | ------- |
+| [`init`](#init) | Configure rlz-ui in an existing project |
+| [`add`](#add) | Install a component, hook, or lib |
+| [`list`](#list) | Browse available registry items |
+| [`info`](#info) | Inspect a registry item |
+
+</div>
 
 ### init
 
@@ -27,22 +49,7 @@ npx rlz@latest init
 | `--icon-lib`     | Icon library to use                                     |
 | `--preset`       | Path to a local JSON preset exported from the Creator |
 
-To use a preset exported from the Creator:
-
-```bash
-npx rlz@latest init --preset ./my-preset.json
-npx rlz@latest add button
-```
-
-Installing presets from the registry is not available yet. Use a local JSON export from the Creator.
-`init` saves a snapshot under `.rlz/presets/` so later installs use the same
-preset. Keep that snapshot with your project along with `rlz.config.json`.
-
-`init` also applies the preset's base settings, shared utilities (including focus
-styles), and animations, even when its color list is empty. Shared utility
-overrides replace their existing `@apply` classes; custom utilities are added to
-`@layer utilities`. An empty class list clears that utility's `@apply` classes,
-while utilities absent from the preset keep their shipped definitions.
+See [Installation](/docs/installation) for requirements and [Presets](/docs/presets) for the Creator workflow and supported customizations.
 
 ### add
 
@@ -52,24 +59,22 @@ Add a component, hook, or lib to your project. Dependencies are resolved and ins
 npx rlz@latest add <name>
 ```
 
+Requires an initialized project. Uses the saved project preset, if configured.
+
+| Flag | Description |
+| ---- | ----------- |
+| `--overwrite` | Replace the requested component without confirmation |
+
 If the requested component already exists, the CLI asks before replacing it.
 The default is **No**. Use `--overwrite` to replace it without a prompt, including
 in non-interactive mode. This replaces the file rather than merging your changes.
 Existing dependencies are never overwritten by `add`.
 
-Presets can restyle existing CVA variants and add new values to supported string
-axes. For example, add `brand` in the Creator, then use `<Badge variant="brand" />`
-after installing Badge with that preset. A compound component can define
-different classes for each part that uses the axis.
+```bash
+npx rlz@latest add button --overwrite
+```
 
-For a preset axis with a value list, the CLI also removes unlisted public string
-variants. It preserves variants used by fixed internal calls. If the default is
-removed, the CLI uses a remaining `props` value from the preset or the first
-remaining value. It does not change an existing default that is still listed.
-Existing code that explicitly uses removed variants must be updated.
-
-The CLI reports changes it cannot apply safely. Boolean axes, new props, and
-standalone prop defaults are not supported.
+Back up local component edits before replacing a file.
 
 ### list
 
@@ -83,10 +88,20 @@ npx rlz@latest list
 | -------------- | --------------------------------------------- |
 | `--type`, `-t` | Filter by type: `component`, `hook`, or `lib` |
 
+```bash
+npx rlz@latest list --type component
+```
+
 ### info
 
 Show detailed information about a registry item, including its dependencies and registry dependencies.
 
 ```bash
 npx rlz@latest info <name>
+```
+
+For example:
+
+```bash
+npx rlz@latest info button
 ```
