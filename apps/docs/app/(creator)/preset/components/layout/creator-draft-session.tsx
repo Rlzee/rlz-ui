@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useStore } from "jotai";
+import { selectedComponentAtom } from "@/hooks/use-selected-component";
 import { Dialog } from "@rlz/ui/components/ui/dialog";
 import { Button } from "@rlz/ui/components/ui/button";
 import { LoaderCircle } from "lucide-react";
@@ -28,7 +29,7 @@ type Session = {
   empty: CreatorDraftContent;
 };
 
-/** Nothing in the editor mounts or writes storage until the user has chosen. */
+/** The editor stays visible but inert; persistence waits for the user's choice. */
 export function CreatorDraftSession({ children }: { children: ReactNode }) {
   const store = useStore();
   const [session, setSession] = useState<Session>();
@@ -84,6 +85,7 @@ export function CreatorDraftSession({ children }: { children: ReactNode }) {
     try {
       clearLocalDraft(session.storage, session.initial.raw);
       store.set(resetPresetAtom);
+      store.set(selectedComponentAtom, null);
       store.set(draftSaveStatusAtom, { state: "empty" });
       setSession({ ...session, initial: { raw: null } });
       setReady(true);
@@ -94,78 +96,80 @@ export function CreatorDraftSession({ children }: { children: ReactNode }) {
     }
   };
 
-  if (ready && session)
-    return <ActiveSession session={session}>{children}</ActiveSession>;
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-background text-muted-foreground">
-      {candidate ? (
-        <Dialog open onOpenChange={() => {}}>
-          <Dialog.Popup showCloseButton={false}>
-            <Dialog.Header>
-              <Dialog.Title>
-                {candidate === "invalid"
-                  ? "Unable to read your draft"
-                  : "Resume your draft?"}
-              </Dialog.Title>
-              <Dialog.Description>
-                {candidate === "invalid"
-                  ? "The saved data is invalid or comes from an unsupported version. Starting fresh will remove it."
-                  : "You have an unfinished preset saved in this browser. Pick up where you left off, or start fresh."}
-              </Dialog.Description>
-            </Dialog.Header>
-            <Dialog.Body>
-              {candidate !== "invalid" && (
-                <div className="rounded-lg bg-muted/20 p-4">
-                  <p className="text-sm font-medium text-foreground">
-                    {candidate.preset.name.trim() || "Untitled preset"}
-                  </p>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {candidate.updatedAt
-                      ? `Last saved ${new Date(
-                          candidate.updatedAt
-                        ).toLocaleString()}`
-                      : "Saved by an earlier version of the Creator"}
-                  </p>
-                </div>
-              )}
-              <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
-                Only one draft is kept on this device. Starting fresh deletes
-                the previous draft. Nothing is uploaded or shared.
-              </p>
-              {error && (
-                <p role="alert" className="mt-3 text-xs text-destructive">
-                  {error}
+    <>
+      <div inert={!ready} aria-hidden={!ready || undefined}>
+        {children}
+      </div>
+      {ready && session && <ActiveSession session={session} />}
+      {!ready &&
+        (candidate ? (
+          <Dialog open onOpenChange={() => {}}>
+            <Dialog.Popup showCloseButton={false}>
+              <Dialog.Header>
+                <Dialog.Title>
+                  {candidate === "invalid"
+                    ? "Unable to read your draft"
+                    : "Resume your draft?"}
+                </Dialog.Title>
+                <Dialog.Description>
+                  {candidate === "invalid"
+                    ? "The saved data is invalid or comes from an unsupported version. Starting fresh will remove it."
+                    : "You have an unfinished preset saved in this browser. Pick up where you left off, or start fresh."}
+                </Dialog.Description>
+              </Dialog.Header>
+              <Dialog.Body>
+                {candidate !== "invalid" && (
+                  <div className="rounded-lg bg-muted/20 p-4">
+                    <p className="text-sm font-medium text-foreground">
+                      {candidate.preset.name.trim() || "Untitled preset"}
+                    </p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {candidate.updatedAt
+                        ? `Last saved ${new Date(
+                            candidate.updatedAt
+                          ).toLocaleString()}`
+                        : "Saved by an earlier version of the Creator"}
+                    </p>
+                  </div>
+                )}
+                <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                  Only one draft is kept on this device. Starting fresh deletes
+                  the previous draft. Nothing is uploaded or shared.
                 </p>
-              )}
-            </Dialog.Body>
-            <Dialog.Footer>
-              <Button variant="outline" onClick={startFresh}>
-                Start fresh
-              </Button>
-              {candidate !== "invalid" && (
-                <Button onClick={resume} autoFocus>
-                  Resume draft
+                {error && (
+                  <p role="alert" className="mt-3 text-xs text-destructive">
+                    {error}
+                  </p>
+                )}
+              </Dialog.Body>
+              <Dialog.Footer>
+                <Button variant="outline" onClick={startFresh}>
+                  Start fresh
                 </Button>
-              )}
-            </Dialog.Footer>
-          </Dialog.Popup>
-        </Dialog>
-      ) : (
-        <p role="status" className="flex items-center gap-2 text-sm">
-          <LoaderCircle className="size-4 animate-spin" /> Opening Creator…
-        </p>
-      )}
-    </div>
+                {candidate !== "invalid" && (
+                  <Button onClick={resume} autoFocus>
+                    Resume draft
+                  </Button>
+                )}
+              </Dialog.Footer>
+            </Dialog.Popup>
+          </Dialog>
+        ) : (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/60 backdrop-blur-sm">
+            <p
+              role="status"
+              className="flex items-center gap-2 text-sm text-muted-foreground"
+            >
+              <LoaderCircle className="size-4 animate-spin" /> Opening Creator…
+            </p>
+          </div>
+        ))}
+    </>
   );
 }
 
-function ActiveSession({
-  session,
-  children,
-}: {
-  session: Session;
-  children: ReactNode;
-}) {
+function ActiveSession({ session }: { session: Session }) {
   useCreatorDraftAutosave(session.storage, session.initial, session.empty);
-  return children;
+  return null;
 }
