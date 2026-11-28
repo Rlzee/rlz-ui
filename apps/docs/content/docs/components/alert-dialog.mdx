@@ -60,6 +60,9 @@ import { AlertDialog } from "@/components/ui/alert-dialog";
     Open Alert Dialog
   </AlertDialog.Trigger>
   <AlertDialog.Popup>
+    <AlertDialog.Media>
+      <Icon />
+    </AlertDialog.Media>
     <AlertDialog.Title>Alert Dialog</AlertDialog.Title>
     <AlertDialog.Description>This is an alert dialog.</AlertDialog.Description>
     <AlertDialog.Actions>
@@ -76,4 +79,35 @@ import { AlertDialog } from "@/components/ui/alert-dialog";
 
 ## API Reference
 
-See the [Base UI](https://base-ui.com/react/components/alert-dialog/#api-reference) documentation for more information.
+Each component extends its [Base UI](https://base-ui.com/react/components/alert-dialog/#api-reference) counterpart, except for the custom layout components below.
+Only additions and modifications are listed here.
+
+### Alert Dialog Popup
+
+Includes `Portal`, `Viewport`, and `Backdrop` internally.
+
+| Prop           | Type      | Default |
+| -------------- | --------- | ------- |
+| `backdrop`     | `boolean` | `true`  |
+| `backdropBlur` | `boolean` | -       |
+
+### Alert Dialog Media
+
+Optional container for an icon or other visual content, rendered as a `<div>`.
+Place it directly inside `<AlertDialog.Popup>`, before the title and description.
+When present, the popup automatically positions the media to the left of the title and description.
+
+Accepts standard `<div>` props, including `className`. SVG icons default to `size-6` unless they have an explicit `size-*` class.
+
+### Alert Dialog Actions
+
+Styled action container rendered as a `<footer>`. Spans the full popup width, including when media is present.
+Accepts standard `<footer>` props, including `className`.
+
+## Examples
+
+### With Media
+
+Use `<AlertDialog.Media>` to display an icon alongside the title and description.
+
+<ComponentPreview name="alert-dialog-media" />

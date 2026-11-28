@@ -76,7 +76,8 @@ function AlertDialogPopup({
         <AlertDialogPrimitive.Popup
           data-slot="alert-dialog-popup"
           className={cn(
-            "bg-background relative row-start-2 flex w-full max-w-lg flex-col rounded-lg border border-border/70 text-popover-foreground gap-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
+            "bg-background relative row-start-2 grid w-full max-w-lg grid-cols-1 content-start rounded-lg border border-border/70 text-popover-foreground gap-x-0 gap-y-2 min-h-0 min-w-0 max-h-[calc(100vh-8rem)]",
+            "has-[[data-slot=alert-dialog-media]]:grid-cols-[auto_1fr] has-[[data-slot=alert-dialog-media]]:*:data-[slot=alert-dialog-title]:pl-4 has-[[data-slot=alert-dialog-media]]:*:data-[slot=alert-dialog-description]:pl-4",
             "data-open:animate-in data-ending-style:animate-out data-ending-style:fade-out-0 data-open:fade-in-0 data-ending-style:zoom-out-95 data-open:zoom-in-95",
             className
           )}
@@ -96,7 +97,7 @@ function AlertDialogTitle({
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"
-      className={cn("ui-title px-6 pt-4", className)}
+      className={cn("ui-title col-start-[-2] px-6 pt-4", className)}
       {...props}
     />
   );
@@ -109,7 +110,23 @@ function AlertDialogDescription({
   return (
     <AlertDialogPrimitive.Description
       data-slot="alert-dialog-description"
-      className={cn("ui-description px-6 pb-1", className)}
+      className={cn("ui-description col-start-[-2] px-6 pb-1 -mt-1", className)}
+      {...props}
+    />
+  );
+}
+
+function AlertDialogMedia({
+  className,
+  ...props
+}: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="alert-dialog-media"
+      className={cn(
+        "col-start-1 row-start-1 row-span-2 ml-6 mt-4 inline-flex size-10 shrink-0 items-center justify-center rounded-md bg-accent *:[svg:not([class*='size-'])]:size-6",
+        className
+      )}
       {...props}
     />
   );
@@ -123,7 +140,7 @@ function AlertDialogActions({
     <footer
       data-slot="alert-dialog-actions"
       className={cn(
-        "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
+        "col-span-full flex flex-col-reverse gap-2 sm:flex-row sm:justify-end px-6 pb-4",
         "bg-popover border-border/32 border-t pt-4 rounded-b-lg",
         className
       )}
@@ -144,6 +161,7 @@ const AlertDialogExports = Object.assign(AlertDialogRoot, {
   Popup: AlertDialogPopup,
   Title: AlertDialogTitle,
   Description: AlertDialogDescription,
+  Media: AlertDialogMedia,
   Close: AlertDialogClose,
   Actions: AlertDialogActions,
 });
@@ -154,6 +172,7 @@ export {
   AlertDialogPortal,
   AlertDialogTrigger,
   AlertDialogPopup,
+  AlertDialogMedia,
   AlertDialogTitle,
   AlertDialogDescription,
   AlertDialogClose,
