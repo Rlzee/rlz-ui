@@ -13,7 +13,15 @@ const PRE_CLASS = "font-mono text-xs wrap-break-word";
  * mounted, and shiki is imported on demand to keep it out of the initial bundle.
  * The sheet it writes is the text it was given: what is copied is what is shown.
  */
-export function CodeViewer({ code, lang }: { code: string; lang: string }) {
+export function CodeViewer({
+  code,
+  lang,
+  compact = false,
+}: {
+  code: string;
+  lang: string;
+  compact?: boolean;
+}) {
   const [highlighted, setHighlighted] = React.useState("");
 
   React.useEffect(() => {
@@ -34,14 +42,21 @@ export function CodeViewer({ code, lang }: { code: string; lang: string }) {
 
   return (
     <>
-      <CopyButton className="absolute right-5 top-4 z-2" code={code} />
+      <CopyButton
+        className={
+          compact
+            ? "absolute right-2 top-1/2 z-2 -translate-y-1/2"
+            : "absolute right-5 top-4 z-2"
+        }
+        code={code}
+      />
       {highlighted ? (
         <Pre
-          className={PRE_CLASS}
+          className={`${PRE_CLASS}${compact ? " pr-14" : ""}`}
           dangerouslySetInnerHTML={{ __html: highlighted }}
         />
       ) : (
-        <Pre className={PRE_CLASS}>{code}</Pre>
+        <Pre className={`${PRE_CLASS}${compact ? " pr-14" : ""}`}>{code}</Pre>
       )}
     </>
   );

@@ -12,8 +12,9 @@ import {
 import { Input } from "@rlz/ui/components/ui/input";
 import { PresetDialog } from "../export/preset-dialog";
 import { CssPreviewDialog } from "../export/css-preview-dialog";
+import { InstallDialog } from "../export/install-dialog";
 import { Button } from "@rlz/ui/components/ui/button";
-import { RefreshCw, CloudSync, Share2, ArrowLeft } from "lucide-react";
+import { RefreshCw, ArrowLeft } from "lucide-react";
 
 export function Navbar() {
   const router = useRouter();
@@ -48,25 +49,18 @@ export function Navbar() {
             }
           />
         </div>
-        <nav className="hidden items-center gap-1.5 lg:flex">
-          <Button variant="ghost" size="sm" onClick={() => resetPreset()}>
-            <RefreshCw />
-            Reset
-          </Button>
+        <nav className="flex items-center gap-1.5">
+          <div className="hidden items-center gap-1.5 lg:flex">
+            <Button variant="ghost" size="sm" onClick={() => resetPreset()}>
+              <RefreshCw />
+              Reset
+            </Button>
 
-          <PresetDialog name={preset.name.trim()} preset={preset} />
+            <PresetDialog name={preset.name.trim()} preset={preset} />
 
-          <CssPreviewDialog name={preset.name.trim()} preset={preset} />
-
-          <Button size="sm" variant="ghost">
-            <Share2 />
-            Share
-          </Button>
-
-          <Button size="sm">
-            <CloudSync />
-            Publish
-          </Button>
+            <CssPreviewDialog name={preset.name.trim()} preset={preset} />
+          </div>
+          <InstallDialog preset={preset} />
         </nav>
       </div>
     </header>

@@ -8,7 +8,6 @@ import { getTailwindInfo } from "@/utils/get-tailwind-info";
 import { getTypeScriptInfo } from "@/utils/get-typescript-info";
 import { getFontByFamily } from "@rlz/fonts";
 import { ICON_LIBS, type IconLib } from "@/icons/libs";
-import { readRegistry } from "@/utils/read-registry";
 import { readPresetFile } from "@/presets/project";
 import { runInit } from "./run";
 
@@ -27,7 +26,7 @@ export const initCommand = new Command()
   )
   .option(
     "--preset <preset>",
-    "Preset name from registry or path to a JSON preset"
+    "Path to a local JSON preset exported from the Creator"
   )
   .action(
     async (options: {
@@ -129,60 +128,21 @@ export const initCommand = new Command()
         if (options.preset !== undefined) {
           const presetInput = options.preset;
 
-          const isFile =
-            presetInput.startsWith("./") ||
-            presetInput.startsWith("../") ||
-            path.isAbsolute(presetInput) ||
-            presetInput.endsWith(".json");
-
-          // --------------------------------
-          // Local JSON preset
-          // --------------------------------
-
-          if (isFile) {
-            const presetPath = path.resolve(cwd, presetInput);
-
-            if (path.extname(presetPath).toLowerCase() !== ".json") {
-              logger.error(`Preset file must be a JSON file: ${presetInput}`);
-              process.exit(1);
-            }
-
-            preset = await readPresetFile(presetPath);
-
-            presetConfig = {
-              id: preset.id,
-              name: preset.name,
-              source: "path",
-              path: path.relative(cwd, presetPath) || "./",
-            };
+          const presetPath = path.resolve(cwd, presetInput);
+          if (path.extname(presetPath).toLowerCase() !== ".json") {
+            logger.error(
+              "Registry presets are not available yet. Export a JSON preset from the Creator and use --preset ./my-preset.json."
+            );
+            process.exit(1);
           }
 
-          // --------------------------------
-          // Registry preset
-          // --------------------------------
-          else {
-            const registry = await readRegistry();
-
-            if (!registry) {
-              logger.error("Registry not found.");
-              process.exit(1);
-            }
-
-            const registryPreset = registry.presets[presetInput];
-
-            if (!registryPreset) {
-              logger.error(`Preset not found in registry: ${presetInput}`);
-              process.exit(1);
-            }
-
-            preset = registryPreset;
-
-            presetConfig = {
-              id: preset.id,
-              name: preset.name,
-              source: "registry",
-            };
-          }
+          preset = await readPresetFile(presetPath);
+          presetConfig = {
+            id: preset.id,
+            name: preset.name,
+            source: "path",
+            path: path.relative(cwd, presetPath) || "./",
+          };
         }
 
         // --------------------------------

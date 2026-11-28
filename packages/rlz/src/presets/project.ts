@@ -20,11 +20,11 @@ export async function readPresetFile(file: string): Promise<RegistryPreset> {
   }
 }
 
-/** New initializations pin the exact preset used by init; old configs still work. */
+/** Resolve local files and pinned snapshots; registry installation is not available yet. */
 export async function resolveProjectPreset(
   cwd: string,
   config: PresetConfig | undefined,
-  registry: Registry
+  _registry: Registry
 ): Promise<RegistryPreset | undefined> {
   if (!config) return undefined;
   if (config.snapshot)
@@ -32,14 +32,9 @@ export async function resolveProjectPreset(
   if (config.source === "path")
     return readPresetFile(path.resolve(cwd, config.path));
 
-  const preset = Object.values(registry.presets).find(
-    (entry) => entry.id === config.id
+  throw new Error(
+    "Registry presets are not available yet. Export a JSON preset from the Creator and run init --preset ./my-preset.json."
   );
-  if (!preset)
-    throw new Error(
-      `Configured preset "${config.id}" not found in the registry.`
-    );
-  return preset;
 }
 
 export async function pinProjectPreset(

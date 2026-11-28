@@ -15,7 +15,7 @@ export const siteConfig = {
     },
     {
       label: "Presets",
-      href: "/presets",
+      href: "/preset/create",
     },
   ],
 };

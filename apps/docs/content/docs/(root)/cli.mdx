@@ -25,7 +25,7 @@ npx rlz@latest init
 | `--font-heading` | Heading font family                                     |
 | `--font-mono`    | Monospace font family                                   |
 | `--icon-lib`     | Icon library to use                                     |
-| `--preset`       | Registry preset name or path to an exported JSON preset |
+| `--preset`       | Path to a local JSON preset exported from the Creator |
 
 To use a preset exported from the Creator:
 
@@ -34,7 +34,7 @@ npx rlz@latest init --preset ./my-preset.json
 npx rlz@latest add button
 ```
 
-Use `--preset test` to select the `test` preset from the registry instead.
+Installing presets from the registry is not available yet. Use a local JSON export from the Creator.
 `init` saves a snapshot under `.rlz/presets/` so later installs use the same
 preset. Keep that snapshot with your project along with `rlz.config.json`.
 

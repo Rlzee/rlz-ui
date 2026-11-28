@@ -22,7 +22,7 @@ const preset: RegistryPreset = {
 
 const emptyRegistry: Registry = { schemaVersion: 1, items: {}, presets: {} };
 
-test("local and registry configs are pinned to the same immutable project preset", async (t) => {
+test("local presets and existing snapshots resolve without registry installation", async (t) => {
   const directory = await mkdtemp(join(tmpdir(), "rlz-preset-"));
   t.after(() => rm(directory, { recursive: true, force: true }));
   const local = {
@@ -43,9 +43,9 @@ test("local and registry configs are pinned to the same immutable project preset
     await resolveProjectPreset(directory, local, registry),
     preset
   );
-  assert.deepEqual(
-    await resolveProjectPreset(directory, remote, registry),
-    preset
+  await assert.rejects(
+    resolveProjectPreset(directory, remote, registry),
+    /Registry presets are not available yet/
   );
   const pinnedLocal = await pinProjectPreset(directory, local, preset);
   const pinnedRemote = await pinProjectPreset(directory, remote, preset);

@@ -46,7 +46,7 @@ export function ExportButton({
 
 // A downloadable name out of the preset's own name, or its registry key when the
 // name was cleared - and never a path separator.
-function exportFileName(preset: RegistryPreset, extension: string) {
+export function exportFileName(preset: RegistryPreset, extension: string) {
   const base = preset.name.trim() || preset.id || "preset";
   const slug = base
     .toLowerCase()

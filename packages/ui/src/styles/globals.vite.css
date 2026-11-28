@@ -210,41 +210,97 @@
   --color-chart-4: var(--chart-4);
   --color-chart-5: var(--chart-5);
 
-  /* Shadow - the box above, drawn step by step. Every step is the same two layers:
-     the box as it stands, then the box with the reach that step names and its edge
-     pulled in by 1px. `inline` is what makes the six primitives the only knobs a
-     shadow has: a utility resolves them on the element it styles, so retuning the
-     box - a preset, a dark scheme - moves every step with it. Declaring a step as
-     `var(--shadow-md)` here would read its own value back and fall away. */
-  --shadow-2xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 50%), transparent);
-  --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 50%), transparent);
-  --shadow-sm: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent),
-    var(--shadow-x) var(--shadow-y) var(--shadow-blur) calc(var(--shadow-spread) - 1px)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent),
-    var(--shadow-x) var(--shadow-y) var(--shadow-blur) calc(var(--shadow-spread) - 1px)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-md: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent),
+  --shadow-2xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+    var(--shadow-spread)
+    color-mix(
+      in srgb,
+      var(--shadow-color) calc(var(--shadow-opacity) * 50%),
+      transparent
+    );
+  --shadow-xs: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+    var(--shadow-spread)
+    color-mix(
+      in srgb,
+      var(--shadow-color) calc(var(--shadow-opacity) * 50%),
+      transparent
+    );
+  --shadow-sm: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      var(--shadow-spread)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      ),
+    var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      calc(var(--shadow-spread) - 1px)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      );
+  --shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      var(--shadow-spread)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      ),
+    var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      calc(var(--shadow-spread) - 1px)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      );
+  --shadow-md: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      var(--shadow-spread)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      ),
     var(--shadow-x) calc(var(--shadow-y) * 2) calc(var(--shadow-blur) * 2)
       calc(var(--shadow-spread) - 1px)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-lg: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent),
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      );
+  --shadow-lg: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      var(--shadow-spread)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      ),
     var(--shadow-x) calc(var(--shadow-y) * 4) calc(var(--shadow-blur) * 3)
       calc(var(--shadow-spread) - 1px)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent),
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      );
+  --shadow-xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+      var(--shadow-spread)
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      ),
     var(--shadow-x) calc(var(--shadow-y) * 8) calc(var(--shadow-blur) * 5)
       calc(var(--shadow-spread) - 1px)
-      color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 100%), transparent);
-  --shadow-2xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread)
-    color-mix(in srgb, var(--shadow-color) calc(var(--shadow-opacity) * 250%), transparent);
+      color-mix(
+        in srgb,
+        var(--shadow-color) calc(var(--shadow-opacity) * 100%),
+        transparent
+      );
+  --shadow-2xl: var(--shadow-x) var(--shadow-y) var(--shadow-blur)
+    var(--shadow-spread)
+    color-mix(
+      in srgb,
+      var(--shadow-color) calc(var(--shadow-opacity) * 250%),
+      transparent
+    );
 }
 
 @layer utilities {
